@@ -29,21 +29,23 @@ export const StatLine = ({
   const { value, definition } = stat;
   const { name, type, element, isPercentageBased } = definition;
   return (
-    <Grid container>
-      <Grid xs="auto">
+    <Grid container spacing={2}>
+      <Grid xs="auto" display="flex" alignItems="center">
         <StatIcon statType={type} element={element} />
       </Grid>
-      <Grid xs={2}>
+      <Grid xs={3} display="flex" alignItems="center">
         {editable.enabled ? (
-          <StatSelector
-            stats={editable.availableStats}
-            onChange={editable.onStatChange}
-          />
+          <div style={{ width: '100%' }}>
+            <StatSelector
+              stats={editable.availableStats}
+              onChange={editable.onStatChange}
+            />
+          </div>
         ) : (
           <span>{name}</span>
         )}
       </Grid>
-      <Grid xs>
+      <Grid xs display="flex" alignItems="center">
         {editable.enabled ? (
           isPercentageBased ? (
             <PercentageNumericInput

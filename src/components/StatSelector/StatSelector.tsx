@@ -18,6 +18,7 @@ export const StatSelector = ({ stats, value, onChange }: StatSelectorProps) => {
       renderInput={(params) => <TextField {...params} label="Stat" />}
       value={value}
       onChange={handleChange}
+      size="small"
     />
   );
 };
