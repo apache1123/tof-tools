@@ -7,7 +7,7 @@ interface StatIconProps {
   size?: number;
 }
 
-export const StatIcon = ({ statType, element, size = 60 }: StatIconProps) => {
+export const StatIcon = ({ statType, element, size = 30 }: StatIconProps) => {
   let imageName;
   switch (statType) {
     case StatType.Attack:

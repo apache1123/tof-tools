@@ -1,5 +1,5 @@
-import { Stat } from ".";
+import { StatDefinition } from '.';
 
 export interface StatsDataService {
-  getAllStats(): Stat[];
+  getAllStatDefinitions(): StatDefinition[];
 }

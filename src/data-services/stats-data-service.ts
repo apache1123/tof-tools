@@ -1,11 +1,11 @@
-import stats from '../../resources/stats';
-import { Stat } from '../types';
+import statDefinitions from '../../data/stat-definitions';
+import { StatDefinition } from '../types';
 import { StatsDataService } from '../types';
 
-const getAllStats = (): Stat[] => stats;
+const getAllStatDefinitions = (): StatDefinition[] => statDefinitions;
 
 const statsDataService: StatsDataService = {
-  getAllStats,
+  getAllStatDefinitions,
 };
 
 export default statsDataService;

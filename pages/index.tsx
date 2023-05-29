@@ -43,7 +43,7 @@ export default function Home() {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const stats = statsDataService.getAllStats();
+  const stats = statsDataService.getAllStatDefinitions();
   return {
     props: {
       stats,
