@@ -1,6 +1,6 @@
 export type Stat = {
   definition: StatDefinition;
-  value: number;
+  value?: number;
 };
 
 export type StatDefinition = {

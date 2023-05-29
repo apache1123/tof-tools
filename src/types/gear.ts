@@ -9,7 +9,7 @@ export type GearDefinition = {
   name: GearName;
   // The name used in-game, used to OCR match.
   inGameName?: string;
-  availableStats: StatName[];
+  availableStatNames: StatName[];
   version: GearVersion;
 };
 

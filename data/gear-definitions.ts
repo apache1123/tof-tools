@@ -52,7 +52,7 @@ const { v1, v2 } = GearVersion;
 export const gearDefinitions: GearDefinition[] = [
   {
     name: Helmet,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -69,7 +69,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Eyepiece,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -99,7 +99,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Spaulders,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -116,7 +116,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Gloves,
-    availableStats: [
+    availableStatNames: [
       HP,
       Crit,
       Attack,
@@ -134,7 +134,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Bracers,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -151,7 +151,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Armor,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -168,7 +168,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: CombatEngine,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -198,7 +198,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Belt,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -215,7 +215,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Legguards,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -232,7 +232,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Boots,
-    availableStats: [
+    availableStatNames: [
       HP,
       Crit,
       Attack,
@@ -250,7 +250,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Exoskeleton,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,
@@ -280,7 +280,7 @@ export const gearDefinitions: GearDefinition[] = [
   },
   {
     name: Microreactor,
-    availableStats: [
+    availableStatNames: [
       HP,
       Attack,
       Resistance,

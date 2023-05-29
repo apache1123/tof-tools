@@ -3,17 +3,28 @@ import { Stat } from '../../types';
 import { StatIcon } from '../StatIcon/StatIcon';
 import { NumericInput } from '../NumericInput/NumericInput';
 import { PercentageNumericInput } from '../NumericInput/PercentageNumericInput';
+import { StatSelector } from '../StatSelector/StatSelector';
 
-interface StatLineProps {
+export interface StatLineProps {
   stat: Stat;
-  editable?: boolean;
-  onChange?: (value: number) => unknown;
+  editable?: StatLineEditableProps;
+}
+
+export interface StatLineEditableProps {
+  enabled: boolean;
+  availableStats: Stat[];
+  onStatChange: (value: Stat) => unknown;
+  onValueChange: (value: number) => unknown;
 }
 
 export const StatLine = ({
   stat,
-  editable = false,
-  onChange,
+  editable = {
+    enabled: false,
+    availableStats: [],
+    onStatChange: null,
+    onValueChange: null,
+  },
 }: StatLineProps) => {
   const { value, definition } = stat;
   const { name, type, element, isPercentageBased } = definition;
@@ -23,14 +34,23 @@ export const StatLine = ({
         <StatIcon statType={type} element={element} />
       </Grid>
       <Grid xs={2}>
-        <span>{name}</span>
+        {editable.enabled ? (
+          <StatSelector
+            stats={editable.availableStats}
+            onChange={editable.onStatChange}
+          />
+        ) : (
+          <span>{name}</span>
+        )}
       </Grid>
       <Grid xs>
-        {editable ? (
+        {editable.enabled ? (
           isPercentageBased ? (
-            <PercentageNumericInput {...{ value, onChange }} />
+            <PercentageNumericInput
+              {...{ value, onChange: editable.onValueChange }}
+            />
           ) : (
-            <NumericInput {...{ value, onChange }} />
+            <NumericInput {...{ value, onChange: editable.onValueChange }} />
           )
         ) : (
           <span>{value}</span>
