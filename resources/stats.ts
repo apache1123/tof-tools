@@ -17,17 +17,19 @@ const stats: Stat[] = [
     name: 'Attack',
     range: { base: 52, min: 93, max: 234 },
     type: StatType.Attack,
-    element: Element.All,
+    element: Element.None,
   },
   {
     name: 'Crit',
     range: { base: 258, min: 468, max: 1169 },
     type: StatType.Crit,
+    element: Element.None,
   },
   {
     name: 'Crit Rate %',
     range: { base: 0.0105, min: 0.0119, max: 0.0119 },
     type: StatType.CritPercent,
+    element: Element.None,
   },
   {
     name: 'Flame Attack',
@@ -93,11 +95,13 @@ const stats: Stat[] = [
     name: 'HP',
     range: { base: 4125, min: 7480, max: 18700 },
     type: StatType.HP,
+    element: Element.None,
   },
   {
     name: 'HP %',
     range: { base: 0.0094, min: 0.0108, max: 0.0108 },
     type: StatType.HPPercent,
+    element: Element.None,
   },
   {
     name: 'Physical Attack',
@@ -133,7 +137,7 @@ const stats: Stat[] = [
     name: 'Resistance',
     range: { base: 64, min: 117, max: 292 },
     type: StatType.Resistance,
-    element: Element.All,
+    element: Element.None,
   },
   {
     name: 'Volt Attack',

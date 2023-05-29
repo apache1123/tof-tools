@@ -8,11 +8,11 @@ import { GetStaticProps } from 'next';
 import statsDataService from '../src/data-services/stats-data-service';
 import { Stat } from '../src/types';
 
-interface HomeProps {
+interface GearComparerProps {
   stats: Stat[];
 }
 
-export default function Home({ stats }: HomeProps) {
+export default function GearComparer({ stats }: GearComparerProps) {
   return (
     <React.Fragment>
       <Head>

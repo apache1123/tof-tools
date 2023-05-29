@@ -10,7 +10,7 @@ export type Stat = {
   name: string;
   range: StatRange;
   type: StatType;
-  element?: Element;
+  element: Element;
 };
 
 export enum StatType {
@@ -26,7 +26,7 @@ export enum StatType {
 }
 
 export enum Element {
-  All = 'All',
+  None = 'None',
   Altered = 'Altered',
   Flame = 'Flame',
   Frost = 'Frost',

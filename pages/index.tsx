@@ -6,14 +6,9 @@ import Link from '../src/components/Link';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import statsDataService from '../src/data-services/stats-data-service';
-import { Stat } from '../src/types';
 import Button from '@mui/material/Button';
 
-interface HomeProps {
-  stats: Stat[];
-}
-
-export default function Home({ stats }: HomeProps) {
+export default function Home() {
   return (
     <React.Fragment>
       <Head>
