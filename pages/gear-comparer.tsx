@@ -46,11 +46,11 @@ export default function GearComparer({
             </div>
           ))}
           <br />
-          {gearDefinitions.map(({ name, availableStats }) => (
+          {gearDefinitions.map(({ name, availableStatNames }) => (
             <React.Fragment key={name}>
               <div key={name}>{name}</div>
               <div>
-                {availableStats.map((stat) => (
+                {availableStatNames.map((stat) => (
                   <span key={stat}>{stat} </span>
                 ))}
               </div>
