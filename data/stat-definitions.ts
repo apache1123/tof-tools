@@ -16,6 +16,14 @@ const statDefinitions: StatDefinition[] = [
     element: Element.Altered,
   },
   {
+    name: StatName.AlteredResistancePercent,
+    inGameName: 'Altered Resistance',
+    range: { base: 0.0787, min: 0.09, max: 0.09 },
+    type: StatType.ResistancePercent,
+    element: Element.Altered,
+    isPercentageBased: true,
+  },
+  {
     name: StatName.Attack,
     inGameName: 'Attack',
     range: { base: 52, min: 93, max: 234 },
