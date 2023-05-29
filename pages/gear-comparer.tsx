@@ -7,7 +7,6 @@ import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import statsDataService from '../src/data-services/stats-data-service';
 import { Stat } from '../src/types';
-import Button from '@mui/material/Button';
 
 interface HomeProps {
   stats: Stat[];
@@ -31,16 +30,16 @@ export default function Home({ stats }: HomeProps) {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            ToF tools
-          </Typography>
-          <Button
-            variant="contained"
-            component={Link}
-            noLinkStyle
-            href="/gear-comparer"
-          >
             Gear comparer
-          </Button>
+          </Typography>
+          <Link href="/" color="secondary">
+            Home
+          </Link>
+          {stats.map(({ name, range, type, element }) => (
+            <div key={name}>
+              {name} {range.base} {range.min} {range.max} {type} {element}
+            </div>
+          ))}
         </Box>
       </Container>
     </React.Fragment>
