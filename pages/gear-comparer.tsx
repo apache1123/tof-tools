@@ -6,13 +6,18 @@ import Link from '../src/components/Link';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import statsDataService from '../src/data-services/stats-data-service';
-import { StatDefinition } from '../src/types';
+import { GearDefinition, StatDefinition } from '../src/types';
+import { gearDataService } from '../src/data-services/gear-data-service';
 
 interface GearComparerProps {
   statDefinitions: StatDefinition[];
+  gearDefinitions: GearDefinition[];
 }
 
-export default function GearComparer({ statDefinitions }: GearComparerProps) {
+export default function GearComparer({
+  statDefinitions,
+  gearDefinitions,
+}: GearComparerProps) {
   return (
     <React.Fragment>
       <Head>
@@ -40,17 +45,30 @@ export default function GearComparer({ statDefinitions }: GearComparerProps) {
               {name} {range.base} {range.min} {range.max} {type} {element}
             </div>
           ))}
+          <br />
+          {gearDefinitions.map(({ name, availableStats }) => (
+            <React.Fragment key={name}>
+              <div key={name}>{name}</div>
+              <div>
+                {availableStats.map((stat) => (
+                  <span key={stat}>{stat} </span>
+                ))}
+              </div>
+            </React.Fragment>
+          ))}
         </Box>
       </Container>
     </React.Fragment>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<GearComparerProps> = async () => {
   const statDefinitions = statsDataService.getAllStatDefinitions();
+  const gearDefinitions = gearDataService.getAllGearDefinitions();
   return {
     props: {
       statDefinitions,
+      gearDefinitions,
     },
   };
 };
