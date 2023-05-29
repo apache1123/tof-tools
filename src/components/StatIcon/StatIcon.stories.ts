@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { StatIcon } from './StatIcon';
 import { Element, StatType } from '../../types';
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof StatIcon> = {
   title: 'Stat Icon',
   component: StatIcon,
@@ -14,6 +13,7 @@ export default meta;
 type Story = StoryObj<typeof StatIcon>;
 
 /* Stories in order of in-game gear filter order */
+
 export const Attack: Story = {
   args: {
     statType: StatType.Attack,

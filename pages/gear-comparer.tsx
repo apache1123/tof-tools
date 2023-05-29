@@ -6,13 +6,13 @@ import Link from '../src/components/Link';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import statsDataService from '../src/data-services/stats-data-service';
-import { Stat } from '../src/types';
+import { StatDefinition } from '../src/types';
 
 interface GearComparerProps {
-  stats: Stat[];
+  statDefinitions: StatDefinition[];
 }
 
-export default function GearComparer({ stats }: GearComparerProps) {
+export default function GearComparer({ statDefinitions }: GearComparerProps) {
   return (
     <React.Fragment>
       <Head>
@@ -35,7 +35,7 @@ export default function GearComparer({ stats }: GearComparerProps) {
           <Link href="/" color="secondary">
             Home
           </Link>
-          {stats.map(({ name, range, type, element }) => (
+          {statDefinitions.map(({ name, range, type, element }) => (
             <div key={name}>
               {name} {range.base} {range.min} {range.max} {type} {element}
             </div>
@@ -47,10 +47,10 @@ export default function GearComparer({ stats }: GearComparerProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const stats = statsDataService.getAllStats();
+  const statDefinitions = statsDataService.getAllStatDefinitions();
   return {
     props: {
-      stats,
+      statDefinitions,
     },
   };
 };
