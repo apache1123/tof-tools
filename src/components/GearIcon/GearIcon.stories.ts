@@ -11,6 +11,12 @@ const meta: Meta<typeof GearIcon> = {
 export default meta;
 type Story = StoryObj<typeof GearIcon>;
 
+export const Unknown: Story = {
+  args: {
+    gearName: null,
+  },
+};
+
 export const Helmet: Story = {
   args: {
     gearName: GearName.Helmet,
