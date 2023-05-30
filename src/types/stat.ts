@@ -1,25 +1,37 @@
-export type Stat = {
-  definition: StatDefinition;
-  value?: number;
-};
-
-export type StatDefinition = {
-  name: StatName;
+// The stat definition schema to follow in the config file for stats
+export interface StatConfig {
+  name: string;
   // The name used in-game, used to OCR match.
   // Could be the same for two different types e.g. "Volt Atk%" & "Volt Atk" are both just "Volt Attack"
   inGameName: string;
   range: StatRange;
-  type: StatType;
-  element: Element;
+  type: string;
+  elementalType: string;
   isPercentageBased?: boolean;
   iconImageName: string;
-};
+}
 
-export type StatRange = {
+// The stat definition schema to use in the rest of the app, after hydration etc.
+export interface StatDefinition {
+  name: StatName;
+  inGameName: string;
+  range: StatRange;
+  type: StatType;
+  elementalType: ElementalType;
+  isPercentageBased?: boolean;
+  iconImageName: string;
+}
+
+export interface Stat {
+  definition: StatDefinition;
+  value?: number;
+}
+
+export interface StatRange {
   base: number;
   min: number;
   max: number;
-};
+}
 
 export enum StatName {
   AlteredAttack = 'Altered Attack',
@@ -65,7 +77,7 @@ export enum StatType {
   HPPercent = 'HP%',
 }
 
-export enum Element {
+export enum ElementalType {
   None = 'None',
   Altered = 'Altered',
   Flame = 'Flame',

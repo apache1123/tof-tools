@@ -1,17 +1,27 @@
-import { Stat, StatName } from './stat';
+import { Stat, StatDefinition } from './stat';
 
-export type Gear = {
-  definition: GearDefinition;
-  stats: Stat[];
-};
+// The gear definition schema to follow in the config file for gears
+export interface GearConfig {
+  name: string;
+  // The name used in-game, used to OCR match.
+  inGameName?: string;
+  availableStatNames: string[];
+  version: string;
+}
 
-export type GearDefinition = {
+// The gear definition schema to use in the rest of the app, after hydration etc.
+export interface GearDefinition {
   name: GearName;
   // The name used in-game, used to OCR match.
   inGameName?: string;
-  availableStatNames: StatName[];
+  availableStatDefinitions: StatDefinition[];
   version: GearVersion;
-};
+}
+
+export interface Gear {
+  definition: GearDefinition;
+  stats: Stat[];
+}
 
 export enum GearName {
   Helmet = 'Helmet',
@@ -29,6 +39,6 @@ export enum GearName {
 }
 
 export enum GearVersion {
-  v1, // Gear introduced in 1.0, start of game
-  v2, // Gear introduced in 2.0, a.k.a "Vera gear"
+  v1 = '1.0', // Gear introduced in 1.0, start of game
+  v2 = '2.0', // Gear introduced in 2.0, a.k.a "Vera gear"
 }

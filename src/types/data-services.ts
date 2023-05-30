@@ -1,9 +1,23 @@
-import { GearDefinition, StatDefinition } from '.';
+import { GearConfig, GearDefinition, StatConfig, StatDefinition } from '.';
 
-export interface StatsDataService {
-  getAllStatDefinitions(): StatDefinition[];
+export interface StatConfigDataService {
+  getAllStatConfigs(): StatConfig[];
 }
 
-export interface GearDataService {
-  getAllGearDefinitions(): GearDefinition[];
+export interface GearConfigDataService {
+  getAllGearConfigs(): GearConfig[];
+}
+
+export interface StatDefinitionService {
+  getAllStatDefinitions(
+    statConfigDataService: StatConfigDataService
+  ): StatDefinition[];
+}
+
+export interface GearDefinitionService {
+  getAllGearDefinitions(
+    gearConfigDataService: GearConfigDataService,
+    statDefinitionService: StatDefinitionService,
+    statConfigDataService: StatConfigDataService
+  ): GearDefinition[];
 }

@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StatEditor } from './StatEditor';
-import { Stat } from '../../types';
-import statDefinitions from '../../../data/stat-definitions';
-import { gearDefinitions } from '../../../data/gear-definitions';
+import { Stat, StatName } from '../../types';
 
 const meta: Meta<typeof StatEditor> = {
   title: 'Stat Editor',
@@ -13,26 +11,21 @@ const meta: Meta<typeof StatEditor> = {
 export default meta;
 type Story = StoryObj<typeof StatEditor>;
 
-const availableStats = gearDefinitions.at(0).availableStatNames.map(
-  (statName): Stat => ({
-    definition: statDefinitions.find(
-      (statDefinition) => statDefinition.name === statName
-    ),
-  })
-);
-
-const flatStat: Stat = {
-  definition: statDefinitions.find(
-    (statDefinition) => !statDefinition.isPercentageBased
-  ),
+const flatStat = {
+  definition: { name: StatName.Attack, iconImageName: 'attack.png' },
   value: 69,
-};
-const percentStat: Stat = {
-  definition: statDefinitions.find(
-    (statDefinition) => statDefinition.isPercentageBased
-  ),
+} as Stat;
+
+const percentStat = {
+  definition: {
+    name: StatName.VoltAttackPercent,
+    iconImageName: 'volt-attack.png',
+    isPercentageBased: true,
+  },
   value: 0.0692,
-};
+} as Stat;
+
+const availableStats = [flatStat, percentStat];
 
 export const FlatStat: Story = {
   args: {
