@@ -15,3 +15,9 @@ export const Initial: Story = {
     value: 69,
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+};
