@@ -12,6 +12,7 @@ export type StatDefinition = {
   type: StatType;
   element: Element;
   isPercentageBased?: boolean;
+  iconImageName: string;
 };
 
 export type StatRange = {

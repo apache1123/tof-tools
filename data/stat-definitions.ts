@@ -7,6 +7,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 69, min: 239, max: 623 },
     type: StatType.Attack,
     element: Element.Altered,
+    iconImageName: 'altered-attack.png',
   },
   {
     name: StatName.AlteredResistance,
@@ -14,6 +15,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 215, min: 390, max: 974 },
     type: StatType.Resistance,
     element: Element.Altered,
+    iconImageName: 'altered-res.png',
   },
   {
     name: StatName.AlteredResistancePercent,
@@ -22,6 +24,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.ResistancePercent,
     element: Element.Altered,
     isPercentageBased: true,
+    iconImageName: 'altered-res.png',
   },
   {
     name: StatName.Attack,
@@ -29,6 +32,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 52, min: 93, max: 234 },
     type: StatType.Attack,
     element: Element.None,
+    iconImageName: 'attack.png',
   },
   {
     name: StatName.Crit,
@@ -36,6 +40,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 258, min: 468, max: 1169 },
     type: StatType.Crit,
     element: Element.None,
+    iconImageName: 'crit.png',
   },
   {
     name: StatName.CritRatePercent,
@@ -44,6 +49,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.CritPercent,
     element: Element.None,
     isPercentageBased: true,
+    iconImageName: 'crit.png',
   },
   {
     name: StatName.FlameAttack,
@@ -51,6 +57,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 69, min: 125, max: 312 },
     type: StatType.Attack,
     element: Element.Flame,
+    iconImageName: 'flame-attack.png',
   },
   {
     name: StatName.FlameAttackPercent,
@@ -59,6 +66,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.AttackPercent,
     element: Element.Flame,
     isPercentageBased: true,
+    iconImageName: 'flame-attack.png',
   },
   {
     name: StatName.FlameDamagePercent,
@@ -67,6 +75,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.DamagePercent,
     element: Element.Flame,
     isPercentageBased: true,
+    iconImageName: 'flame-attack.png',
   },
   {
     name: StatName.FlameResistance,
@@ -74,6 +83,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 215, min: 390, max: 974 },
     type: StatType.Resistance,
     element: Element.Flame,
+    iconImageName: 'flame-res.png',
   },
   {
     name: StatName.FlameResistancePercent,
@@ -82,6 +92,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.ResistancePercent,
     element: Element.Flame,
     isPercentageBased: true,
+    iconImageName: 'flame-res.png',
   },
   {
     name: StatName.FrostAttack,
@@ -89,6 +100,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 69, min: 125, max: 312 },
     type: StatType.Attack,
     element: Element.Frost,
+    iconImageName: 'frost-attack.png',
   },
   {
     name: StatName.FrostAttackPercent,
@@ -97,6 +109,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.AttackPercent,
     element: Element.Frost,
     isPercentageBased: true,
+    iconImageName: 'frost-attack.png',
   },
   {
     name: StatName.FrostDamagePercent,
@@ -105,6 +118,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.DamagePercent,
     element: Element.Frost,
     isPercentageBased: true,
+    iconImageName: 'frost-attack.png',
   },
   {
     name: StatName.FrostResistance,
@@ -112,6 +126,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 215, min: 390, max: 974 },
     type: StatType.Resistance,
     element: Element.Frost,
+    iconImageName: 'frost-res.png',
   },
   {
     name: StatName.FrostResistancePercent,
@@ -120,6 +135,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.ResistancePercent,
     element: Element.Frost,
     isPercentageBased: true,
+    iconImageName: 'frost-res.png',
   },
   {
     name: StatName.HP,
@@ -127,6 +143,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 4125, min: 7480, max: 18700 },
     type: StatType.HP,
     element: Element.None,
+    iconImageName: 'hp.png',
   },
   {
     name: StatName.HPPercent,
@@ -135,6 +152,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.HPPercent,
     element: Element.None,
     isPercentageBased: true,
+    iconImageName: 'hp.png',
   },
   {
     name: StatName.PhysicalAttack,
@@ -142,6 +160,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 69, min: 125, max: 312 },
     type: StatType.Attack,
     element: Element.Physical,
+    iconImageName: 'attack.png',
   },
   {
     name: StatName.PhysicalAttackPercent,
@@ -150,6 +169,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.AttackPercent,
     element: Element.Physical,
     isPercentageBased: true,
+    iconImageName: 'attack.png',
   },
   {
     name: StatName.PhysicalDamagePercent,
@@ -158,6 +178,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.DamagePercent,
     element: Element.Physical,
     isPercentageBased: true,
+    iconImageName: 'attack.png',
   },
   {
     name: StatName.PhysicalResistance,
@@ -165,6 +186,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 215, min: 390, max: 974 },
     type: StatType.Resistance,
     element: Element.Physical,
+    iconImageName: 'phys-res.png',
   },
   {
     name: StatName.PhysicalResistancePercent,
@@ -173,6 +195,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.ResistancePercent,
     element: Element.Physical,
     isPercentageBased: true,
+    iconImageName: 'phys-res.png',
   },
   {
     name: StatName.Resistance,
@@ -180,6 +203,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 64, min: 117, max: 292 },
     type: StatType.Resistance,
     element: Element.None,
+    iconImageName: 'res.png',
   },
   {
     name: StatName.VoltAttack,
@@ -187,6 +211,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 69, min: 125, max: 312 },
     type: StatType.Attack,
     element: Element.Volt,
+    iconImageName: 'volt-attack.png',
   },
   {
     name: StatName.VoltAttackPercent,
@@ -195,6 +220,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.AttackPercent,
     element: Element.Volt,
     isPercentageBased: true,
+    iconImageName: 'volt-attack.png',
   },
   {
     name: StatName.VoltDamagePercent,
@@ -203,6 +229,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.DamagePercent,
     element: Element.Volt,
     isPercentageBased: true,
+    iconImageName: 'volt-attack.png',
   },
   {
     name: StatName.VoltResistance,
@@ -210,6 +237,7 @@ const statDefinitions: StatDefinition[] = [
     range: { base: 215, min: 390, max: 974 },
     type: StatType.Resistance,
     element: Element.Volt,
+    iconImageName: 'volt-res.png',
   },
   {
     name: StatName.VoltResistancePercent,
@@ -218,6 +246,7 @@ const statDefinitions: StatDefinition[] = [
     type: StatType.ResistancePercent,
     element: Element.Volt,
     isPercentageBased: true,
+    iconImageName: 'volt-res.png',
   },
 ];
 
