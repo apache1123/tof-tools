@@ -1,4 +1,4 @@
-import { GearDefinition, GearName, GearVersion, StatName } from '../src/types';
+import { GearConfig, GearName, GearVersion, StatName } from '../src/types';
 
 const {
   Helmet,
@@ -49,7 +49,7 @@ const {
 
 const { v1, v2 } = GearVersion;
 
-export const gearDefinitions: GearDefinition[] = [
+export const gearConfigs: GearConfig[] = [
   {
     name: Helmet,
     availableStatNames: [

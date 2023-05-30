@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StatSelector } from './StatSelector';
-import { GearName, Stat } from '../../types';
-import { gearDefinitions } from '../../../data/gear-definitions';
-import statDefinitions from '../../../data/stat-definitions';
+import { Stat } from '../../types';
 
 const meta: Meta<typeof StatSelector> = {
   title: 'Stat Selector',
@@ -13,41 +11,21 @@ const meta: Meta<typeof StatSelector> = {
 export default meta;
 type Story = StoryObj<typeof StatSelector>;
 
-const helmet = gearDefinitions.find(
-  (definition) => definition.name === GearName.Helmet
-);
-const helmetAvailableStats = helmet.availableStatNames.map(
-  (statName): Stat => ({
-    definition: statDefinitions.find(
-      (statDefinition) => statDefinition.name === statName
-    ),
-  })
-);
-export const V1Gear: Story = {
-  args: {
-    stats: helmetAvailableStats,
-  },
-};
+const stats = [
+  { definition: { name: 'HP' } },
+  { definition: { name: 'Attack' } },
+  { definition: { name: 'Resistance' } },
+] as Stat[];
 
-const eyepiece = gearDefinitions.find(
-  (definition) => definition.name === GearName.Eyepiece
-);
-const eyepieceAvailableStats = eyepiece.availableStatNames.map(
-  (statName): Stat => ({
-    definition: statDefinitions.find(
-      (statDefinition) => statDefinition.name === statName
-    ),
-  })
-);
-export const V2Gear: Story = {
+export const Empty: Story = {
   args: {
-    stats: eyepieceAvailableStats,
+    stats,
   },
 };
 
 export const Preselected: Story = {
   args: {
-    stats: eyepieceAvailableStats,
-    value: eyepieceAvailableStats.at(0),
+    stats,
+    value: stats.at(0),
   },
 };

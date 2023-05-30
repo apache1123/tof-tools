@@ -4,8 +4,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '../src/components/Link';
 import Head from 'next/head';
-import { GetStaticProps } from 'next';
-import statsDataService from '../src/data-services/stats-data-service';
 import Button from '@mui/material/Button';
 
 export default function Home() {
@@ -41,12 +39,3 @@ export default function Home() {
     </React.Fragment>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const stats = statsDataService.getAllStatDefinitions();
-  return {
-    props: {
-      stats,
-    },
-  };
-};
