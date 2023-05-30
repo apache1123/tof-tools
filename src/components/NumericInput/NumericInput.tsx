@@ -3,8 +3,8 @@ import { forwardRef } from 'react';
 import { NumericFormat, NumericFormatProps } from 'react-number-format';
 
 export interface NumericInputProps {
-  value: number;
-  onChange: (value: number) => unknown;
+  value?: number;
+  onChange?: (value: number) => unknown;
   label?: string;
   name?: string;
   id?: string;
@@ -13,6 +13,7 @@ export interface NumericInputProps {
   decimalScale?: number;
   prefix?: string;
   suffix?: string;
+  disabled?: boolean;
 }
 
 interface CustomProps {
@@ -31,6 +32,7 @@ export const NumericInput = ({
   decimalScale = 2,
   prefix,
   suffix,
+  disabled,
 }: NumericInputProps) => {
   const NumericFormatCustom = forwardRef<NumericFormatProps, CustomProps>(
     function NumericFormatCustom(props, ref) {
@@ -74,6 +76,7 @@ export const NumericInput = ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         InputProps: { inputComponent: NumericFormatCustom as any },
         variant,
+        disabled,
       }}
     />
   );
