@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { GearIcon } from './GearIcon';
+import { GearTypeIcon } from './GearTypeIcon';
 import { GearName } from '../../types';
 
-const meta: Meta<typeof GearIcon> = {
-  title: 'Gear Icon',
-  component: GearIcon,
+const meta: Meta<typeof GearTypeIcon> = {
+  title: 'Gear Type Icon',
+  component: GearTypeIcon,
   tags: ['autodocs'],
 };
 
 export default meta;
-type Story = StoryObj<typeof GearIcon>;
+type Story = StoryObj<typeof GearTypeIcon>;
 
 export const Unknown: Story = {
   args: {

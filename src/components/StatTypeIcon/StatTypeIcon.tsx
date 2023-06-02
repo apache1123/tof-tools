@@ -1,15 +1,15 @@
 import Image from 'next/image';
-import { StatDefinition } from '../../types';
+import { StatType } from '../../types';
 import QuestionMark from '@mui/icons-material/QuestionMark';
 
-interface StatIconProps {
-  statDefinition: StatDefinition;
+interface StatTypeIconProps {
+  statType: StatType;
   size?: number;
 }
 
-export const StatIcon = ({ statDefinition, size = 30 }: StatIconProps) => {
-  if (statDefinition) {
-    const imageName = statDefinition.iconImageName;
+export const StatTypeIcon = ({ statType, size = 30 }: StatTypeIconProps) => {
+  if (statType) {
+    const imageName = statType.iconImageName;
     const imagePath = `/icons/stats/${imageName}`;
 
     return (

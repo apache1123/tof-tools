@@ -1,25 +1,15 @@
-import { Stat, StatDefinition } from './stat';
+import { RandomStatType, Stat } from './stat';
 
-// The gear definition schema to follow in the config file for gears
-export interface GearConfig {
-  name: string;
-  // The name used in-game, used to OCR match.
-  inGameName?: string;
-  availableStatNames: string[];
-  version: string;
-}
-
-// The gear definition schema to use in the rest of the app, after hydration etc.
-export interface GearDefinition {
+export interface GearType {
   name: GearName;
   // The name used in-game, used to OCR match.
   inGameName?: string;
-  availableStatDefinitions: StatDefinition[];
+  possibleRandomStatTypes: RandomStatType[];
   version: GearVersion;
 }
 
 export interface Gear {
-  definition: GearDefinition;
+  type: GearType;
   stats: Stat[];
 }
 
