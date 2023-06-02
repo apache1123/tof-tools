@@ -4,13 +4,14 @@ export interface GearType {
   name: GearName;
   // The name used in-game, used to OCR match.
   inGameName?: string;
+  numberOfRandomStats: number;
   possibleRandomStatTypes: RandomStatType[];
   version: GearVersion;
 }
 
 export interface Gear {
   type: GearType;
-  stats: Stat[];
+  randomStats: Stat[];
 }
 
 export enum GearName {

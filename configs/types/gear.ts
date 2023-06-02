@@ -22,6 +22,7 @@ export interface GearType {
   name: GearName;
   // The name used in-game, used to OCR match.
   inGameName?: string;
+  numberOfRandomStats: number;
   possibleRandomStatTypeNames: StatName[];
   version: GearVersion;
 }

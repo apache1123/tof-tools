@@ -9,14 +9,14 @@ export interface StatEditorProps {
   selectedStat: Stat;
   possibleStatTypes: StatType[];
   onStatTypeChange: (value: StatType) => unknown;
-  onValueChange: (value: number) => unknown;
+  onStatValueChange: (value: number) => unknown;
 }
 
 export const StatEditor = ({
   selectedStat,
   possibleStatTypes = [],
   onStatTypeChange,
-  onValueChange,
+  onStatValueChange,
 }: StatEditorProps) => {
   return (
     <Grid container spacing={2}>
@@ -24,25 +24,26 @@ export const StatEditor = ({
         <StatTypeIcon statType={selectedStat?.type} />
       </Grid>
 
-      <Grid xs={3} display="flex" alignItems="center">
-        <div style={{ width: '100%' }}>
-          <StatTypeSelector
-            selectedStatType={selectedStat?.type}
-            possibleStatTypes={possibleStatTypes}
-            onChange={onStatTypeChange}
-          />
-        </div>
+      <Grid xs display="flex" alignItems="center">
+        <StatTypeSelector
+          selectedStatType={selectedStat?.type}
+          possibleStatTypes={possibleStatTypes}
+          onChange={onStatTypeChange}
+        />
       </Grid>
 
-      <Grid xs display="flex" alignItems="center">
+      <Grid xs={2} display="flex" alignItems="center">
         {selectedStat?.type ? (
           selectedStat.type.isPercentageBased ? (
             <PercentageNumericInput
               value={selectedStat.value}
-              onChange={onValueChange}
+              onChange={onStatValueChange}
             />
           ) : (
-            <NumericInput value={selectedStat.value} onChange={onValueChange} />
+            <NumericInput
+              value={selectedStat.value}
+              onChange={onStatValueChange}
+            />
           )
         ) : (
           <NumericInput disabled />

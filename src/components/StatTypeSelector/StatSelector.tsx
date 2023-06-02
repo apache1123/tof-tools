@@ -19,10 +19,13 @@ export const StatTypeSelector = ({
     <Autocomplete
       options={possibleStatTypes}
       getOptionLabel={(option) => option.name}
-      renderInput={(params) => <TextField {...params} label="Stat" />}
+      renderInput={(params) => (
+        <TextField {...params} label="Stat" variant="standard" />
+      )}
       value={selectedStatType}
       onChange={handleChange}
       size="small"
+      fullWidth
     />
   );
 };
