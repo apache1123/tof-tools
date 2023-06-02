@@ -3,6 +3,7 @@ import { GearType } from './types';
 export const gearTypes: GearType[] = [
   {
     name: 'Helmet',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -20,6 +21,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Eyepiece',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -50,6 +52,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Spaulders',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -67,6 +70,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Gloves',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Crit',
@@ -85,6 +89,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Bracers',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -102,6 +107,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Armor',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -119,6 +125,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Combat Engine',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -149,6 +156,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Belt',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -166,6 +174,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Legguards',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -183,6 +192,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Boots',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Crit',
@@ -201,6 +211,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Exoskeleton',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
@@ -231,6 +242,7 @@ export const gearTypes: GearType[] = [
   },
   {
     name: 'Microreactor',
+    numberOfRandomStats: 4,
     possibleRandomStatTypeNames: [
       'HP',
       'Attack',
