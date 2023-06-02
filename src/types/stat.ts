@@ -1,36 +1,29 @@
-// The stat definition schema to follow in the config file for stats
-export interface StatConfig {
-  name: string;
-  // The name used in-game, used to OCR match.
-  // Could be the same for two different types e.g. "Volt Atk%" & "Volt Atk" are both just "Volt Attack"
-  inGameName: string;
-  range: StatRange;
-  type: string;
-  elementalType: string;
-  isPercentageBased?: boolean;
-  iconImageName: string;
-}
-
-// The stat definition schema to use in the rest of the app, after hydration etc.
-export interface StatDefinition {
+export interface StatType {
   name: StatName;
   inGameName: string;
-  range: StatRange;
-  type: StatType;
+  role: StatRole;
   elementalType: ElementalType;
   isPercentageBased?: boolean;
   iconImageName: string;
 }
 
-export interface Stat {
-  definition: StatDefinition;
-  value?: number;
+export interface RandomStatType extends StatType {
+  defaultValue: number;
+  rollRange: RollRange;
 }
 
-export interface StatRange {
-  base: number;
-  min: number;
-  max: number;
+export interface Stat {
+  type: StatType;
+  value: number;
+}
+
+export interface RandomStat extends Stat {
+  type: RandomStatType;
+}
+
+export interface RollRange {
+  minValue: number;
+  maxValue: number;
 }
 
 export enum StatName {
@@ -65,16 +58,16 @@ export enum StatName {
   VoltResistancePercent = 'Volt Resistance %',
 }
 
-export enum StatType {
+export enum StatRole {
   Attack = 'Attack',
-  AttackPercent = 'Attack%',
-  DamagePercent = 'Damage%',
+  AttackPercent = 'Attack %',
+  DamagePercent = 'Damage %',
   Crit = 'Crit',
-  CritPercent = 'Crit%',
+  CritPercent = 'Crit %',
   Resistance = 'Resistance',
-  ResistancePercent = 'Resistance%',
+  ResistancePercent = 'Resistance %',
   HP = 'HP',
-  HPPercent = 'HP%',
+  HPPercent = 'HP %',
 }
 
 export enum ElementalType {

@@ -2,12 +2,12 @@ import Image from 'next/image';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { GearName } from '../../types';
 
-export interface GearIconProps {
+export interface GearTypeIconProps {
   gearName: GearName;
   size?: number;
 }
 
-export const GearIcon = ({ gearName, size = 80 }: GearIconProps) => {
+export const GearTypeIcon = ({ gearName, size = 80 }: GearTypeIconProps) => {
   if (gearName) {
     const imageName = gearName.toLowerCase().replaceAll(' ', '-');
     const imagePath = `/icons/gear/${imageName}.png`;

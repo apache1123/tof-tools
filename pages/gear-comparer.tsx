@@ -5,17 +5,15 @@ import Box from '@mui/material/Box';
 import Link from '../src/components/Link';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
-import { statConfigDataService } from '../src/data-services/stat-config-data-service';
-import { gearConfigDataService } from '../src/data-services/gear-config-data-service';
-import { GearDefinition } from '../src/types';
-import { gearDefinitionService } from '../src/data-services/gear-definition-service';
-import { statDefinitionService } from '../src/data-services/stat-definition-service';
+import { gearTypeService } from '../src/data-services/gear-type-service';
+import { GearType } from '../src/types';
+import { statTypeService } from '../src/data-services/stat-type-service';
 
 interface GearComparerProps {
-  gearDefinitions: GearDefinition[];
+  gearTypes: GearType[];
 }
 
-export default function GearComparer({ gearDefinitions }: GearComparerProps) {
+export default function GearComparer({ gearTypes }: GearComparerProps) {
   return (
     <React.Fragment>
       <Head>
@@ -38,18 +36,7 @@ export default function GearComparer({ gearDefinitions }: GearComparerProps) {
           <Link href="/" color="secondary">
             Home
           </Link>
-          {gearDefinitions.map(({ name, availableStatDefinitions }) => (
-            <React.Fragment key={name}>
-              <div key={name}>{name}</div>
-              <div>
-                {availableStatDefinitions.map(({ name, range }) => (
-                  <span key={name}>
-                    {name} {range.base} {range.min} {range.max}
-                  </span>
-                ))}
-              </div>
-            </React.Fragment>
-          ))}
+          {JSON.stringify(gearTypes)}
         </Box>
       </Container>
     </React.Fragment>
@@ -57,14 +44,11 @@ export default function GearComparer({ gearDefinitions }: GearComparerProps) {
 }
 
 export const getStaticProps: GetStaticProps<GearComparerProps> = async () => {
-  const gearDefinitions = gearDefinitionService.getAllGearDefinitions(
-    gearConfigDataService,
-    statDefinitionService,
-    statConfigDataService
-  );
+  const gearTypes = gearTypeService.getAllGearTypes(statTypeService);
+
   return {
     props: {
-      gearDefinitions,
+      gearTypes,
     },
   };
 };
