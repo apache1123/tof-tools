@@ -20,7 +20,7 @@ export const StatEditor = ({
 }: StatEditorProps) => {
   return (
     <Grid container spacing={2}>
-      <Grid xs="auto" display="flex" alignItems="center">
+      <Grid maxWidth={40} display="flex" alignItems="center">
         <StatTypeIcon statType={selectedStat?.type} />
       </Grid>
 
@@ -32,7 +32,7 @@ export const StatEditor = ({
         />
       </Grid>
 
-      <Grid xs={2} display="flex" alignItems="center">
+      <Grid xs={3} display="flex" alignItems="center">
         {selectedStat?.type ? (
           selectedStat.type.isPercentageBased ? (
             <PercentageNumericInput
