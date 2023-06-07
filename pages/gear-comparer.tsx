@@ -1,9 +1,10 @@
-import Head from 'next/head';
 import { GetStaticProps } from 'next';
+import Head from 'next/head';
+import { Fragment } from 'react';
+
+import { GearPiece } from '../src/components/GearPiece/GearPiece';
 import { gearTypeService } from '../src/data-services/gear-type-service';
 import { statTypeService } from '../src/data-services/stat-type-service';
-import { GearPiece } from '../src/components/GearPiece/GearPiece';
-import { Fragment } from 'react';
 import { useGear } from '../src/hooks/useGear';
 import { GearType } from '../src/models/gear-type';
 

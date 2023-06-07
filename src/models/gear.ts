@@ -1,5 +1,5 @@
 import { GearType } from './gear-type';
-import { RandomStat, newEmptyRandomStat } from './random-stat';
+import { newEmptyRandomStat,RandomStat } from './random-stat';
 import { RandomStatType } from './random-stat-type';
 
 export interface Gear {

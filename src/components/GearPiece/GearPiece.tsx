@@ -1,9 +1,10 @@
 import { Card, CardContent, CardHeader } from '@mui/material';
-import { RandomStatEditor } from '../StatEditor/StatEditor';
-import { GearTypeSelector } from '../GearTypeSelector/GearTypeSelector';
+
 import { Gear } from '../../models/gear';
 import { GearType } from '../../models/gear-type';
 import { RandomStatType } from '../../models/random-stat-type';
+import { GearTypeSelector } from '../GearTypeSelector/GearTypeSelector';
+import { RandomStatEditor } from '../StatEditor/StatEditor';
 
 export interface GearPieceProps {
   possibleGearTypes: GearType[];

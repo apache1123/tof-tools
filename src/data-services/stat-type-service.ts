@@ -1,12 +1,12 @@
-import { statTypes as statTypesFromConfig } from '../../configs/stat-types';
 import { randomStatTypes as randomStatTypesFromConfig } from '../../configs/random-stat-types';
+import { statTypes as statTypesFromConfig } from '../../configs/stat-types';
+import { RandomStatType } from '../models/random-stat-type';
 import {
   ElementalType,
   StatName,
   StatRole,
   StatType,
 } from '../models/stat-type';
-import { RandomStatType } from '../models/random-stat-type';
 
 export interface StatTypeService {
   getAllStatTypes(): StatType[];

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { GearPiece } from './GearPiece';
+
 import { Gear } from '../../models/gear';
 import { GearName, GearType } from '../../models/gear-type';
-import { StatName, StatType } from '../../models/stat-type';
 import { RandomStatType } from '../../models/random-stat-type';
+import { StatName, StatType } from '../../models/stat-type';
+import { GearPiece } from './GearPiece';
 
 const meta: Meta<typeof GearPiece> = {
   title: 'Gear Piece',

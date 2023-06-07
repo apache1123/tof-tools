@@ -1,10 +1,11 @@
-import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Link from '../src/components/Link';
 import Head from 'next/head';
-import Button from '@mui/material/Button';
+import * as React from 'react';
+
+import Link from '../src/components/Link';
 
 export default function Home() {
   return (
