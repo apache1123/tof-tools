@@ -1,4 +1,4 @@
-import { RandomStatType, Stat } from './stat';
+import { RandomStatType } from './random-stat-type';
 
 export interface GearType {
   name: GearName;
@@ -7,11 +7,6 @@ export interface GearType {
   numberOfRandomStats: number;
   possibleRandomStatTypes: RandomStatType[];
   version: GearVersion;
-}
-
-export interface Gear {
-  type: GearType;
-  randomStats: Stat[];
 }
 
 export enum GearName {

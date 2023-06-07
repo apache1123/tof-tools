@@ -1,9 +1,11 @@
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import Grid from '@mui/material/Unstable_Grid2';
 import { StatTypeIcon } from '../StatTypeIcon/StatTypeIcon';
 import { NumericInput } from '../NumericInput/NumericInput';
 import { PercentageNumericInput } from '../NumericInput/PercentageNumericInput';
 import { StatTypeSelector } from '../StatTypeSelector/StatSelector';
-import { Stat, StatType } from '../../types';
+import { RandomStatType } from '../../models/random-stat-type';
+import { Stat } from '../../models/stat';
+import { StatType } from '../../models/stat-type';
 
 export interface StatEditorProps {
   selectedStat: Stat;
@@ -51,4 +53,13 @@ export const StatEditor = ({
       </Grid>
     </Grid>
   );
+};
+
+export interface RandomStatEditorProps extends StatEditorProps {
+  possibleStatTypes: RandomStatType[];
+  onStatTypeChange(value: RandomStatType);
+}
+
+export const RandomStatEditor = (props: RandomStatEditorProps) => {
+  return <StatEditor {...props} />;
 };

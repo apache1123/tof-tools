@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { StatTypeIcon } from './StatTypeIcon';
-import { StatType, StatName } from '../../types';
+import { StatName, StatType } from '../../models/stat-type';
 
 const meta: Meta<typeof StatTypeIcon> = {
   title: 'Stat Type Icon',

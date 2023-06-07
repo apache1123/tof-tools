@@ -1,22 +1,24 @@
 import { Card, CardContent, CardHeader } from '@mui/material';
-import { Gear, GearType, Stat, StatType } from '../../types';
-import { StatEditor } from '../StatEditor/StatEditor';
+import { RandomStatEditor } from '../StatEditor/StatEditor';
 import { GearTypeSelector } from '../GearTypeSelector/GearTypeSelector';
+import { Gear } from '../../models/gear';
+import { GearType } from '../../models/gear-type';
+import { RandomStatType } from '../../models/random-stat-type';
 
 export interface GearPieceProps {
   possibleGearTypes: GearType[];
-  gear: Gear;
+  selectedGear: Gear;
   onGearTypeChange(value: GearType);
-  onStatTypeChange(value: StatType);
-  onStatValueChange(stat: Stat, value: number);
+  onRandomStatTypeChange(gearRandomStatIndex: number, value: RandomStatType);
+  onRandomStatValueChange(gearStatIndex: number, value: number);
 }
 
 export const GearPiece = ({
   possibleGearTypes,
-  gear,
+  selectedGear,
   onGearTypeChange,
-  onStatTypeChange,
-  onStatValueChange,
+  onRandomStatTypeChange,
+  onRandomStatValueChange,
 }: GearPieceProps) => {
   return (
     <Card>
@@ -24,27 +26,27 @@ export const GearPiece = ({
         title={
           <GearTypeSelector
             possibleGearTypes={possibleGearTypes}
-            selectedGearType={gear?.type}
+            selectedGearType={selectedGear?.type}
             onChange={onGearTypeChange}
           />
         }
       />
       <CardContent>
-        {[...Array(gear?.type?.numberOfRandomStats ?? 0)].map((_, i) => {
-          const selectedRandomStat = gear?.randomStats?.at(i);
+        {[...Array(selectedGear?.type?.numberOfRandomStats ?? 0)].map(
+          (_, i) => {
+            const selectedRandomStat = selectedGear?.randomStats?.at(i);
 
-          return (
-            <StatEditor
-              key={i}
-              selectedStat={selectedRandomStat}
-              possibleStatTypes={gear?.type?.possibleRandomStatTypes}
-              onStatTypeChange={onStatTypeChange}
-              onStatValueChange={(value) =>
-                onStatValueChange(selectedRandomStat, value)
-              }
-            />
-          );
-        })}
+            return (
+              <RandomStatEditor
+                key={i}
+                selectedStat={selectedRandomStat}
+                possibleStatTypes={selectedGear?.type?.possibleRandomStatTypes}
+                onStatTypeChange={(value) => onRandomStatTypeChange(i, value)}
+                onStatValueChange={(value) => onRandomStatValueChange(i, value)}
+              />
+            );
+          }
+        )}
       </CardContent>
     </Card>
   );

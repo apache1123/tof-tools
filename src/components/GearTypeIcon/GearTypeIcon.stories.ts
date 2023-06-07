@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { GearTypeIcon } from './GearTypeIcon';
-import { GearName } from '../../types';
+import { GearName } from '../../models/gear-type';
 
 const meta: Meta<typeof GearTypeIcon> = {
   title: 'Gear Type Icon',

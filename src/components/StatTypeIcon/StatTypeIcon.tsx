@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { StatType } from '../../types';
 import QuestionMark from '@mui/icons-material/QuestionMark';
+import { StatType } from '../../models/stat-type';
 
 interface StatTypeIconProps {
   statType: StatType;

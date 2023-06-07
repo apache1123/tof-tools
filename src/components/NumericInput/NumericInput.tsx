@@ -17,9 +17,38 @@ export interface NumericInputProps {
 }
 
 interface CustomProps {
+  value: number;
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
+  allowNegative?: boolean;
+  decimalScale?: number;
+  prefix?: string;
+  suffix?: string;
+  disabled?: boolean;
 }
+
+const NumericFormatCustom = forwardRef<NumericFormatProps, CustomProps>(
+  function NumericFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+
+    return (
+      <NumericFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+          onChange({
+            target: {
+              name: props.name,
+              value: values.value,
+            },
+          });
+        }}
+        thousandSeparator
+        valueIsNumericString
+      />
+    );
+  }
+);
 
 export const NumericInput = ({
   value,
@@ -34,33 +63,6 @@ export const NumericInput = ({
   suffix,
   disabled,
 }: NumericInputProps) => {
-  const NumericFormatCustom = forwardRef<NumericFormatProps, CustomProps>(
-    function NumericFormatCustom(props, ref) {
-      const { onChange, ...other } = props;
-
-      return (
-        <NumericFormat
-          {...other}
-          getInputRef={ref}
-          onValueChange={(values) => {
-            onChange({
-              target: {
-                name: props.name,
-                value: values.value,
-              },
-            });
-          }}
-          thousandSeparator
-          valueIsNumericString
-          allowNegative={allowNegative}
-          decimalScale={decimalScale}
-          prefix={prefix}
-          suffix={suffix}
-        />
-      );
-    }
-  );
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(+event.target.value);
   };
@@ -73,8 +75,11 @@ export const NumericInput = ({
         onChange: handleChange,
         name,
         id,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        InputProps: { inputComponent: NumericFormatCustom as any },
+        InputProps: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          inputComponent: NumericFormatCustom as any,
+          inputProps: { allowNegative, decimalScale, prefix, suffix },
+        },
         variant,
         disabled,
       }}

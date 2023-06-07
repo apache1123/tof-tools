@@ -1,45 +1,52 @@
-import * as React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Link from '../src/components/Link';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import { gearTypeService } from '../src/data-services/gear-type-service';
-import { GearType } from '../src/types';
 import { statTypeService } from '../src/data-services/stat-type-service';
+import { GearPiece } from '../src/components/GearPiece/GearPiece';
+import { Fragment } from 'react';
+import { useGear } from '../src/hooks/useGear';
+import { GearType } from '../src/models/gear-type';
 
 interface GearComparerProps {
   gearTypes: GearType[];
 }
 
 export default function GearComparer({ gearTypes }: GearComparerProps) {
+  const {
+    gear: gearA,
+    setGearType: setGearAGearType,
+    setRandomStatType: setGearARandomStatType,
+    setRandomStatValue: setGearARandomStatValue,
+  } = useGear();
+  const {
+    gear: gearB,
+    setGearType: setGearBGearType,
+    setRandomStatType: setGearBRandomStatType,
+    setRandomStatValue: setGearBRandomStatValue,
+  } = useGear();
+
   return (
-    <React.Fragment>
+    <Fragment>
       <Head>
-        <title>ToF tools</title>
+        <title>ToF Gear Comparer</title>
       </Head>
 
-      <Container maxWidth="lg">
-        <Box
-          sx={{
-            my: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="h4" component="h1" gutterBottom>
-            Gear comparer
-          </Typography>
-          <Link href="/" color="secondary">
-            Home
-          </Link>
-          {JSON.stringify(gearTypes)}
-        </Box>
-      </Container>
-    </React.Fragment>
+      <GearPiece
+        possibleGearTypes={gearTypes}
+        selectedGear={gearA}
+        onGearTypeChange={setGearAGearType}
+        onRandomStatTypeChange={setGearARandomStatType}
+        onRandomStatValueChange={setGearARandomStatValue}
+      />
+
+      <GearPiece
+        possibleGearTypes={gearTypes}
+        selectedGear={gearB}
+        onGearTypeChange={setGearBGearType}
+        onRandomStatTypeChange={setGearBRandomStatType}
+        onRandomStatValueChange={setGearBRandomStatValue}
+      />
+    </Fragment>
   );
 }
 
