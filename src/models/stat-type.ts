@@ -7,25 +7,6 @@ export interface StatType {
   iconImageName: string;
 }
 
-export interface RandomStatType extends StatType {
-  defaultValue: number;
-  rollRange: RollRange;
-}
-
-export interface Stat {
-  type: StatType;
-  value: number;
-}
-
-export interface RandomStat extends Stat {
-  type: RandomStatType;
-}
-
-export interface RollRange {
-  minValue: number;
-  maxValue: number;
-}
-
 export enum StatName {
   AlteredAttack = 'Altered Attack',
   AlteredResistance = 'Altered Resistance',

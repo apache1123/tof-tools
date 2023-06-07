@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { GearTypeSelector } from './GearTypeSelector';
-import { GearName, GearType } from '../../types';
+import { GearName, GearType } from '../../models/gear-type';
 
 const meta: Meta<typeof GearTypeSelector> = {
   title: 'Gear Type Selector',

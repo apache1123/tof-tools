@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { GearType } from '../../types';
 import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import Grid from '@mui/material/Unstable_Grid2';
+import { GearType } from '../../models/gear-type';
 
 export interface GearTypeSelectorProps {
   possibleGearTypes: GearType[];
@@ -11,7 +11,7 @@ export interface GearTypeSelectorProps {
 
 export const GearTypeSelector = ({
   possibleGearTypes,
-  selectedGearType,
+  selectedGearType = null,
   onChange,
 }: GearTypeSelectorProps) => {
   const handleChange = (_, value: GearType) => {

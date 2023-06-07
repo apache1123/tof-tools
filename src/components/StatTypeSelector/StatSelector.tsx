@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { StatType } from '../../types';
+import { StatType } from '../../models/stat-type';
 
 export interface StatTypeSelectorProps {
   possibleStatTypes: StatType[];
@@ -9,7 +9,7 @@ export interface StatTypeSelectorProps {
 
 export const StatTypeSelector = ({
   possibleStatTypes,
-  selectedStatType,
+  selectedStatType = null,
   onChange,
 }: StatTypeSelectorProps) => {
   const handleChange = (_, value: StatType) => {

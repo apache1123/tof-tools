@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { GearPiece } from './GearPiece';
-import { Gear, GearName, GearType, StatName, StatType } from '../../types';
+import { Gear } from '../../models/gear';
+import { GearName, GearType } from '../../models/gear-type';
+import { StatName, StatType } from '../../models/stat-type';
+import { RandomStatType } from '../../models/random-stat-type';
 
 const meta: Meta<typeof GearPiece> = {
   title: 'Gear Piece',
@@ -50,16 +53,16 @@ const emptyStatsGear = {
 export const EmptyStats: Story = {
   args: {
     possibleGearTypes,
-    gear: emptyStatsGear,
+    selectedGear: emptyStatsGear,
   },
 };
 
 export const SelectedStatType: Story = {
   args: {
     possibleGearTypes,
-    gear: {
+    selectedGear: {
       ...emptyStatsGear,
-      randomStats: [{ type: attackStatType, value: 69 }],
+      randomStats: [{ type: attackStatType as RandomStatType, value: 69 }],
     },
   },
 };
@@ -67,7 +70,7 @@ export const SelectedStatType: Story = {
 export const TwoRandomEmptyStats: Story = {
   args: {
     possibleGearTypes,
-    gear: {
+    selectedGear: {
       ...emptyStatsGear,
       type: {
         ...emptyStatsGear.type,
@@ -79,6 +82,6 @@ export const TwoRandomEmptyStats: Story = {
 
 export const Empty: Story = {
   args: {
-    gear: null,
+    selectedGear: null,
   },
 };

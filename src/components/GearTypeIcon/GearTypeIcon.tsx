@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import { GearName } from '../../types';
+import { GearName } from '../../models/gear-type';
 
 export interface GearTypeIconProps {
   gearName: GearName;
