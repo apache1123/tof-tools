@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { StatEditor } from './StatEditor';
-import { StatName, StatType } from '../../models/stat-type';
+
 import { Stat } from '../../models/stat';
+import { StatName, StatType } from '../../models/stat-type';
+import { StatEditor } from './StatEditor';
 
 const meta: Meta<typeof StatEditor> = {
   title: 'Stat Editor',

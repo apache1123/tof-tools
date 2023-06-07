@@ -1,4 +1,5 @@
 import { Autocomplete, TextField } from '@mui/material';
+
 import { StatType } from '../../models/stat-type';
 
 export interface StatTypeSelectorProps {

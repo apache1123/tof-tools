@@ -1,7 +1,8 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
 import Grid from '@mui/material/Unstable_Grid2';
+
 import { GearType } from '../../models/gear-type';
+import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
 
 export interface GearTypeSelectorProps {
   possibleGearTypes: GearType[];

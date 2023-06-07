@@ -1,11 +1,12 @@
 import Grid from '@mui/material/Unstable_Grid2';
-import { StatTypeIcon } from '../StatTypeIcon/StatTypeIcon';
-import { NumericInput } from '../NumericInput/NumericInput';
-import { PercentageNumericInput } from '../NumericInput/PercentageNumericInput';
-import { StatTypeSelector } from '../StatTypeSelector/StatSelector';
+
 import { RandomStatType } from '../../models/random-stat-type';
 import { Stat } from '../../models/stat';
 import { StatType } from '../../models/stat-type';
+import { NumericInput } from '../NumericInput/NumericInput';
+import { PercentageNumericInput } from '../NumericInput/PercentageNumericInput';
+import { StatTypeIcon } from '../StatTypeIcon/StatTypeIcon';
+import { StatTypeSelector } from '../StatTypeSelector/StatSelector';
 
 export interface StatEditorProps {
   selectedStat: Stat;

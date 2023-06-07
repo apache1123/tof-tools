@@ -87,6 +87,9 @@ devDependencies:
   eslint-plugin-react-hooks:
     specifier: ^4.6.0
     version: 4.6.0(eslint@8.41.0)
+  eslint-plugin-simple-import-sort:
+    specifier: ^10.0.0
+    version: 10.0.0(eslint@8.41.0)
   eslint-plugin-storybook:
     specifier: ^0.6.12
     version: 0.6.12(eslint@8.41.0)(typescript@5.0.4)
@@ -6937,6 +6940,14 @@ packages:
       resolve: 2.0.0-next.4
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
+    dev: true
+
+  /eslint-plugin-simple-import-sort@10.0.0(eslint@8.41.0):
+    resolution: {integrity: sha512-AeTvO9UCMSNzIHRkg8S6c3RPy5YEwKWSQPx3DYghLedo2ZQxowPFLGDN1AZ2evfg6r6mjBSZSLxLFsWSu3acsw==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.41.0
     dev: true
 
   /eslint-plugin-storybook@0.6.12(eslint@8.41.0)(typescript@5.0.4):
