@@ -5,11 +5,10 @@ import Head from 'next/head';
 import { Fragment } from 'react';
 
 import { GearPiece } from '../src/components/GearPiece/GearPiece';
-import { ImageOCR } from '../src/components/ImageOCR/ImageOCR';
-import { gearTypeService } from '../src/data-services/gear-type-service';
-import { statTypeService } from '../src/data-services/stat-type-service';
 import { useGear } from '../src/hooks/useGear';
 import { GearType } from '../src/models/gear-type';
+import { gearTypeService } from '../src/services/gear-type-service';
+import { statTypeService } from '../src/services/stat-type-service';
 
 interface GearComparerProps {
   gearTypes: GearType[];
@@ -18,12 +17,14 @@ interface GearComparerProps {
 export default function GearComparer({ gearTypes }: GearComparerProps) {
   const {
     gear: gearA,
+    setGear: setGearA,
     setGearType: setGearAGearType,
     setRandomStatType: setGearARandomStatType,
     setRandomStatValue: setGearARandomStatValue,
   } = useGear();
   const {
     gear: gearB,
+    setGear: setGearB,
     setGearType: setGearBGearType,
     setRandomStatType: setGearBRandomStatType,
     setRandomStatValue: setGearBRandomStatValue,
@@ -41,6 +42,8 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
             <GearPiece
               possibleGearTypes={gearTypes}
               selectedGear={gearA}
+              showGearOCRButton
+              onGearChange={setGearA}
               onGearTypeChange={setGearAGearType}
               onRandomStatTypeChange={setGearARandomStatType}
               onRandomStatValueChange={setGearARandomStatValue}
@@ -50,14 +53,14 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
             <GearPiece
               possibleGearTypes={gearTypes}
               selectedGear={gearB}
+              showGearOCRButton
+              onGearChange={setGearB}
               onGearTypeChange={setGearBGearType}
               onRandomStatTypeChange={setGearBRandomStatType}
               onRandomStatValueChange={setGearBRandomStatValue}
             />
           </Grid>
         </Grid>
-
-        <ImageOCR />
       </Container>
     </Fragment>
   );

@@ -58,7 +58,7 @@ export const NumericInput = ({
   id,
   variant = 'standard',
   allowNegative = false,
-  decimalScale = 2,
+  decimalScale = 3,
   prefix,
   suffix,
   disabled,

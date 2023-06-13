@@ -3,7 +3,7 @@ import { RandomStatType } from './random-stat-type';
 export interface GearType {
   name: GearName;
   // The name used in-game, used to OCR match.
-  inGameName?: string;
+  inGameName: string;
   numberOfRandomStats: number;
   possibleRandomStatTypes: RandomStatType[];
   version: GearVersion;

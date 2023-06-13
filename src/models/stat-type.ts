@@ -3,7 +3,7 @@ export interface StatType {
   inGameName: string;
   role: StatRole;
   elementalType: ElementalType;
-  isPercentageBased?: boolean;
+  isPercentageBased: boolean;
   iconImageName: string;
 }
 

@@ -15,6 +15,7 @@ export const useGear = () => {
 
   return {
     gear,
+    setGear,
     setGearType: (type: GearType) =>
       setGear((draftGear) => setGearType(draftGear, type)),
     setRandomStatType: (randomStatIndex: number, statType: RandomStatType) =>
