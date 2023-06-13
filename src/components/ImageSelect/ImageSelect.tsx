@@ -4,8 +4,7 @@ import { asUploadButton } from '@rpldy/upload-button';
 import UploadDropZone from '@rpldy/upload-drop-zone';
 import withPasteUpload from '@rpldy/upload-paste';
 import Uploady, { useBatchAddListener } from '@rpldy/uploady';
-import Image from 'next/image';
-import { forwardRef, Fragment, useEffect, useState } from 'react';
+import { forwardRef, Fragment, useEffect, useRef } from 'react';
 
 export interface ImageSelectProps {
   onSelectedImageChange?(image: File);
@@ -13,7 +12,7 @@ export interface ImageSelectProps {
 }
 
 const UploadButton = asUploadButton(
-  // eslint-disable-next-line react/display-name
+  // eslint-disable-next-line react/display-name, @typescript-eslint/no-unused-vars
   forwardRef((props, ref) => (
     <IconButton
       {...props}
@@ -70,39 +69,35 @@ export const ImageSelect = ({
   onSelectedImageChange,
   onSelectedImageURLChange,
 }: ImageSelectProps) => {
-  const [selectedImage, setSelectedImage] = useState<File>();
-  const [previewURL, setPreviewURL] = useState<string>();
+  const selectedImageURL = useRef<string>();
 
+  // This is an empty component because useBatchAddListener has to be used in a child component
   const ImageSelectHandler = () => {
     useBatchAddListener((batch) => {
       const image = batch.items[0].file as File;
-      setSelectedImage(image);
+
       if (onSelectedImageChange) onSelectedImageChange(image);
+
+      if (onSelectedImageURLChange) {
+        const objectUrl = URL.createObjectURL(image);
+        selectedImageURL.current = objectUrl;
+        onSelectedImageURLChange(objectUrl);
+      }
     });
     return <div></div>;
   };
 
   useEffect(() => {
-    if (!selectedImage) {
-      setPreviewURL(undefined);
-      if (onSelectedImageURLChange) onSelectedImageURLChange(undefined);
-      return;
-    }
-
-    const objectUrl = URL.createObjectURL(selectedImage);
-    setPreviewURL(objectUrl);
-    if (onSelectedImageURLChange) onSelectedImageURLChange(objectUrl);
-
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [onSelectedImageURLChange, selectedImage]);
+    return () => {
+      if (selectedImageURL.current)
+        URL.revokeObjectURL(selectedImageURL.current);
+    };
+  }, []);
 
   return (
-    <div suppressHydrationWarning={true}>
-      <Uploady autoUpload={false} noPortal>
-        <ImageSelectCustomInput />
-        <ImageSelectHandler />
-      </Uploady>
-      {previewURL && <img src={previewURL} alt="preview" />}
-    </div>
+    <Uploady autoUpload={false} noPortal>
+      <ImageSelectCustomInput />
+      <ImageSelectHandler />
+    </Uploady>
   );
 };

@@ -3,20 +3,25 @@ import { Card, CardContent, CardHeader } from '@mui/material';
 import { Gear } from '../../models/gear';
 import { GearType } from '../../models/gear-type';
 import { RandomStatType } from '../../models/random-stat-type';
+import { GearOCRModal } from '../GearOCRModal/GearOCRModal';
 import { GearTypeSelector } from '../GearTypeSelector/GearTypeSelector';
 import { RandomStatEditor } from '../StatEditor/StatEditor';
 
 export interface GearPieceProps {
   possibleGearTypes: GearType[];
   selectedGear: Gear;
-  onGearTypeChange(value: GearType);
-  onRandomStatTypeChange(gearRandomStatIndex: number, value: RandomStatType);
-  onRandomStatValueChange(gearStatIndex: number, value: number);
+  showGearOCRButton?: boolean;
+  onGearChange?(gear: Gear);
+  onGearTypeChange?(value: GearType);
+  onRandomStatTypeChange?(gearRandomStatIndex: number, value: RandomStatType);
+  onRandomStatValueChange?(gearStatIndex: number, value: number);
 }
 
 export const GearPiece = ({
   possibleGearTypes,
   selectedGear,
+  showGearOCRButton,
+  onGearChange,
   onGearTypeChange,
   onRandomStatTypeChange,
   onRandomStatValueChange,
@@ -30,6 +35,14 @@ export const GearPiece = ({
             selectedGearType={selectedGear?.type}
             onChange={onGearTypeChange}
           />
+        }
+        action={
+          showGearOCRButton && (
+            <GearOCRModal
+              gearTypes={possibleGearTypes}
+              onFinalizeGear={onGearChange}
+            />
+          )
         }
       />
       <CardContent>

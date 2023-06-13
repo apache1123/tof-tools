@@ -29,7 +29,11 @@ export const GearTypeSelector = ({
           options={possibleGearTypes || []}
           getOptionLabel={(gearType) => gearType.name}
           renderInput={(params) => (
-            <TextField {...params} label="Gear Type" variant="standard" />
+            <TextField
+              {...params}
+              label="Select gear type"
+              variant="standard"
+            />
           )}
           value={selectedGearType}
           onChange={handleChange}

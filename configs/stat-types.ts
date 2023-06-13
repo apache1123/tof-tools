@@ -6,6 +6,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Altered Attack',
     role: 'Attack',
     elementalType: 'Altered',
+    isPercentageBased: false,
     iconImageName: 'altered-attack.png',
   },
   {
@@ -13,6 +14,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Altered Resistance',
     role: 'Resistance',
     elementalType: 'Altered',
+    isPercentageBased: false,
     iconImageName: 'altered-res.png',
   },
   {
@@ -28,6 +30,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Attack',
     role: 'Attack',
     elementalType: 'None',
+    isPercentageBased: false,
     iconImageName: 'attack.png',
   },
   {
@@ -35,6 +38,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Crit',
     role: 'Crit',
     elementalType: 'None',
+    isPercentageBased: false,
     iconImageName: 'crit.png',
   },
   {
@@ -50,6 +54,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Flame Attack',
     role: 'Attack',
     elementalType: 'Flame',
+    isPercentageBased: false,
     iconImageName: 'flame-attack.png',
   },
   {
@@ -73,6 +78,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Flame Resistance',
     role: 'Resistance',
     elementalType: 'Flame',
+    isPercentageBased: false,
     iconImageName: 'flame-res.png',
   },
   {
@@ -88,6 +94,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Frost Attack',
     role: 'Attack',
     elementalType: 'Frost',
+    isPercentageBased: false,
     iconImageName: 'frost-attack.png',
   },
   {
@@ -111,6 +118,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Frost Resistance',
     role: 'Resistance',
     elementalType: 'Frost',
+    isPercentageBased: false,
     iconImageName: 'frost-res.png',
   },
   {
@@ -126,6 +134,7 @@ export const statTypes: StatType[] = [
     inGameName: 'HP',
     role: 'HP',
     elementalType: 'None',
+    isPercentageBased: false,
     iconImageName: 'hp.png',
   },
   {
@@ -141,6 +150,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Physical Attack',
     role: 'Attack',
     elementalType: 'Physical',
+    isPercentageBased: false,
     iconImageName: 'attack.png',
   },
   {
@@ -164,6 +174,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Physical Resistance',
     role: 'Resistance',
     elementalType: 'Physical',
+    isPercentageBased: false,
     iconImageName: 'phys-res.png',
   },
   {
@@ -179,6 +190,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Resistance',
     role: 'Resistance',
     elementalType: 'None',
+    isPercentageBased: false,
     iconImageName: 'res.png',
   },
   {
@@ -186,6 +198,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Volt Attack',
     role: 'Attack',
     elementalType: 'Volt',
+    isPercentageBased: false,
     iconImageName: 'volt-attack.png',
   },
   {
@@ -209,6 +222,7 @@ export const statTypes: StatType[] = [
     inGameName: 'Volt Resistance',
     role: 'Resistance',
     elementalType: 'Volt',
+    isPercentageBased: false,
     iconImageName: 'volt-res.png',
   },
   {
