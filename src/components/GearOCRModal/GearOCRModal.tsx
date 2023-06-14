@@ -1,14 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
 import { Box, Button, Modal, SxProps } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { useGear } from '../../hooks/useGear';
 import { Gear } from '../../models/gear';
 import { GearType } from '../../models/gear-type';
 import { gearOCRService } from '../../services/gear-ocr-service';
 import { GearPiece } from '../GearPiece/GearPiece';
+import { GridBreak } from '../GridBreak/GridBreak';
 import { ImageOCR } from '../ImageOCR/ImageOCR';
 
 export interface GearOCRModalProps {
@@ -36,7 +36,10 @@ export const GearOCRModal = ({
 }: GearOCRModalProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setImageURL(undefined);
+  };
 
   const { gear, setGear, setGearType, setRandomStatType, setRandomStatValue } =
     useGear();
@@ -74,30 +77,40 @@ export const GearOCRModal = ({
             </Grid>
             <Grid xs></Grid>
 
-            <Grid xs={12} md={6}>
-              {imageURL && (
-                <Image
-                  src={imageURL}
-                  width={350}
-                  height={450}
-                  alt="uploaded-image-preview"
-                />
-              )}
-            </Grid>
-            <Grid xs={12} md={6}>
-              <GearPiece
-                selectedGear={gear}
-                possibleGearTypes={gearTypes}
-                showGearOCRButton={false}
-                onGearTypeChange={setGearType}
-                onRandomStatTypeChange={setRandomStatType}
-                onRandomStatValueChange={setRandomStatValue}
-              />
-            </Grid>
+            <GridBreak />
+
+            {imageURL && (
+              <Fragment>
+                <Grid xs={12} md={6}>
+                  <Image
+                    src={imageURL}
+                    width={350}
+                    height={450}
+                    alt="uploaded-image-preview"
+                  />
+                </Grid>
+                <Grid xs={12} md={6}>
+                  <GearPiece
+                    selectedGear={gear}
+                    possibleGearTypes={gearTypes}
+                    showGearOCRButton={false}
+                    onGearTypeChange={setGearType}
+                    onRandomStatTypeChange={setRandomStatType}
+                    onRandomStatValueChange={setRandomStatValue}
+                  />
+                </Grid>
+              </Fragment>
+            )}
+
+            <GridBreak />
 
             <Grid xs></Grid>
             <Grid xs={12} sm="auto">
-              <Button onClick={handleConfirm} variant="contained">
+              <Button
+                onClick={handleConfirm}
+                disabled={!imageURL}
+                variant="contained"
+              >
                 Confirm
               </Button>
               <Button onClick={handleClose} variant="outlined" sx={{ ml: 1 }}>
