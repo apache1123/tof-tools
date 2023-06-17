@@ -1,4 +1,7 @@
+import BigNumber from 'bignumber.js';
+
 import {
+  Gear,
   newEmptyGear,
   setGearRandomStatType,
   setGearRandomStatValue,
@@ -14,10 +17,14 @@ import {
 import { gearTypeService } from './gear-type-service';
 import { statTypeService } from './stat-type-service';
 
+export interface GearOCRService {
+  getGearFromOCR(text: string): Gear;
+}
+
 const goldGearNamePrefix = 'Fortress';
 const randomStatsSectionTitle = 'Random Stats';
 
-export const gearOCRService = {
+export const gearOCRService: GearOCRService = {
   getGearFromOCR(text: string) {
     const gear = newEmptyGear();
 
@@ -36,7 +43,7 @@ export const gearOCRService = {
         const gearTypes = gearTypeService
           .getAllGearTypes(statTypeService)
           // Sort by inGameName length to aid OCR
-          // e.g. 'Super eyepiece' should be matched after 'Eyepiece' to override the 'Eyepiece' match
+          // e.g. 'Super eyepiece' should be matched after 'Eyepiece' to overwrite the 'Eyepiece' match
           .sort((a, b) => a.inGameName.length - b.inGameName.length);
 
         for (const gearType of gearTypes) {
@@ -66,7 +73,7 @@ export const gearOCRService = {
         randomStatTypes = statTypeService
           .getAllRandomStatTypes()
           // Sort by inGameName length to aid OCR
-          // e.g. 'Attack' should be matched after 'Altered Attack' to override the 'Attack' match
+          // e.g. 'Altered Attack' should be matched after 'Attack' to overwrite the 'Attack' match
           .sort((a, b) => a.inGameName.length - b.inGameName.length);
         return;
       }
@@ -106,8 +113,11 @@ export const gearOCRService = {
           // Non-percentage values are in the format '+4,125'
           // Assume the in-game locale is always ',' thousand separator and '.' decimal separator
           const value = hasPercentage
-            ? +firstWordAfterRandomStatName.replace('%', '').replace(',', '') /
-              100
+            ? BigNumber(
+                firstWordAfterRandomStatName.replace('%', '').replace(',', '')
+              )
+                .dividedBy(100)
+                .toNumber()
             : +firstWordAfterRandomStatName.replace(',', '');
 
           if (Number.isNaN(value)) continue;

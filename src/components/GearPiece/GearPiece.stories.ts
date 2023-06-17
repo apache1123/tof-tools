@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Gear } from '../../models/gear';
 import { GearName, GearType } from '../../models/gear-type';
 import { RandomStatType } from '../../models/random-stat-type';
-import { StatName, StatType } from '../../models/stat-type';
+import { StatName } from '../../models/stat-type';
 import { GearPiece } from './GearPiece';
 
 const meta: Meta<typeof GearPiece> = {
@@ -30,7 +30,9 @@ const possibleGearTypes = [
 const attackStatType = {
   name: StatName.Attack,
   iconImageName: 'attack.png',
-} as StatType;
+  defaultValue: 69,
+  rollRange: { minValue: 101, maxValue: 1234 },
+} as RandomStatType;
 
 const emptyStatsGear = {
   type: {
@@ -40,11 +42,15 @@ const emptyStatsGear = {
       {
         name: StatName.HP,
         iconImageName: 'hp.png',
+        defaultValue: 69,
+        rollRange: { minValue: 69, maxValue: 1234 },
       },
       attackStatType,
       {
         name: StatName.PhysicalResistancePercent,
         iconImageName: 'phys-res.png',
+        defaultValue: 0.07,
+        rollRange: { minValue: 0.05, maxValue: 0.1 },
       },
     ],
   },
@@ -63,7 +69,7 @@ export const SelectedStatType: Story = {
     possibleGearTypes,
     selectedGear: {
       ...emptyStatsGear,
-      randomStats: [{ type: attackStatType as RandomStatType, value: 69 }],
+      randomStats: [{ type: attackStatType, value: 69 }],
     },
   },
 };

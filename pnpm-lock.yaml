@@ -31,6 +31,9 @@ dependencies:
   '@rpldy/uploady':
     specifier: ^1.4.1
     version: 1.4.1(react-dom@18.2.0)(react@18.2.0)
+  bignumber.js:
+    specifier: ^9.1.1
+    version: 9.1.1
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
@@ -40,6 +43,9 @@ dependencies:
   next:
     specifier: 13.4.4
     version: 13.4.4(@babel/core@7.22.1)(react-dom@18.2.0)(react@18.2.0)
+  pluralize:
+    specifier: ^8.0.0
+    version: 8.0.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -81,6 +87,9 @@ devDependencies:
   '@types/node':
     specifier: 20.2.5
     version: 20.2.5
+  '@types/pluralize':
+    specifier: ^0.0.29
+    version: 0.0.29
   '@types/react':
     specifier: 18.2.7
     version: 18.2.7
@@ -4844,6 +4853,10 @@ packages:
   /@types/parse-json@4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
 
+  /@types/pluralize@0.0.29:
+    resolution: {integrity: sha512-BYOID+l2Aco2nBik+iYS4SZX0Lf20KPILP5RGmM1IgzdwNdTs0eebiFriOPcej1sX9mLnSoiNte5zcFxssgpGA==}
+    dev: true
+
   /@types/pretty-hrtime@1.0.1:
     resolution: {integrity: sha512-VjID5MJb1eGKthz2qUerWT8+R4b9N+CHvGCzg9fn4kWZgaF9AhdYikQio3R7wV8YY1NsQKPaCwKz1Yff+aHNUQ==}
     dev: true
@@ -5669,6 +5682,10 @@ packages:
   /big.js@5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
     dev: true
+
+  /bignumber.js@9.1.1:
+    resolution: {integrity: sha512-pHm4LsMJ6lzgNGVfZHjMoO8sdoRhOzOH4MLmY65Jg70bpxCKu5iOHNJyfF6OyvYw7t8Fpf35RuzUyqnQsj8Vig==}
+    dev: false
 
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -9610,6 +9627,11 @@ packages:
     dependencies:
       find-up: 5.0.0
     dev: true
+
+  /pluralize@8.0.0:
+    resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
+    engines: {node: '>=4'}
+    dev: false
 
   /pnp-webpack-plugin@1.7.0(typescript@5.0.4):
     resolution: {integrity: sha512-2Rb3vm+EXble/sMXNSu6eoBx8e79gKqhNq9F5ZWW6ERNCTE/Q0wQNne5541tE5vKjfM8hpNCYL+LGc1YTfI0dg==}

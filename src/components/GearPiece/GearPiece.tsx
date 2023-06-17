@@ -4,6 +4,7 @@ import { Gear } from '../../models/gear';
 import { GearType } from '../../models/gear-type';
 import { RandomStatType } from '../../models/random-stat-type';
 import { GearOCRModal } from '../GearOCRModal/GearOCRModal';
+import { GearRandomStatsRollsDetails } from '../GearRandomStatsRollsDetails/GearRandomStatsRollsDetails';
 import { GearTypeSelector } from '../GearTypeSelector/GearTypeSelector';
 import { RandomStatEditor } from '../StatEditor/StatEditor';
 
@@ -13,6 +14,7 @@ export interface GearPieceProps {
   showGearOCRButton?: boolean;
   onGearChange?(gear: Gear);
   onGearTypeChange?(value: GearType);
+  onGearStarsChange?(value: number);
   onRandomStatTypeChange?(gearRandomStatIndex: number, value: RandomStatType);
   onRandomStatValueChange?(gearStatIndex: number, value: number);
 }
@@ -23,6 +25,7 @@ export const GearPiece = ({
   showGearOCRButton,
   onGearChange,
   onGearTypeChange,
+  onGearStarsChange,
   onRandomStatTypeChange,
   onRandomStatValueChange,
 }: GearPieceProps) => {
@@ -32,8 +35,9 @@ export const GearPiece = ({
         title={
           <GearTypeSelector
             possibleGearTypes={possibleGearTypes}
-            selectedGearType={selectedGear?.type}
+            gear={selectedGear}
             onChange={onGearTypeChange}
+            onStarsChange={onGearStarsChange}
           />
         }
         action={
@@ -60,6 +64,9 @@ export const GearPiece = ({
               />
             );
           }
+        )}
+        {!!selectedGear?.randomStats?.length && (
+          <GearRandomStatsRollsDetails gear={selectedGear} />
         )}
       </CardContent>
     </Card>
