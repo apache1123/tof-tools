@@ -26,16 +26,14 @@ export const StatEditor = ({
       <Grid maxWidth={40} display="flex" alignItems="center">
         <StatTypeIcon statType={selectedStat?.type} />
       </Grid>
-
-      <Grid xs display="flex" alignItems="center">
+      <Grid xs display="flex" alignItems="end">
         <StatTypeSelector
           selectedStatType={selectedStat?.type}
           possibleStatTypes={possibleStatTypes}
           onChange={onStatTypeChange}
         />
       </Grid>
-
-      <Grid xs={3} display="flex" alignItems="center">
+      <Grid xs={3} display="flex" alignItems="end">
         {selectedStat?.type ? (
           selectedStat.type.isPercentageBased ? (
             <PercentageNumericInput

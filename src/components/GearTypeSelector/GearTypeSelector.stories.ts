@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Gear } from '../../models/gear';
 import { GearName, GearType } from '../../models/gear-type';
 import { GearTypeSelector } from './GearTypeSelector';
 
@@ -24,6 +25,10 @@ const possibleGearTypes = [
   },
 ] as GearType[];
 
+const gear = {
+  type: possibleGearTypes[0],
+} as Gear;
+
 export const NoGearTypeSelected: Story = {
   args: {
     possibleGearTypes,
@@ -33,6 +38,6 @@ export const NoGearTypeSelected: Story = {
 export const SelectedGearType: Story = {
   args: {
     possibleGearTypes,
-    selectedGearType: possibleGearTypes[0],
+    gear,
   },
 };

@@ -19,6 +19,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
     gear: gearA,
     setGear: setGearA,
     setGearType: setGearAGearType,
+    setGearStars: setGearAStars,
     setRandomStatType: setGearARandomStatType,
     setRandomStatValue: setGearARandomStatValue,
   } = useGear();
@@ -26,6 +27,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
     gear: gearB,
     setGear: setGearB,
     setGearType: setGearBGearType,
+    setGearStars: setGearBStars,
     setRandomStatType: setGearBRandomStatType,
     setRandomStatValue: setGearBRandomStatValue,
   } = useGear();
@@ -45,6 +47,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
               showGearOCRButton
               onGearChange={setGearA}
               onGearTypeChange={setGearAGearType}
+              onGearStarsChange={setGearAStars}
               onRandomStatTypeChange={setGearARandomStatType}
               onRandomStatValueChange={setGearARandomStatValue}
             />
@@ -56,6 +59,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
               showGearOCRButton
               onGearChange={setGearB}
               onGearTypeChange={setGearBGearType}
+              onGearStarsChange={setGearBStars}
               onRandomStatTypeChange={setGearBRandomStatType}
               onRandomStatValueChange={setGearBRandomStatValue}
             />

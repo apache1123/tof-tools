@@ -5,6 +5,7 @@ import {
   newEmptyGear,
   setGearRandomStatType,
   setGearRandomStatValue,
+  setGearStars,
   setGearType,
 } from '../models/gear';
 import { GearType } from '../models/gear-type';
@@ -18,6 +19,8 @@ export const useGear = () => {
     setGear,
     setGearType: (type: GearType) =>
       setGear((draftGear) => setGearType(draftGear, type)),
+    setGearStars: (stars: number) =>
+      setGear((draftGear) => setGearStars(draftGear, stars)),
     setRandomStatType: (randomStatIndex: number, statType: RandomStatType) =>
       setGear((draftGear) =>
         setGearRandomStatType(draftGear, randomStatIndex, statType)

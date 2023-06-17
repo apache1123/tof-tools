@@ -1,4 +1,4 @@
-import { Box, Button, Modal, SxProps } from '@mui/material';
+import { Box, Button, Modal, SxProps, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { Fragment, useState } from 'react';
@@ -41,8 +41,14 @@ export const GearOCRModal = ({
     setImageURL(undefined);
   };
 
-  const { gear, setGear, setGearType, setRandomStatType, setRandomStatValue } =
-    useGear();
+  const {
+    gear,
+    setGear,
+    setGearType,
+    setGearStars,
+    setRandomStatType,
+    setRandomStatValue,
+  } = useGear();
   const handleConfirm = () => {
     if (onFinalizeGear) onFinalizeGear(gear);
     handleClose();
@@ -69,11 +75,22 @@ export const GearOCRModal = ({
         <Box sx={modalStyle}>
           <Grid container spacing={3}>
             <Grid xs></Grid>
-            <Grid xs={12} md={6}>
+            <Grid
+              xs={12}
+              md={8}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
               <ImageOCR
                 onOCRTextChange={handleOCRTextChange}
                 onImageURLChange={handleImageURLChange}
               />
+              <Typography variant="caption">
+                Gear name & random stats should be clearly visible in the
+                screenshot
+              </Typography>
             </Grid>
             <Grid xs></Grid>
 
@@ -95,6 +112,7 @@ export const GearOCRModal = ({
                     possibleGearTypes={gearTypes}
                     showGearOCRButton={false}
                     onGearTypeChange={setGearType}
+                    onGearStarsChange={setGearStars}
                     onRandomStatTypeChange={setRandomStatType}
                     onRandomStatValueChange={setRandomStatValue}
                   />
