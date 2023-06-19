@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@catppuccin/palette':
+    specifier: ^0.1.8
+    version: 0.1.8
   '@emotion/cache':
     specifier: ^11.11.0
     version: 11.11.0
@@ -2565,6 +2568,10 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@catppuccin/palette@0.1.8:
+    resolution: {integrity: sha512-41quIj08vgPMy8kQxQb0+VqxuTlo2xfNYGSgOuiJXNojWnGuhLxBc61jgu2jiZYGNXVqgVNGWwmWEUf6s32jiA==}
+    dev: false
 
   /@colors/colors@1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
