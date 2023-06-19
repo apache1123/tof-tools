@@ -1,21 +1,22 @@
 import { Autocomplete, TextField } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { Gear } from '../../models/gear';
 import { GearType } from '../../models/gear-type';
 import { GearStarsSelector } from '../GearStarsSelector/GearStarsSelector';
 import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
 
 export interface GearTypeSelectorProps {
   possibleGearTypes: GearType[];
-  gear: Gear;
+  selectedGearType: GearType;
+  selectedGearStars: number;
   onChange(value: GearType);
   onStarsChange?(value: number);
 }
 
 export const GearTypeSelector = ({
   possibleGearTypes,
-  gear = null,
+  selectedGearType = null,
+  selectedGearStars,
   onChange,
   onStarsChange,
 }: GearTypeSelectorProps) => {
@@ -26,7 +27,7 @@ export const GearTypeSelector = ({
   return (
     <Grid container spacing={2}>
       <Grid maxWidth={90} display="flex" alignItems="center">
-        <GearTypeIcon gearName={gear?.type?.name} size={80} />
+        <GearTypeIcon gearName={selectedGearType?.name} size={80} />
       </Grid>
       <Grid xs display="flex" flexDirection="column" justifyContent="center">
         <Autocomplete
@@ -39,12 +40,16 @@ export const GearTypeSelector = ({
               variant="standard"
             />
           )}
-          value={gear.type}
+          value={selectedGearType}
           onChange={handleChange}
+          isOptionEqualToValue={(option, value) => option.name === value.name}
           size="small"
           fullWidth
         />
-        <GearStarsSelector stars={gear.stars} onStarsChange={onStarsChange} />
+        <GearStarsSelector
+          stars={selectedGearStars}
+          onStarsChange={onStarsChange}
+        />
       </Grid>
     </Grid>
   );

@@ -14,6 +14,7 @@ export interface NumericInputProps {
   prefix?: string;
   suffix?: string;
   disabled?: boolean;
+  fullWidth?: boolean;
 }
 
 interface CustomProps {
@@ -62,6 +63,7 @@ export const NumericInput = ({
   prefix,
   suffix,
   disabled,
+  fullWidth = true,
 }: NumericInputProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(+event.target.value);
@@ -82,6 +84,7 @@ export const NumericInput = ({
         },
         variant,
         disabled,
+        fullWidth,
       }}
     />
   );

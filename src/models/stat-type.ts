@@ -52,7 +52,8 @@ export enum StatRole {
 }
 
 export enum ElementalType {
-  None = 'None',
+  None = 'None', // For HP, etc.
+  All = 'All', // For Attack, Resistance, etc.
   Altered = 'Altered',
   Flame = 'Flame',
   Frost = 'Frost',

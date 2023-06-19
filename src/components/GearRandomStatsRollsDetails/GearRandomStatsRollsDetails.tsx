@@ -21,7 +21,7 @@ export const GearRandomStatsRollsDetails = ({
     gearCalculationService.getRandomStatRollCombinations(gear);
 
   return (
-    <div>
+    <>
       <Button onClick={handleOpen}>Random stats rolls details</Button>
       <Modal
         open={open}
@@ -52,6 +52,6 @@ export const GearRandomStatsRollsDetails = ({
           ))}
         </Paper>
       </Modal>
-    </div>
+    </>
   );
 };
