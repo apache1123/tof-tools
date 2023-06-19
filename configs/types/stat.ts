@@ -41,7 +41,8 @@ export type StatRole =
   | 'HP %';
 
 export type ElementalType =
-  | 'None'
+  | 'None' // For HP, etc.
+  | 'All' // For Attack, Resistance, etc.
   | 'Altered'
   | 'Flame'
   | 'Frost'

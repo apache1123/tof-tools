@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from '@mui/material';
+import { Box, Card, CardContent, CardHeader } from '@mui/material';
 
 import { Gear } from '../../models/gear';
 import { GearType } from '../../models/gear-type';
@@ -35,7 +35,8 @@ export const GearPiece = ({
         title={
           <GearTypeSelector
             possibleGearTypes={possibleGearTypes}
-            gear={selectedGear}
+            selectedGearType={selectedGear?.type}
+            selectedGearStars={selectedGear?.stars}
             onChange={onGearTypeChange}
             onStarsChange={onGearStarsChange}
           />
@@ -66,7 +67,9 @@ export const GearPiece = ({
           }
         )}
         {!!selectedGear?.randomStats?.length && (
-          <GearRandomStatsRollsDetails gear={selectedGear} />
+          <Box mt={2} textAlign="right">
+            <GearRandomStatsRollsDetails gear={selectedGear} />
+          </Box>
         )}
       </CardContent>
     </Card>

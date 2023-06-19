@@ -25,6 +25,7 @@ export const StatTypeSelector = ({
       )}
       value={selectedStatType}
       onChange={handleChange}
+      isOptionEqualToValue={(option, value) => option.name === value.name}
       size="small"
       fullWidth
     />
