@@ -1,4 +1,4 @@
-import { Box, Button, Modal, SxProps, Typography } from '@mui/material';
+import { Button, Modal, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { Fragment, useState } from 'react';
@@ -10,25 +10,12 @@ import { gearOCRService } from '../../services/gear-ocr-service';
 import { GearPiece } from '../GearPiece/GearPiece';
 import { GridBreak } from '../GridBreak/GridBreak';
 import { ImageOCR } from '../ImageOCR/ImageOCR';
+import { modalStyle } from '../Modal/Modal';
 
 export interface GearOCRModalProps {
   gearTypes: GearType[];
   onFinalizeGear?(gear: Gear);
 }
-
-const modalStyle: SxProps = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 800,
-  bgcolor: 'background.paper',
-  // border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 export const GearOCRModal = ({
   gearTypes,
@@ -72,7 +59,7 @@ export const GearOCRModal = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalStyle}>
+        <Paper sx={modalStyle} elevation={0}>
           <Grid container spacing={3}>
             <Grid xs></Grid>
             <Grid
@@ -137,7 +124,7 @@ export const GearOCRModal = ({
             </Grid>
             <Grid xs></Grid>
           </Grid>
-        </Box>
+        </Paper>
       </Modal>
     </div>
   );

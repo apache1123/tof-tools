@@ -1,27 +1,14 @@
-import { Box, Button, Modal, SxProps, Typography } from '@mui/material';
+import { Button, Modal, Paper, Typography } from '@mui/material';
 import pluralize from 'pluralize';
 import { Fragment, useState } from 'react';
 
 import { Gear } from '../../models/gear';
 import { gearCalculationService } from '../../services/gear-calculation-service';
+import { modalStyle } from '../Modal/Modal';
 
 export interface GearRandomStatsRollsDetailsProps {
   gear: Gear;
 }
-
-const modalStyle: SxProps = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 800,
-  bgcolor: 'Background',
-  // border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 export const GearRandomStatsRollsDetails = ({
   gear,
@@ -42,7 +29,7 @@ export const GearRandomStatsRollsDetails = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalStyle}>
+        <Paper sx={modalStyle} elevation={0}>
           {randomStatRollCombinations.map((x) => (
             <Fragment key={x.stars}>
               <Typography variant="h6">For a {x.stars} star gear:</Typography>
@@ -63,7 +50,7 @@ export const GearRandomStatsRollsDetails = ({
               </ul>
             </Fragment>
           ))}
-        </Box>
+        </Paper>
       </Modal>
     </div>
   );
