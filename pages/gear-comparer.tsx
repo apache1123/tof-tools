@@ -38,7 +38,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
         <title>ToF Gear Comparer</title>
       </Head>
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ p: 3 }}>
         <Grid container spacing={3}>
           <Grid xs={12} md={6}>
             <GearPiece
