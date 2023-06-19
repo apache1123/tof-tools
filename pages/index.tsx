@@ -1,42 +1,27 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
 import Head from 'next/head';
-import * as React from 'react';
-
-import Link from '../src/components/Link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>ToF tools</title>
       </Head>
 
-      <Container maxWidth="lg">
-        <Box
-          sx={{
-            my: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="h4" component="h1" gutterBottom>
-            ToF tools
-          </Typography>
-          <Button
-            variant="contained"
-            component={Link}
-            noLinkStyle
-            href="/gear-comparer"
+      <Container maxWidth="lg" sx={{ p: 3 }}>
+        <Grid container>
+          <Grid
+            xs={12}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
           >
-            Gear comparer
-          </Button>
-        </Box>
+            <Image src="/coco.png" alt="coco" width={160} height={160} />
+          </Grid>
+        </Grid>
       </Container>
-    </React.Fragment>
+    </>
   );
 }

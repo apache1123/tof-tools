@@ -40,7 +40,9 @@ export function Navbar() {
         <Toolbar disableGutters>
           {/* Mobile */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-            <Logo />
+            <Link href="/" underline="none">
+              <Logo />
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -83,7 +85,9 @@ export function Navbar() {
 
           {/* Desktop */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-            <Logo />
+            <Link href="/" underline="none">
+              <Logo />
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
