@@ -15,7 +15,7 @@ export function newEmptyGear(): Gear {
 }
 
 export function setGearType(gear: Gear, type: GearType) {
-  const numberOfRandomStats = type.numberOfRandomStats ?? 0;
+  const numberOfRandomStats = type?.numberOfRandomStats ?? 0;
   const randomStats = [...Array(numberOfRandomStats)].map(() =>
     newEmptyRandomStat()
   );
