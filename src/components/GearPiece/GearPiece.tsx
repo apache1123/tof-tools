@@ -30,7 +30,7 @@ export const GearPiece = ({
   onRandomStatValueChange,
 }: GearPieceProps) => {
   return (
-    <Card>
+    <Card sx={{ minWidth: 365 }}>
       <CardHeader
         title={
           <GearTypeSelector

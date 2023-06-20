@@ -39,21 +39,20 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
   } = useGear();
 
   const [elementalType, setElementalType] = useState<ElementalType>();
-  const [baseAttack, setBaseAttack] = useState<number>(0);
+  const [otherAttackFlat, setOtherAttackFlat] = useState<number>(0);
   const [critFlat, setCritFlat] = useState<number>(0);
   const [charLevel, setCharLevel] = useState<number>(90);
 
-  const [otherGearAttackPercent, setOtherGearAttackPercent] =
-    useState<number>(0);
+  const [otherAttackPercent, setOtherAttackPercent] = useState<number>(0);
   const [otherCritPercent, setOtherCritPercent] = useState<number>(0);
 
   const gearAValue = gearCalculationService.getGearValue(
     gearA,
     elementalType,
-    baseAttack,
-    critFlat,
     charLevel,
-    otherGearAttackPercent,
+    otherAttackFlat,
+    otherAttackPercent,
+    critFlat,
     otherCritPercent,
     0,
     0
@@ -61,10 +60,10 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
   const gearBValue = gearCalculationService.getGearValue(
     gearB,
     elementalType,
-    baseAttack,
-    critFlat,
     charLevel,
-    otherGearAttackPercent,
+    otherAttackFlat,
+    otherAttackPercent,
+    critFlat,
     otherCritPercent,
     0,
     0
@@ -159,8 +158,8 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                 elementalType ? `${elementalType} base attack` : 'Base attack'
               }
               variant="filled"
-              value={baseAttack}
-              onChange={setBaseAttack}
+              value={otherAttackFlat}
+              onChange={setOtherAttackFlat}
             />
           </Grid>
           <Grid xs={12} sm={4} md={3} lg={2}>
@@ -191,8 +190,8 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                   : 'Attack % from other gear'
               }
               variant="filled"
-              value={otherGearAttackPercent}
-              onChange={setOtherGearAttackPercent}
+              value={otherAttackPercent}
+              onChange={setOtherAttackPercent}
             />
           </Grid>
           <Grid>
