@@ -23,7 +23,12 @@ export function BoxCheckbox({
   return (
     <Paper
       elevation={1}
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+      }}
     >
       <FormControlLabel
         control={
@@ -38,7 +43,9 @@ export function BoxCheckbox({
             <Typography textAlign="center" gutterBottom>
               {title}
             </Typography>
-            <Typography textAlign="center">{subtitle}</Typography>
+            <Typography textAlign="center" variant="caption" paragraph>
+              {subtitle}
+            </Typography>
           </>
         }
         labelPlacement="top"

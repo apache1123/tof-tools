@@ -85,15 +85,15 @@ export const GearOCRModal = ({
 
           {imageURL && (
             <Grid container spacing={3} mb={3}>
-              <Grid xs={12} md={6}>
+              <Grid xs={12} lg={6}>
                 <Image
                   src={imageURL}
-                  width={350}
-                  height={450}
+                  width={300}
+                  height={380}
                   alt="uploaded-image-preview"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12} lg={6}>
                 <GearPiece
                   selectedGear={gear}
                   possibleGearTypes={gearTypes}

@@ -23,12 +23,12 @@ export function BoxCheckboxWithStars({
           max={maxNumOfStars}
           value={stars ?? 0}
           onChange={(event, value) => {
-            if (onChange) onChange(isChecked, value);
+            if (onChange) onChange(isChecked, value ?? 0);
           }}
         />
       }
       onIsCheckedChange={(isChecked) => {
-        if (onChange) onChange(isChecked, stars);
+        if (onChange) onChange(isChecked, stars ?? 0);
       }}
       {...{ isChecked, ...rest }}
     />

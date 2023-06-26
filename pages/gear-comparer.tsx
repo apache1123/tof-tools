@@ -1,4 +1,12 @@
-import { Container, Paper, Tooltip, Typography } from '@mui/material';
+import {
+  Box,
+  Chip,
+  Container,
+  Divider,
+  Paper,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -7,7 +15,10 @@ import { useState } from 'react';
 import { useImmer } from 'use-immer';
 
 import { matrixAttackBuffs } from '../configs/matrix-attack-buffs';
+import { matrixCritDamageBuffs } from '../configs/matrix-crit-damage-buffs';
+import { matrixCritRateBuffs } from '../configs/matrix-crit-rate-buffs';
 import { weaponAttackBuffs } from '../configs/weapon-attack-buffs';
+import { weaponCritRateBuffs } from '../configs/weapon-crit-rate-buffs';
 import { BoxCheckbox } from '../src/components/BoxCheckbox/BoxCheckbox';
 import { BoxCheckboxWithStars } from '../src/components/BoxCheckbox/BoxCheckboxWithStars';
 import { ElementalTypeSelector } from '../src/components/ElementalTypeSelector/ElementalTypeSelector';
@@ -51,6 +62,10 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
 
   const [otherGearAttackPercent, setOtherGearAttackPercent] =
     useState<number>(0);
+
+  const [otherGearElementalDamage, setOtherGearElementalDamage] =
+    useState<number>(0);
+
   const [miscAttackPercent, setMiscAttackPercent] = useState<number>(0);
 
   const [selectedWeaponAttackBuffs, setSelectedWeaponAttackBuffs] = useImmer<{
@@ -90,7 +105,68 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
     }
   };
 
-  const [otherCritPercent, setOtherCritPercent] = useState<number>(0);
+  const [miscCritRate, setMiscCritRate] = useState<number>(0);
+
+  const [selectedWeaponCritRateBuffs, setSelectedWeaponCritRateBuffs] =
+    useImmer<{
+      [buffName: string]: NonNullable<unknown>;
+    }>({});
+  const handleWeaponCritRateBuffSelectedChange = (
+    buffName: string,
+    isSelected: boolean
+  ) => {
+    if (isSelected) {
+      setSelectedWeaponCritRateBuffs((draft) => {
+        draft[buffName] = {};
+      });
+    } else {
+      setSelectedWeaponCritRateBuffs((draft) => {
+        delete draft[buffName];
+      });
+    }
+  };
+
+  const [selectedMatrixCritRateBuffs, setSelectedMatrixCritRateBuffs] =
+    useImmer<{
+      [buffName: string]: { stars: number };
+    }>({});
+  const handleMatrixCritRateBuffSelectedChange = (
+    buffName: string,
+    isSelected: boolean,
+    stars: number
+  ) => {
+    if (isSelected) {
+      setSelectedMatrixCritRateBuffs((draft) => {
+        draft[buffName] = { stars };
+      });
+    } else {
+      setSelectedMatrixCritRateBuffs((draft) => {
+        delete draft[buffName];
+      });
+    }
+  };
+
+  const [miscCritDamage, setMiscCritDamage] = useState<number>(0);
+
+  const [selectedMatrixCritDamageBuffs, setSelectedMatrixCritDamageBuffs] =
+    useImmer<{
+      [buffName: string]: { stars: number };
+    }>({});
+  const handleMatrixCritDamageBuffSelectedChange = (
+    buffName: string,
+    isSelected: boolean,
+    stars: number
+  ) => {
+    if (isSelected) {
+      setSelectedMatrixCritDamageBuffs((draft) => {
+        draft[buffName] = { stars };
+      });
+    } else {
+      setSelectedMatrixCritDamageBuffs((draft) => {
+        delete draft[buffName];
+      });
+    }
+  };
 
   const allOtherAttackPercents = [otherGearAttackPercent, miscAttackPercent]
     .concat(
@@ -111,6 +187,37 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
       )
     );
 
+  const allOtherCritRates = [miscCritRate]
+    .concat(
+      Object.keys(selectedWeaponCritRateBuffs).map(
+        (buffName) =>
+          weaponCritRateBuffs.find((buff) => buff.name === buffName)?.value ?? 0
+      )
+    )
+    .concat(
+      Object.keys(selectedMatrixCritRateBuffs).map(
+        (buffName) =>
+          matrixCritRateBuffs
+            .find((buff) => buff.name === buffName)
+            ?.starValues?.find(
+              (starValue) =>
+                starValue.star === selectedMatrixCritRateBuffs[buffName].stars
+            )?.value ?? 0
+      )
+    );
+
+  const allOtherCritDamages = [miscCritDamage].concat(
+    Object.keys(selectedMatrixCritDamageBuffs).map(
+      (buffName) =>
+        matrixCritDamageBuffs
+          .find((buff) => buff.name === buffName)
+          ?.starValues?.find(
+            (starValue) =>
+              starValue.star === selectedMatrixCritDamageBuffs[buffName].stars
+          )?.value ?? 0
+    )
+  );
+
   const gearAValue = gearCalculationService.getGearValue(
     gearA,
     elementalType,
@@ -118,7 +225,8 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
     [otherAttackFlat],
     allOtherAttackPercents,
     [critFlat],
-    [otherCritPercent]
+    allOtherCritRates,
+    allOtherCritDamages
   );
   const gearBValue = gearCalculationService.getGearValue(
     gearB,
@@ -127,7 +235,8 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
     [otherAttackFlat],
     allOtherAttackPercents,
     [critFlat],
-    [otherCritPercent]
+    allOtherCritRates,
+    allOtherCritDamages
   );
 
   return (
@@ -203,7 +312,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
           </Grid>
         </Grid>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} mb={3}>
           <Grid xs={12} sm={6} md={4}>
             <ElementalTypeSelector
               elementalType={elementalType}
@@ -211,160 +320,283 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
               label="Elemental type to compare"
             />
           </Grid>
-          <GridBreak />
-          <Grid xs={12} sm={6} md={4} lg={3}>
-            <NumericInput
-              id="base-attack"
-              label={
-                'Base attack' + (elementalType ? ` (${elementalType})` : '')
-              }
-              variant="filled"
-              required
-              error={!otherAttackFlat}
-              value={otherAttackFlat}
-              onChange={setOtherAttackFlat}
-              helperText={
-                <Tooltip
-                  title={
-                    <Image
-                      src="/base_attack_example.png"
-                      alt="base-attack-example"
-                      width={230}
-                      height={90}
-                    />
-                  }
-                >
-                  <span>
-                    <b>
-                      Take off the piece of gear you&apos;re currently
-                      comparing.
-                    </b>{' '}
-                    Found on character sheet
-                  </span>
-                </Tooltip>
-              }
-            />
-          </Grid>
-          <Grid xs={12} sm={6} md={4} lg={3}>
-            <NumericInput
-              id="crit-flat"
-              label="Crit"
-              variant="filled"
-              required
-              error={!critFlat}
-              value={critFlat}
-              onChange={setCritFlat}
-            />
-          </Grid>
         </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          <NumericInput
-            id="char-level"
-            label="Character level"
-            variant="filled"
-            value={charLevel}
-            onChange={setCharLevel}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <Typography>Attack %</Typography>
-        </Grid>
-        <Grid container spacing={1}>
-          <Grid xs={12} sm={6}>
-            <PercentageNumericInput
-              id="other-gear-atk-percent"
-              label={
-                'Attack %' +
-                (elementalType ? ` (${elementalType})` : '') +
-                ' from other gear pieces'
-              }
-              variant="filled"
-              value={otherGearAttackPercent}
-              onChange={setOtherGearAttackPercent}
-            />
-          </Grid>
-          <Grid xs={12} sm={6}>
-            <PercentageNumericInput
-              id="misc-atk-percent"
-              label="Misc. attack % buffs"
-              variant="filled"
-              value={miscAttackPercent}
-              onChange={setMiscAttackPercent}
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={1}>
-          <Grid xs={12}>
-            <Typography>Weapon attack % buffs</Typography>
-          </Grid>
-          {weaponAttackBuffs.map((buff) => (
-            <Grid key={buff.name} xs={6} sm={4} display="flex">
-              <BoxCheckbox
-                title={buff.name}
-                subtitle={buff.value.toLocaleString('en', {
-                  style: 'percent',
-                  maximumFractionDigits: 1,
-                  signDisplay: 'always',
-                })}
-                isChecked={buff.name in selectedWeaponAttackBuffs}
-                onIsCheckedChange={(checked) =>
-                  handleWeaponAttackBuffSelectedChange(buff.name, checked)
-                }
-              />
-            </Grid>
-          ))}
-        </Grid>
-        <Grid container spacing={1}>
-          <Grid xs={12}>
-            <Typography>Matrix attack % buffs</Typography>
-          </Grid>
-          {matrixAttackBuffs.map((buff) => (
-            <Grid key={buff.name} xs={6} sm={4} display="flex">
-              <BoxCheckboxWithStars
-                title={buff.name}
-                subtitle={buff.starValues
-                  .map((starValue) =>
-                    starValue.value.toLocaleString('en', {
-                      style: 'percent',
-                      maximumFractionDigits: 1,
-                      signDisplay: 'always',
-                    })
-                  )
-                  .join('/')}
-                isChecked={buff.name in selectedMatrixAttackBuffs}
-                onChange={(isChecked, stars) =>
-                  handleMatrixAttackBuffSelectedChange(
-                    buff.name,
-                    isChecked,
-                    stars
-                  )
-                }
-                maxNumOfStars={3}
-                stars={selectedMatrixAttackBuffs[buff.name]?.stars ?? 0}
-              />
-            </Grid>
-          ))}
-        </Grid>
-        <Grid xs={12}>
-          <Typography>Crit %</Typography>
-        </Grid>
-        <Grid>
-          <PercentageNumericInput
-            id="other-crit-percent"
-            label="Crit % from other sources"
-            variant="filled"
-            value={otherCritPercent}
-            onChange={setOtherCritPercent}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <Typography>Crit Damage %</Typography>
-        </Grid>
-        <Grid xs={12}>
-          <Typography>
-            {elementalType ? elementalType : 'Elemental'} Damage %
+
+        <Box mb={5}>
+          <Typography variant="h5" component="h2">
+            Your stats
           </Typography>
-        </Grid>
+          <Typography
+            variant="subtitle2"
+            sx={{ color: 'warning.main' }}
+            gutterBottom
+          >
+            Take off the piece of gear you&apos;re currently comparing for the
+            following:
+          </Typography>
+
+          <Grid container spacing={2}>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <NumericInput
+                id="base-attack"
+                label={
+                  'Base attack' + (elementalType ? ` (${elementalType})` : '')
+                }
+                variant="filled"
+                required
+                error={!otherAttackFlat}
+                value={otherAttackFlat}
+                onChange={setOtherAttackFlat}
+                helperText={
+                  <Tooltip
+                    title={
+                      <Image
+                        src="/base_attack_example.png"
+                        alt="base-attack-example"
+                        width={230}
+                        height={90}
+                      />
+                    }
+                  >
+                    <span>Found on character sheet. Example</span>
+                  </Tooltip>
+                }
+              />
+            </Grid>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <NumericInput
+                id="crit-flat"
+                label="Crit"
+                variant="filled"
+                required
+                error={!critFlat}
+                value={critFlat}
+                onChange={setCritFlat}
+                helperText="Found on character sheet"
+              />
+            </Grid>
+
+            <GridBreak />
+
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <PercentageNumericInput
+                id="other-gear-atk-percent"
+                label={
+                  'Attack %' +
+                  (elementalType ? ` (${elementalType})` : '') +
+                  ' from all other gear pieces'
+                }
+                variant="filled"
+                value={otherGearAttackPercent}
+                onChange={setOtherGearAttackPercent}
+                helperText="Add up values from all other gear pieces"
+              />
+            </Grid>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <PercentageNumericInput
+                id="other-gear-elemental-damage"
+                label={
+                  'Damage %' +
+                  (elementalType ? ` (${elementalType})` : '') +
+                  ' from all other gear pieces'
+                }
+                variant="filled"
+                value={otherGearElementalDamage}
+                onChange={setOtherGearElementalDamage}
+                helperText="Add up values from all other gear pieces"
+              />
+            </Grid>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <NumericInput
+                id="char-level"
+                label="Character level"
+                variant="filled"
+                value={charLevel}
+                onChange={setCharLevel}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+
+        <Box mb={5}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Attack % buffs
+          </Typography>
+
+          <Grid container mb={2}>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <PercentageNumericInput
+                id="misc-atk-percent"
+                label="Misc. attack % buffs"
+                variant="filled"
+                value={miscAttackPercent}
+                onChange={setMiscAttackPercent}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2}>
+            {weaponAttackBuffs.map((buff) => (
+              <Grid key={buff.name} xs={6} sm={4} md={3} display="flex">
+                <BoxCheckbox
+                  title={buff.name}
+                  subtitle={buff.value.toLocaleString('en', {
+                    style: 'percent',
+                    maximumFractionDigits: 1,
+                    signDisplay: 'always',
+                  })}
+                  isChecked={buff.name in selectedWeaponAttackBuffs}
+                  onIsCheckedChange={(checked) =>
+                    handleWeaponAttackBuffSelectedChange(buff.name, checked)
+                  }
+                />
+              </Grid>
+            ))}
+          </Grid>
+
+          <Divider variant="middle" sx={{ marginY: 3 }}>
+            <Chip label="Matrices" />
+          </Divider>
+
+          <Grid container spacing={2}>
+            {matrixAttackBuffs.map((buff) => (
+              <Grid key={buff.name} xs={6} sm={4} md={3} display="flex">
+                <BoxCheckboxWithStars
+                  title={buff.name}
+                  subtitle={buff.starValues
+                    .map((starValue) =>
+                      starValue.value.toLocaleString('en', {
+                        style: 'percent',
+                        maximumFractionDigits: 1,
+                        signDisplay: 'always',
+                      })
+                    )
+                    .join('/')}
+                  isChecked={buff.name in selectedMatrixAttackBuffs}
+                  onChange={(isChecked, stars) =>
+                    handleMatrixAttackBuffSelectedChange(
+                      buff.name,
+                      isChecked,
+                      stars
+                    )
+                  }
+                  maxNumOfStars={3}
+                  stars={selectedMatrixAttackBuffs[buff.name]?.stars ?? 0}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        <Box mb={5}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Crit rate % buffs
+          </Typography>
+
+          <Grid container mb={2}>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <PercentageNumericInput
+                id="misc-crit-rate"
+                label="Misc. crit rate % buffs"
+                variant="filled"
+                value={miscCritRate}
+                onChange={setMiscCritRate}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2}>
+            {weaponCritRateBuffs.map((buff) => (
+              <Grid key={buff.name} xs={6} sm={4} md={3} display="flex">
+                <BoxCheckbox
+                  title={buff.name}
+                  subtitle={buff.value.toLocaleString('en', {
+                    style: 'percent',
+                    maximumFractionDigits: 1,
+                    signDisplay: 'always',
+                  })}
+                  isChecked={buff.name in selectedWeaponCritRateBuffs}
+                  onIsCheckedChange={(checked) =>
+                    handleWeaponCritRateBuffSelectedChange(buff.name, checked)
+                  }
+                />
+              </Grid>
+            ))}
+            {matrixCritRateBuffs.map((buff) => (
+              <Grid key={buff.name} xs={6} sm={4} md={3} display="flex">
+                <BoxCheckboxWithStars
+                  title={buff.name}
+                  subtitle={buff.starValues
+                    .map((starValue) =>
+                      starValue.value.toLocaleString('en', {
+                        style: 'percent',
+                        maximumFractionDigits: 1,
+                        signDisplay: 'always',
+                      })
+                    )
+                    .join('/')}
+                  isChecked={buff.name in selectedMatrixCritRateBuffs}
+                  onChange={(isChecked, stars) =>
+                    handleMatrixCritRateBuffSelectedChange(
+                      buff.name,
+                      isChecked,
+                      stars
+                    )
+                  }
+                  maxNumOfStars={3}
+                  stars={selectedMatrixCritRateBuffs[buff.name]?.stars ?? 0}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        <Box>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Crit damage %
+          </Typography>
+
+          <Grid container mb={2}>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <PercentageNumericInput
+                id="misc-crit-damage"
+                label="Misc. crit damage % buffs"
+                variant="filled"
+                value={miscCritDamage}
+                onChange={setMiscCritDamage}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2}>
+            {matrixCritDamageBuffs.map((buff) => (
+              <Grid key={buff.name} xs={6} sm={4} md={3} display="flex">
+                <BoxCheckboxWithStars
+                  title={buff.name}
+                  subtitle={buff.starValues
+                    .map((starValue) =>
+                      starValue.value.toLocaleString('en', {
+                        style: 'percent',
+                        maximumFractionDigits: 1,
+                        signDisplay: 'always',
+                      })
+                    )
+                    .join('/')}
+                  isChecked={buff.name in selectedMatrixCritDamageBuffs}
+                  onChange={(isChecked, stars) =>
+                    handleMatrixCritDamageBuffSelectedChange(
+                      buff.name,
+                      isChecked,
+                      stars
+                    )
+                  }
+                  maxNumOfStars={3}
+                  stars={selectedMatrixCritDamageBuffs[buff.name]?.stars ?? 0}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Container>
     </>
   );
