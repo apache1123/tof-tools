@@ -1,5 +1,5 @@
 import TextField, { TextFieldVariants } from '@mui/material/TextField';
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { NumericFormat, NumericFormatProps } from 'react-number-format';
 
 export interface NumericInputProps {
@@ -15,6 +15,9 @@ export interface NumericInputProps {
   suffix?: string;
   disabled?: boolean;
   fullWidth?: boolean;
+  required?: boolean;
+  error?: boolean;
+  helperText?: ReactNode;
 }
 
 interface CustomProps {
@@ -64,6 +67,9 @@ export const NumericInput = ({
   suffix,
   disabled,
   fullWidth = true,
+  required,
+  error,
+  helperText,
 }: NumericInputProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(+event.target.value);
@@ -85,6 +91,9 @@ export const NumericInput = ({
         variant,
         disabled,
         fullWidth,
+        required,
+        error,
+        helperText,
       }}
     />
   );
