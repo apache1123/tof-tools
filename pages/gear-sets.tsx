@@ -2,7 +2,8 @@ import { Container } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
+
+import { RandomSticker } from '../src/components/RandomSticker/RandomSticker';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface GearSetsProps {}
@@ -22,7 +23,7 @@ export default function GearSets() {
             justifyContent="center"
             alignItems="center"
           >
-            <Image src="/coco.png" alt="coco" width={160} height={160} />
+            <RandomSticker />
           </Grid>
         </Grid>
       </Container>

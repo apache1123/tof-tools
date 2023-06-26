@@ -1,7 +1,8 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Head from 'next/head';
-import Image from 'next/image';
+
+import { RandomSticker } from '../src/components/RandomSticker/RandomSticker';
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
             justifyContent="center"
             alignItems="center"
           >
-            <Image src="/coco.png" alt="coco" width={160} height={160} />
+            <RandomSticker />
           </Grid>
         </Grid>
       </Container>
