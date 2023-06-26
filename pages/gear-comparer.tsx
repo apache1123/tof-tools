@@ -323,7 +323,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
         </Grid>
 
         <Box mb={5}>
-          <Typography variant="h5" component="h2">
+          <Typography variant="h5" component="h2" gutterBottom>
             Your stats
           </Typography>
           <Typography
@@ -375,37 +375,6 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                 helperText="Found on character sheet"
               />
             </Grid>
-
-            <GridBreak />
-
-            <Grid xs={12} sm={6} md={4} lg={3}>
-              <PercentageNumericInput
-                id="other-gear-atk-percent"
-                label={
-                  'Attack %' +
-                  (elementalType ? ` (${elementalType})` : '') +
-                  ' from all other gear pieces'
-                }
-                variant="filled"
-                value={otherGearAttackPercent}
-                onChange={setOtherGearAttackPercent}
-                helperText="Add up values from all other gear pieces"
-              />
-            </Grid>
-            <Grid xs={12} sm={6} md={4} lg={3}>
-              <PercentageNumericInput
-                id="other-gear-elemental-damage"
-                label={
-                  'Damage %' +
-                  (elementalType ? ` (${elementalType})` : '') +
-                  ' from all other gear pieces'
-                }
-                variant="filled"
-                value={otherGearElementalDamage}
-                onChange={setOtherGearElementalDamage}
-                helperText="Add up values from all other gear pieces"
-              />
-            </Grid>
             <Grid xs={12} sm={6} md={4} lg={3}>
               <NumericInput
                 id="char-level"
@@ -420,10 +389,28 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
 
         <Box mb={5}>
           <Typography variant="h5" component="h2" gutterBottom>
-            Attack % buffs
+            {elementalType ? `${elementalType} attack` : 'Attack'} % buffs
+          </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            This section is needed if you&apos;re comparing gear with attack %
+            stats and want to be accurate, otherwise don&apos;t bother
           </Typography>
 
-          <Grid container mb={2}>
+          <Grid container spacing={2} mb={2}>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <PercentageNumericInput
+                id="other-gear-atk-percent"
+                label={
+                  'Attack %' +
+                  (elementalType ? ` (${elementalType})` : '') +
+                  ' from all other gear pieces'
+                }
+                variant="filled"
+                value={otherGearAttackPercent}
+                onChange={setOtherGearAttackPercent}
+                helperText="Add up values from all other gear pieces"
+              />
+            </Grid>
             <Grid xs={12} sm={6} md={4} lg={3}>
               <PercentageNumericInput
                 id="misc-atk-percent"
@@ -488,12 +475,43 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
           </Grid>
         </Box>
 
+        <Box>
+          <Typography variant="h5" component="h2" gutterBottom>
+            {elementalType ? `${elementalType} damage` : 'Damage'} %
+          </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            This section is needed if you&apos;re comparing gear with dmg %
+            related stats and want to be accurate, otherwise don&apos;t bother
+          </Typography>
+
+          <Grid container spacing={2} mb={2}>
+            <Grid xs={12} sm={6} md={4} lg={3}>
+              <PercentageNumericInput
+                id="other-gear-elemental-damage"
+                label={
+                  'Damage %' +
+                  (elementalType ? ` (${elementalType})` : '') +
+                  ' from all other gear pieces'
+                }
+                variant="filled"
+                value={otherGearElementalDamage}
+                onChange={setOtherGearElementalDamage}
+                helperText="Add up values from all other gear pieces"
+              />
+            </Grid>
+          </Grid>
+        </Box>
+
         <Box mb={5}>
           <Typography variant="h5" component="h2" gutterBottom>
             Crit rate % buffs
           </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            This section is needed if you&apos;re comparing gear with crit
+            related stats and want to be accurate, otherwise don&apos;t bother
+          </Typography>
 
-          <Grid container mb={2}>
+          <Grid container spacing={2} mb={2}>
             <Grid xs={12} sm={6} md={4} lg={3}>
               <PercentageNumericInput
                 id="misc-crit-rate"
@@ -555,8 +573,12 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
           <Typography variant="h5" component="h2" gutterBottom>
             Crit damage %
           </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            This section is needed if you&apos;re comparing gear with crit
+            related stats and want to be accurate, otherwise don&apos;t bother
+          </Typography>
 
-          <Grid container mb={2}>
+          <Grid container spacing={2} mb={2}>
             <Grid xs={12} sm={6} md={4} lg={3}>
               <PercentageNumericInput
                 id="misc-crit-damage"
