@@ -475,7 +475,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
           </Grid>
         </Box>
 
-        <Box>
+        <Box mb={5}>
           <Typography variant="h5" component="h2" gutterBottom>
             {elementalType ? `${elementalType} damage` : 'Damage'} %
           </Typography>
