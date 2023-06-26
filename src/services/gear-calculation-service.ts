@@ -68,33 +68,33 @@ export const gearCalculationService = {
     gear: Gear,
     elementalType: ElementalType,
     charLevel = 0,
-    otherAttackFlat = 0,
-    otherAttackPercent = 0,
-    otherCritFlat = 0,
-    otherCritPercent = 0,
-    otherCritDamagePercent = 0,
-    otherDamagePercent = 0
+    otherAttackFlat = [0],
+    otherAttackPercent = [0],
+    otherCritFlat = [0],
+    otherCritPercent = [0],
+    otherCritDamagePercent = [0],
+    otherDamagePercent = [0]
   ): number {
     if (!gear) return 0;
 
     const bCharLevel = BigNumber(charLevel);
-    const bOtherAttackFlat = BigNumber(otherAttackFlat);
-    const bOtherAttackPercent = BigNumber(otherAttackPercent);
-    const bOtherCritFlat = BigNumber(otherCritFlat);
-    const bOtherCritPercent = BigNumber(otherCritPercent);
-    const bOtherCritDamagePercent = BigNumber(otherCritDamagePercent);
-    const bOtherDamagePercent = BigNumber(otherDamagePercent);
+    const otherAttackFlatSum = additiveSum(otherAttackFlat);
+    const otherAttackPercentSum = additiveSum(otherAttackPercent);
+    const otherCritFlatSum = additiveSum(otherCritFlat);
+    const otherCritPercentSum = additiveSum(otherCritPercent);
+    const otherCritDamagePercentSum = additiveSum(otherCritDamagePercent);
+    const otherDamagePercentSum = additiveSum(otherDamagePercent);
 
-    const totalAttackFlatWithoutGear = bOtherAttackFlat;
-    const totalAttackPercentWithoutGear = bOtherAttackPercent;
+    const totalAttackFlatWithoutGear = otherAttackFlatSum;
+    const totalAttackPercentWithoutGear = otherAttackPercentSum;
     const totalCritPercentWithoutGear = calculateCritPercentFromFlat(
-      bOtherCritFlat,
+      otherCritFlatSum,
       bCharLevel
-    ).plus(bOtherCritPercent);
+    ).plus(otherCritPercentSum);
     const totalCritDamagePercentWithoutGear = defaultCritDamagePercent.plus(
-      bOtherCritDamagePercent
+      otherCritDamagePercentSum
     );
-    const totalDamagePercentWithoutGear = bOtherDamagePercent;
+    const totalDamagePercentWithoutGear = otherDamagePercentSum;
 
     const multiplierWithoutGear = calculateMultiplier(
       totalAttackFlatWithoutGear,
@@ -239,5 +239,11 @@ function sumRandomStatValues(randomStats: RandomStat[]) {
     .map((randomStat) =>
       randomStat.value ? BigNumber(randomStat.value) : BigNumber(0)
     )
+    .reduce((prev, current) => prev.plus(current), BigNumber(0));
+}
+
+function additiveSum(values: number[]): BigNumber {
+  return values
+    .map((value) => BigNumber(value))
     .reduce((prev, current) => prev.plus(current), BigNumber(0));
 }

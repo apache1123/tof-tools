@@ -32,7 +32,7 @@ export function ElementalTypeSelector({
   };
 
   return (
-    <FormControl variant="filled" fullWidth>
+    <FormControl variant="filled" fullWidth required error={!elementalType}>
       <InputLabel id="elemental-type-select-label">{label}</InputLabel>
       <Select
         labelId="elemental-type-select-label"

@@ -152,8 +152,8 @@ function ExampleScreenshotModal() {
         <Paper sx={modalStyle} elevation={0}>
           <Box display="flex" justifyContent="center" alignItems="center">
             <Image
-              src="/example_screenshot.png"
-              alt="example-screenshot"
+              src="/ocr_screenshot_example.png"
+              alt="screenshot-example"
               width={350}
               height={450}
             />

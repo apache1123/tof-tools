@@ -1,4 +1,5 @@
-import { Autocomplete, TextField } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { Autocomplete, Box, TextField, Tooltip } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { GearType } from '../../models/gear-type';
@@ -46,10 +47,17 @@ export const GearTypeSelector = ({
           size="small"
           fullWidth
         />
-        <GearStarsSelector
-          stars={selectedGearStars}
-          onStarsChange={onStarsChange}
-        />
+        <Box mt={1}>
+          <GearStarsSelector
+            stars={selectedGearStars}
+            onStarsChange={onStarsChange}
+          />
+          {!selectedGearStars && (
+            <Tooltip title="This is optional and won't affect the calculations if not selected, but will aid the tool in determining the roll details.">
+              <InfoOutlinedIcon sx={{ ml: 1 }} />
+            </Tooltip>
+          )}
+        </Box>
       </Grid>
     </Grid>
   );
