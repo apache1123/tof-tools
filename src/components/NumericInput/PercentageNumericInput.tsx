@@ -10,12 +10,12 @@ export const PercentageNumericInput = ({
   ...others
 }: PercentageNumericInputProps) => {
   const handleChange = (value: number) => {
-    onChange(BigNumber(value).dividedBy(100).toNumber());
+    if (onChange) onChange(BigNumber(value).dividedBy(100).toNumber());
   };
   return (
     <NumericInput
       {...others}
-      value={BigNumber(value).multipliedBy(100).toNumber()}
+      value={value ? BigNumber(value).multipliedBy(100).toNumber() : undefined}
       onChange={handleChange}
       suffix="%"
     />

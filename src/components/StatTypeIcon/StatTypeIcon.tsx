@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { StatType } from '../../models/stat-type';
 
 interface StatTypeIconProps {
-  statType: StatType;
+  statType: StatType | undefined;
   size?: number;
 }
 

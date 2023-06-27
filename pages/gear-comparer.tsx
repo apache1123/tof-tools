@@ -8,11 +8,10 @@ import {
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useAtom } from 'jotai';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useState } from 'react';
-import { useImmer } from 'use-immer';
 
 import { matrixAttackBuffs } from '../configs/matrix-attack-buffs';
 import { matrixCritDamageBuffs } from '../configs/matrix-crit-damage-buffs';
@@ -26,9 +25,26 @@ import { GearPiece } from '../src/components/GearPiece/GearPiece';
 import { GridBreak } from '../src/components/GridBreak/GridBreak';
 import { NumericInput } from '../src/components/NumericInput/NumericInput';
 import { PercentageNumericInput } from '../src/components/NumericInput/PercentageNumericInput';
+import {
+  selectedMatrixAttackBuffsAtom,
+  selectedMatrixCritDamageBuffsAtom,
+  selectedMatrixCritRateBuffsAtom,
+  selectedWeaponAttackBuffsAtom,
+  selectedWeaponCritRateBuffsAtom,
+} from '../src/features/gear-comparer/atoms/selected-buffs';
+import {
+  characterLevelAtom,
+  critFlatAtom,
+  elementalTypeAtom,
+  miscAttackPercentAtom,
+  miscCritDamageAtom,
+  miscCritRateAtom,
+  otherAttackFlatAtom,
+  otherGearAttackPercentAtom,
+  otherGearElementalDamageAtom,
+} from '../src/features/gear-comparer/atoms/stat-values';
 import { useGear } from '../src/hooks/useGear';
 import { GearType } from '../src/models/gear-type';
-import { ElementalType } from '../src/models/stat-type';
 import { gearCalculationService } from '../src/services/gear-calculation-service';
 import { gearTypeService } from '../src/services/gear-type-service';
 import { statTypeService } from '../src/services/stat-type-service';
@@ -55,118 +71,40 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
     setRandomStatValue: setGearBRandomStatValue,
   } = useGear();
 
-  const [elementalType, setElementalType] = useState<ElementalType>();
-  const [otherAttackFlat, setOtherAttackFlat] = useState<number>(0);
-  const [critFlat, setCritFlat] = useState<number>(0);
-  const [charLevel, setCharLevel] = useState<number>(90);
+  const [elementalType, setElementalType] = useAtom(elementalTypeAtom);
+  const [otherAttackFlat, setOtherAttackFlat] = useAtom(otherAttackFlatAtom);
+  const [critFlat, setCritFlat] = useAtom(critFlatAtom);
+  const [charLevel, setCharLevel] = useAtom(characterLevelAtom);
 
-  const [otherGearAttackPercent, setOtherGearAttackPercent] =
-    useState<number>(0);
+  const [otherGearAttackPercent, setOtherGearAttackPercent] = useAtom(
+    otherGearAttackPercentAtom
+  );
+  const [otherGearElementalDamage, setOtherGearElementalDamage] = useAtom(
+    otherGearElementalDamageAtom
+  );
 
-  const [otherGearElementalDamage, setOtherGearElementalDamage] =
-    useState<number>(0);
+  const [miscAttackPercent, setMiscAttackPercent] = useAtom(
+    miscAttackPercentAtom
+  );
+  const [miscCritRate, setMiscCritRate] = useAtom(miscCritRateAtom);
+  const [miscCritDamage, setMiscCritDamage] = useAtom(miscCritDamageAtom);
 
-  const [miscAttackPercent, setMiscAttackPercent] = useState<number>(0);
+  const [selectedWeaponAttackBuffs, setSelectedWeaponAttackBuffs] = useAtom(
+    selectedWeaponAttackBuffsAtom
+  );
+  const [selectedMatrixAttackBuffs, setSelectedMatrixAttackBuffs] = useAtom(
+    selectedMatrixAttackBuffsAtom
+  );
 
-  const [selectedWeaponAttackBuffs, setSelectedWeaponAttackBuffs] = useImmer<{
-    [buffName: string]: NonNullable<unknown>;
-  }>({});
-  const handleWeaponAttackBuffSelectedChange = (
-    buffName: string,
-    isSelected: boolean
-  ) => {
-    if (isSelected) {
-      setSelectedWeaponAttackBuffs((draft) => {
-        draft[buffName] = {};
-      });
-    } else {
-      setSelectedWeaponAttackBuffs((draft) => {
-        delete draft[buffName];
-      });
-    }
-  };
-
-  const [selectedMatrixAttackBuffs, setSelectedMatrixAttackBuffs] = useImmer<{
-    [buffName: string]: { stars: number };
-  }>({});
-  const handleMatrixAttackBuffSelectedChange = (
-    buffName: string,
-    isSelected: boolean,
-    stars: number
-  ) => {
-    if (isSelected) {
-      setSelectedMatrixAttackBuffs((draft) => {
-        draft[buffName] = { stars };
-      });
-    } else {
-      setSelectedMatrixAttackBuffs((draft) => {
-        delete draft[buffName];
-      });
-    }
-  };
-
-  const [miscCritRate, setMiscCritRate] = useState<number>(0);
-
-  const [selectedWeaponCritRateBuffs, setSelectedWeaponCritRateBuffs] =
-    useImmer<{
-      [buffName: string]: NonNullable<unknown>;
-    }>({});
-  const handleWeaponCritRateBuffSelectedChange = (
-    buffName: string,
-    isSelected: boolean
-  ) => {
-    if (isSelected) {
-      setSelectedWeaponCritRateBuffs((draft) => {
-        draft[buffName] = {};
-      });
-    } else {
-      setSelectedWeaponCritRateBuffs((draft) => {
-        delete draft[buffName];
-      });
-    }
-  };
-
-  const [selectedMatrixCritRateBuffs, setSelectedMatrixCritRateBuffs] =
-    useImmer<{
-      [buffName: string]: { stars: number };
-    }>({});
-  const handleMatrixCritRateBuffSelectedChange = (
-    buffName: string,
-    isSelected: boolean,
-    stars: number
-  ) => {
-    if (isSelected) {
-      setSelectedMatrixCritRateBuffs((draft) => {
-        draft[buffName] = { stars };
-      });
-    } else {
-      setSelectedMatrixCritRateBuffs((draft) => {
-        delete draft[buffName];
-      });
-    }
-  };
-
-  const [miscCritDamage, setMiscCritDamage] = useState<number>(0);
+  const [selectedWeaponCritRateBuffs, setSelectedWeaponCritRateBuffs] = useAtom(
+    selectedWeaponCritRateBuffsAtom
+  );
+  const [selectedMatrixCritRateBuffs, setSelectedMatrixCritRateBuffs] = useAtom(
+    selectedMatrixCritRateBuffsAtom
+  );
 
   const [selectedMatrixCritDamageBuffs, setSelectedMatrixCritDamageBuffs] =
-    useImmer<{
-      [buffName: string]: { stars: number };
-    }>({});
-  const handleMatrixCritDamageBuffSelectedChange = (
-    buffName: string,
-    isSelected: boolean,
-    stars: number
-  ) => {
-    if (isSelected) {
-      setSelectedMatrixCritDamageBuffs((draft) => {
-        draft[buffName] = { stars };
-      });
-    } else {
-      setSelectedMatrixCritDamageBuffs((draft) => {
-        delete draft[buffName];
-      });
-    }
-  };
+    useAtom(selectedMatrixCritDamageBuffsAtom);
 
   const allOtherAttackPercents = [otherGearAttackPercent, miscAttackPercent]
     .concat(
@@ -434,7 +372,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                   })}
                   isChecked={buff.name in selectedWeaponAttackBuffs}
                   onIsCheckedChange={(checked) =>
-                    handleWeaponAttackBuffSelectedChange(buff.name, checked)
+                    setSelectedWeaponAttackBuffs(buff.name, checked)
                   }
                 />
               </Grid>
@@ -461,11 +399,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                     .join('/')}
                   isChecked={buff.name in selectedMatrixAttackBuffs}
                   onChange={(isChecked, stars) =>
-                    handleMatrixAttackBuffSelectedChange(
-                      buff.name,
-                      isChecked,
-                      stars
-                    )
+                    setSelectedMatrixAttackBuffs(buff.name, isChecked, stars)
                   }
                   maxNumOfStars={3}
                   stars={selectedMatrixAttackBuffs[buff.name]?.stars ?? 0}
@@ -535,7 +469,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                   })}
                   isChecked={buff.name in selectedWeaponCritRateBuffs}
                   onIsCheckedChange={(checked) =>
-                    handleWeaponCritRateBuffSelectedChange(buff.name, checked)
+                    setSelectedWeaponCritRateBuffs(buff.name, checked)
                   }
                 />
               </Grid>
@@ -555,11 +489,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                     .join('/')}
                   isChecked={buff.name in selectedMatrixCritRateBuffs}
                   onChange={(isChecked, stars) =>
-                    handleMatrixCritRateBuffSelectedChange(
-                      buff.name,
-                      isChecked,
-                      stars
-                    )
+                    setSelectedMatrixCritRateBuffs(buff.name, isChecked, stars)
                   }
                   maxNumOfStars={3}
                   stars={selectedMatrixCritRateBuffs[buff.name]?.stars ?? 0}
@@ -606,7 +536,7 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
                     .join('/')}
                   isChecked={buff.name in selectedMatrixCritDamageBuffs}
                   onChange={(isChecked, stars) =>
-                    handleMatrixCritDamageBuffSelectedChange(
+                    setSelectedMatrixCritDamageBuffs(
                       buff.name,
                       isChecked,
                       stars

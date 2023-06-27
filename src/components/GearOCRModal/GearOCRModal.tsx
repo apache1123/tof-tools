@@ -13,7 +13,7 @@ import { modalStyle } from '../Modal/Modal';
 
 export interface GearOCRModalProps {
   gearTypes: GearType[];
-  onFinalizeGear?(gear: Gear);
+  onFinalizeGear?(gear: Gear): void;
 }
 
 export const GearOCRModal = ({

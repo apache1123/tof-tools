@@ -3,7 +3,7 @@ import { newEmptyRandomStat, RandomStat } from './random-stat';
 import { RandomStatType } from './random-stat-type';
 
 export interface Gear {
-  type: GearType;
+  type: GearType | undefined;
   stars: number;
   randomStats: RandomStat[];
 }
@@ -11,7 +11,7 @@ export interface Gear {
 const maxStars = 5;
 
 export function newEmptyGear(): Gear {
-  return { type: undefined, stars: undefined, randomStats: [] };
+  return { type: undefined, stars: 0, randomStats: [] };
 }
 
 export function setGearType(gear: Gear, type: GearType) {
@@ -25,9 +25,7 @@ export function setGearType(gear: Gear, type: GearType) {
 }
 
 export function setGearStars(gear: Gear, stars: number) {
-  if (!stars) {
-    gear.stars = undefined;
-  } else if (stars < 0 || stars > maxStars) {
+  if (stars < 0 || stars > maxStars) {
     return;
   } else {
     gear.stars = stars;

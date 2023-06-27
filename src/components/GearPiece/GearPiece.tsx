@@ -12,11 +12,14 @@ export interface GearPieceProps {
   possibleGearTypes: GearType[];
   selectedGear: Gear;
   showGearOCRButton?: boolean;
-  onGearChange?(gear: Gear);
-  onGearTypeChange?(value: GearType);
-  onGearStarsChange?(value: number);
-  onRandomStatTypeChange?(gearRandomStatIndex: number, value: RandomStatType);
-  onRandomStatValueChange?(gearStatIndex: number, value: number);
+  onGearChange?(gear: Gear): void;
+  onGearTypeChange?(value: GearType | undefined): void;
+  onGearStarsChange?(value: number): void;
+  onRandomStatTypeChange?(
+    gearRandomStatIndex: number,
+    value: RandomStatType
+  ): void;
+  onRandomStatValueChange?(gearStatIndex: number, value: number): void;
 }
 
 export const GearPiece = ({
@@ -37,7 +40,11 @@ export const GearPiece = ({
             possibleGearTypes={possibleGearTypes}
             selectedGearType={selectedGear?.type}
             selectedGearStars={selectedGear?.stars}
-            onChange={onGearTypeChange}
+            onChange={(value) => {
+              if (onGearTypeChange) {
+                onGearTypeChange(value);
+              }
+            }}
             onStarsChange={onGearStarsChange}
           />
         }
@@ -59,9 +66,16 @@ export const GearPiece = ({
               <RandomStatEditor
                 key={i}
                 selectedStat={selectedRandomStat}
-                possibleStatTypes={selectedGear?.type?.possibleRandomStatTypes}
-                onStatTypeChange={(value) => onRandomStatTypeChange(i, value)}
-                onStatValueChange={(value) => onRandomStatValueChange(i, value)}
+                possibleStatTypes={
+                  selectedGear?.type?.possibleRandomStatTypes ?? []
+                }
+                onStatTypeChange={(value) => {
+                  if (onRandomStatTypeChange) onRandomStatTypeChange(i, value);
+                }}
+                onStatValueChange={(value) => {
+                  if (onRandomStatValueChange)
+                    onRandomStatValueChange(i, value);
+                }}
               />
             );
           }

@@ -50,7 +50,7 @@ export const PercentageStat: Story = {
 
 export const EmptyStatEditable: Story = {
   args: {
-    selectedStat: null,
+    selectedStat: undefined,
     possibleStatTypes: availableStatTypes,
   },
 };

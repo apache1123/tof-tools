@@ -14,7 +14,7 @@ type Story = StoryObj<typeof StatTypeIcon>;
 
 export const Unknown: Story = {
   args: {
-    statType: null,
+    statType: undefined,
   },
 };
 

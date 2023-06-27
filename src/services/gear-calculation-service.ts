@@ -20,7 +20,8 @@ export const gearCalculationService = {
       (randomStat) =>
         statCalculationService.getRandomStatRollCombinations(randomStat).map(
           (rollCombination): RandomStatRollCombination => ({
-            randomStatName: randomStat.type.name,
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            randomStatName: randomStat.type!.name,
             rollCombination,
           })
         )
@@ -66,7 +67,7 @@ export const gearCalculationService = {
 
   getGearValue(
     gear: Gear,
-    elementalType: ElementalType,
+    elementalType: ElementalType | undefined,
     charLevel = 0,
     otherAttackFlat = [0],
     otherAttackPercent = [0],
@@ -156,7 +157,7 @@ function calculateCritPercentFromFlat(
 
 function calculateAttackFlatFromGear(
   gear: Gear,
-  elementalType: ElementalType
+  elementalType: ElementalType | undefined
 ): BigNumber {
   return sumRandomStatValues(
     gear.randomStats.filter(
@@ -171,7 +172,7 @@ function calculateAttackFlatFromGear(
 
 function calculateAttackPercentFromGear(
   gear: Gear,
-  elementalType: ElementalType
+  elementalType: ElementalType | undefined
 ): BigNumber {
   return sumRandomStatValues(
     gear.randomStats.filter(
@@ -208,7 +209,7 @@ function calculateCritPercentFromGear(gear: Gear): BigNumber {
 
 function calculateDamagePercentFromGear(
   gear: Gear,
-  elementalType: ElementalType
+  elementalType: ElementalType | undefined
 ): BigNumber {
   return sumRandomStatValues(
     gear.randomStats.filter(

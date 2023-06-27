@@ -1,20 +1,21 @@
 import { Autocomplete, TextField } from '@mui/material';
+import { SyntheticEvent } from 'react';
 
 import { StatType } from '../../models/stat-type';
 
 export interface StatTypeSelectorProps {
   possibleStatTypes: StatType[];
   selectedStatType?: StatType;
-  onChange?: (value: StatType) => unknown;
+  onChange?: (value: StatType | undefined) => unknown;
 }
 
 export const StatTypeSelector = ({
   possibleStatTypes,
-  selectedStatType = null,
+  selectedStatType,
   onChange,
 }: StatTypeSelectorProps) => {
-  const handleChange = (_, value: StatType) => {
-    onChange(value);
+  const handleChange = (event: SyntheticEvent, value: StatType | null) => {
+    if (onChange) onChange(value ?? undefined);
   };
   return (
     <Autocomplete

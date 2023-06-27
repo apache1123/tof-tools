@@ -6,7 +6,7 @@ export interface BoxCheckboxWithStarsProps
   extends Omit<BoxCheckboxProps, 'onIsCheckedChange' | 'additionalSelector'> {
   maxNumOfStars: number;
   stars: number;
-  onChange?(isChecked: boolean, stars: number);
+  onChange?(isChecked: boolean, stars: number): void;
 }
 
 export function BoxCheckboxWithStars({

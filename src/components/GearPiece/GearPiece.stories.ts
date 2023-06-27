@@ -55,7 +55,7 @@ const emptyStatsGear = {
     ],
   },
   randomStats: [],
-} as Gear;
+} as unknown as Gear;
 
 export const EmptyStats: Story = {
   args: {
@@ -82,13 +82,13 @@ export const TwoRandomEmptyStats: Story = {
       type: {
         ...emptyStatsGear.type,
         numberOfRandomStats: 2,
-      },
+      } as GearType,
     },
   },
 };
 
 export const Empty: Story = {
   args: {
-    selectedGear: null,
+    selectedGear: undefined,
   },
 };

@@ -12,6 +12,7 @@ export const statCalculationService = {
   getRandomStatRollCombinations(randomStat: RandomStat): RollCombination[] {
     const { value } = randomStat;
     if (!value) return [];
+    if (!randomStat.type) return [];
 
     if (value === randomStat.type.defaultValue) {
       return [zeroRollCombination()];

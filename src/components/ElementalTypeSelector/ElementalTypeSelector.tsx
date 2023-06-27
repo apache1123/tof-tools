@@ -9,8 +9,8 @@ import {
 import { ElementalType } from '../../models/stat-type';
 
 export interface ElementalTypeSelectorProps {
-  elementalType: ElementalType;
-  onElementalTypeChange?(value: ElementalType);
+  elementalType: ElementalType | undefined;
+  onElementalTypeChange?(value: ElementalType): void;
   label?: string;
 }
 

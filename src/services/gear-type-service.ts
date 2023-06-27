@@ -11,12 +11,13 @@ export const gearTypeService: GearTypeService = {
     const allRandomStatTypes = statTypeService.getAllRandomStatTypes();
 
     return gearTypesFromConfig.map(
-      ({ name, possibleRandomStatTypeNames, version, ...rest }) => ({
+      ({ name, possibleRandomStatTypeNames, version, ...rest }): GearType => ({
         // The string to enum conversions below don't account for incorrect string inputs
         name: name as GearName,
         possibleRandomStatTypes: possibleRandomStatTypeNames.map(
           (statTypeName) =>
-            allRandomStatTypes.find((x) => x.name === statTypeName)
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            allRandomStatTypes.find((x) => x.name === statTypeName)!
         ),
         version: version as GearVersion,
         ...rest,

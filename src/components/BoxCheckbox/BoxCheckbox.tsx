@@ -3,7 +3,7 @@ import { ChangeEvent, ReactNode } from 'react';
 
 export interface BoxCheckboxProps {
   isChecked: boolean;
-  onIsCheckedChange?(isChecked: boolean);
+  onIsCheckedChange?(isChecked: boolean): void;
   title?: ReactNode;
   subtitle?: ReactNode;
   additionalSelector?: ReactNode;

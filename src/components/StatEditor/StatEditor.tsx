@@ -9,9 +9,9 @@ import { StatTypeIcon } from '../StatTypeIcon/StatTypeIcon';
 import { StatTypeSelector } from '../StatTypeSelector/StatSelector';
 
 export interface StatEditorProps {
-  selectedStat: Stat;
+  selectedStat: Stat | undefined;
   possibleStatTypes: StatType[];
-  onStatTypeChange: (value: StatType) => unknown;
+  onStatTypeChange: (value: StatType | undefined) => unknown;
   onStatValueChange: (value: number) => unknown;
 }
 
@@ -54,11 +54,15 @@ export const StatEditor = ({
   );
 };
 
-export interface RandomStatEditorProps extends StatEditorProps {
+export interface RandomStatEditorProps
+  extends Omit<StatEditorProps, 'onStatTypeChange'> {
   possibleStatTypes: RandomStatType[];
-  onStatTypeChange(value: RandomStatType);
+  onStatTypeChange(value: RandomStatType): void;
 }
 
 export const RandomStatEditor = (props: RandomStatEditorProps) => {
+  // TODO: Fix this
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return <StatEditor {...props} />;
 };

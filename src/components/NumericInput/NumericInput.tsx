@@ -72,7 +72,7 @@ export const NumericInput = ({
   helperText,
 }: NumericInputProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(+event.target.value);
+    if (onChange) onChange(+event.target.value);
   };
 
   return (

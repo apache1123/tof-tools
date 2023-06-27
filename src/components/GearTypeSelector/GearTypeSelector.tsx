@@ -1,6 +1,7 @@
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Autocomplete, Box, TextField, Tooltip } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import { SyntheticEvent } from 'react';
 
 import { GearType } from '../../models/gear-type';
 import { GearStarsSelector } from '../GearStarsSelector/GearStarsSelector';
@@ -8,21 +9,21 @@ import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
 
 export interface GearTypeSelectorProps {
   possibleGearTypes: GearType[];
-  selectedGearType: GearType;
+  selectedGearType: GearType | undefined;
   selectedGearStars: number;
-  onChange(value: GearType);
-  onStarsChange?(value: number);
+  onChange(value: GearType | undefined): void;
+  onStarsChange?(value: number): void;
 }
 
 export const GearTypeSelector = ({
   possibleGearTypes,
-  selectedGearType = null,
+  selectedGearType,
   selectedGearStars,
   onChange,
   onStarsChange,
 }: GearTypeSelectorProps) => {
-  const handleChange = (_, value: GearType) => {
-    onChange(value);
+  const handleChange = (_: SyntheticEvent, value: GearType | null) => {
+    onChange(value ?? undefined);
   };
 
   return (

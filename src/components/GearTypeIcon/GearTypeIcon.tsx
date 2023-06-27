@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { GearName } from '../../models/gear-type';
 
 export interface GearTypeIconProps {
-  gearName: GearName;
+  gearName: GearName | undefined;
   size?: number;
 }
 
