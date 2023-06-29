@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
 
+import { gearTypes } from '../../configs/gear-types';
+import { statTypes } from '../../configs/stat-types';
 import {
   Gear,
   newEmptyGear,
@@ -8,14 +10,12 @@ import {
   setGearType,
 } from '../models/gear';
 import { GearType } from '../models/gear-type';
-import { RandomStatType } from '../models/random-stat-type';
+import { StatType } from '../models/stat-type';
 import {
   containsString,
   indexOfIgnoringCase,
   splitIntoWords,
 } from '../utils/string-utils';
-import { gearTypeService } from './gear-type-service';
-import { statTypeService } from './stat-type-service';
 
 export interface GearOCRService {
   getGearFromOCR(text: string): Gear;
@@ -36,17 +36,17 @@ export const gearOCRService: GearOCRService = {
     let hasFoundRandomStatsSection = false;
     let numOfRandomStatsToFind: number;
     let numOfRandomStatsFound = 0;
-    let randomStatTypes: RandomStatType[];
+    let randomStatTypes: StatType[];
 
     lines.forEach((line) => {
       if (!hasFoundGearType && containsString(line, goldGearNamePrefix)) {
-        const gearTypes = gearTypeService
-          .getAllGearTypes(statTypeService)
+        const sortedGearTypes = gearTypes.allIds
+          .map((id) => gearTypes.byId[id])
           // Sort by inGameName length to aid OCR
           // e.g. 'Super eyepiece' should be matched after 'Eyepiece' to overwrite the 'Eyepiece' match
           .sort((a, b) => a.inGameName.length - b.inGameName.length);
 
-        for (const gearType of gearTypes) {
+        for (const gearType of sortedGearTypes) {
           if (containsString(line, gearType.inGameName)) {
             setGearType(gear, gearType);
             hasFoundGearType = true;
@@ -70,8 +70,8 @@ export const gearOCRService: GearOCRService = {
         }
 
         // Pre-load random stat types for subsequent lines
-        randomStatTypes = statTypeService
-          .getAllRandomStatTypes()
+        randomStatTypes = statTypes.allIds
+          .map((id) => statTypes.byId[id])
           // Sort by inGameName length to aid OCR
           // e.g. 'Altered Attack' should be matched after 'Attack' to overwrite the 'Attack' match
           .sort((a, b) => a.inGameName.length - b.inGameName.length);

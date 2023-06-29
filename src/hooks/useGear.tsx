@@ -9,7 +9,7 @@ import {
   setGearType,
 } from '../models/gear';
 import { GearType } from '../models/gear-type';
-import { RandomStatType } from '../models/random-stat-type';
+import { StatType } from '../models/stat-type';
 
 export const useGear = () => {
   const [gear, setGear] = useImmer<Gear>(newEmptyGear);
@@ -21,7 +21,7 @@ export const useGear = () => {
       setGear((draftGear) => setGearType(draftGear, type)),
     setGearStars: (stars: number) =>
       setGear((draftGear) => setGearStars(draftGear, stars)),
-    setRandomStatType: (randomStatIndex: number, statType: RandomStatType) =>
+    setRandomStatType: (randomStatIndex: number, statType: StatType) =>
       setGear((draftGear) =>
         setGearRandomStatType(draftGear, randomStatIndex, statType)
       ),

@@ -1,11 +1,12 @@
-import { RandomStatType } from './random-stat-type';
+import { StatName } from './stat-type';
 
 export interface GearType {
   name: GearName;
+  displayName: string;
   // The name used in-game, used to OCR match.
   inGameName: string;
   numberOfRandomStats: number;
-  possibleRandomStatTypes: RandomStatType[];
+  possibleRandomStatTypes: StatName[];
   version: GearVersion;
 }
 

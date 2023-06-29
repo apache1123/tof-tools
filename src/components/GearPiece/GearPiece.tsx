@@ -1,15 +1,25 @@
-import { Box, Card, CardContent, CardHeader } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Tooltip,
+} from '@mui/material';
 
+import { statTypes } from '../../../configs/stat-types';
 import { Gear } from '../../models/gear';
 import { GearType } from '../../models/gear-type';
-import { RandomStatType } from '../../models/random-stat-type';
+import { StatType } from '../../models/stat-type';
 import { GearOCRModal } from '../GearOCRModal/GearOCRModal';
 import { GearRandomStatsRollsDetails } from '../GearRandomStatsRollsDetails/GearRandomStatsRollsDetails';
+import { GearStarsSelector } from '../GearStarsSelector/GearStarsSelector';
+import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../GearTypeSelector/GearTypeSelector';
-import { RandomStatEditor } from '../StatEditor/StatEditor';
+import { StatEditor } from '../StatEditor/StatEditor';
 
 export interface GearPieceProps {
-  possibleGearTypes: GearType[];
   selectedGear: Gear;
   showGearOCRButton?: boolean;
   onGearChange?(gear: Gear): void;
@@ -17,13 +27,12 @@ export interface GearPieceProps {
   onGearStarsChange?(value: number): void;
   onRandomStatTypeChange?(
     gearRandomStatIndex: number,
-    value: RandomStatType
+    value: StatType | undefined
   ): void;
   onRandomStatValueChange?(gearStatIndex: number, value: number): void;
 }
 
 export const GearPiece = ({
-  possibleGearTypes,
   selectedGear,
   showGearOCRButton,
   onGearChange,
@@ -32,29 +41,50 @@ export const GearPiece = ({
   onRandomStatTypeChange,
   onRandomStatValueChange,
 }: GearPieceProps) => {
+  const possibleStatTypes =
+    selectedGear?.type?.possibleRandomStatTypes?.map(
+      (statName) => statTypes.byId[statName]
+    ) ?? [];
+
   return (
     <Card>
       <CardHeader
         title={
-          <GearTypeSelector
-            possibleGearTypes={possibleGearTypes}
-            selectedGearType={selectedGear?.type}
-            selectedGearStars={selectedGear?.stars}
-            onChange={(value) => {
-              if (onGearTypeChange) {
-                onGearTypeChange(value);
-              }
-            }}
-            onStarsChange={onGearStarsChange}
-          />
+          <Grid container spacing={2}>
+            <Grid maxWidth={90} display="flex" alignItems="center">
+              <GearTypeIcon gearName={selectedGear?.type?.name} size={80} />
+            </Grid>
+            <Grid
+              xs
+              item
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+            >
+              <GearTypeSelector
+                selectedGearType={selectedGear?.type}
+                onChange={(value) => {
+                  if (onGearTypeChange) {
+                    onGearTypeChange(value);
+                  }
+                }}
+              />
+              <Box mt={1}>
+                <GearStarsSelector
+                  stars={selectedGear.stars}
+                  onStarsChange={onGearStarsChange}
+                />
+                {!selectedGear.stars && (
+                  <Tooltip title="This is optional and won't affect the calculations if not selected, but will aid the tool in determining the roll details.">
+                    <InfoOutlinedIcon sx={{ ml: 1 }} />
+                  </Tooltip>
+                )}
+              </Box>
+            </Grid>
+          </Grid>
         }
         action={
-          showGearOCRButton && (
-            <GearOCRModal
-              gearTypes={possibleGearTypes}
-              onFinalizeGear={onGearChange}
-            />
-          )
+          showGearOCRButton && <GearOCRModal onFinalizeGear={onGearChange} />
         }
       />
       <CardContent>
@@ -63,12 +93,10 @@ export const GearPiece = ({
             const selectedRandomStat = selectedGear?.randomStats?.at(i);
 
             return (
-              <RandomStatEditor
+              <StatEditor
                 key={i}
                 selectedStat={selectedRandomStat}
-                possibleStatTypes={
-                  selectedGear?.type?.possibleRandomStatTypes ?? []
-                }
+                possibleStatTypes={possibleStatTypes}
                 onStatTypeChange={(value) => {
                   if (onRandomStatTypeChange) onRandomStatTypeChange(i, value);
                 }}

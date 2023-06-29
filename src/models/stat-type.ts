@@ -1,10 +1,14 @@
 export interface StatType {
   name: StatName;
+  displayName: string;
   inGameName: string;
   role: StatRole;
   elementalType: ElementalType;
   isPercentageBased: boolean;
   iconImageName: string;
+  randomStatDefaultValue: number;
+  randomStatMinRollValue: number;
+  randomStatMaxRollValue: number;
 }
 
 export enum StatName {

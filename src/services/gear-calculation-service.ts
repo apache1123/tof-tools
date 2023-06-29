@@ -5,7 +5,7 @@ import {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
 } from '../models/gear-random-stat-roll-combinations';
-import { RandomStat } from '../models/random-stat';
+import { Stat } from '../models/stat';
 import { ElementalType, StatRole } from '../models/stat-type';
 import { cartesian } from '../utils/array-utils';
 import { statCalculationService } from './stat-calculation-service';
@@ -33,12 +33,12 @@ export const gearCalculationService = {
 
     // Assuming the roll combinations for each stat is ordered by least number of rolls first
     const minNumOfRollsToCheck =
-      gear.stars ??
+      gear.stars ||
       allRandomStatsWithRollCombinations
         .map((x) => x[0]?.rollCombination?.numberOfRolls ?? 0)
         .reduce((prev, current) => prev + current, 0);
 
-    const maxNumOfRollsToCheck = gear.stars ?? maxNumOfRandomStatRolls;
+    const maxNumOfRollsToCheck = gear.stars || maxNumOfRandomStatRolls;
 
     const result: GearRandomStatRollCombinations[] = [];
 
@@ -235,7 +235,7 @@ function calculateMultiplier(
     .multipliedBy(damagePercent.plus(1));
 }
 
-function sumRandomStatValues(randomStats: RandomStat[]) {
+function sumRandomStatValues(randomStats: Stat[]) {
   return randomStats
     .map((randomStat) =>
       randomStat.value ? BigNumber(randomStat.value) : BigNumber(0)

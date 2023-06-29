@@ -1,11 +1,11 @@
 import { GearType } from './gear-type';
-import { newEmptyRandomStat, RandomStat } from './random-stat';
-import { RandomStatType } from './random-stat-type';
+import { newEmptyStat, Stat } from './stat';
+import { StatType } from './stat-type';
 
 export interface Gear {
   type: GearType | undefined;
   stars: number;
-  randomStats: RandomStat[];
+  randomStats: Stat[];
 }
 
 const maxStars = 5;
@@ -16,9 +16,7 @@ export function newEmptyGear(): Gear {
 
 export function setGearType(gear: Gear, type: GearType) {
   const numberOfRandomStats = type?.numberOfRandomStats ?? 0;
-  const randomStats = [...Array(numberOfRandomStats)].map(() =>
-    newEmptyRandomStat()
-  );
+  const randomStats = [...Array(numberOfRandomStats)].map(() => newEmptyStat());
 
   gear.type = type;
   gear.randomStats = randomStats;
@@ -40,7 +38,7 @@ export function getGearRandomStat(gear: Gear, randomStatIndex: number) {
 export function setGearRandomStatType(
   gear: Gear,
   randomStatIndex: number,
-  statType: RandomStatType
+  statType: StatType
 ) {
   const randomStat = getGearRandomStat(gear, randomStatIndex);
   randomStat.type = statType;
@@ -61,5 +59,5 @@ export function resetGearRandomStatDefaultValue(
   randomStatIndex: number
 ) {
   const randomStat = getGearRandomStat(gear, randomStatIndex);
-  randomStat.value = randomStat.type?.defaultValue ?? 0;
+  randomStat.value = randomStat.type?.randomStatDefaultValue ?? 0;
 }

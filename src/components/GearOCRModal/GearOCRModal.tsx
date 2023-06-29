@@ -5,21 +5,16 @@ import { useState } from 'react';
 
 import { useGear } from '../../hooks/useGear';
 import { Gear } from '../../models/gear';
-import { GearType } from '../../models/gear-type';
 import { gearOCRService } from '../../services/gear-ocr-service';
 import { GearPiece } from '../GearPiece/GearPiece';
 import { ImageOCR } from '../ImageOCR/ImageOCR';
 import { modalStyle } from '../Modal/Modal';
 
 export interface GearOCRModalProps {
-  gearTypes: GearType[];
   onFinalizeGear?(gear: Gear): void;
 }
 
-export const GearOCRModal = ({
-  gearTypes,
-  onFinalizeGear,
-}: GearOCRModalProps) => {
+export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -96,7 +91,6 @@ export const GearOCRModal = ({
               <Grid xs={12} lg={6}>
                 <GearPiece
                   selectedGear={gear}
-                  possibleGearTypes={gearTypes}
                   showGearOCRButton={false}
                   onGearTypeChange={setGearType}
                   onGearStarsChange={setGearStars}

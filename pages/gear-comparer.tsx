@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useAtom } from 'jotai';
-import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -44,16 +43,9 @@ import {
   otherGearElementalDamageAtom,
 } from '../src/features/gear-comparer/atoms/stat-values';
 import { useGear } from '../src/hooks/useGear';
-import { GearType } from '../src/models/gear-type';
 import { gearCalculationService } from '../src/services/gear-calculation-service';
-import { gearTypeService } from '../src/services/gear-type-service';
-import { statTypeService } from '../src/services/stat-type-service';
 
-interface GearComparerProps {
-  gearTypes: GearType[];
-}
-
-export default function GearComparer({ gearTypes }: GearComparerProps) {
+export default function GearComparer() {
   const {
     gear: gearA,
     setGear: setGearA,
@@ -187,7 +179,6 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
         <Grid container spacing={3} mb={3}>
           <Grid xs={12} md={6}>
             <GearPiece
-              possibleGearTypes={gearTypes}
               selectedGear={gearA}
               showGearOCRButton
               onGearChange={setGearA}
@@ -199,7 +190,6 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
           </Grid>
           <Grid xs={12} md={6}>
             <GearPiece
-              possibleGearTypes={gearTypes}
               selectedGear={gearB}
               showGearOCRButton
               onGearChange={setGearB}
@@ -553,13 +543,3 @@ export default function GearComparer({ gearTypes }: GearComparerProps) {
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps<GearComparerProps> = async () => {
-  const gearTypes = gearTypeService.getAllGearTypes(statTypeService);
-
-  return {
-    props: {
-      gearTypes,
-    },
-  };
-};

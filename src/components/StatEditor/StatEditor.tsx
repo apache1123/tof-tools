@@ -1,6 +1,5 @@
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { RandomStatType } from '../../models/random-stat-type';
 import { Stat } from '../../models/stat';
 import { StatType } from '../../models/stat-type';
 import { NumericInput } from '../NumericInput/NumericInput';
@@ -52,17 +51,4 @@ export const StatEditor = ({
       </Grid>
     </Grid>
   );
-};
-
-export interface RandomStatEditorProps
-  extends Omit<StatEditorProps, 'onStatTypeChange'> {
-  possibleStatTypes: RandomStatType[];
-  onStatTypeChange(value: RandomStatType): void;
-}
-
-export const RandomStatEditor = (props: RandomStatEditorProps) => {
-  // TODO: Fix this
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return <StatEditor {...props} />;
 };
