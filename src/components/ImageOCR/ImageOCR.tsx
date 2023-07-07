@@ -2,8 +2,8 @@ import { useOCR } from '../../hooks/useOCR';
 import { ImageSelect } from '../ImageSelect/ImageSelect';
 
 export interface ImageOCRProps {
-  onOCRTextChange?(text: string);
-  onImageURLChange?(imageURL: string);
+  onOCRTextChange?(text: string): void;
+  onImageURLChange?(imageURL: string): void;
 }
 
 export const ImageOCR = ({
@@ -15,12 +15,14 @@ export const ImageOCR = ({
   const handleSelectedImageURLChange = (imageURL: string) => {
     if (onImageURLChange) onImageURLChange(imageURL);
 
-    if (imageURL && ocrWorkerRef.current) {
+    if (imageURL) {
       (async () => {
-        const {
-          data: { text },
-        } = await ocrWorkerRef.current.recognize(imageURL);
-        if (onOCRTextChange) onOCRTextChange(text);
+        if (ocrWorkerRef.current) {
+          const {
+            data: { text },
+          } = await ocrWorkerRef.current.recognize(imageURL);
+          if (onOCRTextChange) onOCRTextChange(text);
+        }
       })();
     }
   };

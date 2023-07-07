@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { StatType } from '../../models/stat-type';
+import type { StatType } from '../../models/stat-type';
 import { StatTypeSelector } from './StatSelector';
 
 const meta: Meta<typeof StatTypeSelector> = {
@@ -13,9 +13,9 @@ export default meta;
 type Story = StoryObj<typeof StatTypeSelector>;
 
 const statTypes = [
-  { name: 'HP' },
-  { name: 'Attack' },
-  { name: 'Resistance' },
+  { id: 'HP' },
+  { id: 'Attack' },
+  { id: 'Resistance' },
 ] as StatType[];
 
 export const Empty: Story = {

@@ -1,12 +1,20 @@
-import { RandomStatType } from './random-stat-type';
+import { statTypesLookup } from '../constants/stat-types';
+import type { StatName, StatType } from './stat-type';
 
 export interface GearType {
-  name: GearName;
+  id: GearName;
+  displayName: string;
   // The name used in-game, used to OCR match.
   inGameName: string;
   numberOfRandomStats: number;
-  possibleRandomStatTypes: RandomStatType[];
+  possibleRandomStatTypeIds: StatName[];
   version: GearVersion;
+}
+
+export function getPossibleRandomStatTypes(gearType: GearType): StatType[] {
+  return gearType.possibleRandomStatTypeIds.map(
+    (id) => statTypesLookup.byId[id]
+  );
 }
 
 export enum GearName {

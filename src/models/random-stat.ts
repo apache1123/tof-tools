@@ -1,10 +1,38 @@
-import { RandomStatType } from './random-stat-type';
-import { Stat } from './stat';
+import { statTypesLookup } from '../constants/stat-types';
+import type { StatName, StatType } from './stat-type';
 
-export interface RandomStat extends Stat {
-  type: RandomStatType;
+export interface RandomStat {
+  typeId: StatName;
+  value: number;
 }
 
-export function newEmptyRandomStat(): RandomStat {
-  return { type: null, value: null };
+export function newRandomStat(type: StatType): RandomStat {
+  const randomStat = {} as RandomStat;
+  setType(randomStat, type);
+  return randomStat;
+}
+
+export function copyRandomStat(
+  fromRandomStat: RandomStat,
+  toRandomStat: RandomStat
+) {
+  setType(toRandomStat, getType(fromRandomStat));
+  setValue(toRandomStat, fromRandomStat.value);
+}
+
+export function getType(randomStat: RandomStat) {
+  return statTypesLookup.byId[randomStat.typeId];
+}
+export function setType(randomStat: RandomStat, type: StatType) {
+  randomStat.typeId = type.id;
+  resetValueToDefault(randomStat);
+}
+
+export function setValue(randomStat: RandomStat, value: number) {
+  randomStat.value = value;
+}
+
+export function resetValueToDefault(randomStat: RandomStat) {
+  const type = getType(randomStat);
+  randomStat.value = type.randomStatDefaultValue;
 }

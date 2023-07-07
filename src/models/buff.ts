@@ -1,5 +1,6 @@
 export interface Buff {
-  name: string;
+  id: string;
+  displayName: string;
   value: number;
   description?: string;
 }

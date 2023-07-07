@@ -53,12 +53,13 @@ export function RandomSticker() {
 
   useEffect(() => {
     randomImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const imagePath = `/stickers/${image}`;
 
   return (
-    <IconButton onClick={(event) => randomImage()}>
+    <IconButton onClick={() => randomImage()}>
       {image && <Image src={imagePath} alt={image} width={240} height={240} />}
     </IconButton>
   );

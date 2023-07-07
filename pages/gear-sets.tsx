@@ -1,12 +1,8 @@
 import { Container } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { GetStaticProps } from 'next';
 import Head from 'next/head';
 
 import { RandomSticker } from '../src/components/RandomSticker/RandomSticker';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface GearSetsProps {}
 
 export default function GearSets() {
   return (
@@ -30,9 +26,3 @@ export default function GearSets() {
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps<GearSetsProps> = async () => {
-  return {
-    props: {},
-  };
-};

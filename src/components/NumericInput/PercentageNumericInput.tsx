@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import { NumericInput, NumericInputProps } from './NumericInput';
+import type { NumericInputProps } from './NumericInput';
+import { NumericInput } from './NumericInput';
 
 export type PercentageNumericInputProps = NumericInputProps;
 
@@ -10,12 +11,12 @@ export const PercentageNumericInput = ({
   ...others
 }: PercentageNumericInputProps) => {
   const handleChange = (value: number) => {
-    onChange(BigNumber(value).dividedBy(100).toNumber());
+    if (onChange) onChange(BigNumber(value).dividedBy(100).toNumber());
   };
   return (
     <NumericInput
       {...others}
-      value={BigNumber(value).multipliedBy(100).toNumber()}
+      value={value ? BigNumber(value).multipliedBy(100).toNumber() : undefined}
       onChange={handleChange}
       suffix="%"
     />

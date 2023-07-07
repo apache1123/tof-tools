@@ -7,8 +7,8 @@ import Uploady, { useBatchAddListener } from '@rpldy/uploady';
 import { forwardRef, Fragment, useEffect, useRef } from 'react';
 
 export interface ImageSelectProps {
-  onSelectedImageChange?(image: File);
-  onSelectedImageURLChange?(imageURL: string);
+  onSelectedImageChange?(image: File): void;
+  onSelectedImageURLChange?(imageURL: string): void;
 }
 
 const UploadButton = asUploadButton(

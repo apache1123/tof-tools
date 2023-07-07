@@ -1,67 +1,58 @@
-import { GearType } from './gear-type';
-import { newEmptyRandomStat, RandomStat } from './random-stat';
-import { RandomStatType } from './random-stat-type';
+import { nanoid } from 'nanoid';
+
+import { maxStars } from '../constants/gear';
+import { gearTypesLookup } from '../constants/gear-types';
+import type { GearName, GearType } from './gear-type';
+import {
+  copyRandomStat,
+  getType as getRandomStatType,
+  newRandomStat,
+  type RandomStat,
+} from './random-stat';
 
 export interface Gear {
-  type: GearType;
+  id: string;
+  typeId: GearName;
   stars: number;
-  randomStats: RandomStat[];
+  randomStats: (RandomStat | undefined)[];
 }
 
-const maxStars = 5;
-
-export function newEmptyGear(): Gear {
-  return { type: undefined, stars: undefined, randomStats: [] };
+export function newGear(type: GearType) {
+  const gear = { id: nanoid(), stars: 0, randomStats: [] } as unknown as Gear;
+  setType(gear, type);
+  return gear;
 }
 
-export function setGearType(gear: Gear, type: GearType) {
-  const numberOfRandomStats = type?.numberOfRandomStats ?? 0;
-  const randomStats = [...Array(numberOfRandomStats)].map(() =>
-    newEmptyRandomStat()
-  );
+// Copy all gear properties over except for the id
+export function copyGear(fromGear: Gear, toGear: Gear) {
+  setType(toGear, getType(fromGear));
+  setStars(toGear, fromGear.stars);
+  fromGear.randomStats.forEach((fromRandomStat, index) => {
+    if (fromRandomStat) {
+      if (toGear.randomStats[index]) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        copyRandomStat(fromRandomStat, toGear.randomStats[index]!);
+      } else {
+        const newStat = newRandomStat(getRandomStatType(fromRandomStat));
+        copyRandomStat(fromRandomStat, newStat);
+        toGear.randomStats[index] = newStat;
+      }
+    }
+  });
+}
 
-  gear.type = type;
+export function getType(gear: Gear) {
+  return gearTypesLookup.byId[gear.typeId];
+}
+export function setType(gear: Gear, type: GearType) {
+  gear.typeId = type.id;
+
+  const randomStats = [...Array(type.numberOfRandomStats)].map(() => undefined);
   gear.randomStats = randomStats;
 }
 
-export function setGearStars(gear: Gear, stars: number) {
-  if (!stars) {
-    gear.stars = undefined;
-  } else if (stars < 0 || stars > maxStars) {
-    return;
-  } else {
+export function setStars(gear: Gear, stars: number) {
+  if (stars >= 0 && stars <= maxStars) {
     gear.stars = stars;
   }
-}
-
-export function getGearRandomStat(gear: Gear, randomStatIndex: number) {
-  const randomStat = gear.randomStats[randomStatIndex];
-  return randomStat;
-}
-
-export function setGearRandomStatType(
-  gear: Gear,
-  randomStatIndex: number,
-  statType: RandomStatType
-) {
-  const randomStat = getGearRandomStat(gear, randomStatIndex);
-  randomStat.type = statType;
-  resetGearRandomStatDefaultValue(gear, randomStatIndex);
-}
-
-export function setGearRandomStatValue(
-  gear: Gear,
-  randomStatIndex: number,
-  value: number
-) {
-  const randomStat = getGearRandomStat(gear, randomStatIndex);
-  randomStat.value = value;
-}
-
-export function resetGearRandomStatDefaultValue(
-  gear: Gear,
-  randomStatIndex: number
-) {
-  const randomStat = getGearRandomStat(gear, randomStatIndex);
-  randomStat.value = randomStat.type?.defaultValue ?? 0;
 }
