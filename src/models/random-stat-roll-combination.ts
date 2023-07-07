@@ -1,6 +1,6 @@
 export interface RollCombination {
   numberOfRolls: number;
-  rollStrength: number;
+  rollStrength: number | undefined;
 }
 
 export function zeroRollCombination(): RollCombination {

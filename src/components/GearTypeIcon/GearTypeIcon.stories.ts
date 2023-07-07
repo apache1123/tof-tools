@@ -14,7 +14,7 @@ type Story = StoryObj<typeof GearTypeIcon>;
 
 export const Unknown: Story = {
   args: {
-    gearName: null,
+    gearName: undefined,
   },
 };
 

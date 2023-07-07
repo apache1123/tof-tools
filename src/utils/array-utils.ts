@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+
 // https://stackoverflow.com/a/15310051
 export function cartesian(args) {
   const r = [],

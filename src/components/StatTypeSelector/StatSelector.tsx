@@ -1,33 +1,38 @@
 import { Autocomplete, TextField } from '@mui/material';
+import type { SyntheticEvent } from 'react';
 
-import { StatType } from '../../models/stat-type';
+import type { StatType } from '../../models/stat-type';
 
 export interface StatTypeSelectorProps {
   possibleStatTypes: StatType[];
-  selectedStatType?: StatType;
+  selectedStatType?: StatType | undefined;
   onChange?: (value: StatType) => unknown;
+  disabled?: boolean;
 }
 
 export const StatTypeSelector = ({
   possibleStatTypes,
-  selectedStatType = null,
+  selectedStatType,
   onChange,
+  disabled,
 }: StatTypeSelectorProps) => {
-  const handleChange = (_, value: StatType) => {
-    onChange(value);
+  const handleChange = (event: SyntheticEvent, value: StatType) => {
+    if (onChange) onChange(value);
   };
   return (
     <Autocomplete
       options={possibleStatTypes}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.id}
       renderInput={(params) => (
         <TextField {...params} label="Stat" variant="standard" />
       )}
       value={selectedStatType}
       onChange={handleChange}
-      isOptionEqualToValue={(option, value) => option.name === value.name}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      disableClearable
       size="small"
       fullWidth
+      disabled={disabled}
     />
   );
 };

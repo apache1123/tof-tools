@@ -8,10 +8,15 @@ module.exports = {
     'next/core-web-vitals',
   ],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+  },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   root: true,
   rules: {
     '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/consistent-type-exports': 'error',
+    '@typescript-eslint/consistent-type-imports': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'no-console': 'error',

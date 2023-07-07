@@ -1,16 +1,17 @@
+import type {
+  SelectChangeEvent} from '@mui/material';
 import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select,
-  SelectChangeEvent,
+  Select
 } from '@mui/material';
 
 import { ElementalType } from '../../models/stat-type';
 
 export interface ElementalTypeSelectorProps {
-  elementalType: ElementalType;
-  onElementalTypeChange?(value: ElementalType);
+  elementalType: ElementalType | undefined;
+  onElementalTypeChange?(value: ElementalType): void;
   label?: string;
 }
 

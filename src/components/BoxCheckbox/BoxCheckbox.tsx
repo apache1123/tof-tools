@@ -1,9 +1,9 @@
 import { Checkbox, FormControlLabel, Paper, Typography } from '@mui/material';
-import { ChangeEvent, ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 
 export interface BoxCheckboxProps {
   isChecked: boolean;
-  onIsCheckedChange?(isChecked: boolean);
+  onIsCheckedChange?(isChecked: boolean): void;
   title?: ReactNode;
   subtitle?: ReactNode;
   additionalSelector?: ReactNode;

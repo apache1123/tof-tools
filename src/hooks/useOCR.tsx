@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import Tesseract, { createWorker } from 'tesseract.js';
+import type Tesseract from 'tesseract.js';
+import { createWorker } from 'tesseract.js';
 
 export const useOCR = () => {
   const worker = useRef<Tesseract.Worker>();

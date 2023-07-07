@@ -1,10 +1,10 @@
 import QuestionMark from '@mui/icons-material/QuestionMark';
 import Image from 'next/image';
 
-import { StatType } from '../../models/stat-type';
+import type { StatType } from '../../models/stat-type';
 
 interface StatTypeIconProps {
-  statType: StatType;
+  statType: StatType | undefined;
   size?: number;
 }
 

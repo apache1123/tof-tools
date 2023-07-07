@@ -1,10 +1,10 @@
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import Image from 'next/image';
 
-import { GearName } from '../../models/gear-type';
+import type { GearName } from '../../models/gear-type';
 
 export interface GearTypeIconProps {
-  gearName: GearName;
+  gearName: GearName | undefined;
   size?: number;
 }
 
