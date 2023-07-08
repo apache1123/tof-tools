@@ -1,10 +1,10 @@
-import { Button, Modal, Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import pluralize from 'pluralize';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { modalStyle } from '../components/Modal/Modal';
+import { ButtonModal } from '../components/ButtonModal/ButtonModal';
 import { maxNumOfRandomStatRolls } from '../constants/gear';
 import type { Gear } from '../models/gear';
 import type {
@@ -29,43 +29,30 @@ export const GearRandomStatsRollsDetails = ({
     gearSnap as Gear
   );
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
-    <>
-      <Button onClick={handleOpen}>Random stats rolls details</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Paper sx={modalStyle} elevation={0}>
-          {randomStatRollCombinations.map((x) => (
-            <Fragment key={x.stars}>
-              <Typography variant="h6">For a {x.stars} star gear:</Typography>
-              <ul>
-                {x.randomStatRollCombinations.map((y) => (
-                  <li key={y.randomStatId}>
-                    <Typography>
-                      <b>{`${y.randomStatId}: `}</b>
-                      {pluralize('roll', y.rollCombination.numberOfRolls, true)}
-                      {!!y.rollCombination.rollStrength &&
-                        `, strength: ${y.rollCombination.rollStrength.toLocaleString(
-                          'en',
-                          { style: 'percent' }
-                        )}`}
-                    </Typography>
-                  </li>
-                ))}
-              </ul>
-            </Fragment>
-          ))}
-        </Paper>
-      </Modal>
-    </>
+    <ButtonModal
+      buttonText="Random stats rolls details"
+      modalContent={randomStatRollCombinations.map((x) => (
+        <Fragment key={x.stars}>
+          <Typography variant="h6">For a {x.stars} star gear:</Typography>
+          <ul>
+            {x.randomStatRollCombinations.map((y) => (
+              <li key={y.randomStatId}>
+                <Typography>
+                  <b>{`${y.randomStatId}: `}</b>
+                  {pluralize('roll', y.rollCombination.numberOfRolls, true)}
+                  {!!y.rollCombination.rollStrength &&
+                    `, strength: ${y.rollCombination.rollStrength.toLocaleString(
+                      'en',
+                      { style: 'percent' }
+                    )}`}
+                </Typography>
+              </li>
+            ))}
+          </ul>
+        </Fragment>
+      ))}
+    />
   );
 };
 
