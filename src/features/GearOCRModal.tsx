@@ -1,12 +1,12 @@
-import { Box, Button, Modal, Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import BigNumber from 'bignumber.js';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
+import { ButtonModal } from '../components/ButtonModal/ButtonModal';
 import { ImageOCR } from '../components/ImageOCR/ImageOCR';
-import { modalStyle } from '../components/Modal/Modal';
 import { goldGearNamePrefix, randomStatsSectionTitle } from '../constants/gear';
 import { gearTypesLookup } from '../constants/gear-types';
 import { statTypesLookup } from '../constants/stat-types';
@@ -34,18 +34,6 @@ export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
   const { gear } = ocrTempGearStore;
   const { gear: gearSnap } = useSnapshot(ocrTempGearStore);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    setImageURL(undefined);
-    removeOCRTempGear();
-  };
-  const handleConfirm = () => {
-    if (gear && onFinalizeGear) onFinalizeGear(gear);
-    handleClose();
-  };
-
   const [imageURL, setImageURL] = useState<string>();
   const handleImageURLChange = (imageURL: string) => {
     setImageURL(imageURL);
@@ -56,16 +44,19 @@ export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
     if (ocrGear) setOCRTempGear(ocrGear);
   };
 
+  const handleClose = () => {
+    setImageURL(undefined);
+    removeOCRTempGear();
+  };
+  const handleConfirm = () => {
+    if (gear && onFinalizeGear) onFinalizeGear(gear);
+  };
+
   return (
-    <>
-      <Button onClick={handleOpen}>Upload gear</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Paper sx={modalStyle} elevation={0}>
+    <ButtonModal
+      buttonText="Upload gear"
+      modalContent={
+        <>
           <Grid container>
             <Grid xs></Grid>
             <Grid
@@ -107,61 +98,33 @@ export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
               </Grid>
             )}
           </Grid>
-
-          <Grid container>
-            <Grid xs></Grid>
-            <Grid xs={12} sm="auto">
-              <Button
-                onClick={handleConfirm}
-                disabled={!imageURL}
-                variant="contained"
-              >
-                Confirm
-              </Button>
-              <Button onClick={handleClose} variant="outlined" sx={{ ml: 1 }}>
-                Cancel
-              </Button>
-            </Grid>
-            <Grid xs></Grid>
-          </Grid>
-        </Paper>
-      </Modal>
-    </>
+        </>
+      }
+      showConfirm
+      showCancel
+      isConfirmDisabled={!gearSnap}
+      onConfirm={handleConfirm}
+      onClose={handleClose}
+    />
   );
 };
 
 function ExampleScreenshotModal() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
-    <>
-      <Button
-        onClick={handleOpen}
-        variant="text"
-        sx={{ textTransform: 'Initial', p: 0 }}
-      >
-        Example
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Paper sx={modalStyle} elevation={0}>
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Image
-              src="/ocr_screenshot_example.png"
-              alt="screenshot-example"
-              width={350}
-              height={450}
-            />
-          </Box>
-        </Paper>
-      </Modal>
-    </>
+    <ButtonModal
+      buttonText="Example"
+      buttonSx={{ textTransform: 'initial', p: 0 }}
+      modalContent={
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Image
+            src="/ocr_screenshot_example.png"
+            alt="screenshot-example"
+            width={350}
+            height={450}
+          />
+        </Box>
+      }
+    />
   );
 }
 
