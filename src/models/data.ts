@@ -1,6 +1,6 @@
-export type DataById<T> = Record<string, T>;
-export type DataAllIds = string[];
-export interface Data<T> {
-  byId: DataById<T>;
-  allIds: DataAllIds;
+export type DataById<T extends string | number, U> = Record<T, U>;
+export type DataAllIds<T extends string | number> = T[];
+export interface Data<T extends string | number, U> {
+  byId: DataById<T, U>;
+  allIds: DataAllIds<T>;
 }

@@ -7,7 +7,7 @@ enum Id {
   Crow2pc = 'Crow 2pc',
 }
 
-export const matrixCritDamageBuffsLookup: Data<MatrixBuff> = {
+export const matrixCritDamageBuffsLookup: Data<Id, MatrixBuff> = {
   allIds: [Id.Fenrir2pc, Id.Annabella4pc, Id.Crow2pc],
   byId: {
     [Id.Fenrir2pc]: {

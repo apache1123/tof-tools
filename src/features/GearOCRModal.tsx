@@ -1,3 +1,4 @@
+import UploadIcon from '@mui/icons-material/Upload';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import BigNumber from 'bignumber.js';
@@ -100,6 +101,7 @@ export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
           </Grid>
         </>
       }
+      iconButtonIcon={<UploadIcon />}
       showConfirm
       showCancel
       isConfirmDisabled={!gearSnap}

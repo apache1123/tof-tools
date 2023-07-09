@@ -2,7 +2,7 @@ import type { Data } from '../models/data';
 import type { StatType } from '../models/stat-type';
 import { ElementalType, StatName, StatRole } from '../models/stat-type';
 
-export const statTypesLookup: Data<StatType> = {
+export const statTypesLookup: Data<StatName, StatType> = {
   allIds: [
     StatName.AlteredAttack,
     StatName.AlteredResistance,

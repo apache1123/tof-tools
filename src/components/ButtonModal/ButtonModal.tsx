@@ -1,5 +1,12 @@
 import type { Theme } from '@mui/material';
-import { Button, Modal, Paper, type SxProps } from '@mui/material';
+import {
+  Button,
+  IconButton,
+  Modal,
+  Paper,
+  type SxProps,
+  Tooltip,
+} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
@@ -17,13 +24,14 @@ const modalStyle: SxProps = {
 };
 
 interface ButtonModal {
-  buttonText: ReactNode;
-  modalContent: ReactNode;
+  buttonText?: ReactNode;
+  modalContent?: ReactNode;
   showConfirm?: boolean;
   showCancel?: boolean;
   isConfirmDisabled?: boolean;
   onConfirm?(): void;
   onClose?(): void;
+  iconButtonIcon?: ReactNode;
   buttonSx?: SxProps<Theme>;
   ariaModalTitle?: string;
   ariaModalDescription?: string;
@@ -37,6 +45,7 @@ export function ButtonModal({
   isConfirmDisabled,
   onConfirm,
   onClose,
+  iconButtonIcon,
   buttonSx,
   ariaModalTitle = 'modal-title',
   ariaModalDescription = 'modal-description',
@@ -55,9 +64,17 @@ export function ButtonModal({
 
   return (
     <>
-      <Button onClick={handleOpen} variant="text" sx={buttonSx}>
-        {buttonText}
-      </Button>
+      {iconButtonIcon ? (
+        <Tooltip title={buttonText} placement="right">
+          <IconButton onClick={handleOpen} color="primary">
+            {iconButtonIcon}
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Button onClick={handleOpen} variant="text" sx={buttonSx}>
+          {buttonText}
+        </Button>
+      )}
       <Modal
         open={open}
         onClose={handleClose}

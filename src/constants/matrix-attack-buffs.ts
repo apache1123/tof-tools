@@ -12,7 +12,7 @@ enum Id {
   Nemesis2pc = 'Nemesis 2pc',
 }
 
-export const matrixAttackBuffsLookup: Data<MatrixBuff> = {
+export const matrixAttackBuffsLookup: Data<Id, MatrixBuff> = {
   allIds: [
     Id.Rubilia2pc,
     Id.Fiona2pc,

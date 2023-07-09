@@ -1,27 +1,24 @@
 import { Container } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
 import Head from 'next/head';
 
-import { RandomSticker } from '../src/components/RandomSticker/RandomSticker';
+import { GearSetsContainer } from '../src/features/gear-sets/containers/GearSetsContainer';
+import {
+  gearSetsStore,
+  gearSetsStoreKey,
+} from '../src/features/gear-sets/stores/gear-sets';
+import { useLocalStoragePersistence } from '../src/stores/hooks/useLocalStoragePersistence';
 
 export default function GearSets() {
+  useLocalStoragePersistence(gearSetsStore, gearSetsStoreKey);
+
   return (
     <>
       <Head>
         <title>ToF Gear Sets</title>
       </Head>
 
-      <Container maxWidth="lg" sx={{ p: 3 }}>
-        <Grid container>
-          <Grid
-            xs={12}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <RandomSticker />
-          </Grid>
-        </Grid>
+      <Container maxWidth="xl" sx={{ p: 3 }}>
+        <GearSetsContainer />
       </Container>
     </>
   );
