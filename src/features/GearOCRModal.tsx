@@ -2,7 +2,9 @@ import UploadIcon from '@mui/icons-material/Upload';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import BigNumber from 'bignumber.js';
+import a from 'indefinite';
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
@@ -12,7 +14,7 @@ import { goldGearNamePrefix, randomStatsSectionTitle } from '../constants/gear';
 import { gearTypesLookup } from '../constants/gear-types';
 import { statTypesLookup } from '../constants/stat-types';
 import { type Gear, newGear } from '../models/gear';
-import type { GearType } from '../models/gear-type';
+import type { GearName, GearType } from '../models/gear-type';
 import { newRandomStat, setValue } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
 import {
@@ -29,9 +31,21 @@ import { GearPiece } from './GearPiece';
 
 export interface GearOCRModalProps {
   onFinalizeGear?(gear: Gear): void;
+  enforceGearType?: GearName;
 }
 
-export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
+const unableToParseGearTypeError = () => (
+  <>
+    Unable to get gear type from image. <ExampleScreenshotModal />
+  </>
+);
+const incorrectGearTypeError = (gearTypeId: GearName) =>
+  `Please choose ${a(gearTypeId)}`;
+
+export const GearOCRModal = ({
+  onFinalizeGear,
+  enforceGearType,
+}: GearOCRModalProps) => {
   const { gear } = ocrTempGearStore;
   const { gear: gearSnap } = useSnapshot(ocrTempGearStore);
 
@@ -40,14 +54,28 @@ export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
     setImageURL(imageURL);
   };
 
+  const [errorMessage, setErrorMessage] = useState<ReactNode>();
+
   const handleOCRTextChange = (text: string) => {
+    removeOCRTempGear();
+    setErrorMessage(undefined);
+
     const ocrGear = getGearFromOCR(text);
-    if (ocrGear) setOCRTempGear(ocrGear);
+    if (ocrGear) {
+      if (enforceGearType && ocrGear.typeId !== enforceGearType) {
+        setErrorMessage(incorrectGearTypeError(enforceGearType));
+        return;
+      }
+      setOCRTempGear(ocrGear);
+    } else {
+      setErrorMessage(unableToParseGearTypeError());
+    }
   };
 
   const handleClose = () => {
     setImageURL(undefined);
     removeOCRTempGear();
+    setErrorMessage(undefined);
   };
   const handleConfirm = () => {
     if (gear && onFinalizeGear) onFinalizeGear(gear);
@@ -83,21 +111,36 @@ export const GearOCRModal = ({ onFinalizeGear }: GearOCRModalProps) => {
           </Box>
 
           <Grid container spacing={3} mb={3}>
-            {imageURL && (
-              <Grid xs={12} lg={6}>
+            <Grid xs={12} lg={6}>
+              {imageURL && (
+                // TODO: Fix this sizing
                 <Image
                   src={imageURL}
-                  width={300}
-                  height={380}
+                  width={240}
+                  height={300}
                   alt="uploaded-image-preview"
                 />
-              </Grid>
-            )}
-            {gearSnap && gear && (
-              <Grid xs={12} lg={6}>
+              )}
+            </Grid>
+            <Grid
+              xs={12}
+              lg={6}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              {errorMessage && (
+                <Box>
+                  <Typography color="error" textAlign="center">
+                    {errorMessage}
+                  </Typography>
+                </Box>
+              )}
+              {!errorMessage && gearSnap && gear && (
                 <GearPiece gear={gear} showGearOCRButton={false} />
-              </Grid>
-            )}
+              )}
+            </Grid>
           </Grid>
         </>
       }
