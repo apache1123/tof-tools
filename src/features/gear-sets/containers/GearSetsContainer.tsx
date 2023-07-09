@@ -28,7 +28,12 @@ export function GearSetsContainer() {
 
         return (
           <Grid key={gearTypeId} xs={12} sm={6} md={4} lg={3}>
-            <GearPiece gear={gear} showGearOCRButton showCompareGearButton />
+            <GearPiece
+              gear={gear}
+              showGearOCRButton
+              showCompareGearButton
+              disableGearTypeChange
+            />
           </Grid>
         );
       })}

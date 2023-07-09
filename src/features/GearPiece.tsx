@@ -33,12 +33,14 @@ export interface GearPieceProps {
   gear: Gear;
   showGearOCRButton?: boolean;
   showCompareGearButton?: boolean;
+  disableGearTypeChange?: boolean;
 }
 
 export const GearPiece = ({
   gear,
   showGearOCRButton,
   showCompareGearButton,
+  disableGearTypeChange,
 }: GearPieceProps) => {
   const gearSnap = useSnapshot(gear);
 
@@ -58,12 +60,13 @@ export const GearPiece = ({
   };
 
   return (
-    <Base
+    <Layout
       typeIcon={<GearTypeIcon gearName={gearType.id} size={70} />}
       typeSelector={
         <GearTypeSelector
           selectedGearType={gearType}
           onChange={(gearType) => setType(gear, gearType)}
+          disabled={disableGearTypeChange}
         />
       }
       starsSelector={
@@ -97,19 +100,27 @@ export const GearPiece = ({
           </Box>
         </>
       }
-      showGearOCRButton={!!showGearOCRButton}
       additionalActions={
-        showCompareGearButton && (
-          <Tooltip title="Compare gear" placement="right">
-            <IconButton onClick={handleCompareGear} color="primary">
-              <CompareArrowsIcon />
-            </IconButton>
-          </Tooltip>
-        )
+        <>
+          {showGearOCRButton && (
+            <GearOCRModal
+              onFinalizeGear={(replacementGear) => {
+                copyGear(replacementGear, gear);
+              }}
+              enforceGearType={
+                disableGearTypeChange ? gearSnap.typeId : undefined
+              }
+            />
+          )}
+          {showCompareGearButton && (
+            <Tooltip title="Compare gear" placement="right">
+              <IconButton onClick={handleCompareGear} color="primary">
+                <CompareArrowsIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+        </>
       }
-      onReplaceGear={(replacementGear) => {
-        copyGear(replacementGear, gear);
-      }}
     />
   );
 };
@@ -126,7 +137,7 @@ export const EmptyGearPiece = ({
   onReplaceGear,
 }: EmptyGearPieceProps) => {
   return (
-    <Base
+    <Layout
       typeIcon={<GearTypeIcon gearName={undefined} size={80} />}
       typeSelector={
         <GearTypeSelector
@@ -138,31 +149,31 @@ export const EmptyGearPiece = ({
       randomStats={[...Array(defaultNumOfRandomStats)].map((_, i) => (
         <DisabledStatEditor key={i} />
       ))}
-      showGearOCRButton={!!showGearOCRButton}
-      additionalActions={null}
-      onReplaceGear={(gear) => {
-        if (onReplaceGear) onReplaceGear(gear);
-      }}
+      additionalActions={
+        showGearOCRButton && (
+          <GearOCRModal
+            onFinalizeGear={(gear) => {
+              if (onReplaceGear) onReplaceGear(gear);
+            }}
+          />
+        )
+      }
     />
   );
 };
 
-function Base({
+function Layout({
   typeIcon,
   typeSelector,
   starsSelector,
   randomStats,
-  showGearOCRButton,
   additionalActions,
-  onReplaceGear,
 }: {
   typeIcon: ReactNode;
   typeSelector: ReactNode;
   starsSelector: ReactNode;
   randomStats: ReactNode;
-  showGearOCRButton: boolean;
   additionalActions: ReactNode;
-  onReplaceGear(gear: Gear): void;
 }) {
   return (
     <Paper sx={{ p: 2 }}>
@@ -182,7 +193,6 @@ function Base({
           </Box>
         </Grid>
         <Grid display="flex" flexDirection="column">
-          {showGearOCRButton && <GearOCRModal onFinalizeGear={onReplaceGear} />}
           {additionalActions}
         </Grid>
       </Grid>

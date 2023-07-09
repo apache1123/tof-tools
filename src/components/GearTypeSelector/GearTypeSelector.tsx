@@ -7,6 +7,7 @@ import type { GearType } from '../../models/gear-type';
 export interface GearTypeSelectorProps {
   selectedGearType: GearType | undefined;
   onChange(value: GearType): void;
+  disabled?: boolean;
 }
 
 const options = gearTypesLookup.allIds.map((id) => gearTypesLookup.byId[id]);
@@ -14,6 +15,7 @@ const options = gearTypesLookup.allIds.map((id) => gearTypesLookup.byId[id]);
 export const GearTypeSelector = ({
   selectedGearType,
   onChange,
+  disabled,
 }: GearTypeSelectorProps) => {
   const handleChange = (_: SyntheticEvent, value: GearType) => {
     onChange(value);
@@ -32,6 +34,7 @@ export const GearTypeSelector = ({
       disableClearable
       size="small"
       fullWidth
+      disabled={disabled}
     />
   );
 };
