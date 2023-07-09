@@ -39,7 +39,7 @@ const images: string[] = [
   '集体阵亡.png',
 ];
 
-export function RandomSticker() {
+export function RandomSticker({ size = 240 }: { size?: number }) {
   const [image, setImage] = useState<string>();
 
   const randomImage = () => {
@@ -60,7 +60,9 @@ export function RandomSticker() {
 
   return (
     <IconButton onClick={() => randomImage()}>
-      {image && <Image src={imagePath} alt={image} width={240} height={240} />}
+      {image && (
+        <Image src={imagePath} alt={image} width={size} height={size} />
+      )}
     </IconButton>
   );
 }

@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import * as React from 'react';
 
+import { RandomSticker } from '../RandomSticker/RandomSticker';
+
 const pages: { label: string; path: string }[] = [
   {
     label: 'Gear sets',
@@ -37,14 +39,16 @@ export function Navbar() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* Mobile */}
+        <Toolbar
+          disableGutters
+          sx={{ justifyContent: { xs: 'space-between' } }}
+        >
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <Link href="/" underline="none">
               <Logo />
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="menu"
@@ -83,7 +87,9 @@ export function Navbar() {
             </Menu>
           </Box>
 
-          {/* Desktop */}
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <Sticker />
+          </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
             <Link href="/" underline="none">
               <Logo />
@@ -102,6 +108,9 @@ export function Navbar() {
               </Button>
             ))}
           </Box>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Sticker />
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
@@ -110,4 +119,8 @@ export function Navbar() {
 
 function Logo() {
   return <Image src="/coco.png" alt="logo" width={50} height={50} priority />;
+}
+
+function Sticker() {
+  return <RandomSticker size={50} />;
 }
