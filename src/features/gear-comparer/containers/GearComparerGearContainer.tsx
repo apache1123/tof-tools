@@ -27,7 +27,7 @@ export function GearComparerGearContainer({
   };
 
   return gearSnap && gear ? (
-    <GearPiece gear={gear} showGearOCRButton />
+    <GearPiece gear={gear} showGearOCRButton showSaveGearButton />
   ) : (
     <EmptyGearPiece
       onGearTypeSelect={handleGearTypeSelect}

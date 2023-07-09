@@ -12,6 +12,18 @@ import {
   gearComparerGearsStore,
   gearComparerGearsStoreKey,
 } from '../src/features/gear-comparer/stores/gear-comparer-gear';
+import {
+  selectedBuffsStore,
+  selectedBuffsStoreKey,
+} from '../src/features/gear-comparer/stores/selected-buffs';
+import {
+  userStatsStore,
+  userStatsStoreKey,
+} from '../src/features/gear-comparer/stores/user-stats';
+import {
+  gearSetsStore,
+  gearSetsStoreKey,
+} from '../src/features/gear-sets/stores/gear-sets';
 import { useLocalStoragePersistence } from '../src/stores/hooks/useLocalStoragePersistence';
 import theme from '../src/theme';
 import Layout from './_layout';
@@ -24,7 +36,10 @@ export interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+  useLocalStoragePersistence(userStatsStore, userStatsStoreKey);
+  useLocalStoragePersistence(selectedBuffsStore, selectedBuffsStoreKey);
   useLocalStoragePersistence(gearComparerGearsStore, gearComparerGearsStoreKey);
+  useLocalStoragePersistence(gearSetsStore, gearSetsStoreKey);
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
