@@ -21,6 +21,7 @@ import {
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { newRandomStat } from '../models/random-stat';
+import { SaveGearModal } from './gear-comparer/SaveGearModal';
 import {
   gearComparerGearsStore,
   setGear,
@@ -34,6 +35,7 @@ export interface GearPieceProps {
   showGearOCRButton?: boolean;
   showCompareGearButton?: boolean;
   disableGearTypeChange?: boolean;
+  showSaveGearButton?: boolean;
 }
 
 export const GearPiece = ({
@@ -41,6 +43,7 @@ export const GearPiece = ({
   showGearOCRButton,
   showCompareGearButton,
   disableGearTypeChange,
+  showSaveGearButton,
 }: GearPieceProps) => {
   const gearSnap = useSnapshot(gear);
 
@@ -119,6 +122,7 @@ export const GearPiece = ({
               </IconButton>
             </Tooltip>
           )}
+          {showSaveGearButton && <SaveGearModal gear={gear} />}
         </>
       }
     />

@@ -13,6 +13,7 @@ export interface GearSetsStore {
 }
 
 const defaultGearSet = newGearSet();
+defaultGearSet.name = getDefaultGearSetName(defaultGearSet, 0);
 export const gearSetsStore = proxy<GearSetsStore>({
   gearSets: {
     allIds: [defaultGearSet.id],
@@ -39,4 +40,8 @@ export function setSelectedGearSetIndex(index: number) {
   if (gearSetsStore.gearSets.allIds[index]) {
     gearSetsStore.selectedGearSetIndex = index;
   }
+}
+
+export function getDefaultGearSetName(gearSet: GearSet, gearSetIndex: number) {
+  return `Set ${gearSetIndex + 1}`;
 }
