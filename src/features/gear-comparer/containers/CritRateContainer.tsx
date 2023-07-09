@@ -27,8 +27,8 @@ export function CritRateContainer() {
         Crit rate % buffs
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        This section is needed if you&apos;re comparing gear with crit related
-        stats and want to be accurate, otherwise don&apos;t bother
+        This section is only needed if you&apos;re comparing gear with crit
+        related stats and want to be accurate, otherwise don&apos;t bother
       </Typography>
 
       <Grid container spacing={2} mb={2}>

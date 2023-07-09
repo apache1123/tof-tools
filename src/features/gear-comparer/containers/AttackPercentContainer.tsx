@@ -32,8 +32,8 @@ export function AttackPercentContainer() {
         {elementalType ? `${elementalType} attack` : 'Attack'} % buffs
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        This section is needed if you&apos;re comparing gear with attack % stats
-        and want to be accurate, otherwise don&apos;t bother
+        This section is only needed if you&apos;re comparing gear with attack %
+        stats and want to be accurate, otherwise don&apos;t bother
       </Typography>
 
       <Grid container spacing={2} mb={2}>
