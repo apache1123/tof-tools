@@ -9,9 +9,9 @@ import { weaponCritRateBuffsLookup } from '../../../constants/weapon-crit-rate-b
 import type { Buff, MatrixBuff } from '../../../models/buff';
 import type { Data, DataById } from '../../../models/data';
 
-type SelectedWeaponBuffs = DataById<NonNullable<unknown>>;
+type SelectedWeaponBuffs = DataById<string, NonNullable<unknown>>;
 
-type SelectedMatrixBuffs = DataById<{ stars: number }>;
+type SelectedMatrixBuffs = DataById<string, { stars: number }>;
 
 export interface SelectedBuffsStore {
   weaponAttackBuffs: SelectedWeaponBuffs;
@@ -46,7 +46,7 @@ export const selectedBuffsStore = proxy<SelectedBuffsStore>({
       weaponCritRateBuffsLookup
     );
   },
-  get matrixCritRateBuffValues() {
+  get matrixCritRateBuffValues(): number[] {
     return getMatrixBuffValues(
       this.matrixCritRateBuffs,
       matrixCritRateBuffsLookup
@@ -116,7 +116,7 @@ function removeMatrixBuff(collection: SelectedMatrixBuffs, id: string) {
 
 function getWeaponBuffValues(
   selectedWeaponBuffs: SelectedWeaponBuffs,
-  buffsLookup: Data<Buff>
+  buffsLookup: Data<string, Buff>
 ) {
   return Object.keys(selectedWeaponBuffs).map(
     (id) => buffsLookup.byId[id]?.value ?? 0
@@ -124,7 +124,7 @@ function getWeaponBuffValues(
 }
 function getMatrixBuffValues(
   matrixBuffs: SelectedMatrixBuffs,
-  buffsLookup: Data<MatrixBuff>
+  buffsLookup: Data<string, MatrixBuff>
 ) {
   return Object.keys(matrixBuffs).map(
     (id) =>

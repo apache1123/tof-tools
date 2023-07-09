@@ -3,10 +3,6 @@ import Head from 'next/head';
 
 import { GearComparerContainer } from '../src/features/gear-comparer/containers/GearComparerContainer';
 import {
-  gearComparerGearsStore,
-  gearComparerGearsStoreKey,
-} from '../src/features/gear-comparer/stores/gear-comparer-gear';
-import {
   selectedBuffsStore,
   selectedBuffsStoreKey,
 } from '../src/features/gear-comparer/stores/selected-buffs';
@@ -19,7 +15,6 @@ import { useLocalStoragePersistence } from '../src/stores/hooks/useLocalStorageP
 export default function GearComparer() {
   useLocalStoragePersistence(userStatsStore, userStatsStoreKey);
   useLocalStoragePersistence(selectedBuffsStore, selectedBuffsStoreKey);
-  useLocalStoragePersistence(gearComparerGearsStore, gearComparerGearsStoreKey);
 
   return (
     <>

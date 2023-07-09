@@ -8,6 +8,11 @@ import Head from 'next/head';
 import * as React from 'react';
 
 import createEmotionCache from '../src/createEmotionCache';
+import {
+  gearComparerGearsStore,
+  gearComparerGearsStoreKey,
+} from '../src/features/gear-comparer/stores/gear-comparer-gear';
+import { useLocalStoragePersistence } from '../src/stores/hooks/useLocalStoragePersistence';
 import theme from '../src/theme';
 import Layout from './_layout';
 
@@ -19,6 +24,8 @@ export interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+  useLocalStoragePersistence(gearComparerGearsStore, gearComparerGearsStoreKey);
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <CacheProvider value={emotionCache}>

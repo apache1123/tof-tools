@@ -3,7 +3,7 @@ import type { GearType } from '../models/gear-type';
 import { GearName, GearVersion } from '../models/gear-type';
 import { StatName } from '../models/stat-type';
 
-export const gearTypesLookup: Data<GearType> = {
+export const gearTypesLookup: Data<GearName, GearType> = {
   allIds: [
     GearName.Helmet,
     GearName.Eyepiece,

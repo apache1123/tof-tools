@@ -6,7 +6,7 @@ enum Id {
   Annabella = 'Annabella',
 }
 
-export const weaponCritRateBuffsLookup: Data<Buff> = {
+export const weaponCritRateBuffsLookup: Data<Id, Buff> = {
   allIds: [Id.Fenrir6Star, Id.Annabella],
   byId: {
     [Id.Fenrir6Star]: {

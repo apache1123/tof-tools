@@ -16,7 +16,7 @@ enum Id {
   Nemesis6Star = 'Nemesis 6*',
 }
 
-export const weaponAttackBuffsLookup: Data<Buff> = {
+export const weaponAttackBuffsLookup: Data<Id, Buff> = {
   allIds: [
     Id.ElementalResonance,
     Id.AlteredResonance,
