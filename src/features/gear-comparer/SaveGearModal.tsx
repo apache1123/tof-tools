@@ -1,8 +1,8 @@
 import SaveIcon from '@mui/icons-material/Save';
 import { Box } from '@mui/material';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { ButtonModal } from '../../components/ButtonModal/ButtonModal';
+import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
 import type { Gear } from '../../models/gear';
 import { copyGear } from '../../models/gear';
@@ -18,6 +18,10 @@ export function SaveGearModal({ gear }: SaveGearModalProps) {
 
   const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar({});
 
+  const handleGearSetSelect = useCallback((gearSet: GearSet) => {
+    setSelectedGearSet(gearSet);
+  }, []);
+
   return (
     <>
       <ButtonModal
@@ -25,9 +29,7 @@ export function SaveGearModal({ gear }: SaveGearModalProps) {
         modalContent={
           <>
             <Box mb={1}>Save gear to gear set</Box>
-            <GearSetSelector
-              onGearSetSelect={(gearSet) => setSelectedGearSet(gearSet)}
-            />
+            <GearSetSelector onGearSetSelect={handleGearSetSelect} />
           </>
         }
         showConfirm

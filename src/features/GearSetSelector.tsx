@@ -24,8 +24,7 @@ export function GearSetSelector({ onGearSetSelect }: GearSetSelectorProps) {
     .map((id, index) => {
       const gearSet = gearSets.byId[id];
       if (gearSet) {
-        const name =
-          gearSet.name || getDefaultGearSetName(gearSet as GearSet, index);
+        const name = gearSet.name || getDefaultGearSetName(index);
         return { id: gearSet.id, name };
       }
     })

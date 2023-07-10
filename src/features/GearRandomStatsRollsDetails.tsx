@@ -4,7 +4,7 @@ import pluralize from 'pluralize';
 import { Fragment } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { ButtonModal } from '../components/ButtonModal/ButtonModal';
+import { ButtonModal } from '../components/Modal/ButtonModal';
 import { maxNumOfRandomStatRolls } from '../constants/gear';
 import type { Gear } from '../models/gear';
 import type {
@@ -31,7 +31,7 @@ export const GearRandomStatsRollsDetails = ({
 
   return (
     <ButtonModal
-      buttonText="Random stats rolls details"
+      buttonText="Roll details"
       modalContent={randomStatRollCombinations.map((x) => (
         <Fragment key={x.stars}>
           <Typography variant="h6">For a {x.stars} star gear:</Typography>
