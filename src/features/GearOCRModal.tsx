@@ -8,8 +8,8 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { ButtonModal } from '../components/ButtonModal/ButtonModal';
 import { ImageOCR } from '../components/ImageOCR/ImageOCR';
+import { ButtonModal } from '../components/Modal/ButtonModal';
 import { goldGearNamePrefix, randomStatsSectionTitle } from '../constants/gear';
 import { gearTypesLookup } from '../constants/gear-types';
 import { statTypesLookup } from '../constants/stat-types';

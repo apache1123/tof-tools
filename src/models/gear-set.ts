@@ -11,8 +11,8 @@ export interface GearSet {
   gearsByTypeId: DataById<GearName, Gear>;
 }
 
-export function newGearSet(): GearSet {
-  const gearSet = { id: nanoid(), name: '', gearsByTypeId: {} } as GearSet;
+export function newGearSet(name: string): GearSet {
+  const gearSet: GearSet = { id: nanoid(), name, gearsByTypeId: {} } as GearSet;
   populateAllEmptyGear(gearSet);
   return gearSet;
 }

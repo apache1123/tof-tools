@@ -10,10 +10,11 @@ export interface GearSetsStore {
   gearSets: Data<string, GearSet>;
   selectedGearSetIndex: number;
   get selectedGearSet(): GearSet | undefined;
+  get defaultNewGearSetName(): string;
 }
 
-const defaultGearSet = newGearSet();
-defaultGearSet.name = getDefaultGearSetName(defaultGearSet, 0);
+const defaultGearSetName = getDefaultGearSetName(0);
+const defaultGearSet = newGearSet(defaultGearSetName);
 export const gearSetsStore = proxy<GearSetsStore>({
   gearSets: {
     allIds: [defaultGearSet.id],
@@ -26,6 +27,9 @@ export const gearSetsStore = proxy<GearSetsStore>({
       return this.gearSets.byId[selectedGearSetId];
     }
     return undefined;
+  },
+  get defaultNewGearSetName() {
+    return getDefaultGearSetName(this.gearSets.allIds.length);
   },
 });
 devtools(gearSetsStore, { name: gearSetsStoreKey });
@@ -42,6 +46,6 @@ export function setSelectedGearSetIndex(index: number) {
   }
 }
 
-export function getDefaultGearSetName(gearSet: GearSet, gearSetIndex: number) {
+export function getDefaultGearSetName(gearSetIndex: number) {
   return `Set ${gearSetIndex + 1}`;
 }

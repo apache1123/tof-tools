@@ -29,7 +29,7 @@ const theme = createTheme({
       main: labels.teal[catppuccinFlavor].hex,
     },
     secondary: {
-      main: labels.lavender[catppuccinFlavor].hex,
+      main: labels.peach[catppuccinFlavor].hex,
     },
     success: {
       main: labels.green[catppuccinFlavor].hex,
