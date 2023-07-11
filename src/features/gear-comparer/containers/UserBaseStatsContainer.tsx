@@ -1,9 +1,10 @@
-import { Tooltip, Typography } from '@mui/material';
+import { Box, Tooltip, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
 import { NumericInput } from '../../../components/NumericInput/NumericInput';
+import { maxCharacterLevel } from '../../../constants/character-level';
 import {
   setCharacterLevel,
   setCritFlat,
@@ -74,6 +75,13 @@ export function UserBaseStatContainer() {
             variant="filled"
             value={characterLevel}
             onChange={setCharacterLevel}
+            helperText={
+              characterLevel !== maxCharacterLevel ? (
+                <Box sx={{ color: 'warning.main' }}>
+                  Current max character level is {maxCharacterLevel}
+                </Box>
+              ) : undefined
+            }
           />
         </Grid>
       </Grid>
