@@ -24,6 +24,10 @@ export function getGearByType(
   return gearSet.gearsByTypeId[typeId];
 }
 
+export function setName(gearSet: GearSet, name: string) {
+  gearSet.name = name;
+}
+
 function addGear(gearSet: GearSet, gear: Gear) {
   gearSet.gearsByTypeId[gear.typeId] = gear;
 }
