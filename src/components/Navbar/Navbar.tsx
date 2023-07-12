@@ -1,8 +1,7 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from '@mui/material';
+import { Link, Tab, Tabs } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -10,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import { RandomSticker } from '../RandomSticker/RandomSticker';
@@ -35,6 +35,8 @@ export function Navbar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const router = useRouter();
 
   return (
     <AppBar position="static">
@@ -78,8 +80,18 @@ export function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
-                  <Link href={page.path} underline="none">
+                <MenuItem
+                  key={page.label}
+                  onClick={handleCloseNavMenu}
+                  sx={{ px: 4, py: 2 }}
+                >
+                  <Link
+                    href={page.path}
+                    underline="none"
+                    color={
+                      page.path === router.pathname ? 'primary' : 'inherit'
+                    }
+                  >
                     <Typography textAlign="center">{page.label}</Typography>
                   </Link>
                 </MenuItem>
@@ -95,18 +107,17 @@ export function Navbar() {
               <Logo />
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.label}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <Link href={page.path} underline="none">
-                  {page.label}
-                </Link>
-              </Button>
-            ))}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 3 }}>
+            <Tabs value={router.pathname}>
+              {pages.map((page) => (
+                <Tab
+                  key={page.label}
+                  value={page.path}
+                  label={page.label}
+                  href={page.path}
+                />
+              ))}
+            </Tabs>
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Sticker />
