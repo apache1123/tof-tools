@@ -77,7 +77,7 @@ export function UserBaseStatContainer() {
             onChange={setCharacterLevel}
             helperText={
               characterLevel !== maxCharacterLevel ? (
-                <Box sx={{ color: 'warning.main' }}>
+                <Box component="span" sx={{ color: 'warning.main' }}>
                   Current max character level is {maxCharacterLevel}
                 </Box>
               ) : undefined
