@@ -9,6 +9,13 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1 # <https://github.com/patrickedqvist/wait-for-vercel-preview>
+        id: waitForDeploy
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 60
+
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -46,6 +53,8 @@ jobs:
 
       - name: Run Playwright tests
         run: pnpm exec playwright test
+        env:
+          BASE_URL: ${{ steps.waitForDeploy.outputs.url }}
 
       - uses: actions/upload-artifact@v3
         if: always()
