@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@catppuccin/palette": "^0.1.8",
@@ -35,6 +36,7 @@
     "valtio": "^1.10.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.36.0",
     "@storybook/addon-essentials": "7.0.18",
     "@storybook/addon-interactions": "7.0.18",
     "@storybook/addon-links": "7.0.18",
