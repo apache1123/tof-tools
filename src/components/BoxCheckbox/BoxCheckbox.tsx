@@ -1,4 +1,11 @@
-import { Checkbox, FormControlLabel, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Paper,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import type { ChangeEvent, ReactNode } from 'react';
 
 export interface BoxCheckboxProps {
@@ -6,6 +13,7 @@ export interface BoxCheckboxProps {
   onIsCheckedChange?(isChecked: boolean): void;
   title?: ReactNode;
   subtitle?: ReactNode;
+  info?: ReactNode;
   additionalSelector?: ReactNode;
 }
 
@@ -14,6 +22,7 @@ export function BoxCheckbox({
   onIsCheckedChange,
   title,
   subtitle,
+  info,
   additionalSelector,
 }: BoxCheckboxProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,14 +48,16 @@ export function BoxCheckbox({
           />
         }
         label={
-          <>
-            <Typography textAlign="center" gutterBottom>
-              {title}
-            </Typography>
-            <Typography textAlign="center" variant="caption" paragraph>
-              {subtitle}
-            </Typography>
-          </>
+          <Tooltip title={info} placement="top">
+            <Box>
+              <Typography textAlign="center" gutterBottom>
+                {title}
+              </Typography>
+              <Typography textAlign="center" variant="caption" paragraph>
+                {subtitle}
+              </Typography>
+            </Box>
+          </Tooltip>
         }
         labelPlacement="top"
       ></FormControlLabel>

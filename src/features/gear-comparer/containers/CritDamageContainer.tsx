@@ -40,7 +40,7 @@ export function CritDamageContainer() {
 
       <Grid container spacing={2}>
         {matrixCritDamageBuffsLookup.allIds.map((id) => {
-          const { displayName, starValues } =
+          const { displayName, starValues, description } =
             matrixCritDamageBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
@@ -55,6 +55,7 @@ export function CritDamageContainer() {
                     })
                   )
                   .join('/')}
+                info={description}
                 isChecked={id in matrixCritDamageBuffs}
                 onChange={(isChecked, stars) => {
                   if (isChecked) {

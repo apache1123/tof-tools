@@ -64,7 +64,8 @@ export function AttackPercentContainer() {
 
       <Grid container spacing={2}>
         {weaponAttackBuffsLookup.allIds.map((id) => {
-          const { displayName, value } = weaponAttackBuffsLookup.byId[id];
+          const { displayName, value, description } =
+            weaponAttackBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckbox
@@ -74,6 +75,7 @@ export function AttackPercentContainer() {
                   maximumFractionDigits: 1,
                   signDisplay: 'always',
                 })}
+                info={description}
                 isChecked={id in weaponAttackBuffs}
                 onIsCheckedChange={(checked) => {
                   if (checked) {
@@ -94,7 +96,8 @@ export function AttackPercentContainer() {
 
       <Grid container spacing={2}>
         {matrixAttackBuffsLookup.allIds.map((id) => {
-          const { displayName, starValues } = matrixAttackBuffsLookup.byId[id];
+          const { displayName, starValues, description } =
+            matrixAttackBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckboxWithStars
@@ -108,6 +111,7 @@ export function AttackPercentContainer() {
                     })
                   )
                   .join('/')}
+                info={description}
                 isChecked={id in matrixAttackBuffs}
                 onChange={(isChecked, stars) => {
                   if (isChecked) {

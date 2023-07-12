@@ -45,7 +45,8 @@ export function CritRateContainer() {
 
       <Grid container spacing={2}>
         {weaponCritRateBuffsLookup.allIds.map((id) => {
-          const { displayName, value } = weaponCritRateBuffsLookup.byId[id];
+          const { displayName, value, description } =
+            weaponCritRateBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckbox
@@ -55,6 +56,7 @@ export function CritRateContainer() {
                   maximumFractionDigits: 1,
                   signDisplay: 'always',
                 })}
+                info={description}
                 isChecked={id in weaponCritRateBuffs}
                 onIsCheckedChange={(isChecked) => {
                   if (isChecked) {
@@ -68,7 +70,7 @@ export function CritRateContainer() {
           );
         })}
         {matrixCritRateBuffsLookup.allIds.map((id) => {
-          const { displayName, starValues } =
+          const { displayName, starValues, description } =
             matrixCritRateBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
@@ -83,6 +85,7 @@ export function CritRateContainer() {
                     })
                   )
                   .join('/')}
+                info={description}
                 isChecked={id in matrixCritRateBuffs}
                 onChange={(isChecked, stars) => {
                   if (isChecked) {
