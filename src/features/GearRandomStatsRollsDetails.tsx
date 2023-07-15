@@ -32,8 +32,8 @@ export const GearRandomStatsRollsDetails = ({
   return (
     <ButtonModal
       buttonText="Roll details"
-      modalContent={randomStatRollCombinations.map((x) => (
-        <Fragment key={x.stars}>
+      modalContent={randomStatRollCombinations.map((x, i) => (
+        <Fragment key={i}>
           <Typography variant="h6">For a {x.stars} star gear:</Typography>
           <ul>
             {x.randomStatRollCombinations.map((y) => (

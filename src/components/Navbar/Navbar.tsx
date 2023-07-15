@@ -108,7 +108,13 @@ export function Navbar() {
             </Link>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 3 }}>
-            <Tabs value={router.pathname}>
+            <Tabs
+              value={
+                pages.find((page) => page.path === router.pathname)
+                  ? router.pathname
+                  : false
+              }
+            >
               {pages.map((page) => (
                 <Tab
                   key={page.label}
