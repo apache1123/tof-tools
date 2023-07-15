@@ -4,7 +4,11 @@ import { useSnapshot } from 'valtio';
 
 import { StyledModal } from '../../components/Modal/StyledModal';
 import { newGearSet } from '../../models/gear-set';
-import { addGearSet, gearSetsStore } from './stores/gear-sets';
+import {
+  addGearSet,
+  gearSetsStore,
+  setSelectedGearSetIndex,
+} from './stores/gear-sets';
 
 export interface AddGearSetModalProps {
   open: boolean;
@@ -40,6 +44,14 @@ export function AddGearSetModal({ open, onClose }: AddGearSetModalProps) {
       onConfirm={() => {
         const gearSet = newGearSet(newGearSetName);
         addGearSet(gearSet);
+
+        const newGearSetIndex = gearSetsStore.gearSets.allIds.findIndex(
+          (id) => id === gearSet.id
+        );
+        if (newGearSetIndex !== -1) {
+          setSelectedGearSetIndex(newGearSetIndex);
+        }
+
         onClose();
       }}
       onClose={onClose}
