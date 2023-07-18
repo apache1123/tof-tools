@@ -10,7 +10,11 @@ import { useSnapshot } from 'valtio';
 
 import { ImageOCR } from '../components/ImageOCR/ImageOCR';
 import { ButtonModal } from '../components/Modal/ButtonModal';
-import { goldGearNamePrefix, randomStatsSectionTitle } from '../constants/gear';
+import {
+  goldGearNamePrefix,
+  randomStatsSectionTitle,
+  titanGearNamePrefix,
+} from '../constants/gear';
 import { gearTypesLookup } from '../constants/gear-types';
 import { statTypesLookup } from '../constants/stat-types';
 import { type Gear, newGear } from '../models/gear';
@@ -187,7 +191,11 @@ function getGearFromOCR(text: string): Gear | undefined {
   let randomStatTypes: StatType[];
 
   lines.forEach((line) => {
-    if (!hasFoundGearType && containsString(line, goldGearNamePrefix)) {
+    if (
+      !hasFoundGearType &&
+      (containsString(line, goldGearNamePrefix) ||
+        containsString(line, titanGearNamePrefix))
+    ) {
       const sortedGearTypes = gearTypesLookup.allIds
         .map((id) => gearTypesLookup.byId[id])
         // Sort by inGameName length to aid OCR
