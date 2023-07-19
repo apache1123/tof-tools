@@ -22,7 +22,7 @@ import type { GearName, GearType } from '../models/gear-type';
 import { newRandomStat, setValue } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
 import {
-  ocrTempGearStore,
+  ocrStore,
   removeOCRTempGear,
   setOCRTempGear,
 } from '../stores/ocr-temp-gear';
@@ -50,8 +50,8 @@ export const GearOCRModal = ({
   onFinalizeGear,
   enforceGearType,
 }: GearOCRModalProps) => {
-  const { gear } = ocrTempGearStore;
-  const { gear: gearSnap } = useSnapshot(ocrTempGearStore);
+  const { tempGear } = ocrStore;
+  const { tempGear: tempGearSnap } = useSnapshot(ocrStore);
 
   const [imageURL, setImageURL] = useState<string>();
   const handleImageURLChange = (imageURL: string) => {
@@ -82,7 +82,7 @@ export const GearOCRModal = ({
     setErrorMessage(undefined);
   };
   const handleConfirm = () => {
-    if (gear && onFinalizeGear) onFinalizeGear(gear);
+    if (tempGear && onFinalizeGear) onFinalizeGear(tempGear);
   };
 
   return (
@@ -141,8 +141,8 @@ export const GearOCRModal = ({
                   </Typography>
                 </Box>
               )}
-              {!errorMessage && gearSnap && gear && (
-                <GearPiece gear={gear} showGearOCRButton={false} />
+              {!errorMessage && tempGearSnap && tempGear && (
+                <GearPiece gear={tempGear} showGearOCRButton={false} />
               )}
             </Grid>
           </Grid>
@@ -151,7 +151,7 @@ export const GearOCRModal = ({
       iconButtonIcon={<UploadIcon />}
       showConfirm
       showCancel
-      isConfirmDisabled={!gearSnap}
+      isConfirmDisabled={!tempGearSnap}
       onConfirm={handleConfirm}
       onClose={handleClose}
     />
