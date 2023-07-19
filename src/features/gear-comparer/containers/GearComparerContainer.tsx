@@ -1,7 +1,9 @@
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useEffect } from 'react';
 
 import { GridBreak } from '../../../components/GridBreak/GridBreak';
+import { initializeOCRWorker } from '../../../stores/ocr-temp-gear';
 import { AttackPercentContainer } from './AttackPercentContainer';
 import { CritDamageContainer } from './CritDamageContainer';
 import { CritRateContainer } from './CritRateContainer';
@@ -12,6 +14,10 @@ import { GearValueContainer } from './GearValueContainer';
 import { UserBaseStatContainer } from './UserBaseStatsContainer';
 
 export function GearComparerContainer() {
+  useEffect(() => {
+    initializeOCRWorker();
+  }, []);
+
   return (
     <>
       <Grid container spacing={3} mb={3}>

@@ -1,3 +1,4 @@
+import { createWorker, type Worker } from 'tesseract.js';
 import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
@@ -5,19 +6,32 @@ import type { Gear } from '../models/gear';
 import { newGear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 
-export const ocrTempGearStore = proxy<{ gear: Gear | undefined }>({
-  gear: undefined,
+export interface OcrStore {
+  ocrWorker: Worker | undefined;
+  tempGear: Gear | undefined;
+}
+
+export const ocrStore = proxy<OcrStore>({
+  ocrWorker: undefined,
+  tempGear: undefined,
 });
-devtools(ocrTempGearStore, { name: 'ocrTempGear' });
+devtools(ocrStore, { name: 'ocr' });
 
 export function newOCRTempGear(gearType: GearType) {
-  ocrTempGearStore.gear = newGear(gearType);
+  ocrStore.tempGear = newGear(gearType);
 }
 
 export function setOCRTempGear(gear: Gear) {
-  ocrTempGearStore.gear = gear;
+  ocrStore.tempGear = gear;
 }
 
 export function removeOCRTempGear() {
-  ocrTempGearStore.gear = undefined;
+  ocrStore.tempGear = undefined;
+}
+
+export async function initializeOCRWorker() {
+  const worker = await createWorker();
+  await worker.loadLanguage('eng');
+  await worker.initialize('eng');
+  ocrStore.ocrWorker = worker;
 }
