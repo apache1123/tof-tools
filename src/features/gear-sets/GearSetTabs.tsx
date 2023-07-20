@@ -3,6 +3,7 @@ import { Box, Paper, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
+import { ElementalTypeIcon } from '../../components/ElementalTypeIcon/ElementalTypeIcon';
 import { AddGearSetModal } from './AddGearSetModal';
 import {
   gearSetsStore,
@@ -26,8 +27,8 @@ export function GearSetTabs() {
             setSelectedGearSetIndex(value);
           }
         }}
-        textColor="secondary"
-        indicatorColor="secondary"
+        textColor="primary"
+        indicatorColor="primary"
       >
         {gearSets.allIds.map((id, index) => {
           const gearSet = gearSets.byId[id];
@@ -35,7 +36,16 @@ export function GearSetTabs() {
             <Tab
               key={index}
               value={index}
-              label={gearSet.name || getDefaultGearSetName(index)}
+              label={
+                <Box display="flex" alignItems="center">
+                  {gearSet.elementalType && (
+                    <ElementalTypeIcon elementalType={gearSet.elementalType} />
+                  )}
+                  <Box ml={1}>
+                    {gearSet.name || getDefaultGearSetName(index)}
+                  </Box>
+                </Box>
+              }
             />
           );
         })}
