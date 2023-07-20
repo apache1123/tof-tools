@@ -149,6 +149,7 @@ export const GearOCRModal = ({
         </>
       }
       iconButtonIcon={<UploadIcon />}
+      iconButtonAriaLabel="upload-gear"
       showConfirm
       showCancel
       isConfirmDisabled={!tempGearSnap}

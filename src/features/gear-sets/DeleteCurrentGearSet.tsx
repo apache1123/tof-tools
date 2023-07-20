@@ -30,6 +30,7 @@ export function DeleteCurrentGearSet() {
           deleteSelectedGearSet();
           showSnackbar('Gear set deleted');
         }}
+        iconButtonAriaLabel="delete-gear-set"
       />
       <SnackbarComponent />
     </>

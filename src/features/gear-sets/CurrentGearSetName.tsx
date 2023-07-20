@@ -39,6 +39,7 @@ export function CurrentGearSetName() {
               setIsEditMode(true);
             }}
             sx={{ ml: 0.5 }}
+            aria-label="edit-gear-set-name"
           >
             <EditIcon fontSize={iconSize} />
           </IconButton>
