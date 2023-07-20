@@ -2,7 +2,12 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import type { Data } from '../../../models/data';
-import { type GearSet, newGearSet } from '../../../models/gear-set';
+import {
+  type GearSet,
+  newGearSet,
+  setElementalType,
+} from '../../../models/gear-set';
+import type { CoreElementalType } from '../../../models/stat-type';
 
 export const gearSetsStoreKey = 'gearSets';
 
@@ -69,6 +74,15 @@ export function deleteSelectedGearSet() {
 
 export function getDefaultGearSetName(gearSetIndex: number) {
   return `Set ${gearSetIndex + 1}`;
+}
+
+export function setSelectedGearSetElementalType(
+  elementalType: CoreElementalType
+) {
+  const { selectedGearSet } = gearSetsStore;
+  if (!selectedGearSet) return;
+
+  setElementalType(selectedGearSet, elementalType);
 }
 
 function getDefaultGearSet() {
