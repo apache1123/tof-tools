@@ -91,59 +91,59 @@ test('upload gear, ocr fills in correct gear', async ({ page }) => {
 
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
-      .getByLabel('Stat')
+      .locator(
+        '.MuiBox-root > div > div:nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root'
+      )
       .first()
+      .getByLabel('Stat')
   ).toHaveValue('Physical Resistance');
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
-      .getByRole('textbox')
+      .locator('.MuiBox-root > div > div:nth-child(3)')
       .first()
+      .getByRole('textbox')
   ).toHaveValue('215');
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
+      .locator(
+        'div:nth-child(2) > div:nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root'
+      )
+      .first()
       .getByLabel('Stat')
-      .nth(1)
   ).toHaveValue('Attack');
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
+      .locator('div:nth-child(2) > div:nth-child(3)')
+      .first()
       .getByRole('textbox')
-      .nth(1)
   ).toHaveValue('485');
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
+      .locator(
+        'div:nth-child(3) > div:nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root'
+      )
+      .first()
       .getByLabel('Stat')
-      .nth(2)
   ).toHaveValue('Physical Attack');
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
+      .locator('div:nth-child(3) > div:nth-child(3)')
+      .first()
       .getByRole('textbox')
-      .nth(2)
   ).toHaveValue('505');
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
+      .locator(
+        'div:nth-child(4) > div:nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root'
+      )
+      .first()
       .getByLabel('Stat')
-      .nth(3)
   ).toHaveValue('Volt Attack');
   await expect(
     page
-      .locator('div')
-      .filter({ hasText: /^StatStatStatStatRoll details$/ })
+      .locator('div:nth-child(4) > div:nth-child(3)')
+      .first()
       .getByRole('textbox')
-      .nth(3)
   ).toHaveValue('69');
 
   await page.getByRole('button', { name: 'Roll details' }).click();
