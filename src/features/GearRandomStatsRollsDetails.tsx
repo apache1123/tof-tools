@@ -16,6 +16,7 @@ import { getType } from '../models/random-stat';
 import type { RollCombination } from '../models/random-stat-roll-combination';
 import { zeroRollCombination } from '../models/random-stat-roll-combination';
 import { cartesian } from '../utils/array-utils';
+import { toPercentageString } from '../utils/number-utils';
 
 export interface GearRandomStatsRollsDetailsProps {
   gear: Gear;
@@ -42,9 +43,8 @@ export const GearRandomStatsRollsDetails = ({
                   <b>{`${y.randomStatId}: `}</b>
                   {pluralize('roll', y.rollCombination.numberOfRolls, true)}
                   {!!y.rollCombination.rollStrength &&
-                    `, strength: ${y.rollCombination.rollStrength.toLocaleString(
-                      'en',
-                      { style: 'percent' }
+                    `, strength: ${toPercentageString(
+                      y.rollCombination.rollStrength
                     )}`}
                 </Typography>
               </li>

@@ -2,10 +2,16 @@ import BigNumber from 'bignumber.js';
 import { derive, devtools } from 'valtio/utils';
 
 import { defaultCritDamagePercent } from '../../../constants/damage-formula';
-import type { Gear } from '../../../models/gear';
-import type { RandomStat } from '../../../models/random-stat';
-import { getType } from '../../../models/random-stat';
-import { ElementalType, StatRole } from '../../../models/stat-type';
+import {
+  type Gear,
+  getTotalAttackFlat,
+  getTotalAttackPercent,
+  getTotalCritFlat,
+  getTotalCritPercent,
+  getTotalDamagePercent,
+} from '../../../models/gear';
+import type { CoreElementalType } from '../../../models/stat-type';
+import { additiveSum } from '../../../utils/math-utils';
 import type {
   GearComparerGearPosition,
   GearComparerGearsStore,
@@ -62,6 +68,10 @@ function getGearValue(
     miscCritDamage,
   } = userStatsStore;
 
+  if (!elementalType) {
+    return 0;
+  }
+
   const {
     weaponAttackBuffValues,
     matrixAttackBuffValues,
@@ -99,7 +109,7 @@ function getGearValue(
 
 function calculateGearValue(
   gear: Gear,
-  elementalType: ElementalType | undefined,
+  elementalType: CoreElementalType,
   charLevel = 0,
   otherAttackFlat = [0],
   otherAttackPercent = [0],
@@ -138,19 +148,22 @@ function calculateGearValue(
   );
 
   const totalAttackFlatWithGear = totalAttackFlatWithoutGear.plus(
-    calculateAttackFlatFromGear(gear, elementalType)
+    getTotalAttackFlat(gear, elementalType)
   );
   const totalAttackPercentWithGear = totalAttackPercentWithoutGear.plus(
-    calculateAttackPercentFromGear(gear, elementalType)
+    getTotalAttackPercent(gear, elementalType)
   );
   const totalCritPercentWithGear = totalCritPercentWithoutGear
     .plus(
-      calculateCritPercentFromFlat(calculateCritFlatFromGear(gear), bCharLevel)
+      calculateCritPercentFromFlat(
+        BigNumber(getTotalCritFlat(gear)),
+        bCharLevel
+      )
     )
-    .plus(calculateCritPercentFromGear(gear));
+    .plus(getTotalCritPercent(gear));
   const totalCritDamagePercentWithGear = totalCritDamagePercentWithoutGear;
   const totalDamagePercentWithGear = totalDamagePercentWithoutGear.plus(
-    calculateDamagePercentFromGear(gear, elementalType)
+    getTotalDamagePercent(gear, elementalType)
   );
 
   const multiplierWithGear = calculateMultiplier(
@@ -183,93 +196,6 @@ function calculateCritPercentFromFlat(
   return critPercent;
 }
 
-function calculateAttackFlatFromGear(
-  gear: Gear,
-  elementalType: ElementalType | undefined
-): BigNumber {
-  return sumRandomStatValues(
-    gear.randomStats.filter((randomStat) => {
-      if (!randomStat) return false;
-
-      const statType = getType(randomStat);
-      return (
-        statType.role === StatRole.Attack &&
-        !statType.isPercentageBased &&
-        (statType.elementalType === elementalType ||
-          statType.elementalType === ElementalType.All)
-      );
-    }) as RandomStat[]
-  );
-}
-
-function calculateAttackPercentFromGear(
-  gear: Gear,
-  elementalType: ElementalType | undefined
-): BigNumber {
-  return sumRandomStatValues(
-    gear.randomStats.filter((randomStat) => {
-      if (!randomStat) return false;
-
-      const statType = getType(randomStat);
-      return (
-        statType.role === StatRole.AttackPercent &&
-        statType.isPercentageBased &&
-        (statType.elementalType === elementalType ||
-          statType.elementalType === ElementalType.All)
-      );
-    }) as RandomStat[]
-  );
-}
-
-function calculateCritFlatFromGear(gear: Gear): BigNumber {
-  return sumRandomStatValues(
-    gear.randomStats.filter((randomStat) => {
-      if (!randomStat) return false;
-
-      const statType = getType(randomStat);
-      return (
-        statType.role === StatRole.Crit &&
-        !statType.isPercentageBased &&
-        statType.elementalType === ElementalType.All
-      );
-    }) as RandomStat[]
-  );
-}
-
-function calculateCritPercentFromGear(gear: Gear): BigNumber {
-  return sumRandomStatValues(
-    gear.randomStats.filter((randomStat) => {
-      if (!randomStat) return false;
-
-      const statType = getType(randomStat);
-      return (
-        statType.role === StatRole.CritPercent &&
-        statType.isPercentageBased &&
-        statType.elementalType === ElementalType.All
-      );
-    }) as RandomStat[]
-  );
-}
-
-function calculateDamagePercentFromGear(
-  gear: Gear,
-  elementalType: ElementalType | undefined
-): BigNumber {
-  return sumRandomStatValues(
-    gear.randomStats.filter((randomStat) => {
-      if (!randomStat) return false;
-
-      const statType = getType(randomStat);
-      return (
-        statType.role === StatRole.DamagePercent &&
-        statType.isPercentageBased &&
-        (statType.elementalType === elementalType ||
-          statType.elementalType === ElementalType.All)
-      );
-    }) as RandomStat[]
-  );
-}
-
 function calculateMultiplier(
   attackFlat: BigNumber,
   attackPercent: BigNumber,
@@ -281,14 +207,4 @@ function calculateMultiplier(
     .multipliedBy(attackPercent.plus(1))
     .multipliedBy(critPercent.multipliedBy(critDamagePercent).plus(1))
     .multipliedBy(damagePercent.plus(1));
-}
-
-function sumRandomStatValues(randomStats: RandomStat[]) {
-  return additiveSum(randomStats.map((randomStat) => randomStat.value));
-}
-
-function additiveSum(values: number[]): BigNumber {
-  return values
-    .map((value) => BigNumber(value))
-    .reduce((prev, current) => prev.plus(current), BigNumber(0));
 }

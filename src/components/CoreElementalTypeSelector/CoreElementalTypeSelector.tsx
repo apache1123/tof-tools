@@ -1,35 +1,30 @@
-import type {
-  SelectChangeEvent} from '@mui/material';
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select
-} from '@mui/material';
+import type { SelectChangeEvent } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
+import type { CoreElementalType } from '../../models/stat-type';
 import { ElementalType } from '../../models/stat-type';
 
-export interface ElementalTypeSelectorProps {
-  elementalType: ElementalType | undefined;
-  onElementalTypeChange?(value: ElementalType): void;
+export interface CoreElementalTypeSelectorProps {
+  elementalType: CoreElementalType | undefined;
+  onElementalTypeChange?(value: CoreElementalType): void;
   label?: string;
 }
 
-const options = [
+const options: CoreElementalType[] = [
   ElementalType.Flame,
   ElementalType.Frost,
   ElementalType.Physical,
   ElementalType.Volt,
 ];
 
-export function ElementalTypeSelector({
+export function CoreElementalTypeSelector({
   elementalType,
   onElementalTypeChange,
   label = 'Elemental type',
-}: ElementalTypeSelectorProps) {
+}: CoreElementalTypeSelectorProps) {
   const handleChange = (event: SelectChangeEvent) => {
     if (onElementalTypeChange)
-      onElementalTypeChange(event.target.value as ElementalType);
+      onElementalTypeChange(event.target.value as CoreElementalType);
   };
 
   return (

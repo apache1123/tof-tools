@@ -9,3 +9,7 @@ export function indexOfIgnoringCase(text: string, searchString: string) {
 export function splitIntoWords(text: string) {
   return text.split(' ').filter((word) => word !== '');
 }
+
+export function pascalCaseToCamelCase(text: string) {
+  return `${text[0].toLowerCase()}${text.slice(1)}`;
+}

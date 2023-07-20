@@ -5,6 +5,7 @@ import { useSnapshot } from 'valtio';
 import { BoxCheckboxWithStars } from '../../../components/BoxCheckbox/BoxCheckboxWithStars';
 import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
 import { matrixCritDamageBuffsLookup } from '../../../constants/matrix-crit-damage-buffs';
+import { toSignedPercentageString1dp } from '../../../utils/number-utils';
 import {
   addMatrixCritDamageBuff,
   removeMatrixCritDamageBuff,
@@ -48,11 +49,7 @@ export function CritDamageContainer() {
                 title={displayName}
                 subtitle={starValues
                   .map((starValue) =>
-                    starValue.value.toLocaleString('en', {
-                      style: 'percent',
-                      maximumFractionDigits: 1,
-                      signDisplay: 'always',
-                    })
+                    toSignedPercentageString1dp(starValue.value)
                   )
                   .join('/')}
                 info={description}

@@ -2,10 +2,10 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import { maxCharacterLevel } from '../../../constants/character-level';
-import type { ElementalType } from '../../../models/stat-type';
+import type { CoreElementalType } from '../../../models/stat-type';
 
 export interface UserStatsStore {
-  elementalType: ElementalType | undefined;
+  elementalType: CoreElementalType | undefined;
   otherAttackFlat: number;
   critFlat: number;
   characterLevel: number;
@@ -31,7 +31,7 @@ export const userStatsStore = proxy<UserStatsStore>({
 });
 devtools(userStatsStore, { name: userStatsStoreKey });
 
-export function setElementalType(elementalType: ElementalType) {
+export function setElementalType(elementalType: CoreElementalType) {
   userStatsStore.elementalType = elementalType;
 }
 export function setOtherAttackFlat(value: number) {
