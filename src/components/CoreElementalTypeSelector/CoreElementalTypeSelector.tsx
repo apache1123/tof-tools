@@ -8,6 +8,7 @@ export interface CoreElementalTypeSelectorProps {
   elementalType: CoreElementalType | undefined;
   onElementalTypeChange?(value: CoreElementalType): void;
   label?: string;
+  size?: 'small' | 'medium';
 }
 
 const options: CoreElementalType[] = [
@@ -21,6 +22,7 @@ export function CoreElementalTypeSelector({
   elementalType,
   onElementalTypeChange,
   label = 'Elemental type',
+  size = 'medium',
 }: CoreElementalTypeSelectorProps) {
   const handleChange = (event: SelectChangeEvent) => {
     if (onElementalTypeChange)
@@ -28,7 +30,13 @@ export function CoreElementalTypeSelector({
   };
 
   return (
-    <FormControl variant="filled" fullWidth required error={!elementalType}>
+    <FormControl
+      variant="filled"
+      fullWidth
+      required
+      error={!elementalType}
+      size={size}
+    >
       <InputLabel id="elemental-type-select-label">{label}</InputLabel>
       <Select
         labelId="elemental-type-select-label"

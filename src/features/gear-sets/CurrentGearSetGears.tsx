@@ -33,6 +33,7 @@ export function CurrentGearSetGears() {
               showGearOCRButton
               showCompareGearButton
               disableGearTypeChange
+              showStatSummary={selectedGearSetSnap.elementalType}
             />
           </Grid>
         );

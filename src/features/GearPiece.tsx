@@ -273,7 +273,7 @@ function Layout({
           {additionalActions}
         </Grid>
       </Grid>
-      <Box mb={2}>{randomStats}</Box>
+      <Box mb={3}>{randomStats}</Box>
       <Box>{summary}</Box>
     </Paper>
   );
