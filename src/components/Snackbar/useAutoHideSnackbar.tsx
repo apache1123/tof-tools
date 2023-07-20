@@ -31,6 +31,7 @@ export function useAutoHideSnackbar({
         open={open}
         autoHideDuration={autoHideDuration}
         onClose={() => setOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert severity={severity} variant="filled" sx={{ width: '100%' }}>
           {message}
