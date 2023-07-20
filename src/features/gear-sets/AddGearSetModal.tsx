@@ -29,7 +29,7 @@ export function AddGearSetModal({ open, onClose }: AddGearSetModalProps) {
       open={open}
       modalContent={
         <>
-          <Box mb={1}>Save gear to gear set</Box>
+          <Box mb={2}>Add gear set</Box>
           <TextField
             label="Name"
             value={newGearSetName}
