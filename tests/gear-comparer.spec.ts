@@ -82,7 +82,7 @@ test('persists user stat values without element being chosen, then copies over a
 test('upload gear, ocr fills in correct gear', async ({ page }) => {
   await page.goto('/gear-comparer');
 
-  await page.getByLabel('Upload gear').first().click();
+  await page.getByLabel('upload-gear').first().click();
   const fileChooserPromise = page.waitForEvent('filechooser');
   await page.getByLabel('Select image').click();
   const fileChooser = await fileChooserPromise;

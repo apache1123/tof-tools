@@ -24,7 +24,9 @@ export function GearSetsContainer() {
               <CurrentGearSetElementalType />
             </Box>
           </Box>
-          <DeleteCurrentGearSet />
+          <Box>
+            <DeleteCurrentGearSet />
+          </Box>
         </Stack>
 
         <CurrentGearSetGears />
