@@ -41,6 +41,18 @@ const theme = createTheme({
     warning: {
       main: labels.yellow[catppuccinFlavor].hex,
     },
+    flame: {
+      main: labels.peach[catppuccinFlavor].hex,
+    },
+    frost: {
+      main: labels.blue[catppuccinFlavor].hex,
+    },
+    physical: {
+      main: labels.rosewater[catppuccinFlavor].hex,
+    },
+    volt: {
+      main: labels.mauve[catppuccinFlavor].hex,
+    },
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
@@ -53,5 +65,14 @@ const theme = createTheme({
     },
   },
 });
+
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    flame: PaletteOptions['primary'];
+    frost: PaletteOptions['primary'];
+    physical: PaletteOptions['primary'];
+    volt: PaletteOptions['primary'];
+  }
+}
 
 export default theme;
