@@ -5,6 +5,7 @@ import { IconButton, Input, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
+import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { setName } from '../../models/gear-set';
 import { gearSetsStore } from './stores/gear-sets';
 
@@ -31,7 +32,16 @@ export function CurrentGearSetName() {
       {!isEditMode && (
         <>
           <Typography variant="h5" component="h1">
-            {selectedGearSet.name}
+            {selectedGearSet.elementalType ? (
+              <ElementalStyledText
+                elementalType={selectedGearSet.elementalType}
+                variant="h5"
+              >
+                {selectedGearSet.name}
+              </ElementalStyledText>
+            ) : (
+              selectedGearSet.name
+            )}
           </Typography>
           <IconButton
             onClick={() => {
