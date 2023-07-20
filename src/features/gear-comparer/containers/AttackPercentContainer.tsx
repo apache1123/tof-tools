@@ -7,6 +7,7 @@ import { BoxCheckboxWithStars } from '../../../components/BoxCheckbox/BoxCheckbo
 import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
 import { matrixAttackBuffsLookup } from '../../../constants/matrix-attack-buffs';
 import { weaponAttackBuffsLookup } from '../../../constants/weapon-attack-buffs';
+import { toSignedPercentageString1dp } from '../../../utils/number-utils';
 import {
   addMatrixAttackBuff,
   addWeaponAttackBuff,
@@ -70,11 +71,7 @@ export function AttackPercentContainer() {
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckbox
                 title={displayName}
-                subtitle={value.toLocaleString('en', {
-                  style: 'percent',
-                  maximumFractionDigits: 1,
-                  signDisplay: 'always',
-                })}
+                subtitle={toSignedPercentageString1dp(value)}
                 info={description}
                 isChecked={id in weaponAttackBuffs}
                 onIsCheckedChange={(checked) => {
@@ -104,11 +101,7 @@ export function AttackPercentContainer() {
                 title={displayName}
                 subtitle={starValues
                   .map((starValue) =>
-                    starValue.value.toLocaleString('en', {
-                      style: 'percent',
-                      maximumFractionDigits: 1,
-                      signDisplay: 'always',
-                    })
+                    toSignedPercentageString1dp(starValue.value)
                   )
                   .join('/')}
                 info={description}

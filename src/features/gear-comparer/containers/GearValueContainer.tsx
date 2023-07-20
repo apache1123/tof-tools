@@ -1,6 +1,7 @@
 import { Paper, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
+import { toPercentageString2dp } from '../../../utils/number-utils';
 import type { GearComparerGearPosition } from '../stores/gear-comparer-gear';
 import { gearValuesStore } from '../stores/gear-values';
 import { gearValuesComparisonStore } from '../stores/gear-values-comparison';
@@ -25,10 +26,7 @@ export function GearValueContainer({ position }: GearValueContainerProps) {
             : 'error.main',
         }}
       >
-        {gearValuesSnap[`${position}Value`].toLocaleString('en', {
-          style: 'percent',
-          maximumFractionDigits: 2,
-        })}
+        {toPercentageString2dp(gearValuesSnap[`${position}Value`])}
       </Typography>
     </Paper>
   );

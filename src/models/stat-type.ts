@@ -11,6 +11,47 @@ export interface StatType {
   randomStatMaxRollValue: number;
 }
 
+export function isElementalAttackFlat(
+  statType: StatType,
+  elementalType: CoreElementalType
+) {
+  return (
+    statType.role === StatRole.Attack &&
+    (statType.elementalType === elementalType ||
+      statType.elementalType === ElementalType.All)
+  );
+}
+
+export function isElementalAttackPercent(
+  statType: StatType,
+  elementalType: CoreElementalType
+) {
+  return (
+    statType.role === StatRole.AttackPercent &&
+    (statType.elementalType === elementalType ||
+      statType.elementalType === ElementalType.All)
+  );
+}
+
+export function isCritFlat(statType: StatType) {
+  return statType.role === StatRole.Crit;
+}
+
+export function isCritPercent(statType: StatType) {
+  return statType.role === StatRole.CritPercent;
+}
+
+export function isElementalDamagePercent(
+  statType: StatType,
+  elementalType: CoreElementalType
+) {
+  return (
+    statType.role === StatRole.DamagePercent &&
+    (statType.elementalType === elementalType ||
+      statType.elementalType === ElementalType.All)
+  );
+}
+
 export enum StatName {
   AlteredAttack = 'Altered Attack',
   AlteredResistance = 'Altered Resistance',
@@ -64,3 +105,9 @@ export enum ElementalType {
   Physical = 'Physical',
   Volt = 'Volt',
 }
+
+export type CoreElementalType =
+  | ElementalType.Flame
+  | ElementalType.Frost
+  | ElementalType.Physical
+  | ElementalType.Volt;

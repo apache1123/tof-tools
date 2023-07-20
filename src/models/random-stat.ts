@@ -1,5 +1,5 @@
 import { statTypesLookup } from '../constants/stat-types';
-import type { StatName, StatType } from './stat-type';
+import { type StatName, type StatType } from './stat-type';
 
 export interface RandomStat {
   typeId: StatName;

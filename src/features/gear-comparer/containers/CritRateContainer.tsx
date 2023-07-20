@@ -7,6 +7,7 @@ import { BoxCheckboxWithStars } from '../../../components/BoxCheckbox/BoxCheckbo
 import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
 import { matrixCritRateBuffsLookup } from '../../../constants/matrix-crit-rate-buffs';
 import { weaponCritRateBuffsLookup } from '../../../constants/weapon-crit-rate-buffs';
+import { toSignedPercentageString1dp } from '../../../utils/number-utils';
 import {
   addMatrixCritRateBuff,
   addWeaponCritRateBuff,
@@ -51,11 +52,7 @@ export function CritRateContainer() {
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckbox
                 title={displayName}
-                subtitle={value.toLocaleString('en', {
-                  style: 'percent',
-                  maximumFractionDigits: 1,
-                  signDisplay: 'always',
-                })}
+                subtitle={toSignedPercentageString1dp(value)}
                 info={description}
                 isChecked={id in weaponCritRateBuffs}
                 onIsCheckedChange={(isChecked) => {
@@ -78,11 +75,7 @@ export function CritRateContainer() {
                 title={displayName}
                 subtitle={starValues
                   .map((starValue) =>
-                    starValue.value.toLocaleString('en', {
-                      style: 'percent',
-                      maximumFractionDigits: 1,
-                      signDisplay: 'always',
-                    })
+                    toSignedPercentageString1dp(starValue.value)
                   )
                   .join('/')}
                 info={description}
