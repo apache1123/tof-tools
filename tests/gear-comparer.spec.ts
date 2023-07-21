@@ -207,12 +207,12 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page.getByLabel('Character level').fill(characterLevel);
 
   // Not a perfect assert but good enough
-  await expect(page.getByText('Value: 102.38%')).toBeVisible();
+  await expect(page.getByText('Value: 102.44%')).toBeVisible(); // GearA value
 
   // Test swap elements
   await page.getByLabel('Elemental type to compare *').click();
   await page.getByRole('option', { name: 'physical-icon Physical' }).click();
-  await expect(page.getByText('Value: 114.49%')).toBeVisible();
+  await expect(page.getByText('Value: 114.58%')).toBeVisible(); // GearA value
 
   // Test crit %
   await page.getByLabel('Stat').getByRole('combobox').nth(1).click();
@@ -223,7 +223,7 @@ test('gear value is calculated correctly', async ({ page }) => {
     .getByRole('textbox')
     .nth(1)
     .fill('12%');
-  await expect(page.getByText('Value: 119.88%')).toBeVisible();
+  await expect(page.getByText('Value: 119.98%')).toBeVisible(); // GearA value
 
   // Test dmg%
   await page.getByLabel('Select gear type').nth(1).click();
@@ -239,7 +239,7 @@ test('gear value is calculated correctly', async ({ page }) => {
     .getByRole('textbox')
     .nth(4)
     .fill('23%');
-  await expect(page.getByText('Value: 123%')).toBeVisible();
+  await expect(page.getByText('Value: 123%')).toBeVisible(); // GearB value
 
   // Test atk% buffs
   await page
@@ -263,10 +263,10 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page
     .locator(
       'div:nth-child(2) > .MuiPaper-root > .MuiRating-root > label:nth-child(5)'
-    )
+    ) // Fiona 3*
     .first()
     .click();
-  await expect(page.getByText('Value: 115.93%')).toBeVisible();
+  await expect(page.getByText('Value: 116.03%')).toBeVisible(); // GearA value
 
   // Test dmg% buffs
   await page
@@ -275,7 +275,7 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page
     .getByLabel('Damage % (Physical) from all other gear pieces')
     .fill('7');
-  await expect(page.getByText('Value: 121.5%')).toBeVisible();
+  await expect(page.getByText('Value: 121.5%')).toBeVisible(); // GearB value
 
   // Test crit rate %
   await page.getByLabel('Misc. crit rate % buffs').click();
@@ -285,7 +285,7 @@ test('gear value is calculated correctly', async ({ page }) => {
     .filter({ hasText: 'Fenrir 6*+18%' })
     .getByLabel('controlled')
     .check();
-  await expect(page.getByText('Value: 115.43%')).toBeVisible();
+  await expect(page.getByText('Value: 115.53%')).toBeVisible(); // GearA value
 
   // Test crit dmg %
   await page.getByLabel('Misc. crit damage % buffs').click();
@@ -295,5 +295,5 @@ test('gear value is calculated correctly', async ({ page }) => {
     .filter({ hasText: 'Fenrir 2pc+14%/+15%/+16%/+18%' })
     .getByLabel('controlled')
     .check();
-  await expect(page.getByText('Value: 116.51%')).toBeVisible();
+  await expect(page.getByText('Value: 116.6%')).toBeVisible();
 });

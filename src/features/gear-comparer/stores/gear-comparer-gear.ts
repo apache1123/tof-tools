@@ -3,6 +3,7 @@ import { devtools } from 'valtio/utils';
 
 import type { Gear } from '../../../models/gear';
 
+// GearA a.k.a "Current gear"; GearB a.k.a "New gear"
 export type GearComparerGearPosition = 'GearA' | 'GearB';
 
 export type GearComparerGearsStore = Record<

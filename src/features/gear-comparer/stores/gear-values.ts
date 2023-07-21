@@ -56,10 +56,12 @@ function getGearValue(
   const gear = gearComparerGearsStore[gearPosition];
   if (!gear) return 0;
 
+  const gearA = gearComparerGearsStore.GearA;
+
   const {
     elementalType,
-    otherAttackFlat,
-    critFlat,
+    baseAttackFlatWithGearA,
+    critFlatWithGearA,
     characterLevel,
     otherGearAttackPercent,
     otherGearElementalDamage,
@@ -71,6 +73,13 @@ function getGearValue(
   if (!elementalType) {
     return 0;
   }
+
+  const baseAttackFlatWithoutGearA = BigNumber(baseAttackFlatWithGearA)
+    .minus(gearA ? getTotalAttackFlat(gearA, elementalType) : 0)
+    .toNumber();
+  const critFlatWithoutGearA = BigNumber(critFlatWithGearA)
+    .minus(gearA ? getTotalCritFlat(gearA) : 0)
+    .toNumber();
 
   const {
     weaponAttackBuffValues,
@@ -98,9 +107,9 @@ function getGearValue(
     gear,
     elementalType,
     characterLevel,
-    [otherAttackFlat],
+    [baseAttackFlatWithoutGearA],
     allOtherAttackPercents,
-    [critFlat],
+    [critFlatWithoutGearA],
     allOtherCritRates,
     allOtherCritDamages,
     allOtherDamages

@@ -6,15 +6,19 @@ import { useSnapshot } from 'valtio';
 import { NumericInput } from '../../../components/NumericInput/NumericInput';
 import { maxCharacterLevel } from '../../../constants/character-level';
 import {
+  setBaseAttackFlatWithGearA,
   setCharacterLevel,
-  setCritFlat,
-  setOtherAttackFlat,
+  setCritFlatWithGearA,
   userStatsStore,
 } from '../stores/user-stats';
 
 export function UserBaseStatContainer() {
-  const { elementalType, otherAttackFlat, critFlat, characterLevel } =
-    useSnapshot(userStatsStore);
+  const {
+    elementalType,
+    baseAttackFlatWithGearA,
+    critFlatWithGearA,
+    characterLevel,
+  } = useSnapshot(userStatsStore);
 
   return (
     <>
@@ -26,8 +30,8 @@ export function UserBaseStatContainer() {
         sx={{ color: 'warning.main' }}
         gutterBottom
       >
-        Take off the piece of gear you&apos;re currently comparing for the
-        following:
+        Fill these in with your <em>current</em> gear equipped (the gear on the
+        left above)
       </Typography>
 
       <Grid container spacing={2}>
@@ -37,9 +41,9 @@ export function UserBaseStatContainer() {
             label={'Base attack' + (elementalType ? ` (${elementalType})` : '')}
             variant="filled"
             required
-            error={!otherAttackFlat}
-            value={otherAttackFlat}
-            onChange={setOtherAttackFlat}
+            error={!baseAttackFlatWithGearA}
+            value={baseAttackFlatWithGearA}
+            onChange={setBaseAttackFlatWithGearA}
             helperText={
               <Tooltip
                 title={
@@ -62,9 +66,9 @@ export function UserBaseStatContainer() {
             label="Crit"
             variant="filled"
             required
-            error={!critFlat}
-            value={critFlat}
-            onChange={setCritFlat}
+            error={!critFlatWithGearA}
+            value={critFlatWithGearA}
+            onChange={setCritFlatWithGearA}
             helperText="Found on character sheet"
           />
         </Grid>
