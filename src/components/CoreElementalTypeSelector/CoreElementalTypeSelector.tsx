@@ -1,5 +1,6 @@
 import type { FormControlProps, SelectChangeEvent } from '@mui/material';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import type { ReactNode } from 'react';
 
 import type { CoreElementalType } from '../../models/stat-type';
 import { ElementalType } from '../../models/stat-type';
@@ -9,7 +10,7 @@ import { ElementalTypeIcon } from '../ElementalTypeIcon/ElementalTypeIcon';
 export interface CoreElementalTypeSelectorProps {
   elementalType: CoreElementalType | undefined;
   onElementalTypeChange?(value: CoreElementalType): void;
-  label?: string;
+  label?: ReactNode;
   size?: 'small' | 'medium';
   required?: boolean;
   variant?: FormControlProps['variant'];
