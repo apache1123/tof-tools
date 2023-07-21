@@ -29,7 +29,7 @@ const theme = createTheme({
       main: labels.teal[catppuccinFlavor].hex,
     },
     secondary: {
-      main: labels.peach[catppuccinFlavor].hex,
+      main: labels.pink[catppuccinFlavor].hex,
     },
     success: {
       main: labels.green[catppuccinFlavor].hex,
@@ -39,16 +39,16 @@ const theme = createTheme({
       secondary: labels.subtext0[catppuccinFlavor].hex,
     },
     warning: {
-      main: labels.yellow[catppuccinFlavor].hex,
+      main: labels.flamingo[catppuccinFlavor].hex,
     },
     flame: {
       main: labels.peach[catppuccinFlavor].hex,
     },
     frost: {
-      main: labels.blue[catppuccinFlavor].hex,
+      main: labels.sky[catppuccinFlavor].hex,
     },
     physical: {
-      main: labels.rosewater[catppuccinFlavor].hex,
+      main: labels.yellow[catppuccinFlavor].hex,
     },
     volt: {
       main: labels.mauve[catppuccinFlavor].hex,

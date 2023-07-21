@@ -14,6 +14,8 @@ export function GearComparerOptionsContainer() {
           elementalType={elementalType}
           onElementalTypeChange={setElementalType}
           label="Elemental type to compare"
+          required
+          variant="filled"
         />
       </Grid>
     </Grid>
