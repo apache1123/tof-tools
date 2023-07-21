@@ -153,3 +153,147 @@ test('upload gear, ocr fills in correct gear', async ({ page }) => {
     )
   ).toHaveScreenshot();
 });
+
+test('gear value is calculated correctly', async ({ page }) => {
+  await page.goto('/gear-comparer');
+
+  // Test atk, ele atk, atk%
+  await page.getByLabel('Select gear type').first().click();
+  await page.getByRole('option', { name: 'Eyepiece' }).click();
+
+  await page.getByLabel('Stat').getByRole('combobox').first().click();
+  await page.getByRole('option', { name: 'Attack', exact: true }).click();
+  await page.getByLabel('stat-value-input').getByRole('textbox').click();
+  await page.getByLabel('stat-value-input').getByRole('textbox').fill('252');
+
+  await page.getByLabel('Stat').getByRole('combobox').nth(1).click();
+  await page.getByRole('option', { name: 'Frost Attack', exact: true }).click();
+  await page.getByLabel('stat-value-input').getByRole('textbox').nth(1).click();
+  await page
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .fill('343');
+
+  await page.getByLabel('Stat').getByRole('combobox').nth(2).click();
+  await page
+    .getByRole('option', { name: 'Physical Attack', exact: true })
+    .click();
+  await page.getByLabel('stat-value-input').getByRole('textbox').nth(2).click();
+  await page
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .fill('464');
+
+  await page.getByLabel('Stat').getByRole('combobox').nth(3).click();
+  await page
+    .getByRole('option', { name: 'Physical Attack %', exact: true })
+    .click();
+  await page.getByLabel('stat-value-input').getByRole('textbox').nth(3).click();
+  await page
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .fill('11.3%');
+
+  await page.getByLabel('Elemental type to compare *').click();
+  await page.getByRole('option', { name: 'frost-icon Frost' }).click();
+  await page.getByLabel('Base attack (Frost) *').click();
+  await page.getByLabel('Base attack (Frost) *').fill(baseAttack);
+  await page.getByLabel('Crit *').click();
+  await page.getByLabel('Crit *').fill(crit);
+  await page.getByLabel('Character level').click();
+  await page.getByLabel('Character level').fill(characterLevel);
+
+  // Not a perfect assert but good enough
+  await expect(page.getByText('Value: 102.38%')).toBeVisible();
+
+  // Test swap elements
+  await page.getByLabel('Elemental type to compare *').click();
+  await page.getByRole('option', { name: 'physical-icon Physical' }).click();
+  await expect(page.getByText('Value: 114.49%')).toBeVisible();
+
+  // Test crit %
+  await page.getByLabel('Stat').getByRole('combobox').nth(1).click();
+  await page.getByRole('option', { name: 'Crit Rate %', exact: true }).click();
+  await page.getByLabel('stat-value-input').getByRole('textbox').nth(1).click();
+  await page
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .fill('12%');
+  await expect(page.getByText('Value: 119.88%')).toBeVisible();
+
+  // Test dmg%
+  await page.getByLabel('Select gear type').nth(1).click();
+  await page.getByRole('option', { name: 'Microreactor' }).click();
+
+  await page.getByLabel('Stat').getByRole('combobox').nth(4).click();
+  await page
+    .getByRole('option', { name: 'Physical Damage %', exact: true })
+    .click();
+  await page.getByLabel('stat-value-input').getByRole('textbox').nth(4).click();
+  await page
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(4)
+    .fill('23%');
+  await expect(page.getByText('Value: 123%')).toBeVisible();
+
+  // Test atk% buffs
+  await page
+    .getByLabel('Attack % (Physical) from all other gear pieces')
+    .click();
+  await page
+    .getByLabel('Attack % (Physical) from all other gear pieces')
+    .fill('4');
+  await page.getByLabel('Misc. attack % buffs').click();
+  await page.getByLabel('Misc. attack % buffs').fill('7');
+  await page
+    .locator('label')
+    .filter({ hasText: 'Elemental Resonance+15%' })
+    .getByLabel('controlled')
+    .check();
+  await page
+    .locator('label')
+    .filter({ hasText: 'Fiona 2pc+16%/+18%/+20%/+22%' })
+    .getByLabel('controlled')
+    .check();
+  await page
+    .locator(
+      'div:nth-child(2) > .MuiPaper-root > .MuiRating-root > label:nth-child(5)'
+    )
+    .first()
+    .click();
+  await expect(page.getByText('Value: 115.93%')).toBeVisible();
+
+  // Test dmg% buffs
+  await page
+    .getByLabel('Damage % (Physical) from all other gear pieces')
+    .click();
+  await page
+    .getByLabel('Damage % (Physical) from all other gear pieces')
+    .fill('7');
+  await expect(page.getByText('Value: 121.5%')).toBeVisible();
+
+  // Test crit rate %
+  await page.getByLabel('Misc. crit rate % buffs').click();
+  await page.getByLabel('Misc. crit rate % buffs').fill('9');
+  await page
+    .locator('label')
+    .filter({ hasText: 'Fenrir 6*+18%' })
+    .getByLabel('controlled')
+    .check();
+  await expect(page.getByText('Value: 115.43%')).toBeVisible();
+
+  // Test crit dmg %
+  await page.getByLabel('Misc. crit damage % buffs').click();
+  await page.getByLabel('Misc. crit damage % buffs').fill('3.7%');
+  await page
+    .locator('label')
+    .filter({ hasText: 'Fenrir 2pc+14%/+15%/+16%/+18%' })
+    .getByLabel('controlled')
+    .check();
+  await expect(page.getByText('Value: 116.51%')).toBeVisible();
+});

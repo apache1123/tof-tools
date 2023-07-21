@@ -21,6 +21,7 @@ export interface NumericInputProps {
   required?: boolean;
   error?: boolean;
   helperText?: ReactNode;
+  'aria-label'?: string;
 }
 
 interface CustomProps {
@@ -73,6 +74,7 @@ export const NumericInput = ({
   required,
   error,
   helperText,
+  'aria-label': ariaLabel,
 }: NumericInputProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(+event.target.value);
@@ -97,6 +99,7 @@ export const NumericInput = ({
         required,
         error,
         helperText,
+        'aria-label': ariaLabel,
       }}
     />
   );
