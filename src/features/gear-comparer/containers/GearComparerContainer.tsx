@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
 
@@ -22,9 +22,15 @@ export function GearComparerContainer() {
     <>
       <Grid container spacing={3} mb={3}>
         <Grid xs={12} md={6}>
+          <Typography variant="h5" mb={1}>
+            Current gear
+          </Typography>
           <GearComparerGearContainer position="GearA" />
         </Grid>
         <Grid xs={12} md={6}>
+          <Typography variant="h5" mb={1}>
+            New gear
+          </Typography>
           <GearComparerGearContainer position="GearB" />
         </Grid>
 

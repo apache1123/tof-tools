@@ -6,8 +6,8 @@ import type { CoreElementalType } from '../../../models/stat-type';
 
 export interface UserStatsStore {
   elementalType: CoreElementalType | undefined;
-  otherAttackFlat: number;
-  critFlat: number;
+  baseAttackFlatWithGearA: number;
+  critFlatWithGearA: number;
   characterLevel: number;
   otherGearAttackPercent: number;
   otherGearElementalDamage: number;
@@ -20,8 +20,8 @@ export const userStatsStoreKey = 'userStats';
 
 export const userStatsStore = proxy<UserStatsStore>({
   elementalType: undefined,
-  otherAttackFlat: 0,
-  critFlat: 0,
+  baseAttackFlatWithGearA: 0,
+  critFlatWithGearA: 0,
   characterLevel: maxCharacterLevel,
   otherGearAttackPercent: 0,
   otherGearElementalDamage: 0,
@@ -34,11 +34,11 @@ devtools(userStatsStore, { name: userStatsStoreKey });
 export function setElementalType(elementalType: CoreElementalType) {
   userStatsStore.elementalType = elementalType;
 }
-export function setOtherAttackFlat(value: number) {
-  userStatsStore.otherAttackFlat = value;
+export function setBaseAttackFlatWithGearA(value: number) {
+  userStatsStore.baseAttackFlatWithGearA = value;
 }
-export function setCritFlat(value: number) {
-  userStatsStore.critFlat = value;
+export function setCritFlatWithGearA(value: number) {
+  userStatsStore.critFlatWithGearA = value;
 }
 export function setCharacterLevel(value: number) {
   userStatsStore.characterLevel = value;
