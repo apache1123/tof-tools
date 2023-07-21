@@ -5,7 +5,7 @@ import { useSnapshot } from 'valtio';
 import { NumericInput } from '../components/NumericInput/NumericInput';
 import { PercentageNumericInput } from '../components/NumericInput/PercentageNumericInput';
 import { StatTypeIcon } from '../components/StatTypeIcon/StatTypeIcon';
-import { StatTypeSelector } from '../components/StatTypeSelector/StatSelector';
+import { StatTypeSelector } from '../components/StatTypeSelector/StatTypeSelector';
 import type { RandomStat } from '../models/random-stat';
 import { getType, setType, setValue } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
@@ -43,9 +43,14 @@ export const StatEditor = ({
           <PercentageNumericInput
             value={statSnap.value}
             onChange={handleStatValueChange}
+            aria-label="stat-value-input"
           />
         ) : (
-          <NumericInput value={stat.value} onChange={handleStatValueChange} />
+          <NumericInput
+            value={stat.value}
+            onChange={handleStatValueChange}
+            aria-label="stat-value-input"
+          />
         )
       }
     />

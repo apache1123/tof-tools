@@ -33,6 +33,7 @@ export const StatTypeSelector = ({
       size="small"
       fullWidth
       disabled={disabled}
+      aria-label="stat-type-selector"
     />
   );
 };
