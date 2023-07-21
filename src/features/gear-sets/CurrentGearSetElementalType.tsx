@@ -15,9 +15,10 @@ export function CurrentGearSetElementalType() {
     <CoreElementalTypeSelector
       elementalType={selectedGearSet.elementalType}
       onElementalTypeChange={setSelectedGearSetElementalType}
-      label={selectedGearSet.elementalType ? '' : 'Elemental type'}
+      label={selectedGearSet.elementalType ? null : 'Element type'}
       size="small"
       variant="outlined"
+      required={!selectedGearSet.elementalType}
     />
   );
 }
