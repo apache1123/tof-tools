@@ -12,7 +12,8 @@ import {
 } from './stores/gear-sets';
 
 export function GearSetTabs() {
-  const { gearSets, selectedGearSetIndex } = useSnapshot(gearSetsStore);
+  const { gearSets, selectedGearSetIndex, selectedGearSet } =
+    useSnapshot(gearSetsStore);
 
   const [openAddGearSetModal, setOpenAddGearSetModal] = useState(false);
 
@@ -27,8 +28,14 @@ export function GearSetTabs() {
             setSelectedGearSetIndex(value);
           }
         }}
-        textColor="primary"
-        indicatorColor="primary"
+        TabIndicatorProps={{
+          className: selectedGearSet?.elementalType,
+          sx: {
+            [`&.${selectedGearSet?.elementalType}`]: {
+              backgroundColor: `${selectedGearSet?.elementalType?.toLowerCase()}.main`,
+            },
+          },
+        }}
       >
         {gearSets.allIds.map((id, index) => {
           const gearSet = gearSets.byId[id];
@@ -39,13 +46,21 @@ export function GearSetTabs() {
               label={
                 <Box display="flex" alignItems="center">
                   {gearSet.elementalType && (
-                    <ElementalTypeIcon elementalType={gearSet.elementalType} />
+                    <Box mr={1} display="flex" alignItems="center">
+                      <ElementalTypeIcon
+                        elementalType={gearSet.elementalType}
+                      />
+                    </Box>
                   )}
-                  <Box ml={1}>
-                    {gearSet.name || getDefaultGearSetName(index)}
-                  </Box>
+                  <Box>{gearSet.name || getDefaultGearSetName(index)}</Box>
                 </Box>
               }
+              className={gearSet.elementalType}
+              sx={{
+                [`&.${gearSet.elementalType}`]: {
+                  color: `${gearSet.elementalType?.toLowerCase()}.main`,
+                },
+              }}
             />
           );
         })}
