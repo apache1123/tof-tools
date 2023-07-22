@@ -12,6 +12,7 @@ export interface ElementalStyledTextProps
 export function ElementalStyledText({
   elementalType,
   component = 'span',
+  variant = 'inherit',
   children,
   ...rest
 }: ElementalStyledTextProps) {
@@ -19,6 +20,7 @@ export function ElementalStyledText({
     <Typography
       color={`${pascalCaseToCamelCase(elementalType)}.main`}
       component={component}
+      variant={variant}
       {...rest}
     >
       {children}
