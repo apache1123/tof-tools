@@ -28,10 +28,7 @@ export function GearComparerOptionsContainer() {
               showSnackbar(
                 <Typography variant="subtitle2">
                   Using previously entered
-                  <ElementalStyledText
-                    elementalType={elementalType}
-                    variant="subtitle2"
-                  >
+                  <ElementalStyledText elementalType={elementalType}>
                     {` ${elementalType} `}
                   </ElementalStyledText>
                   values
