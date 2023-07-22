@@ -12,57 +12,36 @@ test('persists user stat values without element being chosen, then copies over a
 }) => {
   await page.goto('/gear-comparer');
 
-  // Fill values, without element
-  await page.getByLabel('Base attack *').click();
-  await page.getByLabel('Base attack *').fill(baseAttack);
-  await page.getByLabel('Crit *').click();
-  await page.getByLabel('Crit *').fill(crit);
+  // Choose element, fill values
+  await page.getByLabel('Elemental type to compare *').click();
+  await page.getByRole('option', { name: 'Frost' }).click();
+  await page.getByLabel('Base attack (Frost) *').click();
+  await page.getByLabel('Base attack (Frost) *').fill(baseAttack);
+  await page.getByLabel('Crit *').click();
+  await page.getByLabel('Crit *').fill(crit);
   await page.getByLabel('Character level').click();
   await page.getByLabel('Character level').fill(characterLevel);
-  await page.getByLabel('Attack % from all other gear pieces').click();
-  await page.getByLabel('Attack % from all other gear pieces').fill(buffValue);
+  await page.getByLabel('Attack % (Frost) from all other gear pieces').click();
+  await page
+    .getByLabel('Attack % (Frost) from all other gear pieces')
+    .fill(buffValue);
   await page.getByLabel('Misc. attack % buffs').click();
   await page.getByLabel('Misc. attack % buffs').fill(buffValue);
-  await page.getByLabel('Damage % from all other gear pieces').click();
-  await page.getByLabel('Damage % from all other gear pieces').fill(buffValue);
+  await page.getByLabel('Damage % (Frost) from all other gear pieces').click();
+  await page
+    .getByLabel('Damage % (Frost) from all other gear pieces')
+    .fill(buffValue);
   await page.getByLabel('Misc. crit rate % buffs').click();
   await page.getByLabel('Misc. crit rate % buffs').fill(buffValue);
   await page.getByLabel('Misc. crit damage % buffs').click();
   await page.getByLabel('Misc. crit damage % buffs').fill(buffValue);
 
-  // Check persisted fill values, without element
+  // Check persisted fill values
   await page.reload();
-  await expect(page.getByLabel('Base attack *')).toHaveValue(baseAttack);
-  await expect(page.getByLabel('Crit *')).toHaveValue(crit);
-  await expect(page.getByLabel('Character level')).toHaveValue(characterLevel);
-  await expect(
-    page.getByLabel('Attack % from all other gear pieces')
-  ).toHaveValue(buffValue);
-  await expect(page.getByLabel('Misc. attack % buffs')).toHaveValue(buffValue);
-  await expect(
-    page.getByLabel('Damage % from all other gear pieces')
-  ).toHaveValue(buffValue);
-  await expect(page.getByLabel('Misc. crit rate % buffs')).toHaveValue(
-    buffValue
-  );
-  await expect(page.getByLabel('Misc. crit damage % buffs')).toHaveValue(
-    buffValue
-  );
-
-  // Choose element, check persisted values still same
-  await page.getByLabel('Elemental type to compare *').click();
-  await page.getByRole('option', { name: 'Frost' }).click();
-  await page.reload();
-  await expect(
-    page
-      .locator('[id="__next"] div')
-      .filter({ hasText: 'Elemental type to compare *Frost' })
-      .nth(3)
-  ).toBeVisible();
-  await expect(page.getByLabel('Base attack (Frost) *')).toHaveValue(
+  await expect(page.getByLabel('Base attack (Frost) *')).toHaveValue(
     baseAttack
   );
-  await expect(page.getByLabel('Crit *')).toHaveValue(crit);
+  await expect(page.getByLabel('Crit *')).toHaveValue(crit);
   await expect(page.getByLabel('Character level')).toHaveValue(characterLevel);
   await expect(
     page.getByLabel('Attack % (Frost) from all other gear pieces')
@@ -77,6 +56,22 @@ test('persists user stat values without element being chosen, then copies over a
   await expect(page.getByLabel('Misc. crit damage % buffs')).toHaveValue(
     buffValue
   );
+
+  // Choose another element, check values reset
+  await page.getByLabel('Elemental type to compare *').click();
+  await page.getByRole('option', { name: 'Physical' }).click();
+  await expect(page.getByLabel('Base attack (Physical) *')).toHaveValue('0');
+  await expect(page.getByLabel('Crit *')).toHaveValue('0');
+  await expect(page.getByLabel('Character level')).toHaveValue(characterLevel);
+  await expect(
+    page.getByLabel('Attack % (Physical) from all other gear pieces')
+  ).toHaveValue('0%');
+  await expect(page.getByLabel('Misc. attack % buffs')).toHaveValue('0%');
+  await expect(
+    page.getByLabel('Damage % (Physical) from all other gear pieces')
+  ).toHaveValue('0%');
+  await expect(page.getByLabel('Misc. crit rate % buffs')).toHaveValue('0%');
+  await expect(page.getByLabel('Misc. crit damage % buffs')).toHaveValue('0%');
 });
 
 test('upload gear, ocr fills in correct gear', async ({ page }) => {
@@ -197,12 +192,12 @@ test('gear value is calculated correctly', async ({ page }) => {
     .nth(3)
     .fill('11.3%');
 
-  await page.getByLabel('Elemental type to compare *').click();
+  await page.getByLabel('Elemental type to compare *').click();
   await page.getByRole('option', { name: 'frost-icon Frost' }).click();
-  await page.getByLabel('Base attack (Frost) *').click();
-  await page.getByLabel('Base attack (Frost) *').fill(baseAttack);
-  await page.getByLabel('Crit *').click();
-  await page.getByLabel('Crit *').fill(crit);
+  await page.getByLabel('Base attack (Frost) *').click();
+  await page.getByLabel('Base attack (Frost) *').fill(baseAttack);
+  await page.getByLabel('Crit *').click();
+  await page.getByLabel('Crit *').fill(crit);
   await page.getByLabel('Character level').click();
   await page.getByLabel('Character level').fill(characterLevel);
 
@@ -210,8 +205,12 @@ test('gear value is calculated correctly', async ({ page }) => {
   await expect(page.getByText('Value: 102.44%')).toBeVisible(); // GearA value
 
   // Test swap elements
-  await page.getByLabel('Elemental type to compare *').click();
+  await page.getByLabel('Elemental type to compare *').click();
   await page.getByRole('option', { name: 'physical-icon Physical' }).click();
+  await page.getByLabel('Base attack (Physical) *').click();
+  await page.getByLabel('Base attack (Physical) *').fill(baseAttack);
+  await page.getByLabel('Crit *').click();
+  await page.getByLabel('Crit *').fill(crit);
   await expect(page.getByText('Value: 114.58%')).toBeVisible(); // GearA value
 
   // Test crit %
