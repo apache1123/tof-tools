@@ -1,6 +1,6 @@
 import { derive, devtools } from 'valtio/utils';
 
-import type { GearComparerGearPosition } from './gear-comparer-gear';
+import type { GearComparerGearPosition } from '../gear-comparer-gear';
 import { gearValuesStore } from './gear-values';
 
 export type GearValuesComparisonStore = Record<

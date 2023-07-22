@@ -6,7 +6,7 @@ import type { GearType } from '../../../models/gear-type';
 import { EmptyGearPiece, GearPiece } from '../../GearPiece';
 import type { GearComparerGearPosition } from '../stores/gear-comparer-gear';
 import { gearComparerGearsStore, setGear } from '../stores/gear-comparer-gear';
-import { userStatsStore } from '../stores/user-stats';
+import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
 
 export interface GearComparerGearContainerProps {
   position: GearComparerGearPosition;
@@ -17,7 +17,7 @@ export function GearComparerGearContainer({
 }: GearComparerGearContainerProps) {
   const { [position]: gear } = gearComparerGearsStore;
   const { [position]: gearSnap } = useSnapshot(gearComparerGearsStore);
-  const { elementalType } = useSnapshot(userStatsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
 
   const handleGearTypeSelect = (gearType: GearType) => {
     const gear = newGear(gearType);
@@ -33,7 +33,7 @@ export function GearComparerGearContainer({
       gear={gear}
       showGearOCRButton
       showSaveGearButton
-      showStatSummary={elementalType}
+      showStatSummary={selectedElementalType}
     />
   ) : (
     <EmptyGearPiece

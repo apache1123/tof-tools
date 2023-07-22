@@ -25,17 +25,17 @@ export function CurrentGearSetStatSummary() {
   return (
     <Paper>
       <Stack direction="row" spacing={5}>
-        <Typography>
-          Attack
+        <Box>
+          <Typography>Attack</Typography>
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {getTotalAttackFlat(selectedGearSet as GearSet)}
             </ElementalStyledText>
           </Box>
-        </Typography>
+        </Box>
 
-        <Typography>
-          Attack
+        <Box>
+          <Typography>Attack %</Typography>
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {toPercentageString2dp(
@@ -43,10 +43,10 @@ export function CurrentGearSetStatSummary() {
               )}
             </ElementalStyledText>
           </Box>
-        </Typography>
+        </Box>
 
-        <Typography>
-          Damage %
+        <Box>
+          <Typography>Damage %</Typography>
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {toPercentageString2dp(
@@ -54,19 +54,19 @@ export function CurrentGearSetStatSummary() {
               )}
             </ElementalStyledText>
           </Box>
-        </Typography>
+        </Box>
 
-        <Typography>
-          Crit
+        <Box>
+          <Typography>Crit</Typography>
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {getTotalCritFlat(selectedGearSet as GearSet)}
             </ElementalStyledText>
           </Box>
-        </Typography>
+        </Box>
 
-        <Typography>
-          Crit %
+        <Box>
+          <Typography>Crit %</Typography>
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {toPercentageString2dp(
@@ -74,7 +74,7 @@ export function CurrentGearSetStatSummary() {
               )}
             </ElementalStyledText>
           </Box>
-        </Typography>
+        </Box>
       </Stack>
     </Paper>
   );

@@ -9,13 +9,17 @@ import * as React from 'react';
 
 import createEmotionCache from '../src/createEmotionCache';
 import {
+  buffsStore,
+  buffsStoreKey,
+} from '../src/features/gear-comparer/stores/buffs';
+import {
   gearComparerGearsStore,
   gearComparerGearsStoreKey,
 } from '../src/features/gear-comparer/stores/gear-comparer-gear';
 import {
-  selectedBuffsStore,
-  selectedBuffsStoreKey,
-} from '../src/features/gear-comparer/stores/selected-buffs';
+  gearComparerOptionsStore,
+  gearComparerOptionsStoreKey,
+} from '../src/features/gear-comparer/stores/gear-comparer-options';
 import {
   userStatsStore,
   userStatsStoreKey,
@@ -36,8 +40,12 @@ export interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+  useLocalStoragePersistence(
+    gearComparerOptionsStore,
+    gearComparerOptionsStoreKey
+  );
   useLocalStoragePersistence(userStatsStore, userStatsStoreKey);
-  useLocalStoragePersistence(selectedBuffsStore, selectedBuffsStoreKey);
+  useLocalStoragePersistence(buffsStore, buffsStoreKey);
   useLocalStoragePersistence(gearComparerGearsStore, gearComparerGearsStoreKey);
   useLocalStoragePersistence(gearSetsStore, gearSetsStoreKey);
 

@@ -9,13 +9,25 @@ import { toSignedPercentageString1dp } from '../../../utils/number-utils';
 import {
   addMatrixCritDamageBuff,
   removeMatrixCritDamageBuff,
-  selectedBuffsStore,
-} from '../stores/selected-buffs';
-import { setMiscCritDamage, userStatsStore } from '../stores/user-stats';
+  selectedElementalBuffsStore,
+} from '../stores/derived/selected-elemental-buffs';
+import {
+  selectedElementalUserStatsStore,
+  setMiscCritDamage,
+} from '../stores/derived/selected-elemental-user-stats';
 
 export function CritDamageContainer() {
-  const { miscCritDamage } = useSnapshot(userStatsStore);
-  const { matrixCritDamageBuffs } = useSnapshot(selectedBuffsStore);
+  const { selectedElementalUserStats } = useSnapshot(
+    selectedElementalUserStatsStore
+  );
+  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsStore);
+
+  if (!selectedElementalUserStats || !selectedElementalBuffs) {
+    return null;
+  }
+
+  const { miscCritDamage } = selectedElementalUserStats;
+  const { matrixCritDamageBuffs } = selectedElementalBuffs;
 
   return (
     <>

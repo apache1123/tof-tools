@@ -13,24 +13,39 @@ import {
   addWeaponAttackBuff,
   removeMatrixAttackBuff,
   removeWeaponAttackBuff,
-  selectedBuffsStore,
-} from '../stores/selected-buffs';
+  selectedElementalBuffsStore,
+} from '../stores/derived/selected-elemental-buffs';
 import {
+  selectedElementalUserStatsStore,
   setMiscAttackPercent,
   setOtherGearAttackPercent,
-  userStatsStore,
-} from '../stores/user-stats';
+} from '../stores/derived/selected-elemental-user-stats';
+import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
 
 export function AttackPercentContainer() {
-  const { elementalType, otherGearAttackPercent, miscAttackPercent } =
-    useSnapshot(userStatsStore);
-  const { weaponAttackBuffs, matrixAttackBuffs } =
-    useSnapshot(selectedBuffsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
+  const { selectedElementalUserStats } = useSnapshot(
+    selectedElementalUserStatsStore
+  );
+  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsStore);
+
+  if (
+    !selectedElementalType ||
+    !selectedElementalUserStats ||
+    !selectedElementalBuffs
+  ) {
+    return null;
+  }
+
+  const { otherGearAttackPercent, miscAttackPercent } =
+    selectedElementalUserStats;
+  const { weaponAttackBuffs, matrixAttackBuffs } = selectedElementalBuffs;
 
   return (
     <>
       <Typography variant="h5" component="h2" gutterBottom>
-        {elementalType ? `${elementalType} attack` : 'Attack'} % buffs
+        {selectedElementalType ? `${selectedElementalType} attack` : 'Attack'} %
+        buffs
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         This section is only needed if you&apos;re comparing gear with attack %
@@ -43,7 +58,7 @@ export function AttackPercentContainer() {
             id="other-gear-atk-percent"
             label={
               'Attack %' +
-              (elementalType ? ` (${elementalType})` : '') +
+              (selectedElementalType ? ` (${selectedElementalType})` : '') +
               ' from all other gear pieces'
             }
             variant="filled"

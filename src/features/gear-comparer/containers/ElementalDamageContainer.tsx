@@ -4,17 +4,27 @@ import { useSnapshot } from 'valtio';
 
 import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
 import {
+  selectedElementalUserStatsStore,
   setOtherGearElementalDamage,
-  userStatsStore,
-} from '../stores/user-stats';
+} from '../stores/derived/selected-elemental-user-stats';
+import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
 
 export function ElementalDamageContainer() {
-  const { elementalType, otherGearElementalDamage } =
-    useSnapshot(userStatsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
+  const { selectedElementalUserStats } = useSnapshot(
+    selectedElementalUserStatsStore
+  );
+
+  if (!selectedElementalType || !selectedElementalUserStats) {
+    return null;
+  }
+
+  const { otherGearElementalDamage } = selectedElementalUserStats;
+
   return (
     <>
       <Typography variant="h5" component="h2" gutterBottom>
-        {elementalType ? `${elementalType} damage` : 'Damage'} %
+        {selectedElementalType ? `${selectedElementalType} damage` : 'Damage'} %
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         This section is only needed if you&apos;re comparing gear with dmg %
@@ -27,7 +37,7 @@ export function ElementalDamageContainer() {
             id="other-gear-elemental-damage"
             label={
               'Damage %' +
-              (elementalType ? ` (${elementalType})` : '') +
+              (selectedElementalType ? ` (${selectedElementalType})` : '') +
               ' from all other gear pieces'
             }
             variant="filled"

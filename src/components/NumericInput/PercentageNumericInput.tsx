@@ -16,7 +16,12 @@ export const PercentageNumericInput = ({
   return (
     <NumericInput
       {...others}
-      value={value ? BigNumber(value).multipliedBy(100).toNumber() : undefined}
+      value={
+        // Differentiate between 0 and undefined
+        value !== undefined
+          ? BigNumber(value).multipliedBy(100).toNumber()
+          : undefined
+      }
       onChange={handleChange}
       suffix="%"
     />
