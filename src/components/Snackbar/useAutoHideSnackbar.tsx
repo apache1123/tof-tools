@@ -1,4 +1,4 @@
-import type { AlertColor } from '@mui/material';
+import type { AlertColor, SnackbarCloseReason } from '@mui/material';
 import { Alert, Snackbar } from '@mui/material';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
@@ -25,12 +25,23 @@ export function useAutoHideSnackbar({
     setOpen(true);
   }
 
+  function handleClose(
+    event: React.SyntheticEvent | Event,
+    reason: SnackbarCloseReason
+  ) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  }
+
   function SnackbarComponent() {
     return (
       <Snackbar
         open={open}
         autoHideDuration={autoHideDuration}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert severity={severity} variant="filled" sx={{ width: '100%' }}>
