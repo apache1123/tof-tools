@@ -13,14 +13,25 @@ import {
   addWeaponCritRateBuff,
   removeMatrixCritRateBuff,
   removeWeaponCritRateBuff,
-  selectedBuffsStore,
-} from '../stores/selected-buffs';
-import { setMiscCritRate, userStatsStore } from '../stores/user-stats';
+  selectedElementalBuffsStore,
+} from '../stores/derived/selected-elemental-buffs';
+import {
+  selectedElementalUserStatsStore,
+  setMiscCritRate,
+} from '../stores/derived/selected-elemental-user-stats';
 
 export function CritRateContainer() {
-  const { miscCritRate } = useSnapshot(userStatsStore);
-  const { weaponCritRateBuffs, matrixCritRateBuffs } =
-    useSnapshot(selectedBuffsStore);
+  const { selectedElementalUserStats } = useSnapshot(
+    selectedElementalUserStatsStore
+  );
+  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsStore);
+
+  if (!selectedElementalUserStats || !selectedElementalBuffs) {
+    return null;
+  }
+
+  const { miscCritRate } = selectedElementalUserStats;
+  const { weaponCritRateBuffs, matrixCritRateBuffs } = selectedElementalBuffs;
 
   return (
     <>

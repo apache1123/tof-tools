@@ -2,13 +2,12 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import { maxCharacterLevel } from '../../../constants/character-level';
+import type { DataById } from '../../../models/data';
 import type { CoreElementalType } from '../../../models/stat-type';
 
-export interface UserStatsStore {
-  elementalType: CoreElementalType | undefined;
+export interface ElementalUserStats {
   baseAttackFlatWithGearA: number;
   critFlatWithGearA: number;
-  characterLevel: number;
   otherGearAttackPercent: number;
   otherGearElementalDamage: number;
   miscAttackPercent: number;
@@ -16,45 +15,36 @@ export interface UserStatsStore {
   miscCritDamage: number;
 }
 
+export interface UserStatsStore {
+  characterLevel: number;
+  statsByElement: DataById<CoreElementalType, ElementalUserStats>;
+}
+
 export const userStatsStoreKey = 'userStats';
 
 export const userStatsStore = proxy<UserStatsStore>({
-  elementalType: undefined,
-  baseAttackFlatWithGearA: 0,
-  critFlatWithGearA: 0,
   characterLevel: maxCharacterLevel,
-  otherGearAttackPercent: 0,
-  otherGearElementalDamage: 0,
-  miscAttackPercent: 0,
-  miscCritRate: 0,
-  miscCritDamage: 0,
+  statsByElement: {
+    Flame: emptyElementalUserStats(),
+    Frost: emptyElementalUserStats(),
+    Physical: emptyElementalUserStats(),
+    Volt: emptyElementalUserStats(),
+  },
 });
 devtools(userStatsStore, { name: userStatsStoreKey });
 
-export function setElementalType(elementalType: CoreElementalType) {
-  userStatsStore.elementalType = elementalType;
-}
-export function setBaseAttackFlatWithGearA(value: number) {
-  userStatsStore.baseAttackFlatWithGearA = value;
-}
-export function setCritFlatWithGearA(value: number) {
-  userStatsStore.critFlatWithGearA = value;
-}
 export function setCharacterLevel(value: number) {
   userStatsStore.characterLevel = value;
 }
-export function setOtherGearAttackPercent(value: number) {
-  userStatsStore.otherGearAttackPercent = value;
-}
-export function setOtherGearElementalDamage(value: number) {
-  userStatsStore.otherGearElementalDamage = value;
-}
-export function setMiscAttackPercent(value: number) {
-  userStatsStore.miscAttackPercent = value;
-}
-export function setMiscCritRate(value: number) {
-  userStatsStore.miscCritRate = value;
-}
-export function setMiscCritDamage(value: number) {
-  userStatsStore.miscCritDamage = value;
+
+function emptyElementalUserStats(): ElementalUserStats {
+  return {
+    baseAttackFlatWithGearA: 0,
+    critFlatWithGearA: 0,
+    otherGearAttackPercent: 0,
+    otherGearElementalDamage: 0,
+    miscAttackPercent: 0,
+    miscCritRate: 0,
+    miscCritDamage: 0,
+  };
 }

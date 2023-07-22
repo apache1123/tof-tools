@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { derive, devtools } from 'valtio/utils';
 
-import { defaultCritDamagePercent } from '../../../constants/damage-formula';
+import { defaultCritDamagePercent } from '../../../../constants/damage-formula';
 import {
   type Gear,
   getTotalAttackFlat,
@@ -9,18 +9,22 @@ import {
   getTotalCritFlat,
   getTotalCritPercent,
   getTotalDamagePercent,
-} from '../../../models/gear';
-import type { CoreElementalType } from '../../../models/stat-type';
-import { additiveSum } from '../../../utils/math-utils';
+} from '../../../../models/gear';
+import type { CoreElementalType } from '../../../../models/stat-type';
+import { additiveSum } from '../../../../utils/math-utils';
 import type {
   GearComparerGearPosition,
   GearComparerGearsStore,
-} from './gear-comparer-gear';
-import { gearComparerGearsStore } from './gear-comparer-gear';
-import type { SelectedBuffsStore } from './selected-buffs';
-import { selectedBuffsStore } from './selected-buffs';
-import type { UserStatsStore } from './user-stats';
-import { userStatsStore } from './user-stats';
+} from '../gear-comparer-gear';
+import { gearComparerGearsStore } from '../gear-comparer-gear';
+import type { GearComparerOptionsStore } from '../gear-comparer-options';
+import { gearComparerOptionsStore } from '../gear-comparer-options';
+import type { UserStatsStore } from '../user-stats';
+import { userStatsStore } from '../user-stats';
+import type { SelectedElementalBuffValuesStore } from './selected-elemental-buff-values';
+import { selectedElementalBuffValuesStore } from './selected-elemental-buff-values';
+import type { SelectedElementalUserStatsStore } from './selected-elemental-user-stats';
+import { selectedElementalUserStatsStore } from './selected-elemental-user-stats';
 
 export type GearValuesStore = Record<
   `${GearComparerGearPosition}Value`,
@@ -32,16 +36,20 @@ export const gearValuesStore = derive<object, GearValuesStore>({
     return getGearValue(
       'GearA',
       get(gearComparerGearsStore),
+      get(gearComparerOptionsStore),
       get(userStatsStore),
-      get(selectedBuffsStore)
+      get(selectedElementalUserStatsStore),
+      get(selectedElementalBuffValuesStore)
     );
   },
   GearBValue: (get) => {
     return getGearValue(
       'GearB',
       get(gearComparerGearsStore),
+      get(gearComparerOptionsStore),
       get(userStatsStore),
-      get(selectedBuffsStore)
+      get(selectedElementalUserStatsStore),
+      get(selectedElementalBuffValuesStore)
     );
   },
 });
@@ -50,32 +58,35 @@ devtools(gearValuesStore, { name: 'gearValues' });
 function getGearValue(
   gearPosition: GearComparerGearPosition,
   gearComparerGearsStore: GearComparerGearsStore,
+  gearComparerOptionsStore: GearComparerOptionsStore,
   userStatsStore: UserStatsStore,
-  selectedBuffsStore: SelectedBuffsStore
+  selectedElementalUserStatsStore: SelectedElementalUserStatsStore,
+  selectedElementalBuffValuesStore: SelectedElementalBuffValuesStore
 ) {
   const gear = gearComparerGearsStore[gearPosition];
   if (!gear) return 0;
 
-  const gearA = gearComparerGearsStore.GearA;
+  const { selectedElementalType } = gearComparerOptionsStore;
+  const { selectedElementalUserStats } = selectedElementalUserStatsStore;
 
+  if (!selectedElementalType || !selectedElementalUserStats) {
+    return 0;
+  }
+
+  const { characterLevel } = userStatsStore;
   const {
-    elementalType,
     baseAttackFlatWithGearA,
     critFlatWithGearA,
-    characterLevel,
     otherGearAttackPercent,
     otherGearElementalDamage,
     miscAttackPercent,
     miscCritRate,
     miscCritDamage,
-  } = userStatsStore;
+  } = selectedElementalUserStats;
 
-  if (!elementalType) {
-    return 0;
-  }
-
+  const gearA = gearComparerGearsStore.GearA;
   const baseAttackFlatWithoutGearA = BigNumber(baseAttackFlatWithGearA)
-    .minus(gearA ? getTotalAttackFlat(gearA, elementalType) : 0)
+    .minus(gearA ? getTotalAttackFlat(gearA, selectedElementalType) : 0)
     .toNumber();
   const critFlatWithoutGearA = BigNumber(critFlatWithGearA)
     .minus(gearA ? getTotalCritFlat(gearA) : 0)
@@ -87,7 +98,7 @@ function getGearValue(
     weaponCritRateBuffValues,
     matrixCritRateBuffValues,
     matrixCritDamageBuffValues,
-  } = selectedBuffsStore;
+  } = selectedElementalBuffValuesStore;
 
   const allOtherAttackPercents = [otherGearAttackPercent, miscAttackPercent]
     .concat(weaponAttackBuffValues)
@@ -105,7 +116,7 @@ function getGearValue(
 
   return calculateGearValue(
     gear,
-    elementalType,
+    selectedElementalType,
     characterLevel,
     [baseAttackFlatWithoutGearA],
     allOtherAttackPercents,

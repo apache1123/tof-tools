@@ -6,19 +6,26 @@ import { useSnapshot } from 'valtio';
 import { NumericInput } from '../../../components/NumericInput/NumericInput';
 import { maxCharacterLevel } from '../../../constants/character-level';
 import {
+  selectedElementalUserStatsStore,
   setBaseAttackFlatWithGearA,
-  setCharacterLevel,
   setCritFlatWithGearA,
-  userStatsStore,
-} from '../stores/user-stats';
+} from '../stores/derived/selected-elemental-user-stats';
+import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
+import { setCharacterLevel, userStatsStore } from '../stores/user-stats';
 
 export function UserBaseStatContainer() {
-  const {
-    elementalType,
-    baseAttackFlatWithGearA,
-    critFlatWithGearA,
-    characterLevel,
-  } = useSnapshot(userStatsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
+  const { characterLevel } = useSnapshot(userStatsStore);
+  const { selectedElementalUserStats } = useSnapshot(
+    selectedElementalUserStatsStore
+  );
+
+  if (!selectedElementalType || !selectedElementalUserStats) {
+    return null;
+  }
+
+  const { baseAttackFlatWithGearA, critFlatWithGearA } =
+    selectedElementalUserStats;
 
   return (
     <>
@@ -30,15 +37,18 @@ export function UserBaseStatContainer() {
         sx={{ color: 'warning.main' }}
         gutterBottom
       >
-        Fill these in with your <em>current</em> gear equipped (the gear on the
-        left above)
+        Fill these in with your <em>current</em> gear equipped (the left/first
+        gear above)
       </Typography>
 
       <Grid container spacing={2}>
         <Grid xs={12} sm={6} md={4} lg={3}>
           <NumericInput
             id="base-attack"
-            label={'Base attack' + (elementalType ? ` (${elementalType})` : '')}
+            label={
+              'Base attack' +
+              (selectedElementalType ? ` (${selectedElementalType})` : '')
+            }
             variant="filled"
             required
             error={!baseAttackFlatWithGearA}
