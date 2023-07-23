@@ -2,25 +2,25 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { BoxCheckbox } from '../../../components/BoxCheckbox/BoxCheckbox';
-import { BoxCheckboxWithStars } from '../../../components/BoxCheckbox/BoxCheckboxWithStars';
-import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
-import { matrixCritRateBuffsLookup } from '../../../constants/matrix-crit-rate-buffs';
-import { weaponCritRateBuffsLookup } from '../../../constants/weapon-crit-rate-buffs';
-import { toSignedPercentageString1dp } from '../../../utils/number-utils';
+import { BoxCheckbox } from '../../components/BoxCheckbox/BoxCheckbox';
+import { BoxCheckboxWithStars } from '../../components/BoxCheckbox/BoxCheckboxWithStars';
+import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
+import { matrixCritRateBuffsLookup } from '../../constants/matrix-crit-rate-buffs';
+import { weaponCritRateBuffsLookup } from '../../constants/weapon-crit-rate-buffs';
+import { toSignedPercentageString1dp } from '../../utils/number-utils';
 import {
   addMatrixCritRateBuff,
   addWeaponCritRateBuff,
   removeMatrixCritRateBuff,
   removeWeaponCritRateBuff,
   selectedElementalBuffsStore,
-} from '../stores/derived/selected-elemental-buffs';
+} from './stores/derived/selected-elemental-buffs';
 import {
   selectedElementalUserStatsStore,
   setMiscCritRate,
-} from '../stores/derived/selected-elemental-user-stats';
+} from './stores/derived/selected-elemental-user-stats';
 
-export function CritRateContainer() {
+export function CritRateBuffs() {
   const { selectedElementalUserStats } = useSnapshot(
     selectedElementalUserStatsStore
   );

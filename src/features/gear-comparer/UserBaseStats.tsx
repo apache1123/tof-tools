@@ -3,17 +3,17 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
-import { NumericInput } from '../../../components/NumericInput/NumericInput';
-import { maxCharacterLevel } from '../../../constants/character-level';
+import { NumericInput } from '../../components/NumericInput/NumericInput';
+import { maxCharacterLevel } from '../../constants/character-level';
 import {
   selectedElementalUserStatsStore,
   setBaseAttackFlatWithGearA,
   setCritFlatWithGearA,
-} from '../stores/derived/selected-elemental-user-stats';
-import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
-import { setCharacterLevel, userStatsStore } from '../stores/user-stats';
+} from './stores/derived/selected-elemental-user-stats';
+import { gearComparerOptionsStore } from './stores/gear-comparer-options';
+import { setCharacterLevel, userStatsStore } from './stores/user-stats';
 
-export function UserBaseStatContainer() {
+export function UserBaseStats() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
   const { characterLevel } = useSnapshot(userStatsStore);
   const { selectedElementalUserStats } = useSnapshot(

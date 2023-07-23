@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
 import Head from 'next/head';
 
-import { GearSetsContainer } from '../src/features/gear-sets/containers/GearSetsContainer';
+import { GearSets } from '../src/features/gear-sets/GearSets';
 
-export default function GearSets() {
+export default function GearSetsPage() {
   return (
     <>
       <Head>
@@ -11,7 +11,7 @@ export default function GearSets() {
       </Head>
 
       <Container maxWidth="xl" sx={{ p: 3 }}>
-        <GearSetsContainer />
+        <GearSets />
       </Container>
     </>
   );

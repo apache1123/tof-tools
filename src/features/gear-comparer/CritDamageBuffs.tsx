@@ -2,21 +2,21 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { BoxCheckboxWithStars } from '../../../components/BoxCheckbox/BoxCheckboxWithStars';
-import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
-import { matrixCritDamageBuffsLookup } from '../../../constants/matrix-crit-damage-buffs';
-import { toSignedPercentageString1dp } from '../../../utils/number-utils';
+import { BoxCheckboxWithStars } from '../../components/BoxCheckbox/BoxCheckboxWithStars';
+import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
+import { matrixCritDamageBuffsLookup } from '../../constants/matrix-crit-damage-buffs';
+import { toSignedPercentageString1dp } from '../../utils/number-utils';
 import {
   addMatrixCritDamageBuff,
   removeMatrixCritDamageBuff,
   selectedElementalBuffsStore,
-} from '../stores/derived/selected-elemental-buffs';
+} from './stores/derived/selected-elemental-buffs';
 import {
   selectedElementalUserStatsStore,
   setMiscCritDamage,
-} from '../stores/derived/selected-elemental-user-stats';
+} from './stores/derived/selected-elemental-user-stats';
 
-export function CritDamageContainer() {
+export function CritDamageBuffs() {
   const { selectedElementalUserStats } = useSnapshot(
     selectedElementalUserStatsStore
   );

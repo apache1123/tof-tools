@@ -1,15 +1,15 @@
 import { Box, Paper, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
-import { initializeOCRWorker } from '../../../stores/ocr-temp-gear';
-import { CurrentGearSetElementalType } from '../CurrentGearSetElementalType';
-import { CurrentGearSetGears } from '../CurrentGearSetGears';
-import { CurrentGearSetName } from '../CurrentGearSetName';
-import { CurrentGearSetStatSummary } from '../CurrentGearSetStatSummary';
-import { DeleteCurrentGearSet } from '../DeleteCurrentGearSet';
-import { GearSetTabs } from '../GearSetTabs';
+import { initializeOCRWorker } from '../../stores/ocr-temp-gear';
+import { CurrentGearSetElementalType } from './CurrentGearSetElementalType';
+import { CurrentGearSetGears } from './CurrentGearSetGears';
+import { CurrentGearSetName } from './CurrentGearSetName';
+import { CurrentGearSetStatSummary } from './CurrentGearSetStatSummary';
+import { DeleteCurrentGearSet } from './DeleteCurrentGearSet';
+import { GearSetTabs } from './GearSetTabs';
 
-export function GearSetsContainer() {
+export function GearSets() {
   useEffect(() => {
     initializeOCRWorker();
   }, []);
