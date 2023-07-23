@@ -1,16 +1,16 @@
 import { Paper, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
-import { toPercentageString2dp } from '../../../utils/number-utils';
-import { gearValuesStore } from '../stores/derived/gear-values';
-import { gearValuesComparisonStore } from '../stores/derived/gear-values-comparison';
-import type { GearComparerGearPosition } from '../stores/gear-comparer-gear';
+import { toPercentageString2dp } from '../../utils/number-utils';
+import { gearValuesStore } from './stores/derived/gear-values';
+import { gearValuesComparisonStore } from './stores/derived/gear-values-comparison';
+import type { GearComparerGearPosition } from './stores/gear-comparer-gear';
 
-interface GearValueContainerProps {
+interface GearValueProps {
   position: GearComparerGearPosition;
 }
 
-export function GearValueContainer({ position }: GearValueContainerProps) {
+export function GearValue({ position }: GearValueProps) {
   const gearValuesSnap = useSnapshot(gearValuesStore);
   const gearValuesComparisonSnap = useSnapshot(gearValuesComparisonStore);
 

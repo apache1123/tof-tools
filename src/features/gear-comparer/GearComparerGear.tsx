@@ -1,20 +1,18 @@
 import { useSnapshot } from 'valtio';
 
-import type { Gear } from '../../../models/gear';
-import { newGear } from '../../../models/gear';
-import type { GearType } from '../../../models/gear-type';
-import { EmptyGearPiece, GearPiece } from '../../GearPiece';
-import type { GearComparerGearPosition } from '../stores/gear-comparer-gear';
-import { gearComparerGearsStore, setGear } from '../stores/gear-comparer-gear';
-import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
+import type { Gear } from '../../models/gear';
+import { newGear } from '../../models/gear';
+import type { GearType } from '../../models/gear-type';
+import { EmptyGearPiece, GearPiece } from '../GearPiece';
+import type { GearComparerGearPosition } from './stores/gear-comparer-gear';
+import { gearComparerGearsStore, setGear } from './stores/gear-comparer-gear';
+import { gearComparerOptionsStore } from './stores/gear-comparer-options';
 
-export interface GearComparerGearContainerProps {
+export interface GearComparerGearProps {
   position: GearComparerGearPosition;
 }
 
-export function GearComparerGearContainer({
-  position,
-}: GearComparerGearContainerProps) {
+export function GearComparerGear({ position }: GearComparerGearProps) {
   const { [position]: gear } = gearComparerGearsStore;
   const { [position]: gearSnap } = useSnapshot(gearComparerGearsStore);
   const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);

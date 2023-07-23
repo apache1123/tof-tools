@@ -2,14 +2,14 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
+import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
 import {
   selectedElementalUserStatsStore,
   setOtherGearElementalDamage,
-} from '../stores/derived/selected-elemental-user-stats';
-import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
+} from './stores/derived/selected-elemental-user-stats';
+import { gearComparerOptionsStore } from './stores/gear-comparer-options';
 
-export function ElementalDamageContainer() {
+export function ElementalDamageBuffs() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
   const { selectedElementalUserStats } = useSnapshot(
     selectedElementalUserStatsStore

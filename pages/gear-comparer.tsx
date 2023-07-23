@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
 import Head from 'next/head';
 
-import { GearComparerContainer } from '../src/features/gear-comparer/containers/GearComparerContainer';
+import { GearComparer } from '../src/features/gear-comparer/GearComparer';
 
-export default function GearComparer() {
+export default function GearComparerPage() {
   return (
     <>
       <Head>
@@ -11,7 +11,7 @@ export default function GearComparer() {
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>
-        <GearComparerContainer />
+        <GearComparer />
       </Container>
     </>
   );

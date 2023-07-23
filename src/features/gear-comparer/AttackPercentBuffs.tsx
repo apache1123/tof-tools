@@ -2,27 +2,27 @@ import { Chip, Divider, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { BoxCheckbox } from '../../../components/BoxCheckbox/BoxCheckbox';
-import { BoxCheckboxWithStars } from '../../../components/BoxCheckbox/BoxCheckboxWithStars';
-import { PercentageNumericInput } from '../../../components/NumericInput/PercentageNumericInput';
-import { matrixAttackBuffsLookup } from '../../../constants/matrix-attack-buffs';
-import { weaponAttackBuffsLookup } from '../../../constants/weapon-attack-buffs';
-import { toSignedPercentageString1dp } from '../../../utils/number-utils';
+import { BoxCheckbox } from '../../components/BoxCheckbox/BoxCheckbox';
+import { BoxCheckboxWithStars } from '../../components/BoxCheckbox/BoxCheckboxWithStars';
+import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
+import { matrixAttackBuffsLookup } from '../../constants/matrix-attack-buffs';
+import { weaponAttackBuffsLookup } from '../../constants/weapon-attack-buffs';
+import { toSignedPercentageString1dp } from '../../utils/number-utils';
 import {
   addMatrixAttackBuff,
   addWeaponAttackBuff,
   removeMatrixAttackBuff,
   removeWeaponAttackBuff,
   selectedElementalBuffsStore,
-} from '../stores/derived/selected-elemental-buffs';
+} from './stores/derived/selected-elemental-buffs';
 import {
   selectedElementalUserStatsStore,
   setMiscAttackPercent,
   setOtherGearAttackPercent,
-} from '../stores/derived/selected-elemental-user-stats';
-import { gearComparerOptionsStore } from '../stores/gear-comparer-options';
+} from './stores/derived/selected-elemental-user-stats';
+import { gearComparerOptionsStore } from './stores/gear-comparer-options';
 
-export function AttackPercentContainer() {
+export function AttackPercentBuffs() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
   const { selectedElementalUserStats } = useSnapshot(
     selectedElementalUserStatsStore

@@ -2,15 +2,15 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { CoreElementalTypeSelector } from '../../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
-import { ElementalStyledText } from '../../../components/ElementalStyledText/ElementalStyledText';
-import { useAutoHideSnackbar } from '../../../components/Snackbar/useAutoHideSnackbar';
+import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
+import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
+import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
 import {
   gearComparerOptionsStore,
   setSelectedElementalType,
-} from '../stores/gear-comparer-options';
+} from './stores/gear-comparer-options';
 
-export function GearComparerOptionsContainer() {
+export function GearComparerOptions() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
 
   const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar({
