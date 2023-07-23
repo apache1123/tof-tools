@@ -50,7 +50,8 @@ export function SaveGearModal({ gear }: SaveGearModalProps) {
             }
           }
         }}
-        iconButtonIcon={<SaveIcon />}
+        icon={<SaveIcon />}
+        iconButton
       />
       <SnackbarComponent />
     </>

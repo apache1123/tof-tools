@@ -18,7 +18,8 @@ export function DeleteCurrentGearSet() {
   return (
     <>
       <ButtonModal
-        iconButtonIcon={<DeleteForeverIcon color="error" />}
+        icon={<DeleteForeverIcon color="error" />}
+        iconButton
         modalContent={
           <Typography color="error">
             This will permanently delete this gear set. Continue?
@@ -30,7 +31,7 @@ export function DeleteCurrentGearSet() {
           deleteSelectedGearSet();
           showSnackbar('Gear set deleted');
         }}
-        iconButtonAriaLabel="delete-gear-set"
+        aria-label="delete-gear-set"
       />
       <SnackbarComponent />
     </>

@@ -132,6 +132,7 @@ export const GearPiece = ({
               enforceGearType={
                 disableGearTypeChange ? gearSnap.typeId : undefined
               }
+              iconButton
             />
           )}
           {showCompareGearButton && (
