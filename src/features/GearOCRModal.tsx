@@ -36,6 +36,7 @@ import { GearPiece } from './GearPiece';
 export interface GearOCRModalProps {
   onFinalizeGear?(gear: Gear): void;
   enforceGearType?: GearName;
+  iconButton?: boolean;
 }
 
 const unableToParseGearTypeError = () => (
@@ -49,6 +50,7 @@ const incorrectGearTypeError = (gearTypeId: GearName) =>
 export const GearOCRModal = ({
   onFinalizeGear,
   enforceGearType,
+  iconButton,
 }: GearOCRModalProps) => {
   const { tempGear } = ocrStore;
   const { tempGear: tempGearSnap } = useSnapshot(ocrStore);
@@ -148,8 +150,9 @@ export const GearOCRModal = ({
           </Grid>
         </>
       }
-      iconButtonIcon={<UploadIcon />}
-      iconButtonAriaLabel="upload-gear"
+      icon={<UploadIcon />}
+      iconButton={iconButton}
+      aria-label="upload-gear"
       showConfirm
       showCancel
       isConfirmDisabled={!tempGearSnap}

@@ -7,9 +7,10 @@ import { StyledModal } from './StyledModal';
 
 export interface ButtonModalProps extends Omit<StyledModalProps, 'open'> {
   buttonText?: ReactNode;
+  icon?: ReactNode;
+  iconButton?: boolean;
   buttonSx?: SxProps<Theme>;
-  iconButtonIcon?: ReactNode;
-  iconButtonAriaLabel?: string;
+  ['aria-label']?: string;
 }
 
 export function ButtonModal({
@@ -20,8 +21,9 @@ export function ButtonModal({
   isConfirmDisabled,
   onConfirm,
   onClose,
-  iconButtonIcon,
-  iconButtonAriaLabel,
+  icon,
+  iconButton,
+  'aria-label': ariaLabel,
   buttonSx,
   ariaModalTitle = 'modal-title',
   ariaModalDescription = 'modal-description',
@@ -42,18 +44,24 @@ export function ButtonModal({
 
   return (
     <>
-      {iconButtonIcon ? (
+      {iconButton && icon ? (
         <Tooltip title={buttonText} placement="right">
           <IconButton
             onClick={handleOpen}
             color="primary"
-            aria-label={iconButtonAriaLabel}
+            aria-label={ariaLabel}
           >
-            {iconButtonIcon}
+            {icon}
           </IconButton>
         </Tooltip>
       ) : (
-        <Button onClick={handleOpen} variant="text" sx={buttonSx}>
+        <Button
+          onClick={handleOpen}
+          variant="text"
+          startIcon={icon}
+          sx={buttonSx}
+          aria-label={ariaLabel}
+        >
           {buttonText}
         </Button>
       )}
