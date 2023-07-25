@@ -141,11 +141,9 @@ test('upload gear, ocr fills in correct gear', async ({ page }) => {
       .getByRole('textbox')
   ).toHaveValue('69');
 
-  await page.getByRole('button', { name: 'Roll details' }).click();
+  await page.getByRole('button', { name: 'Roll breakdown' }).click();
   await expect(
-    page.getByText(
-      'For a 4 star gear:Physical Resistance: 0 rollsAttack: 2 rolls, strength: 88%Phys'
-    )
+    page.getByTestId('roll-breakdown-panel-content')
   ).toHaveScreenshot();
 });
 
