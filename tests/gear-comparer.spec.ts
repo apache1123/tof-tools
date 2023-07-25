@@ -204,6 +204,10 @@ test('gear value is calculated correctly', async ({ page }) => {
   // Not a perfect assert but good enough
   await expect(page.getByText('Value: 102.44%')).toBeVisible(); // GearA value
 
+  // Test persistence and recalculation
+  await page.reload();
+  await expect(page.getByText('Value: 102.44%')).toBeVisible(); // GearA value
+
   // Test swap elements
   await page.getByLabel('Elemental type to compare *').click();
   await page.getByRole('option', { name: 'physical-icon Physical' }).click();
@@ -213,7 +217,8 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page.getByLabel('Crit *').fill(crit);
   await expect(page.getByText('Value: 114.58%')).toBeVisible(); // GearA value
 
-  // Test crit %
+  // Test crit % & changing gear stat
+  await page.reload();
   await page.getByLabel('Stat').getByRole('combobox').nth(1).click();
   await page.getByRole('option', { name: 'Crit Rate %', exact: true }).click();
   await page.getByLabel('stat-value-input').getByRole('textbox').nth(1).click();
