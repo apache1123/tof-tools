@@ -1,4 +1,5 @@
 import {
+  Box,
   Paper,
   Table,
   TableBody,
@@ -15,7 +16,7 @@ import { toPercentageString2dp } from '../../utils/number-utils';
 
 export function StatRanges() {
   return (
-    <>
+    <Box>
       <Typography variant="h5" mb={1}>
         Stat ranges
       </Typography>
@@ -82,7 +83,7 @@ export function StatRanges() {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Box>
   );
 }
 

@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import { statTypesLookup } from '../constants/stat-types';
 import { type StatName, type StatType } from './stat-type';
 
@@ -35,4 +37,13 @@ export function setValue(randomStat: RandomStat, value: number) {
 export function resetValueToDefault(randomStat: RandomStat) {
   const type = getType(randomStat);
   randomStat.value = type.randomStatDefaultValue;
+}
+
+export function getMaxAugmentIncrease(randomStat: RandomStat): number {
+  const { maxAugmentIncreaseMultiplier, maxAugmentIncreaseFlat } =
+    getType(randomStat);
+  return BigNumber(randomStat.value)
+    .multipliedBy(maxAugmentIncreaseMultiplier)
+    .plus(maxAugmentIncreaseFlat)
+    .toNumber();
 }
