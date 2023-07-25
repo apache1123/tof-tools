@@ -33,6 +33,7 @@ export function BoxCheckbox({
     <Paper
       elevation={1}
       sx={{
+        p: 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
