@@ -9,6 +9,9 @@ export interface StatType {
   randomStatDefaultValue: number;
   randomStatMinRollValue: number;
   randomStatMaxRollValue: number;
+  // Max augment increase = stat value * multiplier + flat
+  maxAugmentIncreaseMultiplier: number;
+  maxAugmentIncreaseFlat: number;
 }
 
 export function isElementalAttackFlat(

@@ -1,6 +1,7 @@
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import Head from 'next/head';
 
+import { StatMaxAugmentIncrease } from '../src/features/stats/StatMaxAugmentIncrease';
 import { StatRanges } from '../src/features/stats/StatRanges';
 
 export default function StatsPage() {
@@ -11,7 +12,10 @@ export default function StatsPage() {
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>
-        <StatRanges />
+        <Stack spacing={6}>
+          <StatMaxAugmentIncrease />
+          <StatRanges />
+        </Stack>
       </Container>
     </>
   );

@@ -46,6 +46,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 69,
       randomStatMinRollValue: 239,
       randomStatMaxRollValue: 623,
+      maxAugmentIncreaseMultiplier: 0,
+      maxAugmentIncreaseFlat: 0,
     },
     [StatName.AlteredResistance]: {
       id: StatName.AlteredResistance,
@@ -58,6 +60,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 215,
       randomStatMinRollValue: 390,
       randomStatMaxRollValue: 974,
+      maxAugmentIncreaseMultiplier: 0,
+      maxAugmentIncreaseFlat: 0,
     },
     [StatName.AlteredResistancePercent]: {
       id: StatName.AlteredResistancePercent,
@@ -70,6 +74,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0787,
       randomStatMinRollValue: 0.09,
       randomStatMaxRollValue: 0.09,
+      maxAugmentIncreaseMultiplier: 0,
+      maxAugmentIncreaseFlat: 0,
     },
     [StatName.Attack]: {
       id: StatName.Attack,
@@ -82,6 +88,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 52,
       randomStatMinRollValue: 93,
       randomStatMaxRollValue: 234,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 244,
     },
     [StatName.Crit]: {
       id: StatName.Crit,
@@ -94,6 +102,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 258,
       randomStatMinRollValue: 468,
       randomStatMaxRollValue: 1169,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 1221,
     },
     [StatName.CritRatePercent]: {
       id: StatName.CritRatePercent,
@@ -106,6 +116,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0105,
       randomStatMinRollValue: 0.0119,
       randomStatMaxRollValue: 0.0119,
+      maxAugmentIncreaseMultiplier: 0,
+      maxAugmentIncreaseFlat: 0,
     },
     [StatName.FlameAttack]: {
       id: StatName.FlameAttack,
@@ -118,6 +130,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 69,
       randomStatMinRollValue: 125,
       randomStatMaxRollValue: 312,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 325,
     },
     [StatName.FlameAttackPercent]: {
       id: StatName.FlameAttackPercent,
@@ -130,6 +144,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0126,
       randomStatMinRollValue: 0.0144,
       randomStatMaxRollValue: 0.0144,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00846,
     },
     [StatName.FlameDamagePercent]: {
       id: StatName.FlameDamagePercent,
@@ -142,6 +158,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0065,
       randomStatMinRollValue: 0.0072,
       randomStatMaxRollValue: 0.0072,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00426,
     },
     [StatName.FlameResistance]: {
       id: StatName.FlameResistance,
@@ -154,6 +172,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 215,
       randomStatMinRollValue: 390,
       randomStatMaxRollValue: 974,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 1017,
     },
     [StatName.FlameResistancePercent]: {
       id: StatName.FlameResistancePercent,
@@ -166,6 +186,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0787,
       randomStatMinRollValue: 0.09,
       randomStatMaxRollValue: 0.09,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.0529,
     },
     [StatName.FrostAttack]: {
       id: StatName.FrostAttack,
@@ -178,6 +200,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 69,
       randomStatMinRollValue: 125,
       randomStatMaxRollValue: 312,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 325,
     },
     [StatName.FrostAttackPercent]: {
       id: StatName.FrostAttackPercent,
@@ -190,6 +214,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0126,
       randomStatMinRollValue: 0.0144,
       randomStatMaxRollValue: 0.0144,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00846,
     },
     [StatName.FrostDamagePercent]: {
       id: StatName.FrostDamagePercent,
@@ -202,6 +228,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0065,
       randomStatMinRollValue: 0.0072,
       randomStatMaxRollValue: 0.0072,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00426,
     },
     [StatName.FrostResistance]: {
       id: StatName.FrostResistance,
@@ -214,6 +242,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 215,
       randomStatMinRollValue: 390,
       randomStatMaxRollValue: 974,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 1017,
     },
     [StatName.FrostResistancePercent]: {
       id: StatName.FrostResistancePercent,
@@ -226,6 +256,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0787,
       randomStatMinRollValue: 0.09,
       randomStatMaxRollValue: 0.09,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.0529,
     },
     [StatName.HP]: {
       id: StatName.HP,
@@ -238,6 +270,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 4125,
       randomStatMinRollValue: 7480,
       randomStatMaxRollValue: 18700,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 19525,
     },
     [StatName.HPPercent]: {
       id: StatName.HPPercent,
@@ -250,6 +284,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0094,
       randomStatMinRollValue: 0.0108,
       randomStatMaxRollValue: 0.0108,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00634,
     },
     [StatName.PhysicalAttack]: {
       id: StatName.PhysicalAttack,
@@ -262,6 +298,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 69,
       randomStatMinRollValue: 125,
       randomStatMaxRollValue: 312,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 325,
     },
     [StatName.PhysicalAttackPercent]: {
       id: StatName.PhysicalAttackPercent,
@@ -274,6 +312,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0126,
       randomStatMinRollValue: 0.0144,
       randomStatMaxRollValue: 0.0144,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00846,
     },
     [StatName.PhysicalDamagePercent]: {
       id: StatName.PhysicalDamagePercent,
@@ -286,6 +326,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0065,
       randomStatMinRollValue: 0.0072,
       randomStatMaxRollValue: 0.0072,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00426,
     },
     [StatName.PhysicalResistance]: {
       id: StatName.PhysicalResistance,
@@ -298,6 +340,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 215,
       randomStatMinRollValue: 390,
       randomStatMaxRollValue: 974,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 1017,
     },
     [StatName.PhysicalResistancePercent]: {
       id: StatName.PhysicalResistancePercent,
@@ -310,6 +354,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0787,
       randomStatMinRollValue: 0.09,
       randomStatMaxRollValue: 0.09,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.0529,
     },
     [StatName.Resistance]: {
       id: StatName.Resistance,
@@ -322,6 +368,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 64,
       randomStatMinRollValue: 117,
       randomStatMaxRollValue: 292,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 305,
     },
     [StatName.VoltAttack]: {
       id: StatName.VoltAttack,
@@ -334,6 +382,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 69,
       randomStatMinRollValue: 125,
       randomStatMaxRollValue: 312,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 325,
     },
     [StatName.VoltAttackPercent]: {
       id: StatName.VoltAttackPercent,
@@ -346,6 +396,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0126,
       randomStatMinRollValue: 0.0144,
       randomStatMaxRollValue: 0.0144,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00846,
     },
     [StatName.VoltDamagePercent]: {
       id: StatName.VoltDamagePercent,
@@ -358,6 +410,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0065,
       randomStatMinRollValue: 0.0072,
       randomStatMaxRollValue: 0.0072,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.00426,
     },
     [StatName.VoltResistance]: {
       id: StatName.VoltResistance,
@@ -370,6 +424,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 215,
       randomStatMinRollValue: 390,
       randomStatMaxRollValue: 974,
+      maxAugmentIncreaseMultiplier: 0.1,
+      maxAugmentIncreaseFlat: 1017,
     },
     [StatName.VoltResistancePercent]: {
       id: StatName.VoltResistancePercent,
@@ -382,6 +438,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0787,
       randomStatMinRollValue: 0.09,
       randomStatMaxRollValue: 0.09,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.0529,
     },
   },
 };
