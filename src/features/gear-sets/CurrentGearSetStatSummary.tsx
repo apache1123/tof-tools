@@ -23,7 +23,7 @@ export function CurrentGearSetStatSummary() {
   }
 
   return (
-    <Paper>
+    <Paper sx={{ p: 2 }}>
       <Stack direction="row" spacing={5}>
         <Box>
           <Typography>Attack</Typography>

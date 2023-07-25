@@ -1,10 +1,9 @@
-import { Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import pluralize from 'pluralize';
 import { Fragment } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { ButtonModal } from '../components/Modal/ButtonModal';
 import { maxNumOfRandomStatRolls } from '../constants/gear';
 import type { Gear } from '../models/gear';
 import type {
@@ -18,24 +17,26 @@ import { zeroRollCombination } from '../models/random-stat-roll-combination';
 import { cartesian } from '../utils/array-utils';
 import { toPercentageString } from '../utils/number-utils';
 
-export interface GearRandomStatsRollsDetailsProps {
+export interface GearRollBreakdownProps {
   gear: Gear;
 }
 
-export const GearRandomStatsRollsDetails = ({
-  gear,
-}: GearRandomStatsRollsDetailsProps) => {
+export const GearRollBreakdown = ({ gear }: GearRollBreakdownProps) => {
   const gearSnap = useSnapshot(gear);
   const randomStatRollCombinations = getGearRandomStatRollCombinations(
     gearSnap as Gear
   );
 
+  const hasOnlyOneRollCombination = randomStatRollCombinations.length === 1;
+
   return (
-    <ButtonModal
-      buttonText="Roll details"
-      modalContent={randomStatRollCombinations.map((x, i) => (
+    <>
+      {randomStatRollCombinations.map((x, i) => (
         <Fragment key={i}>
-          <Typography variant="h6">For a {x.stars} star gear:</Typography>
+          {!!i && <Divider>or</Divider>}
+          {!gearSnap.stars && !hasOnlyOneRollCombination && (
+            <Typography variant="h6">{x.stars} star gear:</Typography>
+          )}
           <ul>
             {x.randomStatRollCombinations.map((y) => (
               <li key={y.randomStatId}>
@@ -52,7 +53,7 @@ export const GearRandomStatsRollsDetails = ({
           </ul>
         </Fragment>
       ))}
-    />
+    </>
   );
 };
 

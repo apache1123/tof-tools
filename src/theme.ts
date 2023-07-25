@@ -57,13 +57,6 @@ const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
   },
-  components: {
-    MuiPaper: {
-      styleOverrides: {
-        root: ({ theme }) => theme.unstable_sx({ p: 2 }),
-      },
-    },
-  },
 });
 
 declare module '@mui/material/styles' {

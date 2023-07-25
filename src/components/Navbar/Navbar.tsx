@@ -39,7 +39,7 @@ export function Navbar() {
   const router = useRouter();
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ p: 2 }}>
       <Container maxWidth="xl">
         <Toolbar
           disableGutters

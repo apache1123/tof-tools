@@ -1,12 +1,21 @@
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Box, IconButton, Paper, Tooltip, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  IconButton,
+  Paper,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { ElementalStyledText } from '../components/ElementalStyledText/ElementalStyledText';
 import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
@@ -14,11 +23,6 @@ import { defaultNumOfRandomStats } from '../constants/gear';
 import {
   copyGear,
   type Gear,
-  getTotalAttackFlat,
-  getTotalAttackPercent,
-  getTotalCritFlat,
-  getTotalCritPercent,
-  getTotalDamagePercent,
   getType,
   newGear,
   setStars,
@@ -28,14 +32,14 @@ import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { newRandomStat } from '../models/random-stat';
 import type { CoreElementalType } from '../models/stat-type';
-import { toPercentageString2dp } from '../utils/number-utils';
 import { SaveGearModal } from './gear-comparer/SaveGearModal';
 import {
   gearComparerGearsStore,
   setGear,
 } from './gear-comparer/stores/gear-comparer-gear';
+import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 import { GearOCRModal } from './GearOCRModal';
-import { GearRandomStatsRollsDetails } from './GearRandomStatsRollsDetails';
+import { GearRollBreakdown } from './GearRollBreakdown';
 import { DisabledStatEditor, EmptyStatEditor, StatEditor } from './StatEditor';
 
 export interface GearPieceProps {
@@ -71,18 +75,6 @@ export const GearPiece = ({
     }
     router.push('/gear-comparer');
   };
-
-  const totalAttackFlat = showStatSummary
-    ? getTotalAttackFlat(gearSnap as Gear, showStatSummary)
-    : 0;
-  const totalAttackPercent = showStatSummary
-    ? getTotalAttackPercent(gearSnap as Gear, showStatSummary)
-    : 0;
-  const totalCritFlat = getTotalCritFlat(gearSnap as Gear);
-  const totalCritPercent = getTotalCritPercent(gearSnap as Gear);
-  const totalDamagePercent = showStatSummary
-    ? getTotalDamagePercent(gearSnap as Gear, showStatSummary)
-    : 0;
 
   return (
     <Layout
@@ -148,51 +140,24 @@ export const GearPiece = ({
       summary={
         <>
           {showStatSummary && (
-            <>
-              {!!totalAttackFlat && (
-                <Typography>
-                  Attack{' '}
-                  <ElementalStyledText elementalType={showStatSummary}>
-                    {totalAttackFlat}
-                  </ElementalStyledText>
-                </Typography>
-              )}
-              {!!totalAttackPercent && (
-                <Typography>
-                  Attack{' '}
-                  <ElementalStyledText elementalType={showStatSummary}>
-                    {toPercentageString2dp(totalAttackPercent)}
-                  </ElementalStyledText>
-                </Typography>
-              )}
-              {!!totalDamagePercent && (
-                <Typography>
-                  Damage{' '}
-                  <ElementalStyledText elementalType={showStatSummary}>
-                    {toPercentageString2dp(totalDamagePercent)}
-                  </ElementalStyledText>
-                </Typography>
-              )}
-              {!!totalCritFlat && (
-                <Typography>
-                  Crit{' '}
-                  <ElementalStyledText elementalType={showStatSummary}>
-                    {totalCritFlat}
-                  </ElementalStyledText>
-                </Typography>
-              )}
-              {!!totalCritPercent && (
-                <Typography>
-                  Crit{' '}
-                  <ElementalStyledText elementalType={showStatSummary}>
-                    {toPercentageString2dp(totalCritPercent)}
-                  </ElementalStyledText>
-                </Typography>
-              )}
-            </>
+            <GearAttackStatsSummary
+              gear={gear}
+              elementalType={showStatSummary}
+            />
           )}
-          <Box mt={2} textAlign="right">
-            <GearRandomStatsRollsDetails gear={gear} />
+          <Box mt={2}>
+            <Accordion elevation={2}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="roll-breakdown-panel-content"
+                id="roll-breakdown-panel-header"
+              >
+                <Typography>Roll breakdown</Typography>
+              </AccordionSummary>
+              <AccordionDetails data-testid="roll-breakdown-panel-content">
+                <GearRollBreakdown gear={gear} />
+              </AccordionDetails>
+            </Accordion>
           </Box>
         </>
       }
@@ -264,7 +229,7 @@ function Layout({
           <Box mt={1}>
             {starsSelector}
             {starsSelector && (
-              <Tooltip title="This is optional and won't affect the calculations if not selected, but will aid the tool in determining the roll details.">
+              <Tooltip title="This is optional and won't affect the calculations if not selected, but will aid the tool in determining the roll breakdown.">
                 <InfoOutlinedIcon sx={{ ml: 1 }} />
               </Tooltip>
             )}

@@ -15,7 +15,7 @@ export function GearValue({ position }: GearValueProps) {
   const gearValuesComparisonSnap = useSnapshot(gearValuesComparisonStore);
 
   return (
-    <Paper>
+    <Paper sx={{ p: 2 }}>
       <Typography align="center">Value: </Typography>
       <Typography
         fontSize="1.5rem"
