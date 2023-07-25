@@ -40,12 +40,15 @@ export interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+  // Order matters here.
+  // Not 100% sure, but the theory is: if in a derived store, get(A) is used before get(B), then A needs to go after B here
+  // Cause: maybe because of the Object.assign in `useLocalStoragePersistence` messing up proxy dependents tracking, in nested objects?
+  useLocalStoragePersistence(userStatsStore, userStatsStoreKey);
+  useLocalStoragePersistence(buffsStore, buffsStoreKey);
   useLocalStoragePersistence(
     gearComparerOptionsStore,
     gearComparerOptionsStoreKey
   );
-  useLocalStoragePersistence(userStatsStore, userStatsStoreKey);
-  useLocalStoragePersistence(buffsStore, buffsStoreKey);
   useLocalStoragePersistence(gearComparerGearsStore, gearComparerGearsStoreKey);
   useLocalStoragePersistence(gearSetsStore, gearSetsStoreKey);
 

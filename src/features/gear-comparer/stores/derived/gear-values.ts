@@ -37,8 +37,8 @@ export const gearValuesStore = derive<object, GearValuesStore>({
       'GearA',
       get(gearComparerGearsStore),
       get(gearComparerOptionsStore),
-      get(userStatsStore),
       get(selectedElementalUserStatsStore),
+      get(userStatsStore),
       get(selectedElementalBuffValuesStore)
     );
   },
@@ -47,8 +47,8 @@ export const gearValuesStore = derive<object, GearValuesStore>({
       'GearB',
       get(gearComparerGearsStore),
       get(gearComparerOptionsStore),
-      get(userStatsStore),
       get(selectedElementalUserStatsStore),
+      get(userStatsStore),
       get(selectedElementalBuffValuesStore)
     );
   },
@@ -59,8 +59,8 @@ function getGearValue(
   gearPosition: GearComparerGearPosition,
   gearComparerGearsStore: GearComparerGearsStore,
   gearComparerOptionsStore: GearComparerOptionsStore,
-  userStatsStore: UserStatsStore,
   selectedElementalUserStatsStore: SelectedElementalUserStatsStore,
+  userStatsStore: UserStatsStore,
   selectedElementalBuffValuesStore: SelectedElementalBuffValuesStore
 ) {
   const gear = gearComparerGearsStore[gearPosition];
