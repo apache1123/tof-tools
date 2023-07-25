@@ -23,6 +23,10 @@ const pages: { label: string; path: string }[] = [
     label: 'Gear comparer',
     path: '/gear-comparer',
   },
+  {
+    label: 'Stats stuff',
+    path: '/stats',
+  },
 ];
 
 export function Navbar() {
