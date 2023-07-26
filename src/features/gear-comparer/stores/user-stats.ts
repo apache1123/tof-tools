@@ -2,13 +2,16 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import { maxCharacterLevel } from '../../../constants/character-level';
+import { defaultCritDamagePercent } from '../../../constants/damage-formula';
 import type { DataById } from '../../../models/data';
 import type { CoreElementalType } from '../../../models/stat-type';
 
 export interface ElementalUserStats {
   baseAttackFlatWithGearA: number;
+  totalAttackFlatWithGearA: number;
   critFlatWithGearA: number;
-  otherGearAttackPercent: number;
+  critPercentWithGearA: number;
+  critDamageWithGearA: number;
   otherGearElementalDamage: number;
   miscAttackPercent: number;
   miscCritRate: number;
@@ -40,8 +43,10 @@ export function setCharacterLevel(value: number) {
 function emptyElementalUserStats(): ElementalUserStats {
   return {
     baseAttackFlatWithGearA: 0,
+    totalAttackFlatWithGearA: 0,
     critFlatWithGearA: 0,
-    otherGearAttackPercent: 0,
+    critPercentWithGearA: 0,
+    critDamageWithGearA: defaultCritDamagePercent,
     otherGearElementalDamage: 0,
     miscAttackPercent: 0,
     miscCritRate: 0,

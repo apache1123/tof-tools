@@ -28,16 +28,28 @@ export function setBaseAttackFlatWithGearA(value: number) {
     selectedElementalUserStats.baseAttackFlatWithGearA = value;
   }
 }
+export function setTotalAttackFlatWithGearA(value: number) {
+  const { selectedElementalUserStats } = selectedElementalUserStatsStore;
+  if (selectedElementalUserStats) {
+    selectedElementalUserStats.totalAttackFlatWithGearA = value;
+  }
+}
 export function setCritFlatWithGearA(value: number) {
   const { selectedElementalUserStats } = selectedElementalUserStatsStore;
   if (selectedElementalUserStats) {
     selectedElementalUserStats.critFlatWithGearA = value;
   }
 }
-export function setOtherGearAttackPercent(value: number) {
+export function setCritPercentWithGearA(value: number) {
   const { selectedElementalUserStats } = selectedElementalUserStatsStore;
   if (selectedElementalUserStats) {
-    selectedElementalUserStats.otherGearAttackPercent = value;
+    selectedElementalUserStats.critPercentWithGearA = value;
+  }
+}
+export function setCritDamageWithGearA(value: number) {
+  const { selectedElementalUserStats } = selectedElementalUserStatsStore;
+  if (selectedElementalUserStats) {
+    selectedElementalUserStats.critDamageWithGearA = value;
   }
 }
 export function setOtherGearElementalDamage(value: number) {

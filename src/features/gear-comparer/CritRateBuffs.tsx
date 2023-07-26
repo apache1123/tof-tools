@@ -5,8 +5,8 @@ import { useSnapshot } from 'valtio';
 import { BoxCheckbox } from '../../components/BoxCheckbox/BoxCheckbox';
 import { BoxCheckboxWithStars } from '../../components/BoxCheckbox/BoxCheckboxWithStars';
 import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
-import { matrixCritRateBuffsLookup } from '../../constants/matrix-crit-rate-buffs';
-import { weaponCritRateBuffsLookup } from '../../constants/weapon-crit-rate-buffs';
+import { activeMatrixCritRateBuffsLookup } from '../../constants/matrix-crit-rate-buffs';
+import { activeWeaponCritRateBuffsLookup } from '../../constants/weapon-crit-rate-buffs';
 import { toSignedPercentageString1dp } from '../../utils/number-utils';
 import {
   addMatrixCritRateBuff,
@@ -56,9 +56,9 @@ export function CritRateBuffs() {
       </Grid>
 
       <Grid container spacing={2}>
-        {weaponCritRateBuffsLookup.allIds.map((id) => {
+        {activeWeaponCritRateBuffsLookup.allIds.map((id) => {
           const { displayName, value, description } =
-            weaponCritRateBuffsLookup.byId[id];
+            activeWeaponCritRateBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckbox
@@ -77,9 +77,9 @@ export function CritRateBuffs() {
             </Grid>
           );
         })}
-        {matrixCritRateBuffsLookup.allIds.map((id) => {
+        {activeMatrixCritRateBuffsLookup.allIds.map((id) => {
           const { displayName, starValues, description } =
-            matrixCritRateBuffsLookup.byId[id];
+            activeMatrixCritRateBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckboxWithStars

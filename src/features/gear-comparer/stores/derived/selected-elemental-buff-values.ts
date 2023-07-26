@@ -1,10 +1,10 @@
 import { derive } from 'valtio/utils';
 
-import { matrixAttackBuffsLookup } from '../../../../constants/matrix-attack-buffs';
-import { matrixCritDamageBuffsLookup } from '../../../../constants/matrix-crit-damage-buffs';
-import { matrixCritRateBuffsLookup } from '../../../../constants/matrix-crit-rate-buffs';
-import { weaponAttackBuffsLookup } from '../../../../constants/weapon-attack-buffs';
-import { weaponCritRateBuffsLookup } from '../../../../constants/weapon-crit-rate-buffs';
+import { activeMatrixAttackBuffsLookup } from '../../../../constants/matrix-attack-buffs';
+import { activeMatrixCritDamageBuffsLookup } from '../../../../constants/matrix-crit-damage-buffs';
+import { activeMatrixCritRateBuffsLookup } from '../../../../constants/matrix-crit-rate-buffs';
+import { activeWeaponAttackBuffsLookup } from '../../../../constants/weapon-attack-buffs';
+import { activeWeaponCritRateBuffsLookup } from '../../../../constants/weapon-crit-rate-buffs';
 import { getMatrixBuffValues, getWeaponBuffValues } from '../buffs';
 import { selectedElementalBuffsStore } from './selected-elemental-buffs';
 
@@ -28,7 +28,7 @@ export const selectedElementalBuffValuesStore = derive<
 
     return getWeaponBuffValues(
       selectedElementalBuffs.weaponAttackBuffs,
-      weaponAttackBuffsLookup
+      activeWeaponAttackBuffsLookup
     );
   },
   matrixAttackBuffValues: (get): number[] => {
@@ -39,7 +39,7 @@ export const selectedElementalBuffValuesStore = derive<
 
     return getMatrixBuffValues(
       selectedElementalBuffs.matrixAttackBuffs,
-      matrixAttackBuffsLookup
+      activeMatrixAttackBuffsLookup
     );
   },
   weaponCritRateBuffValues: (get): number[] => {
@@ -50,7 +50,7 @@ export const selectedElementalBuffValuesStore = derive<
 
     return getWeaponBuffValues(
       selectedElementalBuffs.weaponCritRateBuffs,
-      weaponCritRateBuffsLookup
+      activeWeaponCritRateBuffsLookup
     );
   },
   matrixCritRateBuffValues: (get): number[] => {
@@ -61,7 +61,7 @@ export const selectedElementalBuffValuesStore = derive<
 
     return getMatrixBuffValues(
       selectedElementalBuffs.matrixCritRateBuffs,
-      matrixCritRateBuffsLookup
+      activeMatrixCritRateBuffsLookup
     );
   },
   matrixCritDamageBuffValues: (get): number[] => {
@@ -72,7 +72,7 @@ export const selectedElementalBuffValuesStore = derive<
 
     return getMatrixBuffValues(
       selectedElementalBuffs.matrixCritDamageBuffs,
-      matrixCritDamageBuffsLookup
+      activeMatrixCritDamageBuffsLookup
     );
   },
 });

@@ -5,8 +5,8 @@ import { useSnapshot } from 'valtio';
 import { BoxCheckbox } from '../../components/BoxCheckbox/BoxCheckbox';
 import { BoxCheckboxWithStars } from '../../components/BoxCheckbox/BoxCheckboxWithStars';
 import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
-import { matrixAttackBuffsLookup } from '../../constants/matrix-attack-buffs';
-import { weaponAttackBuffsLookup } from '../../constants/weapon-attack-buffs';
+import { activeMatrixAttackBuffsLookup } from '../../constants/matrix-attack-buffs';
+import { activeWeaponAttackBuffsLookup } from '../../constants/weapon-attack-buffs';
 import { toSignedPercentageString1dp } from '../../utils/number-utils';
 import {
   addMatrixAttackBuff,
@@ -18,7 +18,6 @@ import {
 import {
   selectedElementalUserStatsStore,
   setMiscAttackPercent,
-  setOtherGearAttackPercent,
 } from './stores/derived/selected-elemental-user-stats';
 import { gearComparerOptionsStore } from './stores/gear-comparer-options';
 
@@ -37,8 +36,7 @@ export function AttackPercentBuffs() {
     return null;
   }
 
-  const { otherGearAttackPercent, miscAttackPercent } =
-    selectedElementalUserStats;
+  const { miscAttackPercent } = selectedElementalUserStats;
   const { weaponAttackBuffs, matrixAttackBuffs } = selectedElementalBuffs;
 
   return (
@@ -55,20 +53,6 @@ export function AttackPercentBuffs() {
       <Grid container spacing={2} mb={2}>
         <Grid xs={12} sm={6} md={4} lg={3}>
           <PercentageNumericInput
-            id="other-gear-atk-percent"
-            label={
-              'Attack %' +
-              (selectedElementalType ? ` (${selectedElementalType})` : '') +
-              ' from all other gear pieces'
-            }
-            variant="filled"
-            value={otherGearAttackPercent}
-            onChange={setOtherGearAttackPercent}
-            helperText="Add up values from all other gear pieces"
-          />
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          <PercentageNumericInput
             id="misc-atk-percent"
             label="Misc. attack % buffs"
             variant="filled"
@@ -79,9 +63,9 @@ export function AttackPercentBuffs() {
       </Grid>
 
       <Grid container spacing={2}>
-        {weaponAttackBuffsLookup.allIds.map((id) => {
+        {activeWeaponAttackBuffsLookup.allIds.map((id) => {
           const { displayName, value, description } =
-            weaponAttackBuffsLookup.byId[id];
+            activeWeaponAttackBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckbox
@@ -107,9 +91,9 @@ export function AttackPercentBuffs() {
       </Divider>
 
       <Grid container spacing={2}>
-        {matrixAttackBuffsLookup.allIds.map((id) => {
+        {activeMatrixAttackBuffsLookup.allIds.map((id) => {
           const { displayName, starValues, description } =
-            matrixAttackBuffsLookup.byId[id];
+            activeMatrixAttackBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckboxWithStars
