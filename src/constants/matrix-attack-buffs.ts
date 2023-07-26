@@ -1,106 +1,74 @@
 import type { MatrixBuff } from '../models/buff';
 import type { Data } from '../models/data';
 
-enum Id {
-  Rubilia2pc = 'Rubilia 2pc',
+// Matrix buffs that aren't always active and require some sort of action to trigger i.e. are not included in the character sheet atk stat naturally
+enum ActiveMatrixAttackBuffId {
   Fiona2pc = 'Fiona 2pc',
-  Lan2pc = 'Lan 2pc',
-  Lyra2pc = 'Lyra 2pc',
   Lin2pc = 'Lin 2pc',
-  Ruby4pc = 'Ruby 4pc',
+  Ruby2pc = 'Ruby 2pc',
   Frigg2pc = 'Frigg 2pc',
   Nemesis2pc = 'Nemesis 2pc',
 }
 
-export const matrixAttackBuffsLookup: Data<Id, MatrixBuff> = {
+export const activeMatrixAttackBuffsLookup: Data<
+  ActiveMatrixAttackBuffId,
+  MatrixBuff
+> = {
   allIds: [
-    Id.Rubilia2pc,
-    Id.Fiona2pc,
-    Id.Lan2pc,
-    Id.Lyra2pc,
-    Id.Lin2pc,
-    Id.Ruby4pc,
-    Id.Frigg2pc,
-    Id.Nemesis2pc,
+    ActiveMatrixAttackBuffId.Fiona2pc,
+    ActiveMatrixAttackBuffId.Lin2pc,
+    ActiveMatrixAttackBuffId.Ruby2pc,
+    ActiveMatrixAttackBuffId.Frigg2pc,
+    ActiveMatrixAttackBuffId.Nemesis2pc,
   ],
   byId: {
-    [Id.Rubilia2pc]: {
-      id: Id.Rubilia2pc,
-      displayName: Id.Rubilia2pc,
-      starValues: [
-        { star: 0, value: 0.145 },
-        { star: 1, value: 0.165 },
-        { star: 2, value: 0.185 },
-        { star: 3, value: 0.205 },
-      ],
-      description: 'Volt attack only',
-    },
-    [Id.Fiona2pc]: {
-      id: Id.Fiona2pc,
-      displayName: Id.Fiona2pc,
+    [ActiveMatrixAttackBuffId.Fiona2pc]: {
+      id: ActiveMatrixAttackBuffId.Fiona2pc,
+      displayName: ActiveMatrixAttackBuffId.Fiona2pc,
       starValues: [
         { star: 0, value: 0.16 },
         { star: 1, value: 0.18 },
         { star: 2, value: 0.2 },
         { star: 3, value: 0.22 },
       ],
+      description: 'Increase ATK after dealing damage, works off-hand',
     },
-    [Id.Lan2pc]: {
-      id: Id.Lan2pc,
-      displayName: Id.Lan2pc,
-      starValues: [
-        { star: 0, value: 0.06 },
-        { star: 1, value: 0.07 },
-        { star: 2, value: 0.08 },
-        { star: 3, value: 0.09 },
-      ],
-      description: 'Equip at least 1 flame weapon',
-    },
-    [Id.Lyra2pc]: {
-      id: Id.Lyra2pc,
-      displayName: Id.Lyra2pc,
-      starValues: [
-        { star: 0, value: 0.13 },
-        { star: 1, value: 0.17 },
-        { star: 2, value: 0.21 },
-        { star: 3, value: 0.25 },
-      ],
-    },
-    [Id.Lin2pc]: {
-      id: Id.Lin2pc,
-      displayName: Id.Lin2pc,
+    [ActiveMatrixAttackBuffId.Lin2pc]: {
+      id: ActiveMatrixAttackBuffId.Lin2pc,
+      displayName: ActiveMatrixAttackBuffId.Lin2pc,
       starValues: [
         { star: 0, value: 0.105 },
         { star: 1, value: 0.13 },
         { star: 2, value: 0.155 },
         { star: 3, value: 0.18 },
       ],
-      description: 'Very small ramp-up',
+      description: 'Increase ATK on hit, very small ramp-up',
     },
-    [Id.Ruby4pc]: {
-      id: Id.Ruby4pc,
-      displayName: Id.Ruby4pc,
+    [ActiveMatrixAttackBuffId.Ruby2pc]: {
+      id: ActiveMatrixAttackBuffId.Ruby2pc,
+      displayName: ActiveMatrixAttackBuffId.Ruby2pc,
       starValues: [
         { star: 0, value: 0.08 },
         { star: 1, value: 0.1 },
         { star: 2, value: 0.12 },
         { star: 3, value: 0.15 },
       ],
-      description: 'ATK buff upon reaching max stacks',
+      description: 'Increase Flame ATK after casting skill',
     },
-    [Id.Frigg2pc]: {
-      id: Id.Frigg2pc,
-      displayName: Id.Frigg2pc,
+    [ActiveMatrixAttackBuffId.Frigg2pc]: {
+      id: ActiveMatrixAttackBuffId.Frigg2pc,
+      displayName: ActiveMatrixAttackBuffId.Frigg2pc,
       starValues: [
         { star: 0, value: 0.08 },
         { star: 1, value: 0.1 },
         { star: 2, value: 0.12 },
         { star: 3, value: 0.15 },
       ],
+      description: 'Increase Frost ATK when switching between frost weapons',
     },
-    [Id.Nemesis2pc]: {
-      id: Id.Nemesis2pc,
-      displayName: Id.Nemesis2pc,
+    [ActiveMatrixAttackBuffId.Nemesis2pc]: {
+      id: ActiveMatrixAttackBuffId.Nemesis2pc,
+      displayName: ActiveMatrixAttackBuffId.Nemesis2pc,
       starValues: [
         { star: 0, value: 0.08 },
         { star: 1, value: 0.1 },
@@ -108,6 +76,59 @@ export const matrixAttackBuffsLookup: Data<Id, MatrixBuff> = {
         { star: 3, value: 0.15 },
       ],
       description: 'Can be applied by party members; Volt attack only',
+    },
+  },
+};
+
+// Matrix buffs that are always active in the background or current weapon i.e. are included on the character sheet atk stat
+enum PassiveMatrixAttackBuffId {
+  Rubilia2pc = 'Rubilia 2pc',
+  Lan2pc = 'Lan 2pc',
+  Lyra2pc = 'Lyra 2pc',
+}
+
+export const passiveMatrixAttackBuffsLookup: Data<
+  PassiveMatrixAttackBuffId,
+  MatrixBuff
+> = {
+  allIds: [
+    PassiveMatrixAttackBuffId.Rubilia2pc,
+    PassiveMatrixAttackBuffId.Lan2pc,
+    PassiveMatrixAttackBuffId.Lyra2pc,
+  ],
+  byId: {
+    [PassiveMatrixAttackBuffId.Rubilia2pc]: {
+      id: PassiveMatrixAttackBuffId.Rubilia2pc,
+      displayName: PassiveMatrixAttackBuffId.Rubilia2pc,
+      starValues: [
+        { star: 0, value: 0.145 },
+        { star: 1, value: 0.165 },
+        { star: 2, value: 0.185 },
+        { star: 3, value: 0.205 },
+      ],
+      description: 'Increases volt attack only, works off-hand',
+    },
+    [PassiveMatrixAttackBuffId.Lan2pc]: {
+      id: PassiveMatrixAttackBuffId.Lan2pc,
+      displayName: PassiveMatrixAttackBuffId.Lan2pc,
+      starValues: [
+        { star: 0, value: 0.06 },
+        { star: 1, value: 0.07 },
+        { star: 2, value: 0.08 },
+        { star: 3, value: 0.09 },
+      ],
+      description: 'Equip at least 1 flame weapon, works off-hand',
+    },
+    [PassiveMatrixAttackBuffId.Lyra2pc]: {
+      id: PassiveMatrixAttackBuffId.Lyra2pc,
+      displayName: PassiveMatrixAttackBuffId.Lyra2pc,
+      starValues: [
+        { star: 0, value: 0.13 },
+        { star: 1, value: 0.17 },
+        { star: 2, value: 0.21 },
+        { star: 3, value: 0.25 },
+      ],
+      description: 'Increase ATK on equipped weapon',
     },
   },
 };

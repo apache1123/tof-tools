@@ -76,21 +76,34 @@ function getGearValue(
   const { characterLevel } = userStatsStore;
   const {
     baseAttackFlatWithGearA,
+    totalAttackFlatWithGearA,
     critFlatWithGearA,
-    otherGearAttackPercent,
+    critPercentWithGearA,
+    critDamageWithGearA,
     otherGearElementalDamage,
     miscAttackPercent,
     miscCritRate,
     miscCritDamage,
   } = selectedElementalUserStats;
 
+  const passiveAttackPercentWithGearA = BigNumber(totalAttackFlatWithGearA)
+    .minus(baseAttackFlatWithGearA)
+    .dividedBy(baseAttackFlatWithGearA);
+
   const gearA = gearComparerGearsStore.GearA;
   const baseAttackFlatWithoutGearA = BigNumber(baseAttackFlatWithGearA)
     .minus(gearA ? getTotalAttackFlat(gearA, selectedElementalType) : 0)
     .toNumber();
+  const passiveAttackPercentWithoutGearA = passiveAttackPercentWithGearA
+    .minus(gearA ? getTotalAttackPercent(gearA, selectedElementalType) : 0)
+    .toNumber();
   const critFlatWithoutGearA = BigNumber(critFlatWithGearA)
     .minus(gearA ? getTotalCritFlat(gearA) : 0)
     .toNumber();
+  const critPercentWithoutGearA = BigNumber(critPercentWithGearA)
+    .minus(gearA ? getTotalCritPercent(gearA) : 0)
+    .toNumber();
+  const critDamageWithoutGearA = critDamageWithGearA;
 
   const {
     weaponAttackBuffValues,
@@ -100,15 +113,18 @@ function getGearValue(
     matrixCritDamageBuffValues,
   } = selectedElementalBuffValuesStore;
 
-  const allOtherAttackPercents = [otherGearAttackPercent, miscAttackPercent]
+  const allOtherAttackPercents = [
+    passiveAttackPercentWithoutGearA,
+    miscAttackPercent,
+  ]
     .concat(weaponAttackBuffValues)
     .concat(matrixAttackBuffValues);
 
-  const allOtherCritRates = [miscCritRate]
+  const allOtherCritRates = [critPercentWithoutGearA, miscCritRate]
     .concat(weaponCritRateBuffValues)
     .concat(matrixCritRateBuffValues);
 
-  const allOtherCritDamages = [miscCritDamage].concat(
+  const allOtherCritDamages = [critDamageWithoutGearA, miscCritDamage].concat(
     matrixCritDamageBuffValues
   );
 
@@ -154,9 +170,7 @@ function calculateGearValue(
     otherCritFlatSum,
     bCharLevel
   ).plus(otherCritPercentSum);
-  const totalCritDamagePercentWithoutGear = defaultCritDamagePercent.plus(
-    otherCritDamagePercentSum
-  );
+  const totalCritDamagePercentWithoutGear = otherCritDamagePercentSum;
   const totalDamagePercentWithoutGear = otherDamagePercentSum;
 
   const multiplierWithoutGear = calculateMultiplier(

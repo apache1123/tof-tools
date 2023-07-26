@@ -1,10 +1,8 @@
 import type { Buff } from '../models/buff';
 import type { Data } from '../models/data';
 
-enum Id {
-  ElementalResonance = 'Elemental Resonance',
-  AlteredResonance = 'Altered Resonance',
-  ElementalBalancing = 'Elemental Balancing',
+// Weapon buffs that aren't always active and require some sort of action to trigger i.e. are not included in the character sheet atk stat naturally
+enum ActiveWeaponAttackBuffId {
   Fiona = 'Fiona',
   Lin0To5Star = 'Lin 0* - 5*',
   Lin6Star = 'Lin 6*',
@@ -16,93 +14,113 @@ enum Id {
   Nemesis6Star = 'Nemesis 6*',
 }
 
-export const weaponAttackBuffsLookup: Data<Id, Buff> = {
+export const activeWeaponAttackBuffsLookup: Data<
+  ActiveWeaponAttackBuffId,
+  Buff
+> = {
   allIds: [
-    Id.ElementalResonance,
-    Id.AlteredResonance,
-    Id.ElementalBalancing,
-    Id.Fiona,
-    Id.Lin0To5Star,
-    Id.Lin6Star,
-    Id.LinFrostBonus,
-    Id.Frigg0To5Star,
-    Id.Frigg6Star,
-    Id.Ruby,
-    Id.Nemesis5Star,
-    Id.Nemesis6Star,
+    ActiveWeaponAttackBuffId.Fiona,
+    ActiveWeaponAttackBuffId.Lin0To5Star,
+    ActiveWeaponAttackBuffId.Lin6Star,
+    ActiveWeaponAttackBuffId.LinFrostBonus,
+    ActiveWeaponAttackBuffId.Frigg0To5Star,
+    ActiveWeaponAttackBuffId.Frigg6Star,
+    ActiveWeaponAttackBuffId.Ruby,
+    ActiveWeaponAttackBuffId.Nemesis5Star,
+    ActiveWeaponAttackBuffId.Nemesis6Star,
   ],
   byId: {
-    [Id.ElementalResonance]: {
-      id: Id.ElementalResonance,
-      displayName: Id.ElementalResonance,
-      value: 0.15,
-      description: 'Elemental resonance on most limited weapons',
-    },
-    [Id.AlteredResonance]: {
-      id: Id.AlteredResonance,
-      displayName: Id.AlteredResonance,
-      value: 0.2,
-      description: 'Fiona + another altered (e.g. Lin)',
-    },
-    [Id.ElementalBalancing]: {
-      id: Id.ElementalBalancing,
-      displayName: Id.ElementalBalancing,
-      value: 0.15,
-      description: '(Fenrir) 3 weapons of different elements',
-    },
-    [Id.Fiona]: {
-      id: Id.Fiona,
-      displayName: Id.Fiona,
+    [ActiveWeaponAttackBuffId.Fiona]: {
+      id: ActiveWeaponAttackBuffId.Fiona,
+      displayName: ActiveWeaponAttackBuffId.Fiona,
       value: 0.15,
       description: '15% ATK for 30s on discharge',
     },
-    [Id.Lin0To5Star]: {
-      id: Id.Lin0To5Star,
-      displayName: Id.Lin0To5Star,
+    [ActiveWeaponAttackBuffId.Lin0To5Star]: {
+      id: ActiveWeaponAttackBuffId.Lin0To5Star,
+      displayName: ActiveWeaponAttackBuffId.Lin0To5Star,
       value: 0.15,
       description: 'Moonlight Realm gives 15% ATK for its duration',
     },
-    [Id.Lin6Star]: {
-      id: Id.Lin6Star,
-      displayName: Id.Lin6Star,
+    [ActiveWeaponAttackBuffId.Lin6Star]: {
+      id: ActiveWeaponAttackBuffId.Lin6Star,
+      displayName: ActiveWeaponAttackBuffId.Lin6Star,
       value: 0.23,
-      description: 'Gives 23% ATK in total.',
+      description: 'Moonlight Realm gives 23% ATK for its duration',
     },
-    [Id.LinFrostBonus]: {
-      id: Id.LinFrostBonus,
-      displayName: Id.LinFrostBonus,
+    [ActiveWeaponAttackBuffId.LinFrostBonus]: {
+      id: ActiveWeaponAttackBuffId.LinFrostBonus,
+      displayName: ActiveWeaponAttackBuffId.LinFrostBonus,
       value: 0.1,
       description: 'Frost Moonlight Realm gives 10% additional ATK',
     },
-    [Id.Frigg0To5Star]: {
-      id: Id.Frigg0To5Star,
-      displayName: Id.Frigg0To5Star,
+    [ActiveWeaponAttackBuffId.Frigg0To5Star]: {
+      id: ActiveWeaponAttackBuffId.Frigg0To5Star,
+      displayName: ActiveWeaponAttackBuffId.Frigg0To5Star,
       value: 0.15,
       description: 'Frost Domain is up 25/30 seconds',
     },
-    [Id.Frigg6Star]: {
-      id: Id.Frigg6Star,
-      displayName: Id.Frigg6Star,
+    [ActiveWeaponAttackBuffId.Frigg6Star]: {
+      id: ActiveWeaponAttackBuffId.Frigg6Star,
+      displayName: ActiveWeaponAttackBuffId.Frigg6Star,
       value: 0.4,
-      description: 'Gives 40% ATK in total.',
+      description: 'Frost Domain gives 40% ATK total',
     },
-    [Id.Ruby]: {
-      id: Id.Ruby,
-      displayName: Id.Ruby,
+    [ActiveWeaponAttackBuffId.Ruby]: {
+      id: ActiveWeaponAttackBuffId.Ruby,
+      displayName: ActiveWeaponAttackBuffId.Ruby,
       value: 0.1,
       description: 'Ultimate Heat gives 10% ATK after fully stacked',
     },
-    [Id.Nemesis5Star]: {
-      id: Id.Nemesis5Star,
-      displayName: Id.Nemesis5Star,
+    [ActiveWeaponAttackBuffId.Nemesis5Star]: {
+      id: ActiveWeaponAttackBuffId.Nemesis5Star,
+      displayName: ActiveWeaponAttackBuffId.Nemesis5Star,
       value: 0.1,
       description: '10% ATK for having 1 electrode out',
     },
-    [Id.Nemesis6Star]: {
-      id: Id.Nemesis6Star,
-      displayName: Id.Nemesis6Star,
+    [ActiveWeaponAttackBuffId.Nemesis6Star]: {
+      id: ActiveWeaponAttackBuffId.Nemesis6Star,
+      displayName: ActiveWeaponAttackBuffId.Nemesis6Star,
       value: 0.15,
       description: '15% ATK for having 2 electrodes out',
+    },
+  },
+};
+
+// Weapon buffs that are always active in the background or current weapon i.e. are included on the character sheet atk stat
+enum PassiveWeaponAttackBuffId {
+  ElementalResonance = 'Elemental Resonance',
+  AlteredResonance = 'Altered Resonance',
+  ElementalBalancing = 'Elemental Balancing',
+}
+
+export const passiveWeaponAttackBuffsLookup: Data<
+  PassiveWeaponAttackBuffId,
+  Buff
+> = {
+  allIds: [
+    PassiveWeaponAttackBuffId.ElementalResonance,
+    PassiveWeaponAttackBuffId.AlteredResonance,
+    PassiveWeaponAttackBuffId.ElementalBalancing,
+  ],
+  byId: {
+    [PassiveWeaponAttackBuffId.ElementalResonance]: {
+      id: PassiveWeaponAttackBuffId.ElementalResonance,
+      displayName: PassiveWeaponAttackBuffId.ElementalResonance,
+      value: 0.15,
+      description: 'Elemental resonance on most limited weapons',
+    },
+    [PassiveWeaponAttackBuffId.AlteredResonance]: {
+      id: PassiveWeaponAttackBuffId.AlteredResonance,
+      displayName: PassiveWeaponAttackBuffId.AlteredResonance,
+      value: 0.2,
+      description: 'Fiona + another altered (e.g. Lin)',
+    },
+    [PassiveWeaponAttackBuffId.ElementalBalancing]: {
+      id: PassiveWeaponAttackBuffId.ElementalBalancing,
+      displayName: PassiveWeaponAttackBuffId.ElementalBalancing,
+      value: 0.15,
+      description: '(Fenrir) 3 weapons of different elements',
     },
   },
 };

@@ -4,7 +4,7 @@ import { useSnapshot } from 'valtio';
 
 import { BoxCheckboxWithStars } from '../../components/BoxCheckbox/BoxCheckboxWithStars';
 import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
-import { matrixCritDamageBuffsLookup } from '../../constants/matrix-crit-damage-buffs';
+import { activeMatrixCritDamageBuffsLookup } from '../../constants/matrix-crit-damage-buffs';
 import { toSignedPercentageString1dp } from '../../utils/number-utils';
 import {
   addMatrixCritDamageBuff,
@@ -32,7 +32,7 @@ export function CritDamageBuffs() {
   return (
     <>
       <Typography variant="h5" component="h2" gutterBottom>
-        Crit damage %
+        Crit damage % buffs
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         This section is only needed if you&apos;re comparing gear with crit
@@ -52,9 +52,9 @@ export function CritDamageBuffs() {
       </Grid>
 
       <Grid container spacing={2}>
-        {matrixCritDamageBuffsLookup.allIds.map((id) => {
+        {activeMatrixCritDamageBuffsLookup.allIds.map((id) => {
           const { displayName, starValues, description } =
-            matrixCritDamageBuffsLookup.byId[id];
+            activeMatrixCritDamageBuffsLookup.byId[id];
           return (
             <Grid key={id} xs={6} sm={4} md={3} display="flex">
               <BoxCheckboxWithStars
