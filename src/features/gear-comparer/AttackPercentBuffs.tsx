@@ -50,19 +50,7 @@ export function AttackPercentBuffs() {
         stats and want to be accurate, otherwise don&apos;t bother
       </Typography>
 
-      <Grid container spacing={2} mb={2}>
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          <PercentageNumericInput
-            id="misc-atk-percent"
-            label="Misc. attack % buffs"
-            variant="filled"
-            value={miscAttackPercent}
-            onChange={setMiscAttackPercent}
-          />
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={2}>
+      <Grid container spacing={2} mt={1}>
         {activeWeaponAttackBuffsLookup.allIds.map((id) => {
           const { displayName, value, description } =
             activeWeaponAttackBuffsLookup.byId[id];
@@ -86,7 +74,7 @@ export function AttackPercentBuffs() {
         })}
       </Grid>
 
-      <Divider variant="middle" sx={{ marginY: 3 }}>
+      <Divider variant="middle" sx={{ marginY: 2 }}>
         <Chip label="Matrices" />
       </Divider>
 
@@ -118,6 +106,18 @@ export function AttackPercentBuffs() {
             </Grid>
           );
         })}
+      </Grid>
+
+      <Grid container spacing={2} mt={2}>
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <PercentageNumericInput
+            id="misc-atk-percent"
+            label="Misc. attack % buffs"
+            variant="filled"
+            value={miscAttackPercent}
+            onChange={setMiscAttackPercent}
+          />
+        </Grid>
       </Grid>
     </>
   );

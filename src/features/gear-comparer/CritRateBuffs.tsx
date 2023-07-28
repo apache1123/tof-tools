@@ -43,19 +43,7 @@ export function CritRateBuffs() {
         related stats and want to be accurate, otherwise don&apos;t bother
       </Typography>
 
-      <Grid container spacing={2} mb={2}>
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          <PercentageNumericInput
-            id="misc-crit-rate"
-            label="Misc. crit rate % buffs"
-            variant="filled"
-            value={miscCritRate}
-            onChange={setMiscCritRate}
-          />
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={2}>
+      <Grid container spacing={2} mt={1}>
         {activeWeaponCritRateBuffsLookup.allIds.map((id) => {
           const { displayName, value, description } =
             activeWeaponCritRateBuffsLookup.byId[id];
@@ -104,6 +92,18 @@ export function CritRateBuffs() {
             </Grid>
           );
         })}
+      </Grid>
+
+      <Grid container spacing={2} mt={2}>
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <PercentageNumericInput
+            id="misc-crit-rate"
+            label="Misc. crit rate % buffs"
+            variant="filled"
+            value={miscCritRate}
+            onChange={setMiscCritRate}
+          />
+        </Grid>
       </Grid>
     </>
   );
