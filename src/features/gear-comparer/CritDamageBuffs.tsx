@@ -39,19 +39,7 @@ export function CritDamageBuffs() {
         related stats and want to be accurate, otherwise don&apos;t bother
       </Typography>
 
-      <Grid container spacing={2} mb={2}>
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          <PercentageNumericInput
-            id="misc-crit-damage"
-            label="Misc. crit damage % buffs"
-            variant="filled"
-            value={miscCritDamage}
-            onChange={setMiscCritDamage}
-          />
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={2}>
+      <Grid container spacing={2} mt={1}>
         {activeMatrixCritDamageBuffsLookup.allIds.map((id) => {
           const { displayName, starValues, description } =
             activeMatrixCritDamageBuffsLookup.byId[id];
@@ -79,6 +67,18 @@ export function CritDamageBuffs() {
             </Grid>
           );
         })}
+      </Grid>
+
+      <Grid container spacing={2} mt={2}>
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <PercentageNumericInput
+            id="misc-crit-damage"
+            label="Misc. crit damage % buffs"
+            variant="filled"
+            value={miscCritDamage}
+            onChange={setMiscCritDamage}
+          />
+        </Grid>
       </Grid>
     </>
   );
