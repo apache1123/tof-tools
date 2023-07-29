@@ -1,10 +1,10 @@
 import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
-import { maxCharacterLevel } from '../../../constants/character-level';
-import { defaultCritDamagePercent } from '../../../constants/damage-formula';
-import type { DataById } from '../../../models/data';
-import type { CoreElementalType } from '../../../models/stat-type';
+import { maxCharacterLevel } from '../../../../constants/character-level';
+import { defaultCritDamagePercent } from '../../../../constants/damage-formula';
+import type { DataById } from '../../../../models/data';
+import type { CoreElementalType } from '../../../../models/stat-type';
 
 export interface ElementalUserStats {
   baseAttackFlatWithGearA: number;

@@ -1,8 +1,8 @@
 import { derive } from 'valtio/utils';
 
 import { gearComparerOptionsStore } from '../gear-comparer-options';
-import type { ElementalUserStats } from '../user-stats';
-import { userStatsStore } from '../user-stats';
+import type { ElementalUserStats } from '../user-stats/user-stats';
+import { userStatsStore } from '../user-stats/user-stats';
 
 export interface SelectedElementalUserStatsStore {
   selectedElementalUserStats: ElementalUserStats | undefined;

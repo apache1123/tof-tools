@@ -1,0 +1,22 @@
+{
+  "cSpell.words": [
+    "Annabella",
+    "catppuccin",
+    "exponentiated",
+    "Handguards",
+    "Legguards",
+    "macchiato",
+    "Microreactor",
+    "replacee",
+    "Rubilia",
+    "Sabatons",
+    "Spaulders",
+    "Tesseract",
+    "testid",
+    "valtio"
+  ],
+  "files.exclude": {
+    "playwright-report": true,
+    "test-results": true
+  }
+}

@@ -20,10 +20,11 @@ import {
   gearComparerOptionsStore,
   gearComparerOptionsStoreKey,
 } from '../src/features/gear-comparer/stores/gear-comparer-options';
+import { migrations as userStatsMigrations } from '../src/features/gear-comparer/stores/user-stats/migrations';
 import {
   userStatsStore,
   userStatsStoreKey,
-} from '../src/features/gear-comparer/stores/user-stats';
+} from '../src/features/gear-comparer/stores/user-stats/user-stats';
 import {
   gearSetsStore,
   gearSetsStoreKey,
@@ -43,7 +44,11 @@ export default function MyApp(props: MyAppProps) {
   // Order matters here.
   // Not 100% sure, but the theory is: if in a derived store, get(A) is used before get(B), then A needs to go after B here
   // Cause: maybe because of the Object.assign in `useLocalStoragePersistence` messing up proxy dependents tracking, in nested objects?
-  useLocalStoragePersistence(userStatsStore, userStatsStoreKey);
+  useLocalStoragePersistence(
+    userStatsStore,
+    userStatsStoreKey,
+    userStatsMigrations
+  );
   useLocalStoragePersistence(buffsStore, buffsStoreKey);
   useLocalStoragePersistence(
     gearComparerOptionsStore,

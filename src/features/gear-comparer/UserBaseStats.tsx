@@ -15,7 +15,10 @@ import {
   setTotalAttackFlatWithGearA,
 } from './stores/derived/selected-elemental-user-stats';
 import { gearComparerOptionsStore } from './stores/gear-comparer-options';
-import { setCharacterLevel, userStatsStore } from './stores/user-stats';
+import {
+  setCharacterLevel,
+  userStatsStore,
+} from './stores/user-stats/user-stats';
 
 export function UserBaseStats() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
