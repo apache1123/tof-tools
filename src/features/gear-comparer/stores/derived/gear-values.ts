@@ -19,8 +19,8 @@ import type {
 import { gearComparerGearsStore } from '../gear-comparer-gear';
 import type { GearComparerOptionsStore } from '../gear-comparer-options';
 import { gearComparerOptionsStore } from '../gear-comparer-options';
-import type { UserStatsStore } from '../user-stats';
-import { userStatsStore } from '../user-stats';
+import type { UserStatsStore } from '../user-stats/user-stats';
+import { userStatsStore } from '../user-stats/user-stats';
 import type { SelectedElementalBuffValuesStore } from './selected-elemental-buff-values';
 import { selectedElementalBuffValuesStore } from './selected-elemental-buff-values';
 import type { SelectedElementalUserStatsStore } from './selected-elemental-user-stats';

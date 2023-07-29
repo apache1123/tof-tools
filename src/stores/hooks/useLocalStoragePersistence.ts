@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { subscribe } from 'valtio';
 
-export function useLocalStoragePersistence(proxyStore: object, key: string) {
+export function useLocalStoragePersistence(
+  proxyStore: object,
+  key: string,
+  migrations?: () => void
+) {
   useEffect(() => {
     if (localStorage.getItem(key)) {
       Object.assign(
@@ -15,6 +19,9 @@ export function useLocalStoragePersistence(proxyStore: object, key: string) {
       localStorage.setItem(key, JSON.stringify(proxyStore))
     );
 
+    // Any data-fixes/cleanups from migrating an old schema stored in user's localStorage to current schema
+    if (migrations) migrations();
+
     return unsubscribe;
-  }, [key, proxyStore]);
+  }, [key, migrations, proxyStore]);
 }
