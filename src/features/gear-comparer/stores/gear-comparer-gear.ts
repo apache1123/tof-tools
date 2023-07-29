@@ -22,3 +22,9 @@ devtools(gearComparerGearsStore, { name: gearComparerGearsStoreKey });
 export function setGear(position: GearComparerGearPosition, gear: Gear) {
   gearComparerGearsStore[position] = gear;
 }
+
+export function swapPositions() {
+  const temp = gearComparerGearsStore.GearA;
+  gearComparerGearsStore.GearA = gearComparerGearsStore.GearB;
+  gearComparerGearsStore.GearB = temp;
+}
