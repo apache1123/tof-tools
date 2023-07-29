@@ -25,6 +25,8 @@ export interface BasisValues {
   basisCritPercent: number;
   basisCritDamage: number;
   basisDamage: number;
+  basisPassiveAttackPercent: number; // Atk% buffs that show up in character sheet naturally, without active weapon/matrix buffs
+  basisPassiveCritPercent: number; // Crit% buffs that show up in character sheet naturally, without active weapon/matrix buffs
 }
 
 export interface GearBasisValuesStore {
@@ -59,6 +61,8 @@ function getBasisValues(
       basisCritPercent: 0,
       basisCritDamage: 0,
       basisDamage: 0,
+      basisPassiveAttackPercent: 0,
+      basisPassiveCritPercent: 0,
     };
   }
 
@@ -123,6 +127,9 @@ function getBasisValues(
 
   const basisDamage = additiveSum([otherGearElementalDamage]).toNumber();
 
+  const basisPassiveAttackPercent = passiveAttackPercentWithoutGearA;
+  const basisPassiveCritPercent = critPercentWithoutGearA;
+
   return {
     basisAttackFlat,
     basisAttackPercent,
@@ -130,5 +137,7 @@ function getBasisValues(
     basisCritPercent,
     basisCritDamage,
     basisDamage,
+    basisPassiveAttackPercent,
+    basisPassiveCritPercent,
   };
 }

@@ -1,5 +1,4 @@
-import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import { Box, Button, Tooltip, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
 
@@ -10,9 +9,9 @@ import { CritDamageBuffs } from './CritDamageBuffs';
 import { CritRateBuffs } from './CritRateBuffs';
 import { ElementalDamageBuffs } from './ElementalDamageBuffs';
 import { GearComparerGear } from './GearComparerGear';
+import { GearComparerGearSwap } from './GearComparerGearSwap';
 import { GearComparerOptions } from './GearComparerOptions';
 import { GearValue } from './GearValue';
-import { swapPositions } from './stores/gear-comparer-gear';
 import { UserBaseStats } from './UserBaseStats';
 
 export function GearComparer() {
@@ -34,15 +33,7 @@ export function GearComparer() {
             <Typography variant="h5" mb={1}>
               New gear
             </Typography>
-            <Tooltip title="Swaps the two gears. You will need to update your stat values below after">
-              <Button
-                onClick={swapPositions}
-                color="primary"
-                startIcon={<SwapHorizIcon />}
-              >
-                Swap Current & New
-              </Button>
-            </Tooltip>
+            <GearComparerGearSwap />
           </Box>
           <GearComparerGear position="GearB" />
         </Grid>
