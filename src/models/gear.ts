@@ -1,11 +1,17 @@
 import { nanoid } from 'nanoid';
 
-import { maxStars } from '../constants/gear';
+import { maxNumOfRandomStatRolls, maxStars } from '../constants/gear';
 import { gearTypesLookup } from '../constants/gear-types';
+import { cartesian } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
+import type {
+  GearRandomStatRollCombinations,
+  RandomStatRollCombination,
+} from './gear-random-stat-roll-combinations';
 import type { GearName, GearType } from './gear-type';
 import {
   copyRandomStat,
+  getRandomStatRollCombinations,
   getType as getRandomStatType,
   newRandomStat,
   type RandomStat,
@@ -105,6 +111,57 @@ export function getTotalDamagePercent(
     elementalType,
     isElementalDamagePercent
   );
+}
+
+export function getGearRandomStatRollCombinations(gear: Gear) {
+  const allRandomStatsWithRollCombinations = gear.randomStats.map(
+    (randomStat) =>
+      randomStat
+        ? getRandomStatRollCombinations(randomStat).map(
+            (rollCombination): RandomStatRollCombination => ({
+              randomStatId: randomStat.typeId,
+              rollCombination,
+            })
+          )
+        : []
+  );
+
+  const allPossibleCombinations: RandomStatRollCombination[][] = cartesian(
+    allRandomStatsWithRollCombinations
+  );
+
+  // Assuming the roll combinations for each stat is ordered by least number of rolls first
+  const minNumOfRollsToCheck =
+    gear.stars ||
+    allRandomStatsWithRollCombinations
+      .map((x) => x[0]?.rollCombination?.numberOfRolls ?? 0)
+      .reduce((prev, current) => prev + current, 0);
+
+  const maxNumOfRollsToCheck = gear.stars || maxNumOfRandomStatRolls;
+
+  const result: GearRandomStatRollCombinations[] = [];
+
+  for (
+    let rolls = minNumOfRollsToCheck;
+    rolls <= maxNumOfRollsToCheck;
+    rolls++
+  ) {
+    allPossibleCombinations
+      .filter(
+        (x) =>
+          x
+            .map((y) => y.rollCombination.numberOfRolls ?? 0)
+            .reduce((prev, current) => prev + current, 0) === rolls
+      )
+      .forEach((x) =>
+        result.push({
+          stars: rolls,
+          randomStatRollCombinations: x,
+        })
+      );
+  }
+
+  return result;
 }
 
 // Additively sum up all random stat values based on a stat type condition
