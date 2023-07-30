@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
 
@@ -70,6 +70,21 @@ export function GearComparer() {
 
       <Box>
         <CritDamageBuffs />
+      </Box>
+
+      <Box mt={10} textAlign="right">
+        <Typography variant="body2">
+          This calculator is based off of <strong>Maygi&apos;s</strong>{' '}
+          <Link
+            href="https://docs.google.com/spreadsheets/d/1ZrJokNh_0AF_9welc7Etz6K8jlpzi5bXpiWz-mQZa78/edit#gid=1875148939"
+            target="_blank"
+            rel="noopener"
+          >
+            {' '}
+            Gear Comparison calculator.
+          </Link>{' '}
+          Go check it out! 😊
+        </Typography>
       </Box>
     </>
   );
