@@ -1,6 +1,9 @@
 import BigNumber from 'bignumber.js';
 
+import { maxNumOfRandomStatRolls } from '../constants/gear';
 import { statTypesLookup } from '../constants/stat-types';
+import type { RollCombination } from './random-stat-roll-combination';
+import { zeroRollCombination } from './random-stat-roll-combination';
 import { type StatName, type StatType } from './stat-type';
 
 export interface RandomStat {
@@ -46,4 +49,57 @@ export function getMaxAugmentIncrease(randomStat: RandomStat): number {
     .multipliedBy(maxAugmentIncreaseMultiplier)
     .plus(maxAugmentIncreaseFlat)
     .toNumber();
+}
+
+export function getRandomStatRollCombinations(
+  randomStat: RandomStat
+): RollCombination[] {
+  const { value } = randomStat;
+  if (!value) return [];
+
+  const statType = getType(randomStat);
+  if (!statType) return [];
+
+  const {
+    randomStatDefaultValue,
+    randomStatMinRollValue,
+    randomStatMaxRollValue,
+  } = statType;
+
+  if (value === randomStatDefaultValue) {
+    return [zeroRollCombination()];
+  }
+
+  // ceil((value - defaultValue) / maxValue)
+  const smallestNumOfRolls = BigNumber(value)
+    .minus(BigNumber(randomStatDefaultValue))
+    .dividedBy(BigNumber(randomStatMaxRollValue))
+    .integerValue(BigNumber.ROUND_CEIL)
+    .toNumber();
+  // min(((value - defaultValue) / minValue), maxNumOfRolls)
+  const largestNumOfRolls = BigNumber.min(
+    BigNumber(value)
+      .minus(BigNumber(randomStatDefaultValue))
+      .dividedBy(BigNumber(randomStatMinRollValue))
+      .integerValue(BigNumber.ROUND_FLOOR),
+    maxNumOfRandomStatRolls
+  ).toNumber();
+
+  const combinations: RollCombination[] = [];
+  for (let n = smallestNumOfRolls; n <= largestNumOfRolls; n++) {
+    // (value - defaultValue - n * minValue) / (maxValue - minValue) / n
+    const rollStrength = BigNumber(value)
+      .minus(BigNumber(randomStatDefaultValue))
+      .minus(BigNumber(randomStatMinRollValue).multipliedBy(n))
+      .dividedBy(
+        BigNumber(randomStatMaxRollValue).minus(
+          BigNumber(randomStatMinRollValue)
+        )
+      )
+      .dividedBy(n)
+      .toNumber();
+    combinations.push({ numberOfRolls: n, rollStrength });
+  }
+
+  return combinations;
 }

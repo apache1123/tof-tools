@@ -1,6 +1,5 @@
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {
   Accordion,
   AccordionDetails,
@@ -20,14 +19,7 @@ import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSele
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
 import { defaultNumOfRandomStats } from '../constants/gear';
-import {
-  copyGear,
-  type Gear,
-  getType,
-  newGear,
-  setStars,
-  setType,
-} from '../models/gear';
+import { copyGear, type Gear, getType, newGear, setType } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { newRandomStat } from '../models/random-stat';
@@ -40,6 +32,7 @@ import {
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 import { GearOCRModal } from './GearOCRModal';
 import { GearRollBreakdown } from './GearRollBreakdown';
+import { GearStars } from './GearStars';
 import { DisabledStatEditor, EmptyStatEditor, StatEditor } from './StatEditor';
 
 export interface GearPieceProps {
@@ -86,12 +79,7 @@ export const GearPiece = ({
           disabled={disableGearTypeChange}
         />
       }
-      starsSelector={
-        <GearStarsSelector
-          stars={gearSnap.stars}
-          onStarsChange={(stars) => setStars(gear, stars)}
-        />
-      }
+      starsSelector={<GearStars gear={gear} />}
       randomStats={
         <>
           {gearSnap.randomStats.map((randomStat, i) => {
@@ -226,14 +214,7 @@ function Layout({
         </Grid>
         <Grid xs display="flex" flexDirection="column" justifyContent="center">
           {typeSelector}
-          <Box mt={1}>
-            {starsSelector}
-            {starsSelector && (
-              <Tooltip title="This is optional and won't affect the calculations if not selected, but will aid the tool in determining the roll breakdown.">
-                <InfoOutlinedIcon sx={{ ml: 1 }} />
-              </Tooltip>
-            )}
-          </Box>
+          <Box mt={1}>{starsSelector}</Box>
         </Grid>
         <Grid display="flex" flexDirection="column">
           {additionalActions}
