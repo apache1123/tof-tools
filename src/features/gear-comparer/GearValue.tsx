@@ -26,6 +26,7 @@ export function GearValue({ position }: GearValueProps) {
             gearValuesComparisonSnap[`Is${position}HighestValue`]
           ),
         }}
+        data-testid={`gear-value-${position}`}
       >
         {toPercentageString2dp(gearValuesSnap[`${position}Value`])}
       </Typography>
