@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { derive, devtools } from 'valtio/utils';
 
+import type { BasisValues } from '../../../../models/basis-values';
 import {
   getTotalAttackFlat,
   getTotalAttackPercent,
@@ -8,26 +9,20 @@ import {
   getTotalCritPercent,
 } from '../../../../models/gear';
 import { additiveSum } from '../../../../utils/math-utils';
+import {
+  calculateCritPercentFromFlat,
+  calculateMultiplier,
+} from '../../../../utils/stat-calculation-utils';
 import type { GearComparerGearsStore } from '../gear-comparer-gear';
 import { gearComparerGearsStore } from '../gear-comparer-gear';
 import type { GearComparerOptionsStore } from '../gear-comparer-options';
 import { gearComparerOptionsStore } from '../gear-comparer-options';
+import type { UserStatsStore } from '../user-stats/user-stats';
+import { userStatsStore } from '../user-stats/user-stats';
 import type { SelectedElementalBuffValuesStore } from './selected-elemental-buff-values';
 import { selectedElementalBuffValuesStore } from './selected-elemental-buff-values';
 import type { SelectedElementalUserStatsStore } from './selected-elemental-user-stats';
 import { selectedElementalUserStatsStore } from './selected-elemental-user-stats';
-
-// Basis values is the values of all the user stats and selected buffs, minus the values GearA contributes i.e. providing the common basis for comparing GearA & GearB
-export interface BasisValues {
-  basisAttackFlat: number;
-  basisAttackPercent: number;
-  basisCritFlat: number;
-  basisCritPercent: number;
-  basisCritDamage: number;
-  basisDamage: number;
-  basisPassiveAttackPercent: number; // Atk% buffs that show up in character sheet naturally, without active weapon/matrix buffs
-  basisPassiveCritPercent: number; // Crit% buffs that show up in character sheet naturally, without active weapon/matrix buffs
-}
 
 export interface GearBasisValuesStore {
   basisValues: BasisValues;
@@ -38,6 +33,7 @@ export const gearBasisValuesStore = derive<object, GearBasisValuesStore>({
     getBasisValues(
       get(gearComparerGearsStore),
       get(gearComparerOptionsStore),
+      get(userStatsStore),
       get(selectedElementalUserStatsStore),
       get(selectedElementalBuffValuesStore)
     ),
@@ -47,6 +43,7 @@ devtools(gearBasisValuesStore, { name: 'gearBasisValues' });
 function getBasisValues(
   gearComparerGearsStore: GearComparerGearsStore,
   gearComparerOptionsStore: GearComparerOptionsStore,
+  userStatsStore: UserStatsStore,
   selectedElementalUserStatsStore: SelectedElementalUserStatsStore,
   selectedElementalBuffValuesStore: SelectedElementalBuffValuesStore
 ): BasisValues {
@@ -59,10 +56,12 @@ function getBasisValues(
       basisAttackPercent: 0,
       basisCritFlat: 0,
       basisCritPercent: 0,
+      basisCritTotalPercent: 0,
       basisCritDamage: 0,
       basisDamage: 0,
       basisPassiveAttackPercent: 0,
       basisPassiveCritPercent: 0,
+      basisMultiplier: 0,
     };
   }
 
@@ -121,6 +120,15 @@ function getBasisValues(
       .concat(matrixCritRateBuffValues)
   ).toNumber();
 
+  const { characterLevel } = userStatsStore;
+  const basisCritTotalPercent = additiveSum([
+    calculateCritPercentFromFlat(
+      BigNumber(basisCritFlat),
+      BigNumber(characterLevel)
+    ).toNumber(),
+    basisCritPercent,
+  ]).toNumber();
+
   const basisCritDamage = additiveSum(
     [critDamageWithoutGearA, miscCritDamage].concat(matrixCritDamageBuffValues)
   ).toNumber();
@@ -130,14 +138,24 @@ function getBasisValues(
   const basisPassiveAttackPercent = passiveAttackPercentWithoutGearA;
   const basisPassiveCritPercent = critPercentWithoutGearA;
 
+  const basisMultiplier = calculateMultiplier(
+    BigNumber(basisAttackFlat),
+    BigNumber(basisAttackPercent),
+    BigNumber(basisCritTotalPercent),
+    BigNumber(basisCritDamage),
+    BigNumber(basisDamage)
+  ).toNumber();
+
   return {
     basisAttackFlat,
     basisAttackPercent,
     basisCritFlat,
     basisCritPercent,
+    basisCritTotalPercent,
     basisCritDamage,
     basisDamage,
     basisPassiveAttackPercent,
     basisPassiveCritPercent,
+    basisMultiplier,
   };
 }
