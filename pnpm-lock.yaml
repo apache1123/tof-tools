@@ -50,6 +50,9 @@ dependencies:
   indefinite:
     specifier: ^2.4.3
     version: 2.4.3
+  lodash.groupby:
+    specifier: ^4.6.0
+    version: 4.6.0
   nanoid:
     specifier: ^4.0.2
     version: 4.0.2
@@ -103,6 +106,9 @@ devDependencies:
   '@types/indefinite':
     specifier: ^2.3.1
     version: 2.3.1
+  '@types/lodash.groupby':
+    specifier: ^4.6.7
+    version: 4.6.7
   '@types/node':
     specifier: 20.2.5
     version: 20.2.5
@@ -5083,7 +5089,7 @@ packages:
       flat-cache: 3.0.4
       micromatch: 4.0.5
       react-docgen-typescript: 2.2.2(typescript@5.0.4)
-      tslib: 2.5.2
+      tslib: 2.6.0
       typescript: 5.0.4
       webpack: 5.84.1(esbuild@0.17.19)
     transitivePeerDependencies:
@@ -5383,6 +5389,12 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/lodash.groupby@4.6.7:
+    resolution: {integrity: sha512-dFUR1pqdMgjIBbgPJ/8axJX6M1C7zsL+HF4qdYMQeJ7XOp0Qbf37I3zh9gpXr/ks6tgEYPDRqyZRAnFYvewYHQ==}
+    dependencies:
+      '@types/lodash': 4.14.195
     dev: true
 
   /@types/lodash@4.14.195:
@@ -9422,6 +9434,10 @@ packages:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
     dev: true
 
+  /lodash.groupby@4.6.0:
+    resolution: {integrity: sha512-5dcWxm23+VAoz+awKmBaiBvzox8+RqMgFhi7UvX9DHZr2HdxHXM/Wrf8cfKpsW37RNrvtPn6hSwNqurSILbmJw==}
+    dev: false
+
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
@@ -11514,7 +11530,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/utils': 2.4.1
-      tslib: 2.5.2
+      tslib: 2.6.0
     dev: true
 
   /tapable@2.2.1:
@@ -11774,10 +11790,6 @@ packages:
 
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-    dev: true
-
-  /tslib@2.5.2:
-    resolution: {integrity: sha512-5svOrSA2w3iGFDs1HibEVBGbDrAY82bFQ3HZ3ixB+88nsbsWQoKqDRb5UBYAUPEzbBn6dAp5gRNXglySbx1MlA==}
     dev: true
 
   /tslib@2.6.0:
