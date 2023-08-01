@@ -1,13 +1,6 @@
-import BigNumber from 'bignumber.js';
 import { derive, devtools } from 'valtio/utils';
 
-import {
-  getTotalAttackFlat,
-  getTotalAttackPercent,
-  getTotalCritFlat,
-  getTotalCritPercent,
-  getTotalDamagePercent,
-} from '../../../../models/gear';
+import { getGearMultiplierRelativeToBasis } from '../../../../utils/gear-calculation-utils';
 import type {
   GearComparerGearPosition,
   GearComparerGearsStore,
@@ -67,90 +60,12 @@ function getGearValue(
 
   const { characterLevel } = userStatsStore;
 
-  const {
-    basisValues: {
-      basisAttackFlat,
-      basisAttackPercent,
-      basisCritFlat,
-      basisCritPercent,
-      basisCritDamage,
-      basisDamage,
-    },
-  } = gearBasisValuesStore;
-  const totalBasisCritPercent = calculateCritPercentFromFlat(
-    BigNumber(basisCritFlat),
-    BigNumber(characterLevel)
-  ).plus(basisCritPercent);
+  const { basisValues } = gearBasisValuesStore;
 
-  const multiplierWithoutGear = calculateMultiplier(
-    BigNumber(basisAttackFlat),
-    BigNumber(basisAttackPercent),
-    totalBasisCritPercent,
-    BigNumber(basisCritDamage),
-    BigNumber(basisDamage)
+  return getGearMultiplierRelativeToBasis(
+    gear,
+    basisValues,
+    selectedElementalType,
+    characterLevel
   );
-
-  const totalAttackFlatWithGear = BigNumber(basisAttackFlat).plus(
-    getTotalAttackFlat(gear, selectedElementalType)
-  );
-  const totalAttackPercentWithGear = BigNumber(basisAttackPercent).plus(
-    getTotalAttackPercent(gear, selectedElementalType)
-  );
-  const totalCritPercentWithGear = totalBasisCritPercent
-    .plus(
-      calculateCritPercentFromFlat(
-        BigNumber(getTotalCritFlat(gear)),
-        BigNumber(characterLevel)
-      )
-    )
-    .plus(getTotalCritPercent(gear));
-  const totalCritDamagePercentWithGear = BigNumber(basisCritDamage);
-  const totalDamagePercentWithGear = BigNumber(basisDamage).plus(
-    getTotalDamagePercent(gear, selectedElementalType)
-  );
-
-  const multiplierWithGear = calculateMultiplier(
-    totalAttackFlatWithGear,
-    totalAttackPercentWithGear,
-    totalCritPercentWithGear,
-    totalCritDamagePercentWithGear,
-    totalDamagePercentWithGear
-  );
-
-  return multiplierWithGear
-    .dividedBy(multiplierWithoutGear)
-    .minus(1)
-    .toNumber();
-}
-
-function calculateCritPercentFromFlat(
-  critFlat: BigNumber,
-  charLevel: BigNumber
-): BigNumber {
-  // Rough crit formula from maygi spreadsheet
-  // Crit % = Crit flat / (a * lvl^2 + b * lvl + c)
-  const a = BigNumber(-3.71);
-  const b = BigNumber(1151);
-  const c = BigNumber(-49787);
-
-  const critPercent = critFlat.dividedBy(
-    a
-      .multipliedBy(charLevel.exponentiatedBy(2))
-      .plus(b.multipliedBy(charLevel))
-      .plus(c)
-  );
-  return critPercent;
-}
-
-function calculateMultiplier(
-  attackFlat: BigNumber,
-  attackPercent: BigNumber,
-  critPercent: BigNumber,
-  critDamagePercent: BigNumber,
-  damagePercent: BigNumber
-) {
-  return attackFlat
-    .multipliedBy(attackPercent.plus(1))
-    .multipliedBy(critPercent.multipliedBy(critDamagePercent).plus(1))
-    .multipliedBy(damagePercent.plus(1));
 }
