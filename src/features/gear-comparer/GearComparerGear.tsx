@@ -4,6 +4,7 @@ import type { Gear } from '../../models/gear';
 import { newGear } from '../../models/gear';
 import type { GearType } from '../../models/gear-type';
 import { EmptyGearPiece, GearPiece } from '../GearPiece';
+import { GearRollSimulator } from './GearRollSimulator';
 import type { GearComparerGearPosition } from './stores/gear-comparer-gear';
 import { gearComparerGearsStore, setGear } from './stores/gear-comparer-gear';
 import { gearComparerOptionsStore } from './stores/gear-comparer-options';
@@ -32,6 +33,7 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
       showGearOCRButton
       showSaveGearButton
       showStatSummary={selectedElementalType}
+      additionalAccordions={position === 'GearB' && <GearRollSimulator />}
     />
   ) : (
     <EmptyGearPiece

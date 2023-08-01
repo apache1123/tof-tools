@@ -42,6 +42,7 @@ export interface GearPieceProps {
   disableGearTypeChange?: boolean;
   showSaveGearButton?: boolean;
   showStatSummary?: CoreElementalType;
+  additionalAccordions?: ReactNode;
 }
 
 export const GearPiece = ({
@@ -51,6 +52,7 @@ export const GearPiece = ({
   disableGearTypeChange,
   showSaveGearButton,
   showStatSummary,
+  additionalAccordions,
 }: GearPieceProps) => {
   const gearSnap = useSnapshot(gear);
 
@@ -146,6 +148,7 @@ export const GearPiece = ({
                 <GearRollBreakdown gear={gear} />
               </AccordionDetails>
             </Accordion>
+            {additionalAccordions}
           </Box>
         </>
       }

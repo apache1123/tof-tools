@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { maxNumOfRandomStatRolls, maxStars } from '../constants/gear';
+import { maxNumOfRandomStatRolls } from '../constants/gear';
 import { gearTypesLookup } from '../constants/gear-types';
 import { cartesian } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
@@ -67,7 +67,7 @@ export function setType(gear: Gear, type: GearType) {
 }
 
 export function setStars(gear: Gear, stars: number) {
-  if (stars >= 0 && stars <= maxStars) {
+  if (stars >= 0 && stars <= maxNumOfRandomStatRolls) {
     gear.stars = stars;
   }
 }

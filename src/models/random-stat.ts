@@ -51,6 +51,24 @@ export function getMaxAugmentIncrease(randomStat: RandomStat): number {
     .toNumber();
 }
 
+export function addOneAverageRoll(randomStat: RandomStat) {
+  const { randomStatMinRollValue, randomStatMaxRollValue } =
+    getType(randomStat);
+  const averageRollValue = BigNumber(randomStatMinRollValue)
+    .plus(randomStatMaxRollValue)
+    .dividedBy(2);
+  const newValue = averageRollValue.plus(randomStat.value).toNumber();
+  setValue(randomStat, newValue);
+}
+
+export function addOneMaxRoll(randomStat: RandomStat) {
+  const { randomStatMaxRollValue } = getType(randomStat);
+  const newValue = BigNumber(randomStat.value)
+    .plus(randomStatMaxRollValue)
+    .toNumber();
+  setValue(randomStat, newValue);
+}
+
 export function getRandomStatRollCombinations(
   randomStat: RandomStat
 ): RollCombination[] {
