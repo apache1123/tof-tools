@@ -8,6 +8,7 @@ import {
   addOneAverageRoll,
   addOneMaxRoll,
   getType,
+  getValueToString,
 } from '../../models/random-stat';
 
 export interface GearRollSimulatorStatProps {
@@ -24,7 +25,6 @@ export function GearRollSimulatorStat({
   onAddRoll,
 }: GearRollSimulatorStatProps) {
   const statSnap = useSnapshot(stat);
-  const { value } = statSnap;
   const { displayName } = getType(statSnap);
 
   return (
@@ -34,7 +34,7 @@ export function GearRollSimulatorStat({
       </Grid>
       <Grid xs={4}>
         <Stack direction="row" spacing={2}>
-          <Typography>{value}</Typography>
+          <Typography>{getValueToString(statSnap)}</Typography>
           <Typography fontStyle="italic">
             ({pluralize('roll', rolls, true)})
           </Typography>
