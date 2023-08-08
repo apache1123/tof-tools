@@ -78,8 +78,8 @@ function AccordionContent({ gear, GearB }: { gear: Gear; GearB: Gear }) {
   return (
     <Box>
       <Typography gutterBottom>
-        Simulate rolls for a not yet completely rolled new gear to see if it has
-        a chance of being better than the current gear
+        Simulate rolls for a new piece of gear that is not at 5 stars yet to see
+        if it has a chance of being better than the current gear
       </Typography>
       <Box mt={5}>
         {!canDetermineStars && (

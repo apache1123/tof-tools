@@ -1,5 +1,6 @@
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Box, Tooltip } from '@mui/material';
+import groupBy from 'lodash.groupby';
 import { useSnapshot } from 'valtio';
 
 import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
@@ -17,6 +18,10 @@ export function GearStars({ gear }: GearStarsProps) {
     gearSnap as Gear
   );
 
+  const possibleStars = Object.keys(
+    groupBy(randomStatRollCombinations, 'stars')
+  );
+
   return (
     <Box>
       <GearStarsSelector
@@ -29,7 +34,14 @@ export function GearStars({ gear }: GearStarsProps) {
         onStarsChange={(stars) => setStars(gear, stars)}
       />
       {gearSnap.stars === 0 && randomStatRollCombinations.length > 1 && (
-        <Tooltip title="(optional) The tool does its best to determine the number of stars based on the stats, but sometimes you'll have to fill this in manually.">
+        <Tooltip
+          title={
+            <>
+              Can&apos;t automatically determine the number of stars{' '}
+              <strong>(either {possibleStars.join(' or ')} stars)</strong>. Please select it manually.
+            </>
+          }
+        >
           <InfoOutlinedIcon sx={{ ml: 1 }} />
         </Tooltip>
       )}
