@@ -42,6 +42,7 @@ export interface GearPieceProps {
   disableGearTypeChange?: boolean;
   showSaveGearButton?: boolean;
   showStatSummary?: CoreElementalType;
+  maxTitanStatsContent?: ReactNode;
   additionalAccordions?: ReactNode;
 }
 
@@ -52,6 +53,7 @@ export const GearPiece = ({
   disableGearTypeChange,
   showSaveGearButton,
   showStatSummary,
+  maxTitanStatsContent,
   additionalAccordions,
 }: GearPieceProps) => {
   const gearSnap = useSnapshot(gear);
@@ -148,6 +150,26 @@ export const GearPiece = ({
                 <GearRollBreakdown gear={gear} />
               </AccordionDetails>
             </Accordion>
+            {maxTitanStatsContent && (
+              <Accordion elevation={2}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="max-titan-stats-panel-content"
+                  id="max-titan-stats-panel-header"
+                >
+                  <Typography>Stat values at max titan</Typography>
+                </AccordionSummary>
+                <AccordionDetails data-testid="max-titan-stats-panel-content">
+                  <>
+                    <Typography sx={{ mb: 3 }}>
+                      The max increase amount each stat gets at max potential
+                      titan (120 augmentations)
+                    </Typography>
+                    {maxTitanStatsContent}
+                  </>
+                </AccordionDetails>
+              </Accordion>
+            )}
             {additionalAccordions}
           </Box>
         </>

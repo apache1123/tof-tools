@@ -11,7 +11,9 @@ import type {
 import type { GearName, GearType } from './gear-type';
 import {
   copyRandomStat,
+  getMaxAugmentIncrease,
   getRandomStatRollCombinations,
+  getTotalValueWithAugment,
   getType as getRandomStatType,
   newRandomStat,
   type RandomStat,
@@ -30,10 +32,18 @@ export interface Gear {
   typeId: GearName;
   stars: number;
   randomStats: (RandomStat | undefined)[];
+  isAugmented: boolean;
+  isTitan: boolean;
 }
 
 export function newGear(type: GearType) {
-  const gear = { id: nanoid(), stars: 0, randomStats: [] } as unknown as Gear;
+  const gear = {
+    id: nanoid(),
+    stars: 0,
+    randomStats: [],
+    isAugmented: false,
+    isTitan: false,
+  } as unknown as Gear;
   setType(gear, type);
   return gear;
 }
@@ -70,6 +80,14 @@ export function setStars(gear: Gear, stars: number) {
   if (stars >= 0 && stars <= maxNumOfRandomStatRolls) {
     gear.stars = stars;
   }
+}
+
+export function setIsAugmented(gear: Gear, isAugmented: boolean) {
+  gear.isAugmented = isAugmented;
+}
+
+export function setIsTitan(gear: Gear, isTitan: boolean) {
+  gear.isTitan = isTitan;
 }
 
 export function getTotalAttackFlat(
@@ -164,6 +182,22 @@ export function getGearRandomStatRollCombinations(gear: Gear) {
   return result;
 }
 
+export function getMaxTitanGear(gear: Gear): Gear {
+  const maxTitanGear = newGear(getType(gear));
+  copyGear(gear, maxTitanGear);
+
+  maxTitanGear.randomStats.forEach((randomStat) => {
+    if (randomStat) {
+      randomStat.augmentIncreaseValue = getMaxAugmentIncrease(randomStat);
+    }
+  });
+
+  setIsAugmented(maxTitanGear, true);
+  setIsTitan(maxTitanGear, true);
+
+  return maxTitanGear;
+}
+
 // Additively sum up all random stat values based on a stat type condition
 function additiveSumRandomStatValues(
   gear: Gear,
@@ -174,7 +208,7 @@ function additiveSumRandomStatValues(
       if (!stat) return 0;
 
       const statType = getRandomStatType(stat);
-      return predicate(statType) ? stat.value : 0;
+      return predicate(statType) ? getTotalValueWithAugment(stat) : 0;
     })
   ).toNumber();
 }
@@ -190,7 +224,9 @@ function additiveSumElementalRandomStatValues(
       if (!stat) return 0;
 
       const statType = getRandomStatType(stat);
-      return predicate(statType, elementalType) ? stat.value : 0;
+      return predicate(statType, elementalType)
+        ? getTotalValueWithAugment(stat)
+        : 0;
     })
   ).toNumber();
 }

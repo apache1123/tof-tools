@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { maxNumOfRandomStatRolls } from '../constants/gear';
 import { statTypesLookup } from '../constants/stat-types';
+import { toPercentageString2dp } from '../utils/number-utils';
 import type { RollCombination } from './random-stat-roll-combination';
 import { zeroRollCombination } from './random-stat-roll-combination';
 import { type StatName, type StatType } from './stat-type';
@@ -9,10 +10,11 @@ import { type StatName, type StatType } from './stat-type';
 export interface RandomStat {
   typeId: StatName;
   value: number;
+  augmentIncreaseValue: number;
 }
 
 export function newRandomStat(type: StatType): RandomStat {
-  const randomStat = {} as RandomStat;
+  const randomStat = { augmentIncreaseValue: 0 } as RandomStat;
   setType(randomStat, type);
   return randomStat;
 }
@@ -36,6 +38,11 @@ export function setType(randomStat: RandomStat, type: StatType) {
 export function setValue(randomStat: RandomStat, value: number) {
   randomStat.value = value;
 }
+export function getValueToString(randomStat: RandomStat): string {
+  const { value } = randomStat;
+  const { isPercentageBased } = getType(randomStat);
+  return isPercentageBased ? toPercentageString2dp(value) : value.toString();
+}
 
 export function resetValueToDefault(randomStat: RandomStat) {
   const type = getType(randomStat);
@@ -49,6 +56,29 @@ export function getMaxAugmentIncrease(randomStat: RandomStat): number {
     .multipliedBy(maxAugmentIncreaseMultiplier)
     .plus(maxAugmentIncreaseFlat)
     .toNumber();
+}
+export function setAugmentIncreaseValue(randomStat: RandomStat, value: number) {
+  randomStat.augmentIncreaseValue = value;
+}
+export function getAugmentIncreaseValueToString(
+  randomStat: RandomStat
+): string {
+  const { augmentIncreaseValue } = randomStat;
+  const { isPercentageBased } = getType(randomStat);
+  return isPercentageBased
+    ? toPercentageString2dp(augmentIncreaseValue)
+    : augmentIncreaseValue.toString();
+}
+
+export function getTotalValueWithAugment(randomStat: RandomStat): number {
+  return BigNumber(randomStat.value)
+    .plus(randomStat.augmentIncreaseValue)
+    .toNumber();
+}
+export function getTotalValueWithAugmentString(randomStat: RandomStat): string {
+  const { isPercentageBased } = getType(randomStat);
+  const value = getTotalValueWithAugment(randomStat);
+  return isPercentageBased ? toPercentageString2dp(value) : value.toString();
 }
 
 export function addOneAverageRoll(randomStat: RandomStat) {

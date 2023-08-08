@@ -4,7 +4,9 @@ import type { Gear } from '../../models/gear';
 import { newGear } from '../../models/gear';
 import type { GearType } from '../../models/gear-type';
 import { EmptyGearPiece, GearPiece } from '../GearPiece';
+import { TitanGearMaxStats } from '../TitanGearMaxStats';
 import { GearRollSimulator } from './GearRollSimulator';
+import { gearComparerGearMaxTitansStore } from './stores/derived/gear-comparer-gear-max-titans';
 import type { GearComparerGearPosition } from './stores/gear-comparer-gear';
 import { gearComparerGearsStore, setGear } from './stores/gear-comparer-gear';
 import { gearComparerOptionsStore } from './stores/gear-comparer-options';
@@ -17,6 +19,7 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
   const { [position]: gear } = gearComparerGearsStore;
   const { [position]: gearSnap } = useSnapshot(gearComparerGearsStore);
   const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
+  const maxTitans = useSnapshot(gearComparerGearMaxTitansStore);
 
   const handleGearTypeSelect = (gearType: GearType) => {
     const gear = newGear(gearType);
@@ -33,6 +36,16 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
       showGearOCRButton
       showSaveGearButton
       showStatSummary={selectedElementalType}
+      maxTitanStatsContent={
+        gearSnap &&
+        maxTitans.titansByReferenceGearId[gearSnap.id] && (
+          <TitanGearMaxStats
+            maxTitanGear={
+              maxTitans.titansByReferenceGearId[gearSnap.id] as Gear
+            }
+          />
+        )
+      }
       additionalAccordions={position === 'GearB' && <GearRollSimulator />}
     />
   ) : (
