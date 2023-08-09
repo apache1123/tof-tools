@@ -269,9 +269,10 @@ test('gear value is calculated correctly', async ({ page }) => {
     .filter({ hasText: 'Fiona 2pc+16%/+18%/+20%/+22%' })
     .getByLabel('controlled')
     .check();
+  // TODO: Fix this flaky selector
   await page
     .locator('.MuiPaper-root > .MuiRating-root > label:nth-child(5)')
-    .first() // Fiona 3*
+    .nth(1) // Fiona 3*
     .click();
   await expect(page.getByTestId('gear-value-GearA')).toHaveText('16.66%');
 
