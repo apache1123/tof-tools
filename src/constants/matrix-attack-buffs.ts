@@ -3,6 +3,7 @@ import type { Data } from '../models/data';
 
 // Matrix buffs that aren't always active and require some sort of action to trigger i.e. are not included in the character sheet atk stat naturally
 enum ActiveMatrixAttackBuffId {
+  MingJing4pc = 'Ming Jing 4pc',
   Fiona2pc = 'Fiona 2pc',
   Lin2pc = 'Lin 2pc',
   Ruby2pc = 'Ruby 2pc',
@@ -15,6 +16,7 @@ export const activeMatrixAttackBuffsLookup: Data<
   MatrixBuff
 > = {
   allIds: [
+    ActiveMatrixAttackBuffId.MingJing4pc,
     ActiveMatrixAttackBuffId.Fiona2pc,
     ActiveMatrixAttackBuffId.Lin2pc,
     ActiveMatrixAttackBuffId.Ruby2pc,
@@ -22,6 +24,18 @@ export const activeMatrixAttackBuffsLookup: Data<
     ActiveMatrixAttackBuffId.Nemesis2pc,
   ],
   byId: {
+    [ActiveMatrixAttackBuffId.MingJing4pc]: {
+      id: ActiveMatrixAttackBuffId.MingJing4pc,
+      displayName: ActiveMatrixAttackBuffId.MingJing4pc,
+      starValues: [
+        { star: 0, value: 0.09 },
+        { star: 1, value: 0.09 },
+        { star: 2, value: 0.09 },
+        { star: 3, value: 0.09 },
+      ],
+      description:
+        'Increase physical ATK and flame ATK for 30 seconds after applying snake bite, works off-hand',
+    },
     [ActiveMatrixAttackBuffId.Fiona2pc]: {
       id: ActiveMatrixAttackBuffId.Fiona2pc,
       displayName: ActiveMatrixAttackBuffId.Fiona2pc,
@@ -82,6 +96,7 @@ export const activeMatrixAttackBuffsLookup: Data<
 
 // Matrix buffs that are always active in the background or current weapon i.e. are included on the character sheet atk stat
 enum PassiveMatrixAttackBuffId {
+  MingJing2pc = 'Ming Jing 2pc',
   Rubilia2pc = 'Rubilia 2pc',
   Lan2pc = 'Lan 2pc',
   Lyra2pc = 'Lyra 2pc',
@@ -92,11 +107,24 @@ export const passiveMatrixAttackBuffsLookup: Data<
   MatrixBuff
 > = {
   allIds: [
+    PassiveMatrixAttackBuffId.MingJing2pc,
     PassiveMatrixAttackBuffId.Rubilia2pc,
     PassiveMatrixAttackBuffId.Lan2pc,
     PassiveMatrixAttackBuffId.Lyra2pc,
   ],
   byId: {
+    [PassiveMatrixAttackBuffId.MingJing2pc]: {
+      id: PassiveMatrixAttackBuffId.MingJing2pc,
+      displayName: PassiveMatrixAttackBuffId.MingJing2pc,
+      starValues: [
+        { star: 0, value: 0.14 },
+        { star: 1, value: 0.16 },
+        { star: 2, value: 0.18 },
+        { star: 3, value: 0.2 },
+      ],
+      description:
+        'Increase physical ATK and flame ATK when at least 1 physical or flame weapon is equipped, works off-hand',
+    },
     [PassiveMatrixAttackBuffId.Rubilia2pc]: {
       id: PassiveMatrixAttackBuffId.Rubilia2pc,
       displayName: PassiveMatrixAttackBuffId.Rubilia2pc,
