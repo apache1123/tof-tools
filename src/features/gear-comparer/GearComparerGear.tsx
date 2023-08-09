@@ -1,4 +1,5 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
 import type { Gear } from '../../models/gear';
@@ -60,11 +61,22 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
             }
           />
         ) : (
-          <Typography color="info.main" gutterBottom>
-            Can&apos;t calculate max titan stat values if gear is not at 5 star
-            (if the gear is already augmented/at titan, use the base 5 star
-            values)
-          </Typography>
+          <Box>
+            <Typography color="info.main">
+              Can&apos;t calculate max titan stat values if gear is not at 5
+              star.
+            </Typography>
+            <Typography color="info.main" mt={2} gutterBottom>
+              If the gear is already augmented/at titan, use the original 5 star
+              values (found on the augment screen)
+            </Typography>
+            <Image
+              src="/stat_original_5_star_value_example.jpg"
+              alt="stat-original-5-star-value-example"
+              width={415}
+              height={230}
+            />
+          </Box>
         )
       }
       additionalAccordions={position === 'GearB' && <GearRollSimulator />}
