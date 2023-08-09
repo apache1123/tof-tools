@@ -1,9 +1,18 @@
+import BigNumber from 'bignumber.js';
+import groupBy from 'lodash.groupby';
 import { nanoid } from 'nanoid';
 
-import { maxNumOfRandomStatRolls } from '../constants/gear';
+import { prioritizedAugmentationStatTypesLookup } from '../constants/augmentation-stats';
+import {
+  augmentStatsPullUpFactor,
+  maxNumOfAugmentStats,
+  maxNumOfRandomStatRolls,
+} from '../constants/gear';
 import { gearTypesLookup } from '../constants/gear-types';
+import { statTypesLookup } from '../constants/stat-types';
 import { cartesian } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
+import { type AugmentStat, newAugmentStat } from './augment-stat';
 import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
@@ -17,8 +26,9 @@ import {
   getType as getRandomStatType,
   newRandomStat,
   type RandomStat,
+  setAugmentIncreaseValue,
 } from './random-stat';
-import type { CoreElementalType, StatType } from './stat-type';
+import type { CoreElementalType, StatName, StatType } from './stat-type';
 import {
   isCritFlat,
   isCritPercent,
@@ -32,6 +42,7 @@ export interface Gear {
   typeId: GearName;
   stars: number;
   randomStats: (RandomStat | undefined)[];
+  augmentStats: AugmentStat[];
   isAugmented: boolean;
   isTitan: boolean;
 }
@@ -41,6 +52,7 @@ export function newGear(type: GearType) {
     id: nanoid(),
     stars: 0,
     randomStats: [],
+    augmentStats: [],
     isAugmented: false,
     isTitan: false,
   } as unknown as Gear;
@@ -81,6 +93,11 @@ export function setStars(gear: Gear, stars: number) {
     gear.stars = stars;
   }
 }
+export function getPossibleStars(gear: Gear): number[] {
+  return Object.keys(
+    groupBy(getGearRandomStatRollCombinations(gear), 'stars')
+  ).map((x) => +x);
+}
 
 export function setIsAugmented(gear: Gear, isAugmented: boolean) {
   gear.isAugmented = isAugmented;
@@ -94,7 +111,7 @@ export function getTotalAttackFlat(
   gear: Gear,
   elementalType: CoreElementalType
 ): number {
-  return additiveSumElementalRandomStatValues(
+  return additiveSumElementalStatValues(
     gear,
     elementalType,
     isElementalAttackFlat
@@ -105,7 +122,7 @@ export function getTotalAttackPercent(
   gear: Gear,
   elementalType: CoreElementalType
 ): number {
-  return additiveSumElementalRandomStatValues(
+  return additiveSumElementalStatValues(
     gear,
     elementalType,
     isElementalAttackPercent
@@ -113,18 +130,18 @@ export function getTotalAttackPercent(
 }
 
 export function getTotalCritFlat(gear: Gear): number {
-  return additiveSumRandomStatValues(gear, isCritFlat);
+  return additiveSumStatValues(gear, isCritFlat);
 }
 
 export function getTotalCritPercent(gear: Gear): number {
-  return additiveSumRandomStatValues(gear, isCritPercent);
+  return additiveSumStatValues(gear, isCritPercent);
 }
 
 export function getTotalDamagePercent(
   gear: Gear,
   elementalType: CoreElementalType
 ): number {
-  return additiveSumElementalRandomStatValues(
+  return additiveSumElementalStatValues(
     gear,
     elementalType,
     isElementalDamagePercent
@@ -182,29 +199,119 @@ export function getGearRandomStatRollCombinations(gear: Gear) {
   return result;
 }
 
-export function getMaxTitanGear(gear: Gear): Gear {
+export function getMaxTitanGear(
+  gear: Gear,
+  elementalType?: CoreElementalType
+): Gear | undefined {
+  if (
+    gear.stars !== 5 &&
+    !(getPossibleStars(gear).length === 1 && getPossibleStars(gear)[0] === 5)
+  ) {
+    return undefined;
+  }
+
   const maxTitanGear = newGear(getType(gear));
   copyGear(gear, maxTitanGear);
 
-  maxTitanGear.randomStats.forEach((randomStat) => {
-    if (randomStat) {
-      randomStat.augmentIncreaseValue = getMaxAugmentIncrease(randomStat);
-    }
-  });
+  const rollBreakdown =
+    getGearRandomStatRollCombinations(maxTitanGear)[0]
+      .randomStatRollCombinations;
+  const highestStatName = rollBreakdown.reduce((prev, current) =>
+    current.rollCombination.numberOfRolls >
+      prev.rollCombination.numberOfRolls ||
+    (current.rollCombination.numberOfRolls ===
+      prev.rollCombination.numberOfRolls &&
+      ((current.rollCombination.rollStrength &&
+        prev.rollCombination.rollStrength &&
+        current.rollCombination.rollStrength >=
+          prev.rollCombination.rollStrength) ||
+        current.rollCombination.rollStrength === undefined))
+      ? current
+      : prev
+  ).randomStatId;
+
+  const prioritizedStatNames =
+    prioritizedAugmentationStatTypesLookup[highestStatName]
+      .prioritizedStatTypes;
+  const elementalPrioritizedStatNames = elementalType
+    ? prioritizedStatNames.filter(
+        (statName) =>
+          statTypesLookup.byId[statName].elementalType === elementalType
+      )
+    : [];
+  const fallbackStatNames =
+    prioritizedAugmentationStatTypesLookup[highestStatName].fallbackStatTypes;
+
+  fillAugmentStatsIfPossible(elementalPrioritizedStatNames);
+  fillAugmentStatsIfPossible(prioritizedStatNames);
+  fillAugmentStatsIfPossible(fallbackStatNames);
+
+  setMaxAugmentIncrease(maxTitanGear.randomStats);
+  setMaxAugmentIncrease(maxTitanGear.augmentStats);
+
+  const highestRandomStat = maxTitanGear.randomStats.find(
+    (randomStat) => randomStat?.typeId === highestStatName
+  );
+  if (highestRandomStat) {
+    const totalValueWithAugment = getTotalValueWithAugment(highestRandomStat);
+    const pullUpToValue = BigNumber(totalValueWithAugment).times(
+      augmentStatsPullUpFactor
+    );
+
+    pullUpStatsValueIfApplicable(maxTitanGear.randomStats, pullUpToValue);
+    pullUpStatsValueIfApplicable(maxTitanGear.augmentStats, pullUpToValue);
+  }
 
   setIsAugmented(maxTitanGear, true);
   setIsTitan(maxTitanGear, true);
 
   return maxTitanGear;
+
+  function fillAugmentStatsIfPossible(statNameCollection: StatName[]) {
+    statNameCollection.forEach((statName) => {
+      if (
+        maxTitanGear.augmentStats.length < maxNumOfAugmentStats &&
+        !maxTitanGear.randomStats.some(
+          (randomStat) => randomStat?.typeId === statName
+        ) &&
+        !maxTitanGear.augmentStats.some(
+          (augmentStat) => augmentStat.typeId === statName
+        )
+      ) {
+        const statType = statTypesLookup.byId[statName];
+        maxTitanGear.augmentStats.push(newAugmentStat(statType));
+      }
+    });
+  }
+
+  function setMaxAugmentIncrease(stats: (RandomStat | undefined)[]) {
+    stats.forEach((stat) => {
+      if (stat) {
+        stat.augmentIncreaseValue = getMaxAugmentIncrease(stat);
+      }
+    });
+  }
+
+  function pullUpStatsValueIfApplicable(
+    stats: (RandomStat | undefined)[],
+    pullUpToValue: BigNumber
+  ) {
+    stats.forEach((stat) => {
+      if (stat && prioritizedStatNames.includes(stat.typeId)) {
+        const { value } = stat;
+        setAugmentIncreaseValue(stat, pullUpToValue.minus(value).toNumber());
+      }
+    });
+  }
 }
 
-// Additively sum up all random stat values based on a stat type condition
-function additiveSumRandomStatValues(
+// Additively sum up all random stat & augment stat values based on a stat type condition
+function additiveSumStatValues(
   gear: Gear,
   predicate: (statType: StatType) => boolean
 ): number {
   return additiveSum(
-    gear.randomStats.map((stat) => {
+    gear.randomStats.concat(gear.augmentStats).map((stat) => {
       if (!stat) return 0;
 
       const statType = getRandomStatType(stat);
@@ -213,14 +320,14 @@ function additiveSumRandomStatValues(
   ).toNumber();
 }
 
-// Additively sum up all random stat values based on a stat type & elemental type condition
-function additiveSumElementalRandomStatValues(
+// Additively sum up all random stat & augment values based on a stat type & elemental type condition
+function additiveSumElementalStatValues(
   gear: Gear,
   elementalType: CoreElementalType,
   predicate: (statType: StatType, elementalType: CoreElementalType) => boolean
 ): number {
   return additiveSum(
-    gear.randomStats.map((stat) => {
+    gear.randomStats.concat(gear.augmentStats).map((stat) => {
       if (!stat) return 0;
 
       const statType = getRandomStatType(stat);

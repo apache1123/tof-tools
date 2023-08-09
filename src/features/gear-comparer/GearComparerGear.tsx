@@ -1,7 +1,8 @@
+import { Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
 import type { Gear } from '../../models/gear';
-import { newGear } from '../../models/gear';
+import { getPossibleStars, newGear } from '../../models/gear';
 import type { GearType } from '../../models/gear-type';
 import { EmptyGearPiece, GearPiece } from '../GearPiece';
 import { TitanGearMaxStats } from '../TitanGearMaxStats';
@@ -37,13 +38,33 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
       showSaveGearButton
       showStatSummary={selectedElementalType}
       maxTitanStatsContent={
-        gearSnap &&
-        maxTitans.titansByReferenceGearId[gearSnap.id] && (
+        gearSnap.stars !== 5 &&
+        getPossibleStars(gearSnap as Gear).length > 1 ? (
+          <Typography color="info.main" gutterBottom>
+            Can&apos;t determine the number of stars{' '}
+            <strong>
+              (either {getPossibleStars(gearSnap as Gear).join(' or ')} stars)
+            </strong>
+            . Select it above to continue
+          </Typography>
+        ) : gearSnap.stars !== 5 &&
+          getPossibleStars(gearSnap as Gear).length === 1 &&
+          getPossibleStars(gearSnap as Gear)[0] !== 5 ? (
+          <Typography color="info.main" gutterBottom>
+            Can&apos;t calculate max titan stat values if gear is not at 5 star
+          </Typography>
+        ) : gearSnap && maxTitans.titansByReferenceGearId[gearSnap.id] ? (
           <TitanGearMaxStats
             maxTitanGear={
               maxTitans.titansByReferenceGearId[gearSnap.id] as Gear
             }
           />
+        ) : (
+          <Typography color="info.main" gutterBottom>
+            Can&apos;t calculate max titan stat values if gear is not at 5 star
+            (if the gear is already augmented/at titan, use the base 5 star
+            values)
+          </Typography>
         )
       }
       additionalAccordions={position === 'GearB' && <GearRollSimulator />}
