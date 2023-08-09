@@ -38,11 +38,12 @@ export function GearStars({ gear }: GearStarsProps) {
           title={
             <>
               Can&apos;t automatically determine the number of stars{' '}
-              <strong>(either {possibleStars.join(' or ')} stars)</strong>. Please select it manually.
+              <strong>(either {possibleStars.join(' or ')} stars)</strong>.
+              Please select it manually.
             </>
           }
         >
-          <InfoOutlinedIcon sx={{ ml: 1 }} />
+          <InfoOutlinedIcon color="info" sx={{ ml: 1 }} />
         </Tooltip>
       )}
     </Box>

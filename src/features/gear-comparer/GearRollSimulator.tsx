@@ -15,7 +15,11 @@ import { useSnapshot } from 'valtio';
 import { GearStarsSelector } from '../../components/GearStarsSelector/GearStarsSelector';
 import { maxNumOfRandomStatRolls } from '../../constants/gear';
 import type { Gear } from '../../models/gear';
-import { getGearRandomStatRollCombinations, setStars } from '../../models/gear';
+import {
+  getGearRandomStatRollCombinations,
+  getPossibleStars,
+  setStars,
+} from '../../models/gear';
 import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
 import { getComparisonColor } from '../../utils/color-utils';
 import { additiveSum } from '../../utils/math-utils';
@@ -51,9 +55,7 @@ export function GearRollSimulator() {
         aria-controls="roll-simulator-panel-content"
         id="roll-simulator-panel-header"
       >
-        <Typography>
-          Roll simulator <i>(experimental)</i>
-        </Typography>
+        <Typography>Roll simulator</Typography>
       </AccordionSummary>
       <AccordionDetails data-testid="roll-simulator-panel-content">
         {gearSnap && gear && (
@@ -72,8 +74,7 @@ function AccordionContent({ gear, GearB }: { gear: Gear; GearB: Gear }) {
   );
 
   const canDetermineStars =
-    !!gearSnap.stars ||
-    Object.keys(groupBy(randomStatRollCombinations, 'stars')).length <= 1;
+    !!gearSnap.stars || getPossibleStars(gearSnap as Gear).length <= 1;
 
   return (
     <Box>

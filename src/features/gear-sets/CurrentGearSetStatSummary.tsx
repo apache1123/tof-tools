@@ -18,7 +18,9 @@ export function CurrentGearSetStatSummary() {
 
   if (!selectedGearSet?.elementalType) {
     return (
-      <Paper>Select an element type above to see a summary of gear stats</Paper>
+      <Paper sx={{ p: 2 }}>
+        Select an element type above to see a summary of gear stats
+      </Paper>
     );
   }
 
