@@ -144,7 +144,6 @@ export function UserBaseStats() {
             label="Crit %"
             variant="filled"
             required
-            error={!critPercentWithGearA}
             value={critPercentWithGearA}
             onChange={setCritPercentWithGearA}
             helperText={
