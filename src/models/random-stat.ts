@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { maxNumOfRandomStatRolls } from '../constants/gear';
 import { statTypesLookup } from '../constants/stat-types';
-import { toPercentageString2dp } from '../utils/number-utils';
+import { toIntegerString, toPercentageString2dp } from '../utils/number-utils';
 import type { RollCombination } from './random-stat-roll-combination';
 import { zeroRollCombination } from './random-stat-roll-combination';
 import { type StatName, type StatType } from './stat-type';
@@ -41,7 +41,9 @@ export function setValue(randomStat: RandomStat, value: number) {
 export function getValueToString(randomStat: RandomStat): string {
   const { value } = randomStat;
   const { isPercentageBased } = getType(randomStat);
-  return isPercentageBased ? toPercentageString2dp(value) : value.toString();
+  return isPercentageBased
+    ? toPercentageString2dp(value)
+    : toIntegerString(value);
 }
 
 export function resetValueToDefault(randomStat: RandomStat) {
@@ -67,7 +69,7 @@ export function getAugmentIncreaseValueToString(
   const { isPercentageBased } = getType(randomStat);
   return isPercentageBased
     ? toPercentageString2dp(augmentIncreaseValue)
-    : augmentIncreaseValue.toString();
+    : toIntegerString(augmentIncreaseValue);
 }
 
 export function getTotalValueWithAugment(randomStat: RandomStat): number {
@@ -75,10 +77,14 @@ export function getTotalValueWithAugment(randomStat: RandomStat): number {
     .plus(randomStat.augmentIncreaseValue)
     .toNumber();
 }
-export function getTotalValueWithAugmentString(randomStat: RandomStat): string {
+export function getTotalValueWithAugmentToString(
+  randomStat: RandomStat
+): string {
   const { isPercentageBased } = getType(randomStat);
   const value = getTotalValueWithAugment(randomStat);
-  return isPercentageBased ? toPercentageString2dp(value) : value.toString();
+  return isPercentageBased
+    ? toPercentageString2dp(value)
+    : toIntegerString(value);
 }
 
 export function addOneAverageRoll(randomStat: RandomStat) {

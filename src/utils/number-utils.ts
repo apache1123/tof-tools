@@ -16,3 +16,9 @@ export function toSignedPercentageString1dp(number: number) {
     signDisplay: 'always',
   });
 }
+
+export function toIntegerString(number: number) {
+  return number.toLocaleString('en', {
+    maximumFractionDigits: 0,
+  });
+}
