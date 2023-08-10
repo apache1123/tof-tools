@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import type { Gear } from '../models/gear';
 import {
   getAugmentIncreaseValueToString,
-  getTotalValueWithAugmentString,
+  getTotalValueWithAugmentToString,
   getType,
   getValueToString,
 } from '../models/random-stat';
@@ -16,7 +16,9 @@ export function TitanGearMaxStats({ maxTitanGear }: TitanGearMaxStatsProps) {
   return (
     <Stack spacing={2}>
       <Box>
-        <Typography variant="h6" gutterBottom>Random stats</Typography>
+        <Typography variant="h6" gutterBottom>
+          Random stats
+        </Typography>
         <Stack>
           {maxTitanGear.randomStats.map((randomStat, i) => {
             if (!randomStat) {
@@ -28,14 +30,16 @@ export function TitanGearMaxStats({ maxTitanGear }: TitanGearMaxStatsProps) {
                 <strong>{displayName}: </strong>
                 {getValueToString(randomStat)} +{' '}
                 {getAugmentIncreaseValueToString(randomStat)} ={' '}
-                <strong>{getTotalValueWithAugmentString(randomStat)}</strong>
+                <strong>{getTotalValueWithAugmentToString(randomStat)}</strong>
               </Typography>
             );
           })}
         </Stack>
       </Box>
       <Box>
-        <Typography variant="h6" gutterBottom>Augment stats</Typography>
+        <Typography variant="h6" gutterBottom>
+          Augment stats
+        </Typography>
         <Stack>
           {maxTitanGear.augmentStats.map((augmentStat, i) => {
             if (!augmentStat) {
@@ -47,7 +51,7 @@ export function TitanGearMaxStats({ maxTitanGear }: TitanGearMaxStatsProps) {
                 <strong>{displayName}: </strong>
                 {getValueToString(augmentStat)} +{' '}
                 {getAugmentIncreaseValueToString(augmentStat)} ={' '}
-                <strong>{getTotalValueWithAugmentString(augmentStat)}</strong>
+                <strong>{getTotalValueWithAugmentToString(augmentStat)}</strong>
               </Typography>
             );
           })}
