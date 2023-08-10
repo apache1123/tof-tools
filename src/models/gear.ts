@@ -213,9 +213,13 @@ export function getMaxTitanGear(
   const maxTitanGear = newGear(getType(gear));
   copyGear(gear, maxTitanGear);
 
-  const rollBreakdown =
-    getGearRandomStatRollCombinations(maxTitanGear)[0]
-      .randomStatRollCombinations;
+  const gearStatRollCombinations =
+    getGearRandomStatRollCombinations(maxTitanGear);
+  if (!gearStatRollCombinations.length) {
+    return undefined;
+  }
+
+  const rollBreakdown = gearStatRollCombinations[0].randomStatRollCombinations;
   const highestStatName = rollBreakdown.reduce((prev, current) =>
     current.rollCombination.numberOfRolls >
       prev.rollCombination.numberOfRolls ||
