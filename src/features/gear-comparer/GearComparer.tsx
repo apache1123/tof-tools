@@ -72,7 +72,7 @@ export function GearComparer() {
         <CritDamageBuffs />
       </Box>
 
-      <Box mt={10} textAlign="right">
+      <Box mt={10} textAlign="center">
         <Typography variant="body2">
           This calculator is based off of <strong>Maygi&apos;s</strong>{' '}
           <Link

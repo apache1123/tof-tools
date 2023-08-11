@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Unstable_Grid2';
+import { Box, Link, Stack, Typography } from '@mui/material';
 import type { ReactNode } from 'react';
 
 import { Navbar } from '../src/components/Navbar/Navbar';
@@ -11,16 +11,26 @@ export default function Layout({ children }: LayoutProps) {
     <>
       <Navbar />
       <main>{children}</main>
-      <Grid container mt={5}>
-        <Grid
-          xs={12}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <RandomSticker />
-        </Grid>
-      </Grid>
+
+      <Stack mt={5} spacing={1} alignItems="center">
+        <RandomSticker />
+        <Box textAlign="center">
+          <Typography variant="body2">
+            Questions? Find me on discord @apache1123
+          </Typography>
+          <Typography variant="body2">
+            Or come hang out at our{' '}
+            <Link
+              href="https://discord.io/vegemites"
+              target="_blank"
+              rel="noopener"
+            >
+              crew discord
+            </Link>{' '}
+            (Vegemites, APAC crew)
+          </Typography>
+        </Box>
+      </Stack>
     </>
   );
 }
