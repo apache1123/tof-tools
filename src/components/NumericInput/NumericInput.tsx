@@ -1,8 +1,6 @@
 import type { TextFieldVariants } from '@mui/material/TextField';
 import TextField from '@mui/material/TextField';
 import type { ReactNode } from 'react';
-import { forwardRef } from 'react';
-import type { NumericFormatProps } from 'react-number-format';
 import { NumericFormat } from 'react-number-format';
 
 export interface NumericInputProps {
@@ -24,83 +22,28 @@ export interface NumericInputProps {
   'aria-label'?: string;
 }
 
-interface CustomProps {
-  value: number;
-  onChange: (event: { target: { name: string; value: string } }) => void;
-  name: string;
-  allowNegative?: boolean;
-  decimalScale?: number;
-  prefix?: string;
-  suffix?: string;
-  disabled?: boolean;
-}
-
-const NumericFormatCustom = forwardRef<NumericFormatProps, CustomProps>(
-  function NumericFormatCustom(props, ref) {
-    const { onChange, ...other } = props;
-
-    return (
-      <NumericFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.value,
-            },
-          });
-        }}
-        thousandSeparator
-        valueIsNumericString
-      />
-    );
-  }
-);
-
 export const NumericInput = ({
-  value,
   onChange,
-  label,
-  name,
-  id,
   variant = 'standard',
   allowNegative = false,
   decimalScale = 3,
-  prefix,
-  suffix,
-  disabled,
   fullWidth = true,
-  required,
-  error,
-  helperText,
-  'aria-label': ariaLabel,
+  ...rest
 }: NumericInputProps) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChange) onChange(+event.target.value);
-  };
-
   return (
-    <TextField
-      {...{
-        label,
-        value,
-        onChange: handleChange,
-        name,
-        id,
-        InputProps: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          inputComponent: NumericFormatCustom as any,
-          inputProps: { allowNegative, decimalScale, prefix, suffix },
-        },
-        variant,
-        disabled,
-        fullWidth,
-        required,
-        error,
-        helperText,
-        'aria-label': ariaLabel,
+    <NumericFormat
+      onValueChange={(values) => {
+        if (onChange && values.floatValue !== undefined) {
+          onChange(values.floatValue);
+        }
       }}
+      thousandSeparator
+      allowNegative={allowNegative}
+      decimalScale={decimalScale}
+      customInput={TextField}
+      variant={variant}
+      fullWidth={fullWidth}
+      {...rest}
     />
   );
 };
