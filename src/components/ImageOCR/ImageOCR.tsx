@@ -1,4 +1,4 @@
-import { Skeleton } from '@mui/material';
+import { Skeleton, Stack, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
 import { ocrStore } from '../../stores/ocr-temp-gear';
@@ -33,6 +33,9 @@ export const ImageOCR = ({
   return ocrWorker ? (
     <ImageSelect onSelectedImageURLChange={handleSelectedImageURLChange} />
   ) : (
-    <Skeleton variant="rounded" width={400} height={20} animation="wave" />
+    <Stack alignItems="center">
+      <Skeleton variant="rounded" width={400} height={20} animation="wave" />
+      <Typography color="info.main">This may take a little while to load...</Typography>
+    </Stack>
   );
 };
