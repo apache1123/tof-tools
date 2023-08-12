@@ -33,8 +33,8 @@ export const NumericInput = ({
   return (
     <NumericFormat
       onValueChange={(values) => {
-        if (onChange && values.floatValue !== undefined) {
-          onChange(values.floatValue);
+        if (onChange) {
+          onChange(values.floatValue ?? 0);
         }
       }}
       thousandSeparator
