@@ -3,7 +3,7 @@ import type { Data } from '../models/data';
 
 // Weapon buffs that aren't always active and require some sort of action to trigger i.e. are not included in the character sheet atk stat naturally
 enum ActiveWeaponCritRateBuffId {
-  Annabella0to2Star = 'Annabella',
+  Annabella = 'Annabella',
   Annabella3Star = 'Annabella 3*',
 }
 
@@ -18,7 +18,7 @@ export const activeWeaponCritRateBuffsLookup: Data<
   byId: {
     [ActiveWeaponCritRateBuffId.Annabella]: {
       id: ActiveWeaponCritRateBuffId.Annabella,
-      displayName: ActiveWeaponCritRateBuffId.Annabella,
+      displayName: 'Annabella 0* - 2*',
       value: 0.15,
       description:
         'Tranquil Heart: after using discharge/skill/dodge/charge attack, increase crit rate by 5%, stacking up to 3 times. Lasts for 15s.',
