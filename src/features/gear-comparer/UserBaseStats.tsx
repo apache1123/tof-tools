@@ -109,6 +109,7 @@ export function UserBaseStats() {
                   Hover for example. If you&apos;re using{' '}
                   <Typography
                     variant="inherit"
+                    component="span"
                     color="info.main"
                     fontWeight="bold"
                   >
@@ -168,6 +169,7 @@ export function UserBaseStats() {
                   Hover for example. If you&apos;re using{' '}
                   <Typography
                     variant="inherit"
+                    component="span"
                     color="info.main"
                     fontWeight="bold"
                   >
