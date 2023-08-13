@@ -3,8 +3,8 @@ import type { Data } from '../models/data';
 
 // Weapon buffs that aren't always active and require some sort of action to trigger i.e. are not included in the character sheet atk stat naturally
 enum ActiveWeaponCritRateBuffId {
+  Annabella0to2Star = 'Annabella 0* - 2*',
   Annabella3Star = 'Annabella 3*',
-  Annabella = 'Annabella',
 }
 
 export const activeWeaponCritRateBuffsLookup: Data<
@@ -12,23 +12,23 @@ export const activeWeaponCritRateBuffsLookup: Data<
   Buff
 > = {
   allIds: [
+    ActiveWeaponCritRateBuffId.Annabella0to2Star,
     ActiveWeaponCritRateBuffId.Annabella3Star,
-    ActiveWeaponCritRateBuffId.Annabella,
   ],
   byId: {
+    [ActiveWeaponCritRateBuffId.Annabella0to2Star]: {
+      id: ActiveWeaponCritRateBuffId.Annabella0to2Star,
+      displayName: ActiveWeaponCritRateBuffId.Annabella0to2Star,
+      value: 0.15,
+      description:
+        'Tranquil Heart: after using discharge/skill/dodge/charge attack, increase crit rate by 5%, stacking up to 3 times. Lasts for 15s.',
+    },
     [ActiveWeaponCritRateBuffId.Annabella3Star]: {
       id: ActiveWeaponCritRateBuffId.Annabella3Star,
       displayName: ActiveWeaponCritRateBuffId.Annabella3Star,
       value: 0.27,
       description:
-        'Each stack of Tranquil Heart increases crit rate by 9%, up to 27%',
-    },
-    [ActiveWeaponCritRateBuffId.Annabella]: {
-      id: ActiveWeaponCritRateBuffId.Annabella,
-      displayName: ActiveWeaponCritRateBuffId.Annabella,
-      value: 0.15,
-      description:
-        'Tranquil Heart: after using discharge/skill/dodge/charge attack, increase crit rate by 5%, stacking up to 3 times. Lasts for 15s.',
+        'Tranquil Heart: after using discharge/skill/dodge/charge attack, increase crit rate by 9%, stacking up to 3 times. Lasts for 15s.',
     },
   },
 };
