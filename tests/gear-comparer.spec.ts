@@ -290,10 +290,10 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page.getByLabel('Misc. crit rate % buffs').fill('9');
   await page
     .locator('label')
-    .filter({ hasText: 'Annabella+10.5%' })
+    .filter({ hasText: 'Annabella 0* - 2*+15%' })
     .getByLabel('controlled')
     .check();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('16.25%');
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('16.16%');
 
   // Test crit dmg %
   await page.getByLabel('Misc. crit damage % buffs').click();
@@ -303,5 +303,5 @@ test('gear value is calculated correctly', async ({ page }) => {
     .filter({ hasText: 'Crow 2pc+14.4%/+18%/+21.6%/+25.2%' })
     .getByLabel('controlled')
     .check();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('17.3%');
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('17.18%');
 });
