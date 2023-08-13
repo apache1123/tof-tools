@@ -1,7 +1,7 @@
 import { Skeleton, Stack, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
-import { ocrStore } from '../../stores/ocr-temp-gear';
+import { ocrState } from '../../states/ocr-temp-gear';
 import { ImageSelect } from '../ImageSelect/ImageSelect';
 
 export interface ImageOCRProps {
@@ -13,7 +13,7 @@ export const ImageOCR = ({
   onOCRTextChange,
   onImageURLChange,
 }: ImageOCRProps) => {
-  const { ocrWorker } = useSnapshot(ocrStore);
+  const { ocrWorker } = useSnapshot(ocrState);
 
   const handleSelectedImageURLChange = (imageURL: string) => {
     if (onImageURLChange) onImageURLChange(imageURL);
@@ -35,7 +35,9 @@ export const ImageOCR = ({
   ) : (
     <Stack alignItems="center">
       <Skeleton variant="rounded" width={400} height={20} animation="wave" />
-      <Typography color="info.main">This may take a little while to load...</Typography>
+      <Typography color="info.main">
+        This may take a little while to load...
+      </Typography>
     </Stack>
   );
 };

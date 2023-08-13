@@ -8,20 +8,20 @@ import type { GearType } from '../../models/gear-type';
 import { EmptyGearPiece, GearPiece } from '../GearPiece';
 import { TitanGearMaxStats } from '../TitanGearMaxStats';
 import { GearRollSimulator } from './GearRollSimulator';
-import { gearComparerGearMaxTitansStore } from './stores/derived/gear-comparer-gear-max-titans';
-import type { GearComparerGearPosition } from './stores/gear-comparer-gear';
-import { gearComparerGearsStore, setGear } from './stores/gear-comparer-gear';
-import { gearComparerOptionsStore } from './stores/gear-comparer-options';
+import { gearComparerGearMaxTitansState } from './states/derived/gear-comparer-gear-max-titans';
+import type { GearComparerGearPosition } from './states/gear-comparer-gear';
+import { gearComparerGearsState, setGear } from './states/gear-comparer-gear';
+import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export interface GearComparerGearProps {
   position: GearComparerGearPosition;
 }
 
 export function GearComparerGear({ position }: GearComparerGearProps) {
-  const { [position]: gear } = gearComparerGearsStore;
-  const { [position]: gearSnap } = useSnapshot(gearComparerGearsStore);
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
-  const maxTitans = useSnapshot(gearComparerGearMaxTitansStore);
+  const { [position]: gearState } = gearComparerGearsState;
+  const { [position]: gearSnap } = useSnapshot(gearComparerGearsState);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
+  const maxTitans = useSnapshot(gearComparerGearMaxTitansState);
 
   const handleGearTypeSelect = (gearType: GearType) => {
     const gear = newGear(gearType);
@@ -32,9 +32,9 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
     setGear(position, gear);
   };
 
-  return gearSnap && gear ? (
+  return gearSnap && gearState ? (
     <GearPiece
-      gear={gear}
+      gearState={gearState}
       showGearOCRButton
       showSaveGearButton
       showStatSummary={selectedElementalType}

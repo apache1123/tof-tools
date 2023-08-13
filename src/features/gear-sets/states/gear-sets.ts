@@ -9,9 +9,9 @@ import {
 } from '../../../models/gear-set';
 import type { CoreElementalType } from '../../../models/stat-type';
 
-export const gearSetsStoreKey = 'gearSets';
+export const gearSetsStateKey = 'gearSets';
 
-export interface GearSetsStore {
+export interface GearSetsState {
   gearSets: Data<string, GearSet>;
   selectedGearSetIndex: number;
   get selectedGearSet(): GearSet | undefined;
@@ -19,7 +19,7 @@ export interface GearSetsStore {
 }
 
 const defaultGearSet = getDefaultGearSet();
-export const gearSetsStore = proxy<GearSetsStore>({
+export const gearSetsState = proxy<GearSetsState>({
   gearSets: {
     allIds: [defaultGearSet.id],
     byId: { [defaultGearSet.id]: defaultGearSet },
@@ -36,17 +36,17 @@ export const gearSetsStore = proxy<GearSetsStore>({
     return getDefaultGearSetName(this.gearSets.allIds.length);
   },
 });
-devtools(gearSetsStore, { name: gearSetsStoreKey });
+devtools(gearSetsState, { name: gearSetsStateKey });
 
 export function addGearSet(gearSet: GearSet) {
   const { id } = gearSet;
-  gearSetsStore.gearSets.allIds.push(id);
-  gearSetsStore.gearSets.byId[id] = gearSet;
+  gearSetsState.gearSets.allIds.push(id);
+  gearSetsState.gearSets.byId[id] = gearSet;
 }
 
 export function setSelectedGearSetIndex(index: number) {
-  if (gearSetsStore.gearSets.allIds[index]) {
-    gearSetsStore.selectedGearSetIndex = index;
+  if (gearSetsState.gearSets.allIds[index]) {
+    gearSetsState.selectedGearSetIndex = index;
   }
 }
 
@@ -55,7 +55,7 @@ export function deleteSelectedGearSet() {
     gearSets: { allIds, byId },
     selectedGearSetIndex,
     selectedGearSet,
-  } = gearSetsStore;
+  } = gearSetsState;
 
   if (selectedGearSet) {
     allIds.splice(selectedGearSetIndex, 1);
@@ -79,7 +79,7 @@ export function getDefaultGearSetName(gearSetIndex: number) {
 export function setSelectedGearSetElementalType(
   elementalType: CoreElementalType
 ) {
-  const { selectedGearSet } = gearSetsStore;
+  const { selectedGearSet } = gearSetsState;
   if (!selectedGearSet) return;
 
   setElementalType(selectedGearSet, elementalType);

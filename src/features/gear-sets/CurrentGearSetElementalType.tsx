@@ -2,12 +2,12 @@ import { useSnapshot } from 'valtio';
 
 import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
 import {
-  gearSetsStore,
+  gearSetsState,
   setSelectedGearSetElementalType,
-} from './stores/gear-sets';
+} from './states/gear-sets';
 
 export function CurrentGearSetElementalType() {
-  const { selectedGearSet } = useSnapshot(gearSetsStore);
+  const { selectedGearSet } = useSnapshot(gearSetsState);
 
   if (!selectedGearSet) return null;
 

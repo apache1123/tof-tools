@@ -22,7 +22,8 @@ const possibleStatTypes = statTypesLookup.allIds.map(
 const state = proxy<{ stat: RandomStat | undefined }>({ stat: undefined });
 
 export function StatMaxAugmentIncrease() {
-  const { stat } = useSnapshot(state);
+  const { stat: statState } = state;
+  const { stat: statSnap } = useSnapshot(state);
 
   return (
     <Box>
@@ -47,10 +48,10 @@ export function StatMaxAugmentIncrease() {
       <Paper sx={{ mt: 1, p: 2 }}>
         <Grid container spacing={2}>
           <Grid xs={12} sm={6} md={4}>
-            {stat && state.stat ? (
+            {statSnap && statState ? (
               <StatEditor
                 possibleStatTypes={possibleStatTypes}
-                stat={state.stat}
+                statState={statState}
               />
             ) : (
               <EmptyStatEditor
@@ -62,10 +63,10 @@ export function StatMaxAugmentIncrease() {
           <Grid xs={12}>
             <Typography>
               Max augment increase value:{' '}
-              {stat
-                ? getType(stat).isPercentageBased
-                  ? toPercentageString2dp(getMaxAugmentIncrease(stat))
-                  : getMaxAugmentIncrease(stat)
+              {statSnap
+                ? getType(statSnap).isPercentageBased
+                  ? toPercentageString2dp(getMaxAugmentIncrease(statSnap))
+                  : getMaxAugmentIncrease(statSnap)
                 : 0}
             </Typography>
           </Grid>

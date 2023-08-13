@@ -1,7 +1,7 @@
 import { Box, Paper, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
-import { initializeOCRWorker } from '../../stores/ocr-temp-gear';
+import { initializeOCRWorker } from '../../states/ocr-temp-gear';
 import { CurrentGearSetElementalType } from './CurrentGearSetElementalType';
 import { CurrentGearSetGears } from './CurrentGearSetGears';
 import { CurrentGearSetName } from './CurrentGearSetName';

@@ -6,32 +6,32 @@ import type { Gear } from '../models/gear';
 import { newGear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 
-export interface OcrStore {
+export interface OcrState {
   ocrWorker: Worker | undefined;
   tempGear: Gear | undefined;
 }
 
-export const ocrStore = proxy<OcrStore>({
+export const ocrState = proxy<OcrState>({
   ocrWorker: undefined,
   tempGear: undefined,
 });
-devtools(ocrStore, { name: 'ocr' });
+devtools(ocrState, { name: 'ocr' });
 
 export function newOCRTempGear(gearType: GearType) {
-  ocrStore.tempGear = newGear(gearType);
+  ocrState.tempGear = newGear(gearType);
 }
 
 export function setOCRTempGear(gear: Gear) {
-  ocrStore.tempGear = gear;
+  ocrState.tempGear = gear;
 }
 
 export function removeOCRTempGear() {
-  ocrStore.tempGear = undefined;
+  ocrState.tempGear = undefined;
 }
 
 export async function initializeOCRWorker() {
   const worker = await createWorker();
   await worker.loadLanguage('eng');
   await worker.initialize('eng');
-  ocrStore.ocrWorker = worker;
+  ocrState.ocrWorker = worker;
 }

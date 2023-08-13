@@ -9,16 +9,16 @@ import {
   getTotalCritPercent,
 } from '../../models/gear';
 import { additiveSum } from '../../utils/math-utils';
-import { gearBasisValuesStore } from './stores/derived/gear-basis-values';
+import { gearBasisValuesState } from './states/derived/gear-basis-values';
 import {
-  selectedElementalUserStatsStore,
+  selectedElementalUserStatsState,
   setBaseAttackFlatWithGearA,
   setCritFlatWithGearA,
   setCritPercentWithGearA,
   setTotalAttackFlatWithGearA,
-} from './stores/derived/selected-elemental-user-stats';
-import { gearComparerGearsStore } from './stores/gear-comparer-gear';
-import { gearComparerOptionsStore } from './stores/gear-comparer-options';
+} from './states/derived/selected-elemental-user-stats';
+import { gearComparerGearsState } from './states/gear-comparer-gear';
+import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export function GearComparerGearSwap() {
   return (
@@ -29,14 +29,14 @@ export function GearComparerGearSwap() {
 }
 
 function swapGear() {
-  const oldGearA = gearComparerGearsStore.GearA;
-  const oldGearB = gearComparerGearsStore.GearB;
+  const oldGearA = gearComparerGearsState.GearA;
+  const oldGearB = gearComparerGearsState.GearB;
 
-  gearComparerGearsStore.GearA = oldGearB;
-  gearComparerGearsStore.GearB = oldGearA;
+  gearComparerGearsState.GearA = oldGearB;
+  gearComparerGearsState.GearB = oldGearA;
 
-  const { selectedElementalUserStats } = selectedElementalUserStatsStore;
-  const { selectedElementalType } = gearComparerOptionsStore;
+  const { selectedElementalUserStats } = selectedElementalUserStatsState;
+  const { selectedElementalType } = gearComparerOptionsState;
   if (oldGearB && selectedElementalType && selectedElementalUserStats) {
     const {
       basisValues: {
@@ -45,7 +45,7 @@ function swapGear() {
         basisPassiveAttackPercent,
         basisPassiveCritPercent,
       },
-    } = gearBasisValuesStore;
+    } = gearBasisValuesState;
 
     const baseAttackFlatWithGear = additiveSum([
       basisAttackFlat,

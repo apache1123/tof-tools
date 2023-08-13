@@ -22,10 +22,10 @@ import type { GearName, GearType } from '../models/gear-type';
 import { newRandomStat, setValue } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
 import {
-  ocrStore,
+  ocrState,
   removeOCRTempGear,
   setOCRTempGear,
-} from '../stores/ocr-temp-gear';
+} from '../states/ocr-temp-gear';
 import {
   containsString,
   indexOfIgnoringCase,
@@ -52,8 +52,8 @@ export const GearOCRModal = ({
   enforceGearType,
   iconButton,
 }: GearOCRModalProps) => {
-  const { tempGear } = ocrStore;
-  const { tempGear: tempGearSnap } = useSnapshot(ocrStore);
+  const { tempGear: tempGearState } = ocrState;
+  const { tempGear: tempGearSnap } = useSnapshot(ocrState);
 
   const [imageURL, setImageURL] = useState<string>();
   const handleImageURLChange = (imageURL: string) => {
@@ -84,7 +84,7 @@ export const GearOCRModal = ({
     setErrorMessage(undefined);
   };
   const handleConfirm = () => {
-    if (tempGear && onFinalizeGear) onFinalizeGear(tempGear);
+    if (tempGearState && onFinalizeGear) onFinalizeGear(tempGearState);
   };
 
   return (
@@ -143,8 +143,11 @@ export const GearOCRModal = ({
                   </Typography>
                 </Box>
               )}
-              {!errorMessage && tempGearSnap && tempGear && (
-                <GearPiece gear={tempGear} showGearOCRButton={false} />
+              {!errorMessage && tempGearSnap && tempGearState && (
+                <GearPiece
+                  gearState={tempGearState}
+                  showGearOCRButton={false}
+                />
               )}
             </Grid>
           </Grid>

@@ -4,10 +4,10 @@ import { useSnapshot } from 'valtio';
 
 import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { deleteSelectedGearSet, gearSetsStore } from './stores/gear-sets';
+import { deleteSelectedGearSet, gearSetsState } from './states/gear-sets';
 
 export function DeleteCurrentGearSet() {
-  const { selectedGearSet } = useSnapshot(gearSetsStore);
+  const { selectedGearSet } = useSnapshot(gearSetsState);
 
   const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar({});
 

@@ -6,9 +6,9 @@ import { activeMatrixCritRateBuffsLookup } from '../../../../constants/matrix-cr
 import { activeWeaponAttackBuffsLookup } from '../../../../constants/weapon-attack-buffs';
 import { activeWeaponCritRateBuffsLookup } from '../../../../constants/weapon-crit-rate-buffs';
 import { getMatrixBuffValues, getWeaponBuffValues } from '../buffs';
-import { selectedElementalBuffsStore } from './selected-elemental-buffs';
+import { selectedElementalBuffsState } from './selected-elemental-buffs';
 
-export interface SelectedElementalBuffValuesStore {
+export interface SelectedElementalBuffValuesState {
   weaponAttackBuffValues: number[];
   matrixAttackBuffValues: number[];
   weaponCritRateBuffValues: number[];
@@ -16,12 +16,12 @@ export interface SelectedElementalBuffValuesStore {
   matrixCritDamageBuffValues: number[];
 }
 
-export const selectedElementalBuffValuesStore = derive<
+export const selectedElementalBuffValuesState = derive<
   object,
-  SelectedElementalBuffValuesStore
+  SelectedElementalBuffValuesState
 >({
   weaponAttackBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsStore);
+    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
     if (!selectedElementalBuffs) {
       return [];
     }
@@ -32,7 +32,7 @@ export const selectedElementalBuffValuesStore = derive<
     );
   },
   matrixAttackBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsStore);
+    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
     if (!selectedElementalBuffs) {
       return [];
     }
@@ -43,7 +43,7 @@ export const selectedElementalBuffValuesStore = derive<
     );
   },
   weaponCritRateBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsStore);
+    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
     if (!selectedElementalBuffs) {
       return [];
     }
@@ -54,7 +54,7 @@ export const selectedElementalBuffValuesStore = derive<
     );
   },
   matrixCritRateBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsStore);
+    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
     if (!selectedElementalBuffs) {
       return [];
     }
@@ -65,7 +65,7 @@ export const selectedElementalBuffValuesStore = derive<
     );
   },
   matrixCritDamageBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsStore);
+    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
     if (!selectedElementalBuffs) {
       return [];
     }

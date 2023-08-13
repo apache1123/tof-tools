@@ -3,22 +3,22 @@ import { useSnapshot } from 'valtio';
 
 import { getComparisonColor } from '../../utils/color-utils';
 import { toPercentageString2dp } from '../../utils/number-utils';
-import { gearValuesStore } from './stores/derived/gear-values';
-import { gearValuesComparisonStore } from './stores/derived/gear-values-comparison';
-import { maxTitanGearValuesStore } from './stores/derived/max-titan-gear-values';
-import { maxTitanGearValuesComparisonStore } from './stores/derived/max-titan-gear-values-comparison';
-import type { GearComparerGearPosition } from './stores/gear-comparer-gear';
+import { gearValuesState } from './states/derived/gear-values';
+import { gearValuesComparisonState } from './states/derived/gear-values-comparison';
+import { maxTitanGearValuesState } from './states/derived/max-titan-gear-values';
+import { maxTitanGearValuesComparisonState } from './states/derived/max-titan-gear-values-comparison';
+import type { GearComparerGearPosition } from './states/gear-comparer-gear';
 
 interface GearValueProps {
   position: GearComparerGearPosition;
 }
 
 export function GearValue({ position }: GearValueProps) {
-  const gearValuesSnap = useSnapshot(gearValuesStore);
-  const gearValuesComparisonSnap = useSnapshot(gearValuesComparisonStore);
-  const maxTitanGearValuesSnap = useSnapshot(maxTitanGearValuesStore);
+  const gearValuesSnap = useSnapshot(gearValuesState);
+  const gearValuesComparisonSnap = useSnapshot(gearValuesComparisonState);
+  const maxTitanGearValuesSnap = useSnapshot(maxTitanGearValuesState);
   const maxTitanGearValuesComparisonSnap = useSnapshot(
-    maxTitanGearValuesComparisonStore
+    maxTitanGearValuesComparisonState
   );
 
   return (

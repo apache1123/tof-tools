@@ -4,15 +4,15 @@ import { useSnapshot } from 'valtio';
 
 import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
 import {
-  selectedElementalUserStatsStore,
+  selectedElementalUserStatsState,
   setOtherGearElementalDamage,
-} from './stores/derived/selected-elemental-user-stats';
-import { gearComparerOptionsStore } from './stores/gear-comparer-options';
+} from './states/derived/selected-elemental-user-stats';
+import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export function ElementalDamageBuffs() {
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
   const { selectedElementalUserStats } = useSnapshot(
-    selectedElementalUserStatsStore
+    selectedElementalUserStatsState
   );
 
   if (!selectedElementalType || !selectedElementalUserStats) {

@@ -6,14 +6,14 @@ import { useSnapshot } from 'valtio';
 import { ElementalTypeIcon } from '../../components/ElementalTypeIcon/ElementalTypeIcon';
 import { AddGearSetModal } from './AddGearSetModal';
 import {
-  gearSetsStore,
+  gearSetsState,
   getDefaultGearSetName,
   setSelectedGearSetIndex,
-} from './stores/gear-sets';
+} from './states/gear-sets';
 
 export function GearSetTabs() {
   const { gearSets, selectedGearSetIndex, selectedGearSet } =
-    useSnapshot(gearSetsStore);
+    useSnapshot(gearSetsState);
 
   const [openAddGearSetModal, setOpenAddGearSetModal] = useState(false);
 

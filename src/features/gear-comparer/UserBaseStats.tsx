@@ -7,24 +7,24 @@ import { NumericInput } from '../../components/NumericInput/NumericInput';
 import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
 import { maxCharacterLevel } from '../../constants/character-level';
 import {
-  selectedElementalUserStatsStore,
+  selectedElementalUserStatsState,
   setBaseAttackFlatWithGearA,
   setCritDamageWithGearA,
   setCritFlatWithGearA,
   setCritPercentWithGearA,
   setTotalAttackFlatWithGearA,
-} from './stores/derived/selected-elemental-user-stats';
-import { gearComparerOptionsStore } from './stores/gear-comparer-options';
+} from './states/derived/selected-elemental-user-stats';
+import { gearComparerOptionsState } from './states/gear-comparer-options';
 import {
   setCharacterLevel,
-  userStatsStore,
-} from './stores/user-stats/user-stats';
+  userStatsState,
+} from './states/user-stats/user-stats';
 
 export function UserBaseStats() {
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
-  const { characterLevel } = useSnapshot(userStatsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
+  const { characterLevel } = useSnapshot(userStatsState);
   const { selectedElementalUserStats } = useSnapshot(
-    selectedElementalUserStatsStore
+    selectedElementalUserStatsState
   );
 
   if (!selectedElementalType || !selectedElementalUserStats) {

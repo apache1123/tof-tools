@@ -12,19 +12,19 @@ import {
 } from '../../models/random-stat';
 
 export interface GearRollSimulatorStatProps {
-  stat: RandomStat;
+  statState: RandomStat;
   rolls: number;
   canRoll: boolean;
   onAddRoll(): void;
 }
 
 export function GearRollSimulatorStat({
-  stat,
+  statState,
   rolls,
   canRoll,
   onAddRoll,
 }: GearRollSimulatorStatProps) {
-  const statSnap = useSnapshot(stat);
+  const statSnap = useSnapshot(statState);
   const { displayName } = getType(statSnap);
 
   return (
@@ -44,7 +44,7 @@ export function GearRollSimulatorStat({
         <ButtonGroup size="small" disabled={!canRoll}>
           <Button
             onClick={() => {
-              addOneAverageRoll(stat);
+              addOneAverageRoll(statState);
               onAddRoll();
             }}
           >
@@ -52,7 +52,7 @@ export function GearRollSimulatorStat({
           </Button>
           <Button
             onClick={() => {
-              addOneMaxRoll(stat);
+              addOneMaxRoll(statState);
               onAddRoll();
             }}
           >

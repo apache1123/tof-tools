@@ -9,27 +9,27 @@ import * as React from 'react';
 
 import createEmotionCache from '../src/createEmotionCache';
 import {
-  buffsStore,
-  buffsStoreKey,
-} from '../src/features/gear-comparer/stores/buffs';
+  buffsState,
+  buffsStateKey,
+} from '../src/features/gear-comparer/states/buffs';
 import {
-  gearComparerGearsStore,
-  gearComparerGearsStoreKey,
-} from '../src/features/gear-comparer/stores/gear-comparer-gear';
+  gearComparerGearsState,
+  gearComparerGearsStateKey,
+} from '../src/features/gear-comparer/states/gear-comparer-gear';
 import {
-  gearComparerOptionsStore,
-  gearComparerOptionsStoreKey,
-} from '../src/features/gear-comparer/stores/gear-comparer-options';
-import { migrations as userStatsMigrations } from '../src/features/gear-comparer/stores/user-stats/migrations';
+  gearComparerOptionsState,
+  gearComparerOptionsStateKey,
+} from '../src/features/gear-comparer/states/gear-comparer-options';
+import { migrations as userStatsMigrations } from '../src/features/gear-comparer/states/user-stats/migrations';
 import {
-  userStatsStore,
-  userStatsStoreKey,
-} from '../src/features/gear-comparer/stores/user-stats/user-stats';
+  userStatsState,
+  userStatsStateKey,
+} from '../src/features/gear-comparer/states/user-stats/user-stats';
 import {
-  gearSetsStore,
-  gearSetsStoreKey,
-} from '../src/features/gear-sets/stores/gear-sets';
-import { useLocalStoragePersistence } from '../src/stores/hooks/useLocalStoragePersistence';
+  gearSetsState,
+  gearSetsStateKey,
+} from '../src/features/gear-sets/states/gear-sets';
+import { useLocalStoragePersistence } from '../src/states/hooks/useLocalStoragePersistence';
 import theme from '../src/theme';
 import Layout from './_layout';
 
@@ -42,20 +42,20 @@ export interface MyAppProps extends AppProps {
 
 export default function MyApp(props: MyAppProps) {
   // Order matters here.
-  // Not 100% sure, but the theory is: if in a derived store, get(A) is used before get(B), then A needs to go after B here
+  // Not 100% sure, but the theory is: if in a derived state, get(A) is used before get(B), then A needs to go after B here
   // Cause: maybe because of the Object.assign in `useLocalStoragePersistence` messing up proxy dependents tracking, in nested objects?
   useLocalStoragePersistence(
-    userStatsStore,
-    userStatsStoreKey,
+    userStatsState,
+    userStatsStateKey,
     userStatsMigrations
   );
-  useLocalStoragePersistence(buffsStore, buffsStoreKey);
+  useLocalStoragePersistence(buffsState, buffsStateKey);
   useLocalStoragePersistence(
-    gearComparerOptionsStore,
-    gearComparerOptionsStoreKey
+    gearComparerOptionsState,
+    gearComparerOptionsStateKey
   );
-  useLocalStoragePersistence(gearComparerGearsStore, gearComparerGearsStoreKey);
-  useLocalStoragePersistence(gearSetsStore, gearSetsStoreKey);
+  useLocalStoragePersistence(gearComparerGearsState, gearComparerGearsStateKey);
+  useLocalStoragePersistence(gearSetsState, gearSetsStateKey);
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
