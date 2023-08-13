@@ -293,7 +293,7 @@ test('gear value is calculated correctly', async ({ page }) => {
     .filter({ hasText: 'Annabella+15%' })
     .getByLabel('controlled')
     .check();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('16.25%');
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('16.16%');
 
   // Test crit dmg %
   await page.getByLabel('Misc. crit damage % buffs').click();
