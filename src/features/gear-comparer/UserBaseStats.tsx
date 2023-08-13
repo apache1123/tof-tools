@@ -106,7 +106,14 @@ export function UserBaseStats() {
                 }
               >
                 <span>
-                  Hover for example. If you&apos;re using <strong>Lyra</strong>{' '}
+                  Hover for example. If you&apos;re using{' '}
+                  <Typography
+                    variant="inherit"
+                    color="info.main"
+                    fontWeight="bold"
+                  >
+                    Lyra, Rubilia or Ming Jing
+                  </Typography>{' '}
                   matrices, make sure they are active.
                 </span>
               </Tooltip>
@@ -159,7 +166,14 @@ export function UserBaseStats() {
               >
                 <span>
                   Hover for example. If you&apos;re using{' '}
-                  <strong>Fenrir</strong> matrices, make sure they are active.
+                  <Typography
+                    variant="inherit"
+                    color="info.main"
+                    fontWeight="bold"
+                  >
+                    Fenrir
+                  </Typography>{' '}
+                  matrices, make sure they are active.
                 </span>
               </Tooltip>
             }
