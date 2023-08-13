@@ -303,5 +303,5 @@ test('gear value is calculated correctly', async ({ page }) => {
     .filter({ hasText: 'Crow 2pc+14.4%/+18%/+21.6%/+25.2%' })
     .getByLabel('controlled')
     .check();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('17.3%');
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('17.18%');
 });
