@@ -4,9 +4,9 @@ import { useSnapshot } from 'valtio';
 
 import type { GearSet } from '../models/gear-set';
 import {
-  gearSetsStore,
+  gearSetsState,
   getDefaultGearSetName,
-} from './gear-sets/stores/gear-sets';
+} from './gear-sets/states/gear-sets';
 
 export interface GearSetSelectorProps {
   onGearSetSelect(gearSet: GearSet): void;
@@ -18,7 +18,7 @@ interface Option {
 }
 
 export function GearSetSelector({ onGearSetSelect }: GearSetSelectorProps) {
-  const { gearSets, selectedGearSet } = useSnapshot(gearSetsStore);
+  const { gearSets, selectedGearSet } = useSnapshot(gearSetsState);
 
   const options: Option[] = gearSets.allIds
     .map((id, index) => {
@@ -33,8 +33,8 @@ export function GearSetSelector({ onGearSetSelect }: GearSetSelectorProps) {
   const defaultValue = selectedGearSet?.id;
 
   useEffect(() => {
-    if (gearSetsStore.selectedGearSet) {
-      onGearSetSelect(gearSetsStore.selectedGearSet);
+    if (gearSetsState.selectedGearSet) {
+      onGearSetSelect(gearSetsState.selectedGearSet);
     }
   }, [onGearSetSelect]);
 
@@ -48,7 +48,7 @@ export function GearSetSelector({ onGearSetSelect }: GearSetSelectorProps) {
         label="Gear set"
         onChange={(event) => {
           const id = event.target.value;
-          const gearSet = gearSetsStore.gearSets.byId[id];
+          const gearSet = gearSetsState.gearSets.byId[id];
           onGearSetSelect(gearSet);
         }}
       >

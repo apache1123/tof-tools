@@ -7,12 +7,12 @@ import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { setName } from '../../models/gear-set';
-import { gearSetsStore } from './stores/gear-sets';
+import { gearSetsState } from './states/gear-sets';
 
 const iconSize = 'small';
 
 export function CurrentGearSetName() {
-  const { selectedGearSet } = useSnapshot(gearSetsStore);
+  const { selectedGearSet } = useSnapshot(gearSetsState);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingName, setEditingName] = useState('');
@@ -22,8 +22,8 @@ export function CurrentGearSetName() {
   }
 
   function saveName() {
-    if (gearSetsStore.selectedGearSet) {
-      setName(gearSetsStore.selectedGearSet, editingName);
+    if (gearSetsState.selectedGearSet) {
+      setName(gearSetsState.selectedGearSet, editingName);
     }
   }
 

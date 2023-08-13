@@ -13,20 +13,20 @@ import {
   addWeaponAttackBuff,
   removeMatrixAttackBuff,
   removeWeaponAttackBuff,
-  selectedElementalBuffsStore,
-} from './stores/derived/selected-elemental-buffs';
+  selectedElementalBuffsState,
+} from './states/derived/selected-elemental-buffs';
 import {
-  selectedElementalUserStatsStore,
+  selectedElementalUserStatsState,
   setMiscAttackPercent,
-} from './stores/derived/selected-elemental-user-stats';
-import { gearComparerOptionsStore } from './stores/gear-comparer-options';
+} from './states/derived/selected-elemental-user-stats';
+import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export function AttackPercentBuffs() {
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
   const { selectedElementalUserStats } = useSnapshot(
-    selectedElementalUserStatsStore
+    selectedElementalUserStatsState
   );
-  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsStore);
+  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsState);
 
   if (
     !selectedElementalType ||

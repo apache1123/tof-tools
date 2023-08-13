@@ -11,10 +11,10 @@ import {
   getTotalDamagePercent,
 } from '../../models/gear-set';
 import { toPercentageString2dp } from '../../utils/number-utils';
-import { gearSetsStore } from './stores/gear-sets';
+import { gearSetsState } from './states/gear-sets';
 
 export function CurrentGearSetStatSummary() {
-  const { selectedGearSet } = useSnapshot(gearSetsStore);
+  const { selectedGearSet } = useSnapshot(gearSetsState);
 
   if (!selectedGearSet?.elementalType) {
     return (

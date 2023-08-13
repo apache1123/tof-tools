@@ -6,12 +6,12 @@ import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSel
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
 import {
-  gearComparerOptionsStore,
+  gearComparerOptionsState,
   setSelectedElementalType,
-} from './stores/gear-comparer-options';
+} from './states/gear-comparer-options';
 
 export function GearComparerOptions() {
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsStore);
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
 
   const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar({
     severity: 'info',

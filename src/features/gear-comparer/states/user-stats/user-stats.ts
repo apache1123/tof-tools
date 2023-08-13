@@ -18,14 +18,14 @@ export interface ElementalUserStats {
   miscCritDamage: number;
 }
 
-export interface UserStatsStore {
+export interface UserStatsState {
   characterLevel: number;
   statsByElement: DataById<CoreElementalType, ElementalUserStats>;
 }
 
-export const userStatsStoreKey = 'userStats';
+export const userStatsStateKey = 'userStats';
 
-export const userStatsStore = proxy<UserStatsStore>({
+export const userStatsState = proxy<UserStatsState>({
   characterLevel: maxCharacterLevel,
   statsByElement: {
     Flame: emptyElementalUserStats(),
@@ -34,10 +34,10 @@ export const userStatsStore = proxy<UserStatsStore>({
     Volt: emptyElementalUserStats(),
   },
 });
-devtools(userStatsStore, { name: userStatsStoreKey });
+devtools(userStatsState, { name: userStatsStateKey });
 
 export function setCharacterLevel(value: number) {
-  userStatsStore.characterLevel = value;
+  userStatsState.characterLevel = value;
 }
 
 function emptyElementalUserStats(): ElementalUserStats {

@@ -6,9 +6,9 @@ import { StyledModal } from '../../components/Modal/StyledModal';
 import { newGearSet } from '../../models/gear-set';
 import {
   addGearSet,
-  gearSetsStore,
+  gearSetsState,
   setSelectedGearSetIndex,
-} from './stores/gear-sets';
+} from './states/gear-sets';
 
 export interface AddGearSetModalProps {
   open: boolean;
@@ -16,7 +16,7 @@ export interface AddGearSetModalProps {
 }
 
 export function AddGearSetModal({ open, onClose }: AddGearSetModalProps) {
-  const { defaultNewGearSetName } = useSnapshot(gearSetsStore);
+  const { defaultNewGearSetName } = useSnapshot(gearSetsState);
 
   const [newGearSetName, setNewGearSetName] = useState(defaultNewGearSetName);
 
@@ -45,7 +45,7 @@ export function AddGearSetModal({ open, onClose }: AddGearSetModalProps) {
         const gearSet = newGearSet(newGearSetName);
         addGearSet(gearSet);
 
-        const newGearSetIndex = gearSetsStore.gearSets.allIds.findIndex(
+        const newGearSetIndex = gearSetsState.gearSets.allIds.findIndex(
           (id) => id === gearSet.id
         );
         if (newGearSetIndex !== -1) {

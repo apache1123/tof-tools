@@ -26,9 +26,9 @@ import { newRandomStat } from '../models/random-stat';
 import type { CoreElementalType } from '../models/stat-type';
 import { SaveGearModal } from './gear-comparer/SaveGearModal';
 import {
-  gearComparerGearsStore,
+  gearComparerGearsState,
   setGear,
-} from './gear-comparer/stores/gear-comparer-gear';
+} from './gear-comparer/states/gear-comparer-gear';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 import { GearOCRModal } from './GearOCRModal';
 import { GearRollBreakdown } from './GearRollBreakdown';
@@ -36,7 +36,7 @@ import { GearStars } from './GearStars';
 import { DisabledStatEditor, EmptyStatEditor, StatEditor } from './StatEditor';
 
 export interface GearPieceProps {
-  gear: Gear;
+  gearState: Gear;
   showGearOCRButton?: boolean;
   showCompareGearButton?: boolean;
   disableGearTypeChange?: boolean;
@@ -47,7 +47,7 @@ export interface GearPieceProps {
 }
 
 export const GearPiece = ({
-  gear,
+  gearState,
   showGearOCRButton,
   showCompareGearButton,
   disableGearTypeChange,
@@ -56,18 +56,18 @@ export const GearPiece = ({
   maxTitanStatsContent,
   additionalAccordions,
 }: GearPieceProps) => {
-  const gearSnap = useSnapshot(gear);
+  const gearSnap = useSnapshot(gearState);
 
   const gearType = getType(gearSnap as Gear);
   const possibleRandomStatTypes = getPossibleRandomStatTypes(gearType);
 
   const router = useRouter();
   const handleCompareGear = () => {
-    if (gearComparerGearsStore.GearA) {
-      copyGear(gear, gearComparerGearsStore.GearA);
+    if (gearComparerGearsState.GearA) {
+      copyGear(gearState, gearComparerGearsState.GearA);
     } else {
-      const newGearA = newGear(getType(gear));
-      copyGear(gear, newGearA);
+      const newGearA = newGear(getType(gearState));
+      copyGear(gearState, newGearA);
       setGear('GearA', newGearA);
     }
     router.push('/gear-comparer');
@@ -79,19 +79,19 @@ export const GearPiece = ({
       typeSelector={
         <GearTypeSelector
           selectedGearType={gearType}
-          onChange={(gearType) => setType(gear, gearType)}
+          onChange={(gearType) => setType(gearState, gearType)}
           disabled={disableGearTypeChange}
         />
       }
-      starsSelector={<GearStars gear={gear} />}
+      starsSelector={<GearStars gear={gearState} />}
       randomStats={
         <>
-          {gearSnap.randomStats.map((randomStat, i) => {
-            return randomStat && gear.randomStats[i] ? (
+          {gearSnap.randomStats.map((randomStatSnap, i) => {
+            return randomStatSnap && gearState.randomStats[i] ? (
               <StatEditor
                 key={i}
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                stat={gear.randomStats[i]!}
+                statState={gearState.randomStats[i]!}
                 possibleStatTypes={possibleRandomStatTypes}
               />
             ) : (
@@ -99,7 +99,7 @@ export const GearPiece = ({
                 key={i}
                 possibleStatTypes={possibleRandomStatTypes}
                 onStatTypeChange={(statType) => {
-                  gear.randomStats[i] = newRandomStat(statType);
+                  gearState.randomStats[i] = newRandomStat(statType);
                 }}
               />
             );
@@ -111,7 +111,7 @@ export const GearPiece = ({
           {showGearOCRButton && (
             <GearOCRModal
               onFinalizeGear={(replacementGear) => {
-                copyGear(replacementGear, gear);
+                copyGear(replacementGear, gearState);
               }}
               enforceGearType={
                 disableGearTypeChange ? gearSnap.typeId : undefined
@@ -126,14 +126,14 @@ export const GearPiece = ({
               </IconButton>
             </Tooltip>
           )}
-          {showSaveGearButton && <SaveGearModal gear={gear} />}
+          {showSaveGearButton && <SaveGearModal gear={gearState} />}
         </>
       }
       summary={
         <>
           {showStatSummary && (
             <GearAttackStatsSummary
-              gear={gear}
+              gear={gearState}
               elementalType={showStatSummary}
             />
           )}
@@ -147,7 +147,7 @@ export const GearPiece = ({
                 <Typography>Roll breakdown</Typography>
               </AccordionSummary>
               <AccordionDetails data-testid="roll-breakdown-panel-content">
-                <GearRollBreakdown gear={gear} />
+                <GearRollBreakdown gear={gearState} />
               </AccordionDetails>
             </Accordion>
             {maxTitanStatsContent && (

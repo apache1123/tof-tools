@@ -3,7 +3,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
 
 import { GridBreak } from '../../components/GridBreak/GridBreak';
-import { initializeOCRWorker } from '../../stores/ocr-temp-gear';
+import { initializeOCRWorker } from '../../states/ocr-temp-gear';
 import { AttackPercentBuffs } from './AttackPercentBuffs';
 import { CritDamageBuffs } from './CritDamageBuffs';
 import { CritRateBuffs } from './CritRateBuffs';

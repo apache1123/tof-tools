@@ -17,13 +17,13 @@ export interface ElementalBuffs {
   matrixCritDamageBuffs: MatrixBuffs;
 }
 
-export interface BuffsStore {
+export interface BuffsState {
   buffsByElement: DataById<CoreElementalType, ElementalBuffs>;
 }
 
-export const buffsStoreKey = 'buffs';
+export const buffsStateKey = 'buffs';
 
-export const buffsStore = proxy<BuffsStore>({
+export const buffsState = proxy<BuffsState>({
   buffsByElement: {
     Flame: emptyElementalBuffs(),
     Frost: emptyElementalBuffs(),
@@ -31,7 +31,7 @@ export const buffsStore = proxy<BuffsStore>({
     Volt: emptyElementalBuffs(),
   },
 });
-devtools(buffsStore, { name: buffsStoreKey });
+devtools(buffsState, { name: buffsStateKey });
 
 export function addWeaponBuff(collection: WeaponBuffs, id: string) {
   collection[id] = {};

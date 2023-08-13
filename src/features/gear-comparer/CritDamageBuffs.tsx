@@ -9,18 +9,18 @@ import { toSignedPercentageString1dp } from '../../utils/number-utils';
 import {
   addMatrixCritDamageBuff,
   removeMatrixCritDamageBuff,
-  selectedElementalBuffsStore,
-} from './stores/derived/selected-elemental-buffs';
+  selectedElementalBuffsState,
+} from './states/derived/selected-elemental-buffs';
 import {
-  selectedElementalUserStatsStore,
+  selectedElementalUserStatsState,
   setMiscCritDamage,
-} from './stores/derived/selected-elemental-user-stats';
+} from './states/derived/selected-elemental-user-stats';
 
 export function CritDamageBuffs() {
   const { selectedElementalUserStats } = useSnapshot(
-    selectedElementalUserStatsStore
+    selectedElementalUserStatsState
   );
-  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsStore);
+  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsState);
 
   if (!selectedElementalUserStats || !selectedElementalBuffs) {
     return null;

@@ -3,20 +3,20 @@ import { derive, devtools } from 'valtio/utils';
 import type { DataById } from '../../../../models/data';
 import type { Gear } from '../../../../models/gear';
 import { getMaxTitanGear } from '../../../../models/gear';
-import { gearComparerGearsStore } from '../gear-comparer-gear';
-import { gearComparerOptionsStore } from '../gear-comparer-options';
+import { gearComparerGearsState } from '../gear-comparer-gear';
+import { gearComparerOptionsState } from '../gear-comparer-options';
 
-export interface GearComparerGearMaxTitansStore {
+export interface GearComparerGearMaxTitansState {
   titansByReferenceGearId: DataById<string, Gear | undefined>;
 }
 
-export const gearComparerGearMaxTitansStore = derive<
+export const gearComparerGearMaxTitansState = derive<
   object,
-  GearComparerGearMaxTitansStore
+  GearComparerGearMaxTitansState
 >({
   titansByReferenceGearId: (get) => {
-    const { GearA, GearB } = get(gearComparerGearsStore);
-    const { selectedElementalType } = get(gearComparerOptionsStore);
+    const { GearA, GearB } = get(gearComparerGearsState);
+    const { selectedElementalType } = get(gearComparerOptionsState);
 
     const result: DataById<string, Gear | undefined> = {};
 
@@ -30,4 +30,4 @@ export const gearComparerGearMaxTitansStore = derive<
     return result;
   },
 });
-devtools(gearComparerGearMaxTitansStore, { name: 'gearComparerGearMaxTitans' });
+devtools(gearComparerGearMaxTitansState, { name: 'gearComparerGearMaxTitans' });

@@ -13,42 +13,42 @@ import {
   calculateCritPercentFromFlat,
   calculateMultiplier,
 } from '../../../../utils/stat-calculation-utils';
-import type { GearComparerGearsStore } from '../gear-comparer-gear';
-import { gearComparerGearsStore } from '../gear-comparer-gear';
-import type { GearComparerOptionsStore } from '../gear-comparer-options';
-import { gearComparerOptionsStore } from '../gear-comparer-options';
-import type { UserStatsStore } from '../user-stats/user-stats';
-import { userStatsStore } from '../user-stats/user-stats';
-import type { SelectedElementalBuffValuesStore } from './selected-elemental-buff-values';
-import { selectedElementalBuffValuesStore } from './selected-elemental-buff-values';
-import type { SelectedElementalUserStatsStore } from './selected-elemental-user-stats';
-import { selectedElementalUserStatsStore } from './selected-elemental-user-stats';
+import type { GearComparerGearsState } from '../gear-comparer-gear';
+import { gearComparerGearsState } from '../gear-comparer-gear';
+import type { GearComparerOptionsState } from '../gear-comparer-options';
+import { gearComparerOptionsState } from '../gear-comparer-options';
+import type { UserStatsState } from '../user-stats/user-stats';
+import { userStatsState } from '../user-stats/user-stats';
+import type { SelectedElementalBuffValuesState } from './selected-elemental-buff-values';
+import { selectedElementalBuffValuesState } from './selected-elemental-buff-values';
+import type { SelectedElementalUserStatsState } from './selected-elemental-user-stats';
+import { selectedElementalUserStatsState } from './selected-elemental-user-stats';
 
-export interface GearBasisValuesStore {
+export interface GearBasisValuesState {
   basisValues: BasisValues;
 }
 
-export const gearBasisValuesStore = derive<object, GearBasisValuesStore>({
+export const gearBasisValuesState = derive<object, GearBasisValuesState>({
   basisValues: (get) =>
     getBasisValues(
-      get(gearComparerGearsStore),
-      get(gearComparerOptionsStore),
-      get(userStatsStore),
-      get(selectedElementalUserStatsStore),
-      get(selectedElementalBuffValuesStore)
+      get(gearComparerGearsState),
+      get(gearComparerOptionsState),
+      get(userStatsState),
+      get(selectedElementalUserStatsState),
+      get(selectedElementalBuffValuesState)
     ),
 });
-devtools(gearBasisValuesStore, { name: 'gearBasisValues' });
+devtools(gearBasisValuesState, { name: 'gearBasisValues' });
 
 function getBasisValues(
-  gearComparerGearsStore: GearComparerGearsStore,
-  gearComparerOptionsStore: GearComparerOptionsStore,
-  userStatsStore: UserStatsStore,
-  selectedElementalUserStatsStore: SelectedElementalUserStatsStore,
-  selectedElementalBuffValuesStore: SelectedElementalBuffValuesStore
+  gearComparerGearsSnap: GearComparerGearsState,
+  gearComparerOptionsSnap: GearComparerOptionsState,
+  userStatsSnap: UserStatsState,
+  selectedElementalUserStatsSnap: SelectedElementalUserStatsState,
+  selectedElementalBuffValuesSnap: SelectedElementalBuffValuesState
 ): BasisValues {
-  const { selectedElementalType } = gearComparerOptionsStore;
-  const { selectedElementalUserStats } = selectedElementalUserStatsStore;
+  const { selectedElementalType } = gearComparerOptionsSnap;
+  const { selectedElementalUserStats } = selectedElementalUserStatsSnap;
 
   if (!selectedElementalType || !selectedElementalUserStats) {
     return {
@@ -81,7 +81,7 @@ function getBasisValues(
     .minus(baseAttackFlatWithGearA)
     .dividedBy(baseAttackFlatWithGearA);
 
-  const gearA = gearComparerGearsStore.GearA;
+  const gearA = gearComparerGearsSnap.GearA;
   const attackFlatWithoutGearA = BigNumber(baseAttackFlatWithGearA)
     .minus(gearA ? getTotalAttackFlat(gearA, selectedElementalType) : 0)
     .toNumber();
@@ -102,7 +102,7 @@ function getBasisValues(
     weaponCritRateBuffValues,
     matrixCritRateBuffValues,
     matrixCritDamageBuffValues,
-  } = selectedElementalBuffValuesStore;
+  } = selectedElementalBuffValuesSnap;
 
   const basisAttackFlat = attackFlatWithoutGearA;
 
@@ -120,7 +120,7 @@ function getBasisValues(
       .concat(matrixCritRateBuffValues)
   ).toNumber();
 
-  const { characterLevel } = userStatsStore;
+  const { characterLevel } = userStatsSnap;
   const basisCritTotalPercent = additiveSum([
     calculateCritPercentFromFlat(
       BigNumber(basisCritFlat),

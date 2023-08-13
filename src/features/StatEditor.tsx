@@ -11,19 +11,19 @@ import { getType, setType, setValue } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
 
 export interface StatEditorProps {
-  stat: RandomStat;
+  statState: RandomStat;
   possibleStatTypes: StatType[];
 }
 
 export const StatEditor = ({
-  stat,
+  statState,
   possibleStatTypes = [],
 }: StatEditorProps) => {
-  const statSnap = useSnapshot(stat);
+  const statSnap = useSnapshot(statState);
   const statType = getType(statSnap);
 
   const handleStatValueChange = (value: number) => {
-    setValue(stat, value);
+    setValue(statState, value);
   };
 
   return (
@@ -34,7 +34,7 @@ export const StatEditor = ({
           selectedStatType={statType}
           possibleStatTypes={possibleStatTypes}
           onChange={(statType) => {
-            setType(stat, statType);
+            setType(statState, statType);
           }}
         />
       }
@@ -47,7 +47,7 @@ export const StatEditor = ({
           />
         ) : (
           <NumericInput
-            value={stat.value}
+            value={statSnap.value}
             onChange={handleStatValueChange}
             aria-label="stat-value-input"
           />

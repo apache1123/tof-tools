@@ -6,19 +6,19 @@ import { type Gear } from '../../../models/gear';
 // GearA a.k.a "Current gear"; GearB a.k.a "New gear"
 export type GearComparerGearPosition = 'GearA' | 'GearB';
 
-export type GearComparerGearsStore = Record<
+export type GearComparerGearsState = Record<
   GearComparerGearPosition,
   Gear | undefined
 >;
 
-export const gearComparerGearsStoreKey = 'gearComparerGears';
+export const gearComparerGearsStateKey = 'gearComparerGears';
 
-export const gearComparerGearsStore = proxy<GearComparerGearsStore>({
+export const gearComparerGearsState = proxy<GearComparerGearsState>({
   GearA: undefined,
   GearB: undefined,
 });
-devtools(gearComparerGearsStore, { name: gearComparerGearsStoreKey });
+devtools(gearComparerGearsState, { name: gearComparerGearsStateKey });
 
 export function setGear(position: GearComparerGearPosition, gear: Gear) {
-  gearComparerGearsStore[position] = gear;
+  gearComparerGearsState[position] = gear;
 }

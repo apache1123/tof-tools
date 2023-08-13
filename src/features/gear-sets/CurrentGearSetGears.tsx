@@ -5,13 +5,13 @@ import { gearTypesLookup } from '../../constants/gear-types';
 import type { GearSet } from '../../models/gear-set';
 import { getGearByType } from '../../models/gear-set';
 import { GearPiece } from '../GearPiece';
-import { gearSetsStore } from './stores/gear-sets';
+import { gearSetsState } from './states/gear-sets';
 
 export function CurrentGearSetGears() {
-  const { selectedGearSet: selectedGearSetSnap } = useSnapshot(gearSetsStore);
-  const { selectedGearSet } = gearSetsStore;
+  const { selectedGearSet: selectedGearSetSnap } = useSnapshot(gearSetsState);
+  const { selectedGearSet: selectedGearSetState } = gearSetsState;
 
-  if (!selectedGearSetSnap || !selectedGearSet) {
+  if (!selectedGearSetSnap || !selectedGearSetState) {
     // TODO: handle
     return null;
   }
@@ -23,13 +23,13 @@ export function CurrentGearSetGears() {
           selectedGearSetSnap as GearSet,
           gearTypeId
         );
-        const gear = getGearByType(selectedGearSet, gearTypeId);
-        if (!gearSnap || !gear) return null;
+        const gearState = getGearByType(selectedGearSetState, gearTypeId);
+        if (!gearSnap || !gearState) return null;
 
         return (
           <Grid key={gearTypeId} xs={12} sm={6} md={4} lg={3}>
             <GearPiece
-              gear={gear}
+              gearState={gearState}
               showGearOCRButton
               showCompareGearButton
               disableGearTypeChange

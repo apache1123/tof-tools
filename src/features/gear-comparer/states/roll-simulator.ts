@@ -3,36 +3,36 @@ import { devtools } from 'valtio/utils';
 
 import { defaultNumOfRandomStats } from '../../../constants/gear';
 import { copyGear, type Gear, getType, newGear } from '../../../models/gear';
-import { gearComparerGearsStore } from './gear-comparer-gear';
+import { gearComparerGearsState } from './gear-comparer-gear';
 
-export interface RollSimulatorStore {
+export interface RollSimulatorState {
   gear: Gear | undefined;
   rolls: number[];
 }
 
-export const rollSimulatorStore = proxy<RollSimulatorStore>({
+export const rollSimulatorState = proxy<RollSimulatorState>({
   gear: undefined,
   rolls: defaultRolls(),
 });
-export const rollSimulatorStoreKey = 'rollSimulator';
-devtools(rollSimulatorStore, { name: rollSimulatorStoreKey });
+export const rollSimulatorStateKey = 'rollSimulator';
+devtools(rollSimulatorState, { name: rollSimulatorStateKey });
 
 export function copyFromGearB() {
-  const { GearB } = gearComparerGearsStore;
+  const { GearB } = gearComparerGearsState;
   if (!GearB) return;
   const gear = newGear(getType(GearB));
   copyGear(GearB, gear);
-  rollSimulatorStore.gear = gear;
+  rollSimulatorState.gear = gear;
 }
 
 export function addRoll(randomStatIndex: number) {
-  if (rollSimulatorStore.rolls[randomStatIndex] !== undefined) {
-    rollSimulatorStore.rolls[randomStatIndex] += 1;
+  if (rollSimulatorState.rolls[randomStatIndex] !== undefined) {
+    rollSimulatorState.rolls[randomStatIndex] += 1;
   }
 }
 
 export function resetRolls() {
-  rollSimulatorStore.rolls = defaultRolls();
+  rollSimulatorState.rolls = defaultRolls();
 }
 
 function defaultRolls() {

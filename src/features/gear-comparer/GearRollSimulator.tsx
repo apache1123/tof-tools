@@ -25,20 +25,20 @@ import { getComparisonColor } from '../../utils/color-utils';
 import { additiveSum } from '../../utils/math-utils';
 import { toPercentageString2dp } from '../../utils/number-utils';
 import { GearRollSimulatorStat } from './GearRollSimulatorStat';
-import { gearValuesStore } from './stores/derived/gear-values';
-import { rollSimulatorGearValueStore } from './stores/derived/roll-simulator-gear-value';
-import { gearComparerGearsStore } from './stores/gear-comparer-gear';
+import { gearValuesState } from './states/derived/gear-values';
+import { rollSimulatorGearValueState } from './states/derived/roll-simulator-gear-value';
+import { gearComparerGearsState } from './states/gear-comparer-gear';
 import {
   addRoll,
   copyFromGearB,
   resetRolls,
-  rollSimulatorStore,
-} from './stores/roll-simulator';
+  rollSimulatorState,
+} from './states/roll-simulator';
 
 export function GearRollSimulator() {
-  const { GearB } = useSnapshot(gearComparerGearsStore);
-  const { gear } = rollSimulatorStore;
-  const { gear: gearSnap } = useSnapshot(rollSimulatorStore);
+  const { GearB } = useSnapshot(gearComparerGearsState);
+  const { gear: gearState } = rollSimulatorState;
+  const { gear: gearSnap } = useSnapshot(rollSimulatorState);
 
   useEffect(() => {
     reset();
@@ -58,16 +58,22 @@ export function GearRollSimulator() {
         <Typography>Roll simulator</Typography>
       </AccordionSummary>
       <AccordionDetails data-testid="roll-simulator-panel-content">
-        {gearSnap && gear && (
-          <AccordionContent gear={gear} GearB={GearB as Gear} />
+        {gearSnap && gearState && (
+          <AccordionContent gearState={gearState} GearB={GearB as Gear} />
         )}
       </AccordionDetails>
     </Accordion>
   );
 }
 
-function AccordionContent({ gear, GearB }: { gear: Gear; GearB: Gear }) {
-  const gearSnap = useSnapshot(gear);
+function AccordionContent({
+  gearState,
+  GearB,
+}: {
+  gearState: Gear;
+  GearB: Gear;
+}) {
+  const gearSnap = useSnapshot(gearState);
 
   const randomStatRollCombinations = getGearRandomStatRollCombinations(
     GearB as Gear
@@ -85,13 +91,13 @@ function AccordionContent({ gear, GearB }: { gear: Gear; GearB: Gear }) {
       <Box mt={5}>
         {!canDetermineStars && (
           <UnableToDetermineStars
-            gear={gear}
+            gearState={gearState}
             randomStatRollCombinations={randomStatRollCombinations}
           />
         )}
         {canDetermineStars && (
           <DeterminedStars
-            gear={gear}
+            gearState={gearState}
             randomStatRollCombinations={randomStatRollCombinations}
           />
         )}
@@ -101,13 +107,13 @@ function AccordionContent({ gear, GearB }: { gear: Gear; GearB: Gear }) {
 }
 
 function UnableToDetermineStars({
-  gear,
+  gearState,
   randomStatRollCombinations,
 }: {
-  gear: Gear;
+  gearState: Gear;
   randomStatRollCombinations: GearRandomStatRollCombinations[];
 }) {
-  const gearSnap = useSnapshot(gear);
+  const gearSnap = useSnapshot(gearState);
 
   const possibleStars = Object.keys(
     groupBy(randomStatRollCombinations, 'stars')
@@ -122,23 +128,23 @@ function UnableToDetermineStars({
       </Typography>
       <GearStarsSelector
         stars={gearSnap.stars}
-        onStarsChange={(stars) => setStars(gear, stars)}
+        onStarsChange={(stars) => setStars(gearState, stars)}
       />
     </Box>
   );
 }
 
 function DeterminedStars({
-  gear,
+  gearState,
   randomStatRollCombinations,
 }: {
-  gear: Gear;
+  gearState: Gear;
   randomStatRollCombinations: GearRandomStatRollCombinations[];
 }) {
-  const gearSnap = useSnapshot(gear);
-  const { rolls } = useSnapshot(rollSimulatorStore);
-  const { value } = useSnapshot(rollSimulatorGearValueStore);
-  const { GearAValue } = useSnapshot(gearValuesStore);
+  const gearSnap = useSnapshot(gearState);
+  const { rolls } = useSnapshot(rollSimulatorState);
+  const { value } = useSnapshot(rollSimulatorGearValueState);
+  const { GearAValue } = useSnapshot(gearValuesState);
 
   const startingRolls =
     gearSnap.stars || (randomStatRollCombinations[0]?.stars ?? 0);
@@ -157,8 +163,8 @@ function DeterminedStars({
       </Box>
       <Stack spacing={2} mb={5}>
         {gearSnap.randomStats.map((statSnap, i) => {
-          const stat = gear.randomStats[i];
-          if (!statSnap || !stat) {
+          const statState = gearState.randomStats[i];
+          if (!statSnap || !statState) {
             return null;
           }
 
@@ -172,7 +178,7 @@ function DeterminedStars({
           return (
             <GearRollSimulatorStat
               key={i}
-              stat={stat}
+              statState={statState}
               rolls={statTotalRolls}
               canRoll={canRoll}
               onAddRoll={() => addRoll(i)}

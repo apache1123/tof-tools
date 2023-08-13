@@ -13,18 +13,18 @@ import {
   addWeaponCritRateBuff,
   removeMatrixCritRateBuff,
   removeWeaponCritRateBuff,
-  selectedElementalBuffsStore,
-} from './stores/derived/selected-elemental-buffs';
+  selectedElementalBuffsState,
+} from './states/derived/selected-elemental-buffs';
 import {
-  selectedElementalUserStatsStore,
+  selectedElementalUserStatsState,
   setMiscCritRate,
-} from './stores/derived/selected-elemental-user-stats';
+} from './states/derived/selected-elemental-user-stats';
 
 export function CritRateBuffs() {
   const { selectedElementalUserStats } = useSnapshot(
-    selectedElementalUserStatsStore
+    selectedElementalUserStatsState
   );
-  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsStore);
+  const { selectedElementalBuffs } = useSnapshot(selectedElementalBuffsState);
 
   if (!selectedElementalUserStats || !selectedElementalBuffs) {
     return null;
