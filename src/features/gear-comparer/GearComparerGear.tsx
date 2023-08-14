@@ -21,7 +21,7 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
   const { [position]: gearState } = gearComparerGearsState;
   const { [position]: gearSnap } = useSnapshot(gearComparerGearsState);
   const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
-  const maxTitans = useSnapshot(gearComparerGearMaxTitansState);
+  const maxTitansSnap = useSnapshot(gearComparerGearMaxTitansState);
 
   const handleGearTypeSelect = (gearType: GearType) => {
     const gear = newGear(gearType);
@@ -54,11 +54,19 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
           <Typography color="info.main" gutterBottom>
             Can&apos;t calculate max titan stat values if gear is not at 5 star
           </Typography>
-        ) : gearSnap && maxTitans.titansByReferenceGearId[gearSnap.id] ? (
+        ) : gearSnap &&
+          maxTitansSnap.titansByReferenceGearId[gearSnap.id] &&
+          gearComparerGearMaxTitansState.titansByReferenceGearId[
+            gearSnap.id
+          ] ? (
           <TitanGearMaxStats
-            maxTitanGear={
-              maxTitans.titansByReferenceGearId[gearSnap.id] as Gear
+            maxTitanGearState={
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              gearComparerGearMaxTitansState.titansByReferenceGearId[
+                gearSnap.id
+              ]!
             }
+            elementalType={selectedElementalType}
           />
         ) : (
           <Box>

@@ -1,4 +1,5 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
+import { useSnapshot } from 'valtio';
 
 import type { Gear } from '../models/gear';
 import {
@@ -7,12 +8,20 @@ import {
   getType,
   getValueToString,
 } from '../models/random-stat';
+import type { CoreElementalType } from '../models/stat-type';
+import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 
 export interface TitanGearMaxStatsProps {
-  maxTitanGear: Gear;
+  maxTitanGearState: Gear;
+  elementalType?: CoreElementalType;
 }
 
-export function TitanGearMaxStats({ maxTitanGear }: TitanGearMaxStatsProps) {
+export function TitanGearMaxStats({
+  maxTitanGearState,
+  elementalType,
+}: TitanGearMaxStatsProps) {
+  const maxTitanGearSnap = useSnapshot(maxTitanGearState);
+
   return (
     <Stack spacing={2}>
       <Box>
@@ -20,7 +29,7 @@ export function TitanGearMaxStats({ maxTitanGear }: TitanGearMaxStatsProps) {
           Random stats
         </Typography>
         <Stack>
-          {maxTitanGear.randomStats.map((randomStat, i) => {
+          {maxTitanGearSnap.randomStats.map((randomStat, i) => {
             if (!randomStat) {
               return undefined;
             }
@@ -41,7 +50,7 @@ export function TitanGearMaxStats({ maxTitanGear }: TitanGearMaxStatsProps) {
           Augment stats
         </Typography>
         <Stack>
-          {maxTitanGear.augmentStats.map((augmentStat, i) => {
+          {maxTitanGearSnap.augmentStats.map((augmentStat, i) => {
             if (!augmentStat) {
               return undefined;
             }
@@ -57,6 +66,15 @@ export function TitanGearMaxStats({ maxTitanGear }: TitanGearMaxStatsProps) {
           })}
         </Stack>
       </Box>
+      {elementalType && (
+        <>
+          <Divider />
+          <GearAttackStatsSummary
+            gearState={maxTitanGearState}
+            elementalType={elementalType}
+          />
+        </>
+      )}
     </Stack>
   );
 }
