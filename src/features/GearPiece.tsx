@@ -133,7 +133,7 @@ export const GearPiece = ({
         <>
           {showStatSummary && (
             <GearAttackStatsSummary
-              gear={gearState}
+              gearState={gearState}
               elementalType={showStatSummary}
             />
           )}
