@@ -1,10 +1,10 @@
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { IconButton, InputBase, Paper } from '@mui/material';
+import { Box, IconButton, InputBase, Paper, Stack } from '@mui/material';
 import { asUploadButton } from '@rpldy/upload-button';
 import UploadDropZone from '@rpldy/upload-drop-zone';
 import withPasteUpload from '@rpldy/upload-paste';
 import Uploady, { useBatchAddListener } from '@rpldy/uploady';
-import { forwardRef, Fragment, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 
 export interface ImageSelectProps {
   onSelectedImageChange?(image: File): void;
@@ -14,12 +14,7 @@ export interface ImageSelectProps {
 const UploadButton = asUploadButton(
   // eslint-disable-next-line react/display-name, @typescript-eslint/no-unused-vars
   forwardRef((props, ref) => (
-    <IconButton
-      {...props}
-      type="button"
-      sx={{ p: '10px' }}
-      aria-label="Select image"
-    >
+    <IconButton {...props} type="button" aria-label="Select image">
       <AddPhotoAlternateIcon />
     </IconButton>
   ))
@@ -41,28 +36,26 @@ const PasteInput = withPasteUpload(
 );
 
 const PasteInputWithDropZone = () => (
-  <UploadDropZone>
-    <PasteInput />
-  </UploadDropZone>
+  <Box width="100%">
+    <UploadDropZone>
+      <PasteInput />
+    </UploadDropZone>
+  </Box>
 );
 
 const ImageSelectCustomInput = () => (
-  <Fragment>
-    <Paper
-      component="form"
-      sx={{
-        p: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-        width: 400,
-      }}
-    >
-      <div style={{ marginLeft: 5, flex: 1 }}>
-        <PasteInputWithDropZone />
-      </div>
+  <Paper
+    component="form"
+    sx={{
+      p: 1,
+      width: '100%',
+    }}
+  >
+    <Stack direction="row" alignItems="center">
       <UploadButton />
-    </Paper>
-  </Fragment>
+      <PasteInputWithDropZone />
+    </Stack>
+  </Paper>
 );
 
 export const ImageSelect = ({

@@ -27,17 +27,15 @@ export function AddGearSetModal({ open, onClose }: AddGearSetModalProps) {
   return (
     <StyledModal
       open={open}
+      modalTitle="Add gear set"
       modalContent={
-        <>
-          <Box mb={2}>Add gear set</Box>
-          <TextField
-            label="Name"
-            value={newGearSetName}
-            onChange={(event) => {
-              setNewGearSetName(event.target.value);
-            }}
-          />
-        </>
+        <TextField
+          label="Name"
+          value={newGearSetName}
+          onChange={(event) => {
+            setNewGearSetName(event.target.value);
+          }}
+        />
       }
       showConfirm
       showCancel
