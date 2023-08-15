@@ -20,6 +20,7 @@ export function DeleteCurrentGearSet() {
       <ButtonModal
         icon={<DeleteForeverIcon color="error" />}
         iconButton
+        modalTitle="Delete gear set"
         modalContent={
           <Typography color="error">
             This will permanently delete this gear set. Continue?

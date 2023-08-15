@@ -15,18 +15,13 @@ export interface ButtonModalProps extends Omit<StyledModalProps, 'open'> {
 
 export function ButtonModal({
   buttonText,
-  modalContent,
-  showConfirm,
-  showCancel,
-  isConfirmDisabled,
   onConfirm,
   onClose,
   icon,
   iconButton,
   'aria-label': ariaLabel,
   buttonSx,
-  ariaModalTitle = 'modal-title',
-  ariaModalDescription = 'modal-description',
+  ...rest
 }: ButtonModalProps) {
   const [open, setOpen] = useState(false);
 
@@ -66,15 +61,10 @@ export function ButtonModal({
         </Button>
       )}
       <StyledModal
+        {...rest}
         open={open}
-        modalContent={modalContent}
-        showConfirm={showConfirm}
-        showCancel={showCancel}
-        isConfirmDisabled={isConfirmDisabled}
         onConfirm={handleConfirm}
         onClose={handleClose}
-        ariaModalTitle={ariaModalTitle}
-        ariaModalDescription={ariaModalDescription}
       />
     </>
   );

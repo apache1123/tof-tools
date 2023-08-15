@@ -90,6 +90,7 @@ export const GearOCRModal = ({
   return (
     <ButtonModal
       buttonText="Upload gear"
+      modalTitle="Upload gear by using screenshot"
       modalContent={
         <>
           <Grid container>
@@ -98,7 +99,6 @@ export const GearOCRModal = ({
               xs={12}
               md={8}
               display="flex"
-              flexDirection="column"
               justifyContent="center"
               alignItems="center"
             >
@@ -117,20 +117,20 @@ export const GearOCRModal = ({
           </Box>
 
           <Grid container spacing={3} mb={3}>
-            <Grid xs={12} lg={6}>
+            <Grid xs={12} sm={6}>
               {imageURL && (
                 // TODO: Fix this sizing
                 <Image
                   src={imageURL}
-                  width={240}
-                  height={300}
+                  width={260}
+                  height={325}
                   alt="uploaded-image-preview"
                 />
               )}
             </Grid>
             <Grid
               xs={12}
-              lg={6}
+              sm={6}
               display="flex"
               flexDirection="column"
               justifyContent="center"
@@ -161,6 +161,8 @@ export const GearOCRModal = ({
       isConfirmDisabled={!tempGearSnap}
       onConfirm={handleConfirm}
       onClose={handleClose}
+      fullWidth
+      maxWidth="md"
     />
   );
 };
@@ -175,8 +177,8 @@ function ExampleScreenshotModal() {
           <Image
             src="/ocr_screenshot_example.png"
             alt="screenshot-example"
-            width={350}
-            height={450}
+            width={260}
+            height={325}
           />
         </Box>
       }

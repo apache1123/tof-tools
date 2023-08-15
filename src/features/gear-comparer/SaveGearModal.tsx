@@ -26,12 +26,8 @@ export function SaveGearModal({ gear }: SaveGearModalProps) {
     <>
       <ButtonModal
         buttonText="Save gear to gear set"
-        modalContent={
-          <>
-            <Box mb={1}>Save gear to gear set</Box>
-            <GearSetSelector onGearSetSelect={handleGearSetSelect} />
-          </>
-        }
+        modalTitle="Save gear to gear set"
+        modalContent={<GearSetSelector onGearSetSelect={handleGearSetSelect} />}
         showConfirm
         showCancel
         onConfirm={() => {
