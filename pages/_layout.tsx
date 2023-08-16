@@ -22,7 +22,7 @@ export default function Layout({ children }: LayoutProps) {
           <Typography variant="body2">
             or come hang out at our{' '}
             <Link
-              href="https://discord.io/vegemites"
+              href="https://discord.gg/vegemites"
               target="_blank"
               rel="noopener"
             >
