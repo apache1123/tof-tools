@@ -3,7 +3,7 @@ import { devtools } from 'valtio/utils';
 
 import type { Buff, MatrixBuff } from '../../../models/buff';
 import type { Data, DataById } from '../../../models/data';
-import type { CoreElementalType } from '../../../models/stat-type';
+import type { CoreElementalType } from '../../../models/elemental-type';
 
 type WeaponBuffs = DataById<string, NonNullable<unknown>>;
 

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import type { BasisValues } from '../models/basis-values';
+import type { CoreElementalType } from '../models/elemental-type';
 import type { Gear } from '../models/gear';
 import {
   getTotalAttackFlat,
@@ -9,7 +10,6 @@ import {
   getTotalCritPercent,
   getTotalDamagePercent,
 } from '../models/gear';
-import type { CoreElementalType } from '../models/stat-type';
 import {
   calculateCritPercentFromFlat,
   calculateMultiplier,

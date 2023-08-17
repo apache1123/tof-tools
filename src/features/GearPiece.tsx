@@ -19,11 +19,11 @@ import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSele
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
 import { defaultNumOfRandomStats } from '../constants/gear';
+import type { CoreElementalType } from '../models/elemental-type';
 import { copyGear, type Gear, getType, newGear, setType } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { newRandomStat } from '../models/random-stat';
-import type { CoreElementalType } from '../models/stat-type';
 import { SaveGearModal } from './gear-comparer/SaveGearModal';
 import {
   gearComparerGearsState,
