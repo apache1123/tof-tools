@@ -1,5 +1,5 @@
 import type { ElementalResonance } from './elemental-resonance';
-import type { ElementalType, WeaponElementalType } from './elemental-type';
+import type { WeaponElementalType } from './elemental-type';
 import type { WeaponResonance } from './weapon-resonance';
 
 export interface WeaponDefinition {
