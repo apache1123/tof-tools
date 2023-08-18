@@ -8,17 +8,19 @@ export interface WeaponStarsSelectorProps {
   disabled?: boolean;
 }
 
-export const weaponStarsSelector = ({
+export function WeaponStarsSelector({
   stars,
   onStarsChange,
   disabled,
-}: WeaponStarsSelectorProps) => (
-  <Rating
-    value={stars ?? 0}
-    onChange={(event, value) => {
-      if (onStarsChange) onStarsChange(value ?? 0);
-    }}
-    max={maxNumOfWeaponStars}
-    disabled={disabled}
-  />
-);
+}: WeaponStarsSelectorProps) {
+  return (
+    <Rating
+      value={stars ?? 0}
+      onChange={(event, value) => {
+        if (onStarsChange) onStarsChange(value ?? 0);
+      }}
+      max={maxNumOfWeaponStars}
+      disabled={disabled}
+    />
+  );
+}
