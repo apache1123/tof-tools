@@ -81,9 +81,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       critRateBuffs: [],
     },
     [WeaponName.Annabella]: {
-      id: WeaponName.Alyss,
-      displayName: WeaponName.Alyss,
-      elementalType: ElementalType.Frost,
+      id: WeaponName.Annabella,
+      displayName: WeaponName.Annabella,
+      elementalType: ElementalType.Flame,
       type: WeaponType.DPS,
       attackPercentBuffs: [],
       critRateBuffs: [
@@ -106,9 +106,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
     },
     [WeaponName.Claudia]: {
-      id: WeaponName.Alyss,
-      displayName: WeaponName.Alyss,
-      elementalType: ElementalType.Frost,
+      id: WeaponName.Claudia,
+      displayName: WeaponName.Claudia,
+      elementalType: ElementalType.Physical,
       type: WeaponType.DPS,
       attackPercentBuffs: [],
       critRateBuffs: [],
