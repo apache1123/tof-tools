@@ -1,9 +1,10 @@
+import type { WeaponName } from '../constants/weapon-definitions';
 import type { ElementalResonance } from './elemental-resonance';
 import type { WeaponElementalType } from './elemental-type';
 import type { WeaponResonance } from './weapon-resonance';
 
 export interface WeaponDefinition {
-  id: string;
+  id: WeaponName;
   displayName: string;
   elementalType: WeaponElementalType;
   type: WeaponType;

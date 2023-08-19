@@ -1,89 +1,98 @@
 import type { Data } from '../models/data';
 import { ElementalType } from '../models/elemental-type';
-import type { MatrixDefinition } from '../models/matrix-definition';
+import type {
+  MatrixSet2pcName,
+  MatrixSet4pcName,
+  MatrixSetDefinition,
+} from '../models/matrix-set-definition';
 
-export enum MatrixName {
-  Alyss = 'Alyss',
-  Annabella = 'Annabella',
-  Claudia = 'Claudia',
-  CobaltB = 'Cobalt-B',
-  Cocoritter = 'Cocoritter',
-  Crow = 'Crow',
-  Fenrir = 'Fenrir',
-  Fiona = 'Fiona',
-  Frigg = 'Frigg',
-  Gnonno = 'Gnonno',
-  Haboela = 'Haboela',
-  Huma = 'Huma',
-  Icarus = 'Icarus',
-  King = 'King',
-  Lan = 'Lan',
-  Lin = 'Lin',
-  LiuHuo = 'Liu Huo',
-  Lyra = 'Lyra',
-  Meryl = 'Meryl',
-  MingJing = 'Ming Jing',
-  Nemesis = 'Nemesis',
-  Rubilia = 'Rubilia',
-  Ruby = 'Ruby',
-  SakiFuwa = 'Saki Fuwa',
-  Samir = 'Samir',
-  Scylla = 'Scylla',
-  Shiro = 'Shiro',
-  TianLang = 'Tian Lang',
-  Tsubasa = 'Tsubasa',
-  Umi = 'Umi',
-  YuLan = 'Yu Lan',
-  Zero = 'Zero',
-}
+export const matrixSet2pcLabel = '2pc';
+export const matrixSet4pcLabel = '4pc';
 
-export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
+export type MatrixSetName =
+  | 'Alyss'
+  | 'Annabella'
+  | 'Claudia'
+  | 'Cobalt-B'
+  | 'Cocoritter'
+  | 'Crow'
+  | 'Fenrir'
+  | 'Fiona'
+  | 'Frigg'
+  | 'Gnonno'
+  | 'Haboela'
+  | 'Huma'
+  | 'Icarus'
+  | 'King'
+  | 'Lan'
+  | 'Lin'
+  | 'Liu Huo'
+  | 'Lyra'
+  | 'Meryl'
+  | 'Ming Jing'
+  | 'Nemesis'
+  | 'Rubilia'
+  | 'Ruby'
+  | 'Saki Fuwa'
+  | 'Samir'
+  | 'Scylla'
+  | 'Shiro'
+  | 'Tian Lang'
+  | 'Tsubasa'
+  | 'Umi'
+  | 'Yu Lan'
+  | 'Zero';
+
+export const matrixSet2pcDefinitions: Data<
+  MatrixSet2pcName,
+  MatrixSetDefinition
+> = {
   allIds: [
-    MatrixName.Alyss,
-    MatrixName.Annabella,
-    MatrixName.Claudia,
-    MatrixName.CobaltB,
-    MatrixName.Cocoritter,
-    MatrixName.Crow,
-    MatrixName.Fenrir,
-    MatrixName.Fiona,
-    MatrixName.Frigg,
-    MatrixName.Gnonno,
-    MatrixName.Haboela,
-    MatrixName.Huma,
-    MatrixName.Icarus,
-    MatrixName.King,
-    MatrixName.Lan,
-    MatrixName.Lin,
-    MatrixName.LiuHuo,
-    MatrixName.Lyra,
-    MatrixName.Meryl,
-    MatrixName.MingJing,
-    MatrixName.Nemesis,
-    MatrixName.Rubilia,
-    MatrixName.Ruby,
-    MatrixName.SakiFuwa,
-    MatrixName.Samir,
-    MatrixName.Scylla,
-    MatrixName.Shiro,
-    MatrixName.TianLang,
-    MatrixName.Tsubasa,
-    MatrixName.Umi,
-    MatrixName.YuLan,
-    MatrixName.Zero,
+    'Alyss 2pc',
+    'Annabella 2pc',
+    'Claudia 2pc',
+    'Cobalt-B 2pc',
+    'Cocoritter 2pc',
+    'Crow 2pc',
+    'Fenrir 2pc',
+    'Fiona 2pc',
+    'Frigg 2pc',
+    'Gnonno 2pc',
+    'Haboela 2pc',
+    'Huma 2pc',
+    'Icarus 2pc',
+    'King 2pc',
+    'Lan 2pc',
+    'Lin 2pc',
+    'Liu Huo 2pc',
+    'Lyra 2pc',
+    'Meryl 2pc',
+    'Ming Jing 2pc',
+    'Nemesis 2pc',
+    'Rubilia 2pc',
+    'Ruby 2pc',
+    'Saki Fuwa 2pc',
+    'Samir 2pc',
+    'Scylla 2pc',
+    'Shiro 2pc',
+    'Tian Lang 2pc',
+    'Tsubasa 2pc',
+    'Umi 2pc',
+    'Yu Lan 2pc',
+    'Zero 2pc',
   ],
   byId: {
-    [MatrixName.Alyss]: {
-      id: MatrixName.Alyss,
-      displayName: MatrixName.Alyss,
+    'Alyss 2pc': {
+      id: 'Alyss 2pc',
+      displayName: 'Alyss 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Annabella]: {
-      id: MatrixName.Annabella,
-      displayName: MatrixName.Annabella,
+    'Annabella 2pc': {
+      id: 'Annabella 2pc',
+      displayName: 'Annabella 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [
@@ -100,33 +109,33 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       ],
       critDamageBuffs: [],
     },
-    [MatrixName.Claudia]: {
-      id: MatrixName.Claudia,
-      displayName: MatrixName.Claudia,
+    'Claudia 2pc': {
+      id: 'Claudia 2pc',
+      displayName: 'Claudia 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.CobaltB]: {
-      id: MatrixName.CobaltB,
-      displayName: MatrixName.CobaltB,
+    'Cobalt-B 2pc': {
+      id: 'Cobalt-B 2pc',
+      displayName: 'Cobalt-B 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Cocoritter]: {
-      id: MatrixName.Cocoritter,
-      displayName: MatrixName.Cocoritter,
+    'Cocoritter 2pc': {
+      id: 'Cocoritter 2pc',
+      displayName: 'Cocoritter 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Crow]: {
-      id: MatrixName.Crow,
-      displayName: MatrixName.Crow,
+    'Crow 2pc': {
+      id: 'Crow 2pc',
+      displayName: 'Crow 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -143,9 +152,9 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
         },
       ],
     },
-    [MatrixName.Fenrir]: {
-      id: MatrixName.Fenrir,
-      displayName: MatrixName.Fenrir,
+    'Fenrir 2pc': {
+      id: 'Fenrir 2pc',
+      displayName: 'Fenrir 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -162,9 +171,9 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
         },
       ],
     },
-    [MatrixName.Fiona]: {
-      id: MatrixName.Fiona,
-      displayName: MatrixName.Fiona,
+    'Fiona 2pc': {
+      id: 'Fiona 2pc',
+      displayName: 'Fiona 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -188,9 +197,9 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Frigg]: {
-      id: MatrixName.Frigg,
-      displayName: MatrixName.Frigg,
+    'Frigg 2pc': {
+      id: 'Frigg 2pc',
+      displayName: 'Frigg 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -212,49 +221,49 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Gnonno]: {
-      id: MatrixName.Gnonno,
-      displayName: MatrixName.Gnonno,
+    'Gnonno 2pc': {
+      id: 'Gnonno 2pc',
+      displayName: 'Gnonno 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Haboela]: {
-      id: MatrixName.Haboela,
-      displayName: MatrixName.Haboela,
+    'Haboela 2pc': {
+      id: 'Haboela 2pc',
+      displayName: 'Haboela 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Huma]: {
-      id: MatrixName.Huma,
-      displayName: MatrixName.Huma,
+    'Huma 2pc': {
+      id: 'Huma 2pc',
+      displayName: 'Huma 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Icarus]: {
-      id: MatrixName.Icarus,
-      displayName: MatrixName.Icarus,
+    'Icarus 2pc': {
+      id: 'Icarus 2pc',
+      displayName: 'Icarus 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.King]: {
-      id: MatrixName.King,
-      displayName: MatrixName.King,
+    'King 2pc': {
+      id: 'King 2pc',
+      displayName: 'King 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Lan]: {
-      id: MatrixName.Lan,
-      displayName: MatrixName.Lan,
+    'Lan 2pc': {
+      id: 'Lan 2pc',
+      displayName: 'Lan 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -276,9 +285,9 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Lin]: {
-      id: MatrixName.Lin,
-      displayName: MatrixName.Lin,
+    'Lin 2pc': {
+      id: 'Lin 2pc',
+      displayName: 'Lin 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -302,17 +311,17 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.LiuHuo]: {
-      id: MatrixName.LiuHuo,
-      displayName: MatrixName.LiuHuo,
+    'Liu Huo 2pc': {
+      id: 'Liu Huo 2pc',
+      displayName: 'Liu Huo 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Lyra]: {
-      id: MatrixName.Lyra,
-      displayName: MatrixName.Lyra,
+    'Lyra 2pc': {
+      id: 'Lyra 2pc',
+      displayName: 'Lyra 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -336,17 +345,17 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Meryl]: {
-      id: MatrixName.Meryl,
-      displayName: MatrixName.Meryl,
+    'Meryl 2pc': {
+      id: 'Meryl 2pc',
+      displayName: 'Meryl 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.MingJing]: {
-      id: MatrixName.MingJing,
-      displayName: MatrixName.MingJing,
+    'Ming Jing 2pc': {
+      id: 'Ming Jing 2pc',
+      displayName: 'Ming Jing 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -369,9 +378,9 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Nemesis]: {
-      id: MatrixName.Nemesis,
-      displayName: MatrixName.Nemesis,
+    'Nemesis 2pc': {
+      id: 'Nemesis 2pc',
+      displayName: 'Nemesis 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -390,9 +399,9 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Rubilia]: {
-      id: MatrixName.Rubilia,
-      displayName: MatrixName.Rubilia,
+    'Rubilia 2pc': {
+      id: 'Rubilia 2pc',
+      displayName: 'Rubilia 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -410,9 +419,9 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Ruby]: {
-      id: MatrixName.Ruby,
-      displayName: MatrixName.Ruby,
+    'Ruby 2pc': {
+      id: 'Ruby 2pc',
+      displayName: 'Ruby 2pc',
       pieces: 2,
       attackPercentBuffs: [
         {
@@ -430,25 +439,25 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.SakiFuwa]: {
-      id: MatrixName.SakiFuwa,
-      displayName: MatrixName.SakiFuwa,
+    'Saki Fuwa 2pc': {
+      id: 'Saki Fuwa 2pc',
+      displayName: 'Saki Fuwa 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Samir]: {
-      id: MatrixName.Samir,
-      displayName: MatrixName.Samir,
+    'Samir 2pc': {
+      id: 'Samir 2pc',
+      displayName: 'Samir 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Scylla]: {
-      id: MatrixName.Scylla,
-      displayName: MatrixName.Scylla,
+    'Scylla 2pc': {
+      id: 'Scylla 2pc',
+      displayName: 'Scylla 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -465,49 +474,49 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
         },
       ],
     },
-    [MatrixName.Shiro]: {
-      id: MatrixName.Shiro,
-      displayName: MatrixName.Shiro,
+    'Shiro 2pc': {
+      id: 'Shiro 2pc',
+      displayName: 'Shiro 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.TianLang]: {
-      id: MatrixName.TianLang,
-      displayName: MatrixName.TianLang,
+    'Tian Lang 2pc': {
+      id: 'Tian Lang 2pc',
+      displayName: 'Tian Lang 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Tsubasa]: {
-      id: MatrixName.Tsubasa,
-      displayName: MatrixName.Tsubasa,
+    'Tsubasa 2pc': {
+      id: 'Tsubasa 2pc',
+      displayName: 'Tsubasa 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Umi]: {
-      id: MatrixName.Umi,
-      displayName: MatrixName.Umi,
+    'Umi 2pc': {
+      id: 'Umi 2pc',
+      displayName: 'Umi 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.YuLan]: {
-      id: MatrixName.YuLan,
-      displayName: MatrixName.YuLan,
+    'Yu Lan 2pc': {
+      id: 'Yu Lan 2pc',
+      displayName: 'Yu Lan 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Zero]: {
-      id: MatrixName.Zero,
-      displayName: MatrixName.Zero,
+    'Zero 2pc': {
+      id: 'Zero 2pc',
+      displayName: 'Zero 2pc',
       pieces: 2,
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -516,53 +525,56 @@ export const matrix2pcDefinitions: Data<MatrixName, MatrixDefinition> = {
   },
 };
 
-export const matrix4pcDefinitions: Data<MatrixName, MatrixDefinition> = {
+export const matrixSet4pcDefinitions: Data<
+  MatrixSet4pcName,
+  MatrixSetDefinition
+> = {
   allIds: [
-    MatrixName.Alyss,
-    MatrixName.Annabella,
-    MatrixName.Claudia,
-    MatrixName.CobaltB,
-    MatrixName.Cocoritter,
-    MatrixName.Crow,
-    MatrixName.Fenrir,
-    MatrixName.Fiona,
-    MatrixName.Frigg,
-    MatrixName.Gnonno,
-    MatrixName.Haboela,
-    MatrixName.Huma,
-    MatrixName.Icarus,
-    MatrixName.King,
-    MatrixName.Lan,
-    MatrixName.Lin,
-    MatrixName.LiuHuo,
-    MatrixName.Lyra,
-    MatrixName.Meryl,
-    MatrixName.MingJing,
-    MatrixName.Nemesis,
-    MatrixName.Rubilia,
-    MatrixName.Ruby,
-    MatrixName.SakiFuwa,
-    MatrixName.Samir,
-    MatrixName.Scylla,
-    MatrixName.Shiro,
-    MatrixName.TianLang,
-    MatrixName.Tsubasa,
-    MatrixName.Umi,
-    MatrixName.YuLan,
-    MatrixName.Zero,
+    'Alyss 4pc',
+    'Annabella 4pc',
+    'Claudia 4pc',
+    'Cobalt-B 4pc',
+    'Cocoritter 4pc',
+    'Crow 4pc',
+    'Fenrir 4pc',
+    'Fiona 4pc',
+    'Frigg 4pc',
+    'Gnonno 4pc',
+    'Haboela 4pc',
+    'Huma 4pc',
+    'Icarus 4pc',
+    'King 4pc',
+    'Lan 4pc',
+    'Lin 4pc',
+    'Liu Huo 4pc',
+    'Lyra 4pc',
+    'Meryl 4pc',
+    'Ming Jing 4pc',
+    'Nemesis 4pc',
+    'Rubilia 4pc',
+    'Ruby 4pc',
+    'Saki Fuwa 4pc',
+    'Samir 4pc',
+    'Scylla 4pc',
+    'Shiro 4pc',
+    'Tian Lang 4pc',
+    'Tsubasa 4pc',
+    'Umi 4pc',
+    'Yu Lan 4pc',
+    'Zero 4pc',
   ],
   byId: {
-    [MatrixName.Alyss]: {
-      id: MatrixName.Alyss,
-      displayName: MatrixName.Alyss,
+    'Alyss 4pc': {
+      id: 'Alyss 4pc',
+      displayName: 'Alyss 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Annabella]: {
-      id: MatrixName.Annabella,
-      displayName: MatrixName.Annabella,
+    'Annabella 4pc': {
+      id: 'Annabella 4pc',
+      displayName: 'Annabella 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -583,25 +595,25 @@ export const matrix4pcDefinitions: Data<MatrixName, MatrixDefinition> = {
         },
       ],
     },
-    [MatrixName.Claudia]: {
-      id: MatrixName.Claudia,
-      displayName: MatrixName.Claudia,
+    'Claudia 4pc': {
+      id: 'Claudia 4pc',
+      displayName: 'Claudia 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.CobaltB]: {
-      id: MatrixName.CobaltB,
-      displayName: MatrixName.CobaltB,
+    'Cobalt-B 4pc': {
+      id: 'Cobalt-B 4pc',
+      displayName: 'Cobalt-B 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Cocoritter]: {
-      id: MatrixName.Cocoritter,
-      displayName: MatrixName.Cocoritter,
+    'Cocoritter 4pc': {
+      id: 'Cocoritter 4pc',
+      displayName: 'Cocoritter 4pc',
       pieces: 4,
       attackPercentBuffs: [
         {
@@ -626,121 +638,121 @@ export const matrix4pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Crow]: {
-      id: MatrixName.Crow,
-      displayName: MatrixName.Crow,
+    'Crow 4pc': {
+      id: 'Crow 4pc',
+      displayName: 'Crow 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Fenrir]: {
-      id: MatrixName.Fenrir,
-      displayName: MatrixName.Fenrir,
+    'Fenrir 4pc': {
+      id: 'Fenrir 4pc',
+      displayName: 'Fenrir 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Fiona]: {
-      id: MatrixName.Fiona,
-      displayName: MatrixName.Fiona,
+    'Fiona 4pc': {
+      id: 'Fiona 4pc',
+      displayName: 'Fiona 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Frigg]: {
-      id: MatrixName.Frigg,
-      displayName: MatrixName.Frigg,
+    'Frigg 4pc': {
+      id: 'Frigg 4pc',
+      displayName: 'Frigg 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Gnonno]: {
-      id: MatrixName.Gnonno,
-      displayName: MatrixName.Gnonno,
+    'Gnonno 4pc': {
+      id: 'Gnonno 4pc',
+      displayName: 'Gnonno 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Haboela]: {
-      id: MatrixName.Haboela,
-      displayName: MatrixName.Haboela,
+    'Haboela 4pc': {
+      id: 'Haboela 4pc',
+      displayName: 'Haboela 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Huma]: {
-      id: MatrixName.Huma,
-      displayName: MatrixName.Huma,
+    'Huma 4pc': {
+      id: 'Huma 4pc',
+      displayName: 'Huma 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Icarus]: {
-      id: MatrixName.Icarus,
-      displayName: MatrixName.Icarus,
+    'Icarus 4pc': {
+      id: 'Icarus 4pc',
+      displayName: 'Icarus 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.King]: {
-      id: MatrixName.King,
-      displayName: MatrixName.King,
+    'King 4pc': {
+      id: 'King 4pc',
+      displayName: 'King 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Lan]: {
-      id: MatrixName.Lan,
-      displayName: MatrixName.Lan,
+    'Lan 4pc': {
+      id: 'Lan 4pc',
+      displayName: 'Lan 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Lin]: {
-      id: MatrixName.Lin,
-      displayName: MatrixName.Lin,
+    'Lin 4pc': {
+      id: 'Lin 4pc',
+      displayName: 'Lin 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.LiuHuo]: {
-      id: MatrixName.LiuHuo,
-      displayName: MatrixName.LiuHuo,
+    'Liu Huo 4pc': {
+      id: 'Liu Huo 4pc',
+      displayName: 'Liu Huo 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Lyra]: {
-      id: MatrixName.Lyra,
-      displayName: MatrixName.Lyra,
+    'Lyra 4pc': {
+      id: 'Lyra 4pc',
+      displayName: 'Lyra 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Meryl]: {
-      id: MatrixName.Meryl,
-      displayName: MatrixName.Meryl,
+    'Meryl 4pc': {
+      id: 'Meryl 4pc',
+      displayName: 'Meryl 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.MingJing]: {
-      id: MatrixName.MingJing,
-      displayName: MatrixName.MingJing,
+    'Ming Jing 4pc': {
+      id: 'Ming Jing 4pc',
+      displayName: 'Ming Jing 4pc',
       pieces: 4,
       attackPercentBuffs: [
         {
@@ -759,73 +771,73 @@ export const matrix4pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Nemesis]: {
-      id: MatrixName.Nemesis,
-      displayName: MatrixName.Nemesis,
+    'Nemesis 4pc': {
+      id: 'Nemesis 4pc',
+      displayName: 'Nemesis 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Rubilia]: {
-      id: MatrixName.Rubilia,
-      displayName: MatrixName.Rubilia,
+    'Rubilia 4pc': {
+      id: 'Rubilia 4pc',
+      displayName: 'Rubilia 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Ruby]: {
-      id: MatrixName.Ruby,
-      displayName: MatrixName.Ruby,
+    'Ruby 4pc': {
+      id: 'Ruby 4pc',
+      displayName: 'Ruby 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.SakiFuwa]: {
-      id: MatrixName.SakiFuwa,
-      displayName: MatrixName.SakiFuwa,
+    'Saki Fuwa 4pc': {
+      id: 'Saki Fuwa 4pc',
+      displayName: 'Saki Fuwa 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Samir]: {
-      id: MatrixName.Samir,
-      displayName: MatrixName.Samir,
+    'Samir 4pc': {
+      id: 'Samir 4pc',
+      displayName: 'Samir 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Scylla]: {
-      id: MatrixName.Scylla,
-      displayName: MatrixName.Scylla,
+    'Scylla 4pc': {
+      id: 'Scylla 4pc',
+      displayName: 'Scylla 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Shiro]: {
-      id: MatrixName.Shiro,
-      displayName: MatrixName.Shiro,
+    'Shiro 4pc': {
+      id: 'Shiro 4pc',
+      displayName: 'Shiro 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.TianLang]: {
-      id: MatrixName.TianLang,
-      displayName: MatrixName.TianLang,
+    'Tian Lang 4pc': {
+      id: 'Tian Lang 4pc',
+      displayName: 'Tian Lang 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Tsubasa]: {
-      id: MatrixName.Tsubasa,
-      displayName: MatrixName.Tsubasa,
+    'Tsubasa 4pc': {
+      id: 'Tsubasa 4pc',
+      displayName: 'Tsubasa 4pc',
       pieces: 4,
       attackPercentBuffs: [
         {
@@ -850,25 +862,25 @@ export const matrix4pcDefinitions: Data<MatrixName, MatrixDefinition> = {
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Umi]: {
-      id: MatrixName.Umi,
-      displayName: MatrixName.Umi,
+    'Umi 4pc': {
+      id: 'Umi 4pc',
+      displayName: 'Umi 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.YuLan]: {
-      id: MatrixName.YuLan,
-      displayName: MatrixName.YuLan,
+    'Yu Lan 4pc': {
+      id: 'Yu Lan 4pc',
+      displayName: 'Yu Lan 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
       critDamageBuffs: [],
     },
-    [MatrixName.Zero]: {
-      id: MatrixName.Zero,
-      displayName: MatrixName.Zero,
+    'Zero 4pc': {
+      id: 'Zero 4pc',
+      displayName: 'Zero 4pc',
       pieces: 4,
       attackPercentBuffs: [],
       critRateBuffs: [],
