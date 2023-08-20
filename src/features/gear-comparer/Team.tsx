@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
@@ -78,8 +77,6 @@ export function Team() {
           />
         )}
       </Grid>
-
-      <Box mt={5}>{JSON.stringify(selectedElementalTeamSnap)}</Box>
     </Grid>
   );
 }

@@ -131,13 +131,15 @@ export function WeaponMatrixSetsEditor({
                 }
               }}
             />
-            {matrixSet2pc1Snap && matrixSet2pc1State && (
+            {matrixSet2pc1Snap && matrixSet2pc1State ? (
               <MatrixStarsSelector
                 stars={matrixSet2pc1Snap.stars}
                 onStarsChange={(stars) => {
                   setStars(matrixSet2pc1State, stars);
                 }}
               />
+            ) : (
+              <MatrixStarsSelector stars={0} disabled />
             )}
           </Stack>
           <Stack direction="row" alignItems="center" spacing={1}>
@@ -187,13 +189,15 @@ export function WeaponMatrixSetsEditor({
                 }
               }}
             />
-            {matrixSet2pc2Snap && matrixSet2pc2State && (
+            {matrixSet2pc2Snap && matrixSet2pc2State ? (
               <MatrixStarsSelector
                 stars={matrixSet2pc2Snap.stars}
                 onStarsChange={(stars) => {
                   setStars(matrixSet2pc2State, stars);
                 }}
               />
+            ) : (
+              <MatrixStarsSelector stars={0} disabled />
             )}
           </Stack>
         </Stack>
@@ -219,13 +223,15 @@ export function WeaponMatrixSetsEditor({
               }
             }}
           />
-          {matrixSet4pcSnap && matrixSet4pcState && (
+          {matrixSet4pcSnap && matrixSet4pcState ? (
             <MatrixStarsSelector
               stars={matrixSet4pcSnap.stars}
               onStarsChange={(stars) => {
                 setStars(matrixSet4pcState, stars);
               }}
             />
+          ) : (
+            <MatrixStarsSelector stars={0} disabled />
           )}
         </Stack>
       )}

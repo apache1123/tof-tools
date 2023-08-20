@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { GridBreak } from '../../components/GridBreak/GridBreak';
 import { initializeOCRWorker } from '../../states/ocr-temp-gear';
 import { AttackPercentBuffs } from './AttackPercentBuffs';
+import { BuffSummary } from './BuffSummary';
 import { CritDamageBuffs } from './CritDamageBuffs';
 import { CritRateBuffs } from './CritRateBuffs';
 import { ElementalDamageBuffs } from './ElementalDamageBuffs';
@@ -56,6 +57,8 @@ export function GearComparerV2() {
           <GearValue position="GearB" />
         </Grid>
       </Grid>
+
+      <BuffSummary />
 
       <Box mb={5}>
         <UserBaseStats />

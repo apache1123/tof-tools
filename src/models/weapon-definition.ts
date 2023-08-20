@@ -1,15 +1,17 @@
 import type { WeaponName } from '../constants/weapon-definitions';
-import type { ElementalResonance } from './elemental-resonance';
 import type { WeaponElementalType } from './elemental-type';
-import type { WeaponResonance } from './weapon-resonance';
+import type {
+  WeaponAttackPercentBuffDefinition,
+  WeaponCritRateBuffDefinition,
+} from './weapon-buff-definition';
 
 export interface WeaponDefinition {
   id: WeaponName;
   displayName: string;
   elementalType: WeaponElementalType;
   type: WeaponType;
-  attackPercentBuffs: WeaponAttackPercentBuff[]; // "OR" requirements
-  critRateBuffs: WeaponCritRateBuff[]; // "OR" requirements
+  attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
+  critRateBuffs: WeaponCritRateBuffDefinition[];
 }
 
 export enum WeaponType {
@@ -17,19 +19,3 @@ export enum WeaponType {
   Support = 'Support',
   Defense = 'Defense',
 }
-
-export interface WeaponBuff {
-  displayName: string;
-  description: string;
-  value: number;
-  minStarRequirement: number;
-  maxStarRequirement: number;
-  elementalResonanceRequirements?: ElementalResonance[];
-  weaponResonanceRequirements?: WeaponResonance[];
-}
-
-export interface WeaponAttackPercentBuff extends WeaponBuff {
-  elementalTypes: WeaponElementalType[] 
-}
-
-export type WeaponCritRateBuff = WeaponBuff;
