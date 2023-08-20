@@ -32,7 +32,7 @@ export function Team() {
   } = selectedElementalTeamSnap;
 
   return (
-    <Paper sx={{ px: 2, py: 4, position: 'relative' }}>
+    <Paper sx={{ px: 4, py: 4 }}>
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         justifyContent="space-evenly"

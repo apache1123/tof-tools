@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
@@ -71,7 +71,7 @@ export function WeaponMatrixSetsEditor({
     : undefined;
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={1} alignItems="center">
       <MatrixSetPiecesSelector
         matrixSetPieces={matrixSetPieces}
         onChange={(pieces) => {
@@ -83,7 +83,7 @@ export function WeaponMatrixSetsEditor({
       />
 
       {matrixSetPieces === 2 && (
-        <Stack>
+        <Box sx={{ width: '100%' }}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <MatrixSetDefinitionSelector
               options={options2pc}
@@ -200,11 +200,16 @@ export function WeaponMatrixSetsEditor({
               <MatrixStarsSelector stars={0} disabled />
             )}
           </Stack>
-        </Stack>
+        </Box>
       )}
 
       {matrixSetPieces === 4 && (
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          sx={{ width: '100%' }}
+        >
           <MatrixSetDefinitionSelector
             options={options4pc}
             selectedMatrixSetDefinition={matrixSet4pcDefinition}

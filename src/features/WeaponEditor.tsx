@@ -87,13 +87,11 @@ function Layout({
   matrixSetsEditor?: ReactNode;
 }) {
   return (
-    <Stack spacing={3}>
-      <Stack direction="row" alignItems="center" spacing={1}>
+    <Stack spacing={4} flexGrow={1}>
+      <Stack alignItems="center" spacing={1}>
         {icon}
-        <Stack spacing={1} flex={1}>
-          {definitionSelector}
-          {starsSelector}
-        </Stack>
+        {definitionSelector}
+        {starsSelector}
       </Stack>
       {matrixSetsEditor}
     </Stack>

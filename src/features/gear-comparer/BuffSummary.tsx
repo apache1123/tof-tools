@@ -1,90 +1,114 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
+import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { toPercentageString2dp } from '../../utils/number-utils';
 import { matrixSetBuffsState } from './states/derived/matrix-set-buffs';
 import { selectedElementalTeamResonancesState } from './states/derived/selected-elemental-team-resonances';
 import { weaponBuffsState } from './states/derived/weapon-buffs';
+import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export function BuffSummary() {
+  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
   const { weaponAttackPercentBuffs, weaponCritRateBuffs } =
     useSnapshot(weaponBuffsState);
-  const { matrixAttackPercentBuffs, matrixCritRateBuffs, matrixCritDamageBuffs } =
-    useSnapshot(matrixSetBuffsState);
+  const {
+    matrixAttackPercentBuffs,
+    matrixCritRateBuffs,
+    matrixCritDamageBuffs,
+  } = useSnapshot(matrixSetBuffsState);
   const { elementalResonance, weaponResonance } = useSnapshot(
     selectedElementalTeamResonancesState
   );
 
+  if (!selectedElementalType) return null;
+
   return (
-    <Paper sx={{ p: 2 }}>
-      <Stack spacing={2}>
-        <Box>
-          <Typography>Resonances</Typography>
+    <Paper sx={{ p: 4 }}>
+      <Typography variant="h5" component="h2" mb={3}>
+        Buffs included in calculations
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid xs={12} sm={6} md={4}>
+          <Typography fontWeight="bold">
+            Elemental / Weapon resonance
+          </Typography>
           <Typography>
             {elementalResonance} / {weaponResonance}
           </Typography>
-        </Box>
+        </Grid>
 
-        <Box>
-          <Typography>Attack % buffs</Typography>
+        <Grid xs={12} sm={6} md={4}>
+          <Typography fontWeight="bold">Attack % buffs</Typography>
           <Stack>
             {weaponAttackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.weaponDisplayName}: {buff.displayName} -{' '}
-                {toPercentageString2dp(buff.value)}
+                <ElementalStyledText elementalType={selectedElementalType}>
+                  {toPercentageString2dp(buff.value)}
+                </ElementalStyledText>
               </Typography>
             ))}
           </Stack>
-        </Box>
+        </Grid>
 
-        <Box>
-          <Typography>Crit rate % buffs</Typography>
+        <Grid xs={12} sm={6} md={4}>
+          <Typography fontWeight="bold">Crit rate % buffs</Typography>
           <Stack>
             {weaponCritRateBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.weaponDisplayName}: {buff.displayName} -{' '}
-                {toPercentageString2dp(buff.value)}
+                <ElementalStyledText elementalType={selectedElementalType}>
+                  {toPercentageString2dp(buff.value)}
+                </ElementalStyledText>
               </Typography>
             ))}
           </Stack>
-        </Box>
+        </Grid>
 
-        <Box>
-          <Typography>Matrix attack % buffs</Typography>
+        <Grid xs={12} sm={6} md={4}>
+          <Typography fontWeight="bold">Matrix attack % buffs</Typography>
           <Stack>
             {matrixAttackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
-                {toPercentageString2dp(buff.value)}
+                <ElementalStyledText elementalType={selectedElementalType}>
+                  {toPercentageString2dp(buff.value)}
+                </ElementalStyledText>
               </Typography>
             ))}
           </Stack>
-        </Box>
+        </Grid>
 
-        <Box>
-          <Typography>Matrix crit rate % buffs</Typography>
+        <Grid xs={12} sm={6} md={4}>
+          <Typography fontWeight="bold">Matrix crit rate % buffs</Typography>
           <Stack>
             {matrixCritRateBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
-                {toPercentageString2dp(buff.value)}
+                <ElementalStyledText elementalType={selectedElementalType}>
+                  {toPercentageString2dp(buff.value)}
+                </ElementalStyledText>
               </Typography>
             ))}
           </Stack>
-        </Box>
+        </Grid>
 
-        <Box>
-          <Typography>Matrix crit dmg % buffs</Typography>
+        <Grid xs={12} sm={6} md={4}>
+          <Typography fontWeight="bold">Matrix crit dmg % buffs</Typography>
           <Stack>
             {matrixCritDamageBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
-                {toPercentageString2dp(buff.value)}
+                <ElementalStyledText elementalType={selectedElementalType}>
+                  {toPercentageString2dp(buff.value)}
+                </ElementalStyledText>
               </Typography>
             ))}
           </Stack>
-        </Box>
-      </Stack>
+        </Grid>
+      </Grid>
     </Paper>
   );
 }

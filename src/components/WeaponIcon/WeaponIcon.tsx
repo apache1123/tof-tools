@@ -1,4 +1,5 @@
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import { Box } from '@mui/material';
 import Image from 'next/image';
 
 import type { WeaponName } from '../../constants/weapon-definitions';
@@ -23,6 +24,8 @@ export const WeaponIcon = ({ weaponName, size = 100 }: WeaponIconProps) => {
     );
   }
   return (
-    <QuestionMarkIcon width={size} height={size} sx={{ minWidth: size }} />
+    <Box minHeight={size} display="flex" alignItems="center">
+      <QuestionMarkIcon width={size} height={size} />
+    </Box>
   );
 };
