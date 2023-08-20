@@ -1,8 +1,9 @@
-import Grid from '@mui/material/Unstable_Grid2';
+import { Divider, Paper, Stack, useMediaQuery } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
 import { setWeapon1, setWeapon2, setWeapon3 } from '../../models/team';
 import { newWeapon } from '../../models/weapon';
+import theme from '../../theme';
 import { EmptyWeaponEditor, WeaponEditor } from '../WeaponEditor';
 import { selectedElementalTeamState } from './states/derived/selected-elemental-team';
 
@@ -11,6 +12,10 @@ export function Team() {
   const { selectedElementalTeam: selectedElementalTeamSnap } = useSnapshot(
     selectedElementalTeamState
   );
+
+  const stackDividerOrientation = useMediaQuery(theme.breakpoints.down('sm'))
+    ? 'horizontal'
+    : 'vertical';
 
   if (!selectedElementalTeamSnap) return null;
   if (!selectedElementalTeam) return null;
@@ -27,8 +32,17 @@ export function Team() {
   } = selectedElementalTeamSnap;
 
   return (
-    <Grid container spacing={3}>
-      <Grid xs={12} sm={4}>
+    <Paper sx={{ px: 2, py: 4, position: 'relative' }}>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        justifyContent="space-evenly"
+        spacing={5}
+        divider={
+          <Divider orientation={stackDividerOrientation} flexItem={true} />
+        }
+        useFlexGap
+        flexWrap="wrap"
+      >
         {weapon1Snap && weapon1State ? (
           <WeaponEditor
             weaponState={weapon1State}
@@ -41,8 +55,6 @@ export function Team() {
             }}
           />
         )}
-      </Grid>
-      <Grid xs={12} sm={4}>
         {weapon2Snap && weapon2State ? (
           <WeaponEditor
             weaponState={weapon2State}
@@ -55,8 +67,6 @@ export function Team() {
             }}
           />
         )}
-      </Grid>
-      <Grid xs={12} sm={4}>
         {weapon3Snap && weapon3State ? (
           <WeaponEditor
             weaponState={weapon3State}
@@ -69,7 +79,7 @@ export function Team() {
             }}
           />
         )}
-      </Grid>
-    </Grid>
+      </Stack>
+    </Paper>
   );
 }

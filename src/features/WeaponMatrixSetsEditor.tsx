@@ -71,7 +71,7 @@ export function WeaponMatrixSetsEditor({
     : undefined;
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={1}>
       <MatrixSetPiecesSelector
         matrixSetPieces={matrixSetPieces}
         onChange={(pieces) => {

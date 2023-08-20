@@ -22,5 +22,7 @@ export const WeaponIcon = ({ weaponName, size = 100 }: WeaponIconProps) => {
       ></Image>
     );
   }
-  return <QuestionMarkIcon width={size} height={size} />;
+  return (
+    <QuestionMarkIcon width={size} height={size} sx={{ minWidth: size }} />
+  );
 };
