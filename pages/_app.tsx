@@ -9,10 +9,6 @@ import * as React from 'react';
 
 import createEmotionCache from '../src/createEmotionCache';
 import {
-  buffsState,
-  buffsStateKey,
-} from '../src/features/gear-comparer/states/buffs';
-import {
   gearComparerGearsState,
   gearComparerGearsStateKey,
 } from '../src/features/gear-comparer/states/gear-comparer-gear';
@@ -54,7 +50,6 @@ export default function MyApp(props: MyAppProps) {
     userStatsStateKey,
     userStatsMigrations
   );
-  useLocalStoragePersistence(buffsState, buffsStateKey);
   useLocalStoragePersistence(
     gearComparerOptionsState,
     gearComparerOptionsStateKey

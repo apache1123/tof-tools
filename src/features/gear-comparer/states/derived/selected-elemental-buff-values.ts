@@ -1,12 +1,7 @@
 import { derive } from 'valtio/utils';
 
-import { activeMatrixAttackBuffsLookup } from '../../../../constants/matrix-attack-buffs';
-import { activeMatrixCritDamageBuffsLookup } from '../../../../constants/matrix-crit-damage-buffs';
-import { activeMatrixCritRateBuffsLookup } from '../../../../constants/matrix-crit-rate-buffs';
-import { activeWeaponAttackBuffsLookup } from '../../../../constants/weapon-attack-buffs';
-import { activeWeaponCritRateBuffsLookup } from '../../../../constants/weapon-crit-rate-buffs';
-import { getMatrixBuffValues, getWeaponBuffValues } from '../buffs';
-import { selectedElementalBuffsState } from './selected-elemental-buffs';
+import { matrixSetBuffsState } from './matrix-set-buffs';
+import { weaponBuffsState } from './weapon-buffs';
 
 export interface SelectedElementalBuffValuesState {
   weaponAttackBuffValues: number[];
@@ -21,58 +16,26 @@ export const selectedElementalBuffValuesState = derive<
   SelectedElementalBuffValuesState
 >({
   weaponAttackBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
-    if (!selectedElementalBuffs) {
-      return [];
-    }
-
-    return getWeaponBuffValues(
-      selectedElementalBuffs.weaponAttackBuffs,
-      activeWeaponAttackBuffsLookup
+    return get(weaponBuffsState).weaponAttackPercentBuffs.map(
+      (buff) => buff.value
     );
   },
   matrixAttackBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
-    if (!selectedElementalBuffs) {
-      return [];
-    }
-
-    return getMatrixBuffValues(
-      selectedElementalBuffs.matrixAttackBuffs,
-      activeMatrixAttackBuffsLookup
+    return get(matrixSetBuffsState).matrixAttackPercentBuffs.map(
+      (buff) => buff.value
     );
   },
   weaponCritRateBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
-    if (!selectedElementalBuffs) {
-      return [];
-    }
-
-    return getWeaponBuffValues(
-      selectedElementalBuffs.weaponCritRateBuffs,
-      activeWeaponCritRateBuffsLookup
-    );
+    return get(weaponBuffsState).weaponCritRateBuffs.map((buff) => buff.value);
   },
   matrixCritRateBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
-    if (!selectedElementalBuffs) {
-      return [];
-    }
-
-    return getMatrixBuffValues(
-      selectedElementalBuffs.matrixCritRateBuffs,
-      activeMatrixCritRateBuffsLookup
+    return get(matrixSetBuffsState).matrixCritRateBuffs.map(
+      (buff) => buff.value
     );
   },
   matrixCritDamageBuffValues: (get): number[] => {
-    const { selectedElementalBuffs } = get(selectedElementalBuffsState);
-    if (!selectedElementalBuffs) {
-      return [];
-    }
-
-    return getMatrixBuffValues(
-      selectedElementalBuffs.matrixCritDamageBuffs,
-      activeMatrixCritDamageBuffsLookup
+    return get(matrixSetBuffsState).matrixCritDamageBuffs.map(
+      (buff) => buff.value
     );
   },
 });
