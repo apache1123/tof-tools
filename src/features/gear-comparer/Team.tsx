@@ -1,10 +1,9 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { WeaponDefinitionSelector } from '../../components/WeaponDefinitionSelector/WeaponDefinitionSelector';
 import { setWeapon1, setWeapon2, setWeapon3 } from '../../models/team';
 import { newWeapon } from '../../models/weapon';
-import { WeaponEditor } from '../WeaponEditor';
+import { EmptyWeaponEditor, WeaponEditor } from '../WeaponEditor';
 import { selectedElementalTeamState } from './states/derived/selected-elemental-team';
 
 export function Team() {
@@ -36,11 +35,9 @@ export function Team() {
             onClearWeapon={() => setWeapon1(selectedElementalTeam, undefined)}
           />
         ) : (
-          <WeaponDefinitionSelector
-            selectedWeaponDefinition={undefined}
-            onChange={(definition) => {
-              if (definition)
-                setWeapon1(selectedElementalTeam, newWeapon(definition));
+          <EmptyWeaponEditor
+            onWeaponDefinitionChange={(definition) => {
+              setWeapon1(selectedElementalTeam, newWeapon(definition));
             }}
           />
         )}
@@ -52,11 +49,9 @@ export function Team() {
             onClearWeapon={() => setWeapon2(selectedElementalTeam, undefined)}
           />
         ) : (
-          <WeaponDefinitionSelector
-            selectedWeaponDefinition={undefined}
-            onChange={(definition) => {
-              if (definition)
-                setWeapon2(selectedElementalTeam, newWeapon(definition));
+          <EmptyWeaponEditor
+            onWeaponDefinitionChange={(definition) => {
+              setWeapon2(selectedElementalTeam, newWeapon(definition));
             }}
           />
         )}
@@ -68,11 +63,9 @@ export function Team() {
             onClearWeapon={() => setWeapon3(selectedElementalTeam, undefined)}
           />
         ) : (
-          <WeaponDefinitionSelector
-            selectedWeaponDefinition={undefined}
-            onChange={(definition) => {
-              if (definition)
-                setWeapon3(selectedElementalTeam, newWeapon(definition));
+          <EmptyWeaponEditor
+            onWeaponDefinitionChange={(definition) => {
+              setWeapon3(selectedElementalTeam, newWeapon(definition));
             }}
           />
         )}

@@ -1,10 +1,13 @@
 import { Stack } from '@mui/material';
+import type { ReactNode } from 'react';
 import { useSnapshot } from 'valtio';
 
 import { WeaponDefinitionSelector } from '../components/WeaponDefinitionSelector/WeaponDefinitionSelector';
+import { WeaponIcon } from '../components/WeaponIcon/WeaponIcon';
 import { WeaponStarsSelector } from '../components/WeaponStarsSelector.tsx/WeaponStarsSelector';
 import type { Weapon } from '../models/weapon';
 import { getDefinition, setDefinition, setStars } from '../models/weapon';
+import type { WeaponDefinition } from '../models/weapon-definition';
 import { WeaponMatrixSetsEditor } from './WeaponMatrixSetsEditor';
 
 export interface WeaponEditorProps {
@@ -20,8 +23,9 @@ export function WeaponEditor({
   const weaponDefinition = getDefinition(weaponSnap);
 
   return (
-    <Stack spacing={3}>
-      <Stack spacing={1}>
+    <Layout
+      icon={<WeaponIcon weaponName={weaponDefinition.id} />}
+      definitionSelector={
         <WeaponDefinitionSelector
           selectedWeaponDefinition={weaponDefinition}
           onChange={(definition) => {
@@ -30,14 +34,68 @@ export function WeaponEditor({
               : onClearWeapon();
           }}
         />
+      }
+      starsSelector={
         <WeaponStarsSelector
           stars={weaponSnap.stars}
           onStarsChange={(stars) => {
             setStars(weaponState, stars);
           }}
         />
+      }
+      matrixSetsEditor={
+        <WeaponMatrixSetsEditor
+          weaponMatrixSetsState={weaponState.matrixSets}
+        />
+      }
+    />
+  );
+}
+
+export interface EmptyWeaponEditorProps {
+  onWeaponDefinitionChange(weaponDefinition: WeaponDefinition): void;
+}
+
+export function EmptyWeaponEditor({
+  onWeaponDefinitionChange,
+}: EmptyWeaponEditorProps) {
+  return (
+    <Layout
+      icon={<WeaponIcon weaponName={undefined} />}
+      definitionSelector={
+        <WeaponDefinitionSelector
+          selectedWeaponDefinition={undefined}
+          onChange={(definition) => {
+            definition && onWeaponDefinitionChange(definition);
+          }}
+        />
+      }
+      starsSelector={<WeaponStarsSelector stars={0} disabled />}
+    />
+  );
+}
+
+function Layout({
+  icon,
+  definitionSelector,
+  starsSelector,
+  matrixSetsEditor,
+}: {
+  icon: ReactNode;
+  definitionSelector: ReactNode;
+  starsSelector: ReactNode;
+  matrixSetsEditor?: ReactNode;
+}) {
+  return (
+    <Stack spacing={3}>
+      <Stack direction="row" alignItems="center" spacing={1}>
+        {icon}
+        <Stack spacing={1} flex={1}>
+          {definitionSelector}
+          {starsSelector}
+        </Stack>
       </Stack>
-      <WeaponMatrixSetsEditor weaponMatrixSetsState={weaponState.matrixSets} />
+      {matrixSetsEditor}
     </Stack>
   );
 }
