@@ -44,7 +44,15 @@ export function BuffSummary() {
           <Stack>
             {weaponAttackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
-                {buff.weaponDisplayName}: {buff.displayName} -{' '}
+                {buff.weaponDisplayName} - {buff.displayName} :{' '}
+                <ElementalStyledText elementalType={selectedElementalType}>
+                  {toPercentageString2dp(buff.value)}
+                </ElementalStyledText>
+              </Typography>
+            ))}
+            {matrixAttackPercentBuffs.map((buff, i) => (
+              <Typography key={i}>
+                {buff.matrixSetDisplayName} {buff.stars}*:{' '}
                 <ElementalStyledText elementalType={selectedElementalType}>
                   {toPercentageString2dp(buff.value)}
                 </ElementalStyledText>
@@ -58,32 +66,12 @@ export function BuffSummary() {
           <Stack>
             {weaponCritRateBuffs.map((buff, i) => (
               <Typography key={i}>
-                {buff.weaponDisplayName}: {buff.displayName} -{' '}
+                {buff.weaponDisplayName} - {buff.displayName} :{' '}
                 <ElementalStyledText elementalType={selectedElementalType}>
                   {toPercentageString2dp(buff.value)}
                 </ElementalStyledText>
               </Typography>
             ))}
-          </Stack>
-        </Grid>
-
-        <Grid xs={12} sm={6} md={4}>
-          <Typography fontWeight="bold">Matrix attack % buffs</Typography>
-          <Stack>
-            {matrixAttackPercentBuffs.map((buff, i) => (
-              <Typography key={i}>
-                {buff.matrixSetDisplayName} {buff.stars}*:{' '}
-                <ElementalStyledText elementalType={selectedElementalType}>
-                  {toPercentageString2dp(buff.value)}
-                </ElementalStyledText>
-              </Typography>
-            ))}
-          </Stack>
-        </Grid>
-
-        <Grid xs={12} sm={6} md={4}>
-          <Typography fontWeight="bold">Matrix crit rate % buffs</Typography>
-          <Stack>
             {matrixCritRateBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
@@ -96,7 +84,7 @@ export function BuffSummary() {
         </Grid>
 
         <Grid xs={12} sm={6} md={4}>
-          <Typography fontWeight="bold">Matrix crit dmg % buffs</Typography>
+          <Typography fontWeight="bold">Crit dmg % buffs</Typography>
           <Stack>
             {matrixCritDamageBuffs.map((buff, i) => (
               <Typography key={i}>

@@ -1,12 +1,16 @@
-import { derive } from "valtio/utils";
+import { derive } from 'valtio/utils';
 
-import type { TeamResonances } from "../../../../models/team-resonances";
-import { getDefinition, type Weapon } from "../../../../models/weapon";
-import type { WeaponAttackPercentBuff, WeaponCritRateBuff } from "../../../../models/weapon-buff";
-import type { WeaponBuffDefinition } from "../../../../models/weapon-buff-definition";
-import { gearComparerOptionsState } from "../gear-comparer-options";
-import { selectedElementalTeamState } from "./selected-elemental-team";
-import { selectedElementalTeamResonancesState } from "./selected-elemental-team-resonances";
+import type { TeamResonances } from '../../../../models/team-resonances';
+import { getDefinition, type Weapon } from '../../../../models/weapon';
+import type {
+  WeaponAttackPercentBuff,
+  WeaponBuff,
+  WeaponCritRateBuff,
+} from '../../../../models/weapon-buff';
+import type { WeaponBuffDefinition } from '../../../../models/weapon-buff-definition';
+import { gearComparerOptionsState } from '../gear-comparer-options';
+import { selectedElementalTeamState } from './selected-elemental-team';
+import { selectedElementalTeamResonancesState } from './selected-elemental-team-resonances';
 
 export interface WeaponBuffsState {
   weaponAttackPercentBuffs: WeaponAttackPercentBuff[];
@@ -28,18 +32,31 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
 
       const weaponDefinition = getDefinition(weapon);
       weaponDefinition.attackPercentBuffs.forEach((buffDefinition) => {
-        if (!hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)) return;
-        if (!buffDefinition.elementalTypes.includes(selectedElementalType)) return;
+        if (
+          !hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)
+        )
+          return;
+        if (!buffDefinition.elementalTypes.includes(selectedElementalType))
+          return;
 
-        const { description, displayName, value, elementalTypes } = buffDefinition;
-        buffs.push({
+        const {
+          id,
+          description,
+          displayName,
+          value,
+          elementalTypes,
+          canStack,
+        } = buffDefinition;
+        const buff: WeaponAttackPercentBuff = {
+          id,
           description,
           displayName,
           value,
           elementalTypes,
           weaponId: weaponDefinition.id,
           weaponDisplayName: weaponDefinition.displayName,
-        });
+        };
+        addBuff(buff, buffs, canStack);
       });
     });
 
@@ -58,22 +75,28 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
 
       const weaponDefinition = getDefinition(weapon);
       weaponDefinition.critRateBuffs.forEach((buffDefinition) => {
-        if (!hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)) return;
+        if (
+          !hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)
+        )
+          return;
 
-        const { description, displayName, value } = buffDefinition;
-        buffs.push({
+        const { id, description, displayName, value, canStack } =
+          buffDefinition;
+        const buff: WeaponCritRateBuff = {
+          id,
           description,
           displayName,
           value,
           weaponId: weaponDefinition.id,
           weaponDisplayName: weaponDefinition.displayName,
-        });
+        };
+        addBuff(buff, buffs, canStack);
       });
     });
 
     return buffs;
   },
-})
+});
 
 function hasMetWeaponBuffRequirements(
   buffDefinition: WeaponBuffDefinition,
@@ -103,4 +126,19 @@ function hasMetWeaponBuffRequirements(
     return false;
 
   return true;
+}
+
+function addBuff(
+  buff: WeaponBuff,
+  collection: WeaponBuff[],
+  canStack: boolean
+) {
+  if (canStack) {
+    collection.push(buff);
+  } else {
+    const duplicate = collection.find((addedBuff) => addedBuff.id === buff.id);
+    if (!duplicate) {
+      collection.push(buff);
+    }
+  }
 }

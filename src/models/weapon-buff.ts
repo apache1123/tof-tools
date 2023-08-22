@@ -5,7 +5,7 @@ import type {
 } from './weapon-buff-definition';
 
 export interface WeaponBuff
-  extends Pick<WeaponBuffDefinition, 'displayName' | 'description' | 'value'> {
+  extends Pick<WeaponBuffDefinition, 'id'| 'displayName' | 'description' | 'value'> {
   weaponId: WeaponName;
   weaponDisplayName: string;
 }
