@@ -2,20 +2,24 @@ import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { MatrixSetDefinitionSelector } from '../components/MatrixSetDefinitionSelector/MatrixSetDefinitionSelector';
+import {
+  MatrixSet2pcDefinitionSelector,
+  MatrixSet4pcDefinitionSelector,
+} from '../components/MatrixSetDefinitionSelector/MatrixSetDefinitionSelector';
 import { MatrixSetPiecesSelector } from '../components/MatrixSetPiecesSelector/MatrixSetPiecesSelector';
 import { MatrixStarsSelector } from '../components/MatrixStarsSelector/MatrixStarsSelector';
-import {
-  matrixSet2pcDefinitions,
-  matrixSet4pcDefinitions,
-} from '../constants/matrix-set-definitions';
 import {
   getDefinition,
   newMatrixSet,
   setDefinition,
   setStars,
 } from '../models/matrix-set';
-import type { MatrixSetPieces } from '../models/matrix-set-definition';
+import type { MatrixSet2pcName } from '../models/matrix-set-definition';
+import {
+  getMatrixSet2pcTo4pcName,
+  getMatrixSetDefinition,
+  type MatrixSetPieces,
+} from '../models/matrix-set-definition';
 import type { WeaponMatrixSets } from '../models/weapon-matrix-sets';
 import {
   clearMatrixSet2pc1,
@@ -29,13 +33,6 @@ import {
 export interface WeaponMatrixSetsEditorProps {
   weaponMatrixSetsState: WeaponMatrixSets;
 }
-
-const options2pc = matrixSet2pcDefinitions.allIds.map(
-  (id) => matrixSet2pcDefinitions.byId[id]
-);
-const options4pc = matrixSet4pcDefinitions.allIds.map(
-  (id) => matrixSet4pcDefinitions.byId[id]
-);
 
 export function WeaponMatrixSetsEditor({
   weaponMatrixSetsState,
@@ -85,30 +82,25 @@ export function WeaponMatrixSetsEditor({
       {matrixSetPieces === 2 && (
         <Box sx={{ width: '100%' }}>
           <Stack direction="row" alignItems="center" spacing={1}>
-            <MatrixSetDefinitionSelector
-              options={options2pc}
+            <MatrixSet2pcDefinitionSelector
               selectedMatrixSetDefinition={matrixSet2pc1Definition}
               onChange={(definition) => {
                 if (
                   definition &&
                   definition.id === matrixSet2pc2Definition?.id
                 ) {
-                  const corresponding4pcDefinition =
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    matrixSet4pcDefinitions.byId[
-                      definition.id.replace('2pc', '4pc')
-                    ];
+                  const counterpart4pcName = getMatrixSet2pcTo4pcName(
+                    definition.id as MatrixSet2pcName
+                  );
+                  const counterpart4pcDefinition =
+                    getMatrixSetDefinition(counterpart4pcName);
 
                   if (matrixSet4pcState) {
-                    setDefinition(
-                      matrixSet4pcState,
-                      corresponding4pcDefinition
-                    );
+                    setDefinition(matrixSet4pcState, counterpart4pcDefinition);
                   } else {
                     setMatrixSet4pc(
                       weaponMatrixSetsState,
-                      newMatrixSet(corresponding4pcDefinition)
+                      newMatrixSet(counterpart4pcDefinition)
                     );
                   }
 
@@ -143,30 +135,25 @@ export function WeaponMatrixSetsEditor({
             )}
           </Stack>
           <Stack direction="row" alignItems="center" spacing={1}>
-            <MatrixSetDefinitionSelector
-              options={options2pc}
+            <MatrixSet2pcDefinitionSelector
               selectedMatrixSetDefinition={matrixSet2pc2Definition}
               onChange={(definition) => {
                 if (
                   definition &&
                   definition.id === matrixSet2pc1Definition?.id
                 ) {
-                  const corresponding4pcDefinition =
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    matrixSet4pcDefinitions.byId[
-                      definition.id.replace('2pc', '4pc')
-                    ];
+                  const counterpart4pcName = getMatrixSet2pcTo4pcName(
+                    definition.id as MatrixSet2pcName
+                  );
+                  const counterpart4pcDefinition =
+                    getMatrixSetDefinition(counterpart4pcName);
 
                   if (matrixSet4pcState) {
-                    setDefinition(
-                      matrixSet4pcState,
-                      corresponding4pcDefinition
-                    );
+                    setDefinition(matrixSet4pcState, counterpart4pcDefinition);
                   } else {
                     setMatrixSet4pc(
                       weaponMatrixSetsState,
-                      newMatrixSet(corresponding4pcDefinition)
+                      newMatrixSet(counterpart4pcDefinition)
                     );
                   }
 
@@ -210,8 +197,7 @@ export function WeaponMatrixSetsEditor({
           spacing={1}
           sx={{ width: '100%' }}
         >
-          <MatrixSetDefinitionSelector
-            options={options4pc}
+          <MatrixSet4pcDefinitionSelector
             selectedMatrixSetDefinition={matrixSet4pcDefinition}
             onChange={(definition) => {
               if (definition) {

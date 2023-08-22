@@ -1,15 +1,11 @@
+import type { MatrixSetName } from './matrix-set-definition';
 import {
-  matrixSet2pcDefinitions,
-  matrixSet4pcDefinitions,
-} from '../constants/matrix-set-definitions';
-import type {
-  MatrixSet2pcName,
-  MatrixSet4pcName,
-  MatrixSetDefinition,
+  getMatrixSetDefinition,
+  type MatrixSetDefinition,
 } from './matrix-set-definition';
 
 export interface MatrixSet {
-  definitionId: MatrixSet2pcName | MatrixSet4pcName;
+  definitionId: MatrixSetName;
   stars: number;
 }
 
@@ -22,14 +18,7 @@ export function newMatrixSet(definition: MatrixSetDefinition): MatrixSet {
 
 export function getDefinition(matrixSet: MatrixSet): MatrixSetDefinition {
   const { definitionId } = matrixSet;
-  return (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    matrixSet4pcDefinitions.byId[definitionId] ??
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    matrixSet2pcDefinitions.byId[definitionId]
-  );
+  return getMatrixSetDefinition(definitionId);
 }
 export function setDefinition(
   matrixSet: MatrixSet,

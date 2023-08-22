@@ -1,14 +1,60 @@
 import { Autocomplete, TextField } from '@mui/material';
 
-import type { MatrixSetDefinition } from '../../models/matrix-set-definition';
+import {
+  matrixSet2pcOrder,
+  matrixSet4pcOrder,
+} from '../../constants/matrix-set-definitions';
+import {
+  getMatrixSetDefinition,
+  type MatrixSetDefinition,
+} from '../../models/matrix-set-definition';
 
-export interface MatrixSetDefinitionSelectorProps {
+const options2pc = matrixSet2pcOrder.map((id) => getMatrixSetDefinition(id));
+const options4pc = matrixSet4pcOrder.map((id) => getMatrixSetDefinition(id));
+
+export interface MatrixSet2pcDefinitionSelectorProps {
+  selectedMatrixSetDefinition: MatrixSetDefinition | undefined;
+  onChange(matrixSetDefinition: MatrixSetDefinition | undefined): void;
+}
+
+export function MatrixSet2pcDefinitionSelector({
+  selectedMatrixSetDefinition,
+  onChange,
+}: MatrixSet2pcDefinitionSelectorProps) {
+  return (
+    <MatrixSetDefinitionSelector
+      options={options2pc}
+      selectedMatrixSetDefinition={selectedMatrixSetDefinition}
+      onChange={onChange}
+    />
+  );
+}
+
+export interface MatrixSet4pcDefinitionSelectorProps {
+  selectedMatrixSetDefinition: MatrixSetDefinition | undefined;
+  onChange(matrixSetDefinition: MatrixSetDefinition | undefined): void;
+}
+
+export function MatrixSet4pcDefinitionSelector({
+  selectedMatrixSetDefinition,
+  onChange,
+}: MatrixSet4pcDefinitionSelectorProps) {
+  return (
+    <MatrixSetDefinitionSelector
+      options={options4pc}
+      selectedMatrixSetDefinition={selectedMatrixSetDefinition}
+      onChange={onChange}
+    />
+  );
+}
+
+interface MatrixSetDefinitionSelectorProps {
   options: MatrixSetDefinition[];
   selectedMatrixSetDefinition: MatrixSetDefinition | undefined;
   onChange(matrixSetDefinition: MatrixSetDefinition | undefined): void;
 }
 
-export function MatrixSetDefinitionSelector({
+function MatrixSetDefinitionSelector({
   options,
   selectedMatrixSetDefinition,
   onChange,
