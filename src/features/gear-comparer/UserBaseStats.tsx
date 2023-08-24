@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography } from '@mui/material';
+import { Box, Paper, Tooltip, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
@@ -40,7 +40,7 @@ export function UserBaseStats() {
   } = selectedElementalUserStats;
 
   return (
-    <>
+    <Paper sx={{ p: 2 }}>
       <Typography variant="h5" component="h2" gutterBottom>
         Your stats
       </Typography>
@@ -223,6 +223,6 @@ export function UserBaseStats() {
           />
         </Grid>
       </Grid>
-    </>
+    </Paper>
   );
 }

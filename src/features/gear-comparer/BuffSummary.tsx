@@ -28,7 +28,7 @@ export function BuffSummary() {
   if (!selectedElementalType) return null;
 
   return (
-    <Paper sx={{ p: 4 }}>
+    <>
       <Typography variant="h5" component="h2" mb={3}>
         Buffs included in calculations
       </Typography>
@@ -123,6 +123,6 @@ export function BuffSummary() {
           </Typography>
         </Grid>
       </Grid>
-    </Paper>
+    </>
   );
 }
