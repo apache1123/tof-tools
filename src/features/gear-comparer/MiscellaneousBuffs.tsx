@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
@@ -30,63 +30,58 @@ export function MiscellaneousBuffs() {
   } = selectedElementalUserStats;
 
   return (
-    <Paper sx={{ p: 2 }}>
-      <>
-        <Typography variant="h5" component="h2" gutterBottom>
-          Miscellaneous buffs
-        </Typography>
-        <Typography variant="subtitle2" gutterBottom>
-          Input any other buffs that aren&apos;t shown above even after putting
-          in your weapons & matrices
-        </Typography>
+    <>
+      <Typography variant="subtitle2" gutterBottom>
+        Input any other buffs that aren&apos;t shown above even after putting in
+        your weapons & matrices
+      </Typography>
 
-        <Grid container spacing={2} mt={2}>
-          <Grid xs={12} sm={6} md={4} lg={3}>
-            <PercentageNumericInput
-              id="other-gear-elemental-damage"
-              label={
-                'Damage %' +
-                (selectedElementalType ? ` (${selectedElementalType})` : '') +
-                ' from all other gear pieces'
-              }
-              variant="filled"
-              value={otherGearElementalDamage}
-              onChange={setOtherGearElementalDamage}
-              helperText="Add up values from all other gear pieces"
-            />
-          </Grid>
-
-          <Grid xs={12} sm={6} md={4} lg={3}>
-            <PercentageNumericInput
-              id="misc-atk-percent"
-              label="Misc. attack % buffs"
-              variant="filled"
-              value={miscAttackPercent}
-              onChange={setMiscAttackPercent}
-            />
-          </Grid>
-
-          <Grid xs={12} sm={6} md={4} lg={3}>
-            <PercentageNumericInput
-              id="misc-crit-rate"
-              label="Misc. crit rate % buffs"
-              variant="filled"
-              value={miscCritRate}
-              onChange={setMiscCritRate}
-            />
-          </Grid>
-
-          <Grid xs={12} sm={6} md={4} lg={3}>
-            <PercentageNumericInput
-              id="misc-crit-damage"
-              label="Misc. crit damage % buffs"
-              variant="filled"
-              value={miscCritDamage}
-              onChange={setMiscCritDamage}
-            />
-          </Grid>
+      <Grid container spacing={2} mt={2}>
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <PercentageNumericInput
+            id="other-gear-elemental-damage"
+            label={
+              'Damage %' +
+              (selectedElementalType ? ` (${selectedElementalType})` : '') +
+              ' from all other gear pieces'
+            }
+            variant="filled"
+            value={otherGearElementalDamage}
+            onChange={setOtherGearElementalDamage}
+            helperText="Add up values from all other gear pieces"
+          />
         </Grid>
-      </>
-    </Paper>
+
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <PercentageNumericInput
+            id="misc-atk-percent"
+            label="Misc. attack % buffs"
+            variant="filled"
+            value={miscAttackPercent}
+            onChange={setMiscAttackPercent}
+          />
+        </Grid>
+
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <PercentageNumericInput
+            id="misc-crit-rate"
+            label="Misc. crit rate % buffs"
+            variant="filled"
+            value={miscCritRate}
+            onChange={setMiscCritRate}
+          />
+        </Grid>
+
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <PercentageNumericInput
+            id="misc-crit-damage"
+            label="Misc. crit damage % buffs"
+            variant="filled"
+            value={miscCritDamage}
+            onChange={setMiscCritDamage}
+          />
+        </Grid>
+      </Grid>
+    </>
   );
 }

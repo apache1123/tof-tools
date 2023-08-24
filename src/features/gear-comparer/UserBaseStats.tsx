@@ -1,4 +1,4 @@
-import { Box, Paper, Tooltip, Typography } from '@mui/material';
+import { Box, Tooltip, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
@@ -40,17 +40,14 @@ export function UserBaseStats() {
   } = selectedElementalUserStats;
 
   return (
-    <Paper sx={{ p: 2 }}>
-      <Typography variant="h5" component="h2" gutterBottom>
-        Your stats
-      </Typography>
+    <>
       <Typography
         variant="subtitle2"
         sx={{ color: 'warning.main' }}
         gutterBottom
       >
         Fill these in with your <u>current</u> gear equipped (the left/first
-        gear above)
+        gear below)
       </Typography>
 
       <Grid container spacing={2}>
@@ -106,7 +103,7 @@ export function UserBaseStats() {
                 }
               >
                 <span>
-                  Hover for example. If you&apos;re using{' '}
+                  If you&apos;re using{' '}
                   <Typography
                     variant="inherit"
                     component="span"
@@ -115,7 +112,7 @@ export function UserBaseStats() {
                   >
                     Lyra, Rubilia or Ming Jing
                   </Typography>{' '}
-                  matrices, make sure they are active.
+                  matrices, make sure they are active. Hover for example
                 </span>
               </Tooltip>
             }
@@ -166,7 +163,7 @@ export function UserBaseStats() {
                 }
               >
                 <span>
-                  Hover for example. If you&apos;re using{' '}
+                  If you&apos;re using{' '}
                   <Typography
                     variant="inherit"
                     component="span"
@@ -175,7 +172,7 @@ export function UserBaseStats() {
                   >
                     Fenrir
                   </Typography>{' '}
-                  matrices, make sure they are active.
+                  matrices, make sure they are active. Hover for example
                 </span>
               </Tooltip>
             }
@@ -223,6 +220,6 @@ export function UserBaseStats() {
           />
         </Grid>
       </Grid>
-    </Paper>
+    </>
   );
 }

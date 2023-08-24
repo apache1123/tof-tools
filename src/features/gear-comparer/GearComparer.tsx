@@ -1,4 +1,14 @@
-import { Box, Divider, Link, Paper, Stack, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Divider,
+  Link,
+  Paper,
+  Typography,
+} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
 
@@ -20,58 +30,85 @@ export function GearComparer() {
 
   return (
     <>
-      <Stack spacing={3}>
-        <Paper sx={{ p: 2 }}>
-          <>
-            <Box mb={3}>
-              <GearComparerOptions />
-            </Box>
+      <Paper sx={{ p: 2 }} elevation={0}>
+        <>
+          <Box mb={3}>
+            <GearComparerOptions />
+          </Box>
 
-            <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
+          <Box mb={5}>
+            <Accordion defaultExpanded elevation={2}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="user-stats-panel-content"
+                id="user-stats-panel-header"
+              >
+                <Typography fontWeight="bold">Your stats</Typography>
+              </AccordionSummary>
+              <AccordionDetails data-testid="user-stats-panel-content">
+                <UserBaseStats />
+              </AccordionDetails>
+            </Accordion>
+            <Accordion defaultExpanded elevation={2}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="team-panel-content"
+                id="team-panel-header"
+              >
+                <Typography fontWeight="bold">Weapons & Matrices</Typography>
+              </AccordionSummary>
+              <AccordionDetails data-testid="team-panel-content">
+                <Team />
+              </AccordionDetails>
+            </Accordion>
+          </Box>
+
+          <Divider sx={{ my: 3 }} />
+
+          <Grid container spacing={3}>
+            <Grid xs={12} md={6}>
+              <Typography variant="h5" mb={1}>
+                Current gear
+              </Typography>
+              <GearComparerGear position="GearA" />
+            </Grid>
+            <Grid xs={12} md={6}>
+              <Box display="flex" justifyContent="space-between">
                 <Typography variant="h5" mb={1}>
-                  Current gear
+                  New gear
                 </Typography>
-                <GearComparerGear position="GearA" />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <Box display="flex" justifyContent="space-between">
-                  <Typography variant="h5" mb={1}>
-                    New gear
-                  </Typography>
-                  <GearComparerGearSwap />
-                </Box>
-                <GearComparerGear position="GearB" />
-              </Grid>
-
-              <GridBreak />
-
-              <Grid xs={12} md={6}>
-                <GearValue position="GearA" />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <GearValue position="GearB" />
-              </Grid>
+                <GearComparerGearSwap />
+              </Box>
+              <GearComparerGear position="GearB" />
             </Grid>
 
-            <Divider sx={{ my: 5 }} />
+            <GridBreak />
 
-            <BuffSummary />
-          </>
-        </Paper>
+            <Grid xs={12} md={6}>
+              <GearValue position="GearA" />
+            </Grid>
+            <Grid xs={12} md={6}>
+              <GearValue position="GearB" />
+            </Grid>
+          </Grid>
 
-        <Box>
-          <UserBaseStats />
-        </Box>
+          <Divider sx={{ my: 5 }} />
 
-        <Box>
-          <Team />
-        </Box>
-
-        <Box>
-          <MiscellaneousBuffs />
-        </Box>
-      </Stack>
+          <BuffSummary />
+          <Accordion elevation={2} sx={{ mt: 2 }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="misc-buffs-panel-content"
+              id="misc-buffs-panel-header"
+            >
+              <Typography>Miscellaneous buffs</Typography>
+            </AccordionSummary>
+            <AccordionDetails data-testid="misc-buffs-panel-content">
+              <MiscellaneousBuffs />
+            </AccordionDetails>
+          </Accordion>
+        </>
+      </Paper>
 
       <Box mt={10} textAlign="center">
         <Typography variant="body2">

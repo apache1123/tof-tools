@@ -232,7 +232,7 @@ function Layout({
   summary: ReactNode;
 }) {
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={{ p: 2 }} elevation={2}>
       <Grid container spacing={2} mb={2}>
         <Grid maxWidth={90} display="flex" alignItems="center">
           {typeIcon}
