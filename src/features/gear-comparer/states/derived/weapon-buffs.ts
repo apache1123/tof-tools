@@ -45,6 +45,7 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
           displayName,
           value,
           elementalTypes,
+          isActivePassively,
           canStack,
         } = buffDefinition;
         const buff: WeaponAttackPercentBuff = {
@@ -53,6 +54,7 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
           displayName,
           value,
           elementalTypes,
+          isActivePassively,
           weaponId: weaponDefinition.id,
           weaponDisplayName: weaponDefinition.displayName,
         };
@@ -80,13 +82,14 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
         )
           return;
 
-        const { id, description, displayName, value, canStack } =
+        const { id, description, displayName, value, canStack, isActivePassively } =
           buffDefinition;
         const buff: WeaponCritRateBuff = {
           id,
           description,
           displayName,
           value,
+          isActivePassively,
           weaponId: weaponDefinition.id,
           weaponDisplayName: weaponDefinition.displayName,
         };

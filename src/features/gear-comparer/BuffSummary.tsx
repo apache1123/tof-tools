@@ -1,9 +1,10 @@
-import { Paper, Stack, Typography } from '@mui/material';
+import { Divider, Paper, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { toPercentageString2dp } from '../../utils/number-utils';
+import { buffTotalsState } from './states/derived/buff-totals';
 import { matrixSetBuffsState } from './states/derived/matrix-set-buffs';
 import { selectedElementalTeamResonancesState } from './states/derived/selected-elemental-team-resonances';
 import { weaponBuffsState } from './states/derived/weapon-buffs';
@@ -18,6 +19,8 @@ export function BuffSummary() {
     matrixCritRateBuffs,
     matrixCritDamageBuffs,
   } = useSnapshot(matrixSetBuffsState);
+  const { attackBuffTotal, critRateBuffTotal, critDamageBuffTotal } =
+    useSnapshot(buffTotalsState);
   const { elementalResonance, weaponResonance } = useSnapshot(
     selectedElementalTeamResonancesState
   );
@@ -29,18 +32,16 @@ export function BuffSummary() {
       <Typography variant="h5" component="h2" mb={3}>
         Buffs included in calculations
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid xs={12} sm={6} md={4}>
-          <Typography fontWeight="bold">
-            Elemental / Weapon resonance
-          </Typography>
-          <Typography>
-            {elementalResonance} / {weaponResonance}
-          </Typography>
-        </Grid>
-
-        <Grid xs={12} sm={6} md={4}>
-          <Typography fontWeight="bold">Attack % buffs</Typography>
+          <Divider sx={{ my: 1 }}>
+            <Typography fontWeight="bold">
+              Attack % buffs total{' '}
+              <ElementalStyledText elementalType={selectedElementalType}>
+                {toPercentageString2dp(attackBuffTotal)}
+              </ElementalStyledText>
+            </Typography>
+          </Divider>
           <Stack>
             {weaponAttackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
@@ -62,7 +63,15 @@ export function BuffSummary() {
         </Grid>
 
         <Grid xs={12} sm={6} md={4}>
-          <Typography fontWeight="bold">Crit rate % buffs</Typography>
+          <Divider sx={{ my: 1 }}>
+            <Typography fontWeight="bold">
+              Crit rate % buffs total{' '}
+              <ElementalStyledText elementalType={selectedElementalType}>
+                {' '}
+                {toPercentageString2dp(critRateBuffTotal)}
+              </ElementalStyledText>
+            </Typography>
+          </Divider>
           <Stack>
             {weaponCritRateBuffs.map((buff, i) => (
               <Typography key={i}>
@@ -84,7 +93,15 @@ export function BuffSummary() {
         </Grid>
 
         <Grid xs={12} sm={6} md={4}>
-          <Typography fontWeight="bold">Crit dmg % buffs</Typography>
+          <Divider sx={{ my: 1 }}>
+            <Typography fontWeight="bold">
+              Crit damage % buffs total{' '}
+              <ElementalStyledText elementalType={selectedElementalType}>
+                {' '}
+                {toPercentageString2dp(critDamageBuffTotal)}{' '}
+              </ElementalStyledText>
+            </Typography>
+          </Divider>
           <Stack>
             {matrixCritDamageBuffs.map((buff, i) => (
               <Typography key={i}>
@@ -95,6 +112,15 @@ export function BuffSummary() {
               </Typography>
             ))}
           </Stack>
+        </Grid>
+
+        <Grid xs={12} sm={6} md={4}>
+          <Typography fontWeight="bold">
+            Elemental / Weapon resonance
+          </Typography>
+          <Typography>
+            {elementalResonance} / {weaponResonance}
+          </Typography>
         </Grid>
       </Grid>
     </Paper>

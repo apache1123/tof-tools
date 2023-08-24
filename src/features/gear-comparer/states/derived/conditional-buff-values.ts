@@ -1,4 +1,4 @@
-import { derive } from 'valtio/utils';
+import { derive, devtools } from 'valtio/utils';
 
 import type { MatrixSetBuff } from '../../../../models/matrix-set-buff';
 import type { WeaponBuff } from '../../../../models/weapon-buff';
@@ -43,6 +43,7 @@ export const conditionalBuffValuesState = derive<
       .map(mapBuffValue);
   },
 });
+devtools(conditionalBuffValuesState, { name: 'conditionalBuffValues' });
 
 function isConditionalBuff(buff: WeaponBuff | MatrixSetBuff): boolean {
   return !buff.isActivePassively;
