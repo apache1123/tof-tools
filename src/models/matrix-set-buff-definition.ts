@@ -10,7 +10,7 @@ export interface MatrixSetBuffDefinition {
     { star: 3; value: number }
   ];
   canStack: boolean;
-  isActivePassively: boolean; // always active and is included in the relevant stat in the character sheet naturally
+  isActivePassively: boolean; // always active and is included in the relevant stat in the character sheet naturally. The opposite of this is "conditional" buff
   elementalWeaponsRequirements?: {
     weaponElementalType: WeaponElementalType;
     minNumOfWeapons: 1 | 2 | 3;

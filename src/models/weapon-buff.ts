@@ -5,7 +5,7 @@ import type {
 } from './weapon-buff-definition';
 
 export interface WeaponBuff
-  extends Pick<WeaponBuffDefinition, 'id'| 'displayName' | 'description' | 'value'> {
+  extends Pick<WeaponBuffDefinition, 'id'| 'displayName' | 'description' | 'value' | 'isActivePassively'> {
   weaponId: WeaponName;
   weaponDisplayName: string;
 }
