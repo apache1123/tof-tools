@@ -253,18 +253,7 @@ export function getMaxTitanGear(
   setMaxAugmentIncrease(maxTitanGear.randomStats);
   setMaxAugmentIncrease(maxTitanGear.augmentStats);
 
-  const highestRandomStat = maxTitanGear.randomStats.find(
-    (randomStat) => randomStat?.typeId === highestStatName
-  );
-  if (highestRandomStat) {
-    const totalValueWithAugment = getTotalValueWithAugment(highestRandomStat);
-    const pullUpToValue = BigNumber(totalValueWithAugment).times(
-      augmentStatsPullUpFactor
-    );
-
-    pullUpStatsValueIfApplicable(maxTitanGear.randomStats, pullUpToValue);
-    pullUpStatsValueIfApplicable(maxTitanGear.augmentStats, pullUpToValue);
-  }
+  pullUpStatsValueIfApplicable();
 
   setIsAugmented(maxTitanGear, true);
   setIsTitan(maxTitanGear, true);
@@ -296,14 +285,31 @@ export function getMaxTitanGear(
     });
   }
 
-  function pullUpStatsValueIfApplicable(
-    stats: (RandomStat | undefined)[],
-    pullUpToValue: BigNumber
-  ) {
-    stats.forEach((stat) => {
-      if (stat && prioritizedStatNames.includes(stat.typeId)) {
-        const { value } = stat;
-        setAugmentIncreaseValue(stat, pullUpToValue.minus(value).toNumber());
+  function pullUpStatsValueIfApplicable() {
+    const allStats = maxTitanGear.randomStats.concat(maxTitanGear.augmentStats);
+    allStats.forEach((stat1) => {
+      if (stat1) {
+        const pullUpStatCandidates =
+          prioritizedAugmentationStatTypesLookup[stat1.typeId]
+            ?.prioritizedStatTypes ?? [];
+        const totalValueWithAugment = getTotalValueWithAugment(stat1);
+        
+        allStats.forEach((stat2) => {
+          if (
+            stat2 &&
+            stat2 !== stat1 &&
+            pullUpStatCandidates.includes(stat2.typeId) &&
+            totalValueWithAugment > getTotalValueWithAugment(stat2)
+            ) {
+            const pullUpToValue = BigNumber(totalValueWithAugment).times(
+              augmentStatsPullUpFactor
+            );
+            setAugmentIncreaseValue(
+              stat2,
+              pullUpToValue.minus(stat2.value).toNumber()
+            );
+          }
+        });
       }
     });
   }
