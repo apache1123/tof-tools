@@ -122,10 +122,7 @@ function getBasisValues(
 
   const { characterLevel } = userStatsSnap;
   const basisCritTotalPercent = additiveSum([
-    calculateCritPercentFromFlat(
-      BigNumber(basisCritFlat),
-      BigNumber(characterLevel)
-    ).toNumber(),
+    calculateCritPercentFromFlat(basisCritFlat, characterLevel),
     basisCritPercent,
   ]).toNumber();
 
