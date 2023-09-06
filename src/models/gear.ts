@@ -15,7 +15,7 @@ import { statTypesLookup } from '../constants/stat-types';
 import { cartesian } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
 import { type AugmentStat, newAugmentStat } from './augment-stat';
-import type { CoreElementalType } from './elemental-type';
+import { type CoreElementalType, ElementalType } from './elemental-type';
 import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
@@ -33,7 +33,6 @@ import {
 } from './random-stat';
 import type { StatName, StatType } from './stat-type';
 import {
-  ElementalType,
   isCritFlat,
   isCritPercent,
   isElementalAttackFlat,
