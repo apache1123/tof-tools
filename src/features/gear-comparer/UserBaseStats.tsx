@@ -198,7 +198,18 @@ export function UserBaseStats() {
                   />
                 }
               >
-                <span>Hover for example</span>
+                <span>
+                  If you&apos;re using{' '}
+                  <Typography
+                    variant="inherit"
+                    component="span"
+                    color="info.main"
+                    fontWeight="bold"
+                  >
+                    Scylla
+                  </Typography>{' '}
+                  matrices, make sure they are active. Hover for example
+                </span>
               </Tooltip>
             }
           />

@@ -143,7 +143,7 @@ export const matrixSetDefinitionsLookup: DataById<
           { star: 3, value: 0.048 },
         ],
         canStack: false,
-        isActivePassively: true,
+        isActivePassively: false,
       },
     ],
     critDamageBuffs: [],
