@@ -4,7 +4,9 @@ import { nanoid } from 'nanoid';
 
 import { prioritizedAugmentationStatTypesLookup } from '../constants/augmentation-stats';
 import {
-  augmentStatsPullUpFactor,
+  augmentStatsPullUpFactor1,
+  augmentStatsPullUpFactor2,
+  augmentStatsPullUpFactor3,
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
 } from '../constants/gear';
@@ -30,11 +32,13 @@ import {
 } from './random-stat';
 import type { CoreElementalType, StatName, StatType } from './stat-type';
 import {
+  ElementalType,
   isCritFlat,
   isCritPercent,
   isElementalAttackFlat,
   isElementalAttackPercent,
   isElementalDamagePercent,
+  StatRole,
 } from './stat-type';
 
 export interface Gear {
@@ -286,30 +290,83 @@ export function getMaxTitanGear(
   }
 
   function pullUpStatsValueIfApplicable() {
-    const allStats = maxTitanGear.randomStats.concat(maxTitanGear.augmentStats);
-    allStats.forEach((stat1) => {
-      if (stat1) {
-        const pullUpStatCandidates =
-          prioritizedAugmentationStatTypesLookup[stat1.typeId]
-            ?.prioritizedStatTypes ?? [];
-        const totalValueWithAugment = getTotalValueWithAugment(stat1);
-        
-        allStats.forEach((stat2) => {
-          if (
-            stat2 &&
-            stat2 !== stat1 &&
-            pullUpStatCandidates.includes(stat2.typeId) &&
-            totalValueWithAugment > getTotalValueWithAugment(stat2)
-            ) {
-            const pullUpToValue = BigNumber(totalValueWithAugment).times(
-              augmentStatsPullUpFactor
-            );
-            setAugmentIncreaseValue(
-              stat2,
-              pullUpToValue.minus(stat2.value).toNumber()
-            );
-          }
-        });
+    const randomStatsAndTypes = maxTitanGear.randomStats
+      .filter((randomStat) => randomStat)
+      .map((randomStat) => ({
+        randomStat,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        statType: getRandomStatType(randomStat),
+      }));
+
+    const randomStatsAndTypesByRole = groupBy(
+      randomStatsAndTypes,
+      'statType.role'
+    );
+
+    // Seems only ele atk values get 'pulled up'
+    let highestValueWithAugment: number | undefined = undefined;
+    Object.keys(randomStatsAndTypesByRole).forEach((role) => {
+      if (role === StatRole.Attack) {
+        randomStatsAndTypesByRole[role]
+          .filter(
+            (randomStatAndType) =>
+              // Filter out 'Attack'
+              randomStatAndType.statType.elementalType !== ElementalType.All
+          )
+          .sort(
+            (a, b) => (b.randomStat?.value ?? 0) - (a.randomStat?.value ?? 0)
+          )
+          .forEach((randomStatAndType, i) => {
+            if (randomStatAndType.randomStat) {
+              if (i === 0) {
+                highestValueWithAugment = getTotalValueWithAugment(
+                  randomStatAndType.randomStat
+                );
+
+                return;
+              }
+
+              let pullUpFactor: number | undefined = undefined;
+              if (i === 1) {
+                pullUpFactor = augmentStatsPullUpFactor1;
+              } else if (i === 2) {
+                pullUpFactor = augmentStatsPullUpFactor2;
+              } else if (i === 3) {
+                pullUpFactor = augmentStatsPullUpFactor3;
+              }
+
+              if (highestValueWithAugment && pullUpFactor) {
+                const pullUptoValue = BigNumber(highestValueWithAugment).times(
+                  pullUpFactor
+                );
+
+                const { randomStat } = randomStatAndType;
+                setAugmentIncreaseValue(
+                  randomStat,
+                  pullUptoValue.minus(randomStat.value).toNumber()
+                );
+              }
+            }
+          });
+      }
+    });
+
+    maxTitanGear.augmentStats.forEach((augmentStat) => {
+      const statType = getRandomStatType(augmentStat);
+      if (
+        highestValueWithAugment &&
+        statType.role === StatRole.Attack &&
+        // Filter out 'Attack'
+        statType.elementalType !== ElementalType.All
+      ) {
+        const pullUptoValue = BigNumber(highestValueWithAugment).times(
+          augmentStatsPullUpFactor1
+        );
+        setAugmentIncreaseValue(
+          augmentStat,
+          pullUptoValue.minus(augmentStat.value).toNumber()
+        );
       }
     });
   }
