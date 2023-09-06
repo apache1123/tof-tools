@@ -21,6 +21,7 @@ export type MatrixSetBaseName =
   | 'Frigg'
   | 'Gnonno'
   | 'Haboela'
+  | 'Huang (Mimi)'
   | 'Huma'
   | 'Icarus'
   | 'King'
@@ -55,6 +56,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Frigg 2pc',
   'Gnonno 2pc',
   'Haboela 2pc',
+  'Huang (Mimi) 2pc',
   'Huma 2pc',
   'Icarus 2pc',
   'King 2pc',
@@ -90,6 +92,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Frigg 4pc',
   'Gnonno 4pc',
   'Haboela 4pc',
+  'Huang (Mimi) 4pc',
   'Huma 4pc',
   'Icarus 4pc',
   'King 4pc',
@@ -271,6 +274,14 @@ export const matrixSetDefinitionsLookup: DataById<
   'Haboela 2pc': {
     id: 'Haboela 2pc',
     displayName: 'Haboela 2pc',
+    pieces: 2,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Huang (Mimi) 2pc': {
+    id: 'Huang (Mimi) 2pc',
+    displayName: 'Huang (Mimi) 2pc',
     pieces: 2,
     attackPercentBuffs: [],
     critRateBuffs: [],
@@ -692,6 +703,27 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+  },
+  'Huang (Mimi) 4pc': {
+    id: 'Huang (Mimi) 4pc',
+    displayName: 'Huang (Mimi) 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [
+      {
+        description:
+          'After using Azure Moon/Soaring Dragon, increase crit DMG for 30 seconds. Works off-hand.',
+        starValues: [
+          { star: 0, value: 0.06 },
+          { star: 1, value: 0.06 },
+          { star: 2, value: 0.06 },
+          { star: 3, value: 0.06 },
+        ],
+        canStack: false,
+        isActivePassively: false,
+      },
+    ],
   },
   'Huma 4pc': {
     id: 'Huma 4pc',
