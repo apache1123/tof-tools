@@ -4,7 +4,9 @@ import { nanoid } from 'nanoid';
 
 import { prioritizedAugmentationStatTypesLookup } from '../constants/augmentation-stats';
 import {
-  augmentStatsPullUpFactor,
+  augmentStatsPullUpFactor1,
+  augmentStatsPullUpFactor2,
+  augmentStatsPullUpFactor3,
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
 } from '../constants/gear';
@@ -31,11 +33,13 @@ import {
 } from './random-stat';
 import type { StatName, StatType } from './stat-type';
 import {
+  ElementalType,
   isCritFlat,
   isCritPercent,
   isElementalAttackFlat,
   isElementalAttackPercent,
   isElementalDamagePercent,
+  StatRole,
 } from './stat-type';
 
 export interface Gear {
@@ -254,18 +258,7 @@ export function getMaxTitanGear(
   setMaxAugmentIncrease(maxTitanGear.randomStats);
   setMaxAugmentIncrease(maxTitanGear.augmentStats);
 
-  const highestRandomStat = maxTitanGear.randomStats.find(
-    (randomStat) => randomStat?.typeId === highestStatName
-  );
-  if (highestRandomStat) {
-    const totalValueWithAugment = getTotalValueWithAugment(highestRandomStat);
-    const pullUpToValue = BigNumber(totalValueWithAugment).times(
-      augmentStatsPullUpFactor
-    );
-
-    pullUpStatsValueIfApplicable(maxTitanGear.randomStats, pullUpToValue);
-    pullUpStatsValueIfApplicable(maxTitanGear.augmentStats, pullUpToValue);
-  }
+  pullUpStatsValueIfApplicable();
 
   setIsAugmented(maxTitanGear, true);
   setIsTitan(maxTitanGear, true);
@@ -297,14 +290,84 @@ export function getMaxTitanGear(
     });
   }
 
-  function pullUpStatsValueIfApplicable(
-    stats: (RandomStat | undefined)[],
-    pullUpToValue: BigNumber
-  ) {
-    stats.forEach((stat) => {
-      if (stat && prioritizedStatNames.includes(stat.typeId)) {
-        const { value } = stat;
-        setAugmentIncreaseValue(stat, pullUpToValue.minus(value).toNumber());
+  function pullUpStatsValueIfApplicable() {
+    const randomStatsAndTypes = maxTitanGear.randomStats
+      .filter((randomStat) => randomStat)
+      .map((randomStat) => ({
+        randomStat,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        statType: getRandomStatType(randomStat),
+      }));
+
+    const randomStatsAndTypesByRole = groupBy(
+      randomStatsAndTypes,
+      'statType.role'
+    );
+
+    // Seems only ele atk values get 'pulled up'
+    let highestValueWithAugment: number | undefined = undefined;
+    Object.keys(randomStatsAndTypesByRole).forEach((role) => {
+      if (role === StatRole.Attack) {
+        randomStatsAndTypesByRole[role]
+          .filter(
+            (randomStatAndType) =>
+              // Filter out 'Attack'
+              randomStatAndType.statType.elementalType !== ElementalType.All
+          )
+          .sort(
+            (a, b) => (b.randomStat?.value ?? 0) - (a.randomStat?.value ?? 0)
+          )
+          .forEach((randomStatAndType, i) => {
+            if (randomStatAndType.randomStat) {
+              if (i === 0) {
+                highestValueWithAugment = getTotalValueWithAugment(
+                  randomStatAndType.randomStat
+                );
+
+                return;
+              }
+
+              let pullUpFactor: number | undefined = undefined;
+              if (i === 1) {
+                pullUpFactor = augmentStatsPullUpFactor1;
+              } else if (i === 2) {
+                pullUpFactor = augmentStatsPullUpFactor2;
+              } else if (i === 3) {
+                pullUpFactor = augmentStatsPullUpFactor3;
+              }
+
+              if (highestValueWithAugment && pullUpFactor) {
+                const pullUptoValue = BigNumber(highestValueWithAugment).times(
+                  pullUpFactor
+                );
+
+                const { randomStat } = randomStatAndType;
+                setAugmentIncreaseValue(
+                  randomStat,
+                  pullUptoValue.minus(randomStat.value).toNumber()
+                );
+              }
+            }
+          });
+      }
+    });
+
+    maxTitanGear.augmentStats.forEach((augmentStat) => {
+      const statType = getRandomStatType(augmentStat);
+      if (
+        highestValueWithAugment &&
+        statType.role === StatRole.Attack &&
+        // Filter out 'Attack'
+        statType.elementalType !== ElementalType.All
+      ) {
+        const pullUptoValue = BigNumber(highestValueWithAugment).times(
+          augmentStatsPullUpFactor1
+        );
+        setAugmentIncreaseValue(
+          augmentStat,
+          pullUptoValue.minus(augmentStat.value).toNumber()
+        );
       }
     });
   }
