@@ -74,7 +74,7 @@ export function getAugmentIncreaseValueToString(
 
 export function getTotalValueWithAugment(randomStat: RandomStat): number {
   return BigNumber(randomStat.value)
-    .plus(randomStat.augmentIncreaseValue)
+    .plus(randomStat.augmentIncreaseValue ?? 0)
     .toNumber();
 }
 export function getTotalValueWithAugmentToString(
