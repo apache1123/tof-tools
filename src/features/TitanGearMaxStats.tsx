@@ -1,6 +1,7 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
+import type { CoreElementalType } from '../models/elemental-type';
 import type { Gear } from '../models/gear';
 import {
   getAugmentIncreaseValueToString,
@@ -8,7 +9,6 @@ import {
   getType,
   getValueToString,
 } from '../models/random-stat';
-import type { CoreElementalType } from '../models/stat-type';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 
 export interface TitanGearMaxStatsProps {

@@ -1,3 +1,6 @@
+import type { CoreElementalType} from './elemental-type';
+import { ElementalType } from './elemental-type';
+
 export interface StatType {
   id: StatName;
   displayName: string;
@@ -99,18 +102,3 @@ export enum StatRole {
   HPPercent = 'HP %',
 }
 
-export enum ElementalType {
-  None = 'None', // For HP, etc.
-  All = 'All', // For Attack, Resistance, etc.
-  Altered = 'Altered',
-  Flame = 'Flame',
-  Frost = 'Frost',
-  Physical = 'Physical',
-  Volt = 'Volt',
-}
-
-export type CoreElementalType =
-  | ElementalType.Flame
-  | ElementalType.Frost
-  | ElementalType.Physical
-  | ElementalType.Volt;

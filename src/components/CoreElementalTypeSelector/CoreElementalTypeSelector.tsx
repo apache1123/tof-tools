@@ -2,8 +2,8 @@ import type { FormControlProps, SelectChangeEvent } from '@mui/material';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import type { ReactNode } from 'react';
 
-import type { CoreElementalType } from '../../models/stat-type';
-import { ElementalType } from '../../models/stat-type';
+import type { CoreElementalType } from '../../models/elemental-type';
+import { ElementalType } from '../../models/elemental-type';
 import { ElementalStyledText } from '../ElementalStyledText/ElementalStyledText';
 import { ElementalTypeIcon } from '../ElementalTypeIcon/ElementalTypeIcon';
 

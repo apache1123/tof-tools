@@ -1,6 +1,7 @@
 import type { Data } from '../models/data';
+import { ElementalType } from '../models/elemental-type';
 import type { StatType } from '../models/stat-type';
-import { ElementalType, StatName, StatRole } from '../models/stat-type';
+import { StatName, StatRole } from '../models/stat-type';
 
 export const statTypesLookup: Data<StatName, StatType> = {
   allIds: [

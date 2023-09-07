@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-const totalAttack = '31,000';
+const totalAttack = '32,000';
 const baseAttack = '25,000';
 const crit = '13,000';
 const critPercent = '18%';
 const critDamage = '55%';
-const characterLevel = '90';
+const characterLevel = '95';
 const buffValue = '12%';
 
 const exampleGearDirectory = './example-images/gear';
@@ -157,46 +157,170 @@ test('upload gear, ocr fills in correct gear', async ({ page }) => {
 test('gear value is calculated correctly', async ({ page }) => {
   await page.goto('/gear-comparer');
 
-  // Test atk, ele atk, atk%
-  await page.getByLabel('Select gear type').first().click();
-  await page.getByRole('option', { name: 'Eyepiece' }).click();
+  await page.getByLabel('Elemental type to compare *').click();
+  await page.getByRole('option', { name: 'flame-icon Flame' }).click();
+  await page.getByLabel('Total attack (Flame) *').click();
+  await page.getByLabel('Total attack (Flame) *').fill(totalAttack);
+  await page.getByLabel('Base attack (Flame) *').click();
+  await page.getByLabel('Base attack (Flame) *').fill(baseAttack);
+  await page.getByLabel('Crit *').click();
+  await page.getByLabel('Crit *').fill(crit);
+  await page.getByLabel('Character level').click();
+  await page.getByLabel('Character level').fill(characterLevel);
 
-  await page.getByLabel('Stat').getByRole('combobox').first().click();
-  await page.getByRole('option', { name: 'Attack', exact: true }).click();
-  await page.getByLabel('stat-value-input').getByRole('textbox').click();
-  await page.getByLabel('stat-value-input').getByRole('textbox').fill('252');
-
-  await page.getByLabel('Stat').getByRole('combobox').nth(1).click();
-  await page.getByRole('option', { name: 'Frost Attack', exact: true }).click();
-  await page.getByLabel('stat-value-input').getByRole('textbox').nth(1).click();
+  // Test atk%, crit rate%, crit dmg% related buffs
   await page
+    .locator('[data-test-id="weapon1"]')
+    .getByLabel('Select weapon')
+    .click();
+  await page.getByRole('option', { name: 'Ruby' }).click();
+  await page
+    .locator('[data-test-id="weapon1"]')
+    .getByLabel('Select matrices')
+    .first()
+    .click();
+  await page.getByRole('option', { name: 'Ruby 2pc' }).click();
+
+  await page
+    .locator('[data-test-id="weapon2"]')
+    .getByLabel('Select weapon')
+    .click();
+  await page.getByRole('option', { name: 'Annabella' }).click();
+  await page
+    .locator('[data-test-id="weapon2"] label')
+    .filter({ hasText: '6 Stars' })
+    .click();
+  await page.locator('[data-test-id="weapon2"]').getByLabel('4pc').click();
+  await page
+    .locator('[data-test-id="weapon2"]')
+    .getByLabel('Select matrices')
+    .click();
+  await page.getByRole('option', { name: 'Annabella 4pc' }).click();
+  await page
+    .locator('[data-test-id="weapon2"] label')
+    .filter({ hasText: '3 Stars' })
+    .nth(1)
+    .click();
+
+  await page
+    .locator('[data-test-id="weapon3"]')
+    .getByLabel('Select weapon')
+    .click();
+  await page.getByRole('option', { name: 'Fiona' }).click();
+  await page
+    .locator('[data-test-id="weapon3"] label')
+    .filter({ hasText: '6 Stars' })
+    .click();
+  await page.getByLabel('Select matrices').nth(3).click();
+  await page.getByRole('option', { name: 'Fiona 2pc' }).click();
+  await page
+    .locator('[data-test-id="weapon3"] label')
+    .filter({ hasText: '3 Stars' })
+    .nth(1)
+    .click();
+
+  // Test ele atk, crit gear
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Select gear type')
+    .click();
+  await page.getByRole('option', { name: 'Gloves' }).click();
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .first()
+    .click();
+  await page.getByRole('option', { name: 'Crit', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
-    .nth(1)
-    .fill('343');
+    .first()
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .fill('3493');
 
-  await page.getByLabel('Stat').getByRole('combobox').nth(2).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(1)
+    .click();
   await page
     .getByRole('option', { name: 'Physical Attack', exact: true })
     .click();
-  await page.getByLabel('stat-value-input').getByRole('textbox').nth(2).click();
   await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .fill('593');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(2)
+    .click();
+  await page.getByRole('option', { name: 'Frost Attack', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
-    .fill('464');
-
-  await page.getByLabel('Stat').getByRole('combobox').nth(3).click();
-  await page
-    .getByRole('option', { name: 'Physical Attack %', exact: true })
     .click();
-  await page.getByLabel('stat-value-input').getByRole('textbox').nth(3).click();
   await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .fill('69');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(3)
+    .click();
+  await page.getByRole('option', { name: 'HP', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
-    .fill('11.3%');
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .fill('4125');
 
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('6.22%');
+  await expect(page.getByTestId('gear-max-titan-value-GearA')).toHaveText(
+    '9.02%'
+  );
+
+  // Test persistence and recalculation
+  await page.reload();
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('6.22%');
+  await expect(page.getByTestId('gear-max-titan-value-GearA')).toHaveText(
+    '9.02%'
+  );
+
+  // Test swap elements
   await page.getByLabel('Elemental type to compare *').click();
   await page.getByRole('option', { name: 'frost-icon Frost' }).click();
   await page.getByLabel('Total attack (Frost) *').click();
@@ -205,103 +329,468 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page.getByLabel('Base attack (Frost) *').fill(baseAttack);
   await page.getByLabel('Crit *').click();
   await page.getByLabel('Crit *').fill(crit);
-  await page.getByLabel('Crit % *').click();
-  await page.getByLabel('Crit % *').fill(critPercent);
-  await page.getByLabel('Crit Damage % *').click();
-  await page.getByLabel('Crit Damage % *').fill(critDamage);
-  await page.getByLabel('Character level').click();
-  await page.getByLabel('Character level').fill(characterLevel);
 
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('2.44%');
-
-  // Test persistence and recalculation
-  await page.reload();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('2.44%');
-
-  // Test swap elements
-  await page.getByLabel('Elemental type to compare *').click();
-  await page.getByRole('option', { name: 'physical-icon Physical' }).click();
-  await page.getByLabel('Total attack (Physical) *').click();
-  await page.getByLabel('Total attack (Physical) *').fill(totalAttack);
-  await page.getByLabel('Base attack (Physical) *').click();
-  await page.getByLabel('Base attack (Physical) *').fill(baseAttack);
-  await page.getByLabel('Crit *').click();
-  await page.getByLabel('Crit *').fill(crit);
-  await page.getByLabel('Crit % *').click();
-  await page.getByLabel('Crit % *').fill(critPercent);
-  await page.getByLabel('Crit Damage % *').click();
-  await page.getByLabel('Crit Damage % *').fill(critDamage);
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('13.27%');
-
-  // Test crit % & changing gear stat
-  await page.reload();
-  await page.getByLabel('Stat').getByRole('combobox').nth(1).click();
-  await page.getByRole('option', { name: 'Crit Rate %', exact: true }).click();
-  await page.getByLabel('stat-value-input').getByRole('textbox').nth(1).click();
+  // Test ele atk%, atk gear on GearB
   await page
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('Select gear type')
+    .click();
+  await page.getByRole('option', { name: 'Combat Engine' }).click();
+
+  await page
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .first()
+    .click();
+  await page
+    .getByRole('option', { name: 'Frost Attack %', exact: true })
+    .click();
+  await page
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .click();
+  await page
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .fill('4.14%');
+
+  await page
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(1)
+    .click();
+  await page.getByRole('option', { name: 'Attack', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearB"]')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
-    .fill('12%');
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('18.87%');
-
-  // Test dmg%
-  await page.getByLabel('Select gear type').nth(1).click();
-  await page.getByRole('option', { name: 'Microreactor' }).click();
-
-  await page.getByLabel('Stat').getByRole('combobox').nth(4).click();
-  await page
-    .getByRole('option', { name: 'Physical Damage %', exact: true })
     .click();
-  await page.getByLabel('stat-value-input').getByRole('textbox').nth(4).click();
   await page
+    .locator('[data-test-id="GearB"]')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
-    .nth(4)
-    .fill('23%');
-  await expect(page.getByTestId('gear-value-GearB')).toHaveText('23%');
+    .nth(1)
+    .fill('460');
 
-  // Test atk% buffs
-  await page.getByLabel('Misc. attack % buffs').click();
-  await page.getByLabel('Misc. attack % buffs').fill('7');
   await page
-    .locator('label')
-    .filter({ hasText: 'Fiona 2pc+16%/+18%/+20%/+22%' })
-    .getByLabel('controlled')
-    .check();
-  // TODO: Fix this flaky selector
-  await page
-    .locator('.MuiPaper-root > .MuiRating-root > label:nth-child(5)')
-    .nth(1) // Fiona 3*
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(2)
     .click();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('16.66%');
-
-  // Test dmg% buffs
+  await page.getByRole('option', { name: 'HP', exact: true }).click();
   await page
-    .getByLabel('Damage % (Physical) from all other gear pieces')
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
     .click();
   await page
-    .getByLabel('Damage % (Physical) from all other gear pieces')
-    .fill('7');
-  await expect(page.getByTestId('gear-value-GearB')).toHaveText('21.5%');
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .fill('4125');
 
-  // Test crit rate %
-  await page.getByLabel('Misc. crit rate % buffs').click();
-  await page.getByLabel('Misc. crit rate % buffs').fill('9');
   await page
-    .locator('label')
-    .filter({ hasText: 'Annabella 0* - 2*+15%' })
-    .getByLabel('controlled')
-    .check();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('16.16%');
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(3)
+    .click();
+  await page.getByRole('option', { name: 'Resistance', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .click();
+  await page
+    .locator('[data-test-id="GearB"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .fill('270');
 
-  // Test crit dmg %
-  await page.getByLabel('Misc. crit damage % buffs').click();
-  await page.getByLabel('Misc. crit damage % buffs').fill('3.7%');
+  // Assert value without buffs
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('5.96%');
+  await expect(page.getByTestId('gear-max-titan-value-GearA')).toHaveText(
+    '12.24%'
+  );
+  await expect(page.getByTestId('gear-value-GearB')).toHaveText('5.14%');
+  await expect(page.getByTestId('gear-max-titan-value-GearB')).toHaveText(
+    '7.19%'
+  );
+
+  // Test frost buffs (atk%)
   await page
-    .locator('label')
-    .filter({ hasText: 'Crow 2pc+14.4%/+18%/+21.6%/+25.2%' })
-    .getByLabel('controlled')
-    .check();
-  await expect(page.getByTestId('gear-value-GearA')).toHaveText('17.18%');
+    .locator('[data-test-id="weapon1"]')
+    .getByLabel('Select weapon')
+    .click();
+  await page.getByRole('option', { name: 'Lin' }).click();
+  await page
+    .locator('[data-test-id="weapon1"] label')
+    .filter({ hasText: '6 Stars' })
+    .click();
+  await page
+    .locator('[data-test-id="weapon1"]')
+    .getByLabel('Select matrices')
+    .first()
+    .click();
+  await page.getByRole('option', { name: 'Lin 2pc' }).click();
+  await page
+    .locator('[data-test-id="weapon1"] label')
+    .filter({ hasText: '3 Stars' })
+    .nth(1)
+    .click();
+
+  await page
+    .locator('[data-test-id="weapon2"]')
+    .getByLabel('Select weapon')
+    .click();
+  await page.getByRole('option', { name: 'Frigg' }).click();
+  await page
+    .locator('[data-test-id="weapon2"] label')
+    .filter({ hasText: '6 Stars' })
+    .click();
+  await page
+    .locator('[data-test-id="weapon2"]')
+    .getByLabel('Select matrices')
+    .first()
+    .click();
+  await page.getByRole('option', { name: 'Frigg 2pc' }).click();
+  await page
+    .locator('[data-test-id="weapon2"] label')
+    .filter({ hasText: '2 Stars' })
+    .nth(1)
+    .click();
+
+  await page
+    .locator('[data-test-id="weapon3"]')
+    .getByLabel('Select weapon')
+    .click();
+  await page.getByRole('option', { name: 'Fiona' }).click();
+  await page
+    .locator('[data-test-id="weapon3"]')
+    .getByLabel('Select matrices')
+    .first()
+    .click();
+  await page.getByRole('option', { name: 'Fiona 2pc' }).click();
+  await page
+    .locator('[data-test-id="weapon3"] label')
+    .filter({ hasText: '1 Star' })
+    .nth(1)
+    .click();
+
+  // Assert value with buffs
+  await expect(page.getByTestId('gear-value-GearA')).toHaveText('5.96%');
+  await expect(page.getByTestId('gear-max-titan-value-GearA')).toHaveText(
+    '12.24%'
+  );
+  await expect(page.getByTestId('gear-value-GearB')).toHaveText('3.59%');
+  await expect(page.getByTestId('gear-max-titan-value-GearB')).toHaveText(
+    '5.22%'
+  );
+});
+
+test('stat values at max titan is calculated correctly', async ({ page }) => {
+  await page.goto('/gear-comparer');
+
+  // Test ele atk pull-up with 2 random ele atk stats
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Select gear type')
+    .click();
+  await page.getByRole('option', { name: 'Gloves' }).click();
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .first()
+    .click();
+  await page.getByRole('option', { name: 'Crit', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .fill('3493');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(1)
+    .click();
+  await page
+    .getByRole('option', { name: 'Physical Attack', exact: true })
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .fill('593');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(2)
+    .click();
+  await page.getByRole('option', { name: 'Frost Attack', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .fill('69');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(3)
+    .click();
+  await page.getByRole('option', { name: 'HP', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .fill('4125');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByRole('button', { name: 'Stat values at max titan' })
+    .click();
+  await expect(
+    page
+      .locator('[data-test-id="GearA"]')
+      .getByTestId('max-titan-stats-panel-content')
+  ).toHaveScreenshot();
+
+  // Test ele atk pull-up with 3 random ele atk stats
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Select gear type')
+    .click();
+  await page.getByRole('option', { name: 'Gloves' }).click();
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .first()
+    .click();
+  await page.getByRole('option', { name: 'Flame Attack', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .fill('562');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(1)
+    .click();
+  await page
+    .getByRole('option', { name: 'Physical Attack', exact: true })
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .fill('69');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(2)
+    .click();
+  await page.getByRole('option', { name: 'Crit', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .fill('2356');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(3)
+    .click();
+  await page.getByRole('option', { name: 'Volt Attack', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .fill('247');
+
+  await expect(
+    page
+      .locator('[data-test-id="GearA"]')
+      .getByTestId('max-titan-stats-panel-content')
+  ).toHaveScreenshot();
+
+  // Test random resistance stats do not get pulled-up
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Select gear type')
+    .click();
+  await page.getByRole('option', { name: 'Gloves' }).click();
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .first()
+    .click();
+  await page
+    .getByRole('option', { name: 'Volt Resistance', exact: true })
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .fill('1178');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(1)
+    .click();
+  await page
+    .getByRole('option', { name: 'Flame Resistance', exact: true })
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .fill('2516');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(2)
+    .click();
+  await page.getByRole('option', { name: 'HP', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .fill('16759');
+
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(3)
+    .click();
+  await page.getByRole('option', { name: 'Attack', exact: true }).click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .click();
+  await page
+    .locator('[data-test-id="GearA"]')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .fill('52');
+
+  await expect(
+    page
+      .locator('[data-test-id="GearA"]')
+      .getByTestId('max-titan-stats-panel-content')
+  ).toHaveScreenshot();
 });

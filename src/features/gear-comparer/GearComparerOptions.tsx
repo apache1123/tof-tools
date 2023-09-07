@@ -31,7 +31,7 @@ export function GearComparerOptions() {
                   <ElementalStyledText elementalType={elementalType}>
                     {` ${elementalType} `}
                   </ElementalStyledText>
-                  values
+                  values & weapons
                 </Typography>
               );
             }}

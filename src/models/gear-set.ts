@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { gearTypesLookup } from '../constants/gear-types';
 import { additiveSum } from '../utils/math-utils';
 import type { DataById } from './data';
+import type { CoreElementalType } from './elemental-type';
 import {
   type Gear,
   getTotalAttackFlat as getGearTotalAttackFlat,
@@ -13,7 +14,6 @@ import {
   newGear,
 } from './gear';
 import type { GearName } from './gear-type';
-import type { CoreElementalType } from './stat-type';
 
 export interface GearSet {
   id: string;

@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../components/ElementalStyledText/ElementalStyledText';
+import type { CoreElementalType } from '../models/elemental-type';
 import type { Gear } from '../models/gear';
 import {
   getTotalAttackFlat,
@@ -10,8 +11,9 @@ import {
   getTotalCritPercent,
   getTotalDamagePercent,
 } from '../models/gear';
-import type { CoreElementalType } from '../models/stat-type';
 import { toIntegerString, toPercentageString2dp } from '../utils/number-utils';
+import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
+import { userStatsState } from './gear-comparer/states/user-stats/user-stats';
 
 export interface GearAttackStatsSummaryProps {
   gearState: Gear;
@@ -34,6 +36,12 @@ export function GearAttackStatsSummary({
   const totalDamagePercent = getTotalDamagePercent(
     gearSnap as Gear,
     elementalType
+  );
+
+  const { characterLevel } = useSnapshot(userStatsState);
+  const totalCritFlatToPercent = calculateCritPercentFromFlat(
+    totalCritFlat,
+    characterLevel
   );
 
   return (
@@ -66,7 +74,8 @@ export function GearAttackStatsSummary({
         <Typography>
           Crit{' '}
           <ElementalStyledText elementalType={elementalType}>
-            {toIntegerString(totalCritFlat)}
+            {toIntegerString(totalCritFlat)} (
+            {toPercentageString2dp(totalCritFlatToPercent)})
           </ElementalStyledText>
         </Typography>
       )}

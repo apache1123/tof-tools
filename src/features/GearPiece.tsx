@@ -19,11 +19,11 @@ import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSele
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
 import { defaultNumOfRandomStats } from '../constants/gear';
+import type { CoreElementalType } from '../models/elemental-type';
 import { copyGear, type Gear, getType, newGear, setType } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { newRandomStat } from '../models/random-stat';
-import type { CoreElementalType } from '../models/stat-type';
 import { SaveGearModal } from './gear-comparer/SaveGearModal';
 import {
   gearComparerGearsState,
@@ -44,6 +44,7 @@ export interface GearPieceProps {
   showStatSummary?: CoreElementalType;
   maxTitanStatsContent?: ReactNode;
   additionalAccordions?: ReactNode;
+  ['data-test-id']?: string;
 }
 
 export const GearPiece = ({
@@ -55,6 +56,7 @@ export const GearPiece = ({
   showStatSummary,
   maxTitanStatsContent,
   additionalAccordions,
+  'data-test-id': dataTestId,
 }: GearPieceProps) => {
   const gearSnap = useSnapshot(gearState);
 
@@ -138,7 +140,7 @@ export const GearPiece = ({
             />
           )}
           <Box mt={2}>
-            <Accordion elevation={2}>
+            <Accordion elevation={3}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="roll-breakdown-panel-content"
@@ -151,7 +153,7 @@ export const GearPiece = ({
               </AccordionDetails>
             </Accordion>
             {maxTitanStatsContent && (
-              <Accordion elevation={2}>
+              <Accordion elevation={3}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="max-titan-stats-panel-content"
@@ -174,6 +176,7 @@ export const GearPiece = ({
           </Box>
         </>
       }
+      data-test-id={dataTestId}
     />
   );
 };
@@ -182,12 +185,14 @@ export interface EmptyGearPieceProps {
   onGearTypeSelect(gearType: GearType): void;
   showGearOCRButton?: boolean;
   onReplaceGear?(gear: Gear): void;
+  ['data-test-id']?: string;
 }
 
 export const EmptyGearPiece = ({
   onGearTypeSelect,
   showGearOCRButton,
   onReplaceGear,
+  'data-test-id': dataTestId,
 }: EmptyGearPieceProps) => {
   return (
     <Layout
@@ -212,6 +217,7 @@ export const EmptyGearPiece = ({
         )
       }
       summary={undefined}
+      data-test-id={dataTestId}
     />
   );
 };
@@ -223,6 +229,7 @@ function Layout({
   randomStats,
   additionalActions,
   summary,
+  'data-test-id': dataTestId,
 }: {
   typeIcon: ReactNode;
   typeSelector: ReactNode;
@@ -230,9 +237,10 @@ function Layout({
   randomStats: ReactNode;
   additionalActions: ReactNode;
   summary: ReactNode;
+  ['data-test-id']?: string;
 }) {
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={{ p: 2 }} elevation={2} data-test-id={dataTestId}>
       <Grid container spacing={2} mb={2}>
         <Grid maxWidth={90} display="flex" alignItems="center">
           {typeIcon}

@@ -1,7 +1,8 @@
 import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
-import type { CoreElementalType } from '../../../models/stat-type';
+import type { CoreElementalType } from '../../../models/elemental-type';
+
 
 export interface GearComparerOptionsState {
   selectedElementalType: CoreElementalType | undefined;

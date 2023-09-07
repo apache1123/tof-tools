@@ -19,8 +19,8 @@ import type { GearComparerOptionsState } from '../gear-comparer-options';
 import { gearComparerOptionsState } from '../gear-comparer-options';
 import type { UserStatsState } from '../user-stats/user-stats';
 import { userStatsState } from '../user-stats/user-stats';
-import type { SelectedElementalBuffValuesState } from './selected-elemental-buff-values';
-import { selectedElementalBuffValuesState } from './selected-elemental-buff-values';
+import type { ConditionalBuffValuesState } from './conditional-buff-values';
+import { conditionalBuffValuesState } from './conditional-buff-values';
 import type { SelectedElementalUserStatsState } from './selected-elemental-user-stats';
 import { selectedElementalUserStatsState } from './selected-elemental-user-stats';
 
@@ -35,7 +35,7 @@ export const gearBasisValuesState = derive<object, GearBasisValuesState>({
       get(gearComparerOptionsState),
       get(userStatsState),
       get(selectedElementalUserStatsState),
-      get(selectedElementalBuffValuesState)
+      get(conditionalBuffValuesState)
     ),
 });
 devtools(gearBasisValuesState, { name: 'gearBasisValues' });
@@ -45,7 +45,7 @@ function getBasisValues(
   gearComparerOptionsSnap: GearComparerOptionsState,
   userStatsSnap: UserStatsState,
   selectedElementalUserStatsSnap: SelectedElementalUserStatsState,
-  selectedElementalBuffValuesSnap: SelectedElementalBuffValuesState
+  conditionalBuffValuesSnap: ConditionalBuffValuesState
 ): BasisValues {
   const { selectedElementalType } = gearComparerOptionsSnap;
   const { selectedElementalUserStats } = selectedElementalUserStatsSnap;
@@ -102,7 +102,7 @@ function getBasisValues(
     weaponCritRateBuffValues,
     matrixCritRateBuffValues,
     matrixCritDamageBuffValues,
-  } = selectedElementalBuffValuesSnap;
+  } = conditionalBuffValuesSnap;
 
   const basisAttackFlat = attackFlatWithoutGearA;
 
@@ -122,10 +122,7 @@ function getBasisValues(
 
   const { characterLevel } = userStatsSnap;
   const basisCritTotalPercent = additiveSum([
-    calculateCritPercentFromFlat(
-      BigNumber(basisCritFlat),
-      BigNumber(characterLevel)
-    ).toNumber(),
+    calculateCritPercentFromFlat(basisCritFlat, characterLevel),
     basisCritPercent,
   ]).toNumber();
 

@@ -2,12 +2,12 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import type { Data } from '../../../models/data';
+import type { CoreElementalType } from '../../../models/elemental-type';
 import {
   type GearSet,
   newGearSet,
   setElementalType,
 } from '../../../models/gear-set';
-import type { CoreElementalType } from '../../../models/stat-type';
 
 export const gearSetsStateKey = 'gearSets';
 
