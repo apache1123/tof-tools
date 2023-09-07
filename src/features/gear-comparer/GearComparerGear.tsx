@@ -88,14 +88,14 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
         )
       }
       additionalAccordions={position === 'GearB' && <GearRollSimulator />}
-      data-test-id={position}
+      data-testid={position}
     />
   ) : (
     <EmptyGearPiece
       onGearTypeSelect={handleGearTypeSelect}
       showGearOCRButton
       onReplaceGear={handleNewGear}
-      data-test-id={position}
+      data-testid={position}
     />
   );
 }

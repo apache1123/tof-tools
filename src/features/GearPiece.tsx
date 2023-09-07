@@ -44,7 +44,7 @@ export interface GearPieceProps {
   showStatSummary?: CoreElementalType;
   maxTitanStatsContent?: ReactNode;
   additionalAccordions?: ReactNode;
-  ['data-test-id']?: string;
+  ['data-testid']?: string;
 }
 
 export const GearPiece = ({
@@ -56,7 +56,7 @@ export const GearPiece = ({
   showStatSummary,
   maxTitanStatsContent,
   additionalAccordions,
-  'data-test-id': dataTestId,
+  'data-testid': dataTestId,
 }: GearPieceProps) => {
   const gearSnap = useSnapshot(gearState);
 
@@ -176,7 +176,7 @@ export const GearPiece = ({
           </Box>
         </>
       }
-      data-test-id={dataTestId}
+      data-testid={dataTestId}
     />
   );
 };
@@ -185,14 +185,14 @@ export interface EmptyGearPieceProps {
   onGearTypeSelect(gearType: GearType): void;
   showGearOCRButton?: boolean;
   onReplaceGear?(gear: Gear): void;
-  ['data-test-id']?: string;
+  ['data-testid']?: string;
 }
 
 export const EmptyGearPiece = ({
   onGearTypeSelect,
   showGearOCRButton,
   onReplaceGear,
-  'data-test-id': dataTestId,
+  'data-testid': dataTestId,
 }: EmptyGearPieceProps) => {
   return (
     <Layout
@@ -217,7 +217,7 @@ export const EmptyGearPiece = ({
         )
       }
       summary={undefined}
-      data-test-id={dataTestId}
+      data-testid={dataTestId}
     />
   );
 };
@@ -229,7 +229,7 @@ function Layout({
   randomStats,
   additionalActions,
   summary,
-  'data-test-id': dataTestId,
+  'data-testid': dataTestId,
 }: {
   typeIcon: ReactNode;
   typeSelector: ReactNode;
@@ -237,10 +237,10 @@ function Layout({
   randomStats: ReactNode;
   additionalActions: ReactNode;
   summary: ReactNode;
-  ['data-test-id']?: string;
+  ['data-testid']?: string;
 }) {
   return (
-    <Paper sx={{ p: 2 }} elevation={2} data-test-id={dataTestId}>
+    <Paper sx={{ p: 2 }} elevation={2} data-testid={dataTestId}>
       <Grid container spacing={2} mb={2}>
         <Grid maxWidth={90} display="flex" alignItems="center">
           {typeIcon}

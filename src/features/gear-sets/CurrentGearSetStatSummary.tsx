@@ -25,7 +25,7 @@ export function CurrentGearSetStatSummary() {
   }
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={{ p: 2 }} data-testid="current-gear-set-stat-summary">
       <Stack direction="row" spacing={5}>
         <Box>
           <Typography>Attack</Typography>
