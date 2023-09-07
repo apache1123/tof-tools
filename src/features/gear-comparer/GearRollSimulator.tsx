@@ -49,7 +49,7 @@ export function GearRollSimulator() {
   }
 
   return (
-    <Accordion elevation={2}>
+    <Accordion elevation={3}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="roll-simulator-panel-content"

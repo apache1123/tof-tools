@@ -52,36 +52,42 @@ export function Team() {
           <WeaponEditor
             weaponState={weapon1State}
             onClearWeapon={() => setWeapon1(selectedElementalTeam, undefined)}
+            data-test-id="weapon1"
           />
         ) : (
           <EmptyWeaponEditor
             onWeaponDefinitionChange={(definition) => {
               setWeapon1(selectedElementalTeam, newWeapon(definition));
             }}
+            data-test-id="weapon1"
           />
         )}
         {weapon2Snap && weapon2State ? (
           <WeaponEditor
             weaponState={weapon2State}
             onClearWeapon={() => setWeapon2(selectedElementalTeam, undefined)}
+            data-test-id="weapon2"
           />
         ) : (
           <EmptyWeaponEditor
             onWeaponDefinitionChange={(definition) => {
               setWeapon2(selectedElementalTeam, newWeapon(definition));
             }}
+            data-test-id="weapon2"
           />
         )}
         {weapon3Snap && weapon3State ? (
           <WeaponEditor
             weaponState={weapon3State}
             onClearWeapon={() => setWeapon3(selectedElementalTeam, undefined)}
+            data-test-id="weapon3"
           />
         ) : (
           <EmptyWeaponEditor
             onWeaponDefinitionChange={(definition) => {
               setWeapon3(selectedElementalTeam, newWeapon(definition));
             }}
+            data-test-id="weapon3"
           />
         )}
       </Stack>

@@ -95,7 +95,7 @@ export function GearComparer() {
           <Divider sx={{ my: 5 }} />
 
           <BuffSummary />
-          <Accordion elevation={2} sx={{ mt: 2 }}>
+          <Accordion defaultExpanded elevation={2} sx={{ mt: 2 }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="misc-buffs-panel-content"

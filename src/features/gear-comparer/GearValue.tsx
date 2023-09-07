@@ -22,7 +22,7 @@ export function GearValue({ position }: GearValueProps) {
   );
 
   return (
-    <Paper sx={{ p: 2, textAlign: 'center' }}>
+    <Paper elevation={2} sx={{ p: 2, textAlign: 'center' }}>
       <Typography>Value: </Typography>
       <Typography
         fontSize="1.5rem"
@@ -41,6 +41,7 @@ export function GearValue({ position }: GearValueProps) {
         color={getComparisonColor(
           maxTitanGearValuesComparisonSnap[`Is${position}MaxTitanHighestValue`]
         )}
+        data-testid={`gear-max-titan-value-${position}`}
       >
         {toPercentageString2dp(
           maxTitanGearValuesSnap[`${position}MaxTitanValue`]
