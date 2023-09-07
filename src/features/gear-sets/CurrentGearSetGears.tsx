@@ -34,6 +34,7 @@ export function CurrentGearSetGears() {
               showCompareGearButton
               disableGearTypeChange
               showStatSummary={selectedGearSetSnap.elementalType}
+              data-testid={gearTypeId}
             />
           </Grid>
         );

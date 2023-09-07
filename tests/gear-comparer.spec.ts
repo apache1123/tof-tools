@@ -169,85 +169,74 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page.getByLabel('Character level').fill(characterLevel);
 
   // Test atk%, crit rate%, crit dmg% related buffs
-  await page
-    .locator('[data-test-id="weapon1"]')
-    .getByLabel('Select weapon')
-    .click();
+  await page.getByTestId('weapon1').getByLabel('Select weapon').click();
   await page.getByRole('option', { name: 'Ruby' }).click();
   await page
-    .locator('[data-test-id="weapon1"]')
+    .getByTestId('weapon1')
     .getByLabel('Select matrices')
     .first()
     .click();
   await page.getByRole('option', { name: 'Ruby 2pc' }).click();
 
-  await page
-    .locator('[data-test-id="weapon2"]')
-    .getByLabel('Select weapon')
-    .click();
+  await page.getByTestId('weapon2').getByLabel('Select weapon').click();
   await page.getByRole('option', { name: 'Annabella' }).click();
   await page
-    .locator('[data-test-id="weapon2"] label')
+    .getByTestId('weapon2')
+    .locator('label')
     .filter({ hasText: '6 Stars' })
     .click();
-  await page.locator('[data-test-id="weapon2"]').getByLabel('4pc').click();
-  await page
-    .locator('[data-test-id="weapon2"]')
-    .getByLabel('Select matrices')
-    .click();
+  await page.getByTestId('weapon2').getByLabel('4pc').click();
+  await page.getByTestId('weapon2').getByLabel('Select matrices').click();
   await page.getByRole('option', { name: 'Annabella 4pc' }).click();
   await page
-    .locator('[data-test-id="weapon2"] label')
+    .getByTestId('weapon2')
+    .locator('label')
     .filter({ hasText: '3 Stars' })
     .nth(1)
     .click();
 
-  await page
-    .locator('[data-test-id="weapon3"]')
-    .getByLabel('Select weapon')
-    .click();
+  await page.getByTestId('weapon3').getByLabel('Select weapon').click();
   await page.getByRole('option', { name: 'Fiona' }).click();
   await page
-    .locator('[data-test-id="weapon3"] label')
+    .getByTestId('weapon3')
+    .locator('label')
     .filter({ hasText: '6 Stars' })
     .click();
   await page.getByLabel('Select matrices').nth(3).click();
   await page.getByRole('option', { name: 'Fiona 2pc' }).click();
   await page
-    .locator('[data-test-id="weapon3"] label')
+    .getByTestId('weapon3')
+    .locator('label')
     .filter({ hasText: '3 Stars' })
     .nth(1)
     .click();
 
   // Test ele atk, crit gear
-  await page
-    .locator('[data-test-id="GearA"]')
-    .getByLabel('Select gear type')
-    .click();
+  await page.getByTestId('GearA').getByLabel('Select gear type').click();
   await page.getByRole('option', { name: 'Gloves' }).click();
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .first()
     .click();
   await page.getByRole('option', { name: 'Crit', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .fill('3493');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(1)
@@ -256,53 +245,53 @@ test('gear value is calculated correctly', async ({ page }) => {
     .getByRole('option', { name: 'Physical Attack', exact: true })
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .fill('593');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(2)
     .click();
   await page.getByRole('option', { name: 'Frost Attack', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .fill('69');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(3)
     .click();
   await page.getByRole('option', { name: 'HP', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
@@ -331,14 +320,11 @@ test('gear value is calculated correctly', async ({ page }) => {
   await page.getByLabel('Crit *').fill(crit);
 
   // Test ele atk%, atk gear on GearB
-  await page
-    .locator('[data-test-id="GearB"]')
-    .getByLabel('Select gear type')
-    .click();
+  await page.getByTestId('GearB').getByLabel('Select gear type').click();
   await page.getByRole('option', { name: 'Combat Engine' }).click();
 
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('Stat')
     .getByRole('combobox')
     .first()
@@ -347,73 +333,73 @@ test('gear value is calculated correctly', async ({ page }) => {
     .getByRole('option', { name: 'Frost Attack %', exact: true })
     .click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .fill('4.14%');
 
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(1)
     .click();
   await page.getByRole('option', { name: 'Attack', exact: true }).click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .fill('460');
 
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(2)
     .click();
   await page.getByRole('option', { name: 'HP', exact: true }).click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .fill('4125');
 
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(3)
     .click();
   await page.getByRole('option', { name: 'Resistance', exact: true }).click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .click();
   await page
-    .locator('[data-test-id="GearB"]')
+    .getByTestId('GearB')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
@@ -430,61 +416,57 @@ test('gear value is calculated correctly', async ({ page }) => {
   );
 
   // Test frost buffs (atk%)
-  await page
-    .locator('[data-test-id="weapon1"]')
-    .getByLabel('Select weapon')
-    .click();
+  await page.getByTestId('weapon1').getByLabel('Select weapon').click();
   await page.getByRole('option', { name: 'Lin' }).click();
   await page
-    .locator('[data-test-id="weapon1"] label')
+    .getByTestId('weapon1')
+    .locator('label')
     .filter({ hasText: '6 Stars' })
     .click();
   await page
-    .locator('[data-test-id="weapon1"]')
+    .getByTestId('weapon1')
     .getByLabel('Select matrices')
     .first()
     .click();
   await page.getByRole('option', { name: 'Lin 2pc' }).click();
   await page
-    .locator('[data-test-id="weapon1"] label')
+    .getByTestId('weapon1')
+    .locator('label')
     .filter({ hasText: '3 Stars' })
     .nth(1)
     .click();
 
-  await page
-    .locator('[data-test-id="weapon2"]')
-    .getByLabel('Select weapon')
-    .click();
+  await page.getByTestId('weapon2').getByLabel('Select weapon').click();
   await page.getByRole('option', { name: 'Frigg' }).click();
   await page
-    .locator('[data-test-id="weapon2"] label')
+    .getByTestId('weapon2')
+    .locator('label')
     .filter({ hasText: '6 Stars' })
     .click();
   await page
-    .locator('[data-test-id="weapon2"]')
+    .getByTestId('weapon2')
     .getByLabel('Select matrices')
     .first()
     .click();
   await page.getByRole('option', { name: 'Frigg 2pc' }).click();
   await page
-    .locator('[data-test-id="weapon2"] label')
+    .getByTestId('weapon2')
+    .locator('label')
     .filter({ hasText: '2 Stars' })
     .nth(1)
     .click();
 
-  await page
-    .locator('[data-test-id="weapon3"]')
-    .getByLabel('Select weapon')
-    .click();
+  await page.getByTestId('weapon3').getByLabel('Select weapon').click();
   await page.getByRole('option', { name: 'Fiona' }).click();
   await page
-    .locator('[data-test-id="weapon3"]')
+    .getByTestId('weapon3')
     .getByLabel('Select matrices')
     .first()
     .click();
   await page.getByRole('option', { name: 'Fiona 2pc' }).click();
   await page
-    .locator('[data-test-id="weapon3"] label')
+    .getByTestId('weapon3')
+    .locator('label')
     .filter({ hasText: '1 Star' })
     .nth(1)
     .click();
@@ -504,34 +486,31 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
   await page.goto('/gear-comparer');
 
   // Test ele atk pull-up with 2 random ele atk stats
-  await page
-    .locator('[data-test-id="GearA"]')
-    .getByLabel('Select gear type')
-    .click();
+  await page.getByTestId('GearA').getByLabel('Select gear type').click();
   await page.getByRole('option', { name: 'Gloves' }).click();
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .first()
     .click();
   await page.getByRole('option', { name: 'Crit', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .fill('3493');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(1)
@@ -540,97 +519,92 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .getByRole('option', { name: 'Physical Attack', exact: true })
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .fill('593');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(2)
     .click();
   await page.getByRole('option', { name: 'Frost Attack', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .fill('69');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(3)
     .click();
   await page.getByRole('option', { name: 'HP', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .fill('4125');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByRole('button', { name: 'Stat values at max titan' })
     .click();
   await expect(
-    page
-      .locator('[data-test-id="GearA"]')
-      .getByTestId('max-titan-stats-panel-content')
+    page.getByTestId('GearA').getByTestId('max-titan-stats-panel-content')
   ).toHaveScreenshot();
 
   // Test ele atk pull-up with 3 random ele atk stats
-  await page
-    .locator('[data-test-id="GearA"]')
-    .getByLabel('Select gear type')
-    .click();
+  await page.getByTestId('GearA').getByLabel('Select gear type').click();
   await page.getByRole('option', { name: 'Gloves' }).click();
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .first()
     .click();
   await page.getByRole('option', { name: 'Flame Attack', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .fill('562');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(1)
@@ -639,73 +613,68 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .getByRole('option', { name: 'Physical Attack', exact: true })
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .fill('69');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(2)
     .click();
   await page.getByRole('option', { name: 'Crit', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .fill('2356');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(3)
     .click();
   await page.getByRole('option', { name: 'Volt Attack', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .fill('247');
 
   await expect(
-    page
-      .locator('[data-test-id="GearA"]')
-      .getByTestId('max-titan-stats-panel-content')
+    page.getByTestId('GearA').getByTestId('max-titan-stats-panel-content')
   ).toHaveScreenshot();
 
   // Test random resistance stats do not get pulled-up
-  await page
-    .locator('[data-test-id="GearA"]')
-    .getByLabel('Select gear type')
-    .click();
+  await page.getByTestId('GearA').getByLabel('Select gear type').click();
   await page.getByRole('option', { name: 'Gloves' }).click();
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .first()
@@ -714,20 +683,20 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .getByRole('option', { name: 'Volt Resistance', exact: true })
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .first()
     .fill('1178');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(1)
@@ -736,61 +705,59 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .getByRole('option', { name: 'Flame Resistance', exact: true })
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(1)
     .fill('2516');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(2)
     .click();
   await page.getByRole('option', { name: 'HP', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(2)
     .fill('16759');
 
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('Stat')
     .getByRole('combobox')
     .nth(3)
     .click();
   await page.getByRole('option', { name: 'Attack', exact: true }).click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .click();
   await page
-    .locator('[data-test-id="GearA"]')
+    .getByTestId('GearA')
     .getByLabel('stat-value-input')
     .getByRole('textbox')
     .nth(3)
     .fill('52');
 
   await expect(
-    page
-      .locator('[data-test-id="GearA"]')
-      .getByTestId('max-titan-stats-panel-content')
+    page.getByTestId('GearA').getByTestId('max-titan-stats-panel-content')
   ).toHaveScreenshot();
 });

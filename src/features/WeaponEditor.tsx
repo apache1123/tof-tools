@@ -13,13 +13,13 @@ import { WeaponMatrixSetsEditor } from './WeaponMatrixSetsEditor';
 export interface WeaponEditorProps {
   weaponState: Weapon;
   onClearWeapon(): void;
-  ['data-test-id']?: string;
+  ['data-testid']?: string;
 }
 
 export function WeaponEditor({
   weaponState,
   onClearWeapon,
-  'data-test-id': dataTestId,
+  'data-testid': dataTestId,
 }: WeaponEditorProps) {
   const weaponSnap = useSnapshot(weaponState);
   const weaponDefinition = getDefinition(weaponSnap);
@@ -50,19 +50,19 @@ export function WeaponEditor({
           weaponMatrixSetsState={weaponState.matrixSets}
         />
       }
-      data-test-id={dataTestId}
+      data-testid={dataTestId}
     />
   );
 }
 
 export interface EmptyWeaponEditorProps {
   onWeaponDefinitionChange(weaponDefinition: WeaponDefinition): void;
-  ['data-test-id']?: string;
+  ['data-testid']?: string;
 }
 
 export function EmptyWeaponEditor({
   onWeaponDefinitionChange,
-  'data-test-id': dataTestId,
+  'data-testid': dataTestId,
 }: EmptyWeaponEditorProps) {
   return (
     <Layout
@@ -76,7 +76,7 @@ export function EmptyWeaponEditor({
         />
       }
       starsSelector={<WeaponStarsSelector stars={0} disabled />}
-      data-test-id={dataTestId}
+      data-testid={dataTestId}
     />
   );
 }
@@ -86,16 +86,16 @@ function Layout({
   definitionSelector,
   starsSelector,
   matrixSetsEditor,
-  'data-test-id': dataTestId,
+  'data-testid': dataTestId,
 }: {
   icon: ReactNode;
   definitionSelector: ReactNode;
   starsSelector: ReactNode;
   matrixSetsEditor?: ReactNode;
-  ['data-test-id']?: string;
+  ['data-testid']?: string;
 }) {
   return (
-    <Stack spacing={4} flexGrow={1} data-test-id={dataTestId}>
+    <Stack spacing={4} flexGrow={1} data-testid={dataTestId}>
       <Stack alignItems="center" spacing={1}>
         {icon}
         {definitionSelector}
