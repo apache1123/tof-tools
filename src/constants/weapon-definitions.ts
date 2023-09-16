@@ -607,7 +607,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     },
     [WeaponName.MingJing]: {
       id: WeaponName.MingJing,
-      displayName: WeaponName.MingJing,
+      displayName: 'Ming Jing (Zeke)',
       elementalType: ElementalType.Physical,
       type: WeaponType.DPS,
       attackPercentBuffs: [
