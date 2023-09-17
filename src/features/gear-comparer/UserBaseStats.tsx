@@ -15,10 +15,7 @@ import {
   setTotalAttackFlatWithGearA,
 } from './states/derived/selected-elemental-user-stats';
 import { gearComparerOptionsState } from './states/gear-comparer-options';
-import {
-  setCharacterLevel,
-  userStatsState,
-} from './states/user-stats/user-stats';
+import { userStatsState } from './states/user-stats/user-stats';
 
 export function UserBaseStats() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
@@ -220,7 +217,9 @@ export function UserBaseStats() {
             label="Character level"
             variant="filled"
             value={characterLevel}
-            onChange={setCharacterLevel}
+            onChange={(value) => {
+              userStatsState.characterLevel = value;
+            }}
             helperText={
               characterLevel !== maxCharacterLevel ? (
                 <Box component="span" sx={{ color: 'warning.main' }}>

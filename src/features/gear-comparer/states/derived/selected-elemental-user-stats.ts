@@ -1,7 +1,7 @@
 import { derive } from 'valtio/utils';
 
 import { gearComparerOptionsState } from '../gear-comparer-options';
-import type { ElementalUserStats } from '../user-stats/user-stats';
+import type { ElementalUserStats } from '../user-stats/elemental-user-stats';
 import { userStatsState } from '../user-stats/user-stats';
 
 export interface SelectedElementalUserStatsState {

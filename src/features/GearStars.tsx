@@ -5,7 +5,6 @@ import { useSnapshot } from 'valtio';
 
 import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
 import type { Gear } from '../models/gear';
-import { getGearRandomStatRollCombinations, setStars } from '../models/gear';
 
 export interface GearStarsProps {
   gear: Gear;
@@ -14,9 +13,9 @@ export interface GearStarsProps {
 export function GearStars({ gear }: GearStarsProps) {
   const gearSnap = useSnapshot(gear);
 
-  const randomStatRollCombinations = getGearRandomStatRollCombinations(
+  const randomStatRollCombinations = (
     gearSnap as Gear
-  );
+  ).getRandomStatRollCombinations();
 
   const possibleStars = Object.keys(
     groupBy(randomStatRollCombinations, 'stars')
@@ -31,7 +30,9 @@ export function GearStars({ gear }: GearStarsProps) {
             ? randomStatRollCombinations[0].stars
             : 0)
         }
-        onStarsChange={(stars) => setStars(gear, stars)}
+        onStarsChange={(stars) => {
+          gear.stars = stars;
+        }}
       />
       {gearSnap.stars === 0 && randomStatRollCombinations.length > 1 && (
         <Tooltip

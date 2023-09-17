@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import type { ElementalType } from '../../models/elemental-type';
+import type { ElementalType } from '../../constants/elemental-type';
 import { pascalCaseToCamelCase } from '../../utils/string-utils';
 
 export interface ElementalTypeIconProps {

@@ -2,15 +2,14 @@ import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
-import type { Gear } from '../../models/gear';
-import { getPossibleStars, newGear } from '../../models/gear';
+import { Gear } from '../../models/gear';
 import type { GearType } from '../../models/gear-type';
 import { EmptyGearPiece, GearPiece } from '../GearPiece';
 import { TitanGearMaxStats } from '../TitanGearMaxStats';
 import { GearRollSimulator } from './GearRollSimulator';
 import { gearComparerGearMaxTitansState } from './states/derived/gear-comparer-gear-max-titans';
 import type { GearComparerGearPosition } from './states/gear-comparer-gear';
-import { gearComparerGearsState, setGear } from './states/gear-comparer-gear';
+import { gearComparerGearsState } from './states/gear-comparer-gear';
 import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export interface GearComparerGearProps {
@@ -24,12 +23,12 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
   const maxTitansSnap = useSnapshot(gearComparerGearMaxTitansState);
 
   const handleGearTypeSelect = (gearType: GearType) => {
-    const gear = newGear(gearType);
-    setGear(position, gear);
+    const gear = new Gear(gearType);
+    gearComparerGearsState[position] = gear;
   };
 
   const handleNewGear = (gear: Gear) => {
-    setGear(position, gear);
+    gearComparerGearsState[position] = gear;
   };
 
   return gearSnap && gearState ? (
@@ -40,17 +39,18 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
       showStatSummary={selectedElementalType}
       maxTitanStatsContent={
         gearSnap.stars !== 5 &&
-        getPossibleStars(gearSnap as Gear).length > 1 ? (
+        (gearSnap as Gear).getPossibleStars().length > 1 ? (
           <Typography color="info.main" gutterBottom>
             Can&apos;t determine the number of stars{' '}
             <strong>
-              (either {getPossibleStars(gearSnap as Gear).join(' or ')} stars)
+              (either {(gearSnap as Gear).getPossibleStars().join(' or ')}{' '}
+              stars)
             </strong>
             . Select it above to continue
           </Typography>
         ) : gearSnap.stars !== 5 &&
-          getPossibleStars(gearSnap as Gear).length === 1 &&
-          getPossibleStars(gearSnap as Gear)[0] !== 5 ? (
+          (gearSnap as Gear).getPossibleStars().length === 1 &&
+          (gearSnap as Gear).getPossibleStars()[0] !== 5 ? (
           <Typography color="info.main" gutterBottom>
             Can&apos;t calculate max titan stat values if gear is not at 5 star
           </Typography>

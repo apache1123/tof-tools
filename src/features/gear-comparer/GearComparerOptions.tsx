@@ -5,10 +5,7 @@ import { useSnapshot } from 'valtio';
 import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import {
-  gearComparerOptionsState,
-  setSelectedElementalType,
-} from './states/gear-comparer-options';
+import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export function GearComparerOptions() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
@@ -24,7 +21,8 @@ export function GearComparerOptions() {
           <CoreElementalTypeSelector
             elementalType={selectedElementalType}
             onElementalTypeChange={(elementalType) => {
-              setSelectedElementalType(elementalType);
+              gearComparerOptionsState.selectedElementalType = elementalType;
+
               showSnackbar(
                 <Typography variant="subtitle2">
                   Using previously entered

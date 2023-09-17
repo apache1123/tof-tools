@@ -4,7 +4,7 @@ import { useSnapshot } from 'valtio';
 
 import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { deleteSelectedGearSet, gearSetsState } from './states/gear-sets';
+import { gearSetsState } from './states/gear-sets';
 
 export function DeleteCurrentGearSet() {
   const { selectedGearSet } = useSnapshot(gearSetsState);
@@ -29,7 +29,7 @@ export function DeleteCurrentGearSet() {
         showConfirm
         showCancel
         onConfirm={() => {
-          deleteSelectedGearSet();
+          gearSetsState.deleteSelectedGearSet();
           showSnackbar('Gear set deleted');
         }}
         aria-label="delete-gear-set"

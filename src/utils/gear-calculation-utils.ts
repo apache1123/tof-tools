@@ -1,15 +1,8 @@
 import BigNumber from 'bignumber.js';
 
+import type { CoreElementalType } from '../constants/elemental-type';
 import type { BasisValues } from '../models/basis-values';
-import type { CoreElementalType } from '../models/elemental-type';
 import type { Gear } from '../models/gear';
-import {
-  getTotalAttackFlat,
-  getTotalAttackPercent,
-  getTotalCritFlat,
-  getTotalCritPercent,
-  getTotalDamagePercent,
-} from '../models/gear';
 import {
   calculateCritPercentFromFlat,
   calculateMultiplier,
@@ -31,17 +24,17 @@ export function getGearMultiplierRelativeToBasis(
   } = basisValues;
 
   const totalAttackFlatWithGear = BigNumber(basisAttackFlat).plus(
-    getTotalAttackFlat(gear, selectedElementalType)
+    gear.getTotalAttackFlat(selectedElementalType)
   );
   const totalAttackPercentWithGear = BigNumber(basisAttackPercent).plus(
-    getTotalAttackPercent(gear, selectedElementalType)
+    gear.getTotalAttackPercent(selectedElementalType)
   );
   const totalCritPercentWithGear = BigNumber(basisCritTotalPercent)
-    .plus(calculateCritPercentFromFlat(getTotalCritFlat(gear), characterLevel))
-    .plus(getTotalCritPercent(gear));
+    .plus(calculateCritPercentFromFlat(gear.getTotalCritFlat(), characterLevel))
+    .plus(gear.getTotalCritPercent());
   const totalCritDamagePercentWithGear = BigNumber(basisCritDamage);
   const totalDamagePercentWithGear = BigNumber(basisDamage).plus(
-    getTotalDamagePercent(gear, selectedElementalType)
+    gear.getTotalDamagePercent(selectedElementalType)
   );
 
   const multiplierWithGear = calculateMultiplier(

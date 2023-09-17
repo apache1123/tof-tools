@@ -1,7 +1,7 @@
 import type { TypographyProps } from '@mui/material';
 import { Typography } from '@mui/material';
 
-import type { ElementalType } from '../../models/elemental-type';
+import type { ElementalType } from '../../constants/elemental-type';
 import { pascalCaseToCamelCase } from '../../utils/string-utils';
 
 export interface ElementalStyledTextProps

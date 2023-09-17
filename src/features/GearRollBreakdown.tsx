@@ -3,7 +3,7 @@ import pluralize from 'pluralize';
 import { Fragment } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { type Gear, getGearRandomStatRollCombinations } from '../models/gear';
+import { type Gear } from '../models/gear';
 import { toPercentageString } from '../utils/number-utils';
 
 export interface GearRollBreakdownProps {
@@ -12,9 +12,9 @@ export interface GearRollBreakdownProps {
 
 export const GearRollBreakdown = ({ gear }: GearRollBreakdownProps) => {
   const gearSnap = useSnapshot(gear);
-  const randomStatRollCombinations = getGearRandomStatRollCombinations(
+  const randomStatRollCombinations = (
     gearSnap as Gear
-  );
+  ).getRandomStatRollCombinations();
 
   const hasOnlyOneRollCombination = randomStatRollCombinations.length === 1;
 

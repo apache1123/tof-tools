@@ -1,333 +1,309 @@
-import { StatName } from '../models/stat-type';
+import type { StatName } from './stat-types';
 
 // If a random stat of X stat-type has the highest roll, the augmentation stats can be of A/B/C stat-type. Prioritized stat-types will be "pulled up" so they almost match X's value (95%), fallback stat-types will not.
 export const prioritizedAugmentationStatTypesLookup: Record<
   StatName,
   { prioritizedStatTypes: StatName[]; fallbackStatTypes: StatName[] }
 > = {
-  [StatName.AlteredAttack]: {
+  ['Altered Attack']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
-      StatName.Resistance,
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+      'Resistance',
     ],
   },
-  [StatName.AlteredResistance]: {
+  ['Altered Resistance']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
-      StatName.Resistance,
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+      'Resistance',
     ],
   },
-  [StatName.AlteredResistancePercent]: {
+  ['Altered Resistance %']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.Attack]: {
+  ['Attack']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
-      StatName.Resistance,
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+      'Resistance',
     ],
   },
-  [StatName.Crit]: {
+  ['Crit']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
-      StatName.Resistance,
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+      'Resistance',
     ],
   },
-  [StatName.CritRatePercent]: {
+  ['Crit Rate %']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.FlameAttack]: {
+  ['Flame Attack']: {
+    prioritizedStatTypes: ['Frost Attack', 'Physical Attack', 'Volt Attack'],
+    fallbackStatTypes: [
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+    ],
+  },
+  ['Flame Attack %']: {
     prioritizedStatTypes: [
-      StatName.FrostAttack,
-      StatName.PhysicalAttack,
-      StatName.VoltAttack,
+      'Frost Attack %',
+      'Physical Attack %',
+      'Volt Attack %',
     ],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.FlameAttackPercent]: {
+  ['Flame Damage %']: {
     prioritizedStatTypes: [
-      StatName.FrostAttackPercent,
-      StatName.PhysicalAttackPercent,
-      StatName.VoltAttackPercent,
+      'Frost Damage %',
+      'Physical Damage %',
+      'Volt Damage %',
     ],
     fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.FlameDamagePercent]: {
+  ['Flame Resistance']: {
     prioritizedStatTypes: [
-      StatName.FrostDamagePercent,
-      StatName.PhysicalDamagePercent,
-      StatName.VoltDamagePercent,
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+    ],
+    fallbackStatTypes: ['HP', 'Resistance'],
+  },
+  ['Flame Resistance %']: {
+    prioritizedStatTypes: [
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
+    ],
+    fallbackStatTypes: ['HP %'],
+  },
+  ['Frost Attack']: {
+    prioritizedStatTypes: ['Flame Attack', 'Physical Attack', 'Volt Attack'],
+    fallbackStatTypes: [
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+    ],
+  },
+  ['Frost Attack %']: {
+    prioritizedStatTypes: [
+      'Flame Attack %',
+      'Physical Attack %',
+      'Volt Attack %',
     ],
     fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.FlameResistance]: {
+  ['Frost Damage %']: {
     prioritizedStatTypes: [
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
-    ],
-    fallbackStatTypes: [StatName.HP, StatName.Resistance],
-  },
-  [StatName.FlameResistancePercent]: {
-    prioritizedStatTypes: [
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
-    ],
-    fallbackStatTypes: [StatName.HPPercent],
-  },
-  [StatName.FrostAttack]: {
-    prioritizedStatTypes: [
-      StatName.FlameAttack,
-      StatName.PhysicalAttack,
-      StatName.VoltAttack,
+      'Flame Damage %',
+      'Physical Damage %',
+      'Volt Damage %',
     ],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.FrostAttackPercent]: {
+  ['Frost Resistance']: {
     prioritizedStatTypes: [
-      StatName.FlameAttackPercent,
-      StatName.PhysicalAttackPercent,
-      StatName.VoltAttackPercent,
+      'Flame Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
     ],
-    fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
-    ],
+    fallbackStatTypes: ['HP', 'Resistance'],
   },
-  [StatName.FrostDamagePercent]: {
+  ['Frost Resistance %']: {
     prioritizedStatTypes: [
-      StatName.FlameDamagePercent,
-      StatName.PhysicalDamagePercent,
-      StatName.VoltDamagePercent,
+      'Flame Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
-    fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
-    ],
+    fallbackStatTypes: ['HP %'],
   },
-  [StatName.FrostResistance]: {
-    prioritizedStatTypes: [
-      StatName.FlameResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
-    ],
-    fallbackStatTypes: [StatName.HP, StatName.Resistance],
-  },
-  [StatName.FrostResistancePercent]: {
-    prioritizedStatTypes: [
-      StatName.FlameResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
-    ],
-    fallbackStatTypes: [StatName.HPPercent],
-  },
-  [StatName.HP]: {
+  ['HP']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
-      StatName.Resistance,
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+      'Resistance',
     ],
   },
-  [StatName.HPPercent]: {
+  ['HP %']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.PhysicalAttack]: {
-    prioritizedStatTypes: [
-      StatName.FlameAttack,
-      StatName.FrostAttack,
-      StatName.VoltAttack,
-    ],
+  ['Physical Attack']: {
+    prioritizedStatTypes: ['Flame Attack', 'Frost Attack', 'Volt Attack'],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
     ],
   },
-  [StatName.PhysicalAttackPercent]: {
-    prioritizedStatTypes: [
-      StatName.FlameAttackPercent,
-      StatName.FrostAttackPercent,
-      StatName.VoltAttackPercent,
-    ],
+  ['Physical Attack %']: {
+    prioritizedStatTypes: ['Flame Attack %', 'Frost Attack %', 'Volt Attack %'],
     fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.PhysicalDamagePercent]: {
-    prioritizedStatTypes: [
-      StatName.FlameDamagePercent,
-      StatName.FrostDamagePercent,
-      StatName.VoltDamagePercent,
-    ],
+  ['Physical Damage %']: {
+    prioritizedStatTypes: ['Flame Damage %', 'Frost Damage %', 'Volt Damage %'],
     fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.PhysicalResistance]: {
+  ['Physical Resistance']: {
     prioritizedStatTypes: [
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.VoltResistance,
+      'Flame Resistance',
+      'Frost Resistance',
+      'Volt Resistance',
     ],
-    fallbackStatTypes: [StatName.HP, StatName.Resistance],
+    fallbackStatTypes: ['HP', 'Resistance'],
   },
-  [StatName.PhysicalResistancePercent]: {
+  ['Physical Resistance %']: {
     prioritizedStatTypes: [
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.VoltResistancePercent,
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Volt Resistance %',
     ],
-    fallbackStatTypes: [StatName.HPPercent],
+    fallbackStatTypes: ['HP %'],
   },
-  [StatName.Resistance]: {
+  ['Resistance']: {
     prioritizedStatTypes: [],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
     ],
   },
-  [StatName.VoltAttack]: {
+  ['Volt Attack']: {
+    prioritizedStatTypes: ['Flame Attack', 'Frost Attack', 'Physical Attack'],
+    fallbackStatTypes: [
+      'HP',
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
+      'Volt Resistance',
+    ],
+  },
+  ['Volt Attack %']: {
     prioritizedStatTypes: [
-      StatName.FlameAttack,
-      StatName.FrostAttack,
-      StatName.PhysicalAttack,
+      'Flame Attack %',
+      'Frost Attack %',
+      'Physical Attack %',
     ],
     fallbackStatTypes: [
-      StatName.HP,
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
-      StatName.VoltResistance,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.VoltAttackPercent]: {
+  ['Volt Damage %']: {
     prioritizedStatTypes: [
-      StatName.FlameAttackPercent,
-      StatName.FrostAttackPercent,
-      StatName.PhysicalAttackPercent,
+      'Flame Damage %',
+      'Frost Damage %',
+      'Physical Damage %',
     ],
     fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
+      'HP %',
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
+      'Volt Resistance %',
     ],
   },
-  [StatName.VoltDamagePercent]: {
+  ['Volt Resistance']: {
     prioritizedStatTypes: [
-      StatName.FlameDamagePercent,
-      StatName.FrostDamagePercent,
-      StatName.PhysicalDamagePercent,
+      'Flame Resistance',
+      'Frost Resistance',
+      'Physical Resistance',
     ],
-    fallbackStatTypes: [
-      StatName.HPPercent,
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-      StatName.VoltResistancePercent,
-    ],
+    fallbackStatTypes: ['HP', 'Resistance'],
   },
-  [StatName.VoltResistance]: {
+  ['Volt Resistance %']: {
     prioritizedStatTypes: [
-      StatName.FlameResistance,
-      StatName.FrostResistance,
-      StatName.PhysicalResistance,
+      'Flame Resistance %',
+      'Frost Resistance %',
+      'Physical Resistance %',
     ],
-    fallbackStatTypes: [StatName.HP, StatName.Resistance],
-  },
-  [StatName.VoltResistancePercent]: {
-    prioritizedStatTypes: [
-      StatName.FlameResistancePercent,
-      StatName.FrostResistancePercent,
-      StatName.PhysicalResistancePercent,
-    ],
-    fallbackStatTypes: [StatName.HPPercent],
+    fallbackStatTypes: ['HP %'],
   },
 };

@@ -1,10 +1,7 @@
-import type { RandomStat} from './random-stat';
-import { newRandomStat } from './random-stat';
-import type { StatType } from './stat-type';
+import type { RandomStatDTO } from './random-stat';
+import { RandomStat } from './random-stat';
 
 // a.k.a. Augmentation stat, augment for short
-export type AugmentStat = RandomStat;
+export class AugmentStat extends RandomStat {}
 
-export function newAugmentStat(type: StatType): AugmentStat {
-  return newRandomStat(type);
-}
+export type AugmentStatDTO = RandomStatDTO;

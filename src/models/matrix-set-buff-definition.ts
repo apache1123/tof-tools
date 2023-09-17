@@ -1,4 +1,4 @@
-import type { WeaponElementalType } from "./elemental-type";
+import type { WeaponElementalType } from '../constants/elemental-type';
 
 export interface MatrixSetBuffDefinition {
   description: string;
@@ -17,7 +17,8 @@ export interface MatrixSetBuffDefinition {
   }[]; // "OR" requirements;
 }
 
-export interface MatrixSetAttackPercentBuffDefinition extends MatrixSetBuffDefinition {
+export interface MatrixSetAttackPercentBuffDefinition
+  extends MatrixSetBuffDefinition {
   elementalTypes: WeaponElementalType[];
 }
 

@@ -18,17 +18,14 @@ import { useSnapshot } from 'valtio';
 import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
+import type { CoreElementalType } from '../constants/elemental-type';
 import { defaultNumOfRandomStats } from '../constants/gear';
-import type { CoreElementalType } from '../models/elemental-type';
-import { copyGear, type Gear, getType, newGear, setType } from '../models/gear';
+import { Gear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
-import { newRandomStat } from '../models/random-stat';
+import { RandomStat } from '../models/random-stat';
 import { SaveGearModal } from './gear-comparer/SaveGearModal';
-import {
-  gearComparerGearsState,
-  setGear,
-} from './gear-comparer/states/gear-comparer-gear';
+import { gearComparerGearsState } from './gear-comparer/states/gear-comparer-gear';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 import { GearOCRModal } from './GearOCRModal';
 import { GearRollBreakdown } from './GearRollBreakdown';
@@ -60,17 +57,17 @@ export const GearPiece = ({
 }: GearPieceProps) => {
   const gearSnap = useSnapshot(gearState);
 
-  const gearType = getType(gearSnap as Gear);
+  const gearType = (gearSnap as Gear).type;
   const possibleRandomStatTypes = getPossibleRandomStatTypes(gearType);
 
   const router = useRouter();
   const handleCompareGear = () => {
     if (gearComparerGearsState.GearA) {
-      copyGear(gearState, gearComparerGearsState.GearA);
+      Gear.copy(gearState, gearComparerGearsState.GearA);
     } else {
-      const newGearA = newGear(getType(gearState));
-      copyGear(gearState, newGearA);
-      setGear('GearA', newGearA);
+      const newGearA = new Gear(gearState.type);
+      Gear.copy(gearState, newGearA);
+      gearComparerGearsState.GearA = newGearA;
     }
     router.push('/gear-comparer');
   };
@@ -81,7 +78,9 @@ export const GearPiece = ({
       typeSelector={
         <GearTypeSelector
           selectedGearType={gearType}
-          onChange={(gearType) => setType(gearState, gearType)}
+          onChange={(gearType) => {
+            gearState.type = gearType;
+          }}
           disabled={disableGearTypeChange}
         />
       }
@@ -101,7 +100,7 @@ export const GearPiece = ({
                 key={i}
                 possibleStatTypes={possibleRandomStatTypes}
                 onStatTypeChange={(statType) => {
-                  gearState.randomStats[i] = newRandomStat(statType);
+                  gearState.randomStats[i] = new RandomStat(statType);
                 }}
               />
             );
@@ -113,10 +112,10 @@ export const GearPiece = ({
           {showGearOCRButton && (
             <GearOCRModal
               onFinalizeGear={(replacementGear) => {
-                copyGear(replacementGear, gearState);
+                Gear.copy(replacementGear, gearState);
               }}
               enforceGearType={
-                disableGearTypeChange ? gearSnap.typeId : undefined
+                disableGearTypeChange ? gearSnap.type.id : undefined
               }
               iconButton
             />

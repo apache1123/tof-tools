@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
-import { setName } from '../../models/gear-set';
 import { gearSetsState } from './states/gear-sets';
 
 const iconSize = 'small';
@@ -23,7 +22,7 @@ export function CurrentGearSetName() {
 
   function saveName() {
     if (gearSetsState.selectedGearSet) {
-      setName(gearSetsState.selectedGearSet, editingName);
+      gearSetsState.selectedGearSet.name = editingName;
     }
   }
 

@@ -2,7 +2,6 @@ import { derive, devtools } from 'valtio/utils';
 
 import type { DataById } from '../../../../models/data';
 import type { Gear } from '../../../../models/gear';
-import { getMaxTitanGear } from '../../../../models/gear';
 import { gearComparerGearsState } from '../gear-comparer-gear';
 import { gearComparerOptionsState } from '../gear-comparer-options';
 
@@ -21,10 +20,10 @@ export const gearComparerGearMaxTitansState = derive<
     const result: DataById<string, Gear | undefined> = {};
 
     if (GearA) {
-      result[GearA.id] = getMaxTitanGear(GearA, selectedElementalType);
+      result[GearA.id] = GearA.getMaxTitanGear(selectedElementalType);
     }
     if (GearB) {
-      result[GearB.id] = getMaxTitanGear(GearB, selectedElementalType);
+      result[GearB.id] = GearB.getMaxTitanGear(selectedElementalType);
     }
 
     return result;

@@ -2,8 +2,7 @@ import type { FormControlProps, SelectChangeEvent } from '@mui/material';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import type { ReactNode } from 'react';
 
-import type { CoreElementalType } from '../../models/elemental-type';
-import { ElementalType } from '../../models/elemental-type';
+import type { CoreElementalType } from '../../constants/elemental-type';
 import { ElementalStyledText } from '../ElementalStyledText/ElementalStyledText';
 import { ElementalTypeIcon } from '../ElementalTypeIcon/ElementalTypeIcon';
 
@@ -16,12 +15,7 @@ export interface CoreElementalTypeSelectorProps {
   variant?: FormControlProps['variant'];
 }
 
-const options: CoreElementalType[] = [
-  ElementalType.Flame,
-  ElementalType.Frost,
-  ElementalType.Physical,
-  ElementalType.Volt,
-];
+const options: CoreElementalType[] = ['Flame', 'Frost', 'Physical', 'Volt'];
 
 export function CoreElementalTypeSelector({
   elementalType,

@@ -7,7 +7,6 @@ import { PercentageNumericInput } from '../components/NumericInput/PercentageNum
 import { StatTypeIcon } from '../components/StatTypeIcon/StatTypeIcon';
 import { StatTypeSelector } from '../components/StatTypeSelector/StatTypeSelector';
 import type { RandomStat } from '../models/random-stat';
-import { getType, setType, setValue } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
 
 export interface StatEditorProps {
@@ -20,10 +19,10 @@ export const StatEditor = ({
   possibleStatTypes = [],
 }: StatEditorProps) => {
   const statSnap = useSnapshot(statState);
-  const statType = getType(statSnap);
+  const statType = statSnap.type;
 
   const handleStatValueChange = (value: number) => {
-    setValue(statState, value);
+    statState.value = value;
   };
 
   return (
@@ -34,7 +33,7 @@ export const StatEditor = ({
           selectedStatType={statType}
           possibleStatTypes={possibleStatTypes}
           onChange={(statType) => {
-            setType(statState, statType);
+            statState.type = statType;
           }}
         />
       }

@@ -1,88 +1,106 @@
-import { ElementalResonance } from './elemental-resonance';
-import { ElementalType } from './elemental-type';
-import { getDefinition, type Weapon } from './weapon';
-import { WeaponType } from './weapon-definition';
-import { WeaponResonance } from './weapon-resonance';
+import type { ElementalResonance } from '../constants/elemental-resonance';
+import type { WeaponResonance } from '../constants/weapon-resonance';
+import type { Persistable } from './persistable';
+import type { WeaponDTO } from './weapon';
+import { Weapon } from './weapon';
+import { getWeaponDefinition } from './weapon-definition';
 
-export interface Team {
-  weapon1: WeaponSlot;
-  weapon2: WeaponSlot;
-  weapon3: WeaponSlot;
+export class Team implements Persistable<TeamDTO> {
+  public weapon1: WeaponSlot;
+  public weapon2: WeaponSlot;
+  public weapon3: WeaponSlot;
+
+  public getElementalResonance(): ElementalResonance {
+    const { weapon1, weapon2, weapon3 } = this;
+    const elementalTypes = [weapon1, weapon2, weapon3].map((weapon) => {
+      if (!weapon) return undefined;
+      const definition = weapon.definition;
+      return definition.elementalType;
+    });
+
+    if (
+      elementalTypes.filter((elementalType) => elementalType === 'Altered')
+        .length > 1
+    )
+      return 'Altered';
+    if (
+      elementalTypes.filter((elementalType) => elementalType === 'Flame')
+        .length > 1
+    )
+      return 'Flame';
+    if (
+      elementalTypes.filter((elementalType) => elementalType === 'Frost')
+        .length > 1
+    )
+      return 'Frost';
+    if (
+      elementalTypes.filter((elementalType) => elementalType === 'Physical')
+        .length > 1
+    )
+      return 'Physical';
+    if (
+      elementalTypes.filter((elementalType) => elementalType === 'Volt')
+        .length > 1
+    )
+      return 'Volt';
+
+    return 'None';
+  }
+
+  public getWeaponResonance(): WeaponResonance {
+    const { weapon1, weapon2, weapon3 } = this;
+    if (!weapon1 || !weapon2 || !weapon3) return 'None';
+
+    const weaponTypes = [weapon1, weapon2, weapon3].map((weapon) => {
+      const definition = weapon.definition;
+      return definition.type;
+    });
+
+    if (weaponTypes.filter((type) => type === 'DPS').length > 1)
+      return 'Attack';
+    if (weaponTypes.filter((type) => type === 'Defense').length > 1)
+      return 'Fortitude';
+    if (weaponTypes.filter((type) => type === 'Support').length > 1)
+      return 'Benediction';
+
+    return 'Balance';
+  }
+
+  public copyFromDTO(dto: TeamDTO): void {
+    const {
+      weapon1: weapon1DTO,
+      weapon2: weapon2DTO,
+      weapon3: weapon3DTO,
+    } = dto;
+
+    this.weapon1 = weapon1DTO ? getWeaponFromDTO(weapon1DTO) : undefined;
+    this.weapon2 = weapon2DTO ? getWeaponFromDTO(weapon2DTO) : undefined;
+    this.weapon3 = weapon3DTO ? getWeaponFromDTO(weapon3DTO) : undefined;
+
+    function getWeaponFromDTO(weaponDTO: WeaponDTO): Weapon {
+      const weaponDefinition = getWeaponDefinition(weaponDTO.definitionId);
+      const weapon = new Weapon(weaponDefinition);
+      weapon.copyFromDTO(weaponDTO);
+      return weapon;
+    }
+  }
+
+  public toDTO(): TeamDTO {
+    const { weapon1, weapon2, weapon3 } = this;
+
+    return {
+      weapon1: weapon1?.toDTO(),
+      weapon2: weapon2?.toDTO(),
+      weapon3: weapon3?.toDTO(),
+    };
+  }
+}
+
+export interface TeamDTO {
+  weapon1: WeaponSlotDTO;
+  weapon2: WeaponSlotDTO;
+  weapon3: WeaponSlotDTO;
 }
 
 type WeaponSlot = Weapon | undefined;
-
-export function newTeam(): Team {
-  return { weapon1: undefined, weapon2: undefined, weapon3: undefined };
-}
-
-export function setWeapon1(team: Team, weapon: Weapon | undefined): void {
-  team.weapon1 = weapon;
-}
-export function setWeapon2(team: Team, weapon: Weapon | undefined): void {
-  team.weapon2 = weapon;
-}
-export function setWeapon3(team: Team, weapon: Weapon | undefined): void {
-  team.weapon3 = weapon;
-}
-
-export function getElementalResonance(team: Team): ElementalResonance {
-  const { weapon1, weapon2, weapon3 } = team;
-  const elementalTypes = [weapon1, weapon2, weapon3].map((weapon) => {
-    if (!weapon) return undefined;
-    const definition = getDefinition(weapon);
-    return definition.elementalType;
-  });
-
-  if (
-    elementalTypes.filter(
-      (elementalType) => elementalType === ElementalType.Altered
-    ).length > 1
-  )
-    return ElementalResonance.Altered;
-  if (
-    elementalTypes.filter(
-      (elementalType) => elementalType === ElementalType.Flame
-    ).length > 1
-  )
-    return ElementalResonance.Flame;
-  if (
-    elementalTypes.filter(
-      (elementalType) => elementalType === ElementalType.Frost
-    ).length > 1
-  )
-    return ElementalResonance.Frost;
-  if (
-    elementalTypes.filter(
-      (elementalType) => elementalType === ElementalType.Physical
-    ).length > 1
-  )
-    return ElementalResonance.Physical;
-  if (
-    elementalTypes.filter(
-      (elementalType) => elementalType === ElementalType.Volt
-    ).length > 1
-  )
-    return ElementalResonance.Volt;
-
-  return ElementalResonance.None;
-}
-
-export function getWeaponResonance(team: Team): WeaponResonance {
-  const { weapon1, weapon2, weapon3 } = team;
-  if (!weapon1 || !weapon2 || !weapon3) return WeaponResonance.None;
-
-  const weaponTypes = [weapon1, weapon2, weapon3].map((weapon) => {
-    const definition = getDefinition(weapon);
-    return definition.type;
-  });
-
-  if (weaponTypes.filter((type) => type === WeaponType.DPS).length > 1)
-    return WeaponResonance.Attack;
-  if (weaponTypes.filter((type) => type === WeaponType.Defense).length > 1)
-    return WeaponResonance.Fortitude;
-  if (weaponTypes.filter((type) => type === WeaponType.Support).length > 1)
-    return WeaponResonance.Benediction;
-
-  return WeaponResonance.Balance;
-}
+type WeaponSlotDTO = WeaponDTO | undefined;

@@ -1,6 +1,5 @@
 import { derive } from 'valtio/utils';
 
-import { getDefinition } from '../../../../models/matrix-set';
 import type {
   MatrixSetAttackPercentBuff,
   MatrixSetBuff,
@@ -9,8 +8,6 @@ import type {
 } from '../../../../models/matrix-set-buff';
 import type { MatrixSetBuffDefinition } from '../../../../models/matrix-set-buff-definition';
 import type { Team } from '../../../../models/team';
-import { getDefinition as getWeaponDefinition } from '../../../../models/weapon';
-import { getMatrixSets } from '../../../../models/weapon-matrix-sets';
 import { gearComparerOptionsState } from '../gear-comparer-options';
 import { selectedElementalTeamState } from './selected-elemental-team';
 
@@ -32,9 +29,9 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
-      getMatrixSets(weapon.matrixSets).forEach((matrixSet) => {
+      weapon.matrixSets.getMatrixSets().forEach((matrixSet) => {
         const { stars } = matrixSet;
-        const matrixSetDefinition = getDefinition(matrixSet);
+        const matrixSetDefinition = matrixSet.definition;
 
         matrixSetDefinition.attackPercentBuffs.forEach((buffDefinition) => {
           if (
@@ -79,9 +76,9 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
-      getMatrixSets(weapon.matrixSets).forEach((matrixSet) => {
+      weapon.matrixSets.getMatrixSets().forEach((matrixSet) => {
         const { stars } = matrixSet;
-        const matrixSetDefinition = getDefinition(matrixSet);
+        const matrixSetDefinition = matrixSet.definition;
 
         matrixSetDefinition.critRateBuffs.forEach((buffDefinition) => {
           if (
@@ -118,9 +115,9 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
-      getMatrixSets(weapon.matrixSets).forEach((matrixSet) => {
+      weapon.matrixSets.getMatrixSets().forEach((matrixSet) => {
         const { stars } = matrixSet;
-        const matrixSetDefinition = getDefinition(matrixSet);
+        const matrixSetDefinition = matrixSet.definition;
 
         matrixSetDefinition.critDamageBuffs.forEach((buffDefinition) => {
           if (
@@ -158,7 +155,7 @@ function hasMetMatrixBuffRequirements(
   if (elementalWeaponsRequirements) {
     const { weapon1, weapon2, weapon3 } = team;
     const weaponElementalTypes = [weapon1, weapon2, weapon3].map((weapon) =>
-      weapon ? getWeaponDefinition(weapon).elementalType : undefined
+      weapon ? weapon.definition.elementalType : undefined
     );
 
     let hasMetElementalWeaponsRequirement = false;

@@ -1,8 +1,7 @@
 import { Divider, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
-import { setWeapon1, setWeapon2, setWeapon3 } from '../../models/team';
-import { newWeapon } from '../../models/weapon';
+import { Weapon } from '../../models/weapon';
 import theme from '../../theme';
 import { EmptyWeaponEditor, WeaponEditor } from '../WeaponEditor';
 import { selectedElementalTeamState } from './states/derived/selected-elemental-team';
@@ -51,13 +50,15 @@ export function Team() {
         {weapon1Snap && weapon1State ? (
           <WeaponEditor
             weaponState={weapon1State}
-            onClearWeapon={() => setWeapon1(selectedElementalTeam, undefined)}
+            onClearWeapon={() => {
+              selectedElementalTeam.weapon1 = undefined;
+            }}
             data-testid="weapon1"
           />
         ) : (
           <EmptyWeaponEditor
             onWeaponDefinitionChange={(definition) => {
-              setWeapon1(selectedElementalTeam, newWeapon(definition));
+              selectedElementalTeam.weapon1 = new Weapon(definition);
             }}
             data-testid="weapon1"
           />
@@ -65,13 +66,15 @@ export function Team() {
         {weapon2Snap && weapon2State ? (
           <WeaponEditor
             weaponState={weapon2State}
-            onClearWeapon={() => setWeapon2(selectedElementalTeam, undefined)}
+            onClearWeapon={() => {
+              selectedElementalTeam.weapon2 = undefined;
+            }}
             data-testid="weapon2"
           />
         ) : (
           <EmptyWeaponEditor
             onWeaponDefinitionChange={(definition) => {
-              setWeapon2(selectedElementalTeam, newWeapon(definition));
+              selectedElementalTeam.weapon2 = new Weapon(definition);
             }}
             data-testid="weapon2"
           />
@@ -79,13 +82,15 @@ export function Team() {
         {weapon3Snap && weapon3State ? (
           <WeaponEditor
             weaponState={weapon3State}
-            onClearWeapon={() => setWeapon3(selectedElementalTeam, undefined)}
+            onClearWeapon={() => {
+              selectedElementalTeam.weapon3 = undefined;
+            }}
             data-testid="weapon3"
           />
         ) : (
           <EmptyWeaponEditor
             onWeaponDefinitionChange={(definition) => {
-              setWeapon3(selectedElementalTeam, newWeapon(definition));
+              selectedElementalTeam.weapon3 = new Weapon(definition);
             }}
             data-testid="weapon3"
           />

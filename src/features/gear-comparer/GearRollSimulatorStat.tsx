@@ -4,12 +4,6 @@ import pluralize from 'pluralize';
 import { useSnapshot } from 'valtio';
 
 import type { RandomStat } from '../../models/random-stat';
-import {
-  addOneAverageRoll,
-  addOneMaxRoll,
-  getType,
-  getValueToString,
-} from '../../models/random-stat';
 
 export interface GearRollSimulatorStatProps {
   statState: RandomStat;
@@ -25,7 +19,7 @@ export function GearRollSimulatorStat({
   onAddRoll,
 }: GearRollSimulatorStatProps) {
   const statSnap = useSnapshot(statState);
-  const { displayName } = getType(statSnap);
+  const { displayName } = statSnap.type;
 
   return (
     <Grid container display="flex" alignItems="center">
@@ -34,7 +28,7 @@ export function GearRollSimulatorStat({
       </Grid>
       <Grid xs={4}>
         <Stack direction="row" spacing={2}>
-          <Typography>{getValueToString(statSnap)}</Typography>
+          <Typography>{statSnap.getValueToString()}</Typography>
           <Typography fontStyle="italic">
             ({pluralize('roll', rolls, true)})
           </Typography>
@@ -44,7 +38,7 @@ export function GearRollSimulatorStat({
         <ButtonGroup size="small" disabled={!canRoll}>
           <Button
             onClick={() => {
-              addOneAverageRoll(statState);
+              statState.addOneAverageRoll();
               onAddRoll();
             }}
           >
@@ -52,7 +46,7 @@ export function GearRollSimulatorStat({
           </Button>
           <Button
             onClick={() => {
-              addOneMaxRoll(statState);
+              statState.addOneMaxRoll();
               onAddRoll();
             }}
           >

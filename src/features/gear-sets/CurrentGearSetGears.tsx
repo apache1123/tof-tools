@@ -3,7 +3,6 @@ import { useSnapshot } from 'valtio';
 
 import { gearTypesLookup } from '../../constants/gear-types';
 import type { GearSet } from '../../models/gear-set';
-import { getGearByType } from '../../models/gear-set';
 import { GearPiece } from '../GearPiece';
 import { gearSetsState } from './states/gear-sets';
 
@@ -19,11 +18,10 @@ export function CurrentGearSetGears() {
   return (
     <Grid container spacing={3}>
       {gearTypesLookup.allIds.map((gearTypeId) => {
-        const gearSnap = getGearByType(
-          selectedGearSetSnap as GearSet,
+        const gearSnap = (selectedGearSetSnap as GearSet).getGearByType(
           gearTypeId
         );
-        const gearState = getGearByType(selectedGearSetState, gearTypeId);
+        const gearState = selectedGearSetState.getGearByType(gearTypeId);
         if (!gearSnap || !gearState) return null;
 
         return (

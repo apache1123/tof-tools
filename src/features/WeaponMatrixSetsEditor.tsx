@@ -8,12 +8,7 @@ import {
 } from '../components/MatrixSetDefinitionSelector/MatrixSetDefinitionSelector';
 import { MatrixSetPiecesSelector } from '../components/MatrixSetPiecesSelector/MatrixSetPiecesSelector';
 import { MatrixStarsSelector } from '../components/MatrixStarsSelector/MatrixStarsSelector';
-import {
-  getDefinition,
-  newMatrixSet,
-  setDefinition,
-  setStars,
-} from '../models/matrix-set';
+import { MatrixSet } from '../models/matrix-set';
 import type { MatrixSet2pcName } from '../models/matrix-set-definition';
 import {
   getMatrixSet2pcTo4pcName,
@@ -21,14 +16,6 @@ import {
   type MatrixSetPieces,
 } from '../models/matrix-set-definition';
 import type { WeaponMatrixSets } from '../models/weapon-matrix-sets';
-import {
-  clearMatrixSet2pc1,
-  clearMatrixSet2pc2,
-  clearMatrixSet4pc,
-  setMatrixSet2pc1,
-  setMatrixSet2pc2,
-  setMatrixSet4pc,
-} from '../models/weapon-matrix-sets';
 
 export interface WeaponMatrixSetsEditorProps {
   weaponMatrixSetsState: WeaponMatrixSets;
@@ -58,13 +45,13 @@ export function WeaponMatrixSetsEditor({
     : defaultMatrixSetPieces;
 
   const matrixSet4pcDefinition = matrixSet4pcSnap
-    ? getDefinition(matrixSet4pcSnap)
+    ? (matrixSet4pcSnap as MatrixSet).definition
     : undefined;
   const matrixSet2pc1Definition = matrixSet2pc1Snap
-    ? getDefinition(matrixSet2pc1Snap)
+    ? (matrixSet2pc1Snap as MatrixSet).definition
     : undefined;
   const matrixSet2pc2Definition = matrixSet2pc2Snap
-    ? getDefinition(matrixSet2pc2Snap)
+    ? (matrixSet2pc2Snap as MatrixSet).definition
     : undefined;
 
   return (
@@ -73,9 +60,9 @@ export function WeaponMatrixSetsEditor({
         matrixSetPieces={matrixSetPieces}
         onChange={(pieces) => {
           setDefaultMatrixSetPieces(pieces);
-          clearMatrixSet4pc(weaponMatrixSetsState);
-          clearMatrixSet2pc1(weaponMatrixSetsState);
-          clearMatrixSet2pc2(weaponMatrixSetsState);
+          weaponMatrixSetsState.matrixSet4pc = undefined;
+          weaponMatrixSetsState.matrixSet2pc1 = undefined;
+          weaponMatrixSetsState.matrixSet2pc2 = undefined;
         }}
       />
 
@@ -96,30 +83,28 @@ export function WeaponMatrixSetsEditor({
                     getMatrixSetDefinition(counterpart4pcName);
 
                   if (matrixSet4pcState) {
-                    setDefinition(matrixSet4pcState, counterpart4pcDefinition);
+                    matrixSet4pcState.definition = counterpart4pcDefinition;
                   } else {
-                    setMatrixSet4pc(
-                      weaponMatrixSetsState,
-                      newMatrixSet(counterpart4pcDefinition)
+                    weaponMatrixSetsState.matrixSet4pc = new MatrixSet(
+                      counterpart4pcDefinition
                     );
                   }
 
-                  clearMatrixSet2pc1(weaponMatrixSetsState);
-                  clearMatrixSet2pc2(weaponMatrixSetsState);
+                  weaponMatrixSetsState.matrixSet2pc1 = undefined;
+                  weaponMatrixSetsState.matrixSet2pc2 = undefined;
                   return;
                 }
 
                 if (definition) {
                   if (matrixSet2pc1State) {
-                    setDefinition(matrixSet2pc1State, definition);
+                    matrixSet2pc1State.definition = definition;
                   } else {
-                    setMatrixSet2pc1(
-                      weaponMatrixSetsState,
-                      newMatrixSet(definition)
+                    weaponMatrixSetsState.matrixSet2pc1 = new MatrixSet(
+                      definition
                     );
                   }
                 } else {
-                  clearMatrixSet2pc1(weaponMatrixSetsState);
+                  weaponMatrixSetsState.matrixSet2pc1 = undefined;
                 }
               }}
             />
@@ -127,7 +112,7 @@ export function WeaponMatrixSetsEditor({
               <MatrixStarsSelector
                 stars={matrixSet2pc1Snap.stars}
                 onStarsChange={(stars) => {
-                  setStars(matrixSet2pc1State, stars);
+                  matrixSet2pc1State.stars = stars;
                 }}
               />
             ) : (
@@ -149,30 +134,28 @@ export function WeaponMatrixSetsEditor({
                     getMatrixSetDefinition(counterpart4pcName);
 
                   if (matrixSet4pcState) {
-                    setDefinition(matrixSet4pcState, counterpart4pcDefinition);
+                    matrixSet4pcState.definition = counterpart4pcDefinition;
                   } else {
-                    setMatrixSet4pc(
-                      weaponMatrixSetsState,
-                      newMatrixSet(counterpart4pcDefinition)
+                    weaponMatrixSetsState.matrixSet4pc = new MatrixSet(
+                      counterpart4pcDefinition
                     );
                   }
 
-                  clearMatrixSet2pc1(weaponMatrixSetsState);
-                  clearMatrixSet2pc2(weaponMatrixSetsState);
+                  weaponMatrixSetsState.matrixSet2pc1 = undefined;
+                  weaponMatrixSetsState.matrixSet2pc2 = undefined;
                   return;
                 }
 
                 if (definition) {
                   if (matrixSet2pc2State) {
-                    setDefinition(matrixSet2pc2State, definition);
+                    matrixSet2pc2State.definition = definition;
                   } else {
-                    setMatrixSet2pc2(
-                      weaponMatrixSetsState,
-                      newMatrixSet(definition)
+                    weaponMatrixSetsState.matrixSet2pc2 = new MatrixSet(
+                      definition
                     );
                   }
                 } else {
-                  clearMatrixSet2pc2(weaponMatrixSetsState);
+                  weaponMatrixSetsState.matrixSet2pc2 = undefined;
                 }
               }}
             />
@@ -180,7 +163,7 @@ export function WeaponMatrixSetsEditor({
               <MatrixStarsSelector
                 stars={matrixSet2pc2Snap.stars}
                 onStarsChange={(stars) => {
-                  setStars(matrixSet2pc2State, stars);
+                  matrixSet2pc2State.stars = stars;
                 }}
               />
             ) : (
@@ -202,15 +185,14 @@ export function WeaponMatrixSetsEditor({
             onChange={(definition) => {
               if (definition) {
                 if (matrixSet4pcState) {
-                  setDefinition(matrixSet4pcState, definition);
+                  matrixSet4pcState.definition = definition;
                 } else {
-                  setMatrixSet4pc(
-                    weaponMatrixSetsState,
-                    newMatrixSet(definition)
+                  weaponMatrixSetsState.matrixSet4pc = new MatrixSet(
+                    definition
                   );
                 }
               } else {
-                clearMatrixSet4pc(weaponMatrixSetsState);
+                weaponMatrixSetsState.matrixSet4pc = undefined;
               }
             }}
           />
@@ -218,7 +200,7 @@ export function WeaponMatrixSetsEditor({
             <MatrixStarsSelector
               stars={matrixSet4pcSnap.stars}
               onStarsChange={(stars) => {
-                setStars(matrixSet4pcState, stars);
+                matrixSet4pcState.stars = stars;
               }}
             />
           ) : (

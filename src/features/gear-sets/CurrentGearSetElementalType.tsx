@@ -1,10 +1,7 @@
 import { useSnapshot } from 'valtio';
 
 import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
-import {
-  gearSetsState,
-  setSelectedGearSetElementalType,
-} from './states/gear-sets';
+import { gearSetsState } from './states/gear-sets';
 
 export function CurrentGearSetElementalType() {
   const { selectedGearSet } = useSnapshot(gearSetsState);
@@ -14,7 +11,9 @@ export function CurrentGearSetElementalType() {
   return (
     <CoreElementalTypeSelector
       elementalType={selectedGearSet.elementalType}
-      onElementalTypeChange={setSelectedGearSetElementalType}
+      onElementalTypeChange={(elementalType) => {
+        gearSetsState.setSelectedGearSetElementalType(elementalType);
+      }}
       label={selectedGearSet.elementalType ? null : 'Element type'}
       size="small"
       variant="outlined"

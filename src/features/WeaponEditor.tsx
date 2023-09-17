@@ -6,7 +6,6 @@ import { WeaponDefinitionSelector } from '../components/WeaponDefinitionSelector
 import { WeaponIcon } from '../components/WeaponIcon/WeaponIcon';
 import { WeaponStarsSelector } from '../components/WeaponStarsSelector.tsx/WeaponStarsSelector';
 import type { Weapon } from '../models/weapon';
-import { getDefinition, setDefinition, setStars } from '../models/weapon';
 import type { WeaponDefinition } from '../models/weapon-definition';
 import { WeaponMatrixSetsEditor } from './WeaponMatrixSetsEditor';
 
@@ -21,8 +20,8 @@ export function WeaponEditor({
   onClearWeapon,
   'data-testid': dataTestId,
 }: WeaponEditorProps) {
-  const weaponSnap = useSnapshot(weaponState);
-  const weaponDefinition = getDefinition(weaponSnap);
+  const weaponSnap = useSnapshot(weaponState) as Weapon;
+  const weaponDefinition = weaponSnap.definition;
 
   return (
     <Layout
@@ -32,7 +31,7 @@ export function WeaponEditor({
           selectedWeaponDefinition={weaponDefinition}
           onChange={(definition) => {
             definition
-              ? setDefinition(weaponState, definition)
+              ? (weaponState.definition = definition)
               : onClearWeapon();
           }}
         />
@@ -41,7 +40,7 @@ export function WeaponEditor({
         <WeaponStarsSelector
           stars={weaponSnap.stars}
           onStarsChange={(stars) => {
-            setStars(weaponState, stars);
+            weaponState.stars = stars;
           }}
         />
       }

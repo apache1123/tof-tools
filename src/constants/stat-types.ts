@@ -1,47 +1,87 @@
 import type { Data } from '../models/data';
-import { ElementalType } from '../models/elemental-type';
 import type { StatType } from '../models/stat-type';
-import { StatName, StatRole } from '../models/stat-type';
+
+export type StatName =
+  | 'Altered Attack'
+  | 'Altered Resistance'
+  | 'Altered Resistance %'
+  | 'Attack'
+  | 'Crit'
+  | 'Crit Rate %'
+  | 'Flame Attack'
+  | 'Flame Attack %'
+  | 'Flame Damage %'
+  | 'Flame Resistance'
+  | 'Flame Resistance %'
+  | 'Frost Attack'
+  | 'Frost Attack %'
+  | 'Frost Damage %'
+  | 'Frost Resistance'
+  | 'Frost Resistance %'
+  | 'HP'
+  | 'HP %'
+  | 'Physical Attack'
+  | 'Physical Attack %'
+  | 'Physical Damage %'
+  | 'Physical Resistance'
+  | 'Physical Resistance %'
+  | 'Resistance'
+  | 'Volt Attack'
+  | 'Volt Attack %'
+  | 'Volt Damage %'
+  | 'Volt Resistance'
+  | 'Volt Resistance %';
+
+export type StatRole =
+  | 'Attack'
+  | 'Attack %'
+  | 'Damage %'
+  | 'Crit'
+  | 'Crit %'
+  | 'Resistance'
+  | 'Resistance %'
+  | 'HP'
+  | 'HP %';
 
 export const statTypesLookup: Data<StatName, StatType> = {
   allIds: [
-    StatName.AlteredAttack,
-    StatName.AlteredResistance,
-    StatName.AlteredResistancePercent,
-    StatName.Attack,
-    StatName.Crit,
-    StatName.CritRatePercent,
-    StatName.FlameAttack,
-    StatName.FlameAttackPercent,
-    StatName.FlameDamagePercent,
-    StatName.FlameResistance,
-    StatName.FlameResistancePercent,
-    StatName.FrostAttack,
-    StatName.FrostAttackPercent,
-    StatName.FrostDamagePercent,
-    StatName.FrostResistance,
-    StatName.FrostResistancePercent,
-    StatName.HP,
-    StatName.HPPercent,
-    StatName.PhysicalAttack,
-    StatName.PhysicalAttackPercent,
-    StatName.PhysicalDamagePercent,
-    StatName.PhysicalResistance,
-    StatName.PhysicalResistancePercent,
-    StatName.Resistance,
-    StatName.VoltAttack,
-    StatName.VoltAttackPercent,
-    StatName.VoltDamagePercent,
-    StatName.VoltResistance,
-    StatName.VoltResistancePercent,
+    'Altered Attack',
+    'Altered Resistance',
+    'Altered Resistance %',
+    'Attack',
+    'Crit',
+    'Crit Rate %',
+    'Flame Attack',
+    'Flame Attack %',
+    'Flame Damage %',
+    'Flame Resistance',
+    'Flame Resistance %',
+    'Frost Attack',
+    'Frost Attack %',
+    'Frost Damage %',
+    'Frost Resistance',
+    'Frost Resistance %',
+    'HP',
+    'HP %',
+    'Physical Attack',
+    'Physical Attack %',
+    'Physical Damage %',
+    'Physical Resistance',
+    'Physical Resistance %',
+    'Resistance',
+    'Volt Attack',
+    'Volt Attack %',
+    'Volt Damage %',
+    'Volt Resistance',
+    'Volt Resistance %',
   ],
   byId: {
-    [StatName.AlteredAttack]: {
-      id: StatName.AlteredAttack,
-      displayName: StatName.AlteredAttack,
+    ['Altered Attack']: {
+      id: 'Altered Attack',
+      displayName: 'Altered Attack',
       inGameName: 'Altered Attack',
-      role: StatRole.Attack,
-      elementalType: ElementalType.Altered,
+      role: 'Attack',
+      elementalType: 'Altered',
       isPercentageBased: false,
       iconImageName: 'altered-attack.png',
       randomStatDefaultValue: 69,
@@ -50,12 +90,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0,
       maxAugmentIncreaseFlat: 0,
     },
-    [StatName.AlteredResistance]: {
-      id: StatName.AlteredResistance,
-      displayName: StatName.AlteredResistance,
+    ['Altered Resistance']: {
+      id: 'Altered Resistance',
+      displayName: 'Altered Resistance',
       inGameName: 'Altered Resistance',
-      role: StatRole.Resistance,
-      elementalType: ElementalType.Altered,
+      role: 'Resistance',
+      elementalType: 'Altered',
       isPercentageBased: false,
       iconImageName: 'altered-res.png',
       randomStatDefaultValue: 215,
@@ -64,12 +104,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0,
       maxAugmentIncreaseFlat: 0,
     },
-    [StatName.AlteredResistancePercent]: {
-      id: StatName.AlteredResistancePercent,
-      displayName: StatName.AlteredResistancePercent,
+    ['Altered Resistance %']: {
+      id: 'Altered Resistance %',
+      displayName: 'Altered Resistance %',
       inGameName: 'Altered Resistance',
-      role: StatRole.ResistancePercent,
-      elementalType: ElementalType.Altered,
+      role: 'Resistance %',
+      elementalType: 'Altered',
       isPercentageBased: true,
       iconImageName: 'altered-res.png',
       randomStatDefaultValue: 0.0787,
@@ -78,12 +118,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0,
       maxAugmentIncreaseFlat: 0,
     },
-    [StatName.Attack]: {
-      id: StatName.Attack,
-      displayName: StatName.Attack,
+    ['Attack']: {
+      id: 'Attack',
+      displayName: 'Attack',
       inGameName: 'Attack',
-      role: StatRole.Attack,
-      elementalType: ElementalType.All,
+      role: 'Attack',
+      elementalType: 'All',
       isPercentageBased: false,
       iconImageName: 'attack.png',
       randomStatDefaultValue: 52,
@@ -92,12 +132,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 244,
     },
-    [StatName.Crit]: {
-      id: StatName.Crit,
-      displayName: StatName.Crit,
+    ['Crit']: {
+      id: 'Crit',
+      displayName: 'Crit',
       inGameName: 'Crit',
-      role: StatRole.Crit,
-      elementalType: ElementalType.All,
+      role: 'Crit',
+      elementalType: 'All',
       isPercentageBased: false,
       iconImageName: 'crit.png',
       randomStatDefaultValue: 258,
@@ -106,12 +146,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 1221,
     },
-    [StatName.CritRatePercent]: {
-      id: StatName.CritRatePercent,
-      displayName: StatName.CritRatePercent,
+    ['Crit Rate %']: {
+      id: 'Crit Rate %',
+      displayName: 'Crit Rate %',
       inGameName: 'Crit Rate',
-      role: StatRole.CritPercent,
-      elementalType: ElementalType.All,
+      role: 'Crit %',
+      elementalType: 'All',
       isPercentageBased: true,
       iconImageName: 'crit.png',
       randomStatDefaultValue: 0.0105,
@@ -120,12 +160,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0,
       maxAugmentIncreaseFlat: 0,
     },
-    [StatName.FlameAttack]: {
-      id: StatName.FlameAttack,
-      displayName: StatName.FlameAttack,
+    ['Flame Attack']: {
+      id: 'Flame Attack',
+      displayName: 'Flame Attack',
       inGameName: 'Flame Attack',
-      role: StatRole.Attack,
-      elementalType: ElementalType.Flame,
+      role: 'Attack',
+      elementalType: 'Flame',
       isPercentageBased: false,
       iconImageName: 'flame-attack.png',
       randomStatDefaultValue: 69,
@@ -134,12 +174,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 325,
     },
-    [StatName.FlameAttackPercent]: {
-      id: StatName.FlameAttackPercent,
-      displayName: StatName.FlameAttackPercent,
+    ['Flame Attack %']: {
+      id: 'Flame Attack %',
+      displayName: 'Flame Attack %',
       inGameName: 'Flame Attack',
-      role: StatRole.AttackPercent,
-      elementalType: ElementalType.Flame,
+      role: 'Attack %',
+      elementalType: 'Flame',
       isPercentageBased: true,
       iconImageName: 'flame-attack.png',
       randomStatDefaultValue: 0.0126,
@@ -148,12 +188,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00846,
     },
-    [StatName.FlameDamagePercent]: {
-      id: StatName.FlameDamagePercent,
-      displayName: StatName.FlameDamagePercent,
+    ['Flame Damage %']: {
+      id: 'Flame Damage %',
+      displayName: 'Flame Damage %',
       inGameName: 'Flame Damage',
-      role: StatRole.DamagePercent,
-      elementalType: ElementalType.Flame,
+      role: 'Damage %',
+      elementalType: 'Flame',
       isPercentageBased: true,
       iconImageName: 'flame-attack.png',
       randomStatDefaultValue: 0.0065,
@@ -162,12 +202,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00426,
     },
-    [StatName.FlameResistance]: {
-      id: StatName.FlameResistance,
-      displayName: StatName.FlameResistance,
+    ['Flame Resistance']: {
+      id: 'Flame Resistance',
+      displayName: 'Flame Resistance',
       inGameName: 'Flame Resistance',
-      role: StatRole.Resistance,
-      elementalType: ElementalType.Flame,
+      role: 'Resistance',
+      elementalType: 'Flame',
       isPercentageBased: false,
       iconImageName: 'flame-res.png',
       randomStatDefaultValue: 215,
@@ -176,12 +216,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 1017,
     },
-    [StatName.FlameResistancePercent]: {
-      id: StatName.FlameResistancePercent,
-      displayName: StatName.FlameResistancePercent,
+    ['Flame Resistance %']: {
+      id: 'Flame Resistance %',
+      displayName: 'Flame Resistance %',
       inGameName: 'Flame Resistance',
-      role: StatRole.ResistancePercent,
-      elementalType: ElementalType.Flame,
+      role: 'Resistance %',
+      elementalType: 'Flame',
       isPercentageBased: true,
       iconImageName: 'flame-res.png',
       randomStatDefaultValue: 0.0787,
@@ -190,12 +230,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.0529,
     },
-    [StatName.FrostAttack]: {
-      id: StatName.FrostAttack,
-      displayName: StatName.FrostAttack,
+    ['Frost Attack']: {
+      id: 'Frost Attack',
+      displayName: 'Frost Attack',
       inGameName: 'Frost Attack',
-      role: StatRole.Attack,
-      elementalType: ElementalType.Frost,
+      role: 'Attack',
+      elementalType: 'Frost',
       isPercentageBased: false,
       iconImageName: 'frost-attack.png',
       randomStatDefaultValue: 69,
@@ -204,12 +244,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 325,
     },
-    [StatName.FrostAttackPercent]: {
-      id: StatName.FrostAttackPercent,
-      displayName: StatName.FrostAttackPercent,
+    ['Frost Attack %']: {
+      id: 'Frost Attack %',
+      displayName: 'Frost Attack %',
       inGameName: 'Frost Attack',
-      role: StatRole.AttackPercent,
-      elementalType: ElementalType.Frost,
+      role: 'Attack %',
+      elementalType: 'Frost',
       isPercentageBased: true,
       iconImageName: 'frost-attack.png',
       randomStatDefaultValue: 0.0126,
@@ -218,12 +258,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00846,
     },
-    [StatName.FrostDamagePercent]: {
-      id: StatName.FrostDamagePercent,
-      displayName: StatName.FrostDamagePercent,
+    ['Frost Damage %']: {
+      id: 'Frost Damage %',
+      displayName: 'Frost Damage %',
       inGameName: 'Frost Damage',
-      role: StatRole.DamagePercent,
-      elementalType: ElementalType.Frost,
+      role: 'Damage %',
+      elementalType: 'Frost',
       isPercentageBased: true,
       iconImageName: 'frost-attack.png',
       randomStatDefaultValue: 0.0065,
@@ -232,12 +272,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00426,
     },
-    [StatName.FrostResistance]: {
-      id: StatName.FrostResistance,
-      displayName: StatName.FrostResistance,
+    ['Frost Resistance']: {
+      id: 'Frost Resistance',
+      displayName: 'Frost Resistance',
       inGameName: 'Frost Resistance',
-      role: StatRole.Resistance,
-      elementalType: ElementalType.Frost,
+      role: 'Resistance',
+      elementalType: 'Frost',
       isPercentageBased: false,
       iconImageName: 'frost-res.png',
       randomStatDefaultValue: 215,
@@ -246,12 +286,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 1017,
     },
-    [StatName.FrostResistancePercent]: {
-      id: StatName.FrostResistancePercent,
-      displayName: StatName.FrostResistancePercent,
+    ['Frost Resistance %']: {
+      id: 'Frost Resistance %',
+      displayName: 'Frost Resistance %',
       inGameName: 'Frost Resistance',
-      role: StatRole.ResistancePercent,
-      elementalType: ElementalType.Frost,
+      role: 'Resistance %',
+      elementalType: 'Frost',
       isPercentageBased: true,
       iconImageName: 'frost-res.png',
       randomStatDefaultValue: 0.0787,
@@ -260,12 +300,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.0529,
     },
-    [StatName.HP]: {
-      id: StatName.HP,
-      displayName: StatName.HP,
+    ['HP']: {
+      id: 'HP',
+      displayName: 'HP',
       inGameName: 'HP',
-      role: StatRole.HP,
-      elementalType: ElementalType.None,
+      role: 'HP',
+      elementalType: 'None',
       isPercentageBased: false,
       iconImageName: 'hp.png',
       randomStatDefaultValue: 4125,
@@ -274,12 +314,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 19525,
     },
-    [StatName.HPPercent]: {
-      id: StatName.HPPercent,
-      displayName: StatName.HPPercent,
+    ['HP %']: {
+      id: 'HP %',
+      displayName: 'HP %',
       inGameName: 'HP',
-      role: StatRole.HPPercent,
-      elementalType: ElementalType.None,
+      role: 'HP %',
+      elementalType: 'None',
       isPercentageBased: true,
       iconImageName: 'hp.png',
       randomStatDefaultValue: 0.0094,
@@ -288,12 +328,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00634,
     },
-    [StatName.PhysicalAttack]: {
-      id: StatName.PhysicalAttack,
-      displayName: StatName.PhysicalAttack,
+    ['Physical Attack']: {
+      id: 'Physical Attack',
+      displayName: 'Physical Attack',
       inGameName: 'Physical Attack',
-      role: StatRole.Attack,
-      elementalType: ElementalType.Physical,
+      role: 'Attack',
+      elementalType: 'Physical',
       isPercentageBased: false,
       iconImageName: 'attack.png',
       randomStatDefaultValue: 69,
@@ -302,12 +342,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 325,
     },
-    [StatName.PhysicalAttackPercent]: {
-      id: StatName.PhysicalAttackPercent,
-      displayName: StatName.PhysicalAttackPercent,
+    ['Physical Attack %']: {
+      id: 'Physical Attack %',
+      displayName: 'Physical Attack %',
       inGameName: 'Physical Attack',
-      role: StatRole.AttackPercent,
-      elementalType: ElementalType.Physical,
+      role: 'Attack %',
+      elementalType: 'Physical',
       isPercentageBased: true,
       iconImageName: 'attack.png',
       randomStatDefaultValue: 0.0126,
@@ -316,12 +356,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00846,
     },
-    [StatName.PhysicalDamagePercent]: {
-      id: StatName.PhysicalDamagePercent,
-      displayName: StatName.PhysicalDamagePercent,
+    ['Physical Damage %']: {
+      id: 'Physical Damage %',
+      displayName: 'Physical Damage %',
       inGameName: 'Physical Damage',
-      role: StatRole.DamagePercent,
-      elementalType: ElementalType.Physical,
+      role: 'Damage %',
+      elementalType: 'Physical',
       isPercentageBased: true,
       iconImageName: 'attack.png',
       randomStatDefaultValue: 0.0065,
@@ -330,12 +370,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00426,
     },
-    [StatName.PhysicalResistance]: {
-      id: StatName.PhysicalResistance,
-      displayName: StatName.PhysicalResistance,
+    ['Physical Resistance']: {
+      id: 'Physical Resistance',
+      displayName: 'Physical Resistance',
       inGameName: 'Physical Resistance',
-      role: StatRole.Resistance,
-      elementalType: ElementalType.Physical,
+      role: 'Resistance',
+      elementalType: 'Physical',
       isPercentageBased: false,
       iconImageName: 'phys-res.png',
       randomStatDefaultValue: 215,
@@ -344,12 +384,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 1017,
     },
-    [StatName.PhysicalResistancePercent]: {
-      id: StatName.PhysicalResistancePercent,
-      displayName: StatName.PhysicalResistancePercent,
+    ['Physical Resistance %']: {
+      id: 'Physical Resistance %',
+      displayName: 'Physical Resistance %',
       inGameName: 'Physical Resistance',
-      role: StatRole.ResistancePercent,
-      elementalType: ElementalType.Physical,
+      role: 'Resistance %',
+      elementalType: 'Physical',
       isPercentageBased: true,
       iconImageName: 'phys-res.png',
       randomStatDefaultValue: 0.0787,
@@ -358,12 +398,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.0529,
     },
-    [StatName.Resistance]: {
-      id: StatName.Resistance,
-      displayName: StatName.Resistance,
+    ['Resistance']: {
+      id: 'Resistance',
+      displayName: 'Resistance',
       inGameName: 'Resistance',
-      role: StatRole.Resistance,
-      elementalType: ElementalType.All,
+      role: 'Resistance',
+      elementalType: 'All',
       isPercentageBased: false,
       iconImageName: 'res.png',
       randomStatDefaultValue: 64,
@@ -372,12 +412,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 305,
     },
-    [StatName.VoltAttack]: {
-      id: StatName.VoltAttack,
-      displayName: StatName.VoltAttack,
+    ['Volt Attack']: {
+      id: 'Volt Attack',
+      displayName: 'Volt Attack',
       inGameName: 'Volt Attack',
-      role: StatRole.Attack,
-      elementalType: ElementalType.Volt,
+      role: 'Attack',
+      elementalType: 'Volt',
       isPercentageBased: false,
       iconImageName: 'volt-attack.png',
       randomStatDefaultValue: 69,
@@ -386,12 +426,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 325,
     },
-    [StatName.VoltAttackPercent]: {
-      id: StatName.VoltAttackPercent,
-      displayName: StatName.VoltAttackPercent,
+    ['Volt Attack %']: {
+      id: 'Volt Attack %',
+      displayName: 'Volt Attack %',
       inGameName: 'Volt Attack',
-      role: StatRole.AttackPercent,
-      elementalType: ElementalType.Volt,
+      role: 'Attack %',
+      elementalType: 'Volt',
       isPercentageBased: true,
       iconImageName: 'volt-attack.png',
       randomStatDefaultValue: 0.0126,
@@ -400,12 +440,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00846,
     },
-    [StatName.VoltDamagePercent]: {
-      id: StatName.VoltDamagePercent,
-      displayName: StatName.VoltDamagePercent,
+    ['Volt Damage %']: {
+      id: 'Volt Damage %',
+      displayName: 'Volt Damage %',
       inGameName: 'Volt Damage',
-      role: StatRole.DamagePercent,
-      elementalType: ElementalType.Volt,
+      role: 'Damage %',
+      elementalType: 'Volt',
       isPercentageBased: true,
       iconImageName: 'volt-attack.png',
       randomStatDefaultValue: 0.0065,
@@ -414,12 +454,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.05,
       maxAugmentIncreaseFlat: 0.00426,
     },
-    [StatName.VoltResistance]: {
-      id: StatName.VoltResistance,
-      displayName: StatName.VoltResistance,
+    ['Volt Resistance']: {
+      id: 'Volt Resistance',
+      displayName: 'Volt Resistance',
       inGameName: 'Volt Resistance',
-      role: StatRole.Resistance,
-      elementalType: ElementalType.Volt,
+      role: 'Resistance',
+      elementalType: 'Volt',
       isPercentageBased: false,
       iconImageName: 'volt-res.png',
       randomStatDefaultValue: 215,
@@ -428,12 +468,12 @@ export const statTypesLookup: Data<StatName, StatType> = {
       maxAugmentIncreaseMultiplier: 0.1,
       maxAugmentIncreaseFlat: 1017,
     },
-    [StatName.VoltResistancePercent]: {
-      id: StatName.VoltResistancePercent,
-      displayName: StatName.VoltResistancePercent,
+    ['Volt Resistance %']: {
+      id: 'Volt Resistance %',
+      displayName: 'Volt Resistance %',
       inGameName: 'Volt Resistance',
-      role: StatRole.ResistancePercent,
-      elementalType: ElementalType.Volt,
+      role: 'Resistance %',
+      elementalType: 'Volt',
       isPercentageBased: true,
       iconImageName: 'volt-res.png',
       randomStatDefaultValue: 0.0787,
