@@ -1,6 +1,5 @@
 import { derive } from 'valtio/utils';
 
-import { getElementalResonance, getWeaponResonance, } from '../../../../models/team';
 import type { TeamResonances } from '../../../../models/team-resonances';
 import { selectedElementalTeamState } from './selected-elemental-team';
 
@@ -11,15 +10,15 @@ export const selectedElementalTeamResonancesState = derive<
   SelectedElementalTeamResonancesState
 >({
   elementalResonance: (get) => {
-    const {selectedElementalTeam} = get(selectedElementalTeamState)
+    const { selectedElementalTeam } = get(selectedElementalTeamState);
     if (!selectedElementalTeam) return undefined;
 
-    return getElementalResonance(selectedElementalTeam);
+    return selectedElementalTeam.getElementalResonance();
   },
   weaponResonance: (get) => {
-    const {selectedElementalTeam} = get(selectedElementalTeamState)
-    if (!selectedElementalTeam) return undefined; 
+    const { selectedElementalTeam } = get(selectedElementalTeamState);
+    if (!selectedElementalTeam) return undefined;
 
-    return getWeaponResonance(selectedElementalTeam);
-  }
+    return selectedElementalTeam.getWeaponResonance();
+  },
 });

@@ -2,12 +2,6 @@ import BigNumber from 'bignumber.js';
 import { derive, devtools } from 'valtio/utils';
 
 import type { BasisValues } from '../../../../models/basis-values';
-import {
-  getTotalAttackFlat,
-  getTotalAttackPercent,
-  getTotalCritFlat,
-  getTotalCritPercent,
-} from '../../../../models/gear';
 import { additiveSum } from '../../../../utils/math-utils';
 import {
   calculateCritPercentFromFlat,
@@ -83,16 +77,16 @@ function getBasisValues(
 
   const gearA = gearComparerGearsSnap.GearA;
   const attackFlatWithoutGearA = BigNumber(baseAttackFlatWithGearA)
-    .minus(gearA ? getTotalAttackFlat(gearA, selectedElementalType) : 0)
+    .minus(gearA ? gearA.getTotalAttackFlat(selectedElementalType) : 0)
     .toNumber();
   const passiveAttackPercentWithoutGearA = passiveAttackPercentWithGearA
-    .minus(gearA ? getTotalAttackPercent(gearA, selectedElementalType) : 0)
+    .minus(gearA ? gearA.getTotalAttackPercent(selectedElementalType) : 0)
     .toNumber();
   const critFlatWithoutGearA = BigNumber(critFlatWithGearA)
-    .minus(gearA ? getTotalCritFlat(gearA) : 0)
+    .minus(gearA ? gearA.getTotalCritFlat() : 0)
     .toNumber();
   const critPercentWithoutGearA = BigNumber(critPercentWithGearA)
-    .minus(gearA ? getTotalCritPercent(gearA) : 0)
+    .minus(gearA ? gearA.getTotalCritPercent() : 0)
     .toNumber();
   const critDamageWithoutGearA = critDamageWithGearA;
 

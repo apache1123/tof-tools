@@ -1,14 +1,8 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
-import type { CoreElementalType } from '../models/elemental-type';
+import type { CoreElementalType } from '../constants/elemental-type';
 import type { Gear } from '../models/gear';
-import {
-  getAugmentIncreaseValueToString,
-  getTotalValueWithAugmentToString,
-  getType,
-  getValueToString,
-} from '../models/random-stat';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 
 export interface TitanGearMaxStatsProps {
@@ -33,13 +27,13 @@ export function TitanGearMaxStats({
             if (!randomStat) {
               return undefined;
             }
-            const { displayName } = getType(randomStat);
+            const { displayName } = randomStat.type;
             return (
               <Typography key={i} gutterBottom>
                 <strong>{displayName}: </strong>
-                {getValueToString(randomStat)} +{' '}
-                {getAugmentIncreaseValueToString(randomStat)} ={' '}
-                <strong>{getTotalValueWithAugmentToString(randomStat)}</strong>
+                {randomStat.getValueToString()} +{' '}
+                {randomStat.getAugmentIncreaseValueToString()} ={' '}
+                <strong>{randomStat.getTotalValueWithAugmentToString()}</strong>
               </Typography>
             );
           })}
@@ -54,13 +48,15 @@ export function TitanGearMaxStats({
             if (!augmentStat) {
               return undefined;
             }
-            const { displayName } = getType(augmentStat);
+            const { displayName } = augmentStat.type;
             return (
               <Typography key={i} gutterBottom>
                 <strong>{displayName}: </strong>
-                {getValueToString(augmentStat)} +{' '}
-                {getAugmentIncreaseValueToString(augmentStat)} ={' '}
-                <strong>{getTotalValueWithAugmentToString(augmentStat)}</strong>
+                {augmentStat.getValueToString()} +{' '}
+                {augmentStat.getAugmentIncreaseValueToString()} ={' '}
+                <strong>
+                  {augmentStat.getTotalValueWithAugmentToString()}
+                </strong>
               </Typography>
             );
           })}

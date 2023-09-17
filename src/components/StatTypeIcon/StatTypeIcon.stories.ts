@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import type { StatType } from '../../models/stat-type';
-import { StatName } from '../../models/stat-type';
 import { StatTypeIcon } from './StatTypeIcon';
 
 const meta: Meta<typeof StatTypeIcon> = {
@@ -22,7 +21,7 @@ export const Unknown: Story = {
 export const Initial: Story = {
   args: {
     statType: {
-      id: StatName.AlteredAttack,
+      id: 'Altered Attack',
       iconImageName: 'altered-attack.png',
     } as StatType,
   },

@@ -3,12 +3,8 @@ import { useEffect, useState } from 'react';
 import { useSnapshot } from 'valtio';
 
 import { StyledModal } from '../../components/Modal/StyledModal';
-import { newGearSet } from '../../models/gear-set';
-import {
-  addGearSet,
-  gearSetsState,
-  setSelectedGearSetIndex,
-} from './states/gear-sets';
+import { GearSet } from '../../models/gear-set';
+import { gearSetsState } from './states/gear-sets';
 
 export interface AddGearSetModalProps {
   open: boolean;
@@ -40,14 +36,14 @@ export function AddGearSetModal({ open, onClose }: AddGearSetModalProps) {
       showConfirm
       showCancel
       onConfirm={() => {
-        const gearSet = newGearSet(newGearSetName);
-        addGearSet(gearSet);
+        const gearSet = new GearSet(newGearSetName);
+        gearSetsState.addGearSet(gearSet);
 
         const newGearSetIndex = gearSetsState.gearSets.allIds.findIndex(
           (id) => id === gearSet.id
         );
         if (newGearSetIndex !== -1) {
-          setSelectedGearSetIndex(newGearSetIndex);
+          gearSetsState.selectedGearSetIndex = newGearSetIndex;
         }
 
         onClose();

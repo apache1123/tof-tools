@@ -1,7 +1,7 @@
 import { derive } from 'valtio/utils';
 
 import type { TeamResonances } from '../../../../models/team-resonances';
-import { getDefinition, type Weapon } from '../../../../models/weapon';
+import { type Weapon } from '../../../../models/weapon';
 import type {
   WeaponAttackPercentBuff,
   WeaponBuff,
@@ -30,7 +30,7 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
-      const weaponDefinition = getDefinition(weapon);
+      const weaponDefinition = weapon.definition;
       weaponDefinition.attackPercentBuffs.forEach((buffDefinition) => {
         if (
           !hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)
@@ -75,15 +75,21 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
-      const weaponDefinition = getDefinition(weapon);
+      const weaponDefinition = weapon.definition;
       weaponDefinition.critRateBuffs.forEach((buffDefinition) => {
         if (
           !hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)
         )
           return;
 
-        const { id, description, displayName, value, canStack, isActivePassively } =
-          buffDefinition;
+        const {
+          id,
+          description,
+          displayName,
+          value,
+          canStack,
+          isActivePassively,
+        } = buffDefinition;
         const buff: WeaponCritRateBuff = {
           id,
           description,

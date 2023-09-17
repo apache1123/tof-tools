@@ -15,11 +15,12 @@ import {
   randomStatsSectionTitle,
   titanGearNamePrefix,
 } from '../constants/gear';
+import type { GearName } from '../constants/gear-types';
 import { gearTypesLookup } from '../constants/gear-types';
 import { statTypesLookup } from '../constants/stat-types';
-import { type Gear, newGear } from '../models/gear';
-import type { GearName, GearType } from '../models/gear-type';
-import { newRandomStat, setValue } from '../models/random-stat';
+import { Gear } from '../models/gear';
+import type { GearType } from '../models/gear-type';
+import { RandomStat } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
 import {
   ocrState,
@@ -68,7 +69,7 @@ export const GearOCRModal = ({
 
     const ocrGear = getGearFromOCR(text);
     if (ocrGear) {
-      if (enforceGearType && ocrGear.typeId !== enforceGearType) {
+      if (enforceGearType && ocrGear.type.id !== enforceGearType) {
         setErrorMessage(incorrectGearTypeError(enforceGearType));
         return;
       }
@@ -213,7 +214,7 @@ function getGearFromOCR(text: string): Gear | undefined {
 
       for (const gearType of sortedGearTypes) {
         if (containsString(line, gearType.inGameName)) {
-          gear = newGear(gearType);
+          gear = new Gear(gearType);
           hasFoundGearType = true;
           foundGearType = gearType;
         }
@@ -290,9 +291,9 @@ function getGearFromOCR(text: string): Gear | undefined {
         if (Number.isNaN(value)) continue;
 
         if (gear) {
-          const randomStat = newRandomStat(randomStatType);
+          const randomStat = new RandomStat(randomStatType);
           gear.randomStats[numOfRandomStatsFound] = randomStat;
-          setValue(randomStat, value);
+          randomStat.value = value;
           hasMatch = true;
         }
       }

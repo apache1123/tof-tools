@@ -3,13 +3,6 @@ import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import type { GearSet } from '../../models/gear-set';
-import {
-  getTotalAttackFlat,
-  getTotalAttackPercent,
-  getTotalCritFlat,
-  getTotalCritPercent,
-  getTotalDamagePercent,
-} from '../../models/gear-set';
 import { toPercentageString2dp } from '../../utils/number-utils';
 import { gearSetsState } from './states/gear-sets';
 
@@ -31,7 +24,7 @@ export function CurrentGearSetStatSummary() {
           <Typography>Attack</Typography>
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
-              {getTotalAttackFlat(selectedGearSet as GearSet)}
+              {(selectedGearSet as GearSet).getTotalAttackFlat()}
             </ElementalStyledText>
           </Box>
         </Box>
@@ -41,7 +34,7 @@ export function CurrentGearSetStatSummary() {
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {toPercentageString2dp(
-                getTotalAttackPercent(selectedGearSet as GearSet)
+                (selectedGearSet as GearSet).getTotalAttackPercent()
               )}
             </ElementalStyledText>
           </Box>
@@ -52,7 +45,7 @@ export function CurrentGearSetStatSummary() {
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {toPercentageString2dp(
-                getTotalDamagePercent(selectedGearSet as GearSet)
+                (selectedGearSet as GearSet).getTotalDamagePercent()
               )}
             </ElementalStyledText>
           </Box>
@@ -62,7 +55,7 @@ export function CurrentGearSetStatSummary() {
           <Typography>Crit</Typography>
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
-              {getTotalCritFlat(selectedGearSet as GearSet)}
+              {(selectedGearSet as GearSet).getTotalCritFlat()}
             </ElementalStyledText>
           </Box>
         </Box>
@@ -72,7 +65,7 @@ export function CurrentGearSetStatSummary() {
           <Box>
             <ElementalStyledText elementalType={selectedGearSet.elementalType}>
               {toPercentageString2dp(
-                getTotalCritPercent(selectedGearSet as GearSet)
+                (selectedGearSet as GearSet).getTotalCritPercent()
               )}
             </ElementalStyledText>
           </Box>

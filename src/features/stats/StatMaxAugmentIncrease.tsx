@@ -5,12 +5,7 @@ import Image from 'next/image';
 import { proxy, useSnapshot } from 'valtio';
 
 import { statTypesLookup } from '../../constants/stat-types';
-import type { RandomStat } from '../../models/random-stat';
-import {
-  getMaxAugmentIncrease,
-  getType,
-  newRandomStat,
-} from '../../models/random-stat';
+import { RandomStat } from '../../models/random-stat';
 import type { StatType } from '../../models/stat-type';
 import { toPercentageString2dp } from '../../utils/number-utils';
 import { EmptyStatEditor, StatEditor } from '../StatEditor';
@@ -64,9 +59,9 @@ export function StatMaxAugmentIncrease() {
             <Typography>
               Max augment increase value:{' '}
               {statSnap
-                ? getType(statSnap).isPercentageBased
-                  ? toPercentageString2dp(getMaxAugmentIncrease(statSnap))
-                  : getMaxAugmentIncrease(statSnap)
+                ? statSnap.type.isPercentageBased
+                  ? toPercentageString2dp(statSnap.getMaxAugmentIncrease())
+                  : statSnap.getMaxAugmentIncrease()
                 : 0}
             </Typography>
           </Grid>
@@ -76,6 +71,6 @@ export function StatMaxAugmentIncrease() {
   );
 
   function handleNewStat(statType: StatType) {
-    state.stat = newRandomStat(statType);
+    state.stat = new RandomStat(statType);
   }
 }

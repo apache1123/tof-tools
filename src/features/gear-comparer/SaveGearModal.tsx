@@ -3,8 +3,7 @@ import { useCallback, useState } from 'react';
 
 import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import type { Gear } from '../../models/gear';
-import { copyGear } from '../../models/gear';
+import { Gear } from '../../models/gear';
 import type { GearSet } from '../../models/gear-set';
 import { GearSetSelector } from '../GearSetSelector';
 
@@ -31,9 +30,9 @@ export function SaveGearModal({ gear }: SaveGearModalProps) {
         showCancel
         onConfirm={() => {
           if (selectedGearSet) {
-            const replaceeGear = selectedGearSet.gearsByTypeId[gear.typeId];
+            const replaceeGear = selectedGearSet.getGearByType(gear.type.id);
             if (replaceeGear) {
-              copyGear(gear, replaceeGear);
+              Gear.copy(gear, replaceeGear);
 
               if (selectedGearSet.name) {
                 showSnackbar(

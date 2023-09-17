@@ -5,11 +5,7 @@ import { useSnapshot } from 'valtio';
 
 import { ElementalTypeIcon } from '../../components/ElementalTypeIcon/ElementalTypeIcon';
 import { AddGearSetModal } from './AddGearSetModal';
-import {
-  gearSetsState,
-  getDefaultGearSetName,
-  setSelectedGearSetIndex,
-} from './states/gear-sets';
+import { gearSetsState, getDefaultGearSetName } from './states/gear-sets';
 
 export function GearSetTabs() {
   const { gearSets, selectedGearSetIndex, selectedGearSet } =
@@ -25,7 +21,7 @@ export function GearSetTabs() {
           if (value === 'add') {
             setOpenAddGearSetModal(true);
           } else {
-            setSelectedGearSetIndex(value);
+            gearSetsState.selectedGearSetIndex = value;
           }
         }}
         TabIndicatorProps={{

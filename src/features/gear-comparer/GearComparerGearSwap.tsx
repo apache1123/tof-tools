@@ -2,12 +2,6 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { Button } from '@mui/material';
 import BigNumber from 'bignumber.js';
 
-import {
-  getTotalAttackFlat,
-  getTotalAttackPercent,
-  getTotalCritFlat,
-  getTotalCritPercent,
-} from '../../models/gear';
 import { additiveSum } from '../../utils/math-utils';
 import { gearBasisValuesState } from './states/derived/gear-basis-values';
 import {
@@ -49,11 +43,11 @@ function swapGear() {
 
     const baseAttackFlatWithGear = additiveSum([
       basisAttackFlat,
-      getTotalAttackFlat(oldGearB, selectedElementalType),
+      oldGearB.getTotalAttackFlat(selectedElementalType),
     ]);
     const attackPercentWithGear = additiveSum([
       basisPassiveAttackPercent,
-      getTotalAttackPercent(oldGearB, selectedElementalType),
+      oldGearB.getTotalAttackPercent(selectedElementalType),
     ]);
 
     const totalAttackFlatWithGear = BigNumber(baseAttackFlatWithGear).times(
@@ -62,11 +56,11 @@ function swapGear() {
 
     const critFlatWithGear = additiveSum([
       basisCritFlat,
-      getTotalCritFlat(oldGearB),
+      oldGearB.getTotalCritFlat(),
     ]);
     const critPercentWithGear = additiveSum([
       basisPassiveCritPercent,
-      getTotalCritPercent(oldGearB),
+      oldGearB.getTotalCritPercent(),
     ]);
 
     setBaseAttackFlatWithGearA(baseAttackFlatWithGear.toNumber());

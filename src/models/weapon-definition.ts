@@ -1,5 +1,6 @@
-import type { WeaponName } from '../constants/weapon-definitions';
-import type { WeaponElementalType } from './elemental-type';
+import type { WeaponElementalType } from '../constants/elemental-type';
+import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
+import { weaponDefinitions } from '../constants/weapon-definitions';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -14,8 +15,6 @@ export interface WeaponDefinition {
   critRateBuffs: WeaponCritRateBuffDefinition[];
 }
 
-export enum WeaponType {
-  DPS = 'DPS',
-  Support = 'Support',
-  Defense = 'Defense',
+export function getWeaponDefinition(id: WeaponName): WeaponDefinition {
+  return weaponDefinitions.byId[id];
 }

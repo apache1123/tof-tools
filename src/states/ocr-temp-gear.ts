@@ -2,8 +2,7 @@ import { createWorker, type Worker } from 'tesseract.js';
 import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
-import type { Gear } from '../models/gear';
-import { newGear } from '../models/gear';
+import { Gear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 
 export interface OcrState {
@@ -18,7 +17,7 @@ export const ocrState = proxy<OcrState>({
 devtools(ocrState, { name: 'ocr' });
 
 export function newOCRTempGear(gearType: GearType) {
-  ocrState.tempGear = newGear(gearType);
+  ocrState.tempGear = new Gear(gearType);
 }
 
 export function setOCRTempGear(gear: Gear) {

@@ -1,159 +1,176 @@
 import BigNumber from 'bignumber.js';
 
 import { maxNumOfRandomStatRolls } from '../constants/gear';
+import type { StatName } from '../constants/stat-types';
 import { statTypesLookup } from '../constants/stat-types';
 import { toIntegerString, toPercentageString2dp } from '../utils/number-utils';
+import type { Persistable } from './persistable';
 import type { RollCombination } from './random-stat-roll-combination';
 import { zeroRollCombination } from './random-stat-roll-combination';
-import { type StatName, type StatType } from './stat-type';
+import { type StatType } from './stat-type';
 
-export interface RandomStat {
+export class RandomStat implements Persistable<RandomStatDTO> {
+  private _type: StatType;
+
+  public value: number;
+  public augmentIncreaseValue: number;
+
+  public constructor(type: StatType) {
+    this._type = type;
+    this.value = 0;
+    this.resetValueToDefault();
+    this.augmentIncreaseValue = 0;
+  }
+
+  public get type(): StatType {
+    return this._type;
+  }
+  public set type(type: StatType) {
+    this._type = type;
+    this.resetValueToDefault();
+  }
+
+  public getValueToString(): string {
+    const {
+      value,
+      type: { isPercentageBased },
+    } = this;
+    return isPercentageBased
+      ? toPercentageString2dp(value)
+      : toIntegerString(value);
+  }
+
+  public resetValueToDefault() {
+    const { randomStatDefaultValue } = this.type;
+    this.value = randomStatDefaultValue;
+  }
+
+  public getMaxAugmentIncrease(): number {
+    const { maxAugmentIncreaseMultiplier, maxAugmentIncreaseFlat } = this.type;
+    return BigNumber(this.value)
+      .multipliedBy(maxAugmentIncreaseMultiplier)
+      .plus(maxAugmentIncreaseFlat)
+      .toNumber();
+  }
+
+  public getAugmentIncreaseValueToString(): string {
+    const {
+      augmentIncreaseValue,
+      type: { isPercentageBased },
+    } = this;
+    return isPercentageBased
+      ? toPercentageString2dp(augmentIncreaseValue)
+      : toIntegerString(augmentIncreaseValue);
+  }
+
+  public getTotalValueWithAugment(): number {
+    return BigNumber(this.value).plus(this.augmentIncreaseValue).toNumber();
+  }
+  public getTotalValueWithAugmentToString(): string {
+    const { isPercentageBased } = this.type;
+    const value = this.getTotalValueWithAugment();
+    return isPercentageBased
+      ? toPercentageString2dp(value)
+      : toIntegerString(value);
+  }
+
+  public addOneAverageRoll() {
+    const {
+      value,
+      type: { randomStatMinRollValue, randomStatMaxRollValue },
+    } = this;
+    const averageRollValue = BigNumber(randomStatMinRollValue)
+      .plus(randomStatMaxRollValue)
+      .dividedBy(2);
+    const newValue = averageRollValue.plus(value).toNumber();
+    this.value = newValue;
+  }
+
+  public addOneMaxRoll() {
+    const {
+      value,
+      type: { randomStatMaxRollValue },
+    } = this;
+    const newValue = BigNumber(value).plus(randomStatMaxRollValue).toNumber();
+    this.value = newValue;
+  }
+
+  public getRollCombinations(): RollCombination[] {
+    const {
+      value,
+      type: {
+        randomStatDefaultValue,
+        randomStatMinRollValue,
+        randomStatMaxRollValue,
+      },
+    } = this;
+    if (!value) return [];
+
+    if (value === randomStatDefaultValue) {
+      return [zeroRollCombination()];
+    }
+
+    // ceil((value - defaultValue) / maxValue)
+    const smallestNumOfRolls = BigNumber(value)
+      .minus(BigNumber(randomStatDefaultValue))
+      .dividedBy(BigNumber(randomStatMaxRollValue))
+      .integerValue(BigNumber.ROUND_CEIL)
+      .toNumber();
+    // min(((value - defaultValue) / minValue), maxNumOfRolls)
+    const largestNumOfRolls = BigNumber.min(
+      BigNumber(value)
+        .minus(BigNumber(randomStatDefaultValue))
+        .dividedBy(BigNumber(randomStatMinRollValue))
+        .integerValue(BigNumber.ROUND_FLOOR),
+      maxNumOfRandomStatRolls
+    ).toNumber();
+
+    const combinations: RollCombination[] = [];
+    for (let n = smallestNumOfRolls; n <= largestNumOfRolls; n++) {
+      // (value - defaultValue - n * minValue) / (maxValue - minValue) / n
+      const rollStrength = BigNumber(value)
+        .minus(BigNumber(randomStatDefaultValue))
+        .minus(BigNumber(randomStatMinRollValue).multipliedBy(n))
+        .dividedBy(
+          BigNumber(randomStatMaxRollValue).minus(
+            BigNumber(randomStatMinRollValue)
+          )
+        )
+        .dividedBy(n)
+        .toNumber();
+      combinations.push({ numberOfRolls: n, rollStrength });
+    }
+
+    return combinations;
+  }
+
+  static copy(from: RandomStat, to: RandomStat) {
+    to.type = from.type;
+    to.value = from.value;
+    to.augmentIncreaseValue = from.augmentIncreaseValue;
+  }
+
+  public copyFromDTO(dto: RandomStatDTO): void {
+    const { typeId, value, augmentIncreaseValue } = dto;
+
+    this.type = statTypesLookup.byId[typeId];
+    this.value = value;
+    this.augmentIncreaseValue = augmentIncreaseValue ?? 0;
+  }
+
+  public toDTO(): RandomStatDTO {
+    const { type, value, augmentIncreaseValue } = this;
+    return {
+      typeId: type.id,
+      value,
+      augmentIncreaseValue,
+    };
+  }
+}
+// staticImplements<PersistableConstructor<RandomStatDTO>>(RandomStat);
+
+export interface RandomStatDTO {
   typeId: StatName;
   value: number;
-  augmentIncreaseValue: number;
-}
-
-export function newRandomStat(type: StatType): RandomStat {
-  const randomStat = { augmentIncreaseValue: 0 } as RandomStat;
-  setType(randomStat, type);
-  return randomStat;
-}
-
-export function copyRandomStat(
-  fromRandomStat: RandomStat,
-  toRandomStat: RandomStat
-) {
-  setType(toRandomStat, getType(fromRandomStat));
-  setValue(toRandomStat, fromRandomStat.value);
-}
-
-export function getType(randomStat: RandomStat) {
-  return statTypesLookup.byId[randomStat.typeId];
-}
-export function setType(randomStat: RandomStat, type: StatType) {
-  randomStat.typeId = type.id;
-  resetValueToDefault(randomStat);
-}
-
-export function setValue(randomStat: RandomStat, value: number) {
-  randomStat.value = value;
-}
-export function getValueToString(randomStat: RandomStat): string {
-  const { value } = randomStat;
-  const { isPercentageBased } = getType(randomStat);
-  return isPercentageBased
-    ? toPercentageString2dp(value)
-    : toIntegerString(value);
-}
-
-export function resetValueToDefault(randomStat: RandomStat) {
-  const type = getType(randomStat);
-  randomStat.value = type.randomStatDefaultValue;
-}
-
-export function getMaxAugmentIncrease(randomStat: RandomStat): number {
-  const { maxAugmentIncreaseMultiplier, maxAugmentIncreaseFlat } =
-    getType(randomStat);
-  return BigNumber(randomStat.value)
-    .multipliedBy(maxAugmentIncreaseMultiplier)
-    .plus(maxAugmentIncreaseFlat)
-    .toNumber();
-}
-export function setAugmentIncreaseValue(randomStat: RandomStat, value: number) {
-  randomStat.augmentIncreaseValue = value;
-}
-export function getAugmentIncreaseValueToString(
-  randomStat: RandomStat
-): string {
-  const { augmentIncreaseValue } = randomStat;
-  const { isPercentageBased } = getType(randomStat);
-  return isPercentageBased
-    ? toPercentageString2dp(augmentIncreaseValue)
-    : toIntegerString(augmentIncreaseValue);
-}
-
-export function getTotalValueWithAugment(randomStat: RandomStat): number {
-  return BigNumber(randomStat.value)
-    .plus(randomStat.augmentIncreaseValue ?? 0)
-    .toNumber();
-}
-export function getTotalValueWithAugmentToString(
-  randomStat: RandomStat
-): string {
-  const { isPercentageBased } = getType(randomStat);
-  const value = getTotalValueWithAugment(randomStat);
-  return isPercentageBased
-    ? toPercentageString2dp(value)
-    : toIntegerString(value);
-}
-
-export function addOneAverageRoll(randomStat: RandomStat) {
-  const { randomStatMinRollValue, randomStatMaxRollValue } =
-    getType(randomStat);
-  const averageRollValue = BigNumber(randomStatMinRollValue)
-    .plus(randomStatMaxRollValue)
-    .dividedBy(2);
-  const newValue = averageRollValue.plus(randomStat.value).toNumber();
-  setValue(randomStat, newValue);
-}
-
-export function addOneMaxRoll(randomStat: RandomStat) {
-  const { randomStatMaxRollValue } = getType(randomStat);
-  const newValue = BigNumber(randomStat.value)
-    .plus(randomStatMaxRollValue)
-    .toNumber();
-  setValue(randomStat, newValue);
-}
-
-export function getRandomStatRollCombinations(
-  randomStat: RandomStat
-): RollCombination[] {
-  const { value } = randomStat;
-  if (!value) return [];
-
-  const statType = getType(randomStat);
-  if (!statType) return [];
-
-  const {
-    randomStatDefaultValue,
-    randomStatMinRollValue,
-    randomStatMaxRollValue,
-  } = statType;
-
-  if (value === randomStatDefaultValue) {
-    return [zeroRollCombination()];
-  }
-
-  // ceil((value - defaultValue) / maxValue)
-  const smallestNumOfRolls = BigNumber(value)
-    .minus(BigNumber(randomStatDefaultValue))
-    .dividedBy(BigNumber(randomStatMaxRollValue))
-    .integerValue(BigNumber.ROUND_CEIL)
-    .toNumber();
-  // min(((value - defaultValue) / minValue), maxNumOfRolls)
-  const largestNumOfRolls = BigNumber.min(
-    BigNumber(value)
-      .minus(BigNumber(randomStatDefaultValue))
-      .dividedBy(BigNumber(randomStatMinRollValue))
-      .integerValue(BigNumber.ROUND_FLOOR),
-    maxNumOfRandomStatRolls
-  ).toNumber();
-
-  const combinations: RollCombination[] = [];
-  for (let n = smallestNumOfRolls; n <= largestNumOfRolls; n++) {
-    // (value - defaultValue - n * minValue) / (maxValue - minValue) / n
-    const rollStrength = BigNumber(value)
-      .minus(BigNumber(randomStatDefaultValue))
-      .minus(BigNumber(randomStatMinRollValue).multipliedBy(n))
-      .dividedBy(
-        BigNumber(randomStatMaxRollValue).minus(
-          BigNumber(randomStatMinRollValue)
-        )
-      )
-      .dividedBy(n)
-      .toNumber();
-    combinations.push({ numberOfRolls: n, rollStrength });
-  }
-
-  return combinations;
+  augmentIncreaseValue?: number;
 }

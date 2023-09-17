@@ -1,5 +1,7 @@
+import type { GearName, GearVersion } from '../constants/gear-types';
+import type { StatName } from '../constants/stat-types';
 import { statTypesLookup } from '../constants/stat-types';
-import type { StatName, StatType } from './stat-type';
+import type { StatType } from './stat-type';
 
 export interface GearType {
   id: GearName;
@@ -15,24 +17,4 @@ export function getPossibleRandomStatTypes(gearType: GearType): StatType[] {
   return gearType.possibleRandomStatTypeIds.map(
     (id) => statTypesLookup.byId[id]
   );
-}
-
-export enum GearName {
-  Helmet = 'Helmet',
-  Eyepiece = 'Eyepiece',
-  Spaulders = 'Spaulders',
-  Gloves = 'Gloves',
-  Bracers = 'Bracers',
-  Armor = 'Armor',
-  CombatEngine = 'Combat Engine',
-  Belt = 'Belt',
-  Legguards = 'Legguards',
-  Boots = 'Boots',
-  Exoskeleton = 'Exoskeleton',
-  Microreactor = 'Microreactor',
-}
-
-export enum GearVersion {
-  v1 = '1.0', // Gear introduced in 1.0, start of game
-  v2 = '2.0', // Gear introduced in 2.0, a.k.a "Vera gear"
 }

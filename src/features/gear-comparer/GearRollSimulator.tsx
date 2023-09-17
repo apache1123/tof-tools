@@ -15,11 +15,6 @@ import { useSnapshot } from 'valtio';
 import { GearStarsSelector } from '../../components/GearStarsSelector/GearStarsSelector';
 import { maxNumOfRandomStatRolls } from '../../constants/gear';
 import type { Gear } from '../../models/gear';
-import {
-  getGearRandomStatRollCombinations,
-  getPossibleStars,
-  setStars,
-} from '../../models/gear';
 import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
 import { getComparisonColor } from '../../utils/color-utils';
 import { additiveSum } from '../../utils/math-utils';
@@ -75,12 +70,12 @@ function AccordionContent({
 }) {
   const gearSnap = useSnapshot(gearState);
 
-  const randomStatRollCombinations = getGearRandomStatRollCombinations(
+  const randomStatRollCombinations = (
     GearB as Gear
-  );
+  ).getRandomStatRollCombinations();
 
   const canDetermineStars =
-    !!gearSnap.stars || getPossibleStars(gearSnap as Gear).length <= 1;
+    !!gearSnap.stars || (gearSnap as Gear).getPossibleStars().length <= 1;
 
   return (
     <Box>
@@ -128,7 +123,9 @@ function UnableToDetermineStars({
       </Typography>
       <GearStarsSelector
         stars={gearSnap.stars}
-        onStarsChange={(stars) => setStars(gearState, stars)}
+        onStarsChange={(stars) => {
+          gearState.stars = stars;
+        }}
       />
     </Box>
   );

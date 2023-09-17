@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { weaponDefinitions,WeaponName } from '../../constants/weapon-definitions';
+import { weaponDefinitions } from '../../constants/weapon-definitions';
 import { WeaponDefinitionSelector } from './WeaponDefinitionSelector';
 
 const meta: Meta<typeof WeaponDefinitionSelector> = {
@@ -20,6 +20,6 @@ export const Empty: Story = {
 
 export const Preselected: Story = {
   args: {
-    selectedWeaponDefinition: weaponDefinitions.byId[WeaponName.Fenrir]
-  }
-}
+    selectedWeaponDefinition: weaponDefinitions.byId['Fenrir'],
+  },
+};

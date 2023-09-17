@@ -2,7 +2,7 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import { defaultNumOfRandomStats } from '../../../constants/gear';
-import { copyGear, type Gear, getType, newGear } from '../../../models/gear';
+import { Gear } from '../../../models/gear';
 import { gearComparerGearsState } from './gear-comparer-gear';
 
 export interface RollSimulatorState {
@@ -20,8 +20,8 @@ devtools(rollSimulatorState, { name: rollSimulatorStateKey });
 export function copyFromGearB() {
   const { GearB } = gearComparerGearsState;
   if (!GearB) return;
-  const gear = newGear(getType(GearB));
-  copyGear(GearB, gear);
+  const gear = new Gear(GearB.type);
+  Gear.copy(GearB, gear);
   rollSimulatorState.gear = gear;
 }
 

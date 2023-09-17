@@ -1,5 +1,5 @@
+import type { StatName } from '../constants/stat-types';
 import type { RollCombination } from './random-stat-roll-combination';
-import type { StatName } from './stat-type';
 
 export interface GearRandomStatRollCombinations {
   stars: number;
