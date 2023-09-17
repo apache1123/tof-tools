@@ -563,7 +563,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     },
     ['Ming Jing']: {
       id: 'Ming Jing',
-      displayName: 'Ming Jing',
+      displayName: 'Ming Jing (Zeke)',
       elementalType: 'Physical',
       type: 'DPS',
       attackPercentBuffs: [
