@@ -33,8 +33,8 @@ export function Team() {
   return (
     <>
       <Typography variant="subtitle2" gutterBottom>
-        This is optional, but if you fill this in the calculation will take into
-        account the buffs from weapons & matrices
+        This is optional, but if you fill this in the calculation will be more
+        accurate, taking into account the buffs from weapons & matrices
       </Typography>
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
