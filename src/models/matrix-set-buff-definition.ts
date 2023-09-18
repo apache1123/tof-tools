@@ -2,7 +2,6 @@ import type { WeaponElementalType } from '../constants/elemental-type';
 
 export interface MatrixSetBuffDefinition {
   description: string;
-  // starValues: { star: 0 | 1 | 2 | 3; value: number }[];
   starValues: [
     { star: 0; value: number },
     { star: 1; value: number },
