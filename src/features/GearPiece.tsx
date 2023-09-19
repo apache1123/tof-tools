@@ -11,7 +11,6 @@ import {
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import { useSnapshot } from 'valtio';
 
@@ -25,7 +24,6 @@ import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { RandomStat } from '../models/random-stat';
 import { SaveGearModal } from './gear-comparer/SaveGearModal';
-import { gearComparerGearsState } from './gear-comparer/states/gear-comparer-gear';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 import { GearOCRModal } from './GearOCRModal';
 import { GearRollBreakdown } from './GearRollBreakdown';
@@ -36,6 +34,7 @@ export interface GearPieceProps {
   gearState: Gear;
   showGearOCRButton?: boolean;
   showCompareGearButton?: boolean;
+  onCompareGear?(): void;
   disableGearTypeChange?: boolean;
   showSaveGearButton?: boolean;
   showStatSummary?: CoreElementalType;
@@ -48,6 +47,7 @@ export const GearPiece = ({
   gearState,
   showGearOCRButton,
   showCompareGearButton,
+  onCompareGear,
   disableGearTypeChange,
   showSaveGearButton,
   showStatSummary,
@@ -59,18 +59,6 @@ export const GearPiece = ({
 
   const gearType = (gearSnap as Gear).type;
   const possibleRandomStatTypes = getPossibleRandomStatTypes(gearType);
-
-  const router = useRouter();
-  const handleCompareGear = () => {
-    if (gearComparerGearsState.GearA) {
-      Gear.copy(gearState, gearComparerGearsState.GearA);
-    } else {
-      const newGearA = new Gear(gearState.type);
-      Gear.copy(gearState, newGearA);
-      gearComparerGearsState.GearA = newGearA;
-    }
-    router.push('/gear-comparer');
-  };
 
   return (
     <Layout
@@ -122,7 +110,7 @@ export const GearPiece = ({
           )}
           {showCompareGearButton && (
             <Tooltip title="Compare gear" placement="right">
-              <IconButton onClick={handleCompareGear} color="primary">
+              <IconButton onClick={onCompareGear} color="primary">
                 <CompareArrowsIcon />
               </IconButton>
             </Tooltip>
