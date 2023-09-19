@@ -1,8 +1,12 @@
 import Grid from '@mui/material/Unstable_Grid2';
+import { useRouter } from 'next/router';
 import { useSnapshot } from 'valtio';
 
 import { gearTypesLookup } from '../../constants/gear-types';
+import { Gear } from '../../models/gear';
 import type { GearSet } from '../../models/gear-set';
+import { gearComparerGearsState } from '../gear-comparer/states/gear-comparer-gear';
+import { gearComparerOptionsState } from '../gear-comparer/states/gear-comparer-options';
 import { GearPiece } from '../GearPiece';
 import { gearSetsState } from './states/gear-sets';
 
@@ -10,9 +14,28 @@ export function CurrentGearSetGears() {
   const { selectedGearSet: selectedGearSetSnap } = useSnapshot(gearSetsState);
   const { selectedGearSet: selectedGearSetState } = gearSetsState;
 
+  const router = useRouter();
+
   if (!selectedGearSetSnap || !selectedGearSetState) {
     // TODO: handle
     return null;
+  }
+
+  function handleCompareGear(gear: Gear) {
+    if (gearComparerGearsState.GearA) {
+      Gear.copy(gear, gearComparerGearsState.GearA);
+    } else {
+      const newGearA = new Gear(gear.type);
+      Gear.copy(gear, newGearA);
+      gearComparerGearsState.GearA = newGearA;
+    }
+
+    if (selectedGearSetState?.elementalType) {
+      gearComparerOptionsState.selectedElementalType =
+        selectedGearSetState.elementalType;
+    }
+
+    router.push('/gear-comparer');
   }
 
   return (
@@ -30,6 +53,9 @@ export function CurrentGearSetGears() {
               gearState={gearState}
               showGearOCRButton
               showCompareGearButton
+              onCompareGear={() => {
+                handleCompareGear(gearState);
+              }}
               disableGearTypeChange
               showStatSummary={selectedGearSetSnap.elementalType}
               data-testid={gearTypeId}
