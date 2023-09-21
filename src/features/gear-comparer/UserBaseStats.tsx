@@ -38,13 +38,9 @@ export function UserBaseStats() {
 
   return (
     <>
-      <Typography
-        variant="subtitle2"
-        sx={{ color: 'warning.main' }}
-        gutterBottom
-      >
+      <Typography variant="subtitle2" sx={{ color: 'warning.main', mb: 2 }}>
         Fill these in with your <u>current</u> gear equipped (the left/first
-        gear below)
+        gear below). You can find these values on the Wanderer screen.
       </Typography>
 
       <Grid container spacing={2}>
@@ -81,7 +77,7 @@ export function UserBaseStats() {
                   >
                     Lyra, Rubilia or Ming Jing
                   </Typography>{' '}
-                  matrices, make sure they are active. Hover for example
+                  matrices, make sure they are active. Click here for example
                 </span>
               </Tooltip>
             }
@@ -110,7 +106,10 @@ export function UserBaseStats() {
                   />
                 }
               >
-                <span>Hover for example</span>
+                <span>
+                  This is the first number when you click on your elemental
+                  attack number on the Wanderer screen. Click here for example
+                </span>
               </Tooltip>
             }
           />
@@ -135,7 +134,7 @@ export function UserBaseStats() {
                   />
                 }
               >
-                <span>Hover for example</span>
+                <span>Click here for example</span>
               </Tooltip>
             }
           />
@@ -169,7 +168,7 @@ export function UserBaseStats() {
                   >
                     Fenrir
                   </Typography>{' '}
-                  matrices, make sure they are active. Hover for example
+                  matrices, make sure they are active. Click here for example
                 </span>
               </Tooltip>
             }
@@ -205,7 +204,7 @@ export function UserBaseStats() {
                   >
                     Scylla
                   </Typography>{' '}
-                  matrices, make sure they are active. Hover for example
+                  matrices, make sure they are active. Click here for example
                 </span>
               </Tooltip>
             }
