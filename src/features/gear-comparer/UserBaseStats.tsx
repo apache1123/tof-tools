@@ -71,7 +71,18 @@ export function UserBaseStats() {
                   />
                 }
               >
-                <span>Hover for example</span>
+                <span>
+                  If you&apos;re using{' '}
+                  <Typography
+                    variant="inherit"
+                    component="span"
+                    color="info.main"
+                    fontWeight="bold"
+                  >
+                    Lyra, Rubilia or Ming Jing
+                  </Typography>{' '}
+                  matrices, make sure they are active. Hover for example
+                </span>
               </Tooltip>
             }
           />
@@ -99,18 +110,7 @@ export function UserBaseStats() {
                   />
                 }
               >
-                <span>
-                  If you&apos;re using{' '}
-                  <Typography
-                    variant="inherit"
-                    component="span"
-                    color="info.main"
-                    fontWeight="bold"
-                  >
-                    Lyra, Rubilia or Ming Jing
-                  </Typography>{' '}
-                  matrices, make sure they are active. Hover for example
-                </span>
+                <span>Hover for example</span>
               </Tooltip>
             }
           />
