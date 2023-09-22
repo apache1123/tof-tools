@@ -3,25 +3,35 @@ import { Alert, Snackbar } from '@mui/material';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 
-export interface useAutoHideSnackbarOptions {
-  severity?: AlertColor;
-  autoHideDuration?: AutoHideDuration;
-}
-
 export enum AutoHideDuration {
   Short = 3000,
   Long = 5000,
 }
 
-export function useAutoHideSnackbar({
-  severity = 'success',
-  autoHideDuration = AutoHideDuration.Short,
-}: useAutoHideSnackbarOptions) {
+const defaultSeverity: AlertColor = 'success';
+const defaultAutoHideDuration = AutoHideDuration.Short;
+
+export function useAutoHideSnackbar() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<ReactNode>(undefined);
+  const [severity, setSeverity] = useState(defaultSeverity);
+  const [autoHideDuration, setAutoHideDuration] = useState(
+    defaultAutoHideDuration
+  );
 
-  function show(message: ReactNode) {
+  function show(
+    message: ReactNode,
+    options: { severity?: AlertColor; autoHideDuration?: AutoHideDuration } = {
+      severity: defaultSeverity,
+      autoHideDuration: defaultAutoHideDuration,
+    }
+  ) {
     setMessage(message);
+
+    const { severity, autoHideDuration } = options;
+    if (severity) setSeverity(severity);
+    if (autoHideDuration) setAutoHideDuration(autoHideDuration);
+
     setOpen(true);
   }
 

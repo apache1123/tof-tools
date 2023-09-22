@@ -14,7 +14,7 @@ export interface SaveGearModalProps {
 export function SaveGearModal({ gear }: SaveGearModalProps) {
   const [selectedGearSet, setSelectedGearSet] = useState<GearSet>();
 
-  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar({});
+  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar();
 
   const handleGearSetSelect = useCallback((gearSet: GearSet) => {
     setSelectedGearSet(gearSet);

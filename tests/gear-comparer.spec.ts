@@ -10,9 +10,7 @@ const buffValue = '12%';
 
 const exampleGearDirectory = './example-images/gear';
 
-test('persists user stat values without element being chosen, then copies over and persists elemental specific user stat values when element is chosen', async ({
-  page,
-}) => {
+test('persists element specific user stat values', async ({ page }) => {
   await page.goto('/gear-comparer');
 
   // Choose element, fill values
