@@ -10,9 +10,7 @@ import { gearComparerOptionsState } from './states/gear-comparer-options';
 export function GearComparerOptions() {
   const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
 
-  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar({
-    severity: 'info',
-  });
+  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar();
 
   return (
     <>
@@ -30,7 +28,8 @@ export function GearComparerOptions() {
                     {` ${elementalType} `}
                   </ElementalStyledText>
                   values & weapons
-                </Typography>
+                </Typography>,
+                { severity: 'info' }
               );
             }}
             label="Elemental type to compare"

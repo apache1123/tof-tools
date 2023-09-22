@@ -27,6 +27,10 @@ const pages: { label: string; path: string }[] = [
     label: 'Stats stuff',
     path: '/stats',
   },
+  {
+    label: 'Settings',
+    path: '/settings',
+  },
 ];
 
 export function Navbar() {

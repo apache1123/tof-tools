@@ -9,7 +9,7 @@ import { gearSetsState } from './states/gear-sets';
 export function DeleteCurrentGearSet() {
   const { selectedGearSet } = useSnapshot(gearSetsState);
 
-  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar({});
+  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar();
 
   if (!selectedGearSet) {
     return null;
