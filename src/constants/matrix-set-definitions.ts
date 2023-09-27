@@ -15,6 +15,7 @@ export type MatrixSetBaseName =
   | 'Cobalt-B'
   | 'Cocoritter'
   | 'Crow'
+  | 'Fei Se'
   | 'Fenrir'
   | 'Fiona'
   | 'Frigg'
@@ -50,6 +51,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Cobalt-B 2pc',
   'Cocoritter 2pc',
   'Crow 2pc',
+  'Fei Se 2pc',
   'Fenrir 2pc',
   'Fiona 2pc',
   'Frigg 2pc',
@@ -86,6 +88,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Cobalt-B 4pc',
   'Cocoritter 4pc',
   'Crow 4pc',
+  'Fei Se 4pc',
   'Fenrir 4pc',
   'Fiona 4pc',
   'Frigg 4pc',
@@ -190,6 +193,34 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: false,
       },
     ],
+  },
+  'Fei Se 2pc': {
+    id: 'Fei Se 2pc',
+    displayName: 'Fei Se 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description:
+          'Increase ATK after using a flame skill or discharge for 30s, works off hand.',
+        starValues: [
+          { star: 0, value: 0.14 },
+          { star: 1, value: 0.16 },
+          { star: 2, value: 0.18 },
+          { star: 3, value: 0.2 },
+        ],
+        elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+        canStack: false,
+        isActivePassively: false,
+        elementalWeaponsRequirements: [
+          {
+            weaponElementalType: 'Flame',
+            minNumOfWeapons: 1,
+          },
+        ],
+      },
+    ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
   },
   'Fenrir 2pc': {
     id: 'Fenrir 2pc',
@@ -634,6 +665,14 @@ export const matrixSetDefinitionsLookup: DataById<
   'Crow 4pc': {
     id: 'Crow 4pc',
     displayName: 'Crow 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Fei Se 4pc': {
+    id: 'Fei Se 4pc',
+    displayName: 'Fei Se 4pc',
     pieces: 4,
     attackPercentBuffs: [],
     critRateBuffs: [],

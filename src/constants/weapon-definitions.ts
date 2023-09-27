@@ -8,6 +8,7 @@ export type WeaponName =
   | 'Cobalt-B'
   | 'Cocoritter'
   | 'Crow'
+  | 'Fei Se'
   | 'Fenrir'
   | 'Fiona'
   | 'Frigg'
@@ -42,6 +43,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Cobalt-B',
     'Cocoritter',
     'Crow',
+    'Fei Se',
     'Fenrir',
     'Fiona',
     'Frigg',
@@ -217,6 +219,27 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       elementalType: 'Volt',
       type: 'DPS',
       attackPercentBuffs: [],
+      critRateBuffs: [],
+    },
+    ['Fei Se']: {
+      id: 'Fei Se',
+      displayName: 'Fei Se',
+      elementalType: 'Flame',
+      type: 'DPS',
+      attackPercentBuffs: [
+        {
+          id: 'Flame Resonance',
+          displayName: 'Flame Resonance',
+          description: '+15% flame ATK when equipping 2 or more flame weapons',
+          value: 0.15,
+          elementalTypes: ['Flame'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Flame'],
+        },
+      ],
       critRateBuffs: [],
     },
     ['Fenrir']: {
