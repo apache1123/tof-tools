@@ -2,8 +2,8 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 import { proxy, useSnapshot } from 'valtio';
 
 import { NumericInput } from '../../components/NumericInput/NumericInput';
+import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
 import { maxCharacterLevel } from '../../constants/character-level';
-import { toPercentageString2dp } from '../../utils/number-utils';
 import { calculateCritPercentFromFlat } from '../../utils/stat-calculation-utils';
 
 const state = proxy<{ critFlat: number; characterLevel: number }>({
@@ -58,7 +58,7 @@ export function CritFlatToPercent() {
             </Box>
           </Stack>
           <Typography>
-            Crit rate %: {toPercentageString2dp(critPercent)}
+            Crit rate %: <NumericStringPercentage2dp value={critPercent} />
           </Typography>
         </Stack>
       </Paper>

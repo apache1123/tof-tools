@@ -13,12 +13,12 @@ import { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
 import { GearStarsSelector } from '../../components/GearStarsSelector/GearStarsSelector';
+import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
 import { maxNumOfRandomStatRolls } from '../../constants/gear';
 import type { Gear } from '../../models/gear';
 import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
 import { getComparisonColor } from '../../utils/color-utils';
 import { additiveSum } from '../../utils/math-utils';
-import { toPercentageString2dp } from '../../utils/number-utils';
 import { GearRollSimulatorStat } from './GearRollSimulatorStat';
 import { gearValuesState } from './states/derived/gear-values';
 import { rollSimulatorGearValueState } from './states/derived/roll-simulator-gear-value';
@@ -189,7 +189,7 @@ function DeterminedStars({
           color={getComparisonColor(value > GearAValue)}
           fontSize="1.5rem"
         >
-          {toPercentageString2dp(value)}
+          <NumericStringPercentage2dp value={value} />
         </Typography>
       </Box>
       <Box textAlign="left" mt={3}>
