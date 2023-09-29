@@ -13,7 +13,7 @@ import {
 } from '../constants/gear';
 import type { GearName } from '../constants/gear-types';
 import { gearTypesLookup } from '../constants/gear-types';
-import type { StatName } from '../constants/stat-types';
+import type { StatName, StatRole } from '../constants/stat-types';
 import { statTypesLookup } from '../constants/stat-types';
 import { cartesian } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
@@ -264,10 +264,14 @@ export class Gear implements Persistable<GearDTO> {
         'statType.role'
       );
 
-      // Seems only ele atk values get 'pulled up'
-      let highestValueWithAugment: number | undefined = undefined;
+      // Seems only ele atk & ele atk % values get 'pulled up'
       Object.keys(randomStatsAndTypesByRole).forEach((role) => {
-        if (role === 'Attack') {
+        if (
+          (role as StatRole) === 'Attack' ||
+          (role as StatRole) === 'Attack %'
+        ) {
+          let highestValueWithAugment: number | undefined = undefined;
+
           randomStatsAndTypesByRole[role]
             .filter(
               (randomStatAndType) =>
@@ -310,15 +314,18 @@ export class Gear implements Persistable<GearDTO> {
         }
       });
 
+      const valueWithAugmentOfHighestStat = maxTitanGear.randomStats
+        .find((randomStat) => randomStat?.type.id === highestStatName)
+        ?.getTotalValueWithAugment();
       maxTitanGear.augmentStats.forEach((augmentStat) => {
         const statType = augmentStat.type;
         if (
-          highestValueWithAugment &&
-          statType.role === 'Attack' &&
+          valueWithAugmentOfHighestStat &&
+          (statType.role === 'Attack' || statType.role === 'Attack %') &&
           // Filter out 'Attack'
           statType.elementalType !== 'All'
         ) {
-          const pullUptoValue = BigNumber(highestValueWithAugment).times(
+          const pullUptoValue = BigNumber(valueWithAugmentOfHighestStat).times(
             augmentStatsPullUpFactor1
           );
           augmentStat.augmentIncreaseValue = pullUptoValue

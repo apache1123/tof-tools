@@ -758,4 +758,96 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
   await expect(
     page.getByTestId('GearA').getByTestId('max-titan-stats-panel-content')
   ).toHaveScreenshot();
+
+  // Test ele atk % pull-up
+  await page.getByTestId('GearA').getByLabel('Select gear type').click();
+  await page.getByRole('option', { name: 'Microreactor' }).click();
+
+  await page
+    .getByTestId('GearA')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .first()
+    .click();
+  await page
+    .getByRole('option', { name: 'Flame Attack %', exact: true })
+    .click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .first()
+    .fill('5.58%');
+
+  await page
+    .getByTestId('GearA')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(1)
+    .click();
+  await page.getByRole('option', { name: 'Volt Attack', exact: true }).click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(1)
+    .fill('461');
+
+  await page
+    .getByTestId('GearA')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(2)
+    .click();
+  await page.getByRole('option', { name: 'HP %', exact: true }).click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(2)
+    .fill('0.94%');
+
+  await page
+    .getByTestId('GearA')
+    .getByLabel('Stat')
+    .getByRole('combobox')
+    .nth(3)
+    .click();
+  await page
+    .getByRole('option', { name: 'Physical Attack', exact: true })
+    .click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .click();
+  await page
+    .getByTestId('GearA')
+    .getByLabel('stat-value-input')
+    .getByRole('textbox')
+    .nth(3)
+    .fill('69');
+
+  await expect(
+    page.getByTestId('GearA').getByTestId('max-titan-stats-panel-content')
+  ).toHaveScreenshot();
 });
