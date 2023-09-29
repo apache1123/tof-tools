@@ -1,8 +1,8 @@
 import { Paper, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
+import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
 import { getComparisonColor } from '../../utils/color-utils';
-import { toPercentageString2dp } from '../../utils/number-utils';
 import { gearValuesState } from './states/derived/gear-values';
 import { gearValuesComparisonState } from './states/derived/gear-values-comparison';
 import { maxTitanGearValuesState } from './states/derived/max-titan-gear-values';
@@ -33,7 +33,9 @@ export function GearValue({ position }: GearValueProps) {
         }}
         data-testid={`gear-value-${position}`}
       >
-        {toPercentageString2dp(gearValuesSnap[`${position}Value`])}
+        <NumericStringPercentage2dp
+          value={gearValuesSnap[`${position}Value`]}
+        />
       </Typography>
 
       <Typography sx={{ mt: 3 }}>Value at max potential titan: </Typography>
@@ -43,9 +45,9 @@ export function GearValue({ position }: GearValueProps) {
         )}
         data-testid={`gear-max-titan-value-${position}`}
       >
-        {toPercentageString2dp(
-          maxTitanGearValuesSnap[`${position}MaxTitanValue`]
-        )}
+        <NumericStringPercentage2dp
+          value={maxTitanGearValuesSnap[`${position}MaxTitanValue`]}
+        />
       </Typography>
     </Paper>
   );

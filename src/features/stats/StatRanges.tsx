@@ -11,8 +11,11 @@ import {
 } from '@mui/material';
 import BigNumber from 'bignumber.js';
 
+import {
+  NumericStringInteger,
+  NumericStringPercentage2dp,
+} from '../../components/NumericString/NumericString';
 import { statTypesLookup } from '../../constants/stat-types';
-import { toPercentageString2dp } from '../../utils/number-utils';
 
 export function StatRanges() {
   return (
@@ -60,22 +63,34 @@ export function StatRanges() {
                     {displayName}
                   </TableCell>
                   <TableCell align="right">
-                    {formatStatValue(randomStatDefaultValue, isPercentageBased)}
+                    <StatValue
+                      value={randomStatDefaultValue}
+                      isPercentageBased={isPercentageBased}
+                    />
                   </TableCell>
                   <TableCell align="right">
-                    {formatStatValue(randomStatMinRollValue, isPercentageBased)}
+                    <StatValue
+                      value={randomStatMinRollValue}
+                      isPercentageBased={isPercentageBased}
+                    />
                   </TableCell>
                   <TableCell align="right">
-                    {formatStatValue(randomStatMaxRollValue, isPercentageBased)}
+                    <StatValue
+                      value={randomStatMaxRollValue}
+                      isPercentageBased={isPercentageBased}
+                    />
                   </TableCell>
                   <TableCell align="right">
-                    {formatStatValue(
-                      average5RollsTotalValue,
-                      isPercentageBased
-                    )}
+                    <StatValue
+                      value={average5RollsTotalValue}
+                      isPercentageBased={isPercentageBased}
+                    />
                   </TableCell>
                   <TableCell align="right">
-                    {formatStatValue(max5RollsTotalValue, isPercentageBased)}
+                    <StatValue
+                      value={max5RollsTotalValue}
+                      isPercentageBased={isPercentageBased}
+                    />
                   </TableCell>
                 </TableRow>
               );
@@ -87,6 +102,16 @@ export function StatRanges() {
   );
 }
 
-function formatStatValue(value: number, isPercentageBased: boolean) {
-  return isPercentageBased ? toPercentageString2dp(value) : value;
+function StatValue({
+  value,
+  isPercentageBased,
+}: {
+  value: number;
+  isPercentageBased: boolean;
+}) {
+  return isPercentageBased ? (
+    <NumericStringPercentage2dp value={value} />
+  ) : (
+    <NumericStringInteger value={value} />
+  );
 }

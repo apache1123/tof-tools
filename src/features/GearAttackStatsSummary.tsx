@@ -2,9 +2,12 @@ import { Box, Typography } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../components/ElementalStyledText/ElementalStyledText';
+import {
+  NumericStringInteger,
+  NumericStringPercentage2dp,
+} from '../components/NumericString/NumericString';
 import type { CoreElementalType } from '../constants/elemental-type';
 import type { Gear } from '../models/gear';
-import { toIntegerString, toPercentageString2dp } from '../utils/number-utils';
 import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
 import { userStatsState } from './gear-comparer/states/user-stats/user-stats';
 
@@ -41,7 +44,7 @@ export function GearAttackStatsSummary({
         <Typography>
           Attack{' '}
           <ElementalStyledText elementalType={elementalType}>
-            {toIntegerString(totalAttackFlat)}
+            <NumericStringInteger value={totalAttackFlat} />
           </ElementalStyledText>
         </Typography>
       )}
@@ -49,7 +52,7 @@ export function GearAttackStatsSummary({
         <Typography>
           Attack{' '}
           <ElementalStyledText elementalType={elementalType}>
-            {toPercentageString2dp(totalAttackPercent)}
+            <NumericStringPercentage2dp value={totalAttackPercent} />
           </ElementalStyledText>
         </Typography>
       )}
@@ -57,7 +60,7 @@ export function GearAttackStatsSummary({
         <Typography>
           Damage{' '}
           <ElementalStyledText elementalType={elementalType}>
-            {toPercentageString2dp(totalDamagePercent)}
+            <NumericStringPercentage2dp value={totalDamagePercent} />
           </ElementalStyledText>
         </Typography>
       )}
@@ -65,8 +68,8 @@ export function GearAttackStatsSummary({
         <Typography>
           Crit{' '}
           <ElementalStyledText elementalType={elementalType}>
-            {toIntegerString(totalCritFlat)} (
-            {toPercentageString2dp(totalCritFlatToPercent)})
+            <NumericStringInteger value={totalCritFlat} /> (
+            <NumericStringPercentage2dp value={totalCritFlatToPercent} />)
           </ElementalStyledText>
         </Typography>
       )}
@@ -74,7 +77,7 @@ export function GearAttackStatsSummary({
         <Typography>
           Crit{' '}
           <ElementalStyledText elementalType={elementalType}>
-            {toPercentageString2dp(totalCritPercent)}
+            <NumericStringPercentage2dp value={totalCritPercent} />
           </ElementalStyledText>
         </Typography>
       )}

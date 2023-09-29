@@ -3,8 +3,8 @@ import pluralize from 'pluralize';
 import { Fragment } from 'react';
 import { useSnapshot } from 'valtio';
 
+import { NumericStringPercentage } from '../components/NumericString/NumericString';
 import { type Gear } from '../models/gear';
-import { toPercentageString } from '../utils/number-utils';
 
 export interface GearRollBreakdownProps {
   gear: Gear;
@@ -32,10 +32,14 @@ export const GearRollBreakdown = ({ gear }: GearRollBreakdownProps) => {
                 <Typography>
                   <b>{`${y.randomStatId}: `}</b>
                   {pluralize('roll', y.rollCombination.numberOfRolls, true)}
-                  {!!y.rollCombination.rollStrength &&
-                    `, strength: ${toPercentageString(
-                      y.rollCombination.rollStrength
-                    )}`}
+                  {!!y.rollCombination.rollStrength && (
+                    <>
+                      , strength:{' '}
+                      <NumericStringPercentage
+                        value={y.rollCombination.rollStrength}
+                      />
+                    </>
+                  )}
                 </Typography>
               </li>
             ))}

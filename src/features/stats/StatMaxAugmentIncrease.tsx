@@ -4,10 +4,10 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { proxy, useSnapshot } from 'valtio';
 
+import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
 import { statTypesLookup } from '../../constants/stat-types';
 import { RandomStat } from '../../models/random-stat';
 import type { StatType } from '../../models/stat-type';
-import { toPercentageString2dp } from '../../utils/number-utils';
 import { EmptyStatEditor, StatEditor } from '../StatEditor';
 
 const possibleStatTypes = statTypesLookup.allIds.map(
@@ -58,11 +58,17 @@ export function StatMaxAugmentIncrease() {
           <Grid xs={12}>
             <Typography>
               Max augment increase value:{' '}
-              {statSnap
-                ? statSnap.type.isPercentageBased
-                  ? toPercentageString2dp(statSnap.getMaxAugmentIncrease())
-                  : statSnap.getMaxAugmentIncrease()
-                : 0}
+              {statSnap ? (
+                statSnap.type.isPercentageBased ? (
+                  <NumericStringPercentage2dp
+                    value={statSnap.getMaxAugmentIncrease()}
+                  />
+                ) : (
+                  statSnap.getMaxAugmentIncrease()
+                )
+              ) : (
+                0
+              )}
             </Typography>
           </Grid>
         </Grid>
