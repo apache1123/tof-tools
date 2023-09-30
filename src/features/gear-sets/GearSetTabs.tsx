@@ -35,6 +35,9 @@ export function GearSetTabs() {
       >
         {gearSets.allIds.map((id, index) => {
           const gearSet = gearSets.byId[id];
+
+          if (!gearSet) return null;
+
           return (
             <Tab
               key={index}
