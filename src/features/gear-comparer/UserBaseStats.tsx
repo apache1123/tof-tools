@@ -75,9 +75,10 @@ export function UserBaseStats() {
                     color="info.main"
                     fontWeight="bold"
                   >
-                    Lyra, Rubilia or Ming Jing
+                    Lyra 2pc, Rubilia 2pc or Ming Jing 2pc
                   </Typography>{' '}
-                  matrices, make sure they are active. Click here for example
+                  matrices, make sure the atk% buff is active. Click here for
+                  example
                 </span>
               </Tooltip>
             }
@@ -166,9 +167,9 @@ export function UserBaseStats() {
                     color="info.main"
                     fontWeight="bold"
                   >
-                    Fenrir
-                  </Typography>{' '}
-                  matrices, make sure they are active. Click here for example
+                    Fenrir 6*
+                  </Typography>
+                  , make sure the crit% buff is active. Click here for example
                 </span>
               </Tooltip>
             }
@@ -202,9 +203,10 @@ export function UserBaseStats() {
                     color="info.main"
                     fontWeight="bold"
                   >
-                    Scylla
+                    Scylla 2pc
                   </Typography>{' '}
-                  matrices, make sure they are active. Click here for example
+                  matrices, make sure the crit dmg% buff is active. Click here
+                  for example
                 </span>
               </Tooltip>
             }
