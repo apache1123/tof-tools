@@ -1,1 +1,1 @@
-export const maxCharacterLevel = 95;
+export const maxCharacterLevel = 100;
