@@ -415,7 +415,7 @@ test('gear value is calculated correctly', async ({ page }) => {
 
   // Test frost buffs (atk%)
   await page.getByTestId('weapon1').getByLabel('Select weapon').click();
-  await page.getByRole('option', { name: 'Lin' }).click();
+  await page.getByRole('option', { name: 'Lin', exact: true }).click();
   await page
     .getByTestId('weapon1')
     .locator('label')

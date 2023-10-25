@@ -1,4 +1,5 @@
 import type { WeaponElementalType } from '../constants/elemental-type';
+import type { WeaponName } from '../constants/weapon-definitions';
 
 export interface MatrixSetBuffDefinition {
   description: string;
@@ -14,6 +15,7 @@ export interface MatrixSetBuffDefinition {
     weaponElementalType: WeaponElementalType;
     minNumOfWeapons: 1 | 2 | 3;
   }[]; // "OR" requirements;
+  weaponRequirement?: WeaponName;
 }
 
 export interface MatrixSetAttackPercentBuffDefinition
