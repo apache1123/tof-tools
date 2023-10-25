@@ -460,7 +460,6 @@ export class Gear implements Persistable<GearDTO> {
     };
   }
 }
-// staticImplements<PersistableConstructor<GearDTO>>(Gear);
 
 export interface GearDTO {
   id: string;

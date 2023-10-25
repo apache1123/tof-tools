@@ -167,7 +167,6 @@ export class RandomStat implements Persistable<RandomStatDTO> {
     };
   }
 }
-// staticImplements<PersistableConstructor<RandomStatDTO>>(RandomStat);
 
 export interface RandomStatDTO {
   typeId: StatName;
