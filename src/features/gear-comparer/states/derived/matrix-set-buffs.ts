@@ -151,7 +151,8 @@ function hasMetMatrixBuffRequirements(
   buffDefinition: MatrixSetBuffDefinition,
   team: Team
 ) {
-  const { elementalWeaponsRequirements } = buffDefinition;
+  const { elementalWeaponsRequirements, weaponRequirement } = buffDefinition;
+
   if (elementalWeaponsRequirements) {
     const { weapon1, weapon2, weapon3 } = team;
     const weaponElementalTypes = [weapon1, weapon2, weapon3].map((weapon) =>
@@ -170,6 +171,15 @@ function hasMetMatrixBuffRequirements(
     );
 
     if (!hasMetElementalWeaponsRequirement) return false;
+  }
+
+  if (weaponRequirement) {
+    const { weapon1, weapon2, weapon3 } = team;
+    const weaponNames = [weapon1, weapon2, weapon3].map((weapon) =>
+      weapon ? weapon.definition.id : undefined
+    );
+
+    if (!weaponNames.includes(weaponRequirement)) return false;
   }
 
   return true;

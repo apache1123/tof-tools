@@ -27,6 +27,7 @@ export type MatrixSetBaseName =
   | 'King'
   | 'Lan'
   | 'Lin'
+  | 'Ling Han'
   | 'Liu Huo'
   | 'Lyra'
   | 'Meryl'
@@ -63,6 +64,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'King 2pc',
   'Lan 2pc',
   'Lin 2pc',
+  'Ling Han 2pc',
   'Liu Huo 2pc',
   'Lyra 2pc',
   'Meryl 2pc',
@@ -100,6 +102,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'King 4pc',
   'Lan 4pc',
   'Lin 4pc',
+  'Ling Han 4pc',
   'Liu Huo 4pc',
   'Lyra 4pc',
   'Meryl 4pc',
@@ -378,6 +381,14 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: false,
       },
     ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Ling Han 2pc': {
+    id: 'Ling Han 2pc',
+    displayName: 'Ling Han 2pc',
+    pieces: 2,
+    attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
   },
@@ -776,6 +787,29 @@ export const matrixSetDefinitionsLookup: DataById<
     displayName: 'Lin 4pc',
     pieces: 4,
     attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Ling Han 4pc': {
+    id: 'Ling Han 4pc',
+    displayName: 'Ling Han 4pc',
+    pieces: 4,
+    attackPercentBuffs: [
+      {
+        description:
+          "Increase all ATK when Ling Han's weapon is equipped, works off-hand",
+        starValues: [
+          { star: 0, value: 0.12 },
+          { star: 1, value: 0.12 },
+          { star: 2, value: 0.12 },
+          { star: 3, value: 0.12 },
+        ],
+        elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+        canStack: false,
+        isActivePassively: true,
+        weaponRequirement: 'Ling Han',
+      },
+    ],
     critRateBuffs: [],
     critDamageBuffs: [],
   },

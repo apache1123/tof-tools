@@ -19,6 +19,7 @@ export type WeaponName =
   | 'King'
   | 'Lan'
   | 'Lin'
+  | 'Ling Han'
   | 'Liu Huo'
   | 'Lyra'
   | 'Meryl'
@@ -54,6 +55,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'King',
     'Lan',
     'Lin',
+    'Ling Han',
     'Liu Huo',
     'Lyra',
     'Meryl',
@@ -516,6 +518,38 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           minStarRequirement: 0,
           maxStarRequirement: 6,
           elementalResonanceRequirements: ['None'],
+        },
+      ],
+      critRateBuffs: [],
+    },
+    ['Ling Han']: {
+      id: 'Ling Han',
+      displayName: 'Ling Han',
+      elementalType: 'Frost',
+      type: 'DPS',
+      attackPercentBuffs: [
+        {
+          id: 'Frost Resonance',
+          displayName: 'Frost Resonance',
+          description: '+15% frost ATK when equipping 2 or more frost weapons',
+          value: 0.15,
+          elementalTypes: ['Frost'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Frost'],
+        },
+        {
+          id: 'Ling Han 1*',
+          displayName: 'Ling Han 1*',
+          description: '+10% frost ATK after launching Frost Blades',
+          value: 0.1,
+          elementalTypes: ['Frost'],
+          canStack: false,
+          isActivePassively: false,
+          minStarRequirement: 1,
+          maxStarRequirement: 6,
         },
       ],
       critRateBuffs: [],
