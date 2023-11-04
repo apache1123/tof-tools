@@ -1,7 +1,7 @@
 import { derive } from 'valtio/utils';
 
+import type { ElementalUserStats } from '../../../../models/elemental-user-stats';
 import { gearComparerOptionsState } from '../gear-comparer-options';
-import type { ElementalUserStats } from '../user-stats/elemental-user-stats';
 import { userStatsState } from '../user-stats/user-stats';
 
 export interface SelectedElementalUserStatsState {
@@ -22,34 +22,34 @@ export const selectedElementalUserStatsState = derive<
   },
 });
 
-export function setBaseAttackFlatWithGearA(value: number) {
+export function setBaseAttackFlat(value: number) {
   const { selectedElementalUserStats } = selectedElementalUserStatsState;
   if (selectedElementalUserStats) {
-    selectedElementalUserStats.baseAttackFlatWithGearA = value;
+    selectedElementalUserStats.loadoutStats.baseAttackFlat = value;
   }
 }
-export function setTotalAttackFlatWithGearA(value: number) {
+export function setTotalAttackFlat(value: number) {
   const { selectedElementalUserStats } = selectedElementalUserStatsState;
   if (selectedElementalUserStats) {
-    selectedElementalUserStats.totalAttackFlatWithGearA = value;
+    selectedElementalUserStats.loadoutStats.totalAttackFlat = value;
   }
 }
-export function setCritFlatWithGearA(value: number) {
+export function setCritFlat(value: number) {
   const { selectedElementalUserStats } = selectedElementalUserStatsState;
   if (selectedElementalUserStats) {
-    selectedElementalUserStats.critFlatWithGearA = value;
+    selectedElementalUserStats.loadoutStats.critFlat = value;
   }
 }
-export function setCritPercentWithGearA(value: number) {
+export function setCritPercent(value: number) {
   const { selectedElementalUserStats } = selectedElementalUserStatsState;
   if (selectedElementalUserStats) {
-    selectedElementalUserStats.critPercentWithGearA = value;
+    selectedElementalUserStats.loadoutStats.critPercent = value;
   }
 }
-export function setCritDamageWithGearA(value: number) {
+export function setCritDamage(value: number) {
   const { selectedElementalUserStats } = selectedElementalUserStatsState;
   if (selectedElementalUserStats) {
-    selectedElementalUserStats.critDamageWithGearA = value;
+    selectedElementalUserStats.loadoutStats.critDamage = value;
   }
 }
 export function setOtherGearElementalDamage(value: number) {

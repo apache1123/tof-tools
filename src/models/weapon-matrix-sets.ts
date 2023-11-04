@@ -1,3 +1,4 @@
+import type { Dto } from './dto';
 import type { MatrixSetDto } from './matrix-set';
 import { MatrixSet } from './matrix-set';
 import type { MatrixSet4pcName } from './matrix-set-definition';
@@ -90,12 +91,14 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
       matrixSet4pc: matrixSet4pc?.toDto(),
       matrixSet2pc1: matrixSet2pc1?.toDto(),
       matrixSet2pc2: matrixSet2pc2?.toDto(),
+      version: 1,
     };
   }
 }
 
-export interface WeaponMatrixSetsDto {
+export interface WeaponMatrixSetsDto extends Dto {
   matrixSet4pc: MatrixSetDto | undefined;
   matrixSet2pc1: MatrixSetDto | undefined;
   matrixSet2pc2: MatrixSetDto | undefined;
+  version: 1;
 }

@@ -5,6 +5,7 @@ import type { GearName } from '../constants/gear-types';
 import { gearTypesLookup } from '../constants/gear-types';
 import { additiveSum } from '../utils/math-utils';
 import type { DataById } from './data';
+import type { Dto } from './dto';
 import type { GearDto } from './gear';
 import { Gear } from './gear';
 import type { Persistable } from './persistable';
@@ -136,13 +137,15 @@ export class GearSet implements Persistable<GearSetDto> {
       name,
       gearsByTypeId: gearDtosByTypeId,
       elementalType,
+      version: 1,
     };
   }
 }
 
-export interface GearSetDto {
+export interface GearSetDto extends Dto {
   id: string;
   name: string;
   gearsByTypeId: DataById<GearName, GearDto>;
   elementalType: CoreElementalType | undefined;
+  version: 1;
 }

@@ -8,11 +8,11 @@ import { PercentageNumericInput } from '../../components/NumericInput/Percentage
 import { maxCharacterLevel } from '../../constants/character-level';
 import {
   selectedElementalUserStatsState,
-  setBaseAttackFlatWithGearA,
-  setCritDamageWithGearA,
-  setCritFlatWithGearA,
-  setCritPercentWithGearA,
-  setTotalAttackFlatWithGearA,
+  setBaseAttackFlat,
+  setCritDamage,
+  setCritFlat,
+  setCritPercent,
+  setTotalAttackFlat,
 } from './states/derived/selected-elemental-user-stats';
 import { gearComparerOptionsState } from './states/gear-comparer-options';
 import { userStatsState } from './states/user-stats/user-stats';
@@ -29,11 +29,13 @@ export function UserBaseStats() {
   }
 
   const {
-    baseAttackFlatWithGearA,
-    totalAttackFlatWithGearA,
-    critFlatWithGearA,
-    critPercentWithGearA,
-    critDamageWithGearA,
+    loadoutStats: {
+      baseAttackFlat,
+      totalAttackFlat,
+      critFlat,
+      critPercent,
+      critDamage,
+    },
   } = selectedElementalUserStats;
 
   return (
@@ -53,9 +55,9 @@ export function UserBaseStats() {
             }
             variant="filled"
             required
-            error={!totalAttackFlatWithGearA}
-            value={totalAttackFlatWithGearA}
-            onChange={setTotalAttackFlatWithGearA}
+            error={!totalAttackFlat}
+            value={totalAttackFlat}
+            onChange={setTotalAttackFlat}
             helperText={
               <Tooltip
                 title={
@@ -93,9 +95,9 @@ export function UserBaseStats() {
             }
             variant="filled"
             required
-            error={!baseAttackFlatWithGearA}
-            value={baseAttackFlatWithGearA}
-            onChange={setBaseAttackFlatWithGearA}
+            error={!baseAttackFlat}
+            value={baseAttackFlat}
+            onChange={setBaseAttackFlat}
             helperText={
               <Tooltip
                 title={
@@ -121,9 +123,9 @@ export function UserBaseStats() {
             label="Crit"
             variant="filled"
             required
-            error={!critFlatWithGearA}
-            value={critFlatWithGearA}
-            onChange={setCritFlatWithGearA}
+            error={!critFlat}
+            value={critFlat}
+            onChange={setCritFlat}
             helperText={
               <Tooltip
                 title={
@@ -146,8 +148,8 @@ export function UserBaseStats() {
             label="Crit %"
             variant="filled"
             required
-            value={critPercentWithGearA}
-            onChange={setCritPercentWithGearA}
+            value={critPercent}
+            onChange={setCritPercent}
             helperText={
               <Tooltip
                 title={
@@ -181,9 +183,9 @@ export function UserBaseStats() {
             label="Crit Damage %"
             variant="filled"
             required
-            error={!critDamageWithGearA}
-            value={critDamageWithGearA}
-            onChange={setCritDamageWithGearA}
+            error={!critDamage}
+            value={critDamage}
+            onChange={setCritDamage}
             helperText={
               <Tooltip
                 title={

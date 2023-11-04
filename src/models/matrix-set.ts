@@ -1,3 +1,4 @@
+import type { Dto } from './dto';
 import type { MatrixSetName } from './matrix-set-definition';
 import {
   getMatrixSetDefinition,
@@ -27,11 +28,13 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
     return {
       definitionId: definition.id,
       stars,
+      version: 1,
     };
   }
 }
 
-export interface MatrixSetDto {
+export interface MatrixSetDto extends Dto {
   definitionId: MatrixSetName;
   stars: number;
+  version: 1;
 }

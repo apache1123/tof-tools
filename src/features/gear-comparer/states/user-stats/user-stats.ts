@@ -4,9 +4,11 @@ import { devtools } from 'valtio/utils';
 import { maxCharacterLevel } from '../../../../constants/character-level';
 import type { CoreElementalType } from '../../../../constants/elemental-type';
 import type { DataById } from '../../../../models/data';
+import type { Dto } from '../../../../models/dto';
+import type { ElementalUserStatsDto } from '../../../../models/elemental-user-stats';
+import { ElementalUserStats } from '../../../../models/elemental-user-stats';
+import { LoadoutStats } from '../../../../models/loadout-stats';
 import type { Persistable } from '../../../../models/persistable';
-import type { ElementalUserStatsDto } from './elemental-user-stats';
-import { ElementalUserStats } from './elemental-user-stats';
 
 export class UserStatsState implements Persistable<UserStatsStateDto> {
   public characterLevel: number;
@@ -15,11 +17,15 @@ export class UserStatsState implements Persistable<UserStatsStateDto> {
   public constructor() {
     this.characterLevel = maxCharacterLevel;
     this.statsByElement = {
-      Flame: new ElementalUserStats(),
-      Frost: new ElementalUserStats(),
-      Physical: new ElementalUserStats(),
-      Volt: new ElementalUserStats(),
+      Flame: newElementalUserStats(),
+      Frost: newElementalUserStats(),
+      Physical: newElementalUserStats(),
+      Volt: newElementalUserStats(),
     };
+
+    function newElementalUserStats(): ElementalUserStats {
+      return new ElementalUserStats(new LoadoutStats());
+    }
   }
 
   public copyFromDto(dto: UserStatsStateDto): void {
@@ -49,11 +55,12 @@ export class UserStatsState implements Persistable<UserStatsStateDto> {
         Physical: Physical.toDto(),
         Volt: Volt.toDto(),
       },
+      version: 1,
     };
   }
 }
 
-export interface UserStatsStateDto {
+export interface UserStatsStateDto extends Dto {
   characterLevel: number;
   statsByElement: DataById<CoreElementalType, ElementalUserStatsDto>;
 }

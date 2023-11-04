@@ -2,6 +2,7 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import { gearTypesLookup } from '../../../constants/gear-types';
+import type { Dto } from '../../../models/dto';
 import type { GearDto } from '../../../models/gear';
 import { Gear } from '../../../models/gear';
 import type { Persistable } from '../../../models/persistable';
@@ -37,6 +38,7 @@ export class GearComparerGearsState
     return {
       GearA: GearA?.toDto(),
       GearB: GearB?.toDto(),
+      version: 1,
     };
   }
 }
@@ -44,7 +46,8 @@ export class GearComparerGearsState
 export type GearComparerGearsStateDto = Record<
   GearComparerGearPosition,
   GearDto | undefined
->;
+> &
+  Dto;
 
 export const gearComparerGearsStateKey = 'gearComparerGears';
 

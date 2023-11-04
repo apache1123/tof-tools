@@ -1,5 +1,6 @@
 import type { ElementalResonance } from '../constants/elemental-resonance';
 import type { WeaponResonance } from '../constants/weapon-resonance';
+import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 import type { WeaponDto } from './weapon';
 import { Weapon } from './weapon';
@@ -92,14 +93,16 @@ export class Team implements Persistable<TeamDto> {
       weapon1: weapon1?.toDto(),
       weapon2: weapon2?.toDto(),
       weapon3: weapon3?.toDto(),
+      version: 1,
     };
   }
 }
 
-export interface TeamDto {
+export interface TeamDto extends Dto {
   weapon1: WeaponSlotDto;
   weapon2: WeaponSlotDto;
   weapon3: WeaponSlotDto;
+  version: 1;
 }
 
 type WeaponSlot = Weapon | undefined;

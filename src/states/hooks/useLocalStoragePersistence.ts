@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { proxy, subscribe } from 'valtio';
 import { devtools, proxySet } from 'valtio/utils';
 
+import type { Dto } from '../../models/dto';
 import type { Persistable } from '../../models/persistable';
 
 export const localStoragePersistenceState = proxy<{
@@ -11,7 +12,7 @@ export const localStoragePersistenceState = proxy<{
 });
 devtools(localStoragePersistenceState, { name: 'localStoragePersistence' });
 
-export function useLocalStoragePersistence<TObjectDto>(
+export function useLocalStoragePersistence<TObjectDto extends Dto>(
   proxyState: Persistable<TObjectDto>,
   key: string
 ) {
