@@ -6,7 +6,6 @@ import {
   NumericStringInteger,
   NumericStringPercentage2dp,
 } from '../../components/NumericString/NumericString';
-import type { GearSet } from '../../models/gear-set';
 import { gearSetsState } from './states/gear-sets';
 
 export function CurrentGearSetStatSummary() {

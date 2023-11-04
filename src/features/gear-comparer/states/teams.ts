@@ -3,6 +3,7 @@ import { devtools } from 'valtio/utils';
 
 import type { CoreElementalType } from '../../../constants/elemental-type';
 import type { DataById } from '../../../models/data';
+import type { Dto } from '../../../models/dto';
 import type { Persistable } from '../../../models/persistable';
 import type { TeamDto } from '../../../models/team';
 import { Team } from '../../../models/team';
@@ -42,12 +43,14 @@ export class TeamsState implements Persistable<TeamsStateDto> {
         Physical: Physical.toDto(),
         Volt: Volt.toDto(),
       },
+      version: 1,
     };
   }
 }
 
-export interface TeamsStateDto {
+export interface TeamsStateDto extends Dto {
   teamsByElement: DataById<CoreElementalType, TeamDto>;
+  version: 1;
 }
 
 export const teamsStateKey = 'teams';

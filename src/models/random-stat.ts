@@ -4,6 +4,7 @@ import { maxNumOfRandomStatRolls } from '../constants/gear';
 import type { StatName } from '../constants/stat-types';
 import { statTypesLookup } from '../constants/stat-types';
 import { toIntegerString, toPercentageString2dp } from '../utils/number-utils';
+import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 import type { RollCombination } from './random-stat-roll-combination';
 import { zeroRollCombination } from './random-stat-roll-combination';
@@ -144,7 +145,7 @@ export class RandomStat implements Persistable<RandomStatDto> {
     return combinations;
   }
 
-  static copy(from: RandomStat, to: RandomStat) {
+  public static copy(from: RandomStat, to: RandomStat) {
     to.type = from.type;
     to.value = from.value;
     to.augmentIncreaseValue = from.augmentIncreaseValue;
@@ -164,12 +165,14 @@ export class RandomStat implements Persistable<RandomStatDto> {
       typeId: type.id,
       value,
       augmentIncreaseValue,
+      version: 1,
     };
   }
 }
 
-export interface RandomStatDto {
+export interface RandomStatDto extends Dto {
   typeId: StatName;
   value: number;
   augmentIncreaseValue?: number;
+  version: 1;
 }

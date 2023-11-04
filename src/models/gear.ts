@@ -19,6 +19,7 @@ import { cartesian } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
 import type { AugmentStatDto } from './augment-stat';
 import { AugmentStat } from './augment-stat';
+import type { Dto } from './dto';
 import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
@@ -374,7 +375,7 @@ export class Gear implements Persistable<GearDto> {
   }
 
   // Copy all gear properties over except for the id
-  static copy(from: Gear, to: Gear) {
+  public static copy(from: Gear, to: Gear) {
     to.type = from.type;
     to.stars = from.stars;
 
@@ -457,11 +458,12 @@ export class Gear implements Persistable<GearDto> {
       augmentStats: augmentStats.map((augmentStat) => augmentStat.toDto()),
       isAugmented,
       isTitan,
+      version: 1,
     };
   }
 }
 
-export interface GearDto {
+export interface GearDto extends Dto {
   id: string;
   typeId: GearName;
   stars: number;
@@ -469,4 +471,5 @@ export interface GearDto {
   augmentStats?: AugmentStatDto[];
   isAugmented?: boolean;
   isTitan?: boolean;
+  version: 1;
 }

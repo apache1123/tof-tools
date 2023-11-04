@@ -3,6 +3,7 @@ import { devtools } from 'valtio/utils';
 
 import type { CoreElementalType } from '../../../constants/elemental-type';
 import type { Data, DataById } from '../../../models/data';
+import type { Dto } from '../../../models/dto';
 import type { GearSetDto } from '../../../models/gear-set';
 import { GearSet } from '../../../models/gear-set';
 import type { Persistable } from '../../../models/persistable';
@@ -117,13 +118,15 @@ export class GearSetsState implements Persistable<GearSetsStateDto> {
         byId: gearSetDtosById,
       },
       selectedGearSetIndex,
+      version: 1,
     };
   }
 }
 
-export interface GearSetsStateDto {
+export interface GearSetsStateDto extends Dto {
   gearSets: Data<string, GearSetDto>;
   selectedGearSetIndex: number;
+  version: 1;
 }
 
 export const gearSetsState = proxy<GearSetsState>(new GearSetsState());

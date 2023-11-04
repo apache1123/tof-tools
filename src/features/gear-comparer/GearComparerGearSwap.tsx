@@ -6,10 +6,10 @@ import { additiveSum } from '../../utils/math-utils';
 import { gearBasisValuesState } from './states/derived/gear-basis-values';
 import {
   selectedElementalUserStatsState,
-  setBaseAttackFlatWithGearA,
-  setCritFlatWithGearA,
-  setCritPercentWithGearA,
-  setTotalAttackFlatWithGearA,
+  setBaseAttackFlat,
+  setCritFlat,
+  setCritPercent,
+  setTotalAttackFlat,
 } from './states/derived/selected-elemental-user-stats';
 import { gearComparerGearsState } from './states/gear-comparer-gear';
 import { gearComparerOptionsState } from './states/gear-comparer-options';
@@ -63,9 +63,9 @@ function swapGear() {
       oldGearB.getTotalCritPercent(),
     ]);
 
-    setBaseAttackFlatWithGearA(baseAttackFlatWithGear.toNumber());
-    setTotalAttackFlatWithGearA(totalAttackFlatWithGear.toNumber());
-    setCritFlatWithGearA(critFlatWithGear.toNumber());
-    setCritPercentWithGearA(critPercentWithGear.toNumber());
+    setBaseAttackFlat(baseAttackFlatWithGear.toNumber());
+    setTotalAttackFlat(totalAttackFlatWithGear.toNumber());
+    setCritFlat(critFlatWithGear.toNumber());
+    setCritPercent(critPercentWithGear.toNumber());
   }
 }

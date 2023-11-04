@@ -60,35 +60,37 @@ function getBasisValues(
   }
 
   const {
-    baseAttackFlatWithGearA,
-    totalAttackFlatWithGearA,
-    critFlatWithGearA,
-    critPercentWithGearA,
-    critDamageWithGearA,
+    loadoutStats: {
+      baseAttackFlat,
+      totalAttackFlat,
+      critFlat,
+      critPercent,
+      critDamage,
+    },
     otherGearElementalDamage,
     miscAttackPercent,
     miscCritRate,
     miscCritDamage,
   } = selectedElementalUserStats;
 
-  const passiveAttackPercentWithGearA = BigNumber(totalAttackFlatWithGearA)
-    .minus(baseAttackFlatWithGearA)
-    .dividedBy(baseAttackFlatWithGearA);
+  const passiveAttackPercent = BigNumber(totalAttackFlat)
+    .minus(baseAttackFlat)
+    .dividedBy(baseAttackFlat);
 
   const gearA = gearComparerGearsSnap.GearA;
-  const attackFlatWithoutGearA = BigNumber(baseAttackFlatWithGearA)
+  const attackFlatWithoutGearA = BigNumber(baseAttackFlat)
     .minus(gearA ? gearA.getTotalAttackFlat(selectedElementalType) : 0)
     .toNumber();
-  const passiveAttackPercentWithoutGearA = passiveAttackPercentWithGearA
+  const passiveAttackPercentWithoutGearA = passiveAttackPercent
     .minus(gearA ? gearA.getTotalAttackPercent(selectedElementalType) : 0)
     .toNumber();
-  const critFlatWithoutGearA = BigNumber(critFlatWithGearA)
+  const critFlatWithoutGearA = BigNumber(critFlat)
     .minus(gearA ? gearA.getTotalCritFlat() : 0)
     .toNumber();
-  const critPercentWithoutGearA = BigNumber(critPercentWithGearA)
+  const critPercentWithoutGearA = BigNumber(critPercent)
     .minus(gearA ? gearA.getTotalCritPercent() : 0)
     .toNumber();
-  const critDamageWithoutGearA = critDamageWithGearA;
+  const critDamageWithoutGearA = critDamage;
 
   const {
     weaponAttackBuffValues,

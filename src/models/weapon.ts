@@ -1,4 +1,5 @@
 import type { WeaponName } from '../constants/weapon-definitions';
+import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 import {
   getWeaponDefinition,
@@ -36,12 +37,14 @@ export class Weapon implements Persistable<WeaponDto> {
       definitionId: definition.id,
       stars,
       matrixSets: matrixSets.toDto(),
+      version: 1,
     };
   }
 }
 
-export interface WeaponDto {
+export interface WeaponDto extends Dto {
   definitionId: WeaponName;
   stars: number;
   matrixSets: WeaponMatrixSetsDto;
+  version: 1;
 }

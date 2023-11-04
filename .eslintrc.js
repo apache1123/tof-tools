@@ -17,6 +17,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/consistent-type-exports': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/explicit-member-accessibility': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'no-console': 'error',
