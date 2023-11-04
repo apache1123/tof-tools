@@ -4,10 +4,10 @@ import {
   getWeaponDefinition,
   type WeaponDefinition,
 } from './weapon-definition';
-import type { WeaponMatrixSetsDTO } from './weapon-matrix-sets';
+import type { WeaponMatrixSetsDto } from './weapon-matrix-sets';
 import { WeaponMatrixSets } from './weapon-matrix-sets';
 
-export class Weapon implements Persistable<WeaponDTO> {
+export class Weapon implements Persistable<WeaponDto> {
   public definition: WeaponDefinition;
   public stars: number;
   public matrixSets: WeaponMatrixSets;
@@ -18,30 +18,30 @@ export class Weapon implements Persistable<WeaponDTO> {
     this.matrixSets = new WeaponMatrixSets();
   }
 
-  public copyFromDTO(dto: WeaponDTO): void {
-    const { definitionId, stars, matrixSets: matrixSetsDTO } = dto;
+  public copyFromDto(dto: WeaponDto): void {
+    const { definitionId, stars, matrixSets: matrixSetsDto } = dto;
 
     this.definition = getWeaponDefinition(definitionId);
     this.stars = stars;
 
     const matrixSets = new WeaponMatrixSets();
-    matrixSets.copyFromDTO(matrixSetsDTO);
+    matrixSets.copyFromDto(matrixSetsDto);
     this.matrixSets = matrixSets;
   }
 
-  public toDTO(): WeaponDTO {
+  public toDto(): WeaponDto {
     const { definition, stars, matrixSets } = this;
 
     return {
       definitionId: definition.id,
       stars,
-      matrixSets: matrixSets.toDTO(),
+      matrixSets: matrixSets.toDto(),
     };
   }
 }
 
-export interface WeaponDTO {
+export interface WeaponDto {
   definitionId: WeaponName;
   stars: number;
-  matrixSets: WeaponMatrixSetsDTO;
+  matrixSets: WeaponMatrixSetsDto;
 }

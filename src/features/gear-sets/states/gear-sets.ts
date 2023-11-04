@@ -3,13 +3,13 @@ import { devtools } from 'valtio/utils';
 
 import type { CoreElementalType } from '../../../constants/elemental-type';
 import type { Data, DataById } from '../../../models/data';
-import type { GearSetDTO } from '../../../models/gear-set';
+import type { GearSetDto } from '../../../models/gear-set';
 import { GearSet } from '../../../models/gear-set';
 import type { Persistable } from '../../../models/persistable';
 
 export const gearSetsStateKey = 'gearSets';
 
-export class GearSetsState implements Persistable<GearSetsStateDTO> {
+export class GearSetsState implements Persistable<GearSetsStateDto> {
   private _gearSets: Data<string, GearSet>;
   private _selectedGearSetIndex: number;
 
@@ -86,43 +86,43 @@ export class GearSetsState implements Persistable<GearSetsStateDTO> {
     return defaultGearSet;
   }
 
-  public copyFromDTO(dto: GearSetsStateDTO): void {
+  public copyFromDto(dto: GearSetsStateDto): void {
     const { gearSets, selectedGearSetIndex } = dto;
 
     this._gearSets = { allIds: [], byId: {} };
 
     this._gearSets.allIds = [...gearSets.allIds];
     Object.keys(gearSets.byId).forEach((id) => {
-      const gearSetDTO = gearSets.byId[id];
-      const gearSet = new GearSet(gearSetDTO.name);
-      gearSet.copyFromDTO(gearSetDTO);
+      const gearSetDto = gearSets.byId[id];
+      const gearSet = new GearSet(gearSetDto.name);
+      gearSet.copyFromDto(gearSetDto);
       this._gearSets.byId[id] = gearSet;
     });
 
     this._selectedGearSetIndex = selectedGearSetIndex;
   }
 
-  public toDTO(): GearSetsStateDTO {
+  public toDto(): GearSetsStateDto {
     const { gearSets, selectedGearSetIndex } = this;
 
-    const gearSetDTOsById: DataById<string, GearSetDTO> = {};
+    const gearSetDtosById: DataById<string, GearSetDto> = {};
     Object.keys(gearSets.byId).forEach((id) => {
       const gearSet = gearSets.byId[id];
-      gearSetDTOsById[gearSet.id] = gearSet.toDTO();
+      gearSetDtosById[gearSet.id] = gearSet.toDto();
     });
 
     return {
       gearSets: {
         allIds: [...gearSets.allIds],
-        byId: gearSetDTOsById,
+        byId: gearSetDtosById,
       },
       selectedGearSetIndex,
     };
   }
 }
 
-export interface GearSetsStateDTO {
-  gearSets: Data<string, GearSetDTO>;
+export interface GearSetsStateDto {
+  gearSets: Data<string, GearSetDto>;
   selectedGearSetIndex: number;
 }
 

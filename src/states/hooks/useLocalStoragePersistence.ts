@@ -11,18 +11,18 @@ export const localStoragePersistenceState = proxy<{
 });
 devtools(localStoragePersistenceState, { name: 'localStoragePersistence' });
 
-export function useLocalStoragePersistence<TObjectDTO>(
-  proxyState: Persistable<TObjectDTO>,
+export function useLocalStoragePersistence<TObjectDto>(
+  proxyState: Persistable<TObjectDto>,
   key: string
 ) {
   useEffect(() => {
     if (localStorage.getItem(key)) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      proxyState.copyFromDTO(JSON.parse(localStorage.getItem(key)!));
+      proxyState.copyFromDto(JSON.parse(localStorage.getItem(key)!));
     }
 
     const unsubscribe = subscribe(proxyState, () =>
-      localStorage.setItem(key, JSON.stringify(proxyState.toDTO()))
+      localStorage.setItem(key, JSON.stringify(proxyState.toDto()))
     );
 
     localStoragePersistenceState.persistedKeys.add(key);

@@ -9,7 +9,7 @@ import type { RollCombination } from './random-stat-roll-combination';
 import { zeroRollCombination } from './random-stat-roll-combination';
 import { type StatType } from './stat-type';
 
-export class RandomStat implements Persistable<RandomStatDTO> {
+export class RandomStat implements Persistable<RandomStatDto> {
   private _type: StatType;
 
   public value: number;
@@ -150,7 +150,7 @@ export class RandomStat implements Persistable<RandomStatDTO> {
     to.augmentIncreaseValue = from.augmentIncreaseValue;
   }
 
-  public copyFromDTO(dto: RandomStatDTO): void {
+  public copyFromDto(dto: RandomStatDto): void {
     const { typeId, value, augmentIncreaseValue } = dto;
 
     this.type = statTypesLookup.byId[typeId];
@@ -158,7 +158,7 @@ export class RandomStat implements Persistable<RandomStatDTO> {
     this.augmentIncreaseValue = augmentIncreaseValue ?? 0;
   }
 
-  public toDTO(): RandomStatDTO {
+  public toDto(): RandomStatDto {
     const { type, value, augmentIncreaseValue } = this;
     return {
       typeId: type.id,
@@ -168,7 +168,7 @@ export class RandomStat implements Persistable<RandomStatDTO> {
   }
 }
 
-export interface RandomStatDTO {
+export interface RandomStatDto {
   typeId: StatName;
   value: number;
   augmentIncreaseValue?: number;
