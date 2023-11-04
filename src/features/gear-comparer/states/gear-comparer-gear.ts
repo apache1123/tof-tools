@@ -2,7 +2,7 @@ import { proxy } from 'valtio';
 import { devtools } from 'valtio/utils';
 
 import { gearTypesLookup } from '../../../constants/gear-types';
-import type { GearDTO } from '../../../models/gear';
+import type { GearDto } from '../../../models/gear';
 import { Gear } from '../../../models/gear';
 import type { Persistable } from '../../../models/persistable';
 
@@ -12,38 +12,38 @@ export type GearComparerGearPosition = 'GearA' | 'GearB';
 export class GearComparerGearsState
   implements
     Record<GearComparerGearPosition, Gear | undefined>,
-    Persistable<GearComparerGearsStateDTO>
+    Persistable<GearComparerGearsStateDto>
 {
   public GearA: Gear | undefined;
   public GearB: Gear | undefined;
 
-  public copyFromDTO(dto: GearComparerGearsStateDTO): void {
+  public copyFromDto(dto: GearComparerGearsStateDto): void {
     const { GearA: gearADto, GearB: gearBDto } = dto;
 
-    this.GearA = gearADto ? gearFromGearDTO(gearADto) : undefined;
-    this.GearB = gearBDto ? gearFromGearDTO(gearBDto) : undefined;
+    this.GearA = gearADto ? gearFromGearDto(gearADto) : undefined;
+    this.GearB = gearBDto ? gearFromGearDto(gearBDto) : undefined;
 
-    function gearFromGearDTO(gearDTO: GearDTO): Gear {
-      const gearType = gearTypesLookup.byId[gearDTO.typeId];
+    function gearFromGearDto(gearDto: GearDto): Gear {
+      const gearType = gearTypesLookup.byId[gearDto.typeId];
       const gear = new Gear(gearType);
-      gear.copyFromDTO(gearDTO);
+      gear.copyFromDto(gearDto);
       return gear;
     }
   }
 
-  public toDTO(): GearComparerGearsStateDTO {
+  public toDto(): GearComparerGearsStateDto {
     const { GearA, GearB } = this;
 
     return {
-      GearA: GearA?.toDTO(),
-      GearB: GearB?.toDTO(),
+      GearA: GearA?.toDto(),
+      GearB: GearB?.toDto(),
     };
   }
 }
 
-export type GearComparerGearsStateDTO = Record<
+export type GearComparerGearsStateDto = Record<
   GearComparerGearPosition,
-  GearDTO | undefined
+  GearDto | undefined
 >;
 
 export const gearComparerGearsStateKey = 'gearComparerGears';

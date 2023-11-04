@@ -17,7 +17,7 @@ import type { StatName, StatRole } from '../constants/stat-types';
 import { statTypesLookup } from '../constants/stat-types';
 import { cartesian } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
-import type { AugmentStatDTO } from './augment-stat';
+import type { AugmentStatDto } from './augment-stat';
 import { AugmentStat } from './augment-stat';
 import type {
   GearRandomStatRollCombinations,
@@ -25,7 +25,7 @@ import type {
 } from './gear-random-stat-roll-combinations';
 import type { GearType } from './gear-type';
 import type { Persistable } from './persistable';
-import type { RandomStatDTO } from './random-stat';
+import type { RandomStatDto } from './random-stat';
 import { RandomStat } from './random-stat';
 import type { StatType } from './stat-type';
 import {
@@ -36,7 +36,7 @@ import {
   isElementalDamagePercent,
 } from './stat-type';
 
-export class Gear implements Persistable<GearDTO> {
+export class Gear implements Persistable<GearDto> {
   private _id: string;
   private _type: GearType;
   private _stars: number;
@@ -409,13 +409,13 @@ export class Gear implements Persistable<GearDTO> {
     to.isTitan = from.isTitan;
   }
 
-  public copyFromDTO(dto: GearDTO): void {
+  public copyFromDto(dto: GearDto): void {
     const {
       id,
       typeId,
       stars,
-      randomStats: randomStatDTOs,
-      augmentStats: augmentStatDTOs,
+      randomStats: randomStatDtos,
+      augmentStats: augmentStatDtos,
       isAugmented,
       isTitan,
     } = dto;
@@ -428,45 +428,45 @@ export class Gear implements Persistable<GearDTO> {
     this.isTitan = !!isTitan;
 
     this.resetRandomStats();
-    randomStatDTOs.forEach((randomStatDTO, i) => {
-      if (randomStatDTO) {
-        const statType = statTypesLookup.byId[randomStatDTO.typeId];
+    randomStatDtos.forEach((randomStatDto, i) => {
+      if (randomStatDto) {
+        const statType = statTypesLookup.byId[randomStatDto.typeId];
         const randomStat = new RandomStat(statType);
-        randomStat.copyFromDTO(randomStatDTO);
+        randomStat.copyFromDto(randomStatDto);
         this.randomStats[i] = randomStat;
       }
     });
 
     this.augmentStats = [];
-    augmentStatDTOs?.forEach((augmentStatDTO, i) => {
-      const statType = statTypesLookup.byId[augmentStatDTO.typeId];
+    augmentStatDtos?.forEach((augmentStatDto, i) => {
+      const statType = statTypesLookup.byId[augmentStatDto.typeId];
       const augmentStat = new AugmentStat(statType);
-      augmentStat.copyFromDTO(augmentStatDTO);
+      augmentStat.copyFromDto(augmentStatDto);
       this.augmentStats[i] = augmentStat;
     });
   }
 
-  public toDTO(): GearDTO {
+  public toDto(): GearDto {
     const { id, type, stars, randomStats, augmentStats, isAugmented, isTitan } =
       this;
     return {
       id,
       typeId: type.id,
       stars,
-      randomStats: randomStats.map((randomStat) => randomStat?.toDTO()),
-      augmentStats: augmentStats.map((augmentStat) => augmentStat.toDTO()),
+      randomStats: randomStats.map((randomStat) => randomStat?.toDto()),
+      augmentStats: augmentStats.map((augmentStat) => augmentStat.toDto()),
       isAugmented,
       isTitan,
     };
   }
 }
 
-export interface GearDTO {
+export interface GearDto {
   id: string;
   typeId: GearName;
   stars: number;
-  randomStats: (RandomStatDTO | undefined)[];
-  augmentStats?: AugmentStatDTO[];
+  randomStats: (RandomStatDto | undefined)[];
+  augmentStats?: AugmentStatDto[];
   isAugmented?: boolean;
   isTitan?: boolean;
 }

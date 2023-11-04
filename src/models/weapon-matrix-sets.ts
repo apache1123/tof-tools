@@ -1,4 +1,4 @@
-import type { MatrixSetDTO } from './matrix-set';
+import type { MatrixSetDto } from './matrix-set';
 import { MatrixSet } from './matrix-set';
 import type { MatrixSet4pcName } from './matrix-set-definition';
 import {
@@ -7,7 +7,7 @@ import {
 } from './matrix-set-definition';
 import type { Persistable } from './persistable';
 
-export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDTO> {
+export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
   private _matrixSet4pc: MatrixSet | undefined;
   private _matrixSet2pc1: MatrixSet | undefined;
   private _matrixSet2pc2: MatrixSet | undefined;
@@ -57,45 +57,45 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDTO> {
     }
   }
 
-  public copyFromDTO(dto: WeaponMatrixSetsDTO): void {
+  public copyFromDto(dto: WeaponMatrixSetsDto): void {
     const {
-      matrixSet4pc: matrixSet4pcDTO,
-      matrixSet2pc1: matrixSet2pc1DTO,
-      matrixSet2pc2: matrixSet2pc2DTO,
+      matrixSet4pc: matrixSet4pcDto,
+      matrixSet2pc1: matrixSet2pc1Dto,
+      matrixSet2pc2: matrixSet2pc2Dto,
     } = dto;
 
-    this._matrixSet4pc = matrixSet4pcDTO
-      ? getMatrixSetFromDTO(matrixSet4pcDTO)
+    this._matrixSet4pc = matrixSet4pcDto
+      ? getMatrixSetFromDto(matrixSet4pcDto)
       : undefined;
-    this._matrixSet2pc1 = matrixSet2pc1DTO
-      ? getMatrixSetFromDTO(matrixSet2pc1DTO)
+    this._matrixSet2pc1 = matrixSet2pc1Dto
+      ? getMatrixSetFromDto(matrixSet2pc1Dto)
       : undefined;
-    this._matrixSet2pc2 = matrixSet2pc2DTO
-      ? getMatrixSetFromDTO(matrixSet2pc2DTO)
+    this._matrixSet2pc2 = matrixSet2pc2Dto
+      ? getMatrixSetFromDto(matrixSet2pc2Dto)
       : undefined;
 
-    function getMatrixSetFromDTO(matrixSetDTO: MatrixSetDTO): MatrixSet {
+    function getMatrixSetFromDto(matrixSetDto: MatrixSetDto): MatrixSet {
       const matrixSet = new MatrixSet(
-        getMatrixSetDefinition(matrixSetDTO.definitionId)
+        getMatrixSetDefinition(matrixSetDto.definitionId)
       );
-      matrixSet.copyFromDTO(matrixSetDTO);
+      matrixSet.copyFromDto(matrixSetDto);
       return matrixSet;
     }
   }
 
-  public toDTO(): WeaponMatrixSetsDTO {
+  public toDto(): WeaponMatrixSetsDto {
     const { matrixSet4pc, matrixSet2pc1, matrixSet2pc2 } = this;
 
     return {
-      matrixSet4pc: matrixSet4pc?.toDTO(),
-      matrixSet2pc1: matrixSet2pc1?.toDTO(),
-      matrixSet2pc2: matrixSet2pc2?.toDTO(),
+      matrixSet4pc: matrixSet4pc?.toDto(),
+      matrixSet2pc1: matrixSet2pc1?.toDto(),
+      matrixSet2pc2: matrixSet2pc2?.toDto(),
     };
   }
 }
 
-export interface WeaponMatrixSetsDTO {
-  matrixSet4pc: MatrixSetDTO | undefined;
-  matrixSet2pc1: MatrixSetDTO | undefined;
-  matrixSet2pc2: MatrixSetDTO | undefined;
+export interface WeaponMatrixSetsDto {
+  matrixSet4pc: MatrixSetDto | undefined;
+  matrixSet2pc1: MatrixSetDto | undefined;
+  matrixSet2pc2: MatrixSetDto | undefined;
 }

@@ -4,10 +4,10 @@ import { devtools } from 'valtio/utils';
 import type { CoreElementalType } from '../../../constants/elemental-type';
 import type { DataById } from '../../../models/data';
 import type { Persistable } from '../../../models/persistable';
-import type { TeamDTO } from '../../../models/team';
+import type { TeamDto } from '../../../models/team';
 import { Team } from '../../../models/team';
 
-export class TeamsState implements Persistable<TeamsStateDTO> {
+export class TeamsState implements Persistable<TeamsStateDto> {
   public teamsByElement: DataById<CoreElementalType, Team>;
 
   public constructor() {
@@ -19,35 +19,35 @@ export class TeamsState implements Persistable<TeamsStateDTO> {
     };
   }
 
-  public copyFromDTO(dto: TeamsStateDTO): void {
+  public copyFromDto(dto: TeamsStateDto): void {
     const {
       teamsByElement: { Flame, Frost, Physical, Volt },
     } = dto;
 
-    this.teamsByElement.Flame.copyFromDTO(Flame);
-    this.teamsByElement.Frost.copyFromDTO(Frost);
-    this.teamsByElement.Physical.copyFromDTO(Physical);
-    this.teamsByElement.Volt.copyFromDTO(Volt);
+    this.teamsByElement.Flame.copyFromDto(Flame);
+    this.teamsByElement.Frost.copyFromDto(Frost);
+    this.teamsByElement.Physical.copyFromDto(Physical);
+    this.teamsByElement.Volt.copyFromDto(Volt);
   }
 
-  public toDTO(): TeamsStateDTO {
+  public toDto(): TeamsStateDto {
     const {
       teamsByElement: { Flame, Frost, Physical, Volt },
     } = this;
 
     return {
       teamsByElement: {
-        Flame: Flame.toDTO(),
-        Frost: Frost.toDTO(),
-        Physical: Physical.toDTO(),
-        Volt: Volt.toDTO(),
+        Flame: Flame.toDto(),
+        Frost: Frost.toDto(),
+        Physical: Physical.toDto(),
+        Volt: Volt.toDto(),
       },
     };
   }
 }
 
-export interface TeamsStateDTO {
-  teamsByElement: DataById<CoreElementalType, TeamDTO>;
+export interface TeamsStateDto {
+  teamsByElement: DataById<CoreElementalType, TeamDto>;
 }
 
 export const teamsStateKey = 'teams';

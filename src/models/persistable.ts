@@ -1,4 +1,4 @@
-export interface Persistable<TObjectDTO> {
-  copyFromDTO(dto: TObjectDTO): void;
-  toDTO(): TObjectDTO;
+export interface Persistable<TObjectDto> {
+  copyFromDto(dto: TObjectDto): void;
+  toDto(): TObjectDto;
 }

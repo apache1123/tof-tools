@@ -1,7 +1,7 @@
 import { defaultCritDamagePercent } from '../../../../constants/damage-formula';
 import type { Persistable } from '../../../../models/persistable';
 
-export class ElementalUserStats implements Persistable<ElementalUserStatsDTO> {
+export class ElementalUserStats implements Persistable<ElementalUserStatsDto> {
   public baseAttackFlatWithGearA: number;
   public totalAttackFlatWithGearA: number;
   public critFlatWithGearA: number;
@@ -24,7 +24,7 @@ export class ElementalUserStats implements Persistable<ElementalUserStatsDTO> {
     this.miscCritDamage = 0;
   }
 
-  public copyFromDTO(dto: ElementalUserStatsDTO): void {
+  public copyFromDto(dto: ElementalUserStatsDto): void {
     const {
       baseAttackFlatWithGearA,
       totalAttackFlatWithGearA,
@@ -48,7 +48,7 @@ export class ElementalUserStats implements Persistable<ElementalUserStatsDTO> {
     this.miscCritDamage = miscCritDamage;
   }
 
-  public toDTO(): ElementalUserStatsDTO {
+  public toDto(): ElementalUserStatsDto {
     const {
       baseAttackFlatWithGearA,
       totalAttackFlatWithGearA,
@@ -75,7 +75,7 @@ export class ElementalUserStats implements Persistable<ElementalUserStatsDTO> {
   }
 }
 
-export interface ElementalUserStatsDTO {
+export interface ElementalUserStatsDto {
   baseAttackFlatWithGearA: number;
   totalAttackFlatWithGearA: number;
   critFlatWithGearA: number;

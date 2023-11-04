@@ -5,11 +5,11 @@ import type { GearName } from '../constants/gear-types';
 import { gearTypesLookup } from '../constants/gear-types';
 import { additiveSum } from '../utils/math-utils';
 import type { DataById } from './data';
-import type { GearDTO } from './gear';
+import type { GearDto } from './gear';
 import { Gear } from './gear';
 import type { Persistable } from './persistable';
 
-export class GearSet implements Persistable<GearSetDTO> {
+export class GearSet implements Persistable<GearSetDto> {
   private _id: string;
   private _gearsByTypeId!: DataById<GearName, Gear>;
 
@@ -102,7 +102,7 @@ export class GearSet implements Persistable<GearSetDTO> {
       });
   }
 
-  public copyFromDTO(dto: GearSetDTO): void {
+  public copyFromDto(dto: GearSetDto): void {
     const { id, name, gearsByTypeId, elementalType } = dto;
 
     this._id = id;
@@ -111,38 +111,38 @@ export class GearSet implements Persistable<GearSetDTO> {
 
     this.resetGears();
     Object.keys(gearsByTypeId).forEach((typeId) => {
-      const gearDTO = gearsByTypeId[typeId as GearName];
-      const gearType = gearTypesLookup.byId[gearDTO.typeId];
+      const gearDto = gearsByTypeId[typeId as GearName];
+      const gearType = gearTypesLookup.byId[gearDto.typeId];
       const gear = new Gear(gearType);
-      gear.copyFromDTO(gearDTO);
+      gear.copyFromDto(gearDto);
       this._gearsByTypeId[typeId as GearName] = gear;
     });
   }
 
-  public toDTO(): GearSetDTO {
+  public toDto(): GearSetDto {
     const { id, _gearsByTypeId, name, elementalType } = this;
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const gearDTOsByTypeId: DataById<GearName, GearDTO> = {};
+    const gearDtosByTypeId: DataById<GearName, GearDto> = {};
     Object.keys(_gearsByTypeId).forEach((typeId) => {
       const gear = _gearsByTypeId[typeId as GearName];
-      const gearDTO = gear.toDTO();
-      gearDTOsByTypeId[typeId as GearName] = gearDTO;
+      const gearDto = gear.toDto();
+      gearDtosByTypeId[typeId as GearName] = gearDto;
     });
 
     return {
       id,
       name,
-      gearsByTypeId: gearDTOsByTypeId,
+      gearsByTypeId: gearDtosByTypeId,
       elementalType,
     };
   }
 }
 
-export interface GearSetDTO {
+export interface GearSetDto {
   id: string;
   name: string;
-  gearsByTypeId: DataById<GearName, GearDTO>;
+  gearsByTypeId: DataById<GearName, GearDto>;
   elementalType: CoreElementalType | undefined;
 }

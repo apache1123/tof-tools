@@ -1,11 +1,11 @@
 import type { ElementalResonance } from '../constants/elemental-resonance';
 import type { WeaponResonance } from '../constants/weapon-resonance';
 import type { Persistable } from './persistable';
-import type { WeaponDTO } from './weapon';
+import type { WeaponDto } from './weapon';
 import { Weapon } from './weapon';
 import { getWeaponDefinition } from './weapon-definition';
 
-export class Team implements Persistable<TeamDTO> {
+export class Team implements Persistable<TeamDto> {
   public weapon1: WeaponSlot;
   public weapon2: WeaponSlot;
   public weapon3: WeaponSlot;
@@ -66,41 +66,41 @@ export class Team implements Persistable<TeamDTO> {
     return 'Balance';
   }
 
-  public copyFromDTO(dto: TeamDTO): void {
+  public copyFromDto(dto: TeamDto): void {
     const {
-      weapon1: weapon1DTO,
-      weapon2: weapon2DTO,
-      weapon3: weapon3DTO,
+      weapon1: weapon1Dto,
+      weapon2: weapon2Dto,
+      weapon3: weapon3Dto,
     } = dto;
 
-    this.weapon1 = weapon1DTO ? getWeaponFromDTO(weapon1DTO) : undefined;
-    this.weapon2 = weapon2DTO ? getWeaponFromDTO(weapon2DTO) : undefined;
-    this.weapon3 = weapon3DTO ? getWeaponFromDTO(weapon3DTO) : undefined;
+    this.weapon1 = weapon1Dto ? getWeaponFromDto(weapon1Dto) : undefined;
+    this.weapon2 = weapon2Dto ? getWeaponFromDto(weapon2Dto) : undefined;
+    this.weapon3 = weapon3Dto ? getWeaponFromDto(weapon3Dto) : undefined;
 
-    function getWeaponFromDTO(weaponDTO: WeaponDTO): Weapon {
-      const weaponDefinition = getWeaponDefinition(weaponDTO.definitionId);
+    function getWeaponFromDto(weaponDto: WeaponDto): Weapon {
+      const weaponDefinition = getWeaponDefinition(weaponDto.definitionId);
       const weapon = new Weapon(weaponDefinition);
-      weapon.copyFromDTO(weaponDTO);
+      weapon.copyFromDto(weaponDto);
       return weapon;
     }
   }
 
-  public toDTO(): TeamDTO {
+  public toDto(): TeamDto {
     const { weapon1, weapon2, weapon3 } = this;
 
     return {
-      weapon1: weapon1?.toDTO(),
-      weapon2: weapon2?.toDTO(),
-      weapon3: weapon3?.toDTO(),
+      weapon1: weapon1?.toDto(),
+      weapon2: weapon2?.toDto(),
+      weapon3: weapon3?.toDto(),
     };
   }
 }
 
-export interface TeamDTO {
-  weapon1: WeaponSlotDTO;
-  weapon2: WeaponSlotDTO;
-  weapon3: WeaponSlotDTO;
+export interface TeamDto {
+  weapon1: WeaponSlotDto;
+  weapon2: WeaponSlotDto;
+  weapon3: WeaponSlotDto;
 }
 
 type WeaponSlot = Weapon | undefined;
-type WeaponSlotDTO = WeaponDTO | undefined;
+type WeaponSlotDto = WeaponDto | undefined;

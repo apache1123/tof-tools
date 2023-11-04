@@ -5,16 +5,16 @@ import type { CoreElementalType } from '../../../constants/elemental-type';
 import type { Persistable } from '../../../models/persistable';
 
 export class GearComparerOptionsState
-  implements Persistable<GearComparerOptionsStateDTO>
+  implements Persistable<GearComparerOptionsStateDto>
 {
   public selectedElementalType: CoreElementalType | undefined;
 
-  public copyFromDTO(dto: GearComparerOptionsStateDTO): void {
+  public copyFromDto(dto: GearComparerOptionsStateDto): void {
     const { selectedElementalType } = dto;
     this.selectedElementalType = selectedElementalType;
   }
 
-  public toDTO(): GearComparerOptionsStateDTO {
+  public toDto(): GearComparerOptionsStateDto {
     const { selectedElementalType } = this;
     return {
       selectedElementalType,
@@ -22,7 +22,7 @@ export class GearComparerOptionsState
   }
 }
 
-export interface GearComparerOptionsStateDTO {
+export interface GearComparerOptionsStateDto {
   selectedElementalType: CoreElementalType | undefined;
 }
 

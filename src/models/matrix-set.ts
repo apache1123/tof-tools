@@ -5,7 +5,7 @@ import {
 } from './matrix-set-definition';
 import type { Persistable } from './persistable';
 
-export class MatrixSet implements Persistable<MatrixSetDTO> {
+export class MatrixSet implements Persistable<MatrixSetDto> {
   public definition: MatrixSetDefinition;
   public stars: number;
 
@@ -14,14 +14,14 @@ export class MatrixSet implements Persistable<MatrixSetDTO> {
     this.stars = 0;
   }
 
-  public copyFromDTO(dto: MatrixSetDTO): void {
+  public copyFromDto(dto: MatrixSetDto): void {
     const { definitionId, stars } = dto;
 
     this.definition = getMatrixSetDefinition(definitionId);
     this.stars = stars;
   }
 
-  public toDTO(): MatrixSetDTO {
+  public toDto(): MatrixSetDto {
     const { definition, stars } = this;
 
     return {
@@ -31,7 +31,7 @@ export class MatrixSet implements Persistable<MatrixSetDTO> {
   }
 }
 
-export interface MatrixSetDTO {
+export interface MatrixSetDto {
   definitionId: MatrixSetName;
   stars: number;
 }
