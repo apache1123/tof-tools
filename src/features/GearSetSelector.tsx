@@ -3,10 +3,7 @@ import { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
 import type { GearSet } from '../models/gear-set';
-import {
-  gearSetsState,
-  getDefaultGearSetName,
-} from './gear-sets/states/gear-sets';
+import { gearSetsState, getDefaultGearSetName } from '../states/gear-sets';
 
 export interface GearSetSelectorProps {
   onGearSetSelect(gearSet: GearSet): void;

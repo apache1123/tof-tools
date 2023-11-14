@@ -9,6 +9,7 @@ export interface ButtonModalProps extends Omit<StyledModalProps, 'open'> {
   buttonText?: ReactNode;
   icon?: ReactNode;
   iconButton?: boolean;
+  disabled?: boolean;
   buttonSx?: SxProps<Theme>;
   ['aria-label']?: string;
 }
@@ -19,6 +20,7 @@ export function ButtonModal({
   onClose,
   icon,
   iconButton,
+  disabled,
   'aria-label': ariaLabel,
   buttonSx,
   ...rest
@@ -44,6 +46,7 @@ export function ButtonModal({
           <IconButton
             onClick={handleOpen}
             color="primary"
+            disabled={disabled}
             aria-label={ariaLabel}
           >
             {icon}
@@ -54,6 +57,7 @@ export function ButtonModal({
           onClick={handleOpen}
           variant="text"
           startIcon={icon}
+          disabled={disabled}
           sx={buttonSx}
           aria-label={ariaLabel}
         >

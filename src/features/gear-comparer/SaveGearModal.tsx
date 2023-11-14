@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 
 import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { Gear } from '../../models/gear';
+import type { Gear } from '../../models/gear';
 import type { GearSet } from '../../models/gear-set';
 import { GearSetSelector } from '../GearSetSelector';
 
@@ -12,42 +12,45 @@ export interface SaveGearModalProps {
 }
 
 export function SaveGearModal({ gear }: SaveGearModalProps) {
-  const [selectedGearSet, setSelectedGearSet] = useState<GearSet>();
+  // TODO:
+  // const [selectedGearSet, setSelectedGearSet] = useState<GearSet>();
 
-  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar();
+  // const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar();
 
-  const handleGearSetSelect = useCallback((gearSet: GearSet) => {
-    setSelectedGearSet(gearSet);
-  }, []);
+  // const handleGearSetSelect = useCallback((gearSet: GearSet) => {
+  //   setSelectedGearSet(gearSet);
+  // }, []);
 
-  return (
-    <>
-      <ButtonModal
-        buttonText="Save gear to gear set"
-        modalTitle="Save gear to gear set"
-        modalContent={<GearSetSelector onGearSetSelect={handleGearSetSelect} />}
-        showConfirm
-        showCancel
-        onConfirm={() => {
-          if (selectedGearSet) {
-            const replaceeGear = selectedGearSet.getGearByType(gear.type.id);
-            if (replaceeGear) {
-              Gear.copy(gear, replaceeGear);
+  // return (
+  //   <>
+  //     <ButtonModal
+  //       buttonText="Save gear to gear set"
+  //       modalTitle="Save gear to gear set"
+  //       modalContent={<GearSetSelector onGearSetSelect={handleGearSetSelect} />}
+  //       showConfirm
+  //       showCancel
+  //       onConfirm={() => {
+  //         if (selectedGearSet) {
+  //           const replaceeGear = selectedGearSet.getGearByType(gear.type.id);
+  //           if (replaceeGear) {
+  //             Gear.copy(gear, replaceeGear);
 
-              if (selectedGearSet.name) {
-                showSnackbar(
-                  `Gear saved to "${selectedGearSet.name}" gear set`
-                );
-              } else {
-                showSnackbar('Gear saved to gear set');
-              }
-            }
-          }
-        }}
-        icon={<SaveIcon />}
-        iconButton
-      />
-      <SnackbarComponent />
-    </>
-  );
+  //             if (selectedGearSet.name) {
+  //               showSnackbar(
+  //                 `Gear saved to "${selectedGearSet.name}" gear set`
+  //               );
+  //             } else {
+  //               showSnackbar('Gear saved to gear set');
+  //             }
+  //           }
+  //         }
+  //       }}
+  //       icon={<SaveIcon />}
+  //       iconButton
+  //     />
+  //     <SnackbarComponent />
+  //   </>
+  // );
+
+  return null;
 }

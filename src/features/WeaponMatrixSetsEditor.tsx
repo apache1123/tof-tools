@@ -1,6 +1,5 @@
 import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
-import { useSnapshot } from 'valtio';
 
 import {
   MatrixSet2pcDefinitionSelector,
@@ -18,10 +17,12 @@ import {
 import type { WeaponMatrixSets } from '../models/weapon-matrix-sets';
 
 export interface WeaponMatrixSetsEditorProps {
+  weaponMatrixSetsSnap: WeaponMatrixSets;
   weaponMatrixSetsState: WeaponMatrixSets;
 }
 
 export function WeaponMatrixSetsEditor({
+  weaponMatrixSetsSnap,
   weaponMatrixSetsState,
 }: WeaponMatrixSetsEditorProps) {
   const [defaultMatrixSetPieces, setDefaultMatrixSetPieces] =
@@ -36,7 +37,7 @@ export function WeaponMatrixSetsEditor({
     matrixSet4pc: matrixSet4pcSnap,
     matrixSet2pc1: matrixSet2pc1Snap,
     matrixSet2pc2: matrixSet2pc2Snap,
-  } = useSnapshot(weaponMatrixSetsState);
+  } = weaponMatrixSetsSnap;
 
   const matrixSetPieces: MatrixSetPieces = matrixSet4pcSnap
     ? 4

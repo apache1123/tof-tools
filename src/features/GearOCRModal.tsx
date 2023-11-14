@@ -146,6 +146,7 @@ export const GearOCRModal = ({
               )}
               {!errorMessage && tempGearSnap && tempGearState && (
                 <GearPiece
+                  gearSnap={tempGearSnap as Gear}
                   gearState={tempGearState}
                   showGearOCRButton={false}
                 />

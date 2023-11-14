@@ -1,8 +1,8 @@
 import { derive } from 'valtio/utils';
 
 import type { Team } from '../../../../models/team';
+import { teamsState } from '../../../../states/teams';
 import { gearComparerOptionsState } from '../gear-comparer-options';
-import { teamsState } from '../teams';
 
 export interface SelectedElementalTeamState {
   selectedElementalTeam: Team | undefined;

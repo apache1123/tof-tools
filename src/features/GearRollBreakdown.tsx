@@ -1,20 +1,16 @@
 import { Divider, Typography } from '@mui/material';
 import pluralize from 'pluralize';
 import { Fragment } from 'react';
-import { useSnapshot } from 'valtio';
 
 import { NumericStringPercentage } from '../components/NumericString/NumericString';
 import { type Gear } from '../models/gear';
 
 export interface GearRollBreakdownProps {
-  gear: Gear;
+  gearSnap: Gear;
 }
 
-export const GearRollBreakdown = ({ gear }: GearRollBreakdownProps) => {
-  const gearSnap = useSnapshot(gear);
-  const randomStatRollCombinations = (
-    gearSnap as Gear
-  ).getRandomStatRollCombinations();
+export const GearRollBreakdown = ({ gearSnap }: GearRollBreakdownProps) => {
+  const randomStatRollCombinations = gearSnap.getRandomStatRollCombinations();
 
   const hasOnlyOneRollCombination = randomStatRollCombinations.length === 1;
 
