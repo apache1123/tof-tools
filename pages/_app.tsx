@@ -6,6 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import * as React from 'react';
+import { useEffect } from 'react';
 
 import createEmotionCache from '../src/createEmotionCache';
 import {
@@ -17,18 +18,12 @@ import {
   gearComparerOptionsStateKey,
 } from '../src/features/gear-comparer/states/gear-comparer-options';
 import {
-  teamsState,
-  teamsStateKey,
-} from '../src/features/gear-comparer/states/teams';
-import {
   userStatsState,
   userStatsStateKey,
 } from '../src/features/gear-comparer/states/user-stats/user-stats';
-import {
-  gearSetsState,
-  gearSetsStateKey,
-} from '../src/features/gear-sets/states/gear-sets';
 import { useLocalStoragePersistence } from '../src/states/hooks/useLocalStoragePersistence';
+import { loadoutsState, loadoutsStateKey } from '../src/states/loadouts';
+import { migrateStatesToLatestVersion } from '../src/states/migrations/state-migrations-state';
 import theme from '../src/theme';
 import Layout from './_layout';
 
@@ -40,17 +35,20 @@ export interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+  useEffect(() => {
+    migrateStatesToLatestVersion();
+  });
+
   // Order matters here.
   // Not 100% sure, but I think there is a bug in `derive`
   // https://github.com/pmndrs/valtio/issues/687
-  useLocalStoragePersistence(teamsState, teamsStateKey);
+  useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
   useLocalStoragePersistence(userStatsState, userStatsStateKey);
   useLocalStoragePersistence(
     gearComparerOptionsState,
     gearComparerOptionsStateKey
   );
   useLocalStoragePersistence(gearComparerGearsState, gearComparerGearsStateKey);
-  useLocalStoragePersistence(gearSetsState, gearSetsStateKey);
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (

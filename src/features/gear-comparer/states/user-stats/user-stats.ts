@@ -5,64 +5,42 @@ import { maxCharacterLevel } from '../../../../constants/character-level';
 import type { CoreElementalType } from '../../../../constants/elemental-type';
 import type { DataById } from '../../../../models/data';
 import type { Dto } from '../../../../models/dto';
-import type { ElementalUserStatsDto } from '../../../../models/elemental-user-stats';
-import { ElementalUserStats } from '../../../../models/elemental-user-stats';
-import { LoadoutStats } from '../../../../models/loadout-stats';
 import type { Persistable } from '../../../../models/persistable';
+import type { ElementalUserStatsDto } from './elemental-user-stats';
 
-export class UserStatsState implements Persistable<UserStatsStateDto> {
+export class UserStatsState implements Persistable<UserStatsStateDtoV2> {
   public characterLevel: number;
-  public statsByElement: DataById<CoreElementalType, ElementalUserStats>;
 
   public constructor() {
     this.characterLevel = maxCharacterLevel;
-    this.statsByElement = {
-      Flame: newElementalUserStats(),
-      Frost: newElementalUserStats(),
-      Physical: newElementalUserStats(),
-      Volt: newElementalUserStats(),
-    };
-
-    function newElementalUserStats(): ElementalUserStats {
-      return new ElementalUserStats(new LoadoutStats());
-    }
   }
 
-  public copyFromDto(dto: UserStatsStateDto): void {
-    const {
-      characterLevel,
-      statsByElement: { Flame, Frost, Physical, Volt },
-    } = dto;
+  public copyFromDto(dto: UserStatsStateDtoV2): void {
+    const { characterLevel } = dto;
 
     this.characterLevel = characterLevel;
-    this.statsByElement.Flame.copyFromDto(Flame);
-    this.statsByElement.Frost.copyFromDto(Frost);
-    this.statsByElement.Physical.copyFromDto(Physical);
-    this.statsByElement.Volt.copyFromDto(Volt);
   }
 
-  public toDto(): UserStatsStateDto {
-    const {
-      characterLevel,
-      statsByElement: { Flame, Frost, Physical, Volt },
-    } = this;
+  public toDto(): UserStatsStateDtoV2 {
+    const { characterLevel } = this;
 
     return {
       characterLevel,
-      statsByElement: {
-        Flame: Flame.toDto(),
-        Frost: Frost.toDto(),
-        Physical: Physical.toDto(),
-        Volt: Volt.toDto(),
-      },
-      version: 1,
+      version: 2,
     };
   }
 }
 
-export interface UserStatsStateDto extends Dto {
+/** @deprecated Migrated to using Loadouts */
+export interface UserStatsStateDtoV1 extends Dto {
   characterLevel: number;
   statsByElement: DataById<CoreElementalType, ElementalUserStatsDto>;
+  version: 1;
+}
+
+export interface UserStatsStateDtoV2 extends Dto {
+  characterLevel: number;
+  version: 2;
 }
 
 export const userStatsStateKey = 'userStats';

@@ -1,11 +1,11 @@
 import { Button, ButtonGroup, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import pluralize from 'pluralize';
-import { useSnapshot } from 'valtio';
 
 import type { RandomStat } from '../../models/random-stat';
 
 export interface GearRollSimulatorStatProps {
+  statSnap: RandomStat;
   statState: RandomStat;
   rolls: number;
   canRoll: boolean;
@@ -13,12 +13,12 @@ export interface GearRollSimulatorStatProps {
 }
 
 export function GearRollSimulatorStat({
+  statSnap,
   statState,
   rolls,
   canRoll,
   onAddRoll,
 }: GearRollSimulatorStatProps) {
-  const statSnap = useSnapshot(statState);
   const { displayName } = statSnap.type;
 
   return (

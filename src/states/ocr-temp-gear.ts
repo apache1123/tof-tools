@@ -29,8 +29,10 @@ export function removeOCRTempGear() {
 }
 
 export async function initializeOCRWorker() {
-  const worker = await createWorker();
-  await worker.loadLanguage('eng');
-  await worker.initialize('eng');
-  ocrState.ocrWorker = worker;
+  if (!ocrState.ocrWorker) {
+    const worker = await createWorker();
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    ocrState.ocrWorker = worker;
+  }
 }

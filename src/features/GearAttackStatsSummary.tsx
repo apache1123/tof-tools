@@ -12,25 +12,19 @@ import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
 import { userStatsState } from './gear-comparer/states/user-stats/user-stats';
 
 export interface GearAttackStatsSummaryProps {
-  gearState: Gear;
+  gearSnap: Gear;
   elementalType: CoreElementalType;
 }
 
 export function GearAttackStatsSummary({
-  gearState,
+  gearSnap,
   elementalType,
 }: GearAttackStatsSummaryProps) {
-  const gearSnap = useSnapshot(gearState);
-
-  const totalAttackFlat = (gearSnap as Gear).getTotalAttackFlat(elementalType);
-  const totalAttackPercent = (gearSnap as Gear).getTotalAttackPercent(
-    elementalType
-  );
-  const totalCritFlat = (gearSnap as Gear).getTotalCritFlat();
-  const totalCritPercent = (gearSnap as Gear).getTotalCritPercent();
-  const totalDamagePercent = (gearSnap as Gear).getTotalDamagePercent(
-    elementalType
-  );
+  const totalAttackFlat = gearSnap.getTotalAttackFlat(elementalType);
+  const totalAttackPercent = gearSnap.getTotalAttackPercent(elementalType);
+  const totalCritFlat = gearSnap.getTotalCritFlat();
+  const totalCritPercent = gearSnap.getTotalCritPercent();
+  const totalDamagePercent = gearSnap.getTotalDamagePercent(elementalType);
 
   const { characterLevel } = useSnapshot(userStatsState);
   const totalCritFlatToPercent = calculateCritPercentFromFlat(

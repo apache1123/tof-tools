@@ -16,8 +16,8 @@ import { RandomSticker } from '../RandomSticker/RandomSticker';
 
 const pages: { label: string; path: string }[] = [
   {
-    label: 'Gear sets',
-    path: '/gear-sets',
+    label: 'Loadouts',
+    path: '/loadouts',
   },
   {
     label: 'Gear comparer',

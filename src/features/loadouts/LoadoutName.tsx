@@ -6,24 +6,18 @@ import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
-import { gearSetsState } from './states/gear-sets';
+import { loadoutsState } from '../../states/loadouts';
 
 const iconSize = 'small';
 
-export function CurrentGearSetName() {
-  const { selectedGearSet } = useSnapshot(gearSetsState);
+export function LoadoutName() {
+  const { selectedLoadout: loadout } = useSnapshot(loadoutsState);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingName, setEditingName] = useState('');
 
-  if (!selectedGearSet) {
-    return null;
-  }
-
   function saveName() {
-    if (gearSetsState.selectedGearSet) {
-      gearSetsState.selectedGearSet.name = editingName;
-    }
+    loadoutsState.selectedLoadoutItem.loadout.name = editingName;
   }
 
   return (
@@ -31,24 +25,24 @@ export function CurrentGearSetName() {
       {!isEditMode && (
         <>
           <Typography variant="h5" component="h1">
-            {selectedGearSet.elementalType ? (
+            {loadout.elementalType ? (
               <ElementalStyledText
-                elementalType={selectedGearSet.elementalType}
+                elementalType={loadout.elementalType}
                 variant="h5"
               >
-                {selectedGearSet.name}
+                {loadout.name}
               </ElementalStyledText>
             ) : (
-              selectedGearSet.name
+              loadout.name
             )}
           </Typography>
           <IconButton
             onClick={() => {
-              setEditingName(selectedGearSet.name);
+              setEditingName(loadout.name);
               setIsEditMode(true);
             }}
             sx={{ ml: 0.5 }}
-            aria-label="edit-gear-set-name"
+            aria-label="edit-loadout-name"
           >
             <EditIcon fontSize={iconSize} />
           </IconButton>

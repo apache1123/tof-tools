@@ -1,6 +1,5 @@
 import { Stack } from '@mui/material';
 import type { ReactNode } from 'react';
-import { useSnapshot } from 'valtio';
 
 import { WeaponDefinitionSelector } from '../components/WeaponDefinitionSelector/WeaponDefinitionSelector';
 import { WeaponIcon } from '../components/WeaponIcon/WeaponIcon';
@@ -10,17 +9,18 @@ import type { WeaponDefinition } from '../models/weapon-definition';
 import { WeaponMatrixSetsEditor } from './WeaponMatrixSetsEditor';
 
 export interface WeaponEditorProps {
+  weaponSnap: Weapon;
   weaponState: Weapon;
   onClearWeapon(): void;
   ['data-testid']?: string;
 }
 
 export function WeaponEditor({
+  weaponSnap,
   weaponState,
   onClearWeapon,
   'data-testid': dataTestId,
 }: WeaponEditorProps) {
-  const weaponSnap = useSnapshot(weaponState) as Weapon;
   const weaponDefinition = weaponSnap.definition;
 
   return (
@@ -46,6 +46,7 @@ export function WeaponEditor({
       }
       matrixSetsEditor={
         <WeaponMatrixSetsEditor
+          weaponMatrixSetsSnap={weaponSnap.matrixSets}
           weaponMatrixSetsState={weaponState.matrixSets}
         />
       }

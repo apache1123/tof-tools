@@ -13,6 +13,7 @@ export interface CoreElementalTypeSelectorProps {
   size?: 'small' | 'medium';
   required?: boolean;
   variant?: FormControlProps['variant'];
+  disabled?: boolean;
 }
 
 const options: CoreElementalType[] = ['Flame', 'Frost', 'Physical', 'Volt'];
@@ -24,6 +25,7 @@ export function CoreElementalTypeSelector({
   size = 'medium',
   required = false,
   variant = 'standard',
+  disabled,
 }: CoreElementalTypeSelectorProps) {
   const handleChange = (event: SelectChangeEvent) => {
     if (onElementalTypeChange)
@@ -37,6 +39,7 @@ export function CoreElementalTypeSelector({
       required={required}
       error={required && !elementalType}
       size={size}
+      disabled={disabled}
     >
       <InputLabel id="elemental-type-select-label">{label}</InputLabel>
       <Select

@@ -10,24 +10,18 @@ import {
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useEffect } from 'react';
 
 import { GridBreak } from '../../components/GridBreak/GridBreak';
-import { initializeOCRWorker } from '../../states/ocr-temp-gear';
+import { TeamEditor } from '../TeamEditor';
+import { LoadoutStatsEditor } from '../UserBaseStats';
 import { BuffSummary } from './BuffSummary';
 import { GearComparerGear } from './GearComparerGear';
 import { GearComparerGearSwap } from './GearComparerGearSwap';
 import { GearComparerOptions } from './GearComparerOptions';
 import { GearValue } from './GearValue';
 import { MiscellaneousBuffs } from './MiscellaneousBuffs';
-import { Team } from './Team';
-import { UserBaseStats } from './UserBaseStats';
 
 export function GearComparer() {
-  useEffect(() => {
-    initializeOCRWorker();
-  }, []);
-
   return (
     <>
       <Paper sx={{ p: 2 }} elevation={0}>
@@ -46,7 +40,7 @@ export function GearComparer() {
                 <Typography fontWeight="bold">Your stats</Typography>
               </AccordionSummary>
               <AccordionDetails data-testid="user-stats-panel-content">
-                <UserBaseStats />
+                <LoadoutStatsEditor />
               </AccordionDetails>
             </Accordion>
             <Accordion defaultExpanded elevation={2}>
@@ -58,7 +52,7 @@ export function GearComparer() {
                 <Typography fontWeight="bold">Weapons & Matrices</Typography>
               </AccordionSummary>
               <AccordionDetails data-testid="team-panel-content">
-                <Team />
+                <TeamEditor />
               </AccordionDetails>
             </Accordion>
           </Box>

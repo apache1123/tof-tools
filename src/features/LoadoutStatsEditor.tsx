@@ -3,46 +3,37 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
-import { NumericInput } from '../../components/NumericInput/NumericInput';
-import { PercentageNumericInput } from '../../components/NumericInput/PercentageNumericInput';
-import { maxCharacterLevel } from '../../constants/character-level';
-import {
-  selectedElementalUserStatsState,
-  setBaseAttackFlat,
-  setCritDamage,
-  setCritFlat,
-  setCritPercent,
-  setTotalAttackFlat,
-} from './states/derived/selected-elemental-user-stats';
-import { gearComparerOptionsState } from './states/gear-comparer-options';
-import { userStatsState } from './states/user-stats/user-stats';
+import { NumericInput } from '../components/NumericInput/NumericInput';
+import { PercentageNumericInput } from '../components/NumericInput/PercentageNumericInput';
+import { maxCharacterLevel } from '../constants/character-level';
+import type { LoadoutStats } from '../models/loadout-stats';
+import { userStatsState } from './gear-comparer/states/user-stats/user-stats';
 
-export function UserBaseStats() {
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
-  const { characterLevel } = useSnapshot(userStatsState);
-  const { selectedElementalUserStats } = useSnapshot(
-    selectedElementalUserStatsState
-  );
+export interface LoadoutStatsEditorProps {
+  loadoutStatsSnap: LoadoutStats;
+  loadoutStatsState: LoadoutStats;
+}
 
-  if (!selectedElementalType || !selectedElementalUserStats) {
-    return null;
-  }
-
+export function LoadoutStatsEditor({
+  loadoutStatsSnap,
+  loadoutStatsState,
+}: LoadoutStatsEditorProps) {
   const {
-    loadoutStats: {
-      baseAttackFlat,
-      totalAttackFlat,
-      critFlat,
-      critPercent,
-      critDamage,
-    },
-  } = selectedElementalUserStats;
+    loadout: { elementalType },
+    activeElementalAttack: { totalAttack, baseAttack },
+    critFlat,
+    critPercent,
+    critDamage,
+  } = loadoutStatsSnap;
+
+  const { characterLevel } = useSnapshot(userStatsState);
 
   return (
     <>
       <Typography variant="subtitle2" sx={{ color: 'warning.main', mb: 2 }}>
-        Fill these in with your <u>current</u> gear equipped (the left/first
-        gear below). You can find these values on the Wanderer screen.
+        {/* Fill these in with your <u>current</u> gear equipped (the left/first
+        gear below).  */}
+        You can find these values on the Wanderer screen.
       </Typography>
 
       <Grid container spacing={2}>
@@ -50,14 +41,15 @@ export function UserBaseStats() {
           <NumericInput
             id="total-attack"
             label={
-              'Total attack' +
-              (selectedElementalType ? ` (${selectedElementalType})` : '')
+              'Total attack' + (elementalType ? ` (${elementalType})` : '')
             }
             variant="filled"
             required
-            error={!totalAttackFlat}
-            value={totalAttackFlat}
-            onChange={setTotalAttackFlat}
+            error={!totalAttack}
+            value={totalAttack}
+            onChange={(value) => {
+              loadoutStatsState.activeElementalAttack.totalAttack = value;
+            }}
             helperText={
               <Tooltip
                 title={
@@ -89,15 +81,14 @@ export function UserBaseStats() {
         <Grid xs={12} sm={6} md={4} lg={3}>
           <NumericInput
             id="base-attack"
-            label={
-              'Base attack' +
-              (selectedElementalType ? ` (${selectedElementalType})` : '')
-            }
+            label={'Base attack' + (elementalType ? ` (${elementalType})` : '')}
             variant="filled"
             required
-            error={!baseAttackFlat}
-            value={baseAttackFlat}
-            onChange={setBaseAttackFlat}
+            error={!baseAttack}
+            value={baseAttack}
+            onChange={(value) => {
+              loadoutStatsState.activeElementalAttack.baseAttack = value;
+            }}
             helperText={
               <Tooltip
                 title={
@@ -125,7 +116,9 @@ export function UserBaseStats() {
             required
             error={!critFlat}
             value={critFlat}
-            onChange={setCritFlat}
+            onChange={(value) => {
+              loadoutStatsState.critFlat = value;
+            }}
             helperText={
               <Tooltip
                 title={
@@ -149,7 +142,9 @@ export function UserBaseStats() {
             variant="filled"
             required
             value={critPercent}
-            onChange={setCritPercent}
+            onChange={(value) => {
+              loadoutStatsState.critPercent = value;
+            }}
             helperText={
               <Tooltip
                 title={
@@ -185,7 +180,9 @@ export function UserBaseStats() {
             required
             error={!critDamage}
             value={critDamage}
-            onChange={setCritDamage}
+            onChange={(value) => {
+              loadoutStatsState.critDamage = value;
+            }}
             helperText={
               <Tooltip
                 title={

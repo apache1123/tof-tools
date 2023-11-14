@@ -17,6 +17,7 @@ import { NumericStringPercentage2dp } from '../../components/NumericString/Numer
 import { maxNumOfRandomStatRolls } from '../../constants/gear';
 import type { Gear } from '../../models/gear';
 import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
+import type { RandomStat } from '../../models/random-stat';
 import { getComparisonColor } from '../../utils/color-utils';
 import { additiveSum } from '../../utils/math-utils';
 import { GearRollSimulatorStat } from './GearRollSimulatorStat';
@@ -175,6 +176,7 @@ function DeterminedStars({
           return (
             <GearRollSimulatorStat
               key={i}
+              statSnap={statSnap as RandomStat}
               statState={statState}
               rolls={statTotalRolls}
               canRoll={canRoll}

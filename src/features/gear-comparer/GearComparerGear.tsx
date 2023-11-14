@@ -33,6 +33,7 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
 
   return gearSnap && gearState ? (
     <GearPiece
+      gearSnap={gearSnap as Gear}
       gearState={gearState}
       showGearOCRButton
       showSaveGearButton
@@ -54,17 +55,10 @@ export function GearComparerGear({ position }: GearComparerGearProps) {
           <Typography color="info.main" gutterBottom>
             Can&apos;t calculate max titan stat values if gear is not at 5 star
           </Typography>
-        ) : gearSnap &&
-          maxTitansSnap.titansByReferenceGearId[gearSnap.id] &&
-          gearComparerGearMaxTitansState.titansByReferenceGearId[
-            gearSnap.id
-          ] ? (
+        ) : gearSnap && maxTitansSnap.titansByReferenceGearId[gearSnap.id] ? (
           <TitanGearMaxStats
-            maxTitanGearState={
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              gearComparerGearMaxTitansState.titansByReferenceGearId[
-                gearSnap.id
-              ]!
+            maxTitanGearSnap={
+              maxTitansSnap.titansByReferenceGearId[gearSnap.id] as Gear
             }
             elementalType={selectedElementalType}
           />

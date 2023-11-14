@@ -1,21 +1,18 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
-import { useSnapshot } from 'valtio';
 
 import type { CoreElementalType } from '../constants/elemental-type';
 import type { Gear } from '../models/gear';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 
 export interface TitanGearMaxStatsProps {
-  maxTitanGearState: Gear;
+  maxTitanGearSnap: Gear;
   elementalType?: CoreElementalType;
 }
 
 export function TitanGearMaxStats({
-  maxTitanGearState,
+  maxTitanGearSnap,
   elementalType,
 }: TitanGearMaxStatsProps) {
-  const maxTitanGearSnap = useSnapshot(maxTitanGearState);
-
   return (
     <Stack spacing={2}>
       <Box>
@@ -66,7 +63,7 @@ export function TitanGearMaxStats({
         <>
           <Divider />
           <GearAttackStatsSummary
-            gearState={maxTitanGearState}
+            gearSnap={maxTitanGearSnap}
             elementalType={elementalType}
           />
         </>

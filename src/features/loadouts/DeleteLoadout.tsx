@@ -4,35 +4,34 @@ import { useSnapshot } from 'valtio';
 
 import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { gearSetsState } from './states/gear-sets';
+import { loadoutsState } from '../../states/loadouts';
 
-export function DeleteCurrentGearSet() {
-  const { selectedGearSet } = useSnapshot(gearSetsState);
+export function DeleteLoadout() {
+  const {
+    selectedLoadoutItem: { isDefault },
+  } = useSnapshot(loadoutsState);
 
   const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar();
-
-  if (!selectedGearSet) {
-    return null;
-  }
 
   return (
     <>
       <ButtonModal
+        disabled={isDefault}
         icon={<DeleteForeverIcon color="error" />}
         iconButton
-        modalTitle="Delete gear set"
+        modalTitle="Delete loadout"
         modalContent={
           <Typography color="error">
-            This will permanently delete this gear set. Continue?
+            This will permanently delete this loadout. Continue?
           </Typography>
         }
         showConfirm
         showCancel
         onConfirm={() => {
-          gearSetsState.deleteSelectedGearSet();
-          showSnackbar('Gear set deleted');
+          loadoutsState.deleteSelectedLoadout();
+          showSnackbar('Loadout deleted');
         }}
-        aria-label="delete-gear-set"
+        aria-label="delete-loadout"
       />
       <SnackbarComponent />
     </>

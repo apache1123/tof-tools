@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import type { ReactNode } from 'react';
-import { useSnapshot } from 'valtio';
 
 import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
@@ -31,6 +30,7 @@ import { GearStars } from './GearStars';
 import { DisabledStatEditor, EmptyStatEditor, StatEditor } from './StatEditor';
 
 export interface GearPieceProps {
+  gearSnap: Gear;
   gearState: Gear;
   showGearOCRButton?: boolean;
   showCompareGearButton?: boolean;
@@ -44,6 +44,7 @@ export interface GearPieceProps {
 }
 
 export const GearPiece = ({
+  gearSnap,
   gearState,
   showGearOCRButton,
   showCompareGearButton,
@@ -55,9 +56,7 @@ export const GearPiece = ({
   additionalAccordions,
   'data-testid': dataTestId,
 }: GearPieceProps) => {
-  const gearSnap = useSnapshot(gearState);
-
-  const gearType = (gearSnap as Gear).type;
+  const gearType = gearSnap.type;
   const possibleRandomStatTypes = getPossibleRandomStatTypes(gearType);
 
   return (
@@ -72,13 +71,14 @@ export const GearPiece = ({
           disabled={disableGearTypeChange}
         />
       }
-      starsSelector={<GearStars gear={gearState} />}
+      starsSelector={<GearStars gearSnap={gearSnap} gearState={gearState} />}
       randomStats={
         <>
           {gearSnap.randomStats.map((randomStatSnap, i) => {
             return randomStatSnap && gearState.randomStats[i] ? (
               <StatEditor
                 key={i}
+                statSnap={randomStatSnap}
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 statState={gearState.randomStats[i]!}
                 possibleStatTypes={possibleRandomStatTypes}
@@ -122,7 +122,7 @@ export const GearPiece = ({
         <>
           {showStatSummary && (
             <GearAttackStatsSummary
-              gearState={gearState}
+              gearSnap={gearSnap as Gear}
               elementalType={showStatSummary}
             />
           )}
@@ -136,7 +136,7 @@ export const GearPiece = ({
                 <Typography>Roll breakdown</Typography>
               </AccordionSummary>
               <AccordionDetails data-testid="roll-breakdown-panel-content">
-                <GearRollBreakdown gear={gearState} />
+                <GearRollBreakdown gearSnap={gearSnap} />
               </AccordionDetails>
             </Accordion>
             {maxTitanStatsContent && (

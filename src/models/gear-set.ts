@@ -10,17 +10,12 @@ import type { GearDto } from './gear';
 import { Gear } from './gear';
 import type { Persistable } from './persistable';
 
-export class GearSet implements Persistable<GearSetDto> {
+export class GearSet implements Persistable<GearSetDtoV2> {
   private _id: string;
   private _gearsByTypeId!: DataById<GearName, Gear>;
 
-  public name: string;
-  public elementalType: CoreElementalType | undefined;
-
-  public constructor(name: string) {
+  public constructor() {
     this._id = nanoid();
-    this.name = name;
-    this.elementalType = undefined;
 
     this.resetGears();
   }
@@ -33,28 +28,20 @@ export class GearSet implements Persistable<GearSetDto> {
     return this._gearsByTypeId[typeId];
   }
 
-  public getTotalAttackFlat(): number {
-    if (!this.elementalType) return 0;
-
+  public getTotalAttackFlat(elementalType: CoreElementalType): number {
     return additiveSum(
       Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
-        return gear && this.elementalType
-          ? gear.getTotalAttackFlat(this.elementalType)
-          : 0;
+        return gear ? gear.getTotalAttackFlat(elementalType) : 0;
       })
     ).toNumber();
   }
 
-  public getTotalAttackPercent(): number {
-    if (!this.elementalType) return 0;
-
+  public getTotalAttackPercent(elementalType: CoreElementalType): number {
     return additiveSum(
       Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
-        return gear && this.elementalType
-          ? gear.getTotalAttackPercent(this.elementalType)
-          : 0;
+        return gear ? gear.getTotalAttackPercent(elementalType) : 0;
       })
     ).toNumber();
   }
@@ -77,15 +64,11 @@ export class GearSet implements Persistable<GearSetDto> {
     ).toNumber();
   }
 
-  public getTotalDamagePercent(): number {
-    if (!this.elementalType) return 0;
-
+  public getTotalDamagePercent(elementalType: CoreElementalType): number {
     return additiveSum(
       Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
-        return gear && this.elementalType
-          ? gear.getTotalDamagePercent(this.elementalType)
-          : 0;
+        return gear ? gear.getTotalDamagePercent(elementalType) : 0;
       })
     ).toNumber();
   }
@@ -103,12 +86,10 @@ export class GearSet implements Persistable<GearSetDto> {
       });
   }
 
-  public copyFromDto(dto: GearSetDto): void {
-    const { id, name, gearsByTypeId, elementalType } = dto;
+  public copyFromDto(dto: GearSetDtoV2): void {
+    const { id, gearsByTypeId } = dto;
 
     this._id = id;
-    this.name = name;
-    this.elementalType = elementalType;
 
     this.resetGears();
     Object.keys(gearsByTypeId).forEach((typeId) => {
@@ -120,8 +101,8 @@ export class GearSet implements Persistable<GearSetDto> {
     });
   }
 
-  public toDto(): GearSetDto {
-    const { id, _gearsByTypeId, name, elementalType } = this;
+  public toDto(): GearSetDtoV2 {
+    const { id, _gearsByTypeId } = this;
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -134,18 +115,23 @@ export class GearSet implements Persistable<GearSetDto> {
 
     return {
       id,
-      name,
       gearsByTypeId: gearDtosByTypeId,
-      elementalType,
-      version: 1,
+      version: 2,
     };
   }
 }
 
-export interface GearSetDto extends Dto {
+/** @deprecated Name, ElementalType moved to Loadout */
+export interface GearSetDtoV1 extends Dto {
   id: string;
   name: string;
   gearsByTypeId: DataById<GearName, GearDto>;
   elementalType: CoreElementalType | undefined;
   version: 1;
+}
+
+export interface GearSetDtoV2 extends Dto {
+  id: string;
+  gearsByTypeId: DataById<GearName, GearDto>;
+  version: 2;
 }

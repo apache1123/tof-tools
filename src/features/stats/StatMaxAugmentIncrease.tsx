@@ -46,6 +46,7 @@ export function StatMaxAugmentIncrease() {
             {statSnap && statState ? (
               <StatEditor
                 possibleStatTypes={possibleStatTypes}
+                statSnap={statSnap as RandomStat}
                 statState={statState}
               />
             ) : (

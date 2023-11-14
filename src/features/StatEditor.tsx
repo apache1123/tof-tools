@@ -1,6 +1,5 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import type { ReactNode } from 'react';
-import { useSnapshot } from 'valtio';
 
 import { NumericInput } from '../components/NumericInput/NumericInput';
 import { PercentageNumericInput } from '../components/NumericInput/PercentageNumericInput';
@@ -10,15 +9,16 @@ import type { RandomStat } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
 
 export interface StatEditorProps {
+  statSnap: RandomStat;
   statState: RandomStat;
   possibleStatTypes: StatType[];
 }
 
 export const StatEditor = ({
+  statSnap,
   statState,
   possibleStatTypes = [],
 }: StatEditorProps) => {
-  const statSnap = useSnapshot(statState);
   const statType = statSnap.type;
 
   const handleStatValueChange = (value: number) => {
