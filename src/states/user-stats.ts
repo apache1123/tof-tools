@@ -1,12 +1,9 @@
-import { proxy } from 'valtio';
-import { devtools } from 'valtio/utils';
-
-import { maxCharacterLevel } from '../../../../constants/character-level';
-import type { CoreElementalType } from '../../../../constants/elemental-type';
-import type { DataById } from '../../../../models/data';
-import type { Dto } from '../../../../models/dto';
-import type { Persistable } from '../../../../models/persistable';
-import type { ElementalUserStatsDto } from './elemental-user-stats';
+import { maxCharacterLevel } from '../constants/character-level';
+import type { CoreElementalType } from '../constants/elemental-type';
+import type { DataById } from '../models/data';
+import type { Dto } from '../models/dto';
+import type { ElementalUserStatsDto } from '../models/elemental-user-stats';
+import type { Persistable } from '../models/persistable';
 
 export class UserStatsState implements Persistable<UserStatsStateDtoV2> {
   public characterLevel: number;
@@ -42,8 +39,3 @@ export interface UserStatsStateDtoV2 extends Dto {
   characterLevel: number;
   version: 2;
 }
-
-export const userStatsStateKey = 'userStats';
-
-export const userStatsState = proxy<UserStatsState>(new UserStatsState());
-devtools(userStatsState, { name: userStatsStateKey });

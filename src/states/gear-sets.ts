@@ -1,6 +1,6 @@
-import type { Data } from '../../../models/data';
-import type { Dto } from '../../../models/dto';
-import type { GearSetDtoV1 } from '../../../models/gear-set';
+import type { Data } from '../models/data';
+import type { Dto } from '../models/dto';
+import type { GearSetDtoV1 } from '../models/gear-set';
 
 // /** @deprecated GearSets replaced by Loadouts */
 // export const gearSetsStateKey = 'gearSets';

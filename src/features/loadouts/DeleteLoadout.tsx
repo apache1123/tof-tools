@@ -4,7 +4,7 @@ import { useSnapshot } from 'valtio';
 
 import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { loadoutsState } from '../../states/loadouts';
+import { loadoutsState } from '../../states/states';
 
 export function DeleteLoadout() {
   const {

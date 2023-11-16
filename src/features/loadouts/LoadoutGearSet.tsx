@@ -1,11 +1,9 @@
 import Grid from '@mui/material/Unstable_Grid2';
-import { useRouter } from 'next/router';
 import { useSnapshot } from 'valtio';
 
 import { gearTypesLookup } from '../../constants/gear-types';
-import type { Gear } from '../../models/gear';
 import type { GearSet } from '../../models/gear-set';
-import { loadoutsState } from '../../states/loadouts';
+import { loadoutsState } from '../../states/states';
 import { GearPiece } from '../GearPiece';
 
 export function LoadoutGearSet() {
@@ -18,23 +16,23 @@ export function LoadoutGearSet() {
     },
   } = loadoutsState;
 
-  const router = useRouter();
+  // TODO:
+  // const router = useRouter();
 
-  function handleCompareGear(gear: Gear) {
-    // TODO:
-    // if (gearComparerGearsState.GearA) {
-    //   Gear.copy(gear, gearComparerGearsState.GearA);
-    // } else {
-    //   const newGearA = new Gear(gear.type);
-    //   Gear.copy(gear, newGearA);
-    //   gearComparerGearsState.GearA = newGearA;
-    // }
-    // if (gearSetState?.elementalType) {
-    //   gearComparerOptionsState.selectedElementalType =
-    //     gearSetState.elementalType;
-    // }
-    // router.push('/gear-comparer');
-  }
+  // function handleCompareGear(gear: Gear) {
+  //   if (gearComparerGearsState.GearA) {
+  //     Gear.copy(gear, gearComparerGearsState.GearA);
+  //   } else {
+  //     const newGearA = new Gear(gear.type);
+  //     Gear.copy(gear, newGearA);
+  //     gearComparerGearsState.GearA = newGearA;
+  //   }
+  //   if (gearSetState?.elementalType) {
+  //     gearComparerOptionsState.selectedElementalType =
+  //       gearSetState.elementalType;
+  //   }
+  //   router.push('/gear-comparer');
+  // }
 
   return (
     <Grid container spacing={3}>
@@ -51,7 +49,7 @@ export function LoadoutGearSet() {
               showGearOCRButton
               showCompareGearButton
               onCompareGear={() => {
-                handleCompareGear(gearState);
+                // handleCompareGear(gearState);
               }}
               disableGearTypeChange
               showStatSummary={loadoutSnap.elementalType}

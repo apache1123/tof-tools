@@ -36,6 +36,7 @@ export interface GearPieceProps {
   showCompareGearButton?: boolean;
   onCompareGear?(): void;
   disableGearTypeChange?: boolean;
+  onGearTypeChange?: (gearType: GearType) => void;
   showSaveGearButton?: boolean;
   showStatSummary?: CoreElementalType;
   maxTitanStatsContent?: ReactNode;
@@ -50,6 +51,7 @@ export const GearPiece = ({
   showCompareGearButton,
   onCompareGear,
   disableGearTypeChange,
+  onGearTypeChange,
   showSaveGearButton,
   showStatSummary,
   maxTitanStatsContent,
@@ -66,7 +68,9 @@ export const GearPiece = ({
         <GearTypeSelector
           selectedGearType={gearType}
           onChange={(gearType) => {
-            gearState.type = gearType;
+            if (onGearTypeChange && !disableGearTypeChange) {
+              onGearTypeChange(gearType);
+            }
           }}
           disabled={disableGearTypeChange}
         />

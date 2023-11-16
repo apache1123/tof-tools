@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
-import { loadoutsState } from '../../states/loadouts';
+import { loadoutsState } from '../../states/states';
 
 const iconSize = 'small';
 

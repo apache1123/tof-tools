@@ -1,40 +1,35 @@
 import { derive, devtools } from 'valtio/utils';
 
+import type { Gear } from '../../../../models/gear';
+import type { GearComparerState } from '../../../../states/gear-comparer';
+import { gearComparerState, userStatsState } from '../../../../states/states';
+import type { UserStatsState } from '../../../../states/user-stats';
 import { getGearMultiplierRelativeToBasis } from '../../../../utils/gear-calculation-utils';
-import type {
-  GearComparerGearPosition,
-  GearComparerGearsState,
-} from '../gear-comparer-gear';
-import { gearComparerGearsState } from '../gear-comparer-gear';
-import type { GearComparerOptionsState } from '../gear-comparer-options';
-import { gearComparerOptionsState } from '../gear-comparer-options';
-import type { UserStatsState } from '../user-stats/user-stats';
-import { userStatsState } from '../user-stats/user-stats';
 import {
   type GearBasisValuesState,
   gearBasisValuesState,
 } from './gear-basis-values';
 
-export type GearValuesState = Record<
-  `${GearComparerGearPosition}Value`,
-  number
->;
+export interface GearValuesState {
+  selectedLoadoutGearValue: number;
+  replacementGearValue: number;
+}
 
 export const gearValuesState = derive<object, GearValuesState>({
-  GearAValue: (get) => {
+  selectedLoadoutGearValue: (get) => {
+    const gearSnap = get(gearComparerState).selectedLoadoutGear;
     return getGearValue(
-      'GearA',
-      get(gearComparerGearsState),
-      get(gearComparerOptionsState),
+      gearSnap,
+      get(gearComparerState),
       get(userStatsState),
       get(gearBasisValuesState)
     );
   },
-  GearBValue: (get) => {
+  replacementGearValue: (get) => {
+    const gearSnap = get(gearComparerState).replacementGear;
     return getGearValue(
-      'GearB',
-      get(gearComparerGearsState),
-      get(gearComparerOptionsState),
+      gearSnap,
+      get(gearComparerState),
       get(userStatsState),
       get(gearBasisValuesState)
     );
@@ -43,29 +38,21 @@ export const gearValuesState = derive<object, GearValuesState>({
 devtools(gearValuesState, { name: 'gearValues' });
 
 function getGearValue(
-  gearPosition: GearComparerGearPosition,
-  gearComparerGearsSnap: GearComparerGearsState,
-  gearComparerOptionsSnap: GearComparerOptionsState,
+  gearSnap: Gear,
+  gearComparerSnap: GearComparerState,
   userStatsSnap: UserStatsState,
   gearBasisValuesSnap: GearBasisValuesState
 ) {
-  const gear = gearComparerGearsSnap[gearPosition];
-  if (!gear) return 0;
-
-  const { selectedElementalType } = gearComparerOptionsSnap;
-
-  if (!selectedElementalType) {
-    return 0;
-  }
-
+  const {
+    selectedLoadout: { elementalType },
+  } = gearComparerSnap;
   const { characterLevel } = userStatsSnap;
-
   const { basisValues } = gearBasisValuesSnap;
 
   return getGearMultiplierRelativeToBasis(
-    gear,
+    gearSnap,
     basisValues,
-    selectedElementalType,
+    elementalType,
     characterLevel
   );
 }

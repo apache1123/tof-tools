@@ -1,16 +1,10 @@
 import { derive, devtools } from 'valtio/utils';
 
+import type { Gear } from '../../../../models/gear';
+import type { GearComparerState } from '../../../../states/gear-comparer';
+import { gearComparerState, userStatsState } from '../../../../states/states';
+import type { UserStatsState } from '../../../../states/user-stats';
 import { getGearMultiplierRelativeToBasis } from '../../../../utils/gear-calculation-utils';
-import {
-  type GearComparerGearPosition,
-  type GearComparerGearsState,
-  gearComparerGearsState,
-} from '../gear-comparer-gear';
-import {
-  type GearComparerOptionsState,
-  gearComparerOptionsState,
-} from '../gear-comparer-options';
-import { type UserStatsState, userStatsState } from '../user-stats/user-stats';
 import {
   type GearBasisValuesState,
   gearBasisValuesState,
@@ -20,52 +14,48 @@ import {
   gearComparerGearMaxTitansState,
 } from './gear-comparer-gear-max-titans';
 
-export type MaxTitanGearValuesState = Record<
-  `${GearComparerGearPosition}MaxTitanValue`,
-  number
->;
+export interface MaxTitanGearValuesState {
+  selectedLoadoutGearMaxTitanValue: number;
+  replacementGearMaxTitanValue: number;
+}
 
 export const maxTitanGearValuesState = derive<object, MaxTitanGearValuesState>({
-  GearAMaxTitanValue: (get) =>
-    getGearValue(
-      'GearA',
-      get(gearComparerGearsState),
-      get(gearComparerOptionsState),
+  selectedLoadoutGearMaxTitanValue: (get) => {
+    const gearSnap = get(gearComparerState).selectedLoadoutGear;
+    return getGearValue(
+      gearSnap,
+      get(gearComparerState),
       get(gearComparerGearMaxTitansState),
       get(userStatsState),
       get(gearBasisValuesState)
-    ),
-  GearBMaxTitanValue: (get) =>
-    getGearValue(
-      'GearB',
-      get(gearComparerGearsState),
-      get(gearComparerOptionsState),
+    );
+  },
+  replacementGearMaxTitanValue: (get) => {
+    const gearSnap = get(gearComparerState).replacementGear;
+    return getGearValue(
+      gearSnap,
+      get(gearComparerState),
       get(gearComparerGearMaxTitansState),
       get(userStatsState),
       get(gearBasisValuesState)
-    ),
+    );
+  },
 });
 devtools(maxTitanGearValuesState, { name: 'maxTitanGearValues' });
 
 function getGearValue(
-  gearPosition: GearComparerGearPosition,
-  gearComparerGearsSnap: GearComparerGearsState,
-  gearComparerOptionsSnap: GearComparerOptionsState,
+  gearSnap: Gear,
+  gearComparerSnap: GearComparerState,
   gearComparerGearMaxTitansSnap: GearComparerGearMaxTitansState,
   userStatsSnap: UserStatsState,
   gearBasisValuesSnap: GearBasisValuesState
 ) {
-  const referenceGear = gearComparerGearsSnap[gearPosition];
-  if (!referenceGear) return 0;
-
-  const { selectedElementalType } = gearComparerOptionsSnap;
-
-  if (!selectedElementalType) {
-    return 0;
-  }
+  const {
+    selectedLoadout: { elementalType },
+  } = gearComparerSnap;
 
   const maxTitanGear =
-    gearComparerGearMaxTitansSnap.titansByReferenceGearId[referenceGear.id];
+    gearComparerGearMaxTitansSnap.titansByReferenceGearId[gearSnap.id];
   if (!maxTitanGear) return 0;
 
   const { characterLevel } = userStatsSnap;
@@ -75,7 +65,7 @@ function getGearValue(
   return getGearMultiplierRelativeToBasis(
     maxTitanGear,
     basisValues,
-    selectedElementalType,
+    elementalType,
     characterLevel
   );
 }

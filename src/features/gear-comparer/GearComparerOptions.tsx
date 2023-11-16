@@ -1,44 +1,30 @@
-import { Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
-import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
-import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { gearComparerOptionsState } from './states/gear-comparer-options';
+import { LoadoutSelector } from '../../components/LoadoutSelector/LoadoutSelector';
+import type { GearComparerState } from '../../states/gear-comparer';
+import type { LoadoutsState } from '../../states/loadouts';
+import { gearComparerState, loadoutsState } from '../../states/states';
 
 export function GearComparerOptions() {
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
-
-  const { SnackbarComponent, showSnackbar } = useAutoHideSnackbar();
+  const { loadoutList } = useSnapshot(loadoutsState) as LoadoutsState;
+  const { selectedLoadout } = useSnapshot(
+    gearComparerState
+  ) as GearComparerState;
 
   return (
     <>
       <Grid container spacing={2}>
         <Grid xs={12} sm={6} md={4}>
-          <CoreElementalTypeSelector
-            elementalType={selectedElementalType}
-            onElementalTypeChange={(elementalType) => {
-              gearComparerOptionsState.selectedElementalType = elementalType;
-
-              showSnackbar(
-                <Typography variant="subtitle2">
-                  Using previously entered
-                  <ElementalStyledText elementalType={elementalType}>
-                    {` ${elementalType} `}
-                  </ElementalStyledText>
-                  values & weapons
-                </Typography>,
-                { severity: 'info' }
-              );
+          <LoadoutSelector
+            loadoutList={loadoutList}
+            selectedLoadout={selectedLoadout}
+            onLoadoutChange={(loadout, index) => {
+              gearComparerState.selectedLoadoutIndex = index;
             }}
-            label="Elemental type to compare"
-            required
-            variant="filled"
           />
         </Grid>
       </Grid>
-      <SnackbarComponent />
     </>
   );
 }

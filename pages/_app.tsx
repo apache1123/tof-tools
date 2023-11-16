@@ -9,21 +9,16 @@ import * as React from 'react';
 import { useEffect } from 'react';
 
 import createEmotionCache from '../src/createEmotionCache';
+import { useLocalStoragePersistence } from '../src/states/hooks/useLocalStoragePersistence';
+import { migrateStatesToLatestVersion } from '../src/states/migrations/state-migrations-state';
 import {
-  gearComparerGearsState,
-  gearComparerGearsStateKey,
-} from '../src/features/gear-comparer/states/gear-comparer-gear';
-import {
-  gearComparerOptionsState,
-  gearComparerOptionsStateKey,
-} from '../src/features/gear-comparer/states/gear-comparer-options';
-import {
+  gearComparerState,
+  gearComparerStateKey,
+  loadoutsState,
+  loadoutsStateKey,
   userStatsState,
   userStatsStateKey,
-} from '../src/features/gear-comparer/states/user-stats/user-stats';
-import { useLocalStoragePersistence } from '../src/states/hooks/useLocalStoragePersistence';
-import { loadoutsState, loadoutsStateKey } from '../src/states/loadouts';
-import { migrateStatesToLatestVersion } from '../src/states/migrations/state-migrations-state';
+} from '../src/states/states';
 import theme from '../src/theme';
 import Layout from './_layout';
 
@@ -42,13 +37,9 @@ export default function MyApp(props: MyAppProps) {
   // Order matters here.
   // Not 100% sure, but I think there is a bug in `derive`
   // https://github.com/pmndrs/valtio/issues/687
-  useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
   useLocalStoragePersistence(userStatsState, userStatsStateKey);
-  useLocalStoragePersistence(
-    gearComparerOptionsState,
-    gearComparerOptionsStateKey
-  );
-  useLocalStoragePersistence(gearComparerGearsState, gearComparerGearsStateKey);
+  useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
+  useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (

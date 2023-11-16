@@ -1,9 +1,8 @@
 import { derive } from 'valtio/utils';
 
+import { gearComparerState, userStatsState } from '../../../../states/states';
 import { getGearMultiplierRelativeToBasis } from '../../../../utils/gear-calculation-utils';
-import { gearComparerOptionsState } from '../gear-comparer-options';
 import { rollSimulatorState } from '../roll-simulator';
-import { userStatsState } from '../user-stats/user-stats';
 import { gearBasisValuesState } from './gear-basis-values';
 
 export interface RollSimulatorGearValueState {
@@ -16,17 +15,19 @@ export const rollSimulatorGearValueState = derive<
 >({
   value: (get) => {
     const { gear } = get(rollSimulatorState);
-    const { selectedElementalType } = get(gearComparerOptionsState);
+    const {
+      selectedLoadout: { elementalType },
+    } = get(gearComparerState);
     const { characterLevel } = get(userStatsState);
     const { basisValues } = get(gearBasisValuesState);
-    if (!gear || !selectedElementalType) {
+    if (!gear) {
       return 0;
     }
 
     return getGearMultiplierRelativeToBasis(
       gear,
       basisValues,
-      selectedElementalType,
+      elementalType,
       characterLevel
     );
   },

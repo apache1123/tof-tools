@@ -1,7 +1,6 @@
 import { derive } from 'valtio/utils';
 
 import type { Team } from '../../../../models/team';
-import type { TeamResonances } from '../../../../models/team-resonances';
 import { type Weapon } from '../../../../models/weapon';
 import type {
   WeaponAttackPercentBuff,
@@ -9,9 +8,7 @@ import type {
   WeaponCritRateBuff,
 } from '../../../../models/weapon-buff';
 import type { WeaponBuffDefinition } from '../../../../models/weapon-buff-definition';
-import { gearComparerOptionsState } from '../gear-comparer-options';
-import { selectedElementalTeamState } from './selected-elemental-team';
-import { selectedElementalTeamResonancesState } from './selected-elemental-team-resonances';
+import { gearComparerState } from '../../../../states/states';
 
 export interface WeaponBuffsState {
   weaponAttackPercentBuffs: WeaponAttackPercentBuff[];
@@ -20,30 +17,19 @@ export interface WeaponBuffsState {
 
 export const weaponBuffsState = derive<object, WeaponBuffsState>({
   weaponAttackPercentBuffs: (get) => {
-    const { selectedElementalType } = get(gearComparerOptionsState);
-    const { selectedElementalTeam } = get(selectedElementalTeamState);
-    const teamResonances = get(selectedElementalTeamResonancesState);
-
-    if (!selectedElementalType || !selectedElementalTeam) return [];
+    const {
+      selectedLoadout: { elementalType, team },
+    } = get(gearComparerState);
 
     const buffs: WeaponAttackPercentBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = selectedElementalTeam;
+    const { weapon1, weapon2, weapon3 } = team;
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
       const weaponDefinition = weapon.definition;
       weaponDefinition.attackPercentBuffs.forEach((buffDefinition) => {
-        if (
-          !hasMetWeaponBuffRequirements(
-            buffDefinition,
-            weapon,
-            teamResonances,
-            selectedElementalTeam
-          )
-        )
-          return;
-        if (!buffDefinition.elementalTypes.includes(selectedElementalType))
-          return;
+        if (!hasMetWeaponBuffRequirements(buffDefinition, weapon, team)) return;
+        if (!buffDefinition.elementalTypes.includes(elementalType)) return;
 
         const {
           id,
@@ -71,27 +57,18 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
     return buffs;
   },
   weaponCritRateBuffs: (get) => {
-    const { selectedElementalTeam } = get(selectedElementalTeamState);
-    const teamResonances = get(selectedElementalTeamResonancesState);
-
-    if (!selectedElementalTeam) return [];
+    const {
+      selectedLoadout: { team },
+    } = get(gearComparerState);
 
     const buffs: WeaponCritRateBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = selectedElementalTeam;
+    const { weapon1, weapon2, weapon3 } = team;
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
       const weaponDefinition = weapon.definition;
       weaponDefinition.critRateBuffs.forEach((buffDefinition) => {
-        if (
-          !hasMetWeaponBuffRequirements(
-            buffDefinition,
-            weapon,
-            teamResonances,
-            selectedElementalTeam
-          )
-        )
-          return;
+        if (!hasMetWeaponBuffRequirements(buffDefinition, weapon, team)) return;
 
         const {
           id,
@@ -121,7 +98,6 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
 function hasMetWeaponBuffRequirements(
   buffDefinition: WeaponBuffDefinition,
   weapon: Weapon,
-  teamResonances: TeamResonances,
   team: Team
 ): boolean {
   const {
@@ -132,7 +108,7 @@ function hasMetWeaponBuffRequirements(
     elementalWeaponsRequirements,
   } = buffDefinition;
   const { stars } = weapon;
-  const { elementalResonance, weaponResonance } = teamResonances;
+  const { elementalResonance, weaponResonance } = team;
 
   if (stars < minStarRequirement || stars > maxStarRequirement) return false;
   if (

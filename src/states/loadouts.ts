@@ -1,6 +1,3 @@
-import { proxy } from 'valtio';
-import { devtools } from 'valtio/utils';
-
 import type { Dto } from '../models/dto';
 import { GearSet } from '../models/gear-set';
 import type { LoadoutDto } from '../models/loadout';
@@ -136,7 +133,3 @@ export interface LoadoutsStateDto extends Dto {
   selectedLoadoutIndex: number;
   version: 1;
 }
-
-export const loadoutsStateKey = 'loadouts';
-export const loadoutsState = proxy<LoadoutsState>(new LoadoutsState());
-devtools(loadoutsState, { name: loadoutsStateKey });

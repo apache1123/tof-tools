@@ -1,7 +1,7 @@
 import { useSnapshot } from 'valtio';
 
 import type { LoadoutStats as LoadoutStatsModel } from '../../models/loadout-stats';
-import { loadoutsState } from '../../states/loadouts';
+import { loadoutsState } from '../../states/states';
 import { LoadoutStatsEditor } from '../LoadoutStatsEditor';
 
 export function LoadoutStats() {

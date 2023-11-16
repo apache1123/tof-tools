@@ -1,7 +1,7 @@
 import { useSnapshot } from 'valtio';
 
 import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
-import { loadoutsState } from '../../states/loadouts';
+import { loadoutsState } from '../../states/states';
 
 export function LoadoutElementalType() {
   const {

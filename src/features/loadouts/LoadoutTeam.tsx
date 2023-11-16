@@ -1,7 +1,7 @@
 import { useSnapshot } from 'valtio';
 
 import type { Team } from '../../models/team';
-import { loadoutsState } from '../../states/loadouts';
+import { loadoutsState } from '../../states/states';
 import { TeamEditor } from '../TeamEditor';
 
 export function LoadoutTeam() {

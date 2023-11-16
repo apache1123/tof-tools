@@ -2,21 +2,16 @@ import BigNumber from 'bignumber.js';
 import { derive, devtools } from 'valtio/utils';
 
 import type { BasisValues } from '../../../../models/basis-values';
+import type { GearComparerState } from '../../../../states/gear-comparer';
+import { gearComparerState, userStatsState } from '../../../../states/states';
+import type { UserStatsState } from '../../../../states/user-stats';
 import { additiveSum } from '../../../../utils/math-utils';
 import {
   calculateCritPercentFromFlat,
   calculateMultiplier,
 } from '../../../../utils/stat-calculation-utils';
-import type { GearComparerGearsState } from '../gear-comparer-gear';
-import { gearComparerGearsState } from '../gear-comparer-gear';
-import type { GearComparerOptionsState } from '../gear-comparer-options';
-import { gearComparerOptionsState } from '../gear-comparer-options';
-import type { UserStatsState } from '../user-stats/user-stats';
-import { userStatsState } from '../user-stats/user-stats';
 import type { ConditionalBuffValuesState } from './conditional-buff-values';
 import { conditionalBuffValuesState } from './conditional-buff-values';
-import type { SelectedElementalUserStatsState } from './selected-elemental-user-stats';
-import { selectedElementalUserStatsState } from './selected-elemental-user-stats';
 
 export interface GearBasisValuesState {
   basisValues: BasisValues;
@@ -25,64 +20,44 @@ export interface GearBasisValuesState {
 export const gearBasisValuesState = derive<object, GearBasisValuesState>({
   basisValues: (get) =>
     getBasisValues(
-      get(gearComparerGearsState),
-      get(gearComparerOptionsState),
+      get(gearComparerState),
       get(userStatsState),
-      get(selectedElementalUserStatsState),
       get(conditionalBuffValuesState)
     ),
 });
 devtools(gearBasisValuesState, { name: 'gearBasisValues' });
 
 function getBasisValues(
-  gearComparerGearsSnap: GearComparerGearsState,
-  gearComparerOptionsSnap: GearComparerOptionsState,
+  gearComparerStateSnap: GearComparerState,
   userStatsSnap: UserStatsState,
-  selectedElementalUserStatsSnap: SelectedElementalUserStatsState,
   conditionalBuffValuesSnap: ConditionalBuffValuesState
 ): BasisValues {
-  const { selectedElementalType } = gearComparerOptionsSnap;
-  const { selectedElementalUserStats } = selectedElementalUserStatsSnap;
-
-  if (!selectedElementalType || !selectedElementalUserStats) {
-    return {
-      basisAttackFlat: 0,
-      basisAttackPercent: 0,
-      basisCritFlat: 0,
-      basisCritPercent: 0,
-      basisCritTotalPercent: 0,
-      basisCritDamage: 0,
-      basisDamage: 0,
-      basisPassiveAttackPercent: 0,
-      basisPassiveCritPercent: 0,
-      basisMultiplier: 0,
-    };
-  }
+  const {
+    selectedLoadout: { elementalType, loadoutStats },
+    selectedLoadoutGear,
+  } = gearComparerStateSnap;
 
   const {
-    loadoutStats: {
-      baseAttackFlat,
-      totalAttackFlat,
-      critFlat,
-      critPercent,
-      critDamage,
-    },
-    otherGearElementalDamage,
-    miscAttackPercent,
-    miscCritRate,
-    miscCritDamage,
-  } = selectedElementalUserStats;
+    activeElementalAttack: { baseAttack, attackPercent },
+    critFlat,
+    critPercent,
+    critDamage,
+  } = loadoutStats;
 
-  const passiveAttackPercent = BigNumber(totalAttackFlat)
-    .minus(baseAttackFlat)
-    .dividedBy(baseAttackFlat);
+  // TODO: support these or not?
+  const miscAttackPercent = 0;
+  const miscCritRate = 0;
+  const miscCritDamage = 0;
+  const otherGearElementalDamage = 0;
 
-  const gearA = gearComparerGearsSnap.GearA;
-  const attackFlatWithoutGearA = BigNumber(baseAttackFlat)
-    .minus(gearA ? gearA.getTotalAttackFlat(selectedElementalType) : 0)
+  const passiveAttackPercent = BigNumber(attackPercent);
+
+  const gearA = selectedLoadoutGear;
+  const attackFlatWithoutGearA = BigNumber(baseAttack)
+    .minus(gearA ? gearA.getTotalAttackFlat(elementalType) : 0)
     .toNumber();
   const passiveAttackPercentWithoutGearA = passiveAttackPercent
-    .minus(gearA ? gearA.getTotalAttackPercent(selectedElementalType) : 0)
+    .minus(gearA ? gearA.getTotalAttackPercent(elementalType) : 0)
     .toNumber();
   const critFlatWithoutGearA = BigNumber(critFlat)
     .minus(gearA ? gearA.getTotalCritFlat() : 0)
