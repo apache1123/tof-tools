@@ -5,7 +5,6 @@ import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
 import type { Gear } from '../../models/gear';
 import type { GearSet } from '../../models/gear-set';
-import { GearSetSelector } from '../GearSetSelector';
 
 export interface SaveGearModalProps {
   gear: Gear;
