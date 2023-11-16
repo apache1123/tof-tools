@@ -7,10 +7,9 @@ import { gearValuesState } from './states/derived/gear-values';
 import { gearValuesComparisonState } from './states/derived/gear-values-comparison';
 import { maxTitanGearValuesState } from './states/derived/max-titan-gear-values';
 import { maxTitanGearValuesComparisonState } from './states/derived/max-titan-gear-values-comparison';
-import type { GearComparerGearPosition } from './states/gear-comparer-gear';
 
 interface GearValueProps {
-  position: GearComparerGearPosition;
+  position: 'selectedLoadoutGear' | 'replacementGear';
 }
 
 export function GearValue({ position }: GearValueProps) {
@@ -28,7 +27,7 @@ export function GearValue({ position }: GearValueProps) {
         fontSize="1.5rem"
         sx={{
           color: getComparisonColor(
-            gearValuesComparisonSnap[`Is${position}HighestValue`]
+            gearValuesComparisonSnap[`${position}HighestValue`]
           ),
         }}
         data-testid={`gear-value-${position}`}
@@ -41,7 +40,7 @@ export function GearValue({ position }: GearValueProps) {
       <Typography sx={{ mt: 3 }}>Value at max potential titan: </Typography>
       <Typography
         color={getComparisonColor(
-          maxTitanGearValuesComparisonSnap[`Is${position}MaxTitanHighestValue`]
+          maxTitanGearValuesComparisonSnap[`${position}MaxTitanHighestValue`]
         )}
         data-testid={`gear-max-titan-value-${position}`}
       >

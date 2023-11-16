@@ -8,6 +8,7 @@ import {
 import type { WeaponMatrixSetsDto } from './weapon-matrix-sets';
 import { WeaponMatrixSets } from './weapon-matrix-sets';
 
+/** A weapon (with its equipped matrices) that exists within a `Team` */
 export class Weapon implements Persistable<WeaponDto> {
   public definition: WeaponDefinition;
   public stars: number;

@@ -18,12 +18,12 @@ import { maxNumOfRandomStatRolls } from '../../constants/gear';
 import type { Gear } from '../../models/gear';
 import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
 import type { RandomStat } from '../../models/random-stat';
+import { gearComparerState } from '../../states/states';
 import { getComparisonColor } from '../../utils/color-utils';
 import { additiveSum } from '../../utils/math-utils';
 import { GearRollSimulatorStat } from './GearRollSimulatorStat';
 import { gearValuesState } from './states/derived/gear-values';
 import { rollSimulatorGearValueState } from './states/derived/roll-simulator-gear-value';
-import { gearComparerGearsState } from './states/gear-comparer-gear';
 import {
   addRoll,
   copyFromGearB,
@@ -32,17 +32,13 @@ import {
 } from './states/roll-simulator';
 
 export function GearRollSimulator() {
-  const { GearB } = useSnapshot(gearComparerGearsState);
+  const { replacementGear } = useSnapshot(gearComparerState);
   const { gear: gearState } = rollSimulatorState;
   const { gear: gearSnap } = useSnapshot(rollSimulatorState);
 
   useEffect(() => {
     reset();
-  }, [GearB]);
-
-  if (!GearB) {
-    return null;
-  }
+  }, [replacementGear]);
 
   return (
     <Accordion elevation={3}>
@@ -55,7 +51,10 @@ export function GearRollSimulator() {
       </AccordionSummary>
       <AccordionDetails data-testid="roll-simulator-panel-content">
         {gearSnap && gearState && (
-          <AccordionContent gearState={gearState} GearB={GearB as Gear} />
+          <AccordionContent
+            gearState={gearState}
+            GearB={replacementGear as Gear}
+          />
         )}
       </AccordionDetails>
     </Accordion>
@@ -142,7 +141,7 @@ function DeterminedStars({
   const gearSnap = useSnapshot(gearState);
   const { rolls } = useSnapshot(rollSimulatorState);
   const { value } = useSnapshot(rollSimulatorGearValueState);
-  const { GearAValue } = useSnapshot(gearValuesState);
+  const { selectedLoadoutGearValue } = useSnapshot(gearValuesState);
 
   const startingRolls =
     gearSnap.stars || (randomStatRollCombinations[0]?.stars ?? 0);
@@ -188,7 +187,7 @@ function DeterminedStars({
       <Box>
         <Typography>Value: </Typography>
         <Typography
-          color={getComparisonColor(value > GearAValue)}
+          color={getComparisonColor(value > selectedLoadoutGearValue)}
           fontSize="1.5rem"
         >
           <NumericStringPercentage2dp value={value} />

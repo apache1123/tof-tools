@@ -3,7 +3,7 @@ import { Box, Paper, Tab, Tabs } from '@mui/material';
 import { useSnapshot } from 'valtio';
 
 import { ElementalTypeIcon } from '../../components/ElementalTypeIcon/ElementalTypeIcon';
-import { loadoutsState } from '../../states/loadouts';
+import { loadoutsState } from '../../states/states';
 
 export function LoadoutTabs() {
   const { loadoutList, selectedLoadoutIndex, selectedLoadout } =

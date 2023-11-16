@@ -8,8 +8,7 @@ import type {
 } from '../../../../models/matrix-set-buff';
 import type { MatrixSetBuffDefinition } from '../../../../models/matrix-set-buff-definition';
 import type { Team } from '../../../../models/team';
-import { gearComparerOptionsState } from '../gear-comparer-options';
-import { selectedElementalTeamState } from './selected-elemental-team';
+import { gearComparerState } from '../../../../states/states';
 
 export interface MatrixSetBuffsState {
   matrixAttackPercentBuffs: MatrixSetAttackPercentBuff[];
@@ -19,13 +18,12 @@ export interface MatrixSetBuffsState {
 
 export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
   matrixAttackPercentBuffs: (get) => {
-    const { selectedElementalType } = get(gearComparerOptionsState);
-    const { selectedElementalTeam } = get(selectedElementalTeamState);
-
-    if (!selectedElementalType || !selectedElementalTeam) return [];
+    const {
+      selectedLoadout: { elementalType, team },
+    } = get(gearComparerState);
 
     const buffs: MatrixSetAttackPercentBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = selectedElementalTeam;
+    const { weapon1, weapon2, weapon3 } = team;
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
@@ -34,12 +32,8 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
         const matrixSetDefinition = matrixSet.definition;
 
         matrixSetDefinition.attackPercentBuffs.forEach((buffDefinition) => {
-          if (
-            !hasMetMatrixBuffRequirements(buffDefinition, selectedElementalTeam)
-          )
-            return;
-          if (!buffDefinition.elementalTypes.includes(selectedElementalType))
-            return;
+          if (!hasMetMatrixBuffRequirements(buffDefinition, team)) return;
+          if (!buffDefinition.elementalTypes.includes(elementalType)) return;
 
           const {
             description,
@@ -68,11 +62,12 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
     return buffs;
   },
   matrixCritRateBuffs: (get) => {
-    const { selectedElementalTeam } = get(selectedElementalTeamState);
-    if (!selectedElementalTeam) return [];
+    const {
+      selectedLoadout: { team },
+    } = get(gearComparerState);
 
     const buffs: MatrixSetCritRateBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = selectedElementalTeam;
+    const { weapon1, weapon2, weapon3 } = team;
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
@@ -81,10 +76,7 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
         const matrixSetDefinition = matrixSet.definition;
 
         matrixSetDefinition.critRateBuffs.forEach((buffDefinition) => {
-          if (
-            !hasMetMatrixBuffRequirements(buffDefinition, selectedElementalTeam)
-          )
-            return;
+          if (!hasMetMatrixBuffRequirements(buffDefinition, team)) return;
 
           const { description, starValues, canStack, isActivePassively } =
             buffDefinition;
@@ -107,11 +99,12 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
     return buffs;
   },
   matrixCritDamageBuffs: (get) => {
-    const { selectedElementalTeam } = get(selectedElementalTeamState);
-    if (!selectedElementalTeam) return [];
+    const {
+      selectedLoadout: { team },
+    } = get(gearComparerState);
 
     const buffs: MatrixSetCritDamageBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = selectedElementalTeam;
+    const { weapon1, weapon2, weapon3 } = team;
     [weapon1, weapon2, weapon3].forEach((weapon) => {
       if (!weapon) return;
 
@@ -120,10 +113,7 @@ export const matrixSetBuffsState = derive<object, MatrixSetBuffsState>({
         const matrixSetDefinition = matrixSet.definition;
 
         matrixSetDefinition.critDamageBuffs.forEach((buffDefinition) => {
-          if (
-            !hasMetMatrixBuffRequirements(buffDefinition, selectedElementalTeam)
-          )
-            return;
+          if (!hasMetMatrixBuffRequirements(buffDefinition, team)) return;
 
           const { description, starValues, isActivePassively, canStack } =
             buffDefinition;

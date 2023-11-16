@@ -1,27 +1,26 @@
 import { derive, devtools } from 'valtio/utils';
 
-import type { GearComparerGearPosition } from '../gear-comparer-gear';
 import { maxTitanGearValuesState } from './max-titan-gear-values';
 
-export type MaxTitanGearValuesComparisonState = Record<
-  `Is${GearComparerGearPosition}MaxTitanHighestValue`,
-  boolean
->;
+export interface MaxTitanGearValuesComparisonState {
+  selectedLoadoutGearMaxTitanHighestValue: boolean;
+  replacementGearMaxTitanHighestValue: boolean;
+}
 
 export const maxTitanGearValuesComparisonState = derive<
   object,
   MaxTitanGearValuesComparisonState
 >({
-  IsGearAMaxTitanHighestValue: (get): boolean => {
+  selectedLoadoutGearMaxTitanHighestValue: (get): boolean => {
     return (
-      get(maxTitanGearValuesState).GearAMaxTitanValue >
-      get(maxTitanGearValuesState).GearBMaxTitanValue
+      get(maxTitanGearValuesState).selectedLoadoutGearMaxTitanValue >
+      get(maxTitanGearValuesState).replacementGearMaxTitanValue
     );
   },
-  IsGearBMaxTitanHighestValue: (get): boolean => {
+  replacementGearMaxTitanHighestValue: (get): boolean => {
     return (
-      get(maxTitanGearValuesState).GearBMaxTitanValue >
-      get(maxTitanGearValuesState).GearAMaxTitanValue
+      get(maxTitanGearValuesState).replacementGearMaxTitanValue >
+      get(maxTitanGearValuesState).selectedLoadoutGearMaxTitanValue
     );
   },
 });

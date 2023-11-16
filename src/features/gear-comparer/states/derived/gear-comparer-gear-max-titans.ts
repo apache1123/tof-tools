@@ -2,8 +2,7 @@ import { derive, devtools } from 'valtio/utils';
 
 import type { DataById } from '../../../../models/data';
 import type { Gear } from '../../../../models/gear';
-import { gearComparerGearsState } from '../gear-comparer-gear';
-import { gearComparerOptionsState } from '../gear-comparer-options';
+import { gearComparerState } from '../../../../states/states';
 
 export interface GearComparerGearMaxTitansState {
   titansByReferenceGearId: DataById<string, Gear | undefined>;
@@ -14,17 +13,16 @@ export const gearComparerGearMaxTitansState = derive<
   GearComparerGearMaxTitansState
 >({
   titansByReferenceGearId: (get) => {
-    const { GearA, GearB } = get(gearComparerGearsState);
-    const { selectedElementalType } = get(gearComparerOptionsState);
+    const {
+      selectedLoadoutGear,
+      replacementGear,
+      selectedLoadout: { elementalType },
+    } = get(gearComparerState);
 
     const result: DataById<string, Gear | undefined> = {};
-
-    if (GearA) {
-      result[GearA.id] = GearA.getMaxTitanGear(selectedElementalType);
-    }
-    if (GearB) {
-      result[GearB.id] = GearB.getMaxTitanGear(selectedElementalType);
-    }
+    result[selectedLoadoutGear.id] =
+      selectedLoadoutGear.getMaxTitanGear(elementalType);
+    result[replacementGear.id] = replacementGear.getMaxTitanGear(elementalType);
 
     return result;
   },

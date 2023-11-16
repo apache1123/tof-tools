@@ -12,14 +12,13 @@ import {
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { GridBreak } from '../../components/GridBreak/GridBreak';
-import { TeamEditor } from '../TeamEditor';
-import { LoadoutStatsEditor } from '../UserBaseStats';
 import { BuffSummary } from './BuffSummary';
-import { GearComparerGear } from './GearComparerGear';
-import { GearComparerGearSwap } from './GearComparerGearSwap';
 import { GearComparerOptions } from './GearComparerOptions';
 import { GearValue } from './GearValue';
-import { MiscellaneousBuffs } from './MiscellaneousBuffs';
+import { LoadoutGear } from './LoadoutGear';
+import { LoadoutStats } from './LoadoutStats';
+import { LoadoutTeam } from './LoadoutTeam';
+import { ReplacementGear } from './ReplacementGear';
 
 export function GearComparer() {
   return (
@@ -34,25 +33,25 @@ export function GearComparer() {
             <Accordion defaultExpanded elevation={2}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="user-stats-panel-content"
-                id="user-stats-panel-header"
+                aria-controls="loadout-team-panel-content"
+                id="loadout-team-panel-header"
               >
-                <Typography fontWeight="bold">Your stats</Typography>
+                <Typography fontWeight="bold">Weapons & Matrices</Typography>
               </AccordionSummary>
-              <AccordionDetails data-testid="user-stats-panel-content">
-                <LoadoutStatsEditor />
+              <AccordionDetails data-testid="loadout-team-panel-content">
+                <LoadoutTeam />
               </AccordionDetails>
             </Accordion>
             <Accordion defaultExpanded elevation={2}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="team-panel-content"
-                id="team-panel-header"
+                aria-controls="loadout-stats-panel-content"
+                id="loadout-stats-panel-header"
               >
-                <Typography fontWeight="bold">Weapons & Matrices</Typography>
+                <Typography fontWeight="bold">Loadout stats</Typography>
               </AccordionSummary>
-              <AccordionDetails data-testid="team-panel-content">
-                <TeamEditor />
+              <AccordionDetails data-testid="loadout-stats-panel-content">
+                <LoadoutStats />
               </AccordionDetails>
             </Accordion>
           </Box>
@@ -64,32 +63,33 @@ export function GearComparer() {
               <Typography variant="h5" mb={1}>
                 Current gear
               </Typography>
-              <GearComparerGear position="GearA" />
+              <LoadoutGear />
             </Grid>
             <Grid xs={12} md={6}>
               <Box display="flex" justifyContent="space-between">
                 <Typography variant="h5" mb={1}>
                   New gear
                 </Typography>
-                <GearComparerGearSwap />
+                {/* <GearComparerGearSwap /> */}
               </Box>
-              <GearComparerGear position="GearB" />
+              <ReplacementGear />
             </Grid>
 
             <GridBreak />
 
             <Grid xs={12} md={6}>
-              <GearValue position="GearA" />
+              <GearValue position="selectedLoadoutGear" />
             </Grid>
             <Grid xs={12} md={6}>
-              <GearValue position="GearB" />
+              <GearValue position="replacementGear" />
             </Grid>
           </Grid>
 
           <Divider sx={{ my: 5 }} />
 
           <BuffSummary />
-          <Accordion defaultExpanded elevation={2} sx={{ mt: 2 }}>
+
+          {/* <Accordion defaultExpanded elevation={2} sx={{ mt: 2 }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="misc-buffs-panel-content"
@@ -100,7 +100,7 @@ export function GearComparer() {
             <AccordionDetails data-testid="misc-buffs-panel-content">
               <MiscellaneousBuffs />
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
         </>
       </Paper>
 

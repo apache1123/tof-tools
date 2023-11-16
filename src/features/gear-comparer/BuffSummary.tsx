@@ -4,14 +4,15 @@ import { useSnapshot } from 'valtio';
 
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
+import { gearComparerState } from '../../states/states';
 import { buffTotalsState } from './states/derived/buff-totals';
 import { matrixSetBuffsState } from './states/derived/matrix-set-buffs';
-import { selectedElementalTeamResonancesState } from './states/derived/selected-elemental-team-resonances';
 import { weaponBuffsState } from './states/derived/weapon-buffs';
-import { gearComparerOptionsState } from './states/gear-comparer-options';
 
 export function BuffSummary() {
-  const { selectedElementalType } = useSnapshot(gearComparerOptionsState);
+  const {
+    selectedLoadout: { elementalType, team },
+  } = useSnapshot(gearComparerState);
   const { weaponAttackPercentBuffs, weaponCritRateBuffs } =
     useSnapshot(weaponBuffsState);
   const {
@@ -21,11 +22,7 @@ export function BuffSummary() {
   } = useSnapshot(matrixSetBuffsState);
   const { attackBuffTotal, critRateBuffTotal, critDamageBuffTotal } =
     useSnapshot(buffTotalsState);
-  const { elementalResonance, weaponResonance } = useSnapshot(
-    selectedElementalTeamResonancesState
-  );
-
-  if (!selectedElementalType) return null;
+  const { elementalResonance, weaponResonance } = team;
 
   return (
     <>
@@ -37,7 +34,7 @@ export function BuffSummary() {
           <Divider sx={{ my: 1 }}>
             <Typography fontWeight="bold">
               Attack % buffs total{' '}
-              <ElementalStyledText elementalType={selectedElementalType}>
+              <ElementalStyledText elementalType={elementalType}>
                 <NumericStringPercentage2dp value={attackBuffTotal} />
               </ElementalStyledText>
             </Typography>
@@ -46,7 +43,7 @@ export function BuffSummary() {
             {weaponAttackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.weaponDisplayName} - {buff.displayName} :{' '}
-                <ElementalStyledText elementalType={selectedElementalType}>
+                <ElementalStyledText elementalType={elementalType}>
                   <NumericStringPercentage2dp value={buff.value} />
                 </ElementalStyledText>
               </Typography>
@@ -54,7 +51,7 @@ export function BuffSummary() {
             {matrixAttackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
-                <ElementalStyledText elementalType={selectedElementalType}>
+                <ElementalStyledText elementalType={elementalType}>
                   <NumericStringPercentage2dp value={buff.value} />
                 </ElementalStyledText>
               </Typography>
@@ -66,7 +63,7 @@ export function BuffSummary() {
           <Divider sx={{ my: 1 }}>
             <Typography fontWeight="bold">
               Crit rate % buffs total{' '}
-              <ElementalStyledText elementalType={selectedElementalType}>
+              <ElementalStyledText elementalType={elementalType}>
                 {' '}
                 <NumericStringPercentage2dp value={critRateBuffTotal} />
               </ElementalStyledText>
@@ -76,7 +73,7 @@ export function BuffSummary() {
             {weaponCritRateBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.weaponDisplayName} - {buff.displayName} :{' '}
-                <ElementalStyledText elementalType={selectedElementalType}>
+                <ElementalStyledText elementalType={elementalType}>
                   <NumericStringPercentage2dp value={buff.value} />
                 </ElementalStyledText>
               </Typography>
@@ -84,7 +81,7 @@ export function BuffSummary() {
             {matrixCritRateBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
-                <ElementalStyledText elementalType={selectedElementalType}>
+                <ElementalStyledText elementalType={elementalType}>
                   <NumericStringPercentage2dp value={buff.value} />
                 </ElementalStyledText>
               </Typography>
@@ -96,7 +93,7 @@ export function BuffSummary() {
           <Divider sx={{ my: 1 }}>
             <Typography fontWeight="bold">
               Crit damage % buffs total{' '}
-              <ElementalStyledText elementalType={selectedElementalType}>
+              <ElementalStyledText elementalType={elementalType}>
                 {' '}
                 <NumericStringPercentage2dp value={critDamageBuffTotal} />
               </ElementalStyledText>
@@ -106,7 +103,7 @@ export function BuffSummary() {
             {matrixCritDamageBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
-                <ElementalStyledText elementalType={selectedElementalType}>
+                <ElementalStyledText elementalType={elementalType}>
                   <NumericStringPercentage2dp value={buff.value} />
                 </ElementalStyledText>
               </Typography>

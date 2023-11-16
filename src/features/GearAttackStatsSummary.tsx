@@ -8,8 +8,8 @@ import {
 } from '../components/NumericString/NumericString';
 import type { CoreElementalType } from '../constants/elemental-type';
 import type { Gear } from '../models/gear';
+import { userStatsState } from '../states/states';
 import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
-import { userStatsState } from './gear-comparer/states/user-stats/user-stats';
 
 export interface GearAttackStatsSummaryProps {
   gearSnap: Gear;

@@ -1,4 +1,4 @@
-import type { Dto } from '../../../../models/dto';
+import type { Dto } from './dto';
 
 // export class ElementalUserStats implements Persistable<ElementalUserStatsDto> {
 //   public baseAttackFlatWithGearA: number;

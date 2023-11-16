@@ -1,22 +1,27 @@
 import { derive, devtools } from 'valtio/utils';
 
-import type { GearComparerGearPosition } from '../gear-comparer-gear';
 import { gearValuesState } from './gear-values';
 
-export type GearValuesComparisonState = Record<
-  `Is${GearComparerGearPosition}HighestValue`,
-  boolean
->;
+export interface GearValuesComparisonState {
+  selectedLoadoutGearHighestValue: boolean;
+  replacementGearHighestValue: boolean;
+}
 
 export const gearValuesComparisonState = derive<
   object,
   GearValuesComparisonState
 >({
-  IsGearAHighestValue: (get): boolean => {
-    return get(gearValuesState).GearAValue > get(gearValuesState).GearBValue;
+  selectedLoadoutGearHighestValue: (get): boolean => {
+    return (
+      get(gearValuesState).selectedLoadoutGearValue >
+      get(gearValuesState).replacementGearValue
+    );
   },
-  IsGearBHighestValue: (get): boolean => {
-    return get(gearValuesState).GearBValue > get(gearValuesState).GearAValue;
+  replacementGearHighestValue: (get): boolean => {
+    return (
+      get(gearValuesState).replacementGearValue >
+      get(gearValuesState).selectedLoadoutGearValue
+    );
   },
 });
 devtools(gearValuesComparisonState, { name: 'gearValuesComparison' });

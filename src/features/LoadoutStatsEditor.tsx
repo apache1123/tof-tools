@@ -7,7 +7,7 @@ import { NumericInput } from '../components/NumericInput/NumericInput';
 import { PercentageNumericInput } from '../components/NumericInput/PercentageNumericInput';
 import { maxCharacterLevel } from '../constants/character-level';
 import type { LoadoutStats } from '../models/loadout-stats';
-import { userStatsState } from './gear-comparer/states/user-stats/user-stats';
+import { userStatsState } from '../states/states';
 
 export interface LoadoutStatsEditorProps {
   loadoutStatsSnap: LoadoutStats;
