@@ -43,6 +43,7 @@ import type { TeamDto } from '../models/team';
 //   }
 // }
 
+/** @deprecated Migrated to Loadouts */
 export interface TeamsStateDto extends Dto {
   teamsByElement: DataById<CoreElementalType, TeamDto>;
   version: 1;

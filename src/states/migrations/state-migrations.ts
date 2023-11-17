@@ -1,10 +1,10 @@
-// import { migrateTeamsGearSetsStatsToLoadouts } from './migrate-teams-gear-sets-stats-to-loadouts';
+import { migrateTeamsGearSetsStatsToLoadouts } from './migrate-teams-gear-sets-stats-to-loadouts';
 
 export const stateMigrations: StateMigration[] = [
   {
     version: 1,
     migrate: () => {
-      // migrateTeamsGearSetsStatsToLoadouts();
+      migrateTeamsGearSetsStatsToLoadouts();
     },
   },
 ];
