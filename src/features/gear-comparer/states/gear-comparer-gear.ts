@@ -37,6 +37,7 @@ export type GearComparerGearPosition = 'GearA' | 'GearB';
 //   }
 // }
 
+/** @deprecated Migrated when switching to Loadouts */
 export type GearComparerGearsStateDto = Record<
   GearComparerGearPosition,
   GearDto | undefined
