@@ -6,16 +6,23 @@ import { GearSet } from '../models/gear-set';
 import type { Loadout } from '../models/loadout';
 import type { Persistable } from '../models/persistable';
 import { type LoadoutsState } from './loadouts';
+import type { UserStatsState } from './user-stats';
 
 export class GearComparerState implements Persistable<GearComparerStateDto> {
   public selectedLoadoutIndex = 0;
   public selectedGearTypeId: GearName = 'Armor';
 
-  private readonly _loadoutsState: LoadoutsState;
   private _replacementGearGearSet = new GearSet();
 
-  public constructor(loadoutsState: LoadoutsState) {
+  private readonly _loadoutsState: LoadoutsState;
+  private readonly _userStatsState: UserStatsState;
+
+  public constructor(
+    loadoutsState: LoadoutsState,
+    userStatsState: UserStatsState
+  ) {
     this._loadoutsState = loadoutsState;
+    this._userStatsState = userStatsState;
   }
 
   public get selectedLoadout(): Loadout {
@@ -28,8 +35,16 @@ export class GearComparerState implements Persistable<GearComparerStateDto> {
     return this.selectedLoadout.gearSet.getGearByType(this.selectedGearTypeId);
   }
 
+  public get selectedLoadoutGearValue(): number {
+    return this.selectedLoadout.getGearValue(this.selectedGearTypeId);
+  }
+
   public get replacementGear(): Gear {
     return this._replacementGearGearSet.getGearByType(this.selectedGearTypeId);
+  }
+
+  public get replacementGearValue(): number {
+    return this.selectedLoadout.getSubstituteGearValue(this.replacementGear);
   }
 
   public copyFromDto(dto: GearComparerStateDto): void {

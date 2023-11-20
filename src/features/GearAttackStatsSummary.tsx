@@ -24,7 +24,8 @@ export function GearAttackStatsSummary({
   const totalAttackPercent = gearSnap.getTotalAttackPercent(elementalType);
   const totalCritFlat = gearSnap.getTotalCritFlat();
   const totalCritPercent = gearSnap.getTotalCritPercent();
-  const totalDamagePercent = gearSnap.getTotalDamagePercent(elementalType);
+  const totalDamagePercent =
+    gearSnap.getTotalElementalDamagePercent(elementalType);
 
   const { characterLevel } = useSnapshot(userStatsState);
   const totalCritFlatToPercent = calculateCritPercentFromFlat(

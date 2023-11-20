@@ -14,11 +14,12 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { GridBreak } from '../../components/GridBreak/GridBreak';
 import { BuffSummary } from './BuffSummary';
 import { GearComparerOptions } from './GearComparerOptions';
-import { GearValue } from './GearValue';
 import { LoadoutGear } from './LoadoutGear';
+import { LoadoutGearValue } from './LoadoutGearValue';
 import { LoadoutStats } from './LoadoutStats';
 import { LoadoutTeam } from './LoadoutTeam';
 import { ReplacementGear } from './ReplacementGear';
+import { ReplacementGearValue } from './ReplacementGearValue';
 
 export function GearComparer() {
   return (
@@ -78,10 +79,10 @@ export function GearComparer() {
             <GridBreak />
 
             <Grid xs={12} md={6}>
-              <GearValue position="selectedLoadoutGear" />
+              <LoadoutGearValue />
             </Grid>
             <Grid xs={12} md={6}>
-              <GearValue position="replacementGear" />
+              <ReplacementGearValue />
             </Grid>
           </Grid>
 

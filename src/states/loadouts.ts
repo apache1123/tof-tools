@@ -4,12 +4,17 @@ import type { LoadoutDto } from '../models/loadout';
 import { Loadout } from '../models/loadout';
 import type { Persistable } from '../models/persistable';
 import { Team } from '../models/team';
+import type { UserStats } from '../models/user-stats';
 
 export class LoadoutsState implements Persistable<LoadoutsStateDto> {
   private _loadoutList: LoadoutListItem[];
   private _selectedLoadoutIndex: number;
 
-  public constructor() {
+  private _userStats: UserStats;
+
+  public constructor(userStats: UserStats) {
+    this._userStats = userStats;
+
     this._loadoutList = [];
     this._selectedLoadoutIndex = 0;
 
@@ -44,7 +49,8 @@ export class LoadoutsState implements Persistable<LoadoutsStateDto> {
       `Custom Loadout ${this._loadoutList.length - lastDefaultLoadoutIndex}`,
       'Flame',
       new Team(),
-      new GearSet()
+      new GearSet(),
+      this._userStats
     );
     this._loadoutList.push({ loadout, isDefault: false });
   }
@@ -63,15 +69,34 @@ export class LoadoutsState implements Persistable<LoadoutsStateDto> {
   }
 
   private addDefaultLoadouts() {
-    const loadout1 = new Loadout('Flame', 'Flame', new Team(), new GearSet());
-    const loadout2 = new Loadout('Frost', 'Frost', new Team(), new GearSet());
+    const loadout1 = new Loadout(
+      'Flame',
+      'Flame',
+      new Team(),
+      new GearSet(),
+      this._userStats
+    );
+    const loadout2 = new Loadout(
+      'Frost',
+      'Frost',
+      new Team(),
+      new GearSet(),
+      this._userStats
+    );
     const loadout3 = new Loadout(
       'Physical',
       'Physical',
       new Team(),
-      new GearSet()
+      new GearSet(),
+      this._userStats
     );
-    const loadout4 = new Loadout('Volt', 'Volt', new Team(), new GearSet());
+    const loadout4 = new Loadout(
+      'Volt',
+      'Volt',
+      new Team(),
+      new GearSet(),
+      this._userStats
+    );
 
     this._loadoutList.push(
       { loadout: loadout1, isDefault: true },
@@ -90,7 +115,8 @@ export class LoadoutsState implements Persistable<LoadoutsStateDto> {
         loadoutDto.name,
         loadoutDto.elementalType,
         new Team(),
-        new GearSet()
+        new GearSet(),
+        this._userStats
       );
       loadout.copyFromDto(loadoutDto);
 

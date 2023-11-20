@@ -67,50 +67,6 @@ export class Team implements Persistable<TeamDto> {
     return 'Balance';
   }
 
-  /** Weapon attack% buffs that have met the requirements to be enabled.
-   * They could be active when idle (passive buff), or inactive when idle (conditional buff), but are ready to be activated in combat.
-   */
-  // public get weaponAttackPercentBuffs(): WeaponAttackPercentBuff[] {
-  //   const buffs: WeaponAttackPercentBuff[] = [];
-  //   const { weapon1, weapon2, weapon3 } = this;
-  //   [weapon1, weapon2, weapon3].forEach((weapon) => {
-  //     if (!weapon) return;
-
-  //     const weaponDefinition = weapon.definition;
-  //     weaponDefinition.attackPercentBuffs.forEach((buffDefinition) => {
-  //       if (
-  //         !hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)
-  //       )
-  //         return;
-  //       if (!buffDefinition.elementalTypes.includes(selectedElementalType))
-  //         return;
-
-  //       const {
-  //         id,
-  //         description,
-  //         displayName,
-  //         value,
-  //         elementalTypes,
-  //         isActivePassively,
-  //         canStack,
-  //       } = buffDefinition;
-  //       const buff: WeaponAttackPercentBuff = {
-  //         id,
-  //         description,
-  //         displayName,
-  //         value,
-  //         elementalTypes,
-  //         isActivePassively,
-  //         weaponId: weaponDefinition.id,
-  //         weaponDisplayName: weaponDefinition.displayName,
-  //       };
-  //       addBuff(buff, buffs, canStack);
-  //     });
-  //   });
-
-  //   return buffs;
-  // }
-
   public copyFromDto(dto: TeamDto): void {
     const {
       weapon1: weapon1Dto,

@@ -106,7 +106,9 @@ export class Gear implements Persistable<GearDto> {
     return this.additiveSumStatValues(isCritPercent);
   }
 
-  public getTotalDamagePercent(elementalType: CoreElementalType): number {
+  public getTotalElementalDamagePercent(
+    elementalType: CoreElementalType
+  ): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isElementalDamagePercent

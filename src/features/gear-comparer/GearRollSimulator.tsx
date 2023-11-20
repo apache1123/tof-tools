@@ -18,18 +18,10 @@ import { maxNumOfRandomStatRolls } from '../../constants/gear';
 import type { Gear } from '../../models/gear';
 import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
 import type { RandomStat } from '../../models/random-stat';
-import { gearComparerState } from '../../states/states';
+import { gearComparerState, rollSimulatorState } from '../../states/states';
 import { getComparisonColor } from '../../utils/color-utils';
 import { additiveSum } from '../../utils/math-utils';
 import { GearRollSimulatorStat } from './GearRollSimulatorStat';
-import { gearValuesState } from './states/derived/gear-values';
-import { rollSimulatorGearValueState } from './states/derived/roll-simulator-gear-value';
-import {
-  addRoll,
-  copyFromGearB,
-  resetRolls,
-  rollSimulatorState,
-} from './states/roll-simulator';
 
 export function GearRollSimulator() {
   const { replacementGear } = useSnapshot(gearComparerState);
@@ -139,9 +131,8 @@ function DeterminedStars({
   randomStatRollCombinations: GearRandomStatRollCombinations[];
 }) {
   const gearSnap = useSnapshot(gearState);
-  const { rolls } = useSnapshot(rollSimulatorState);
-  const { value } = useSnapshot(rollSimulatorGearValueState);
-  const { selectedLoadoutGearValue } = useSnapshot(gearValuesState);
+  const { rolls, gearValue } = useSnapshot(rollSimulatorState);
+  const { selectedLoadoutGearValue } = useSnapshot(gearComparerState);
 
   const startingRolls =
     gearSnap.stars || (randomStatRollCombinations[0]?.stars ?? 0);
@@ -179,7 +170,7 @@ function DeterminedStars({
               statState={statState}
               rolls={statTotalRolls}
               canRoll={canRoll}
-              onAddRoll={() => addRoll(i)}
+              onAddRoll={() => rollSimulatorState.addRoll(i)}
             />
           );
         })}
@@ -187,10 +178,10 @@ function DeterminedStars({
       <Box>
         <Typography>Value: </Typography>
         <Typography
-          color={getComparisonColor(value > selectedLoadoutGearValue)}
+          color={getComparisonColor(gearValue > selectedLoadoutGearValue)}
           fontSize="1.5rem"
         >
-          <NumericStringPercentage2dp value={value} />
+          <NumericStringPercentage2dp value={gearValue} />
         </Typography>
       </Box>
       <Box textAlign="left" mt={3}>
@@ -208,6 +199,6 @@ function DeterminedStars({
 }
 
 function reset() {
-  copyFromGearB();
-  resetRolls();
+  rollSimulatorState.copyFromReplacementGear();
+  rollSimulatorState.resetRolls();
 }

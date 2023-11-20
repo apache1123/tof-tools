@@ -5,24 +5,19 @@ import { useSnapshot } from 'valtio';
 import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
 import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
 import { gearComparerState } from '../../states/states';
-import { buffTotalsState } from './states/derived/buff-totals';
-import { matrixSetBuffsState } from './states/derived/matrix-set-buffs';
-import { weaponBuffsState } from './states/derived/weapon-buffs';
 
 export function BuffSummary() {
   const {
-    selectedLoadout: { elementalType, team },
+    selectedLoadout: {
+      elementalType,
+      team: { elementalResonance, weaponResonance },
+      weaponBuffs,
+      matrixSetBuffs,
+      attackBuffTotal,
+      critRateBuffTotal,
+      critDamageBuffTotal,
+    },
   } = useSnapshot(gearComparerState);
-  const { weaponAttackPercentBuffs, weaponCritRateBuffs } =
-    useSnapshot(weaponBuffsState);
-  const {
-    matrixAttackPercentBuffs,
-    matrixCritRateBuffs,
-    matrixCritDamageBuffs,
-  } = useSnapshot(matrixSetBuffsState);
-  const { attackBuffTotal, critRateBuffTotal, critDamageBuffTotal } =
-    useSnapshot(buffTotalsState);
-  const { elementalResonance, weaponResonance } = team;
 
   return (
     <>
@@ -40,7 +35,7 @@ export function BuffSummary() {
             </Typography>
           </Divider>
           <Stack>
-            {weaponAttackPercentBuffs.map((buff, i) => (
+            {weaponBuffs.attackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.weaponDisplayName} - {buff.displayName} :{' '}
                 <ElementalStyledText elementalType={elementalType}>
@@ -48,7 +43,7 @@ export function BuffSummary() {
                 </ElementalStyledText>
               </Typography>
             ))}
-            {matrixAttackPercentBuffs.map((buff, i) => (
+            {matrixSetBuffs.attackPercentBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
                 <ElementalStyledText elementalType={elementalType}>
@@ -70,7 +65,7 @@ export function BuffSummary() {
             </Typography>
           </Divider>
           <Stack>
-            {weaponCritRateBuffs.map((buff, i) => (
+            {weaponBuffs.critRateBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.weaponDisplayName} - {buff.displayName} :{' '}
                 <ElementalStyledText elementalType={elementalType}>
@@ -78,7 +73,7 @@ export function BuffSummary() {
                 </ElementalStyledText>
               </Typography>
             ))}
-            {matrixCritRateBuffs.map((buff, i) => (
+            {matrixSetBuffs.critRateBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
                 <ElementalStyledText elementalType={elementalType}>
@@ -100,7 +95,7 @@ export function BuffSummary() {
             </Typography>
           </Divider>
           <Stack>
-            {matrixCritDamageBuffs.map((buff, i) => (
+            {matrixSetBuffs.critDamageBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}
                 <ElementalStyledText elementalType={elementalType}>

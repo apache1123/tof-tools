@@ -4,8 +4,11 @@ import type { DataById } from '../models/data';
 import type { Dto } from '../models/dto';
 import type { ElementalUserStatsDto } from '../models/elemental-user-stats';
 import type { Persistable } from '../models/persistable';
+import type { UserStats } from '../models/user-stats';
 
-export class UserStatsState implements Persistable<UserStatsStateDtoV2> {
+export class UserStatsState
+  implements UserStats, Persistable<UserStatsStateDtoV2>
+{
   public characterLevel: number;
 
   public constructor() {

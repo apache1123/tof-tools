@@ -8,6 +8,7 @@ export interface GearComparerGearMaxTitansState {
   titansByReferenceGearId: DataById<string, Gear | undefined>;
 }
 
+// TODO: redo Titan gear
 export const gearComparerGearMaxTitansState = derive<
   object,
   GearComparerGearMaxTitansState
