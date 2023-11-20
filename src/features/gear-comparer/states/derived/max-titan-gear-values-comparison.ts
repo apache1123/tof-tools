@@ -7,6 +7,7 @@ export interface MaxTitanGearValuesComparisonState {
   replacementGearMaxTitanHighestValue: boolean;
 }
 
+// TODO: redo Titan gear
 export const maxTitanGearValuesComparisonState = derive<
   object,
   MaxTitanGearValuesComparisonState

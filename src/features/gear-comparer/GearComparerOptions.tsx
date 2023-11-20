@@ -22,6 +22,7 @@ export function GearComparerOptions() {
             onLoadoutChange={(loadout, index) => {
               gearComparerState.selectedLoadoutIndex = index;
             }}
+            variant="filled"
           />
         </Grid>
       </Grid>

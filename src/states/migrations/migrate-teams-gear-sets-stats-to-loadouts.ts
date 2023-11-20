@@ -4,8 +4,6 @@ import { maxCharacterLevel } from '../../constants/character-level';
 import { defaultCritDamagePercent } from '../../constants/damage-formula';
 import type { CoreElementalType } from '../../constants/elemental-type';
 import type { GearName } from '../../constants/gear-types';
-import type { GearComparerGearsStateDto } from '../../features/gear-comparer/states/gear-comparer-gear';
-import type { GearComparerOptionsStateDto } from '../../features/gear-comparer/states/gear-comparer-options';
 import type { ElementalAttackDto } from '../../models/elemental-attack';
 import type { GearDto } from '../../models/gear';
 import type { GearSetDtoV1, GearSetDtoV2 } from '../../models/gear-set';
@@ -14,10 +12,12 @@ import type { MatrixSetDto } from '../../models/matrix-set';
 import type { RandomStatDto } from '../../models/random-stat';
 import type { TeamDto } from '../../models/team';
 import type { WeaponDto } from '../../models/weapon';
+import type { GearComparerGearsStateDto } from '../deprecated/gear-comparer-gear';
+import type { GearComparerOptionsStateDto } from '../deprecated/gear-comparer-options';
+import type { GearSetsStateDto } from '../deprecated/gear-sets';
+import type { TeamsStateDto } from '../deprecated/teams';
 import type { GearComparerStateDto } from '../gear-comparer';
-import type { GearSetsStateDto } from '../gear-sets';
 import type { LoadoutsStateDto } from '../loadouts';
-import type { TeamsStateDto } from '../teams';
 import type { UserStatsStateDtoV1, UserStatsStateDtoV2 } from '../user-stats';
 
 export function migrateTeamsGearSetsStatsToLoadouts() {

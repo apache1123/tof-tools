@@ -2,13 +2,7 @@ import { derive, devtools } from 'valtio/utils';
 
 import type { Gear } from '../../../../models/gear';
 import type { GearComparerState } from '../../../../states/gear-comparer';
-import { gearComparerState, userStatsState } from '../../../../states/states';
-import type { UserStatsState } from '../../../../states/user-stats';
-import { getGearMultiplierRelativeToBasis } from '../../../../utils/gear-calculation-utils';
-import {
-  type GearBasisValuesState,
-  gearBasisValuesState,
-} from './gear-basis-values';
+import { gearComparerState } from '../../../../states/states';
 import {
   type GearComparerGearMaxTitansState,
   gearComparerGearMaxTitansState,
@@ -19,15 +13,14 @@ export interface MaxTitanGearValuesState {
   replacementGearMaxTitanValue: number;
 }
 
+// TODO: redo Titan gear
 export const maxTitanGearValuesState = derive<object, MaxTitanGearValuesState>({
   selectedLoadoutGearMaxTitanValue: (get) => {
     const gearSnap = get(gearComparerState).selectedLoadoutGear;
     return getGearValue(
       gearSnap,
       get(gearComparerState),
-      get(gearComparerGearMaxTitansState),
-      get(userStatsState),
-      get(gearBasisValuesState)
+      get(gearComparerGearMaxTitansState)
     );
   },
   replacementGearMaxTitanValue: (get) => {
@@ -35,9 +28,7 @@ export const maxTitanGearValuesState = derive<object, MaxTitanGearValuesState>({
     return getGearValue(
       gearSnap,
       get(gearComparerState),
-      get(gearComparerGearMaxTitansState),
-      get(userStatsState),
-      get(gearBasisValuesState)
+      get(gearComparerGearMaxTitansState)
     );
   },
 });
@@ -46,26 +37,13 @@ devtools(maxTitanGearValuesState, { name: 'maxTitanGearValues' });
 function getGearValue(
   gearSnap: Gear,
   gearComparerSnap: GearComparerState,
-  gearComparerGearMaxTitansSnap: GearComparerGearMaxTitansState,
-  userStatsSnap: UserStatsState,
-  gearBasisValuesSnap: GearBasisValuesState
-) {
-  const {
-    selectedLoadout: { elementalType },
-  } = gearComparerSnap;
+  gearComparerGearMaxTitansSnap: GearComparerGearMaxTitansState
+): number {
+  const { selectedLoadout } = gearComparerSnap;
 
   const maxTitanGear =
     gearComparerGearMaxTitansSnap.titansByReferenceGearId[gearSnap.id];
   if (!maxTitanGear) return 0;
 
-  const { characterLevel } = userStatsSnap;
-
-  const { basisValues } = gearBasisValuesSnap;
-
-  return getGearMultiplierRelativeToBasis(
-    maxTitanGear,
-    basisValues,
-    elementalType,
-    characterLevel
-  );
+  return selectedLoadout.getSubstituteGearValue(maxTitanGear);
 }

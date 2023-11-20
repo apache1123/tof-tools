@@ -68,7 +68,7 @@ export class GearSet implements Persistable<GearSetDtoV2> {
     return additiveSum(
       Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
-        return gear ? gear.getTotalDamagePercent(elementalType) : 0;
+        return gear ? gear.getTotalElementalDamagePercent(elementalType) : 0;
       })
     ).toNumber();
   }
