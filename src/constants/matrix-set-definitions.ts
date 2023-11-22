@@ -32,6 +32,7 @@ export type MatrixSetBaseName =
   | 'Lyra'
   | 'Meryl'
   | 'Ming Jing'
+  | 'Nan Yin'
   | 'Nemesis'
   | 'Rubilia'
   | 'Ruby'
@@ -69,6 +70,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Lyra 2pc',
   'Meryl 2pc',
   'Ming Jing 2pc',
+  'Nan Yin 2pc',
   'Nemesis 2pc',
   'Rubilia 2pc',
   'Ruby 2pc',
@@ -107,6 +109,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Lyra 4pc',
   'Meryl 4pc',
   'Ming Jing 4pc',
+  'Nan Yin 4pc',
   'Nemesis 4pc',
   'Rubilia 4pc',
   'Ruby 4pc',
@@ -450,6 +453,27 @@ export const matrixSetDefinitionsLookup: DataById<
           { weaponElementalType: 'Flame', minNumOfWeapons: 1 },
           { weaponElementalType: 'Physical', minNumOfWeapons: 1 },
         ],
+      },
+    ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Nan Yin 2pc': {
+    id: 'Nan Yin 2pc',
+    displayName: 'Nan Yin 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description: 'Increase all ATK, works off-hand',
+        starValues: [
+          { star: 0, value: 0.19 },
+          { star: 1, value: 0.21 },
+          { star: 2, value: 0.23 },
+          { star: 3, value: 0.25 },
+        ],
+        elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+        canStack: false,
+        isActivePassively: true,
       },
     ],
     critRateBuffs: [],
@@ -858,6 +882,28 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+  },
+  'Nan Yin 4pc': {
+    id: 'Nan Yin 4pc',
+    displayName: 'Nan Yin 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [
+      {
+        description:
+          "Increase crit damage when Nan Yin's weapon is equipped, works off-hand",
+        starValues: [
+          { star: 0, value: 0.08 },
+          { star: 1, value: 0.08 },
+          { star: 2, value: 0.08 },
+          { star: 3, value: 0.08 },
+        ],
+        canStack: false,
+        isActivePassively: true,
+        weaponRequirement: 'Nan Yin',
+      },
+    ],
   },
   'Nemesis 4pc': {
     id: 'Nemesis 4pc',
