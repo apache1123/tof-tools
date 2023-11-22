@@ -13,6 +13,10 @@ export interface WeaponBuffDefinition {
   maxStarRequirement: number;
   elementalResonanceRequirements?: ElementalResonance[]; // "OR" requirements
   weaponResonanceRequirements?: WeaponResonance[]; // "OR" requirements
+  elementalWeaponsRequirements?: {
+    weaponElementalType: WeaponElementalType;
+    minNumOfWeapons: 1 | 2 | 3;
+  }[]; // "OR" requirements;
 }
 
 export interface WeaponAttackPercentBuffDefinition

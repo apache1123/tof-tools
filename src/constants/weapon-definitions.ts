@@ -24,6 +24,7 @@ export type WeaponName =
   | 'Lyra'
   | 'Meryl'
   | 'Ming Jing'
+  | 'Nan Yin'
   | 'Nemesis'
   | 'Rubilia'
   | 'Ruby'
@@ -60,6 +61,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Lyra',
     'Meryl',
     'Ming Jing',
+    'Nan Yin',
     'Nemesis',
     'Rubilia',
     'Ruby',
@@ -648,6 +650,33 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           minStarRequirement: 0,
           maxStarRequirement: 6,
           elementalResonanceRequirements: ['Flame'],
+        },
+      ],
+      critRateBuffs: [],
+    },
+    ['Nan Yin']: {
+      id: 'Nan Yin',
+      displayName: 'Nan Yin',
+      elementalType: 'Altered',
+      type: 'DPS',
+      attackPercentBuffs: [
+        {
+          id: 'The Final Tune',
+          displayName: 'The Final Tune',
+          description:
+            '+30% ATK when equipping 3 altered weapons, works off-hand',
+          value: 0.3,
+          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalWeaponsRequirements: [
+            {
+              weaponElementalType: 'Altered',
+              minNumOfWeapons: 3,
+            },
+          ],
         },
       ],
       critRateBuffs: [],

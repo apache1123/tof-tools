@@ -1,5 +1,6 @@
 import { derive } from 'valtio/utils';
 
+import type { Team } from '../../../../models/team';
 import type { TeamResonances } from '../../../../models/team-resonances';
 import { type Weapon } from '../../../../models/weapon';
 import type {
@@ -33,7 +34,12 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
       const weaponDefinition = weapon.definition;
       weaponDefinition.attackPercentBuffs.forEach((buffDefinition) => {
         if (
-          !hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)
+          !hasMetWeaponBuffRequirements(
+            buffDefinition,
+            weapon,
+            teamResonances,
+            selectedElementalTeam
+          )
         )
           return;
         if (!buffDefinition.elementalTypes.includes(selectedElementalType))
@@ -78,7 +84,12 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
       const weaponDefinition = weapon.definition;
       weaponDefinition.critRateBuffs.forEach((buffDefinition) => {
         if (
-          !hasMetWeaponBuffRequirements(buffDefinition, weapon, teamResonances)
+          !hasMetWeaponBuffRequirements(
+            buffDefinition,
+            weapon,
+            teamResonances,
+            selectedElementalTeam
+          )
         )
           return;
 
@@ -110,13 +121,15 @@ export const weaponBuffsState = derive<object, WeaponBuffsState>({
 function hasMetWeaponBuffRequirements(
   buffDefinition: WeaponBuffDefinition,
   weapon: Weapon,
-  teamResonances: TeamResonances
+  teamResonances: TeamResonances,
+  team: Team
 ): boolean {
   const {
     minStarRequirement,
     maxStarRequirement,
     elementalResonanceRequirements,
     weaponResonanceRequirements,
+    elementalWeaponsRequirements,
   } = buffDefinition;
   const { stars } = weapon;
   const { elementalResonance, weaponResonance } = teamResonances;
@@ -133,6 +146,27 @@ function hasMetWeaponBuffRequirements(
     (!weaponResonance || !weaponResonanceRequirements.includes(weaponResonance))
   )
     return false;
+
+  // TODO: This is duplicated in matrix-set-buffs.ts
+  if (elementalWeaponsRequirements) {
+    const { weapon1, weapon2, weapon3 } = team;
+    const weaponElementalTypes = [weapon1, weapon2, weapon3].map((weapon) =>
+      weapon ? weapon.definition.elementalType : undefined
+    );
+
+    let hasMetElementalWeaponsRequirement = false;
+    elementalWeaponsRequirements.forEach(
+      ({ weaponElementalType, minNumOfWeapons }) => {
+        if (
+          weaponElementalTypes.filter((x) => x === weaponElementalType)
+            .length >= minNumOfWeapons
+        )
+          hasMetElementalWeaponsRequirement = true;
+      }
+    );
+
+    if (!hasMetElementalWeaponsRequirement) return false;
+  }
 
   return true;
 }

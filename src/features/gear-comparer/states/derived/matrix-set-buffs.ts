@@ -153,6 +153,7 @@ function hasMetMatrixBuffRequirements(
 ) {
   const { elementalWeaponsRequirements, weaponRequirement } = buffDefinition;
 
+  // TODO: This is duplicated in weapon-buffs.ts
   if (elementalWeaponsRequirements) {
     const { weapon1, weapon2, weapon3 } = team;
     const weaponElementalTypes = [weapon1, weapon2, weapon3].map((weapon) =>
