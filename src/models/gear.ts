@@ -24,6 +24,7 @@ import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
 } from './gear-random-stat-roll-combinations';
+import type { GearStatDifference } from './gear-stat-difference';
 import type { GearType } from './gear-type';
 import type { Persistable } from './persistable';
 import type { RandomStatDto } from './random-stat';
@@ -374,6 +375,47 @@ export class Gear implements Persistable<GearDto> {
     this.randomStats = [...Array(this._type.numberOfRandomStats)].map(
       () => undefined
     );
+  }
+
+  /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
+  public static calculateStatDifference(
+    baseGear: Gear,
+    newGear: Gear
+  ): GearStatDifference {
+    return {
+      flameAttack: BigNumber(newGear.getTotalAttackFlat('Flame'))
+        .minus(baseGear.getTotalAttackFlat('Flame'))
+        .toNumber(),
+      frostAttack: BigNumber(newGear.getTotalAttackFlat('Frost'))
+        .minus(baseGear.getTotalAttackFlat('Frost'))
+        .toNumber(),
+      physicalAttack: BigNumber(newGear.getTotalAttackFlat('Physical'))
+        .minus(baseGear.getTotalAttackFlat('Physical'))
+        .toNumber(),
+      voltAttack: BigNumber(newGear.getTotalAttackFlat('Volt'))
+        .minus(baseGear.getTotalAttackFlat('Volt'))
+        .toNumber(),
+      critFlat: BigNumber(newGear.getTotalCritFlat())
+        .minus(baseGear.getTotalCritFlat())
+        .toNumber(),
+      critPercent: BigNumber(newGear.getTotalCritPercent())
+        .minus(baseGear.getTotalCritPercent())
+        .toNumber(),
+      flameDamage: BigNumber(newGear.getTotalElementalDamagePercent('Flame'))
+        .minus(baseGear.getTotalElementalDamagePercent('Flame'))
+        .toNumber(),
+      frostDamage: BigNumber(newGear.getTotalElementalDamagePercent('Frost'))
+        .minus(baseGear.getTotalElementalDamagePercent('Frost'))
+        .toNumber(),
+      physicalDamage: BigNumber(
+        newGear.getTotalElementalDamagePercent('Physical')
+      )
+        .minus(baseGear.getTotalElementalDamagePercent('Physical'))
+        .toNumber(),
+      voltDamage: BigNumber(newGear.getTotalElementalDamagePercent('Volt'))
+        .minus(baseGear.getTotalElementalDamagePercent('Volt'))
+        .toNumber(),
+    };
   }
 
   // Copy all gear properties over except for the id

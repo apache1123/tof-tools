@@ -8,7 +8,7 @@ import { calculateDamageMultiplier } from '../utils/damage-calculation-utils';
 import { additiveSum } from '../utils/math-utils';
 import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
 import type { Dto } from './dto';
-import type { Gear } from './gear';
+import { Gear } from './gear';
 import type { GearSet, GearSetDtoV2 } from './gear-set';
 import { LoadoutMatrixSetBuffs } from './loadout-matrix-set-buffs';
 import type { LoadoutStatsDto } from './loadout-stats';
@@ -171,6 +171,51 @@ export class Loadout implements Persistable<LoadoutDto> {
       )
       .minus(1)
       .toNumber();
+  }
+
+  /** Replaces the piece of gear in the gear set with the new piece of gear and updates the Loadout stats according to the difference between the new and old piece of gear */
+  public replaceGear(gear: Gear) {
+    const oldGear = this.gearSet.getGearByType(gear.type.id);
+    this.gearSet.setGear(gear);
+
+    const {
+      flameAttack,
+      frostAttack,
+      physicalAttack,
+      voltAttack,
+      critFlat,
+      critPercent,
+    } = this.loadoutStats;
+
+    const gearStatDifference = Gear.calculateStatDifference(oldGear, gear);
+
+    const newFlameAttack = BigNumber(flameAttack.baseAttack)
+      .plus(gearStatDifference.flameAttack)
+      .toNumber();
+    const newFrostAttack = BigNumber(frostAttack.baseAttack)
+      .plus(gearStatDifference.frostAttack)
+      .toNumber();
+    const newPhysicalAttack = BigNumber(physicalAttack.baseAttack)
+      .plus(gearStatDifference.physicalAttack)
+      .toNumber();
+    const newVoltAttack = BigNumber(voltAttack.baseAttack)
+      .plus(gearStatDifference.voltAttack)
+      .toNumber();
+
+    const newCritFlat = BigNumber(critFlat)
+      .plus(gearStatDifference.critFlat)
+      .toNumber();
+    const newCritPercent = BigNumber(critPercent)
+      .plus(gearStatDifference.critPercent)
+      .toNumber();
+
+    flameAttack.baseAttack = newFlameAttack;
+    frostAttack.baseAttack = newFrostAttack;
+    physicalAttack.baseAttack = newPhysicalAttack;
+    voltAttack.baseAttack = newVoltAttack;
+
+    this.loadoutStats.critFlat = newCritFlat;
+    this.loadoutStats.critPercent = newCritPercent;
   }
 
   /** Total attack% of the loadout's elemental type - accounting from all sources (gear and buffs) */

@@ -27,6 +27,9 @@ export class GearSet implements Persistable<GearSetDtoV2> {
   public getGearByType(typeId: GearName) {
     return this._gearsByTypeId[typeId];
   }
+  public setGear(gear: Gear) {
+    this._gearsByTypeId[gear.type.id] = gear;
+  }
 
   public getTotalAttackFlat(elementalType: CoreElementalType): number {
     return additiveSum(

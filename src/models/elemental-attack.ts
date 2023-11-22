@@ -4,12 +4,26 @@ import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 
 export class ElementalAttack implements Persistable<ElementalAttackDto> {
-  public baseAttack: number;
-  public totalAttack: number;
+  private _baseAttack = 0;
+  private _totalAttack = 0;
 
   public constructor(baseAttack: number, totalAttack: number) {
     this.baseAttack = baseAttack;
     this.totalAttack = totalAttack;
+  }
+
+  public get baseAttack(): number {
+    return this._baseAttack;
+  }
+  public set baseAttack(value: number) {
+    this._baseAttack = value > 0 ? value : 0;
+  }
+
+  public get totalAttack(): number {
+    return this._totalAttack;
+  }
+  public set totalAttack(value: number) {
+    this._totalAttack = value > 0 ? value : 0;
   }
 
   /** The attack % multiplier value in the formula: baseAttack * (1 + atk%) = totalAttack
