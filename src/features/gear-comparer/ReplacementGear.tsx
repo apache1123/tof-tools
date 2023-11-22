@@ -27,6 +27,7 @@ export function ReplacementGear() {
         gearComparerState.selectedGearTypeId = gearType.id;
       }}
       showGearOCRButton
+      showSaveGearButton={{ targetLoadout: gearComparerState.selectedLoadout }}
       showStatSummary={elementalType}
       maxTitanStatsContent={
         gearSnap.stars !== 5 &&

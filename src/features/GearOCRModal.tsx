@@ -1,4 +1,4 @@
-import UploadIcon from '@mui/icons-material/Upload';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import BigNumber from 'bignumber.js';
@@ -158,7 +158,7 @@ export const GearOCRModal = ({
           </Grid>
         </>
       }
-      icon={<UploadIcon />}
+      icon={<AddPhotoAlternateIcon />}
       iconButton={iconButton}
       aria-label="upload-gear"
       showConfirm

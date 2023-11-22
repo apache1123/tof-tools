@@ -11,9 +11,9 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public frostAttack: ElementalAttack;
   public physicalAttack: ElementalAttack;
   public voltAttack: ElementalAttack;
-  public critFlat: number;
-  public critPercent: number;
-  public critDamage: number;
+  private _critFlat = 0;
+  private _critPercent = 0;
+  private _critDamage = defaultCritDamagePercent;
 
   public constructor(loadout: Loadout) {
     this.loadout = loadout;
@@ -21,9 +21,6 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
     this.frostAttack = newElementalAttack();
     this.physicalAttack = newElementalAttack();
     this.voltAttack = newElementalAttack();
-    this.critFlat = 0;
-    this.critPercent = 0;
-    this.critDamage = defaultCritDamagePercent;
 
     function newElementalAttack(): ElementalAttack {
       return new ElementalAttack(0, 0);
@@ -34,6 +31,28 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return this[this.loadout.elementalType.toLowerCase() + 'Attack'];
+  }
+
+  public get critFlat(): number {
+    return this._critFlat;
+  }
+  public set critFlat(value: number) {
+    this._critFlat = value > 0 ? value : 0;
+  }
+
+  public get critPercent(): number {
+    return this._critPercent;
+  }
+  public set critPercent(value: number) {
+    this._critPercent = value > 0 ? value : 0;
+  }
+
+  public get critDamage(): number {
+    return this._critDamage;
+  }
+  public set critDamage(value: number) {
+    this._critDamage =
+      value > defaultCritDamagePercent ? value : defaultCritDamagePercent;
   }
 
   public copyFromDto(dto: LoadoutStatsDto): void {

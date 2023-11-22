@@ -32,7 +32,7 @@ export function GearValue({
         <NumericStringPercentage2dp value={gearValue} />
       </Typography>
 
-      {titanGearValue && (
+      {titanGearValue !== undefined && (
         <>
           <Typography sx={{ mt: 3 }}>Value at max potential titan: </Typography>
           <Typography

@@ -22,6 +22,7 @@ import { Gear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { RandomStat } from '../models/random-stat';
+import type { SaveGearModalProps } from './gear-comparer/SaveGearModal';
 import { SaveGearModal } from './gear-comparer/SaveGearModal';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 import { GearOCRModal } from './GearOCRModal';
@@ -37,7 +38,7 @@ export interface GearPieceProps {
   onCompareGear?(): void;
   disableGearTypeChange?: boolean;
   onGearTypeChange?: (gearType: GearType) => void;
-  showSaveGearButton?: boolean;
+  showSaveGearButton?: Pick<SaveGearModalProps, 'targetLoadout'>;
   showStatSummary?: CoreElementalType;
   maxTitanStatsContent?: ReactNode;
   additionalAccordions?: ReactNode;
@@ -119,7 +120,12 @@ export const GearPiece = ({
               </IconButton>
             </Tooltip>
           )}
-          {showSaveGearButton && <SaveGearModal gear={gearState} />}
+          {showSaveGearButton && showSaveGearButton.targetLoadout && (
+            <SaveGearModal
+              gear={gearState}
+              targetLoadout={showSaveGearButton.targetLoadout}
+            />
+          )}
         </>
       }
       summary={
