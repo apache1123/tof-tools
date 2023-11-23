@@ -10,6 +10,7 @@ export interface ButtonModalProps extends Omit<StyledModalProps, 'open'> {
   icon?: ReactNode;
   iconButton?: boolean;
   disabled?: boolean;
+  openByDefault?: boolean;
   buttonSx?: SxProps<Theme>;
   ['aria-label']?: string;
 }
@@ -21,11 +22,12 @@ export function ButtonModal({
   icon,
   iconButton,
   disabled,
+  openByDefault,
   'aria-label': ariaLabel,
   buttonSx,
   ...rest
 }: ButtonModalProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(openByDefault ?? false);
 
   const handleOpen = () => {
     setOpen(true);
