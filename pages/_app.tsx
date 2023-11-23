@@ -12,6 +12,8 @@ import createEmotionCache from '../src/createEmotionCache';
 import { useLocalStoragePersistence } from '../src/states/hooks/useLocalStoragePersistence';
 import { migrateStatesToLatestVersion } from '../src/states/migrations/state-migrations-state';
 import {
+  changelogState,
+  changelogStateKey,
   gearComparerState,
   gearComparerStateKey,
   loadoutsState,
@@ -34,12 +36,10 @@ export default function MyApp(props: MyAppProps) {
     migrateStatesToLatestVersion();
   });
 
-  // Order matters here.
-  // Not 100% sure, but I think there is a bug in `derive`
-  // https://github.com/pmndrs/valtio/issues/687
   useLocalStoragePersistence(userStatsState, userStatsStateKey);
   useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
   useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
+  useLocalStoragePersistence(changelogState, changelogStateKey);
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
