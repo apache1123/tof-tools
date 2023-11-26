@@ -5,6 +5,8 @@ import type { Persistable } from './persistable';
 
 export class ElementalAttack implements Persistable<ElementalAttackDto> {
   private _baseAttack = 0;
+
+  /** Currently unused */
   private _totalAttack = 0;
 
   public constructor(baseAttack: number, totalAttack: number) {
@@ -19,9 +21,11 @@ export class ElementalAttack implements Persistable<ElementalAttackDto> {
     this._baseAttack = value > 0 ? value : 0;
   }
 
+  /** Currently unused */
   public get totalAttack(): number {
     return this._totalAttack;
   }
+  /** Currently unused */
   public set totalAttack(value: number) {
     this._totalAttack = value > 0 ? value : 0;
   }

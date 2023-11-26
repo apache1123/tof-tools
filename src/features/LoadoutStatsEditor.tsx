@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
 import { NumericInput } from '../components/NumericInput/NumericInput';
-import { PercentageNumericInput } from '../components/NumericInput/PercentageNumericInput';
 import { maxCharacterLevel } from '../constants/character-level';
 import type { LoadoutStats } from '../models/loadout-stats';
 import { userStatsState } from '../states/states';
@@ -20,64 +19,19 @@ export function LoadoutStatsEditor({
 }: LoadoutStatsEditorProps) {
   const {
     loadout: { elementalType },
-    activeElementalAttack: { totalAttack, baseAttack },
+    activeElementalAttack: { baseAttack },
     critFlat,
-    critPercent,
-    critDamage,
   } = loadoutStatsSnap;
 
   const { characterLevel } = useSnapshot(userStatsState);
 
   return (
     <>
-      <Typography variant="subtitle2" sx={{ color: 'warning.main', mb: 2 }}>
-        {/* Fill these in with your <u>current</u> gear equipped (the left/first
-        gear below).  */}
+      <Typography variant="subtitle2" sx={{ color: 'info.main', mb: 2 }}>
         You can find these values on the Wanderer screen.
       </Typography>
 
       <Grid container spacing={2}>
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          <NumericInput
-            id="total-attack"
-            label={
-              'Total attack' + (elementalType ? ` (${elementalType})` : '')
-            }
-            variant="filled"
-            required
-            error={!totalAttack}
-            value={totalAttack}
-            onChange={(value) => {
-              loadoutStatsState.activeElementalAttack.totalAttack = value;
-            }}
-            helperText={
-              <Tooltip
-                title={
-                  <Image
-                    src="/total_attack_example.png"
-                    alt="total-attack-example"
-                    width={180}
-                    height={60}
-                  />
-                }
-              >
-                <span>
-                  If you&apos;re using{' '}
-                  <Typography
-                    variant="inherit"
-                    component="span"
-                    color="info.main"
-                    fontWeight="bold"
-                  >
-                    Lyra 2pc, Rubilia 2pc or Ming Jing 2pc
-                  </Typography>{' '}
-                  matrices, make sure the atk% buff is active. Click here for
-                  example
-                </span>
-              </Tooltip>
-            }
-          />
-        </Grid>
         <Grid xs={12} sm={6} md={4} lg={3}>
           <NumericInput
             id="base-attack"
@@ -101,8 +55,9 @@ export function LoadoutStatsEditor({
                 }
               >
                 <span>
-                  This is the first number when you click on your elemental
-                  attack number on the Wanderer screen. Click here for example
+                  This is the <b>NOT</b> your elemental attack value you see on
+                  the Wanderer screen. Instead, it is the first number when you
+                  click on your elemental attack value. Click here for example
                 </span>
               </Tooltip>
             }
@@ -136,85 +91,9 @@ export function LoadoutStatsEditor({
           />
         </Grid>
         <Grid xs={12} sm={6} md={4} lg={3}>
-          <PercentageNumericInput
-            id="crit-percent"
-            label="Crit %"
-            variant="filled"
-            required
-            value={critPercent}
-            onChange={(value) => {
-              loadoutStatsState.critPercent = value;
-            }}
-            helperText={
-              <Tooltip
-                title={
-                  <Image
-                    src="/crit_percent_example.png"
-                    alt="crit-percent-example"
-                    width={150}
-                    height={60}
-                  />
-                }
-              >
-                <span>
-                  If you&apos;re using{' '}
-                  <Typography
-                    variant="inherit"
-                    component="span"
-                    color="info.main"
-                    fontWeight="bold"
-                  >
-                    Fenrir 6*
-                  </Typography>
-                  , make sure the crit% buff is active. Click here for example
-                </span>
-              </Tooltip>
-            }
-          />
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          <PercentageNumericInput
-            id="crit-damage"
-            label="Crit Damage %"
-            variant="filled"
-            required
-            error={!critDamage}
-            value={critDamage}
-            onChange={(value) => {
-              loadoutStatsState.critDamage = value;
-            }}
-            helperText={
-              <Tooltip
-                title={
-                  <Image
-                    src="/crit_damage_example.png"
-                    alt="crit-damage-example"
-                    width={160}
-                    height={60}
-                  />
-                }
-              >
-                <span>
-                  If you&apos;re using{' '}
-                  <Typography
-                    variant="inherit"
-                    component="span"
-                    color="info.main"
-                    fontWeight="bold"
-                  >
-                    Scylla 2pc
-                  </Typography>{' '}
-                  matrices, make sure the crit dmg% buff is active. Click here
-                  for example
-                </span>
-              </Tooltip>
-            }
-          />
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3}>
           <NumericInput
             id="char-level"
-            label="Character level"
+            label="Wanderer level"
             variant="filled"
             value={characterLevel}
             onChange={(value) => {
@@ -223,7 +102,7 @@ export function LoadoutStatsEditor({
             helperText={
               characterLevel !== maxCharacterLevel ? (
                 <Box component="span" sx={{ color: 'warning.main' }}>
-                  Current max character level is {maxCharacterLevel}
+                  Current max wanderer level is {maxCharacterLevel}
                 </Box>
               ) : undefined
             }
