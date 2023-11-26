@@ -12,7 +12,10 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public physicalAttack: ElementalAttack;
   public voltAttack: ElementalAttack;
   private _critFlat = 0;
+
+  /** Currently unused */
   private _critPercent = 0;
+  /** Currently unused */
   private _critDamage = defaultCritDamagePercent;
 
   public constructor(loadout: Loadout) {
@@ -40,16 +43,20 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
     this._critFlat = value > 0 ? value : 0;
   }
 
+  /** Currently unused */
   public get critPercent(): number {
     return this._critPercent;
   }
+  /** Currently unused */
   public set critPercent(value: number) {
     this._critPercent = value > 0 ? value : 0;
   }
 
+  /** Currently unused */
   public get critDamage(): number {
     return this._critDamage;
   }
+  /** Currently unused */
   public set critDamage(value: number) {
     this._critDamage =
       value > defaultCritDamagePercent ? value : defaultCritDamagePercent;

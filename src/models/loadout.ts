@@ -178,14 +178,8 @@ export class Loadout implements Persistable<LoadoutDto> {
     const oldGear = this.gearSet.getGearByType(gear.type.id);
     this.gearSet.setGear(gear);
 
-    const {
-      flameAttack,
-      frostAttack,
-      physicalAttack,
-      voltAttack,
-      critFlat,
-      critPercent,
-    } = this.loadoutStats;
+    const { flameAttack, frostAttack, physicalAttack, voltAttack, critFlat } =
+      this.loadoutStats;
 
     const gearStatDifference = Gear.calculateStatDifference(oldGear, gear);
 
@@ -205,9 +199,6 @@ export class Loadout implements Persistable<LoadoutDto> {
     const newCritFlat = BigNumber(critFlat)
       .plus(gearStatDifference.critFlat)
       .toNumber();
-    const newCritPercent = BigNumber(critPercent)
-      .plus(gearStatDifference.critPercent)
-      .toNumber();
 
     flameAttack.baseAttack = newFlameAttack;
     frostAttack.baseAttack = newFrostAttack;
@@ -215,7 +206,6 @@ export class Loadout implements Persistable<LoadoutDto> {
     voltAttack.baseAttack = newVoltAttack;
 
     this.loadoutStats.critFlat = newCritFlat;
-    this.loadoutStats.critPercent = newCritPercent;
   }
 
   /** Total attack% of the loadout's elemental type - accounting from all sources (gear and buffs) */
