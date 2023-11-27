@@ -26,8 +26,11 @@ export function LoadoutStatsEditor({
   const { characterLevel } = useSnapshot(userStatsState);
 
   return (
-    <>
-      <Typography variant="subtitle2" sx={{ color: 'info.main', mb: 2 }}>
+    <Box>
+      <Typography variant="h6" gutterBottom>
+        Stats
+      </Typography>
+      <Typography variant="subtitle2" sx={{ mb: 2 }}>
         You can find these values on the Wanderer screen.
       </Typography>
 
@@ -55,9 +58,18 @@ export function LoadoutStatsEditor({
                 }
               >
                 <span>
-                  This is the <b>NOT</b> your elemental attack value you see on
-                  the Wanderer screen. Instead, it is the first number when you
-                  click on your elemental attack value. Click here for example
+                  <Typography
+                    variant="inherit"
+                    component="span"
+                    color="info.main"
+                  >
+                    This is the <b>NOT</b> your elemental attack value you see
+                    on the Wanderer screen.{' '}
+                  </Typography>
+                  <Typography variant="inherit" component="span">
+                    Instead, it is the first number when you click on your
+                    elemental attack value. Click here for example
+                  </Typography>
                 </span>
               </Tooltip>
             }
@@ -109,6 +121,6 @@ export function LoadoutStatsEditor({
           />
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 }

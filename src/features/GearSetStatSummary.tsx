@@ -19,6 +19,11 @@ export function GearSetStatSummary({
 }: GearSetStatSummaryProps) {
   return (
     <Paper sx={{ p: 2 }} data-testid="current-gear-set-stat-summary">
+      <Typography variant="subtitle2" mb={2}>
+        The following are the stat values for all gears added up together.
+        Doesn&apos;t mean very much, but maybe will help you compare how good
+        your gear is for one loadout vs. another.
+      </Typography>
       <Stack direction="row" spacing={5}>
         <Box>
           <Typography>Attack</Typography>
