@@ -1,4 +1,4 @@
-import { Divider, Stack, useMediaQuery } from '@mui/material';
+import { Box, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
 
 import type { Team } from '../models/team';
 import { Weapon } from '../models/weapon';
@@ -27,11 +27,10 @@ export function TeamEditor({ teamSnap, teamState }: TeamProps) {
   } = teamSnap;
 
   return (
-    <>
-      {/* <Typography variant="subtitle2" gutterBottom>
-        This is optional, but if you fill this in the calculation will be more
-        accurate, taking into account the buffs from weapons & matrices
-      </Typography> */}
+    <Box>
+      <Typography variant="h6" gutterBottom>
+        Weapons/Matrices
+      </Typography>
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         justifyContent="space-evenly"
@@ -95,6 +94,6 @@ export function TeamEditor({ teamSnap, teamState }: TeamProps) {
           />
         )}
       </Stack>
-    </>
+    </Box>
   );
 }

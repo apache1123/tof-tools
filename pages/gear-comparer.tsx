@@ -1,4 +1,4 @@
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
@@ -17,9 +17,6 @@ export default function GearComparerPage() {
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>
-        <Typography variant="h5" component="h1" mb={3}>
-          Compare gear
-        </Typography>
         <GearComparer />
       </Container>
     </>

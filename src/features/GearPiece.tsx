@@ -237,7 +237,7 @@ function Layout({
   ['data-testid']?: string;
 }) {
   return (
-    <Paper sx={{ p: 2 }} elevation={2} data-testid={dataTestId}>
+    <Paper sx={{ p: 2 }} square elevation={2} data-testid={dataTestId}>
       <Grid container spacing={2} mb={2}>
         <Grid maxWidth={90} display="flex" alignItems="center">
           {typeIcon}

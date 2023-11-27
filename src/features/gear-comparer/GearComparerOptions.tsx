@@ -1,3 +1,4 @@
+import { Link } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
@@ -14,8 +15,8 @@ export function GearComparerOptions() {
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid xs={12} sm={6} md={4}>
+      <Grid container spacing={1}>
+        <Grid xs={12} sm={6} md={4} lg={3}>
           <LoadoutSelector
             loadoutList={loadoutList}
             selectedLoadout={selectedLoadout}
@@ -24,6 +25,9 @@ export function GearComparerOptions() {
             }}
             variant="filled"
           />
+        </Grid>
+        <Grid display="flex" alignItems="center">
+          <Link href="/loadouts">Manage loadouts</Link>
         </Grid>
       </Grid>
     </>

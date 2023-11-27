@@ -17,7 +17,7 @@ export function GearValue({
   isTitanGearValueHigher,
 }: GearValueProps) {
   return (
-    <Paper elevation={2} sx={{ p: 2, textAlign: 'center' }}>
+    <Paper elevation={2} square sx={{ p: 2, textAlign: 'center' }}>
       <Typography>Value: </Typography>
       <Typography
         fontSize="1.5rem"
