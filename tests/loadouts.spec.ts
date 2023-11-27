@@ -1,36 +1,45 @@
 import { expect, test } from '@playwright/test';
 
-test('add, rename, delete gear set', async ({ page }) => {
-  await page.goto('/gear-sets');
+import { dismissChangelog } from './helpers/dismiss-changelog';
+
+// TODO: Test weapons/matrices, stats, gear persistence
+
+test('add, rename, delete loadout', async ({ page }) => {
+  await page.goto('/loadouts');
+  await dismissChangelog(page);
 
   // Add
   await page.getByRole('tab', { name: 'Add' }).click();
-  await expect(page.getByLabel('Name', { exact: true })).toHaveValue('Set 2');
-  await page.getByLabel('Name', { exact: true }).click();
-  await page.getByLabel('Name', { exact: true }).fill('New set');
-  await page.getByRole('button', { name: 'Confirm' }).click();
-  await expect(page.getByRole('heading', { name: 'New set' })).toBeVisible();
+  await expect(
+    page.getByRole('tab', { name: 'flame-icon Custom Loadout 1' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Custom Loadout 1' })
+  ).toBeVisible();
 
   // Rename
-  await page.getByLabel('edit-gear-set-name').click();
+  await page.getByLabel('edit-loadout-name').click();
   await page.locator('.MuiInputBase-input').first().click();
-  await page.locator('.MuiInputBase-input').first().fill('New set edited');
+  await page
+    .locator('.MuiInputBase-input')
+    .first()
+    .fill('Custom Loadout 1 edited');
   await page.locator('.MuiStack-root > button').first().click();
   await expect(
-    page.getByRole('heading', { name: 'New set edited' })
+    page.getByRole('heading', { name: 'Custom Loadout 1 edited' })
   ).toBeVisible();
 
   // Delete
-  await page.getByLabel('delete-gear-set').click();
+  await page.getByLabel('delete-loadout').click();
   await page.getByRole('button', { name: 'Confirm' }).click();
-  await expect(page.getByText('Set 1Add')).toBeVisible();
+  await expect(
+    page.getByRole('tab', { name: 'flame-icon Custom Loadout 1' })
+  ).not.toBeVisible();
 });
 
-test('gear set stat summary', async ({ page }) => {
-  await page.goto('/gear-sets');
-
-  await page.getByLabel('Element type *').click();
-  await page.getByRole('option', { name: 'flame-icon Flame' }).click();
+test('loadout gear set stat summary', async ({ page }) => {
+  await page.goto('/loadouts');
+  await dismissChangelog(page);
 
   await page
     .getByTestId('Eyepiece')

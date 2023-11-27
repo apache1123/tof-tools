@@ -25,6 +25,7 @@ export function LoadoutGearValue() {
       }
       titanGearValue={selectedLoadoutGearMaxTitanValue}
       isTitanGearValueHigher={selectedLoadoutGearMaxTitanHighestValue}
+      data-testid="loadout-gear"
     />
   );
 }
