@@ -8,6 +8,7 @@ export interface GearValueProps {
   isGearValueHigher?: boolean;
   titanGearValue?: number;
   isTitanGearValueHigher?: boolean;
+  ['data-testid']?: string;
 }
 
 export function GearValue({
@@ -15,6 +16,7 @@ export function GearValue({
   isGearValueHigher,
   titanGearValue,
   isTitanGearValueHigher,
+  'data-testid': dataTestId,
 }: GearValueProps) {
   return (
     <Paper elevation={2} square sx={{ p: 2, textAlign: 'center' }}>
@@ -27,7 +29,7 @@ export function GearValue({
               ? getComparisonColor(isGearValueHigher)
               : 'inherit',
         }}
-        data-testid={`replacement-gear-value`}
+        data-testid={dataTestId ? `${dataTestId}-value` : 'gear-value'}
       >
         <NumericStringPercentage2dp value={gearValue} />
       </Typography>
@@ -41,7 +43,9 @@ export function GearValue({
                 ? getComparisonColor(isTitanGearValueHigher)
                 : 'inherit'
             }
-            data-testid={`replacement-gear-max-titan-value`}
+            data-testid={
+              dataTestId ? `${dataTestId}-max-titan-value` : 'max-titan-value'
+            }
           >
             <NumericStringPercentage2dp value={titanGearValue} />
           </Typography>

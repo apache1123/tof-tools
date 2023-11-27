@@ -1,18 +1,16 @@
 import test, { expect } from '@playwright/test';
 
 import { tempTestFolderPath } from './constants';
+import { dismissChangelog } from './helpers/dismiss-changelog';
 
 test('Export/Import app data works', async ({ page, browser }) => {
   await page.goto('/gear-comparer');
+  await dismissChangelog(page);
 
-  await page.getByLabel('Elemental type to compare *').click();
-  await page.getByRole('option', { name: 'Frost' }).click();
+  await page.getByLabel('Base attack (Flame) *').click();
+  await page.getByLabel('Base attack (Flame) *').fill('10');
 
-  await page.getByLabel('Total attack (Frost) *').click();
-  await page.getByLabel('Total attack (Frost) *').fill('10');
-
-  await expect(page.getByLabel('Total attack (Frost) *')).toBeVisible();
-  await expect(page.getByLabel('Total attack (Frost) *')).toHaveValue('10');
+  await expect(page.getByLabel('Base attack (Flame) *')).toHaveValue('10');
 
   await page.goto('/settings');
 
@@ -25,8 +23,9 @@ test('Export/Import app data works', async ({ page, browser }) => {
   const secondContext = await browser.newContext();
   const secondPage = await secondContext.newPage();
   await secondPage.goto('/gear-comparer');
+  await dismissChangelog(secondPage);
 
-  await expect(page.getByLabel('Total attack (Frost) *')).not.toBeVisible();
+  await expect(secondPage.getByLabel('Base attack (Flame) *')).toHaveValue('0');
 
   await secondPage.goto('/settings');
 
@@ -38,8 +37,7 @@ test('Export/Import app data works', async ({ page, browser }) => {
 
   await secondPage.goto('/gear-comparer');
 
-  await expect(secondPage.getByLabel('Total attack (Frost) *')).toBeVisible();
-  await expect(secondPage.getByLabel('Total attack (Frost) *')).toHaveValue(
+  await expect(secondPage.getByLabel('Base attack (Flame) *')).toHaveValue(
     '10'
   );
 });

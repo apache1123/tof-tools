@@ -23,6 +23,7 @@ export function ReplacementGearValue() {
       }
       titanGearValue={replacementGearMaxTitanValue}
       isTitanGearValueHigher={replacementGearMaxTitanHighestValue}
+      data-testid="replacement-gear"
     />
   );
 }
