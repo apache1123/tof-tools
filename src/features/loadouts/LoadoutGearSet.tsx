@@ -16,24 +16,6 @@ export function LoadoutGearSet() {
     },
   } = loadoutsState;
 
-  // TODO:
-  // const router = useRouter();
-
-  // function handleCompareGear(gear: Gear) {
-  //   if (gearComparerGearsState.GearA) {
-  //     Gear.copy(gear, gearComparerGearsState.GearA);
-  //   } else {
-  //     const newGearA = new Gear(gear.type);
-  //     Gear.copy(gear, newGearA);
-  //     gearComparerGearsState.GearA = newGearA;
-  //   }
-  //   if (gearSetState?.elementalType) {
-  //     gearComparerOptionsState.selectedElementalType =
-  //       gearSetState.elementalType;
-  //   }
-  //   router.push('/gear-comparer');
-  // }
-
   return (
     <Grid container spacing={3}>
       {gearTypesLookup.allIds.map((gearTypeId) => {
@@ -47,10 +29,6 @@ export function LoadoutGearSet() {
               gearSnap={gearSnap}
               gearState={gearState}
               showGearOCRButton
-              showCompareGearButton
-              onCompareGear={() => {
-                // handleCompareGear(gearState);
-              }}
               disableGearTypeChange
               showStatSummary={loadoutSnap.elementalType}
               data-testid={gearTypeId}

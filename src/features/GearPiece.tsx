@@ -1,13 +1,10 @@
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
-  IconButton,
   Paper,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -34,8 +31,6 @@ export interface GearPieceProps {
   gearSnap: Gear;
   gearState: Gear;
   showGearOCRButton?: boolean;
-  showCompareGearButton?: boolean;
-  onCompareGear?(): void;
   disableGearTypeChange?: boolean;
   onGearTypeChange?: (gearType: GearType) => void;
   showSaveGearButton?: Pick<SaveGearModalProps, 'targetLoadout'>;
@@ -49,8 +44,6 @@ export const GearPiece = ({
   gearSnap,
   gearState,
   showGearOCRButton,
-  showCompareGearButton,
-  onCompareGear,
   disableGearTypeChange,
   onGearTypeChange,
   showSaveGearButton,
@@ -112,13 +105,6 @@ export const GearPiece = ({
               }
               iconButton
             />
-          )}
-          {showCompareGearButton && (
-            <Tooltip title="Compare gear" placement="right">
-              <IconButton onClick={onCompareGear} color="primary">
-                <CompareArrowsIcon />
-              </IconButton>
-            </Tooltip>
           )}
           {showSaveGearButton && showSaveGearButton.targetLoadout && (
             <SaveGearModal
