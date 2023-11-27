@@ -49,7 +49,7 @@ export const changelog: Changelog = [
   },
   {
     semver: '3.0.0',
-    date: new Date(Date.UTC(2023, 10, 23)),
+    date: new Date(Date.UTC(2023, 10, 27)),
     title: 'Introduce "Loadouts", replacing "Gear sets"',
     description: (
       <>
