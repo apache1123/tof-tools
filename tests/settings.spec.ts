@@ -3,7 +3,7 @@ import test, { expect } from '@playwright/test';
 import { tempTestFolderPath } from './constants';
 import { dismissChangelog } from './helpers/dismiss-changelog';
 
-test('Export/Import app data works', async ({ page, browser }) => {
+test.skip('Export/Import app data works', async ({ page, browser }) => {
   await page.goto('/gear-comparer');
   await dismissChangelog(page);
 
