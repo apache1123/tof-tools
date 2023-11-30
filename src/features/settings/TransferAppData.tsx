@@ -11,9 +11,12 @@ export function TransferAppData() {
         Export/Import app data
       </Typography>
       <Paper sx={{ p: 2 }}>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} alignItems="center">
           <ExportAppData />
           <ImportAppData />
+          <Typography variant="subtitle2">
+            Sorry, the import feature is temporarily disabled to fix a bug
+          </Typography>
         </Stack>
       </Paper>
     </Box>
@@ -95,7 +98,7 @@ function ImportAppData() {
   return (
     <>
       {/* https://mui.com/material-ui/react-button/#file-upload */}
-      <Button component="label" variant="outlined">
+      <Button component="label" variant="outlined" disabled>
         Import
         {/* Visually hidden input */}
         <input
