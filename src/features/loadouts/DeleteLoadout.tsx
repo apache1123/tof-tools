@@ -27,6 +27,7 @@ export function DeleteLoadout() {
         }
         showConfirm
         showCancel
+        hideClose
         onConfirm={() => {
           loadoutsState.deleteSelectedLoadout();
           showSnackbar('Loadout deleted');
