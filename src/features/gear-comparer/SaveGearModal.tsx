@@ -18,6 +18,7 @@ export function SaveGearModal({ gear, targetLoadout }: SaveGearModalProps) {
         modalContent="This loadout's stats will also be automatically adjusted to reflect the new gear."
         showConfirm
         showCancel
+        hideClose
         onConfirm={() => {
           const newGear = new Gear(gear.type);
           Gear.copy(gear, newGear);

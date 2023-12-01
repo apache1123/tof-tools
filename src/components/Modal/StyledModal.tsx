@@ -1,5 +1,5 @@
-import type {
-  DialogProps} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import type { DialogProps } from '@mui/material';
 import {
   Button,
   Dialog,
@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton,
 } from '@mui/material';
 import type { ReactNode } from 'react';
 
@@ -16,11 +17,13 @@ export interface StyledModalProps {
   modalTitle?: ReactNode;
   showConfirm?: boolean;
   showCancel?: boolean;
+  /** Close button (an 'x') is always shown on the top right, unless explicitly set, for accessibility. A close button is also shown on the bottom right along with it, unless a 'Cancel' button is already shown. */
+  hideClose?: boolean;
   isConfirmDisabled?: boolean;
   onConfirm?(): void;
   onClose?(): void;
   fullWidth?: boolean;
-  maxWidth?: DialogProps["maxWidth"];
+  maxWidth?: DialogProps['maxWidth'];
   ariaModalTitle?: string;
   ariaModalDescription?: string;
 }
@@ -31,6 +34,7 @@ export function StyledModal({
   modalContent,
   showConfirm,
   showCancel,
+  hideClose,
   isConfirmDisabled,
   onConfirm,
   onClose,
@@ -39,7 +43,7 @@ export function StyledModal({
   ariaModalTitle,
   ariaModalDescription,
 }: StyledModalProps) {
-  const hasActions = showConfirm || showCancel;
+  const hasActions = showConfirm || showCancel || !hideClose;
 
   return (
     <Dialog
@@ -52,7 +56,21 @@ export function StyledModal({
       aria-describedby={ariaModalDescription}
     >
       {modalTitle && <DialogTitle>{modalTitle}</DialogTitle>}
-      <DialogContent dividers={!!modalTitle || hasActions}>
+      {!hideClose && (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: 'grey',
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      )}
+      <DialogContent>
         <DialogContentText>{modalContent}</DialogContentText>
       </DialogContent>
       {hasActions && (
@@ -70,6 +88,9 @@ export function StyledModal({
             >
               Confirm
             </Button>
+          )}
+          {!hideClose && !showCancel && (
+            <Button onClick={onClose}>Close</Button>
           )}
         </DialogActions>
       )}
