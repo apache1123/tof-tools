@@ -18,34 +18,32 @@ export function GearComparer() {
         <GearComparerOptions />
       </Box>
 
-      <Paper sx={{ p: 2, pb: 4 }} square elevation={0}>
+      <Paper sx={{ p: 3 }} square elevation={0}>
         <Stack spacing={4}>
           <LoadoutTitle />
           <LoadoutTeam />
           <LoadoutStats />
+
+          <Grid container spacing={3}>
+            <Grid xs={12} md={6}>
+              <Typography variant="h5" mb={1}>
+                Current gear in loadout
+              </Typography>
+              <LoadoutGear />
+              <LoadoutGearValue />
+            </Grid>
+            <Grid xs={12} md={6}>
+              <Box display="flex" justifyContent="space-between">
+                <Typography variant="h5" mb={1}>
+                  New gear
+                </Typography>
+              </Box>
+              <ReplacementGear />
+              <ReplacementGearValue />
+            </Grid>
+          </Grid>
         </Stack>
       </Paper>
-
-      <Grid container spacing={0}>
-        <Grid xs={12} md={6}>
-          <Paper sx={{ p: 2 }} square elevation={0}>
-            <Typography variant="h5" mb={1}>
-              Current gear
-            </Typography>
-            <LoadoutGear />
-            <LoadoutGearValue />
-          </Paper>
-        </Grid>
-        <Grid xs={12} md={6} py={2} pl={3}>
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="h5" mb={1}>
-              New gear
-            </Typography>
-          </Box>
-          <ReplacementGear />
-          <ReplacementGearValue />
-        </Grid>
-      </Grid>
 
       <Divider sx={{ my: 5 }} />
 
