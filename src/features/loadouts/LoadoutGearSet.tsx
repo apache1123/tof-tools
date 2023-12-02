@@ -5,6 +5,7 @@ import { gearTypesLookup } from '../../constants/gear-types';
 import type { GearSet } from '../../models/gear-set';
 import { loadoutsState } from '../../states/states';
 import { GearPiece } from '../GearPiece';
+import { GearValue } from '../GearValue';
 
 export function LoadoutGearSet() {
   const { selectedLoadout: loadoutSnap } = useSnapshot(loadoutsState);
@@ -23,6 +24,8 @@ export function LoadoutGearSet() {
         const gearState = gearSetState.getGearByType(gearTypeId);
         if (!gearSnap || !gearState) return null;
 
+        const gearValue = loadoutSnap.getGearValue(gearTypeId);
+
         return (
           <Grid key={gearTypeId} xs={12} sm={6} md={4} lg={3}>
             <GearPiece
@@ -33,6 +36,7 @@ export function LoadoutGearSet() {
               showStatSummary={loadoutSnap.elementalType}
               data-testid={gearTypeId}
             />
+            <GearValue gearValue={gearValue} data-testid={gearTypeId} />
           </Grid>
         );
       })}

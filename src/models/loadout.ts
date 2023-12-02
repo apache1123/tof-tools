@@ -65,7 +65,9 @@ export class Loadout implements Persistable<LoadoutDto> {
     ).toNumber();
   }
 
-  /** The damage multiplier of a specific piece of gear in the loadout, relative to the loadout's damage multiplier */
+  /** The damage multiplier of a specific piece of gear in the loadout, relative to the loadout's damage multiplier without that piece of gear.
+   * a.k.a the damage increase with vs without that piece of gear
+   */
   public getGearValue(gearTypeId: GearName): number {
     const gear = this.gearSet.getGearByType(gearTypeId);
 
@@ -99,6 +101,10 @@ export class Loadout implements Persistable<LoadoutDto> {
       critDamageWithoutGear,
       elementalDamageWithoutGear
     );
+
+    if (multiplierWithoutGear.isZero()) {
+      return 0;
+    }
 
     return BigNumber(this.damageMultiplier)
       .dividedBy(multiplierWithoutGear)
