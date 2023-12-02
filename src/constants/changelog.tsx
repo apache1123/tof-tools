@@ -80,4 +80,11 @@ export const changelog: Changelog = [
     ),
     isImportant: true,
   },
+  {
+    semver: '3.1.0',
+    date: new Date(Date.UTC(2023, 11, 2)),
+    title: 'Show the "gear value" of each piece of gear in a loadout',
+    description:
+      'The "value" of a piece of gear is the damage increase you would get with it equipped versus unequipped',
+  },
 ];
