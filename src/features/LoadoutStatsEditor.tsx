@@ -56,6 +56,7 @@ export function LoadoutStatsEditor({
                     height={90}
                   />
                 }
+                enterTouchDelay={0}
               >
                 <span>
                   <Typography
@@ -96,6 +97,7 @@ export function LoadoutStatsEditor({
                     height={60}
                   />
                 }
+                enterTouchDelay={0}
               >
                 <span>Click here for example</span>
               </Tooltip>
