@@ -5,16 +5,15 @@ import {
   AccordionSummary,
   Box,
   Paper,
+  Stack,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import type { ReactNode } from 'react';
 
-import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
 import type { CoreElementalType } from '../constants/elemental-type';
-import { defaultNumOfRandomStats } from '../constants/gear';
 import { Gear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
@@ -25,7 +24,7 @@ import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 import { GearOCRModal } from './GearOCRModal';
 import { GearRollBreakdown } from './GearRollBreakdown';
 import { GearStars } from './GearStars';
-import { DisabledStatEditor, EmptyStatEditor, StatEditor } from './StatEditor';
+import { EmptyStatEditor, StatEditor } from './StatEditor';
 
 export interface GearPieceProps {
   gearSnap: Gear;
@@ -103,7 +102,6 @@ export const GearPiece = ({
               enforceGearType={
                 disableGearTypeChange ? gearSnap.type.id : undefined
               }
-              iconButton
             />
           )}
           {showSaveGearButton && showSaveGearButton.targetLoadout && (
@@ -164,47 +162,6 @@ export const GearPiece = ({
   );
 };
 
-export interface EmptyGearPieceProps {
-  onGearTypeSelect(gearType: GearType): void;
-  showGearOCRButton?: boolean;
-  onReplaceGear?(gear: Gear): void;
-  ['data-testid']?: string;
-}
-
-export const EmptyGearPiece = ({
-  onGearTypeSelect,
-  showGearOCRButton,
-  onReplaceGear,
-  'data-testid': dataTestId,
-}: EmptyGearPieceProps) => {
-  return (
-    <Layout
-      typeIcon={<GearTypeIcon gearName={undefined} size={80} />}
-      typeSelector={
-        <GearTypeSelector
-          selectedGearType={undefined}
-          onChange={onGearTypeSelect}
-        />
-      }
-      starsSelector={<GearStarsSelector stars={0} disabled />}
-      randomStats={[...Array(defaultNumOfRandomStats)].map((_, i) => (
-        <DisabledStatEditor key={i} />
-      ))}
-      additionalActions={
-        showGearOCRButton && (
-          <GearOCRModal
-            onFinalizeGear={(gear) => {
-              if (onReplaceGear) onReplaceGear(gear);
-            }}
-          />
-        )
-      }
-      summary={undefined}
-      data-testid={dataTestId}
-    />
-  );
-};
-
 function Layout({
   typeIcon,
   typeSelector,
@@ -224,7 +181,7 @@ function Layout({
 }) {
   return (
     <Paper sx={{ p: 2 }} square elevation={2} data-testid={dataTestId}>
-      <Grid container spacing={2} mb={2}>
+      <Grid container spacing={2}>
         <Grid maxWidth={90} display="flex" alignItems="center">
           {typeIcon}
         </Grid>
@@ -232,10 +189,10 @@ function Layout({
           {typeSelector}
           <Box mt={1}>{starsSelector}</Box>
         </Grid>
-        <Grid display="flex" flexDirection="column">
-          {additionalActions}
-        </Grid>
       </Grid>
+      <Stack direction="row-reverse" spacing={1} mb={1}>
+        {additionalActions}
+      </Stack>
       <Box mb={3}>{randomStats}</Box>
       <Box>{summary}</Box>
     </Paper>

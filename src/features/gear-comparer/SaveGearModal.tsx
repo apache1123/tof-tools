@@ -1,5 +1,3 @@
-import SaveIcon from '@mui/icons-material/Save';
-
 import { ButtonModal } from '../../components/Modal/ButtonModal';
 import { Gear } from '../../models/gear';
 import type { Loadout } from '../../models/loadout';
@@ -24,8 +22,6 @@ export function SaveGearModal({ gear, targetLoadout }: SaveGearModalProps) {
           Gear.copy(gear, newGear);
           targetLoadout.replaceGear(newGear);
         }}
-        icon={<SaveIcon />}
-        iconButton
       />
     </>
   );

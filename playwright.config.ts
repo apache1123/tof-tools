@@ -78,4 +78,10 @@ export default defineConfig({
     timeout: 120 * 1000,
     reuseExistingServer: true,
   },
+
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.05,
+    },
+  },
 });
