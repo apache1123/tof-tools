@@ -1,4 +1,3 @@
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import BigNumber from 'bignumber.js';
@@ -90,8 +89,8 @@ export const GearOCRModal = ({
 
   return (
     <ButtonModal
-      buttonText="Upload gear"
-      modalTitle="Upload gear by using screenshot"
+      buttonText="Import gear"
+      modalTitle="Import gear by using screenshot"
       modalContent={
         <>
           <Grid container>
@@ -158,9 +157,8 @@ export const GearOCRModal = ({
           </Grid>
         </>
       }
-      icon={<AddPhotoAlternateIcon />}
       iconButton={iconButton}
-      aria-label="upload-gear"
+      aria-label="import-gear"
       showConfirm
       showCancel
       isConfirmDisabled={!tempGearSnap}

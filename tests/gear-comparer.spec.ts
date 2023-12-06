@@ -36,13 +36,13 @@ test('persists element specific user stat values', async ({ page }) => {
   await expect(page.getByLabel('Wanderer level')).toHaveValue(characterLevel);
 });
 
-test('upload gear, ocr fills in correct gear', async ({ page }) => {
+test('import gear, ocr fills in correct gear', async ({ page }) => {
   await page.goto('/gear-comparer');
   await dismissChangelog(page);
 
   await page
     .getByTestId('loadout-gear')
-    .getByLabel('upload-gear')
+    .getByLabel('import-gear')
     .first()
     .click();
   const fileChooserPromise = page.waitForEvent('filechooser');
