@@ -31,7 +31,13 @@ export function LoadoutGearSet() {
             <GearPiece
               gearSnap={gearSnap}
               gearState={gearState}
-              showGearOCRButton
+              showGearOCRButton={{
+                onGearChangeFromOCR(gearFromOCR) {
+                  if (gearFromOCR.type.id === gearTypeId) {
+                    gearSetState.setGear(gearFromOCR);
+                  }
+                },
+              }}
               disableGearTypeChange
               showStatSummary={loadoutSnap.elementalType}
               data-testid={gearTypeId}

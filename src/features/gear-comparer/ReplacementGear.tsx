@@ -26,7 +26,12 @@ export function ReplacementGear() {
       onGearTypeChange={(gearType) => {
         gearComparerState.selectedGearTypeId = gearType.id;
       }}
-      showGearOCRButton
+      showGearOCRButton={{
+        onGearChangeFromOCR(gearFromOCR) {
+          gearComparerState.replacementGearGearSet.setGear(gearFromOCR);
+          gearComparerState.selectedGearTypeId = gearFromOCR.type.id;
+        },
+      }}
       showSaveGearButton={{ targetLoadout: gearComparerState.selectedLoadout }}
       showStatSummary={elementalType}
       maxTitanStatsContent={

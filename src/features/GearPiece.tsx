@@ -14,7 +14,7 @@ import type { ReactNode } from 'react';
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
 import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
 import type { CoreElementalType } from '../constants/elemental-type';
-import { Gear } from '../models/gear';
+import type { Gear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { RandomStat } from '../models/random-stat';
@@ -29,7 +29,7 @@ import { EmptyStatEditor, StatEditor } from './StatEditor';
 export interface GearPieceProps {
   gearSnap: Gear;
   gearState: Gear;
-  showGearOCRButton?: boolean;
+  showGearOCRButton?: { onGearChangeFromOCR: (gearFromOCR: Gear) => void };
   disableGearTypeChange?: boolean;
   onGearTypeChange?: (gearType: GearType) => void;
   showSaveGearButton?: Pick<SaveGearModalProps, 'targetLoadout'>;
@@ -97,7 +97,7 @@ export const GearPiece = ({
           {showGearOCRButton && (
             <GearOCRModal
               onFinalizeGear={(replacementGear) => {
-                Gear.copy(replacementGear, gearState);
+                showGearOCRButton.onGearChangeFromOCR(replacementGear);
               }}
               enforceGearType={
                 disableGearTypeChange ? gearSnap.type.id : undefined

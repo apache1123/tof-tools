@@ -39,6 +39,10 @@ export class GearComparerState implements Persistable<GearComparerStateDto> {
     return this.selectedLoadout.getGearValue(this.selectedGearTypeId);
   }
 
+  public get replacementGearGearSet(): GearSet {
+    return this._replacementGearGearSet;
+  }
+
   public get replacementGear(): Gear {
     return this._replacementGearGearSet.getGearByType(this.selectedGearTypeId);
   }
