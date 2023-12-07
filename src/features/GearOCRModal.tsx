@@ -147,10 +147,7 @@ export const GearOCRModal = ({
                 <GearPiece
                   gearSnap={tempGearSnap as Gear}
                   gearState={tempGearState}
-                  onGearTypeChange={(gearType) => {
-                    tempGearState.type = gearType;
-                  }}
-                  showGearOCRButton={false}
+                  disableGearTypeChange
                 />
               )}
             </Grid>

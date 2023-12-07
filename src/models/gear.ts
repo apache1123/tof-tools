@@ -66,10 +66,6 @@ export class Gear implements Persistable<GearDto> {
   public get type() {
     return this._type;
   }
-  public set type(type: GearType) {
-    this._type = type;
-    this.resetRandomStats();
-  }
 
   public get stars() {
     return this._stars;
@@ -418,9 +414,10 @@ export class Gear implements Persistable<GearDto> {
     };
   }
 
-  // Copy all gear properties over except for the id
+  /**  Copy all gear properties over except for the id, as long as the gear's type is the same */
   public static copy(from: Gear, to: Gear) {
-    to.type = from.type;
+    if (from.type.id !== to.type.id) return;
+
     to.stars = from.stars;
 
     to.randomStats = [];
@@ -467,7 +464,7 @@ export class Gear implements Persistable<GearDto> {
 
     const gearType = gearTypesLookup.byId[typeId];
     this._id = id;
-    this.type = gearType;
+    this._type = gearType;
     this.stars = stars;
     this.isAugmented = !!isAugmented;
     this.isTitan = !!isTitan;
