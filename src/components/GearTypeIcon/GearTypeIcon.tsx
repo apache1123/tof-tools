@@ -5,13 +5,20 @@ import type { GearName } from '../../constants/gear-types';
 
 export interface GearTypeIconProps {
   gearName: GearName | undefined;
+  isTitan?: boolean;
   size?: number;
 }
 
-export const GearTypeIcon = ({ gearName, size = 80 }: GearTypeIconProps) => {
+export const GearTypeIcon = ({
+  gearName,
+  isTitan = false,
+  size = 80,
+}: GearTypeIconProps) => {
   if (gearName) {
     const imageName = gearName.toLowerCase().replaceAll(' ', '-');
-    const imagePath = `/icons/gear/${imageName}.png`;
+    const imagePath = isTitan
+      ? `/icons/gear/titan/${imageName}.png`
+      : `/icons/gear/${imageName}.png`;
 
     return (
       <Image src={imagePath} alt={gearName} width={size} height={size}></Image>

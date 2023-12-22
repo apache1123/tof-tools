@@ -42,21 +42,19 @@ export class Gear implements Persistable<GearDto> {
   private _id: string;
   private _type: GearType;
   private _stars: number;
+  private _isAugmented: boolean;
 
   public randomStats: (RandomStat | undefined)[];
   public augmentStats: AugmentStat[];
-  public isAugmented: boolean;
-  public isTitan: boolean;
 
   public constructor(type: GearType) {
     this._id = nanoid();
     this._type = type;
     this._stars = 0;
+    this._isAugmented = false;
     this.randomStats = [];
     this.resetRandomStats();
     this.augmentStats = [];
-    this.isAugmented = false;
-    this.isTitan = false;
   }
 
   public get id() {
@@ -79,6 +77,20 @@ export class Gear implements Persistable<GearDto> {
     return Object.keys(
       groupBy(this.getRandomStatRollCombinations(), 'stars')
     ).map((x) => +x);
+  }
+
+  public get isAugmented(): boolean {
+    return this._isAugmented;
+  }
+  public set isAugmented(value: boolean) {
+    if (this._isAugmented === value) return;
+
+    this._isAugmented = value;
+
+    // Reset random stats augment to zero when going from an augmented gear to a non-augmented gear
+    if (!value) {
+      this.resetRandomStatsAugment();
+    }
   }
 
   public getTotalAttackFlat(elementalType: CoreElementalType): number {
@@ -220,7 +232,6 @@ export class Gear implements Persistable<GearDto> {
     pullUpStatsValueIfApplicable();
 
     maxTitanGear.isAugmented = true;
-    maxTitanGear.isTitan = true;
 
     return maxTitanGear;
 
@@ -285,7 +296,7 @@ export class Gear implements Persistable<GearDto> {
               if (randomStatAndType.randomStat) {
                 if (i === 0) {
                   highestValueWithAugment =
-                    randomStatAndType.randomStat.getTotalValueWithAugment();
+                    randomStatAndType.randomStat.totalValue;
 
                   return;
                 }
@@ -314,9 +325,9 @@ export class Gear implements Persistable<GearDto> {
         }
       });
 
-      const valueWithAugmentOfHighestStat = maxTitanGear.randomStats
-        .find((randomStat) => randomStat?.type.id === highestStatName)
-        ?.getTotalValueWithAugment();
+      const valueWithAugmentOfHighestStat = maxTitanGear.randomStats.find(
+        (randomStat) => randomStat?.type.id === highestStatName
+      )?.totalValue;
       maxTitanGear.augmentStats.forEach((augmentStat) => {
         const statType = augmentStat.type;
         if (
@@ -345,7 +356,7 @@ export class Gear implements Persistable<GearDto> {
         if (!stat) return 0;
 
         const statType = stat.type;
-        return predicate(statType) ? stat.getTotalValueWithAugment() : 0;
+        return predicate(statType) ? stat.totalValue : 0;
       })
     ).toNumber();
   }
@@ -360,9 +371,7 @@ export class Gear implements Persistable<GearDto> {
         if (!stat) return 0;
 
         const statType = stat.type;
-        return predicate(statType, elementalType)
-          ? stat.getTotalValueWithAugment()
-          : 0;
+        return predicate(statType, elementalType) ? stat.totalValue : 0;
       })
     ).toNumber();
   }
@@ -371,6 +380,14 @@ export class Gear implements Persistable<GearDto> {
     this.randomStats = [...Array(this._type.numberOfRandomStats)].map(
       () => undefined
     );
+  }
+
+  private resetRandomStatsAugment() {
+    for (const randomStat of this.randomStats) {
+      if (randomStat) {
+        randomStat.augmentIncreaseValue = 0;
+      }
+    }
   }
 
   /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
@@ -448,7 +465,6 @@ export class Gear implements Persistable<GearDto> {
     });
 
     to.isAugmented = from.isAugmented;
-    to.isTitan = from.isTitan;
   }
 
   public copyFromDto(dto: GearDto): void {
@@ -459,7 +475,6 @@ export class Gear implements Persistable<GearDto> {
       randomStats: randomStatDtos,
       augmentStats: augmentStatDtos,
       isAugmented,
-      isTitan,
     } = dto;
 
     const gearType = gearTypesLookup.byId[typeId];
@@ -467,7 +482,6 @@ export class Gear implements Persistable<GearDto> {
     this._type = gearType;
     this.stars = stars;
     this.isAugmented = !!isAugmented;
-    this.isTitan = !!isTitan;
 
     this.resetRandomStats();
     randomStatDtos.forEach((randomStatDto, i) => {
@@ -489,8 +503,7 @@ export class Gear implements Persistable<GearDto> {
   }
 
   public toDto(): GearDto {
-    const { id, type, stars, randomStats, augmentStats, isAugmented, isTitan } =
-      this;
+    const { id, type, stars, randomStats, augmentStats, isAugmented } = this;
     return {
       id,
       typeId: type.id,
@@ -498,7 +511,6 @@ export class Gear implements Persistable<GearDto> {
       randomStats: randomStats.map((randomStat) => randomStat?.toDto()),
       augmentStats: augmentStats.map((augmentStat) => augmentStat.toDto()),
       isAugmented,
-      isTitan,
       version: 1,
     };
   }
@@ -511,6 +523,5 @@ export interface GearDto extends Dto {
   randomStats: (RandomStatDto | undefined)[];
   augmentStats?: AugmentStatDto[];
   isAugmented?: boolean;
-  isTitan?: boolean;
   version: 1;
 }

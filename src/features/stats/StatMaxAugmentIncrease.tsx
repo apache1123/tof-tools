@@ -48,11 +48,13 @@ export function StatMaxAugmentIncrease() {
                 possibleStatTypes={possibleStatTypes}
                 statSnap={statSnap as RandomStat}
                 statState={statState}
+                isAugmented={false}
               />
             ) : (
               <EmptyStatEditor
                 possibleStatTypes={possibleStatTypes}
                 onStatTypeChange={handleNewStat}
+                isAugmented={false}
               />
             )}
           </Grid>

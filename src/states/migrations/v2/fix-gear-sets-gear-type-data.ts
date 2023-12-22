@@ -50,7 +50,6 @@ export function fixGearSetsGearTypeData() {
           randomStats: [undefined, undefined, undefined, undefined],
           augmentStats: [],
           isAugmented: false,
-          isTitan: false,
           version: 1,
         };
       }

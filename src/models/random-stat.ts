@@ -31,11 +31,41 @@ export class RandomStat implements Persistable<RandomStatDto> {
     this.resetValueToDefault();
   }
 
-  public getValueToString(): string {
+  public get valueString(): string {
     const {
       value,
       type: { isPercentageBased },
     } = this;
+    return isPercentageBased
+      ? toPercentageString2dp(value)
+      : toIntegerString(value);
+  }
+
+  public get augmentIncreaseValueString(): string {
+    const {
+      augmentIncreaseValue,
+      type: { isPercentageBased },
+    } = this;
+    return isPercentageBased
+      ? toPercentageString2dp(augmentIncreaseValue)
+      : toIntegerString(augmentIncreaseValue);
+  }
+
+  /** Total effective stat value.
+   * If before augmenting, this is the same as `value`.
+   * If after augmenting, this is (5-star base) `value` + `augmentIncreaseValue`.
+   */
+  public get totalValue(): number {
+    return BigNumber(this.value).plus(this.augmentIncreaseValue).toNumber();
+  }
+  public set totalValue(value: number) {
+    if (value >= this.value) {
+      this.augmentIncreaseValue = BigNumber(value).minus(this.value).toNumber();
+    }
+  }
+  public get totalValueString(): string {
+    const { isPercentageBased } = this.type;
+    const value = this.totalValue;
     return isPercentageBased
       ? toPercentageString2dp(value)
       : toIntegerString(value);
@@ -52,27 +82,6 @@ export class RandomStat implements Persistable<RandomStatDto> {
       .multipliedBy(maxAugmentIncreaseMultiplier)
       .plus(maxAugmentIncreaseFlat)
       .toNumber();
-  }
-
-  public getAugmentIncreaseValueToString(): string {
-    const {
-      augmentIncreaseValue,
-      type: { isPercentageBased },
-    } = this;
-    return isPercentageBased
-      ? toPercentageString2dp(augmentIncreaseValue)
-      : toIntegerString(augmentIncreaseValue);
-  }
-
-  public getTotalValueWithAugment(): number {
-    return BigNumber(this.value).plus(this.augmentIncreaseValue).toNumber();
-  }
-  public getTotalValueWithAugmentToString(): string {
-    const { isPercentageBased } = this.type;
-    const value = this.getTotalValueWithAugment();
-    return isPercentageBased
-      ? toPercentageString2dp(value)
-      : toIntegerString(value);
   }
 
   public addOneAverageRoll() {

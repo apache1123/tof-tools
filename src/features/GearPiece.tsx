@@ -12,16 +12,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 import type { ReactNode } from 'react';
 
 import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
-import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
 import type { CoreElementalType } from '../constants/elemental-type';
 import type { Gear } from '../models/gear';
-import type { GearType } from '../models/gear-type';
 import { getPossibleRandomStatTypes } from '../models/gear-type';
 import { RandomStat } from '../models/random-stat';
-import type { SaveGearModalProps } from './gear-comparer/SaveGearModal';
-import { SaveGearModal } from './gear-comparer/SaveGearModal';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
-import { GearOCRModal } from './GearOCRModal';
 import { GearRollBreakdown } from './GearRollBreakdown';
 import { GearStars } from './GearStars';
 import { EmptyStatEditor, StatEditor } from './StatEditor';
@@ -29,10 +24,11 @@ import { EmptyStatEditor, StatEditor } from './StatEditor';
 export interface GearPieceProps {
   gearSnap: Gear;
   gearState: Gear;
-  showGearOCRButton?: { onGearChangeFromOCR: (gearFromOCR: Gear) => void };
-  disableGearTypeChange?: boolean;
-  onGearTypeChange?: (gearType: GearType) => void;
-  showSaveGearButton?: Pick<SaveGearModalProps, 'targetLoadout'>;
+  // TODO: Explore potentially moving `gearTypeSelector` and `actions` out of this component (need to rethink layout)
+  /** Gear type selector is defined as a slot, as changing a gear instance's gear type is forbidden. Changing the gear type is essentially switching to another gear instance. Kept here for layout purposes */
+  gearTypeSelector?: ReactNode;
+  /** External actions such as `Import gear` & `Save gear` that make no sense to be orchestrated by a `Gear` instance, but can be slotted here (for layout purposes) */
+  actions?: ReactNode;
   showStatSummary?: CoreElementalType;
   maxTitanStatsContent?: ReactNode;
   additionalAccordions?: ReactNode;
@@ -42,35 +38,26 @@ export interface GearPieceProps {
 export const GearPiece = ({
   gearSnap,
   gearState,
-  showGearOCRButton,
-  disableGearTypeChange,
-  onGearTypeChange,
-  showSaveGearButton,
+  gearTypeSelector,
+  actions,
   showStatSummary,
   maxTitanStatsContent,
   additionalAccordions,
   'data-testid': dataTestId,
 }: GearPieceProps) => {
   const gearType = gearSnap.type;
+  const isTitan = gearSnap.isAugmented;
   const possibleRandomStatTypes = getPossibleRandomStatTypes(gearType);
 
   return (
     <Layout
-      typeIcon={<GearTypeIcon gearName={gearType.id} size={70} />}
-      typeSelector={
-        <GearTypeSelector
-          selectedGearType={gearType}
-          onChange={(gearType) => {
-            if (onGearTypeChange && !disableGearTypeChange) {
-              onGearTypeChange(gearType);
-            }
-          }}
-          disabled={disableGearTypeChange}
-        />
+      typeIcon={
+        <GearTypeIcon gearName={gearType.id} isTitan={isTitan} size={70} />
       }
+      typeSelector={gearTypeSelector}
       starsSelector={<GearStars gearSnap={gearSnap} gearState={gearState} />}
       randomStats={
-        <>
+        <Stack spacing={2}>
           {gearSnap.randomStats.map((randomStatSnap, i) => {
             return randomStatSnap && gearState.randomStats[i] ? (
               <StatEditor
@@ -79,39 +66,22 @@ export const GearPiece = ({
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 statState={gearState.randomStats[i]!}
                 possibleStatTypes={possibleRandomStatTypes}
+                isAugmented={gearSnap.isAugmented}
               />
             ) : (
               <EmptyStatEditor
                 key={i}
                 possibleStatTypes={possibleRandomStatTypes}
+                isAugmented={gearSnap.isAugmented}
                 onStatTypeChange={(statType) => {
                   gearState.randomStats[i] = new RandomStat(statType);
                 }}
               />
             );
           })}
-        </>
+        </Stack>
       }
-      additionalActions={
-        <>
-          {showGearOCRButton && (
-            <GearOCRModal
-              onFinalizeGear={(replacementGear) => {
-                showGearOCRButton.onGearChangeFromOCR(replacementGear);
-              }}
-              enforceGearType={
-                disableGearTypeChange ? gearSnap.type.id : undefined
-              }
-            />
-          )}
-          {showSaveGearButton && showSaveGearButton.targetLoadout && (
-            <SaveGearModal
-              gear={gearState}
-              targetLoadout={showSaveGearButton.targetLoadout}
-            />
-          )}
-        </>
-      }
+      actions={actions}
       summary={
         <>
           {showStatSummary && (
@@ -167,7 +137,7 @@ function Layout({
   typeSelector,
   starsSelector,
   randomStats,
-  additionalActions,
+  actions,
   summary,
   'data-testid': dataTestId,
 }: {
@@ -175,7 +145,7 @@ function Layout({
   typeSelector: ReactNode;
   starsSelector: ReactNode;
   randomStats: ReactNode;
-  additionalActions: ReactNode;
+  actions: ReactNode;
   summary: ReactNode;
   ['data-testid']?: string;
 }) {
@@ -190,8 +160,8 @@ function Layout({
           <Box mt={1}>{starsSelector}</Box>
         </Grid>
       </Grid>
-      <Stack direction="row-reverse" spacing={1} mb={1}>
-        {additionalActions}
+      <Stack direction="row-reverse" spacing={1} mb={2}>
+        {actions}
       </Stack>
       <Box mb={3}>{randomStats}</Box>
       <Box>{summary}</Box>

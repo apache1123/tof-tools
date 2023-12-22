@@ -2,9 +2,11 @@ import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
+import { GearTypeSelector } from '../../components/GearTypeSelector/GearTypeSelector';
 import type { Gear } from '../../models/gear';
 import type { GearComparerState } from '../../states/gear-comparer';
 import { gearComparerState } from '../../states/states';
+import { GearOCRModal } from '../GearOCRModal';
 import { GearPiece } from '../GearPiece';
 import { TitanGearMaxStats } from '../TitanGearMaxStats';
 import { gearComparerGearMaxTitansState } from './states/derived/gear-comparer-gear-max-titans';
@@ -22,15 +24,26 @@ export function LoadoutGear() {
     <GearPiece
       gearSnap={gearSnap}
       gearState={gearState}
-      onGearTypeChange={(gearType) => {
-        gearComparerState.selectedGearTypeId = gearType.id;
-      }}
-      showGearOCRButton={{
-        onGearChangeFromOCR(gearFromOCR) {
-          gearComparerState.selectedLoadout.gearSet.setGear(gearFromOCR);
-          gearComparerState.selectedGearTypeId = gearFromOCR.type.id;
-        },
-      }}
+      gearTypeSelector={
+        <GearTypeSelector
+          selectedValue={{
+            gearType: gearSnap.type,
+            isTitan: gearSnap.isAugmented,
+          }}
+          onChange={({ gearType, isTitan }) => {
+            gearComparerState.selectedGearTypeId = gearType.id;
+            gearComparerState.selectedLoadoutGear.isAugmented = isTitan;
+          }}
+        />
+      }
+      actions={
+        <GearOCRModal
+          onFinalizeGear={(gearFromOCR) => {
+            gearComparerState.selectedLoadout.gearSet.setGear(gearFromOCR);
+            gearComparerState.selectedGearTypeId = gearFromOCR.type.id;
+          }}
+        />
+      }
       showStatSummary={elementalType}
       maxTitanStatsContent={
         gearSnap.stars !== 5 &&

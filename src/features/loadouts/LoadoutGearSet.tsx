@@ -1,14 +1,18 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
+import { GearTypeSelector } from '../../components/GearTypeSelector/GearTypeSelector';
 import { gearTypesLookup } from '../../constants/gear-types';
-import type { GearSet } from '../../models/gear-set';
+import type { LoadoutsState } from '../../states/loadouts';
 import { loadoutsState } from '../../states/states';
+import { GearOCRModal } from '../GearOCRModal';
 import { GearPiece } from '../GearPiece';
 import { GearValue } from '../GearValue';
 
 export function LoadoutGearSet() {
-  const { selectedLoadout: loadoutSnap } = useSnapshot(loadoutsState);
+  const { selectedLoadout: loadoutSnap } = useSnapshot(
+    loadoutsState
+  ) as LoadoutsState;
   const { gearSet: gearSetSnap } = loadoutSnap;
 
   const {
@@ -20,7 +24,7 @@ export function LoadoutGearSet() {
   return (
     <Grid container spacing={3}>
       {gearTypesLookup.allIds.map((gearTypeId) => {
-        const gearSnap = (gearSetSnap as GearSet).getGearByType(gearTypeId);
+        const gearSnap = gearSetSnap.getGearByType(gearTypeId);
         const gearState = gearSetState.getGearByType(gearTypeId);
         if (!gearSnap || !gearState) return null;
 
@@ -31,14 +35,30 @@ export function LoadoutGearSet() {
             <GearPiece
               gearSnap={gearSnap}
               gearState={gearState}
-              showGearOCRButton={{
-                onGearChangeFromOCR(gearFromOCR) {
-                  if (gearFromOCR.type.id === gearTypeId) {
-                    gearSetState.setGear(gearFromOCR);
-                  }
-                },
-              }}
-              disableGearTypeChange
+              gearTypeSelector={
+                <GearTypeSelector
+                  selectedValue={{
+                    gearType: gearSnap.type,
+                    isTitan: gearSnap.isAugmented,
+                  }}
+                  onChange={({ gearType, isTitan }) => {
+                    if (gearType.id === gearState.type.id) {
+                      gearState.isAugmented = isTitan;
+                    }
+                  }}
+                  disableGearTypeChange
+                />
+              }
+              actions={
+                <GearOCRModal
+                  onFinalizeGear={(gearFromOCR) => {
+                    if (gearFromOCR.type.id === gearTypeId) {
+                      gearSetState.setGear(gearFromOCR);
+                    }
+                  }}
+                  enforceGearType={gearSnap.type.id}
+                />
+              }
               showStatSummary={loadoutSnap.elementalType}
               data-testid={gearTypeId}
             />
