@@ -140,8 +140,8 @@ export class LoadoutMatrixSetBuffs {
     // TODO: This is duplicated in loadout-weapon-buffs.ts
     if (elementalWeaponsRequirements) {
       const { weapon1, weapon2, weapon3 } = this._loadout.team;
-      const weaponElementalTypes = [weapon1, weapon2, weapon3].map((weapon) =>
-        weapon ? weapon.definition.elementalType : undefined
+      const weaponElementalTypes = [weapon1, weapon2, weapon3].flatMap(
+        (weapon) => (weapon ? weapon.definition.elementalTypes : [])
       );
 
       let hasMetElementalWeaponsRequirement = false;

@@ -87,4 +87,9 @@ export const changelog: Changelog = [
     description:
       'The "value" of a piece of gear is the damage increase you would get with it equipped versus unequipped',
   },
+  {
+    semver: '3.2.0',
+    date: new Date(Date.UTC(2023, 11, 22)),
+    title: 'Add Yan Miao',
+  },
 ];
