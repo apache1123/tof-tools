@@ -9,7 +9,10 @@ import type {
 export interface WeaponDefinition {
   id: WeaponName;
   displayName: string;
-  elementalType: WeaponElementalType;
+  /** The elemental type the weapon is considered to be for the purposes of elemental resonance, matrix effects etc. (not the damage dealing elemental type)
+   * E.g. For Yan Miao, her weapon is considered to be both Physical and Flame to trigger Physical resonance and Flame resonance, but deals (mainly) physical damage.
+   */
+  elementalTypes: WeaponElementalType[];
   type: WeaponType;
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
   critRateBuffs: WeaponCritRateBuffDefinition[];

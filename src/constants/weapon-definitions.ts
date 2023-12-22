@@ -34,6 +34,7 @@ export type WeaponName =
   | 'Tian Lang'
   | 'Tsubasa'
   | 'Umi'
+  | 'Yan Miao'
   | 'Yu Lan'
   | 'Zero';
 
@@ -71,6 +72,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Tian Lang',
     'Tsubasa',
     'Umi',
+    'Yan Miao',
     'Yu Lan',
     'Zero',
   ],
@@ -78,7 +80,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Alyss']: {
       id: 'Alyss',
       displayName: 'Alyss',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -99,7 +101,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Annabella']: {
       id: 'Annabella',
       displayName: 'Annabella',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -143,7 +145,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Claudia']: {
       id: 'Claudia',
       displayName: 'Claudia',
-      elementalType: 'Physical',
+      elementalTypes: ['Physical'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -165,7 +167,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Cobalt-B']: {
       id: 'Cobalt-B',
       displayName: 'Cobalt-B',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -186,7 +188,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Cocoritter']: {
       id: 'Cocoritter',
       displayName: 'Cocoritter',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -220,7 +222,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Crow']: {
       id: 'Crow',
       displayName: 'Crow',
-      elementalType: 'Volt',
+      elementalTypes: ['Volt'],
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -228,7 +230,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Fei Se']: {
       id: 'Fei Se',
       displayName: 'Fei Se',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -249,7 +251,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Fenrir']: {
       id: 'Fenrir',
       displayName: 'Fenrir',
-      elementalType: 'Volt',
+      elementalTypes: ['Volt'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -294,7 +296,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Fiona']: {
       id: 'Fiona',
       displayName: 'Fiona',
-      elementalType: 'Altered',
+      elementalTypes: ['Altered'],
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -327,7 +329,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Frigg']: {
       id: 'Frigg',
       displayName: 'Frigg',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -370,7 +372,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Gnonno']: {
       id: 'Gnonno',
       displayName: 'Gnonno',
-      elementalType: 'Physical',
+      elementalTypes: ['Physical'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -392,7 +394,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Huang (Mimi)']: {
       id: 'Huang (Mimi)',
       displayName: 'Huang (Mimi)',
-      elementalType: 'Volt',
+      elementalTypes: ['Volt'],
       type: 'Defense',
       attackPercentBuffs: [
         {
@@ -413,7 +415,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Huma']: {
       id: 'Huma',
       displayName: 'Huma',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'Defense',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -421,7 +423,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Icarus']: {
       id: 'Icarus',
       displayName: 'Icarus',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -442,7 +444,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['King']: {
       id: 'King',
       displayName: 'King',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -450,7 +452,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Lan']: {
       id: 'Lan',
       displayName: 'Lan',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'Defense',
       attackPercentBuffs: [
         {
@@ -471,7 +473,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Lin']: {
       id: 'Lin',
       displayName: 'Lin',
-      elementalType: 'Altered',
+      elementalTypes: ['Altered'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -527,7 +529,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Ling Han']: {
       id: 'Ling Han',
       displayName: 'Ling Han',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -559,7 +561,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Liu Huo']: {
       id: 'Liu Huo',
       displayName: 'Liu Huo',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -580,7 +582,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Lyra']: {
       id: 'Lyra',
       displayName: 'Lyra',
-      elementalType: 'Physical',
+      elementalTypes: ['Physical'],
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -615,7 +617,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Meryl']: {
       id: 'Meryl',
       displayName: 'Meryl',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'Defense',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -623,7 +625,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Ming Jing']: {
       id: 'Ming Jing',
       displayName: 'Ming Jing (Zeke)',
-      elementalType: 'Physical',
+      elementalTypes: ['Physical', 'Flame'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -657,7 +659,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Nan Yin']: {
       id: 'Nan Yin',
       displayName: 'Nan Yin',
-      elementalType: 'Altered',
+      elementalTypes: ['Altered'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -684,7 +686,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Nemesis']: {
       id: 'Nemesis',
       displayName: 'Nemesis',
-      elementalType: 'Volt',
+      elementalTypes: ['Volt'],
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -740,7 +742,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Rubilia']: {
       id: 'Rubilia',
       displayName: 'Rubilia',
-      elementalType: 'Volt',
+      elementalTypes: ['Volt'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -761,7 +763,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Ruby']: {
       id: 'Ruby',
       displayName: 'Ruby',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -793,7 +795,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Saki Fuwa']: {
       id: 'Saki Fuwa',
       displayName: 'Saki Fuwa',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -814,7 +816,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Samir']: {
       id: 'Samir',
       displayName: 'Samir',
-      elementalType: 'Volt',
+      elementalTypes: ['Volt'],
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -822,7 +824,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Shiro']: {
       id: 'Shiro',
       displayName: 'Shiro',
-      elementalType: 'Physical',
+      elementalTypes: ['Physical'],
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -830,7 +832,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Tian Lang']: {
       id: 'Tian Lang',
       displayName: 'Tian Lang',
-      elementalType: 'Volt',
+      elementalTypes: ['Volt'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -864,7 +866,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Tsubasa']: {
       id: 'Tsubasa',
       displayName: 'Tsubasa',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -872,7 +874,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Umi']: {
       id: 'Umi',
       displayName: 'Umi',
-      elementalType: 'Physical',
+      elementalTypes: ['Physical'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -891,10 +893,18 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
+    ['Yan Miao']: {
+      id: 'Yan Miao',
+      displayName: 'Yan Miao',
+      elementalTypes: ['Physical', 'Flame'],
+      type: 'DPS',
+      attackPercentBuffs: [],
+      critRateBuffs: [],
+    },
     ['Yu Lan']: {
       id: 'Yu Lan',
       displayName: 'Yu Lan',
-      elementalType: 'Frost',
+      elementalTypes: ['Frost'],
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -915,7 +925,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     ['Zero']: {
       id: 'Zero',
       displayName: 'Zero',
-      elementalType: 'Flame',
+      elementalTypes: ['Flame'],
       type: 'Support',
       attackPercentBuffs: [
         {

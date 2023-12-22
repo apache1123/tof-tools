@@ -43,6 +43,7 @@ export type MatrixSetBaseName =
   | 'Tian Lang'
   | 'Tsubasa'
   | 'Umi'
+  | 'Yan Miao'
   | 'Yu Lan'
   | 'Zero';
 
@@ -81,6 +82,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Tian Lang 2pc',
   'Tsubasa 2pc',
   'Umi 2pc',
+  'Yan Miao 2pc',
   'Yu Lan 2pc',
   'Zero 2pc',
 ];
@@ -120,6 +122,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Tian Lang 4pc',
   'Tsubasa 4pc',
   'Umi 4pc',
+  'Yan Miao 4pc',
   'Yu Lan 4pc',
   'Zero 4pc',
 ];
@@ -611,6 +614,27 @@ export const matrixSetDefinitionsLookup: DataById<
     critRateBuffs: [],
     critDamageBuffs: [],
   },
+  'Yan Miao 2pc': {
+    id: 'Yan Miao 2pc',
+    displayName: 'Yan Miao 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description: 'Increase physical and flame ATK, works off-hand',
+        starValues: [
+          { star: 0, value: 0.19 },
+          { star: 1, value: 0.21 },
+          { star: 2, value: 0.23 },
+          { star: 3, value: 0.25 },
+        ],
+        elementalTypes: ['Flame', 'Physical'],
+        canStack: false,
+        isActivePassively: true,
+      },
+    ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
   'Yu Lan 2pc': {
     id: 'Yu Lan 2pc',
     displayName: 'Yu Lan 2pc',
@@ -994,6 +1018,14 @@ export const matrixSetDefinitionsLookup: DataById<
   'Umi 4pc': {
     id: 'Umi 4pc',
     displayName: 'Umi 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Yan Miao 4pc': {
+    id: 'Yan Miao 4pc',
+    displayName: 'Yan Miao 4pc',
     pieces: 4,
     attackPercentBuffs: [],
     critRateBuffs: [],

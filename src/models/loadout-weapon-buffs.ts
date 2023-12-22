@@ -105,13 +105,14 @@ export class LoadoutWeaponBuffs {
       elementalWeaponsRequirements,
     } = buffDefinition;
     const { stars } = weapon;
-    const { elementalResonance, weaponResonance } = this._loadout.team;
+    const { elementalResonances, weaponResonance } = this._loadout.team;
 
     if (stars < minStarRequirement || stars > maxStarRequirement) return false;
     if (
       elementalResonanceRequirements &&
-      (!elementalResonance ||
-        !elementalResonanceRequirements.includes(elementalResonance))
+      elementalResonanceRequirements.every(
+        (x) => !elementalResonances.includes(x)
+      )
     )
       return false;
     if (
@@ -124,8 +125,8 @@ export class LoadoutWeaponBuffs {
     // TODO: This is duplicated in loadout-matrix-set-buffs.ts
     if (elementalWeaponsRequirements) {
       const { weapon1, weapon2, weapon3 } = this._loadout.team;
-      const weaponElementalTypes = [weapon1, weapon2, weapon3].map((weapon) =>
-        weapon ? weapon.definition.elementalType : undefined
+      const weaponElementalTypes = [weapon1, weapon2, weapon3].flatMap(
+        (weapon) => (weapon ? weapon.definition.elementalTypes : [])
       );
 
       let hasMetElementalWeaponsRequirement = false;

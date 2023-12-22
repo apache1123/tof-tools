@@ -1,4 +1,7 @@
+import groupBy from 'lodash.groupby';
+
 import type { ElementalResonance } from '../constants/elemental-resonance';
+import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponResonance } from '../constants/weapon-resonance';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
@@ -11,41 +14,20 @@ export class Team implements Persistable<TeamDto> {
   public weapon2: WeaponSlot;
   public weapon3: WeaponSlot;
 
-  public get elementalResonance(): ElementalResonance {
+  public get elementalResonances(): ElementalResonance[] {
     const { weapon1, weapon2, weapon3 } = this;
-    const elementalTypes = [weapon1, weapon2, weapon3].map((weapon) => {
-      if (!weapon) return undefined;
-      const definition = weapon.definition;
-      return definition.elementalType;
-    });
+    const elementalTypes = [weapon1, weapon2, weapon3].flatMap((weapon) =>
+      weapon ? weapon.definition.elementalTypes : []
+    );
 
-    if (
-      elementalTypes.filter((elementalType) => elementalType === 'Altered')
-        .length > 1
-    )
-      return 'Altered';
-    if (
-      elementalTypes.filter((elementalType) => elementalType === 'Flame')
-        .length > 1
-    )
-      return 'Flame';
-    if (
-      elementalTypes.filter((elementalType) => elementalType === 'Frost')
-        .length > 1
-    )
-      return 'Frost';
-    if (
-      elementalTypes.filter((elementalType) => elementalType === 'Physical')
-        .length > 1
-    )
-      return 'Physical';
-    if (
-      elementalTypes.filter((elementalType) => elementalType === 'Volt')
-        .length > 1
-    )
-      return 'Volt';
+    const elementalTypeGroups = groupBy(elementalTypes);
+    const elementalResonances = (
+      Object.keys(elementalTypeGroups) as WeaponElementalType[]
+    ).flatMap((elementalType) =>
+      elementalTypeGroups[elementalType].length > 1 ? elementalType : []
+    );
 
-    return 'None';
+    return elementalResonances.length ? elementalResonances : ['None'];
   }
 
   public get weaponResonance(): WeaponResonance {

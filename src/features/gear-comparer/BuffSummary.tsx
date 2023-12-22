@@ -10,7 +10,7 @@ export function BuffSummary() {
   const {
     selectedLoadout: {
       elementalType,
-      team: { elementalResonance, weaponResonance },
+      team: { elementalResonances, weaponResonance },
       weaponBuffs,
       matrixSetBuffs,
       attackBuffTotal,
@@ -111,7 +111,7 @@ export function BuffSummary() {
             Elemental / Weapon resonance
           </Typography>
           <Typography>
-            {elementalResonance} / {weaponResonance}
+            {elementalResonances.join(' & ')} / {weaponResonance}
           </Typography>
         </Grid>
       </Grid>
