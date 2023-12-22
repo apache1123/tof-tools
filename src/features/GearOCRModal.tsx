@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 
+import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
 import { ImageOCR } from '../components/ImageOCR/ImageOCR';
 import { ButtonModal } from '../components/Modal/ButtonModal';
 import {
@@ -21,6 +22,7 @@ import { Gear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { RandomStat } from '../models/random-stat';
 import type { StatType } from '../models/stat-type';
+import type { OcrState } from '../states/ocr-temp-gear';
 import {
   ocrState,
   removeOCRTempGear,
@@ -53,7 +55,7 @@ export const GearOCRModal = ({
   iconButton,
 }: GearOCRModalProps) => {
   const { tempGear: tempGearState } = ocrState;
-  const { tempGear: tempGearSnap } = useSnapshot(ocrState);
+  const { tempGear: tempGearSnap } = useSnapshot(ocrState) as OcrState;
 
   const [imageURL, setImageURL] = useState<string>();
   const handleImageURLChange = (imageURL: string) => {
@@ -145,9 +147,17 @@ export const GearOCRModal = ({
               )}
               {!errorMessage && tempGearSnap && tempGearState && (
                 <GearPiece
-                  gearSnap={tempGearSnap as Gear}
+                  gearSnap={tempGearSnap}
                   gearState={tempGearState}
-                  disableGearTypeChange
+                  gearTypeSelector={
+                    <GearTypeSelector
+                      selectedValue={{
+                        gearType: tempGearSnap.type,
+                        isTitan: tempGearSnap.isAugmented,
+                      }}
+                      disabled
+                    />
+                  }
                 />
               )}
             </Grid>

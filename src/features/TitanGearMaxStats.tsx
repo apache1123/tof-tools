@@ -28,9 +28,9 @@ export function TitanGearMaxStats({
             return (
               <Typography key={i} gutterBottom>
                 <strong>{displayName}: </strong>
-                {randomStat.getValueToString()} +{' '}
-                {randomStat.getAugmentIncreaseValueToString()} ={' '}
-                <strong>{randomStat.getTotalValueWithAugmentToString()}</strong>
+                {randomStat.valueString} +{' '}
+                {randomStat.augmentIncreaseValueString} ={' '}
+                <strong>{randomStat.totalValueString}</strong>
               </Typography>
             );
           })}
@@ -49,11 +49,9 @@ export function TitanGearMaxStats({
             return (
               <Typography key={i} gutterBottom>
                 <strong>{displayName}: </strong>
-                {augmentStat.getValueToString()} +{' '}
-                {augmentStat.getAugmentIncreaseValueToString()} ={' '}
-                <strong>
-                  {augmentStat.getTotalValueWithAugmentToString()}
-                </strong>
+                {augmentStat.valueString} +{' '}
+                {augmentStat.augmentIncreaseValueString} ={' '}
+                <strong>{augmentStat.totalValueString}</strong>
               </Typography>
             );
           })}

@@ -271,7 +271,6 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
       randomStats: [undefined, undefined, undefined, undefined],
       augmentStats: [],
       isAugmented: false,
-      isTitan: false,
       version: 1,
     };
   }
@@ -284,7 +283,6 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
       randomStats: newRandomStatsFromOld(oldGear.randomStats),
       augmentStats: newAugmentStatsFromOld(oldGear.augmentStats),
       isAugmented: oldGear.isAugmented,
-      isTitan: oldGear.isTitan,
       version: 1,
     };
   }

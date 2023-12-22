@@ -12,15 +12,25 @@ const meta: Meta<typeof GearTypeSelector> = {
 export default meta;
 type Story = StoryObj<typeof GearTypeSelector>;
 
-const selectedGearType = {
-  id: 'Helmet',
-  displayName: 'Helmet',
-} as GearType;
+const selectedValue = {
+  gearType: {
+    id: 'Helmet',
+    displayName: 'Helmet',
+  } as GearType,
+  isTitan: true,
+};
 
 export const NoGearTypeSelected: Story = {};
 
-export const SelectedGearType: Story = {
+export const SelectedValue: Story = {
   args: {
-    selectedGearType,
+    selectedValue,
+  },
+};
+
+export const DisableGearTypeChange: Story = {
+  args: {
+    selectedValue,
+    disableGearTypeChange: true,
   },
 };

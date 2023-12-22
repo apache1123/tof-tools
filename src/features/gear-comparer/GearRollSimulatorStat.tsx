@@ -28,7 +28,7 @@ export function GearRollSimulatorStat({
       </Grid>
       <Grid xs={4}>
         <Stack direction="row" spacing={2}>
-          <Typography>{statSnap.getValueToString()}</Typography>
+          <Typography>{statSnap.valueString}</Typography>
           <Typography fontStyle="italic">
             ({pluralize('roll', rolls, true)})
           </Typography>

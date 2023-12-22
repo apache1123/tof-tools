@@ -8,7 +8,7 @@ import { getNumberSeparators } from '../../utils/locale-utils';
 export interface NumericInputProps {
   value?: number;
   onChange?: (value: number) => unknown;
-  label?: string;
+  label?: ReactNode;
   name?: string;
   id?: string;
   variant?: TextFieldVariants;
