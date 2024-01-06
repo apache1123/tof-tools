@@ -173,7 +173,9 @@ test('gear value is calculated correctly', async ({ page }) => {
 
   // Test ele atk, crit gear
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
-  await page.getByRole('option', { name: 'Gloves' }).click();
+  await page
+    .getByRole('option', { name: 'Gloves Gloves', exact: true })
+    .click();
 
   await page
     .getByTestId('loadout-gear')
@@ -282,7 +284,9 @@ test('gear value is calculated correctly', async ({ page }) => {
     .getByTestId('replacement-gear')
     .getByLabel('Select gear type')
     .click();
-  await page.getByRole('option', { name: 'Combat Engine' }).click();
+  await page
+    .getByRole('option', { name: 'Combat Engine Combat Engine', exact: true })
+    .click();
 
   await page
     .getByTestId('replacement-gear')
@@ -441,7 +445,9 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
 
   // Test ele atk pull-up with 2 random ele atk stats
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
-  await page.getByRole('option', { name: 'Gloves' }).click();
+  await page
+    .getByRole('option', { name: 'Gloves Gloves', exact: true })
+    .click();
 
   await page
     .getByTestId('loadout-gear')
@@ -537,7 +543,9 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
 
   // Test ele atk pull-up with 3 random ele atk stats
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
-  await page.getByRole('option', { name: 'Gloves' }).click();
+  await page
+    .getByRole('option', { name: 'Gloves Gloves', exact: true })
+    .click();
 
   await page
     .getByTestId('loadout-gear')
@@ -629,7 +637,9 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
 
   // Test random resistance stats do not get pulled-up
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
-  await page.getByRole('option', { name: 'Gloves' }).click();
+  await page
+    .getByRole('option', { name: 'Gloves Gloves', exact: true })
+    .click();
 
   await page
     .getByTestId('loadout-gear')
@@ -723,7 +733,9 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
 
   // Test ele atk % pull-up
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
-  await page.getByRole('option', { name: 'Microreactor' }).click();
+  await page
+    .getByRole('option', { name: 'Microreactor Microreactor', exact: true })
+    .click();
 
   await page
     .getByTestId('loadout-gear')
