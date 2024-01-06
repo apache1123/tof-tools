@@ -1,4 +1,6 @@
 import { Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import Image from 'next/image';
 
 import type { Changelog } from '../models/changelog';
 
@@ -91,5 +93,46 @@ export const changelog: Changelog = [
     semver: '3.2.0',
     date: new Date(Date.UTC(2023, 11, 22)),
     title: 'Add Yan Miao',
+  },
+  {
+    semver: '3.3.0',
+    date: new Date(Date.UTC(2024, 0, 6)),
+    title:
+      'Support changing a gear to titan/augmented gear & entering augment values',
+    description: (
+      <>
+        <Typography gutterBottom>
+          Can now change a piece of gear into the titan type of that gear. After
+          that, for each random stat, you can then adjust the value increase you
+          get from augmenting and the total value{' '}
+          <i>(Base value (at 5-star) + increase = total value)</i>. The
+          gear&apos;s value% is then calculated from the total value for each
+          stat.
+        </Typography>
+        <Typography gutterBottom>
+          If your gear is only &quot;augmented&quot; and not a &quot;titan&quot;
+          gear yet, you can still use this also. Augmented gear and Titan gear
+          are treated the same here.
+        </Typography>
+        <Grid container spacing={1}>
+          <Grid xs="auto">
+            <Image
+              src="/changelog/titan-1.png"
+              alt="titan-example-1"
+              width={300}
+              height={190}
+            />
+          </Grid>
+          <Grid xs="auto">
+            <Image
+              src="/changelog/titan-2.png"
+              alt="titan-example-2"
+              width={390}
+              height={300}
+            />
+          </Grid>
+        </Grid>
+      </>
+    ),
   },
 ];
