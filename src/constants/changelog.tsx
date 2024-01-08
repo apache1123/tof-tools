@@ -143,4 +143,12 @@ export const changelog: Changelog = [
     description:
       'This may help you decide which piece of gear in your loadout is the weakest, so that you can farm that piece in Joint Operation',
   },
+  {
+    semver: '3.5.0',
+    date: new Date(Date.UTC(2024, 0, 8)),
+    title:
+      'Allow selecting 2pc+2pc of the same type of matrices but with different stars',
+    description:
+      'e.g. can now select Mimi 4pcs but with 2pcs 1 star & 2pcs 0 star',
+  },
 ];
