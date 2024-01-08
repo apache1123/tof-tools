@@ -1,8 +1,12 @@
 import type { Dto } from './dto';
 import type { MatrixSetDto } from './matrix-set';
 import { MatrixSet } from './matrix-set';
-import type { MatrixSet4pcName } from './matrix-set-definition';
+import type {
+  MatrixSet2pcName,
+  MatrixSet4pcName,
+} from './matrix-set-definition';
 import {
+  getMatrixSet2pcTo4pcName,
   getMatrixSet4pcTo2pcName,
   getMatrixSetDefinition,
 } from './matrix-set-definition';
@@ -52,9 +56,60 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
 
       return [matrixSet4pc, counterpartMatrixSet2pc];
     } else if (matrixSet2pc1 || matrixSet2pc2) {
+      // Both 2pc sets are of the same type, treat as a 2pc set of the highest star + a 4pc set of the lowest star
+      if (
+        matrixSet2pc1 &&
+        matrixSet2pc2 &&
+        matrixSet2pc1.definition.id === matrixSet2pc2.definition.id
+      ) {
+        const lowestStar =
+          matrixSet2pc1.stars >= matrixSet2pc2.stars
+            ? matrixSet2pc2.stars
+            : matrixSet2pc1.stars;
+
+        const highestStar2pcSet =
+          matrixSet2pc1.stars >= matrixSet2pc2.stars
+            ? matrixSet2pc1
+            : matrixSet2pc2;
+
+        const counterpartMatrixSet4pcName = getMatrixSet2pcTo4pcName(
+          matrixSet2pc1.definition.id as MatrixSet2pcName
+        );
+        const counterpartMatrixSet4pc = new MatrixSet(
+          getMatrixSetDefinition(counterpartMatrixSet4pcName)
+        );
+        counterpartMatrixSet4pc.stars = lowestStar;
+
+        return [counterpartMatrixSet4pc, highestStar2pcSet];
+      }
+
       return [matrixSet2pc1, matrixSet2pc2].filter((x) => x) as MatrixSet[];
     } else {
       return [];
+    }
+  }
+
+  /** Checks if the two stored 2pc sets are of the same type & stars. If so, combine them into the counterpart 4pc set with same type & stars  */
+  public combine2pcInto4pcIfPossible(): void {
+    if (!this._matrixSet2pc1 || !this._matrixSet2pc2) return;
+    if (this._matrixSet4pc) return;
+
+    if (
+      this._matrixSet2pc1.definition.id === this._matrixSet2pc2.definition.id &&
+      this._matrixSet2pc1.stars === this._matrixSet2pc2.stars
+    ) {
+      const counterpart4pcName = getMatrixSet2pcTo4pcName(
+        this._matrixSet2pc1.definition.id as MatrixSet2pcName
+      );
+      const counterpart4pcDefinition =
+        getMatrixSetDefinition(counterpart4pcName);
+      const stars = this._matrixSet2pc1.stars;
+
+      this.matrixSet4pc = new MatrixSet(counterpart4pcDefinition);
+      this.matrixSet4pc.stars = stars;
+
+      this._matrixSet2pc1 = undefined;
+      this._matrixSet2pc2 = undefined;
     }
   }
 
