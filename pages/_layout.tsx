@@ -16,23 +16,13 @@ export default function Layout({ children }: LayoutProps) {
 
       <Stack mt={5} spacing={1} alignItems="center">
         <RandomSticker />
+        <Changelog />
         <Box textAlign="center">
           <Typography variant="body2">
-            Questions? Find me on discord @apache1123
-          </Typography>
-          <Typography variant="body2">
-            or come hang out at our{' '}
-            <Link
-              href="https://discord.gg/vegemites"
-              target="_blank"
-              rel="noopener"
-            >
-              crew discord
-            </Link>{' '}
-            (Vegemites, APAC crew)
+            Questions? Find me on discord @apache1123, or submit an issue in the
+            Github repo
           </Typography>
         </Box>
-        <Changelog />
         <Link
           href="https://github.com/apache1123/tof-tools"
           target="_blank"
