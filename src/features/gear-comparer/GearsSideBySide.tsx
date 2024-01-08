@@ -1,0 +1,61 @@
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import { useSnapshot } from 'valtio';
+
+import { gearComparerState } from '../../states/states';
+import { LoadoutGear } from './LoadoutGear';
+import { LoadoutGearValue } from './LoadoutGearValue';
+import { ReplacementGear } from './ReplacementGear';
+import { ReplacementGearValue } from './ReplacementGearValue';
+
+export function GearsSideBySide() {
+  const { selectedLoadoutGear, replacementGear, selectedLoadout } =
+    useSnapshot(gearComparerState);
+
+  const selectedLoadoutGearMaxTitan = selectedLoadoutGear.getMaxTitanGear();
+  const replacementGearMaxTitan = replacementGear.getMaxTitanGear();
+
+  const selectedLoadoutGearMaxTitanValue = selectedLoadoutGearMaxTitan
+    ? selectedLoadout.getSubstituteGearValue(selectedLoadoutGearMaxTitan)
+    : undefined;
+  const replacementGearMaxTitanValue = replacementGearMaxTitan
+    ? selectedLoadout.getSubstituteGearValue(replacementGearMaxTitan)
+    : undefined;
+
+  return (
+    <Grid container spacing={3}>
+      <Grid xs={12} md={6}>
+        <Typography variant="h5" mb={1}>
+          Current gear in loadout
+        </Typography>
+        <LoadoutGear />
+        <LoadoutGearValue
+          maxTitanGearValue={selectedLoadoutGearMaxTitanValue}
+          isMaxTitanGearValueHigher={
+            selectedLoadoutGearMaxTitanValue !== undefined
+              ? selectedLoadoutGearMaxTitanValue >=
+                (replacementGearMaxTitanValue ?? 0)
+              : undefined
+          }
+        />
+      </Grid>
+      <Grid xs={12} md={6}>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="h5" mb={1}>
+            New gear
+          </Typography>
+        </Box>
+        <ReplacementGear />
+        <ReplacementGearValue
+          maxTitanGearValue={replacementGearMaxTitanValue}
+          isMaxTitanGearValueHigher={
+            replacementGearMaxTitanValue !== undefined
+              ? replacementGearMaxTitanValue >=
+                (selectedLoadoutGearMaxTitanValue ?? 0)
+              : undefined
+          }
+        />
+      </Grid>
+    </Grid>
+  );
+}

@@ -175,6 +175,8 @@ export class Gear implements Persistable<GearDto> {
     return result;
   }
 
+  // TODO: this may need to be memoized if called too much
+  /** Returns a copy of the piece of gear that is augmented and has the random stats increased to their theoretical max (augment increase max), as well as filled augment stats according to the specified elementalType */
   public getMaxTitanGear(elementalType?: CoreElementalType): Gear | undefined {
     if (
       this.stars !== 5 &&

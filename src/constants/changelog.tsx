@@ -135,4 +135,12 @@ export const changelog: Changelog = [
       </>
     ),
   },
+  {
+    semver: '3.4.0',
+    date: new Date(Date.UTC(2024, 0, 8)),
+    title:
+      'Show max potential titan value for every piece of gear in a loadout',
+    description:
+      'This may help you decide which piece of gear in your loadout is the weakest, so that you can farm that piece in Joint Operation',
+  },
 ];

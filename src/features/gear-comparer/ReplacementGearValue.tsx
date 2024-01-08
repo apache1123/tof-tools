@@ -2,18 +2,20 @@ import { useSnapshot } from 'valtio';
 
 import { gearComparerState } from '../../states/states';
 import { GearValue } from '../GearValue';
-import { maxTitanGearValuesState } from './states/derived/max-titan-gear-values';
-import { maxTitanGearValuesComparisonState } from './states/derived/max-titan-gear-values-comparison';
 
-export function ReplacementGearValue() {
+export interface ReplacementGearValueProps {
+  maxTitanGearValue: number | undefined;
+  isMaxTitanGearValueHigher: boolean | undefined;
+}
+
+export function ReplacementGearValue({
+  maxTitanGearValue,
+  isMaxTitanGearValueHigher,
+}: ReplacementGearValueProps) {
   const {
     replacementGearValue: replacementGearDamageMultiplier,
     selectedLoadoutGearValue: selectedLoadoutGearDamageMultiplier,
   } = useSnapshot(gearComparerState);
-  const { replacementGearMaxTitanValue } = useSnapshot(maxTitanGearValuesState);
-  const { replacementGearMaxTitanHighestValue } = useSnapshot(
-    maxTitanGearValuesComparisonState
-  );
 
   return (
     <GearValue
@@ -21,8 +23,8 @@ export function ReplacementGearValue() {
       isGearValueHigher={
         replacementGearDamageMultiplier > selectedLoadoutGearDamageMultiplier
       }
-      titanGearValue={replacementGearMaxTitanValue}
-      isTitanGearValueHigher={replacementGearMaxTitanHighestValue}
+      titanGearValue={maxTitanGearValue}
+      isTitanGearValueHigher={isMaxTitanGearValueHigher}
       data-testid="replacement-gear"
     />
   );
