@@ -151,4 +151,9 @@ export const changelog: Changelog = [
     description:
       'e.g. can now select Mimi 4pcs but with 2pcs 1 star & 2pcs 0 star',
   },
+  {
+    semver: '3.5.1',
+    date: new Date(Date.UTC(2024, 0, 9)),
+    title: 'Fix import/export app data feature',
+  },
 ];

@@ -1,0 +1,2345 @@
+{
+  "userStats": { "characterLevel": 100, "version": 2 },
+  "loadouts": {
+    "loadoutList": [
+      {
+        "loadout": {
+          "id": "kEeNVWuNK_GwYQ_1MTedY",
+          "name": "3",
+          "elementalType": "Flame",
+          "team": {
+            "weapon1": {
+              "definitionId": "Fei Se",
+              "stars": 1,
+              "matrixSets": {
+                "matrixSet2pc1": {
+                  "definitionId": "Lin 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "matrixSet2pc2": {
+                  "definitionId": "Fiona 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon2": {
+              "definitionId": "Yan Miao",
+              "stars": 3,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Lyra 4pc",
+                  "stars": 0,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon3": {
+              "definitionId": "Nan Yin",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet2pc1": {
+                  "definitionId": "Huang (Mimi) 2pc",
+                  "stars": 0,
+                  "version": 1
+                },
+                "matrixSet2pc2": {
+                  "definitionId": "Huang (Mimi) 2pc",
+                  "stars": 1,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          "gearSet": {
+            "id": "Due0r98fF2HxAIsM8Ogy6",
+            "gearsByTypeId": {
+              "Helmet": {
+                "id": "h6APgGxE8yqsaXOLBqfw0",
+                "typeId": "Helmet",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 998,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 180,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Eyepiece": {
+                "id": "LgHwgzjlJCqQKsJA_bnT_",
+                "typeId": "Eyepiece",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Resistance %",
+                    "value": 0.1687,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit Rate %",
+                    "value": 0.0581,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Spaulders": {
+                "id": "d_nQPydsvWJML-3hyaJqH",
+                "typeId": "Spaulders",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 483,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 511,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Resistance",
+                    "value": 885,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Gloves": {
+                "id": "89z7V6PeBuovKfGEo9kRh",
+                "typeId": "Gloves",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 212,
+                    "augmentIncreaseValue": 761,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit",
+                    "value": 1687,
+                    "augmentIncreaseValue": 1350,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 644,
+                    "augmentIncreaseValue": 381,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 233,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": true,
+                "version": 1
+              },
+              "Bracers": {
+                "id": "kxl-d21zT3ze7SPszChj2",
+                "typeId": "Bracers",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 1053,
+                    "augmentIncreaseValue": 382,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 1259,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 871,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 172,
+                    "augmentIncreaseValue": 225,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": true,
+                "version": 1
+              },
+              "Armor": {
+                "id": "VRAzEWxCB21jqkaKKJwV0",
+                "typeId": "Armor",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 785,
+                    "augmentIncreaseValue": 296,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 448,
+                    "augmentIncreaseValue": 208,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 918,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 14475,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": true,
+                "version": 1
+              },
+              "Combat Engine": {
+                "id": "OTsClaC9XuitfbX6w9EnK",
+                "typeId": "Combat Engine",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Damage %",
+                    "value": 0.0353,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Attack %",
+                    "value": 0.0126,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance %",
+                    "value": 0.1687,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Belt": {
+                "id": "WIwzn3ADnHf7SBpWyPfU-",
+                "typeId": "Belt",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 412,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 849,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Legguards": {
+                "id": "H-0hMNPJDtHIYQVuUQ2_0",
+                "typeId": "Legguards",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 1006,
+                    "augmentIncreaseValue": 395,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 18316,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 277,
+                    "augmentIncreaseValue": 239,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 1229,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": true,
+                "version": 1
+              },
+              "Boots": {
+                "id": "JUi_x2ovv3gfPqUFfLOXa",
+                "typeId": "Boots",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 878,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 749,
+                    "augmentIncreaseValue": 275,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 173,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit",
+                    "value": 2153,
+                    "augmentIncreaseValue": 978,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": true,
+                "version": 1
+              },
+              "Exoskeleton": {
+                "id": "AdPEu_cdnbRWFeybZIGKb",
+                "typeId": "Exoskeleton",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 802,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack %",
+                    "value": 0.0126,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack %",
+                    "value": 0.027,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Microreactor": {
+                "id": "JIN5FqXNAG6O2WPYyaicY",
+                "typeId": "Microreactor",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 357,
+                    "augmentIncreaseValue": 256,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 994,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Damage %",
+                    "value": 0.0065,
+                    "augmentIncreaseValue": 0.02447,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Damage %",
+                    "value": 0.0281,
+                    "augmentIncreaseValue": 0.00524,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": true,
+                "version": 1
+              }
+            },
+            "version": 2
+          },
+          "loadoutStats": {
+            "flameAttack": {
+              "baseAttack": 32454,
+              "totalAttack": 37125,
+              "version": 1
+            },
+            "frostAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "physicalAttack": {
+              "baseAttack": 0,
+              "totalAttack": 0,
+              "version": 1
+            },
+            "voltAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "critFlat": 16328,
+            "critPercent": 0.0581,
+            "critDamage": 0.5,
+            "version": 1
+          },
+          "version": 1
+        },
+        "isDefault": true
+      },
+      {
+        "loadout": {
+          "id": "PO2P0H4sCDtDafCXgpjyj",
+          "name": "1",
+          "elementalType": "Frost",
+          "team": {
+            "weapon1": {
+              "definitionId": "Yu Lan",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Saki Fuwa 4pc",
+                  "stars": 0,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon2": {
+              "definitionId": "Ling Han",
+              "stars": 3,
+              "matrixSets": {
+                "matrixSet2pc1": {
+                  "definitionId": "Samir 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "matrixSet2pc2": {
+                  "definitionId": "Lin 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon3": {
+              "definitionId": "Fiona",
+              "stars": 0,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Fiona 4pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          "gearSet": {
+            "id": "ensl1Hx-nryUYUdAKi0uA",
+            "gearsByTypeId": {
+              "Helmet": {
+                "id": "QrCK1jvtO8rLN5ON7SeM5",
+                "typeId": "Helmet",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Resistance",
+                    "value": 265,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 433,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 487,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Eyepiece": {
+                "id": "HOj84Zci6IfhQq8slGX-L",
+                "typeId": "Eyepiece",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 831,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Resistance",
+                    "value": 715,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit Rate %",
+                    "value": 0.0224,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Spaulders": {
+                "id": "b8Rwlx9yibFxLjL6zq0w1",
+                "typeId": "Spaulders",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 849,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 1022,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Gloves": {
+                "id": "4tWxvvJOZ9hYx-RMmzxve",
+                "typeId": "Gloves",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 212,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit",
+                    "value": 1687,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 644,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Bracers": {
+                "id": "7I1Q4ebcgq387c3LZXN9j",
+                "typeId": "Bracers",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 1053,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 172,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Armor": {
+                "id": "Qpidv3Za98ed1ux24Bz_5",
+                "typeId": "Armor",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 708,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 421,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Combat Engine": {
+                "id": "3WgDB6jgL6Z4t8JurW48e",
+                "typeId": "Combat Engine",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 560,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 392,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance %",
+                    "value": 0.1687,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Belt": {
+                "id": "sH7MsAOnawcmDwJCBFYWa",
+                "typeId": "Belt",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 910,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 197,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Legguards": {
+                "id": "1DpYIvrfxsH7IRK5kjmeK",
+                "typeId": "Legguards",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 278,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 632,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 954,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Boots": {
+                "id": "Ys-WJn1fco-KQ-OfDh9vl",
+                "typeId": "Boots",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 362,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit",
+                    "value": 3633,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Exoskeleton": {
+                "id": "G5KuxPRJ4vNy1iPkf6Zcs",
+                "typeId": "Exoskeleton",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 802,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack %",
+                    "value": 0.0126,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack %",
+                    "value": 0.027,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Microreactor": {
+                "id": "2gOMIGgsPzuJQ6cl_neHA",
+                "typeId": "Microreactor",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 603,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 1134,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Damage %",
+                    "value": 0.03112,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Damage %",
+                    "value": 0.02927,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              }
+            },
+            "version": 2
+          },
+          "loadoutStats": {
+            "flameAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "frostAttack": {
+              "baseAttack": 31208,
+              "totalAttack": 36283,
+              "version": 1
+            },
+            "physicalAttack": {
+              "baseAttack": 0,
+              "totalAttack": 0,
+              "version": 1
+            },
+            "voltAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "critFlat": 15415,
+            "critPercent": 0.0224,
+            "critDamage": 0.5,
+            "version": 1
+          },
+          "version": 1
+        },
+        "isDefault": true
+      },
+      {
+        "loadout": {
+          "id": "OlErmbqGYHX2iFjA_7wHB",
+          "name": "4",
+          "elementalType": "Physical",
+          "team": {
+            "weapon1": {
+              "definitionId": "Gnonno",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Umi 4pc",
+                  "stars": 0,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon2": {
+              "definitionId": "Ming Jing",
+              "stars": 1,
+              "matrixSets": {
+                "matrixSet2pc1": {
+                  "definitionId": "Samir 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "matrixSet2pc2": {
+                  "definitionId": "Lin 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon3": {
+              "definitionId": "Fiona",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Fiona 4pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          "gearSet": {
+            "id": "SgsA0rh0zx_LffLb-vKZY",
+            "gearsByTypeId": {
+              "Helmet": {
+                "id": "8UF8aRd88ql638L0V9WUh",
+                "typeId": "Helmet",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 1342,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Eyepiece": {
+                "id": "nRtoZyDIw8y5hk2qiYyPn",
+                "typeId": "Eyepiece",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Crit Rate %",
+                    "value": 0.0343,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 416,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack %",
+                    "value": 0.027,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Spaulders": {
+                "id": "b9G6R1woXq3knLsxUb7St",
+                "typeId": "Spaulders",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Physical Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 485,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 505,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Gloves": {
+                "id": "JAyM2lp6VKrdWP8STwej7",
+                "typeId": "Gloves",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 212,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit",
+                    "value": 1687,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 644,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Bracers": {
+                "id": "i4j0V3bom5OcQJ5u6ZGGA",
+                "typeId": "Bracers",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 765,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 26768,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Armor": {
+                "id": "r3aaJiZ5Fsg116v13iJEH",
+                "typeId": "Armor",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 739,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 429,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Combat Engine": {
+                "id": "bSi5rfYStwqxR9hlt2BQs",
+                "typeId": "Combat Engine",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Physical Resistance",
+                    "value": 930,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack %",
+                    "value": 0.0414,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 371,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Belt": {
+                "id": "WVr1nCmReM1PjQ3MoPD0s",
+                "typeId": "Belt",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 1075,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 208,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Legguards": {
+                "id": "Jd01f1U5eUkTXJqYRO_Pg",
+                "typeId": "Legguards",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 900,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 246,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Boots": {
+                "id": "nsMdJyNVP7PKhykDMwS6p",
+                "typeId": "Boots",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 666,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit",
+                    "value": 2147,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Exoskeleton": {
+                "id": "Wopj5tkz0R0-HW9lLNV4T",
+                "typeId": "Exoskeleton",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 802,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack %",
+                    "value": 0.0126,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack %",
+                    "value": 0.027,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Microreactor": {
+                "id": "8sMLNm7iCNMSBCUFzJcUa",
+                "typeId": "Microreactor",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 603,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 1134,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Damage %",
+                    "value": 0.03112,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Damage %",
+                    "value": 0.0295,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              }
+            },
+            "version": 2
+          },
+          "loadoutStats": {
+            "flameAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "frostAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "physicalAttack": {
+              "baseAttack": 30605,
+              "totalAttack": 37290,
+              "version": 1
+            },
+            "voltAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "critFlat": 13959,
+            "critPercent": 0.0343,
+            "critDamage": 0.5,
+            "version": 1
+          },
+          "version": 1
+        },
+        "isDefault": true
+      },
+      {
+        "loadout": {
+          "id": "PSIRaIiSjrwDKEUF7hcVl",
+          "name": "2",
+          "elementalType": "Volt",
+          "team": {
+            "weapon1": {
+              "definitionId": "Rubilia",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Rubilia 4pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon2": {
+              "definitionId": "Huang (Mimi)",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet2pc1": {
+                  "definitionId": "Samir 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "matrixSet2pc2": {
+                  "definitionId": "Lyra 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon3": {
+              "definitionId": "Fiona",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Fiona 4pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          "gearSet": {
+            "id": "0NcXWVzO0kdRJ2ZQScq2Z",
+            "gearsByTypeId": {
+              "Helmet": {
+                "id": "PG-ccDLK-xvvadrxW4ddM",
+                "typeId": "Helmet",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 481,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Resistance",
+                    "value": 64,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 588,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 1110,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Eyepiece": {
+                "id": "aqNy5schcD74xP9-T5a-t",
+                "typeId": "Eyepiece",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 356,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack %",
+                    "value": 0.0702,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Spaulders": {
+                "id": "iRYMfnlRk7ckYHqGd9FjW",
+                "typeId": "Spaulders",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Frost Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 728,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 362,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Gloves": {
+                "id": "J0iSgCGH4M5YvJV_annz9",
+                "typeId": "Gloves",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 212,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Crit",
+                    "value": 1687,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 644,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Bracers": {
+                "id": "nf4PcmH3uDGykP4kVIClh",
+                "typeId": "Bracers",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 992,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 52,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 675,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Armor": {
+                "id": "AWU6ouGVqbrOf9xEDWhos",
+                "typeId": "Armor",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 931,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 147,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Combat Engine": {
+                "id": "U536BMleJVFZ1ac_tcVB4",
+                "typeId": "Combat Engine",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Volt Attack %",
+                    "value": 0.0414,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP %",
+                    "value": 0.031,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 322,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Belt": {
+                "id": "5V_hUzgVBwRYnhRoOJXIW",
+                "typeId": "Belt",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 1083,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 244,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Legguards": {
+                "id": "jxmng5AjORm0ZTsmbvQkp",
+                "typeId": "Legguards",
+                "stars": 5,
+                "randomStats": [
+                  {
+                    "typeId": "Volt Attack",
+                    "value": 991,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 203,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Boots": {
+                "id": "WFCl2BUdVvgqsGSwzydTe",
+                "typeId": "Boots",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Exoskeleton": {
+                "id": "ei3Bz4U8utLNFeNaxP3NK",
+                "typeId": "Exoskeleton",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 802,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack %",
+                    "value": 0.0126,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack %",
+                    "value": 0.027,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Microreactor": {
+                "id": "qjPS16e6_tpDmaOZrtBgw",
+                "typeId": "Microreactor",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Attack",
+                    "value": 627,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Resistance",
+                    "value": 1224,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Damage %",
+                    "value": 0.03141,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Flame Damage %",
+                    "value": 0.03354,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              }
+            },
+            "version": 2
+          },
+          "loadoutStats": {
+            "flameAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "frostAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "physicalAttack": {
+              "baseAttack": 0,
+              "totalAttack": 0,
+              "version": 1
+            },
+            "voltAttack": {
+              "baseAttack": 32700,
+              "totalAttack": 57016,
+              "version": 1
+            },
+            "critFlat": 14031,
+            "critPercent": 0,
+            "critDamage": 0.5,
+            "version": 1
+          },
+          "version": 1
+        },
+        "isDefault": true
+      },
+      {
+        "loadout": {
+          "id": "d_tf7Lqe6aFCsz3wrhsoA",
+          "name": "Custom 1",
+          "elementalType": "Frost",
+          "team": {
+            "weapon1": {
+              "definitionId": "Ming Jing",
+              "stars": 6,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Saki Fuwa 4pc",
+                  "stars": 0,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon2": {
+              "definitionId": "Yan Miao",
+              "stars": 3,
+              "matrixSets": {
+                "matrixSet2pc1": {
+                  "definitionId": "Samir 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "matrixSet2pc2": {
+                  "definitionId": "Lin 2pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "weapon3": {
+              "definitionId": "Fiona",
+              "stars": 0,
+              "matrixSets": {
+                "matrixSet4pc": {
+                  "definitionId": "Fiona 4pc",
+                  "stars": 3,
+                  "version": 1
+                },
+                "version": 1
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          "gearSet": {
+            "id": "LzDBrHEUykIsAyHcXgCBI",
+            "gearsByTypeId": {
+              "Helmet": {
+                "id": "6vF__6qevSVy9vtT7jK-E",
+                "typeId": "Helmet",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "Flame Attack",
+                    "value": 1138,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Attack",
+                    "value": 69,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Physical Resistance",
+                    "value": 215,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Eyepiece": {
+                "id": "Ti_q-As9upLsa4FUtzXXC",
+                "typeId": "Eyepiece",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Spaulders": {
+                "id": "23DnggecI9Bo5H8SC4IDS",
+                "typeId": "Spaulders",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Gloves": {
+                "id": "F01_yeC5rrjBqmQ0vEdYv",
+                "typeId": "Gloves",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Bracers": {
+                "id": "OaJIxAVbUza3gM1sHP_bZ",
+                "typeId": "Bracers",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Armor": {
+                "id": "8fXI5cIGpYw-eZecUJbsf",
+                "typeId": "Armor",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Combat Engine": {
+                "id": "swVusxzQAWyAusblrkKeJ",
+                "typeId": "Combat Engine",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Belt": {
+                "id": "JabAoAM4a3tz4qfcM-Z6E",
+                "typeId": "Belt",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Legguards": {
+                "id": "yfKIHAIHcDpvo7uAVeoyb",
+                "typeId": "Legguards",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Boots": {
+                "id": "SemzjuO9NZsAsXHIQVQFW",
+                "typeId": "Boots",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Exoskeleton": {
+                "id": "La7degKQcddnHcnf6Ys8T",
+                "typeId": "Exoskeleton",
+                "stars": 0,
+                "randomStats": [
+                  {
+                    "typeId": "HP",
+                    "value": 4125,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Attack",
+                    "value": 802,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Frost Attack %",
+                    "value": 0.0126,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  },
+                  {
+                    "typeId": "Volt Attack %",
+                    "value": 0.027,
+                    "augmentIncreaseValue": 0,
+                    "version": 1
+                  }
+                ],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              },
+              "Microreactor": {
+                "id": "OVSqiaMTV5MARRG_EGSxD",
+                "typeId": "Microreactor",
+                "stars": 0,
+                "randomStats": [null, null, null, null],
+                "augmentStats": [],
+                "isAugmented": false,
+                "version": 1
+              }
+            },
+            "version": 2
+          },
+          "loadoutStats": {
+            "flameAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "frostAttack": {
+              "baseAttack": 31208,
+              "totalAttack": 36283,
+              "version": 1
+            },
+            "physicalAttack": {
+              "baseAttack": 0,
+              "totalAttack": 0,
+              "version": 1
+            },
+            "voltAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+            "critFlat": 15415,
+            "critPercent": 0.0224,
+            "critDamage": 0.5,
+            "version": 1
+          },
+          "version": 1
+        },
+        "isDefault": false
+      }
+    ],
+    "selectedLoadoutIndex": 0,
+    "version": 1
+  },
+  "gearComparer": {
+    "selectedLoadoutIndex": 0,
+    "selectedGearTypeId": "Gloves",
+    "replacementGearGearSet": {
+      "id": "ndG56M5nIsI0KS8Cd3d5G",
+      "gearsByTypeId": {
+        "Helmet": {
+          "id": "FwqDMTeLiJRJ_KwAQB2wf",
+          "typeId": "Helmet",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Eyepiece": {
+          "id": "au2auxs63_BsekV0Uz2wz",
+          "typeId": "Eyepiece",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Spaulders": {
+          "id": "bmlcVumXdf89kunm3w2PK",
+          "typeId": "Spaulders",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Gloves": {
+          "id": "zR0wOElMXLtTgwHC4FZUi",
+          "typeId": "Gloves",
+          "stars": 0,
+          "randomStats": [
+            {
+              "typeId": "Flame Attack",
+              "value": 562,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            },
+            {
+              "typeId": "Physical Attack",
+              "value": 69,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            },
+            {
+              "typeId": "Crit",
+              "value": 2356,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            },
+            {
+              "typeId": "Volt Attack",
+              "value": 247,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            }
+          ],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Bracers": {
+          "id": "hNTLHmxI5N5cYc8huzknm",
+          "typeId": "Bracers",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Armor": {
+          "id": "aiiWkNU1kU7UtrU9j-iDm",
+          "typeId": "Armor",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Combat Engine": {
+          "id": "DB8j3_2Z9TUUkTnIJ4rdS",
+          "typeId": "Combat Engine",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Belt": {
+          "id": "eRcykB-81IXUvSwo1xUgA",
+          "typeId": "Belt",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Legguards": {
+          "id": "O5wPU8PqfuKnItFHYNKvC",
+          "typeId": "Legguards",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Boots": {
+          "id": "ZWgJMAdnQajd63pIhWLK5",
+          "typeId": "Boots",
+          "stars": 5,
+          "randomStats": [
+            {
+              "typeId": "Crit",
+              "value": 3587,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            },
+            {
+              "typeId": "Volt Attack",
+              "value": 69,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            },
+            {
+              "typeId": "Attack",
+              "value": 52,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            },
+            {
+              "typeId": "Physical Attack",
+              "value": 297,
+              "augmentIncreaseValue": 0,
+              "version": 1
+            }
+          ],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Exoskeleton": {
+          "id": "4hzgaScwEGiMLr4R9fLsy",
+          "typeId": "Exoskeleton",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Microreactor": {
+          "id": "r3hMZbVP4RQaUnsXyAXZn",
+          "typeId": "Microreactor",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        }
+      },
+      "version": 2
+    },
+    "version": 1
+  },
+  "changelog": { "lastSeenChangelogSemver": "3.5.0", "version": 1 }
+}
