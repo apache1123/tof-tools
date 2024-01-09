@@ -24,11 +24,17 @@ import type {
 } from '../../user-stats';
 
 export function migrateTeamsGearSetsStatsToLoadouts() {
-  const userStatsJson = localStorage.getItem('userStats');
-  const gearSetsJson = localStorage.getItem('gearSets');
-  const gearComparerOptionsJson = localStorage.getItem('gearComparerOptions');
-  const gearComparerGearsJson = localStorage.getItem('gearComparerGears');
-  const teamsJson = localStorage.getItem('teams');
+  const userStatsKey = 'userStats';
+  const gearSetsKey = 'gearSets';
+  const gearComparerOptionsKey = 'gearComparerOptions';
+  const gearComparerGearsKey = 'gearComparerGears';
+  const teamsKey = 'teams';
+
+  const userStatsJson = localStorage.getItem(userStatsKey);
+  const gearSetsJson = localStorage.getItem(gearSetsKey);
+  const gearComparerOptionsJson = localStorage.getItem(gearComparerOptionsKey);
+  const gearComparerGearsJson = localStorage.getItem(gearComparerGearsKey);
+  const teamsJson = localStorage.getItem(teamsKey);
 
   const oldUserStatsState = userStatsJson
     ? (JSON.parse(userStatsJson) as UserStatsStateDtoV1)
@@ -50,7 +56,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     characterLevel: oldUserStatsState?.characterLevel ?? maxCharacterLevel,
     version: 2,
   };
-  localStorage.setItem('userStats', JSON.stringify(newUserStatsState));
+  localStorage.setItem(userStatsKey, JSON.stringify(newUserStatsState));
 
   const newLoadoutsState: LoadoutsStateDto = {
     loadoutList: [
@@ -94,6 +100,11 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   };
   transferOldReplacementGear();
   localStorage.setItem('gearComparer', JSON.stringify(newGearComparerState));
+
+  localStorage.removeItem(gearSetsKey);
+  localStorage.removeItem(gearComparerOptionsKey);
+  localStorage.removeItem(gearComparerGearsKey);
+  localStorage.removeItem(teamsKey);
 
   function transferOldGearSets() {
     if (oldGearSetsState) {

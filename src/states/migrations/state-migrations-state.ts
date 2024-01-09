@@ -1,9 +1,9 @@
 import { stateMigrations } from './state-migrations';
 
-interface StateMigrationsState {
+export interface StateMigrationsState {
   version: number;
 }
-const stateMigrationsStateKey = 'state-migrations';
+export const stateMigrationsStateKey = 'state-migrations';
 
 export function migrateStatesToLatestVersion() {
   const stateMigrationsState = getStateMigrationsState();
