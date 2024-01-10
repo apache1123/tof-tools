@@ -15,9 +15,7 @@ export const loadoutsState = proxy(new LoadoutsState(userStatsState));
 export const loadoutsStateKey = 'loadouts';
 devtools(loadoutsState, { name: loadoutsStateKey });
 
-export const gearComparerState = proxy(
-  new GearComparerState(loadoutsState, userStatsState)
-);
+export const gearComparerState = proxy(new GearComparerState(loadoutsState));
 export const gearComparerStateKey = 'gearComparer';
 devtools(gearComparerState, { name: gearComparerStateKey });
 

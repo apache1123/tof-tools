@@ -9,7 +9,9 @@ import { GearPiece } from '../GearPiece';
 export function LoadoutGear() {
   const {
     selectedLoadoutGear: gearSnap,
-    selectedLoadout: { elementalType },
+    loadoutsState: {
+      selectedLoadout: { elementalType },
+    },
   } = useSnapshot(gearComparerState) as GearComparerState;
   const gearState = gearComparerState.selectedLoadoutGear;
 
@@ -32,7 +34,9 @@ export function LoadoutGear() {
       actions={
         <GearOCRModal
           onFinalizeGear={(gearFromOCR) => {
-            gearComparerState.selectedLoadout.gearSet.setGear(gearFromOCR);
+            gearComparerState.loadoutsState.selectedLoadout.gearSet.setGear(
+              gearFromOCR
+            );
             gearComparerState.selectedGearTypeId = gearFromOCR.type.id;
           }}
         />

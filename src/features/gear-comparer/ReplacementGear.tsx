@@ -11,7 +11,9 @@ import { SaveGearModal } from './SaveGearModal';
 export function ReplacementGear() {
   const {
     replacementGear: gearSnap,
-    selectedLoadout: { elementalType },
+    loadoutsState: {
+      selectedLoadout: { elementalType },
+    },
   } = useSnapshot(gearComparerState) as GearComparerState;
   const gearState = gearComparerState.replacementGear;
 
@@ -41,7 +43,7 @@ export function ReplacementGear() {
           />
           <SaveGearModal
             gear={gearState}
-            targetLoadout={gearComparerState.selectedLoadout}
+            targetLoadout={gearComparerState.loadoutsState.selectedLoadout}
           />
         </>
       }

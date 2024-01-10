@@ -7,9 +7,9 @@ import type { GearComparerState } from '../../states/gear-comparer';
 import { gearComparerState } from '../../states/states';
 
 export function LoadoutTitle() {
-  const { selectedLoadout } = useSnapshot(
-    gearComparerState
-  ) as GearComparerState;
+  const {
+    loadoutsState: { selectedLoadout },
+  } = useSnapshot(gearComparerState) as GearComparerState;
 
   return (
     <Stack

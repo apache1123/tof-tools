@@ -9,8 +9,11 @@ import { ReplacementGear } from './ReplacementGear';
 import { ReplacementGearValue } from './ReplacementGearValue';
 
 export function GearsSideBySide() {
-  const { selectedLoadoutGear, replacementGear, selectedLoadout } =
-    useSnapshot(gearComparerState);
+  const {
+    selectedLoadoutGear,
+    replacementGear,
+    loadoutsState: { selectedLoadout },
+  } = useSnapshot(gearComparerState);
 
   const selectedLoadoutGearMaxTitan = selectedLoadoutGear.getMaxTitanGear();
   const replacementGearMaxTitan = replacementGear.getMaxTitanGear();

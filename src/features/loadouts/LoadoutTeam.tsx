@@ -1,14 +1,14 @@
 import { useSnapshot } from 'valtio';
 
-import type { Team } from '../../models/team';
+import type { LoadoutsState } from '../../states/loadouts';
 import { loadoutsState } from '../../states/states';
 import { TeamEditor } from '../TeamEditor';
 
 export function LoadoutTeam() {
   const {
     selectedLoadout: { team: teamSnap },
-  } = useSnapshot(loadoutsState);
+  } = useSnapshot(loadoutsState) as LoadoutsState;
   const teamState = loadoutsState.selectedLoadout.team;
 
-  return <TeamEditor teamSnap={teamSnap as Team} teamState={teamState} />;
+  return <TeamEditor teamSnap={teamSnap} teamState={teamState} />;
 }

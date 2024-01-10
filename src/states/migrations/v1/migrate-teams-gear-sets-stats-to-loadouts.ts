@@ -77,13 +77,6 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
         isDefault: true,
       },
     ],
-    selectedLoadoutIndex: 0,
-    version: 1,
-  };
-  transferOldGearSets();
-  localStorage.setItem('loadouts', JSON.stringify(newLoadoutsState));
-
-  const newGearComparerState: GearComparerStateDto = {
     selectedLoadoutIndex:
       oldGearComparerOptionsState?.selectedElementalType === 'Flame'
         ? 0
@@ -94,6 +87,12 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
         : oldGearComparerOptionsState?.selectedElementalType === 'Volt'
         ? 3
         : 0,
+    version: 1,
+  };
+  transferOldGearSets();
+  localStorage.setItem('loadouts', JSON.stringify(newLoadoutsState));
+
+  const newGearComparerState: GearComparerStateDto = {
     selectedGearTypeId: oldGearComparerGearsState?.GearA?.typeId ?? 'Armor',
     replacementGearGearSet: newGearSet(),
     version: 1,
