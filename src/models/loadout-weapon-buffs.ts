@@ -108,6 +108,7 @@ export class LoadoutWeaponBuffs {
     const { elementalResonances, weaponResonance } = this._loadout.team;
 
     if (stars < minStarRequirement || stars > maxStarRequirement) return false;
+
     if (
       elementalResonanceRequirements &&
       elementalResonanceRequirements.every(
@@ -115,6 +116,8 @@ export class LoadoutWeaponBuffs {
       )
     )
       return false;
+
+    // TODO: This is duplicated in loadout-matrix-set-buffs.ts
     if (
       weaponResonanceRequirements &&
       (!weaponResonance ||

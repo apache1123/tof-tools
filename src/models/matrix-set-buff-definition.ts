@@ -1,5 +1,6 @@
 import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName } from '../constants/weapon-definitions';
+import type { WeaponResonance } from '../constants/weapon-resonance';
 
 export interface MatrixSetBuffDefinition {
   description: string;
@@ -10,11 +11,15 @@ export interface MatrixSetBuffDefinition {
     { star: 3; value: number }
   ];
   canStack: boolean;
-  isActivePassively: boolean; // always active and is included in the relevant stat in the character sheet naturally. The opposite of this is "conditional" buff
+  /** always active and is included in the relevant stat in the character sheet naturally. The opposite of this is "conditional" buff */
+  isActivePassively: boolean;
+  /** "OR" requirements */
+  weaponResonanceRequirements?: WeaponResonance[];
+  /** "OR" requirements */
   elementalWeaponsRequirements?: {
     weaponElementalType: WeaponElementalType;
     minNumOfWeapons: 1 | 2 | 3;
-  }[]; // "OR" requirements;
+  }[];
   weaponRequirement?: WeaponName;
 }
 

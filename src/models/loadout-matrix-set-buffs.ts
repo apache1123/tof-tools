@@ -135,7 +135,20 @@ export class LoadoutMatrixSetBuffs {
   }
 
   private hasMetBuffRequirements(buffDefinition: MatrixSetBuffDefinition) {
-    const { elementalWeaponsRequirements, weaponRequirement } = buffDefinition;
+    const {
+      weaponResonanceRequirements,
+      elementalWeaponsRequirements,
+      weaponRequirement,
+    } = buffDefinition;
+    const { weaponResonance } = this._loadout.team;
+
+    // TODO: This is duplicated in loadout-weapon-buffs.ts
+    if (
+      weaponResonanceRequirements &&
+      (!weaponResonance ||
+        !weaponResonanceRequirements.includes(weaponResonance))
+    )
+      return false;
 
     // TODO: This is duplicated in loadout-weapon-buffs.ts
     if (elementalWeaponsRequirements) {

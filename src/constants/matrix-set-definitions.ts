@@ -11,6 +11,7 @@ export const matrixSet4pcLabel = '4pc';
 export type MatrixSetBaseName =
   | 'Alyss'
   | 'Annabella'
+  | 'Brevey'
   | 'Claudia'
   | 'Cobalt-B'
   | 'Cocoritter'
@@ -50,6 +51,7 @@ export type MatrixSetBaseName =
 export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Alyss 2pc',
   'Annabella 2pc',
+  'Brevey 2pc',
   'Claudia 2pc',
   'Cobalt-B 2pc',
   'Cocoritter 2pc',
@@ -90,6 +92,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
 export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Alyss 4pc',
   'Annabella 4pc',
+  'Brevey 4pc',
   'Claudia 4pc',
   'Cobalt-B 4pc',
   'Cocoritter 4pc',
@@ -157,6 +160,14 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: false,
       },
     ],
+    critDamageBuffs: [],
+  },
+  'Brevey 2pc': {
+    id: 'Brevey 2pc',
+    displayName: 'Brevey 2pc',
+    pieces: 2,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
     critDamageBuffs: [],
   },
   'Claudia 2pc': {
@@ -682,6 +693,42 @@ export const matrixSetDefinitionsLookup: DataById<
         ],
       },
     ],
+  },
+  'Brevey 4pc': {
+    id: 'Brevey 4pc',
+    displayName: 'Brevey 4pc',
+    pieces: 4,
+    attackPercentBuffs: [
+      {
+        description:
+          'When benediction resonance is not active, increase all ATK',
+        starValues: [
+          { star: 0, value: 0.26 },
+          { star: 1, value: 0.3 },
+          { star: 2, value: 0.34 },
+          { star: 3, value: 0.38 },
+        ],
+        elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+        canStack: false,
+        isActivePassively: true,
+        weaponResonanceRequirements: ['Attack', 'Balance', 'Fortitude'],
+      },
+      {
+        description: 'When benediction resonance is active, increase all ATK',
+        starValues: [
+          { star: 0, value: 0.14 },
+          { star: 1, value: 0.16 },
+          { star: 2, value: 0.18 },
+          { star: 3, value: 0.2 },
+        ],
+        elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+        canStack: false,
+        isActivePassively: true,
+        weaponResonanceRequirements: ['Benediction'],
+      },
+    ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
   },
   'Claudia 4pc': {
     id: 'Claudia 4pc',

@@ -4,6 +4,7 @@ import type { WeaponDefinition } from '../models/weapon-definition';
 export type WeaponName =
   | 'Alyss'
   | 'Annabella'
+  | 'Brevey'
   | 'Claudia'
   | 'Cobalt-B'
   | 'Cocoritter'
@@ -42,6 +43,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   allIds: [
     'Alyss',
     'Annabella',
+    'Brevey',
     'Claudia',
     'Cobalt-B',
     'Cocoritter',
@@ -141,6 +143,39 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           maxStarRequirement: 6,
         },
       ],
+    },
+    ['Brevey']: {
+      id: 'Brevey',
+      displayName: 'Brevey',
+      elementalTypes: ['Volt', 'Frost'],
+      type: 'DPS',
+      attackPercentBuffs: [
+        {
+          id: 'Volt Resonance',
+          displayName: 'Volt Resonance',
+          description: '+15% volt ATK when equipping 2 or more volt weapons',
+          value: 0.15,
+          elementalTypes: ['Volt'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Volt'],
+        },
+        {
+          id: 'Frost Resonance',
+          displayName: 'Frost Resonance',
+          description: '+15% frost ATK when equipping 2 or more frost weapons',
+          value: 0.15,
+          elementalTypes: ['Frost'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Frost'],
+        },
+      ],
+      critRateBuffs: [],
     },
     ['Claudia']: {
       id: 'Claudia',
@@ -898,7 +933,33 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       displayName: 'Yan Miao',
       elementalTypes: ['Physical', 'Flame'],
       type: 'DPS',
-      attackPercentBuffs: [],
+      attackPercentBuffs: [
+        {
+          id: 'Physical Resonance',
+          displayName: 'Physical Resonance',
+          description:
+            '+15% physical ATK when equipping 2 or more physical weapons',
+          value: 0.15,
+          elementalTypes: ['Physical'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Physical'],
+        },
+        {
+          id: 'Flame Resonance',
+          displayName: 'Flame Resonance',
+          description: '+15% flame ATK when equipping 2 or more flame weapons',
+          value: 0.15,
+          elementalTypes: ['Flame'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Flame'],
+        },
+      ],
       critRateBuffs: [],
     },
     ['Yu Lan']: {

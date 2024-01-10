@@ -156,4 +156,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 0, 9)),
     title: 'Fix import/export app data feature',
   },
+  {
+    semver: '3.6.0',
+    date: new Date(Date.UTC(2024, 0, 10)),
+    title: 'Add Brevey',
+  },
 ];
