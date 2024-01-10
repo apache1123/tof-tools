@@ -1,17 +1,17 @@
 import { Box, Divider, Link, Paper, Stack, Typography } from '@mui/material';
 
+import { LoadoutSelector } from '../loadouts/LoadoutSelector';
+import { LoadoutStats } from '../loadouts/LoadoutStats';
+import { LoadoutTeam } from '../loadouts/LoadoutTeam';
 import { BuffSummary } from './BuffSummary';
-import { GearComparerOptions } from './GearComparerOptions';
 import { GearsSideBySide } from './GearsSideBySide';
-import { LoadoutStats } from './LoadoutStats';
-import { LoadoutTeam } from './LoadoutTeam';
 import { LoadoutTitle } from './LoadoutTitle';
 
 export function GearComparer() {
   return (
     <>
       <Box mb={3}>
-        <GearComparerOptions />
+        <LoadoutSelector />
       </Box>
 
       <Paper sx={{ p: 3 }} square elevation={0}>

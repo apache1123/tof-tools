@@ -3,10 +3,10 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
 import { useSnapshot } from 'valtio';
 
-import { NumericInput } from '../components/NumericInput/NumericInput';
-import { maxCharacterLevel } from '../constants/character-level';
-import type { LoadoutStats } from '../models/loadout-stats';
-import { userStatsState } from '../states/states';
+import { NumericInput } from '../../components/NumericInput/NumericInput';
+import { maxCharacterLevel } from '../../constants/character-level';
+import type { LoadoutStats } from '../../models/loadout-stats';
+import { userStatsState } from '../../states/states';
 
 export interface LoadoutStatsEditorProps {
   loadoutStatsSnap: LoadoutStats;

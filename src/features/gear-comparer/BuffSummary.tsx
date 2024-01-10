@@ -8,14 +8,16 @@ import { gearComparerState } from '../../states/states';
 
 export function BuffSummary() {
   const {
-    selectedLoadout: {
-      elementalType,
-      team: { elementalResonances, weaponResonance },
-      weaponBuffs,
-      matrixSetBuffs,
-      attackBuffTotal,
-      critRateBuffTotal,
-      critDamageBuffTotal,
+    loadoutsState: {
+      selectedLoadout: {
+        elementalType,
+        team: { elementalResonances, weaponResonance },
+        weaponBuffs,
+        matrixSetBuffs,
+        attackBuffTotal,
+        critRateBuffTotal,
+        critDamageBuffTotal,
+      },
     },
   } = useSnapshot(gearComparerState);
 

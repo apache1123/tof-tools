@@ -1,18 +1,19 @@
 import { useSnapshot } from 'valtio';
 
-import type { LoadoutStats as LoadoutStatsModel } from '../../models/loadout-stats';
+import type { LoadoutsState } from '../../states/loadouts';
 import { loadoutsState } from '../../states/states';
-import { LoadoutStatsEditor } from '../LoadoutStatsEditor';
+import { LoadoutStatsEditor } from './LoadoutStatsEditor';
 
 export function LoadoutStats() {
-  const loadoutsSnap = useSnapshot(loadoutsState);
-  const loadoutStatsSnap = loadoutsSnap.selectedLoadout
-    .loadoutStats as LoadoutStatsModel;
+  const {
+    selectedLoadout: { loadoutStats: loadoutsStatsSnap },
+  } = useSnapshot(loadoutsState) as LoadoutsState;
+  const loadoutStatsState = loadoutsState.selectedLoadout.loadoutStats;
 
   return (
     <LoadoutStatsEditor
-      loadoutStatsSnap={loadoutStatsSnap}
-      loadoutStatsState={loadoutsState.selectedLoadout.loadoutStats}
+      loadoutStatsSnap={loadoutsStatsSnap}
+      loadoutStatsState={loadoutStatsState}
     />
   );
 }

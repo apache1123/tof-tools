@@ -26,7 +26,7 @@ export class RollSimulatorState {
   public get gearValue(): number {
     if (!this._gear) return 0;
 
-    return this._gearComparerState.selectedLoadout.getSubstituteGearValue(
+    return this._gearComparerState.loadoutsState.selectedLoadout.getSubstituteGearValue(
       this._gear
     );
   }
