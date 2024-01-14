@@ -39,16 +39,11 @@ export function LoadoutGear({ gearSnap, gearState }: LoadoutGearProps) {
         gearState={gearState}
         gearTypeSelector={
           <GearTypeSelector
-            selectedValue={{
-              gearType: gearSnap.type,
-              isTitan: gearSnap.isAugmented,
-            }}
-            onChange={({ gearType, isTitan }) => {
-              if (gearType.id === gearState.type.id) {
-                gearState.isAugmented = isTitan;
-              }
-            }}
-            disableGearTypeChange
+            selectedGearType={gearSnap.type}
+            options={[
+              { gearType: gearSnap.type, isTitan: gearSnap.isAugmented },
+            ]}
+            disabled
           />
         }
         actions={
@@ -61,6 +56,7 @@ export function LoadoutGear({ gearSnap, gearState }: LoadoutGearProps) {
             enforceGearType={gearSnap.type.id}
           />
         }
+        showTitanToggle
         showStatSummary={loadoutSnap.elementalType}
         data-testid={gearTypeId}
       />

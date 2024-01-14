@@ -1,54 +1,30 @@
 import { Autocomplete, Stack, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
 
 import { gearTypesLookup } from '../../constants/gear-types';
 import type { GearType } from '../../models/gear-type';
 import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
 
-type Value = { gearType: GearType; isTitan: boolean };
+type Option = { gearType: GearType; isTitan?: boolean };
+
 export interface GearTypeSelectorProps {
-  selectedValue: Value | undefined;
-  onChange?(value: Value): void;
-  /** Disable gear type change (e.g. from a Helmet to an Eyepiece) if a gear type is already selected, but still allow the change to a Titan/non-Titan variation of that gear type */
-  disableGearTypeChange?: boolean;
+  selectedGearType: GearType | undefined;
+  options?: Option[];
+  onChange?(value: GearType): void;
   disabled?: boolean;
 }
 
+const defaultOptions: Option[] = gearTypesLookup.allIds.map((id) => ({
+  gearType: gearTypesLookup.byId[id],
+  isTitan: false,
+}));
+
 export const GearTypeSelector = ({
-  selectedValue,
+  selectedGearType,
+  options: optionsFromProps,
   onChange,
-  disableGearTypeChange,
   disabled,
 }: GearTypeSelectorProps) => {
-  const [options, setOptions] = useState<Value[]>([]);
-
-  // When there is a selected gear type and it cannot be changed e.g. in loadouts where the gear type is fixed, only allow two options - the non-titan gear of that type and a titan gear of that type.
-  // Other cases, show all gear types and their titan variants
-  useEffect(() => {
-    setOptions(
-      selectedValue && disableGearTypeChange
-        ? gearTypesLookup.allIds
-            .filter((id) => selectedValue.gearType.id === id)
-            .reduce((acc, id) => {
-              const gearType = gearTypesLookup.byId[id];
-              return acc.concat([
-                { gearType, isTitan: false },
-                { gearType, isTitan: true },
-              ]);
-            }, [] as Value[])
-        : gearTypesLookup.allIds
-            .map((id) => ({
-              gearType: gearTypesLookup.byId[id],
-              isTitan: false,
-            }))
-            .concat(
-              gearTypesLookup.allIds.map((id) => ({
-                gearType: gearTypesLookup.byId[id],
-                isTitan: true,
-              }))
-            )
-    );
-  }, [selectedValue, disableGearTypeChange]);
+  const options = optionsFromProps || defaultOptions;
 
   return (
     <Autocomplete
@@ -61,15 +37,16 @@ export const GearTypeSelector = ({
       renderInput={(params) => (
         <TextField {...params} label="Select gear type" variant="standard" />
       )}
-      value={selectedValue}
-      onChange={(_, { gearType, isTitan }) => {
+      value={options?.find(
+        (option) => option.gearType.id === selectedGearType?.id
+      )}
+      onChange={(_, { gearType }) => {
         if (onChange) {
-          onChange({ gearType, isTitan });
+          onChange(gearType);
         }
       }}
       isOptionEqualToValue={(option, value) =>
-        option.gearType.id === value.gearType.id &&
-        option.isTitan === value.isTitan
+        option.gearType.id === value.gearType.id
       }
       renderOption={(props, { gearType, isTitan }) => (
         <Stack direction="row" spacing={1} component="li" {...props}>

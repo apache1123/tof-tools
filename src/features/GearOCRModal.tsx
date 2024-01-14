@@ -151,10 +151,7 @@ export const GearOCRModal = ({
                   gearState={tempGearState}
                   gearTypeSelector={
                     <GearTypeSelector
-                      selectedValue={{
-                        gearType: tempGearSnap.type,
-                        isTitan: tempGearSnap.isAugmented,
-                      }}
+                      selectedGearType={tempGearSnap.type}
                       disabled
                     />
                   }

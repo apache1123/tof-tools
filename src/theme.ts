@@ -110,4 +110,10 @@ declare module '@mui/material/styles' {
   }
 }
 
+declare module '@mui/material/Switch' {
+  interface SwitchPropsColorOverrides {
+    titan: true;
+  }
+}
+
 export default theme;
