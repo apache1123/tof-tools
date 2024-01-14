@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-/temp-test
+/e2e-tests/temp-test
 
 # next.js
 /.next/
