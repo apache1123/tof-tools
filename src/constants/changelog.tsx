@@ -161,4 +161,18 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 0, 10)),
     title: 'Add Brevey',
   },
+  {
+    semver: '3.7.0',
+    date: new Date(Date.UTC(2024, 0, 14)),
+    title:
+      'To make a piece of gear into a titan gear (and vice versa) - use the toggle instead of using the gear type selector',
+    description: (
+      <Image
+        src="/changelog/titan-3.png"
+        alt="titan-example-3"
+        width={645}
+        height={190}
+      />
+    ),
+  },
 ];

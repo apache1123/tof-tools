@@ -4,8 +4,10 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  FormControlLabel,
   Paper,
   Stack,
+  Switch,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -31,6 +33,7 @@ export interface GearPieceProps {
   gearTypeSelector?: ReactNode;
   /** External actions such as `Import gear` & `Save gear` that make no sense to be orchestrated by a `Gear` instance, but can be slotted here (for layout purposes) */
   actions?: ReactNode;
+  showTitanToggle?: boolean;
   showStatSummary?: CoreElementalType;
   additionalAccordions?: ReactNode;
   ['data-testid']?: string;
@@ -41,6 +44,7 @@ export const GearPiece = ({
   gearState,
   gearTypeSelector,
   actions,
+  showTitanToggle,
   showStatSummary,
   additionalAccordions,
   'data-testid': dataTestId,
@@ -82,6 +86,22 @@ export const GearPiece = ({
             );
           })}
         </Stack>
+      }
+      titanToggle={
+        showTitanToggle && (
+          <FormControlLabel
+            control={
+              <Switch
+                checked={gearSnap.isAugmented}
+                onChange={(_, checked) => {
+                  gearState.isAugmented = checked;
+                }}
+                color="titan"
+              />
+            }
+            label="Titan"
+          />
+        )
       }
       actions={actions}
       summary={
@@ -176,6 +196,7 @@ function Layout({
   typeSelector,
   starsSelector,
   randomStats,
+  titanToggle,
   actions,
   summary,
   'data-testid': dataTestId,
@@ -184,6 +205,7 @@ function Layout({
   typeSelector: ReactNode;
   starsSelector: ReactNode;
   randomStats: ReactNode;
+  titanToggle: ReactNode;
   actions: ReactNode;
   summary: ReactNode;
   ['data-testid']?: string;
@@ -199,8 +221,16 @@ function Layout({
           <Box mt={1}>{starsSelector}</Box>
         </Grid>
       </Grid>
-      <Stack direction="row-reverse" spacing={1} mb={2}>
-        {actions}
+      <Stack
+        direction="row"
+        justifyContent={titanToggle ? 'space-between' : 'flex-end'}
+        spacing={2}
+        mb={2}
+      >
+        {titanToggle}
+        <Stack direction="row-reverse" spacing={1}>
+          {actions}
+        </Stack>
       </Stack>
       <Box mb={3}>{randomStats}</Box>
       <Box>{summary}</Box>

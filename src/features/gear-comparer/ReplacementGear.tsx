@@ -1,6 +1,7 @@
 import { useSnapshot } from 'valtio';
 
 import { GearTypeSelector } from '../../components/GearTypeSelector/GearTypeSelector';
+import { gearTypesLookup } from '../../constants/gear-types';
 import type { GearComparerState } from '../../states/gear-comparer';
 import { gearComparerState } from '../../states/states';
 import { GearOCRModal } from '../GearOCRModal';
@@ -11,11 +12,17 @@ import { SaveGearModal } from './SaveGearModal';
 export function ReplacementGear() {
   const {
     replacementGear: gearSnap,
+    replacementGearGearSet,
     loadoutsState: {
       selectedLoadout: { elementalType },
     },
   } = useSnapshot(gearComparerState) as GearComparerState;
   const gearState = gearComparerState.replacementGear;
+
+  const gearTypeSelectorOptions = gearTypesLookup.allIds.map((id) => ({
+    gearType: gearTypesLookup.byId[id],
+    isTitan: replacementGearGearSet.getGearByType(id).isAugmented,
+  }));
 
   return (
     <GearPiece
@@ -23,13 +30,10 @@ export function ReplacementGear() {
       gearState={gearState}
       gearTypeSelector={
         <GearTypeSelector
-          selectedValue={{
-            gearType: gearSnap.type,
-            isTitan: gearSnap.isAugmented,
-          }}
-          onChange={({ gearType, isTitan }) => {
+          selectedGearType={gearSnap.type}
+          options={gearTypeSelectorOptions}
+          onChange={(gearType) => {
             gearComparerState.selectedGearTypeId = gearType.id;
-            gearComparerState.replacementGear.isAugmented = isTitan;
           }}
         />
       }
@@ -47,6 +51,7 @@ export function ReplacementGear() {
           />
         </>
       }
+      showTitanToggle
       showStatSummary={elementalType}
       additionalAccordions={<GearRollSimulator />}
       data-testid={'replacement-gear'}
