@@ -148,7 +148,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       id: 'Brevey',
       displayName: 'Brevey',
       elementalTypes: ['Volt', 'Frost'],
-      type: 'DPS',
+      type: 'Support',
       attackPercentBuffs: [
         {
           id: 'Volt Resonance',
