@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import { weaponResonanceDamageBuffsLookup } from '../constants/weapon-resonance';
 import { filterOutUndefined } from '../utils/array-utils';
 import { Damage } from './damage';
 import type { DamageSimulator } from './damage-simulator';
@@ -47,12 +48,20 @@ export class DamageCalculator {
         BigNumber(attackPercent).plus(1)
       );
 
+      const baseDamage = totalAttack.times(multiplierDamage).plus(flatDamage);
+
+      const { weaponResonance } = loadout.team;
+      const weaponResonanceDamageBuff =
+        weaponResonanceDamageBuffsLookup[weaponResonance];
+
+      const finalDamage = baseDamage.times(
+        BigNumber(weaponResonanceDamageBuff).plus(1)
+      );
+
       const totalCritPercent = loadout.critPercentUnbuffed;
       const totalCritDamage = loadout.critDamageUnbuffed;
 
-      const baseDamage = totalAttack.times(multiplierDamage).plus(flatDamage);
-
-      const finalDamage = baseDamage.times(
+      const finalDamageExpectedCrit = finalDamage.times(
         BigNumber(totalCritPercent).times(totalCritDamage).plus(1)
       );
 
@@ -67,7 +76,7 @@ export class DamageCalculator {
         weaponDamageSummary.attackTypeDamageSummaries[
           type
         ].elementalTypeDamages[elementalType].add(
-          new Damage(baseDamage.toNumber(), finalDamage.toNumber())
+          new Damage(baseDamage.toNumber(), finalDamageExpectedCrit.toNumber())
         );
       }
     }

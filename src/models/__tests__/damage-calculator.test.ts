@@ -11,7 +11,7 @@ import { Team } from '../team';
 import { Weapon } from '../weapon';
 
 describe('DamageCalculator', () => {
-  it('calculates the damage of a simple single attack correctly, no gear atk%, crit%, or any dmg buffs', () => {
+  it('calculates the damage of a simple single attack correctly', () => {
     // Arrange
     const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
       characterLevel: 100,
@@ -44,7 +44,7 @@ describe('DamageCalculator', () => {
     expect(damageMultiplier).toBeCloseTo(1.22);
   });
 
-  it('calculates the damage of multiple simple attacks correctly, no gear atk%, crit%, or any dmg buffs', () => {
+  it('calculates the damage of multiple simple attacks correctly', () => {
     // Arrange
     const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
       characterLevel: 100,
@@ -83,7 +83,7 @@ describe('DamageCalculator', () => {
     expect(damageMultiplier).toBeCloseTo(1.22);
   });
 
-  it('calculates the damage of multiple simple attacks correctly, with gear atk% & crit%, but no dmg buffs', () => {
+  it('calculates the damage of multiple simple attacks correctly, with gear atk% & crit%', () => {
     // Arrange
     const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
       characterLevel: 100,
@@ -137,5 +137,40 @@ describe('DamageCalculator', () => {
     expect(baseDamage).toBeCloseTo(370604.43);
     expect(finalDamage).toBeCloseTo(456539.6);
     expect(damageMultiplier).toBeCloseTo(1.23);
+  });
+
+  it('calculates the damage of multiple simple attacks correctly, with weapon resonance buff (attack)', () => {
+    // Arrange
+    const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
+      characterLevel: 100,
+    });
+
+    const { loadoutStats } = loadout;
+    loadoutStats.frostAttack = new ElementalAttack(26777, 0);
+    loadoutStats.critFlat = 12452;
+
+    const attackWeapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
+    loadout.team.weapon1 = attackWeapon;
+
+    const anotherAttackWeapon = new Weapon(weaponDefinitions.byId['Samir']);
+    loadout.team.weapon2 = anotherAttackWeapon;
+
+    const damageSimulator = new DamageSimulator(loadout);
+    const attackDefinition = weaponDefinitions.byId['Tsubasa'].attacks?.find(
+      (attack) => attack.id == 'Tsubasa - Auto chain'
+    ) as AttackDefinition;
+    damageSimulator.attackSequence.addAttack(attackWeapon, attackDefinition);
+
+    // Act
+    const sut = new DamageCalculator(damageSimulator);
+
+    // Assert
+    const {
+      damageSummary: {
+        totalDamage: { baseDamage, finalDamage },
+      },
+    } = sut;
+    expect(baseDamage).toBeCloseTo(121232.76);
+    expect(finalDamage).toBeCloseTo(162784.83);
   });
 });
