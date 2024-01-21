@@ -14,6 +14,7 @@ export class Team implements Persistable<TeamDto> {
   public weapon2: WeaponSlot;
   public weapon3: WeaponSlot;
 
+  /** This returns the presumed elemental resonance(s), depending on the number of weapons of each element. However, whether or not to activate elemental resonance buff(s) will depend on if the weapons themselves have the buff(s) available. */
   public get elementalResonances(): ElementalResonance[] {
     const { weapon1, weapon2, weapon3 } = this;
     const elementalTypes = [weapon1, weapon2, weapon3].flatMap((weapon) =>
@@ -32,11 +33,9 @@ export class Team implements Persistable<TeamDto> {
 
   public get weaponResonance(): WeaponResonance {
     const { weapon1, weapon2, weapon3 } = this;
-    if (!weapon1 || !weapon2 || !weapon3) return 'None';
 
-    const weaponTypes = [weapon1, weapon2, weapon3].map((weapon) => {
-      const definition = weapon.definition;
-      return definition.type;
+    const weaponTypes = [weapon1, weapon2, weapon3].flatMap((weapon) => {
+      return weapon?.definition.type ?? [];
     });
 
     if (weaponTypes.filter((type) => type === 'DPS').length > 1)
@@ -45,8 +44,14 @@ export class Team implements Persistable<TeamDto> {
       return 'Fortitude';
     if (weaponTypes.filter((type) => type === 'Support').length > 1)
       return 'Benediction';
+    if (
+      weaponTypes.filter((type) => type === 'DPS').length &&
+      weaponTypes.filter((type) => type === 'Defense').length &&
+      weaponTypes.filter((type) => type === 'Support').length
+    )
+      return 'Balance';
 
-    return 'Balance';
+    return 'None';
   }
 
   public copyFromDto(dto: TeamDto): void {
