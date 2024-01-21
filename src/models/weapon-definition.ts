@@ -1,6 +1,7 @@
 import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
+import type { AttackDefinition } from './attack-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -16,6 +17,7 @@ export interface WeaponDefinition {
   type: WeaponType;
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
   critRateBuffs: WeaponCritRateBuffDefinition[];
+  attacks: AttackDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

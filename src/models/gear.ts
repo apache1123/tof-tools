@@ -15,7 +15,8 @@ import type { GearName } from '../constants/gear-types';
 import { gearTypesLookup } from '../constants/gear-types';
 import type { StatName, StatRole } from '../constants/stat-types';
 import { statTypesLookup } from '../constants/stat-types';
-import { cartesian } from '../utils/array-utils';
+import { filterOutUndefined } from '../utils/array-utils';
+import { cartesian } from '../utils/cartesian-utils';
 import { additiveSum } from '../utils/math-utils';
 import type { AugmentStatDto } from './augment-stat';
 import { AugmentStat } from './augment-stat';
@@ -263,14 +264,12 @@ export class Gear implements Persistable<GearDto> {
     }
 
     function pullUpStatsValueIfApplicable() {
-      const randomStatsAndTypes = maxTitanGear.randomStats
-        .filter((randomStat) => randomStat)
-        .map((randomStat) => ({
-          randomStat,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          statType: randomStat.type,
-        }));
+      const randomStatsAndTypes = filterOutUndefined(
+        maxTitanGear.randomStats
+      ).map((randomStat) => ({
+        randomStat,
+        statType: randomStat.type,
+      }));
 
       const randomStatsAndTypesByRole = groupBy(
         randomStatsAndTypes,

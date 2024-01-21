@@ -20,33 +20,21 @@ import type { UserStats } from './user-stats';
 
 export class Loadout implements Persistable<LoadoutDto> {
   private _id: string;
-  private _userStats: UserStats;
 
-  public name: string;
-  public elementalType: CoreElementalType;
-  public team: Team;
-  public gearSet: GearSet;
-  public loadoutStats: LoadoutStats;
-
+  public readonly loadoutStats: LoadoutStats;
   public readonly weaponBuffs: LoadoutWeaponBuffs;
   public readonly matrixSetBuffs: LoadoutMatrixSetBuffs;
 
   public constructor(
-    name: string,
-    elementalType: CoreElementalType,
-    team: Team,
-    gearSet: GearSet,
-    userStats: UserStats
+    public name: string,
+    public elementalType: CoreElementalType,
+    public readonly team: Team,
+    public readonly gearSet: GearSet,
+    public readonly userStats: UserStats
   ) {
-    this._userStats = userStats;
-
     this._id = nanoid();
-    this.name = name;
-    this.elementalType = elementalType;
-    this.team = team;
-    this.gearSet = gearSet;
-    this.loadoutStats = new LoadoutStats(this);
 
+    this.loadoutStats = new LoadoutStats(this);
     this.weaponBuffs = new LoadoutWeaponBuffs(this);
     this.matrixSetBuffs = new LoadoutMatrixSetBuffs(this);
   }
@@ -83,7 +71,7 @@ export class Loadout implements Persistable<LoadoutDto> {
       .minus(
         calculateCritPercentFromFlat(
           gear.getTotalCritFlat(),
-          this._userStats.characterLevel
+          this.userStats.characterLevel
         )
       )
       .minus(gear.getTotalCritPercent());
@@ -126,7 +114,7 @@ export class Loadout implements Persistable<LoadoutDto> {
       elementalDamageTotal,
     } = this;
 
-    const { characterLevel } = this._userStats;
+    const { characterLevel } = this.userStats;
 
     const originalGear = this.gearSet.getGearByType(substituteGear.type.id);
 
@@ -214,6 +202,11 @@ export class Loadout implements Persistable<LoadoutDto> {
     this.loadoutStats.critFlat = newCritFlat;
   }
 
+  /** Attack% of the specified elemental type - accounting from gear only */
+  public getAttackPercentUnbuffed(elementalType: CoreElementalType): number {
+    return this.gearSet.getTotalAttackPercent(elementalType);
+  }
+
   /** Total attack% of the loadout's elemental type - accounting from all sources (gear and buffs) */
   public get attackPercentTotal(): number {
     return additiveSum([
@@ -222,22 +215,32 @@ export class Loadout implements Persistable<LoadoutDto> {
     ]).toNumber();
   }
 
-  /** Total crit rate% - accounting from all sources (loadoutStats, gear (crit%) and buffs) */
-  public get critPercentTotal(): number {
+  /** Crit rate% - accounting from stats and gear only */
+  public get critPercentUnbuffed(): number {
     return additiveSum([
       calculateCritPercentFromFlat(
         this.loadoutStats.critFlat,
-        this._userStats.characterLevel
+        this.userStats.characterLevel
       ),
       this.gearSet.getTotalCritPercent(),
+    ]).toNumber();
+  }
+  /** Total crit rate% - accounting from all sources (loadoutStats, gear (crit%) and buffs) */
+  public get critPercentTotal(): number {
+    return additiveSum([
+      this.critPercentUnbuffed,
       this.critRateBuffTotal,
     ]).toNumber();
   }
 
+  /** Crit dmg% - account from all sources, except buffs */
+  public get critDamageUnbuffed(): number {
+    return defaultCritDamagePercent;
+  }
   /** Total crit dmg% - account from all sources (buffs) */
   public get critDamageTotal(): number {
     return additiveSum([
-      defaultCritDamagePercent,
+      this.critDamageUnbuffed,
       this.critDamageBuffTotal,
     ]).toNumber();
   }
