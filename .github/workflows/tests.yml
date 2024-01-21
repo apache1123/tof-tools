@@ -42,7 +42,7 @@ jobs:
       - name: Run Jest tests
         run: pnpm test
   e2e-tests:
-    timeout-minutes: 5
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Waiting for 200 from the Vercel Preview
