@@ -5,6 +5,7 @@ import { ElementalAttack } from './elemental-attack';
 import type { Loadout } from './loadout';
 import type { Persistable } from './persistable';
 
+/** User-inputted stats for a `Loadout` */
 export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public readonly loadout: Loadout;
   public flameAttack: ElementalAttack;
@@ -17,6 +18,13 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   private _critPercent = 0;
   /** Currently unused */
   private _critDamage = defaultCritDamagePercent;
+
+  public hp = 0;
+  public flameResistance = 0;
+  public frostResistance = 0;
+  public physicalResistance = 0;
+  public voltResistance = 0;
+  public alteredResistance = 0;
 
   public constructor(loadout: Loadout) {
     this.loadout = loadout;

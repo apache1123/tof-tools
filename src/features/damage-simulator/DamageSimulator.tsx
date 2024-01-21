@@ -4,7 +4,7 @@ import { LoadoutSelector } from '../loadouts/LoadoutSelector';
 import { LoadoutStats } from '../loadouts/LoadoutStats';
 import { LoadoutTeam } from '../loadouts/LoadoutTeam';
 
-export function DamageCalculator() {
+export function DamageSimulator() {
   return (
     <Box>
       <Stack spacing={5}>

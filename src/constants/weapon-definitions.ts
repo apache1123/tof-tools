@@ -99,6 +99,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Annabella']: {
       id: 'Annabella',
@@ -143,6 +144,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           maxStarRequirement: 6,
         },
       ],
+      attacks: [],
     },
     ['Brevey']: {
       id: 'Brevey',
@@ -176,6 +178,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Claudia']: {
       id: 'Claudia',
@@ -198,6 +201,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Cobalt-B']: {
       id: 'Cobalt-B',
@@ -219,6 +223,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Cocoritter']: {
       id: 'Cocoritter',
@@ -253,6 +258,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Crow']: {
       id: 'Crow',
@@ -261,6 +267,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Fei Se']: {
       id: 'Fei Se',
@@ -282,6 +289,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Fenrir']: {
       id: 'Fenrir',
@@ -327,6 +335,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           maxStarRequirement: 6,
         },
       ],
+      attacks: [],
     },
     ['Fiona']: {
       id: 'Fiona',
@@ -360,6 +369,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Frigg']: {
       id: 'Frigg',
@@ -403,6 +413,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Gnonno']: {
       id: 'Gnonno',
@@ -425,6 +436,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Huang (Mimi)']: {
       id: 'Huang (Mimi)',
@@ -446,6 +458,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Huma']: {
       id: 'Huma',
@@ -454,6 +467,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'Defense',
       attackPercentBuffs: [],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Icarus']: {
       id: 'Icarus',
@@ -475,6 +489,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['King']: {
       id: 'King',
@@ -483,6 +498,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Lan']: {
       id: 'Lan',
@@ -504,6 +520,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Lin']: {
       id: 'Lin',
@@ -560,6 +577,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Ling Han']: {
       id: 'Ling Han',
@@ -592,6 +610,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Liu Huo']: {
       id: 'Liu Huo',
@@ -613,6 +632,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Lyra']: {
       id: 'Lyra',
@@ -648,6 +668,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Meryl']: {
       id: 'Meryl',
@@ -656,6 +677,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'Defense',
       attackPercentBuffs: [],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Ming Jing']: {
       id: 'Ming Jing',
@@ -690,6 +712,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Nan Yin']: {
       id: 'Nan Yin',
@@ -717,6 +740,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Nemesis']: {
       id: 'Nemesis',
@@ -773,6 +797,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Rubilia']: {
       id: 'Rubilia',
@@ -794,6 +819,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Ruby']: {
       id: 'Ruby',
@@ -826,6 +852,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Saki Fuwa']: {
       id: 'Saki Fuwa',
@@ -847,6 +874,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Samir']: {
       id: 'Samir',
@@ -855,6 +883,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Shiro']: {
       id: 'Shiro',
@@ -863,6 +892,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Tian Lang']: {
       id: 'Tian Lang',
@@ -897,6 +927,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Tsubasa']: {
       id: 'Tsubasa',
@@ -905,6 +936,32 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
+      attacks: [
+        {
+          id: 'Tsubasa - Auto chain',
+          displayName: 'Auto chain',
+          multiplierDamage: 4.454,
+          flatDamage: 1968,
+          duration: 3550,
+          cooldown: 0,
+          elementalType: 'Frost',
+          type: 'normal',
+          // TODO:
+          charge: 0,
+        },
+        {
+          id: 'Tsubasa - Aerial auto chain',
+          displayName: 'Aerial auto chain',
+          multiplierDamage: 4.541,
+          flatDamage: 2007,
+          duration: 3080,
+          cooldown: 0,
+          elementalType: 'Frost',
+          type: 'normal',
+          // TODO:
+          charge: 0,
+        },
+      ],
     },
     ['Umi']: {
       id: 'Umi',
@@ -927,6 +984,18 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [
+        // {
+        //   id: 'Umi - Auto chain',
+        //   displayName: 'Auto chain',
+        //   multiplierDamage: 6.44,
+        //   flatDamage: 34,
+        //   duration: 2433,
+        //   cooldown: 0,
+        //   type: 'normal',
+        //   charge: 0,
+        // },
+      ],
     },
     ['Yan Miao']: {
       id: 'Yan Miao',
@@ -961,6 +1030,99 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [
+        // {
+        //   id: 'Yan Miao - Auto chain',
+        //   displayName: 'Auto chain',
+        //   multiplierDamage: 16.145,
+        //   flatDamage: 85.4,
+        //   duration: 5770,
+        //   cooldown: 0,
+        //   type: 'normal',
+        //   charge: 750,
+        // },
+        // {
+        //   id: 'Yan Miao - Auto x2 hold',
+        //   displayName: 'Auto x2 hold',
+        //   multiplierDamage: 5.769,
+        //   flatDamage: 30.5,
+        //   duration: 5520,
+        //   cooldown: 0,
+        //   type: 'normal',
+        //   charge: 300,
+        // },
+        // // TODO: combos
+        // // {
+        // //   id: 'Yan Miao - Auto x2 dodge',
+        // //   displayName: 'Auto x2 dodge',
+        // //   multiplierDamage: 4.935,
+        // //   flatDamage: 26,
+        // //   duration: 1550,
+        // //   cooldown: 0,
+        // //   type: ['normal', 'dodge'],
+        // //   charge: 260,
+        // // },
+        // // {
+        // //   id: 'Yan Miao - Auto x4 dodge',
+        // //   displayName: 'Auto x4 dodge',
+        // //   multiplierDamage: 11.137,
+        // //   flatDamage: 58.8,
+        // //   duration: 4180,
+        // //   cooldown: 0,
+        // //   type: ['normal', 'dodge'],
+        // //   charge: 490,
+        // // },
+        // // {
+        // //   id: 'Yan Miao - Auto chain dodge',
+        // //   displayName: 'Auto chain dodge',
+        // //   multiplierDamage: 18.075,
+        // //   flatDamage: 95.5,
+        // //   duration: 5430,
+        // //   cooldown: 0,
+        // //   type: ['normal', 'dodge'],
+        // //   charge: 850,
+        // // },
+        // {
+        //   id: 'Yan Miao - Aerial',
+        //   displayName: 'Aerial',
+        //   multiplierDamage: 14.157,
+        //   flatDamage: 84.9,
+        //   duration: 5820,
+        //   cooldown: 0,
+        //   type: 'normal',
+        //   charge: 660,
+        // },
+        // {
+        //   id: 'Yan Miao - Directional dodge',
+        //   displayName: 'Directional dodge',
+        //   multiplierDamage: 1.93,
+        //   flatDamage: 10.1,
+        //   duration: 950,
+        //   cooldown: 0,
+        //   type: 'dodge',
+        //   charge: 115,
+        // },
+        // {
+        //   id: 'Yan Miao - Back dodge',
+        //   displayName: 'Back dodge',
+        //   multiplierDamage: 2.016,
+        //   flatDamage: 10.6,
+        //   duration: 850,
+        //   cooldown: 0,
+        //   type: 'dodge',
+        //   charge: 125,
+        // },
+        // {
+        //   id: 'Yan Miao - Dodge attack hold',
+        //   displayName: 'Dodge attack hold',
+        //   multiplierDamage: 9.949,
+        //   flatDamage: 52.4,
+        //   duration: 4720,
+        //   cooldown: 0,
+        //   type: 'dodge',
+        //   charge: 800,
+        // },
+      ],
     },
     ['Yu Lan']: {
       id: 'Yu Lan',
@@ -982,6 +1144,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
     ['Zero']: {
       id: 'Zero',
@@ -1016,6 +1179,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
+      attacks: [],
     },
   },
 };

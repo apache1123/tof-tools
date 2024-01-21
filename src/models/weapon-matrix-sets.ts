@@ -1,3 +1,4 @@
+import { filterOutUndefined } from '../utils/array-utils';
 import type { Dto } from './dto';
 import type { MatrixSetDto } from './matrix-set';
 import { MatrixSet } from './matrix-set';
@@ -83,7 +84,7 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
         return [counterpartMatrixSet4pc, highestStar2pcSet];
       }
 
-      return [matrixSet2pc1, matrixSet2pc2].filter((x) => x) as MatrixSet[];
+      return filterOutUndefined([matrixSet2pc1, matrixSet2pc2]);
     } else {
       return [];
     }
