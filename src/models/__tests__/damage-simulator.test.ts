@@ -1,16 +1,16 @@
 import { statTypesLookup } from '../../constants/stat-types';
 import { weaponDefinitions } from '../../constants/weapon-definitions';
 import type { AttackDefinition } from '../attack-definition';
-import { DamageCalculator } from '../damage-calculator';
 import { DamageSimulator } from '../damage-simulator';
 import { ElementalAttack } from '../elemental-attack';
 import { GearSet } from '../gear-set';
 import { Loadout } from '../loadout';
 import { RandomStat } from '../random-stat';
+import { Relics } from '../relics';
 import { Team } from '../team';
 import { Weapon } from '../weapon';
 
-describe('DamageCalculator', () => {
+describe('DamageSimulator', () => {
   it('calculates the damage of a simple single attack correctly', () => {
     // Arrange
     const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
@@ -24,14 +24,13 @@ describe('DamageCalculator', () => {
     const weapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
     loadout.team.weapon1 = weapon;
 
-    const damageSimulator = new DamageSimulator(loadout);
+    const sut = new DamageSimulator(loadout, new Relics());
     const attackDefinition = weaponDefinitions.byId['Tsubasa'].attacks?.find(
       (attack) => attack.id == 'Tsubasa - Auto chain'
     ) as AttackDefinition;
-    damageSimulator.attackSequence.addAttack(weapon, attackDefinition);
 
     // Act
-    const sut = new DamageCalculator(damageSimulator);
+    sut.attackSequence.addAttack(weapon, attackDefinition);
 
     // Assert
     const {
@@ -57,7 +56,7 @@ describe('DamageCalculator', () => {
     const weapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
     loadout.team.weapon1 = weapon;
 
-    const damageSimulator = new DamageSimulator(loadout);
+    const sut = new DamageSimulator(loadout, new Relics());
     const attackDefinition1 = weaponDefinitions.byId['Tsubasa'].attacks?.find(
       (attack) => attack.id == 'Tsubasa - Auto chain'
     ) as AttackDefinition;
@@ -65,12 +64,10 @@ describe('DamageCalculator', () => {
       (attack) => attack.id == 'Tsubasa - Aerial auto chain'
     ) as AttackDefinition;
 
-    damageSimulator.attackSequence.addAttack(weapon, attackDefinition1);
-    damageSimulator.attackSequence.addAttack(weapon, attackDefinition2);
-    damageSimulator.attackSequence.addAttack(weapon, attackDefinition1);
-
     // Act
-    const sut = new DamageCalculator(damageSimulator);
+    sut.attackSequence.addAttack(weapon, attackDefinition1);
+    sut.attackSequence.addAttack(weapon, attackDefinition2);
+    sut.attackSequence.addAttack(weapon, attackDefinition1);
 
     // Assert
     const {
@@ -83,7 +80,7 @@ describe('DamageCalculator', () => {
     expect(damageMultiplier).toBeCloseTo(1.22);
   });
 
-  it('calculates the damage of multiple simple attacks correctly, with gear atk% & crit%', () => {
+  it('calculates the damage of attacks correctly, with gear atk% & crit%', () => {
     // Arrange
     const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
       characterLevel: 100,
@@ -93,6 +90,22 @@ describe('DamageCalculator', () => {
     loadoutStats.frostAttack = new ElementalAttack(26777, 0);
     loadoutStats.critFlat = 12452;
 
+    const weapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
+    loadout.team.weapon1 = weapon;
+
+    const sut = new DamageSimulator(loadout, new Relics());
+
+    const attackDefinition1 = weaponDefinitions.byId['Tsubasa'].attacks?.find(
+      (attack) => attack.id == 'Tsubasa - Auto chain'
+    ) as AttackDefinition;
+    const attackDefinition2 = weaponDefinitions.byId['Tsubasa'].attacks?.find(
+      (attack) => attack.id == 'Tsubasa - Aerial auto chain'
+    ) as AttackDefinition;
+    sut.attackSequence.addAttack(weapon, attackDefinition1);
+    sut.attackSequence.addAttack(weapon, attackDefinition2);
+    sut.attackSequence.addAttack(weapon, attackDefinition1);
+
+    // Act
     const attackPercentStat = new RandomStat(
       statTypesLookup.byId['Frost Attack %']
     );
@@ -110,24 +123,6 @@ describe('DamageCalculator', () => {
     critPercentStat.value = 0.0224;
     gearSet.getGearByType('Eyepiece').randomStats[0] = critPercentStat;
 
-    const weapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
-    loadout.team.weapon1 = weapon;
-
-    const damageSimulator = new DamageSimulator(loadout);
-    const attackDefinition1 = weaponDefinitions.byId['Tsubasa'].attacks?.find(
-      (attack) => attack.id == 'Tsubasa - Auto chain'
-    ) as AttackDefinition;
-    const attackDefinition2 = weaponDefinitions.byId['Tsubasa'].attacks?.find(
-      (attack) => attack.id == 'Tsubasa - Aerial auto chain'
-    ) as AttackDefinition;
-
-    damageSimulator.attackSequence.addAttack(weapon, attackDefinition1);
-    damageSimulator.attackSequence.addAttack(weapon, attackDefinition2);
-    damageSimulator.attackSequence.addAttack(weapon, attackDefinition1);
-
-    // Act
-    const sut = new DamageCalculator(damageSimulator);
-
     // Assert
     const {
       damageSummary: {
@@ -139,7 +134,7 @@ describe('DamageCalculator', () => {
     expect(damageMultiplier).toBeCloseTo(1.23);
   });
 
-  it('calculates the damage of multiple simple attacks correctly, with weapon resonance buff (attack)', () => {
+  it('calculates the damage of attacks correctly, with weapon resonance buff (attack)', () => {
     // Arrange
     const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
       characterLevel: 100,
@@ -149,20 +144,18 @@ describe('DamageCalculator', () => {
     loadoutStats.frostAttack = new ElementalAttack(26777, 0);
     loadoutStats.critFlat = 12452;
 
+    const sut = new DamageSimulator(loadout, new Relics());
+    const attackDefinition = weaponDefinitions.byId['Tsubasa'].attacks?.find(
+      (attack) => attack.id == 'Tsubasa - Auto chain'
+    ) as AttackDefinition;
+
+    // Act
     const attackWeapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
     loadout.team.weapon1 = attackWeapon;
 
     const anotherAttackWeapon = new Weapon(weaponDefinitions.byId['Samir']);
     loadout.team.weapon2 = anotherAttackWeapon;
-
-    const damageSimulator = new DamageSimulator(loadout);
-    const attackDefinition = weaponDefinitions.byId['Tsubasa'].attacks?.find(
-      (attack) => attack.id == 'Tsubasa - Auto chain'
-    ) as AttackDefinition;
-    damageSimulator.attackSequence.addAttack(attackWeapon, attackDefinition);
-
-    // Act
-    const sut = new DamageCalculator(damageSimulator);
+    sut.attackSequence.addAttack(attackWeapon, attackDefinition);
 
     // Assert
     const {
@@ -172,5 +165,40 @@ describe('DamageCalculator', () => {
     } = sut;
     expect(baseDamage).toBeCloseTo(121232.76);
     expect(finalDamage).toBeCloseTo(162784.83);
+  });
+
+  it('calculates the damage of attacks correctly, with relic passive buffs', () => {
+    // Arrange
+    const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
+      characterLevel: 100,
+    });
+
+    const { loadoutStats } = loadout;
+    loadoutStats.frostAttack = new ElementalAttack(26777, 0);
+    loadoutStats.critFlat = 12452;
+
+    const weapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
+    loadout.team.weapon1 = weapon;
+
+    const relics = new Relics();
+    const sut = new DamageSimulator(loadout, relics);
+    const attackDefinition = weaponDefinitions.byId['Tsubasa'].attacks?.find(
+      (attack) => attack.id == 'Tsubasa - Auto chain'
+    ) as AttackDefinition;
+    sut.attackSequence.addAttack(weapon, attackDefinition);
+
+    // Act
+    relics.setRelicStars('Cybernetic Arm', 4);
+    relics.setRelicStars('Hovering Cannon', 5);
+    relics.setRelicStars('Alternate Destiny', 4);
+
+    // Assert
+    const {
+      damageSummary: {
+        totalDamage: { baseDamage, finalDamage },
+      },
+    } = sut;
+    expect(baseDamage).toBeCloseTo(121232.76);
+    expect(finalDamage).toBeCloseTo(155385.52);
   });
 });
