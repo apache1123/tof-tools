@@ -245,6 +245,11 @@ export class Loadout implements Persistable<LoadoutDto> {
     ]).toNumber();
   }
 
+  /** Dmg% of the specified elemental type - accounting from gear only */
+  public getElementalDamageUnbuffed(elementalType: CoreElementalType): number {
+    return this.gearSet.getTotalDamagePercent(elementalType);
+  }
+
   /** Total dmg% of the loadout's elemental type - accounting from all sources (gear) */
   public get elementalDamageTotal(): number {
     return additiveSum([
