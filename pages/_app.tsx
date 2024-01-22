@@ -18,6 +18,8 @@ import {
   gearComparerStateKey,
   loadoutsState,
   loadoutsStateKey,
+  relicsState,
+  relicsStateKey,
   userStatsState,
   userStatsStateKey,
 } from '../src/states/states';
@@ -36,10 +38,11 @@ export default function MyApp(props: MyAppProps) {
     migrateStatesToLatestVersion();
   });
 
+  useLocalStoragePersistence(changelogState, changelogStateKey);
   useLocalStoragePersistence(userStatsState, userStatsStateKey);
   useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
   useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
-  useLocalStoragePersistence(changelogState, changelogStateKey);
+  useLocalStoragePersistence(relicsState, relicsStateKey);
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
