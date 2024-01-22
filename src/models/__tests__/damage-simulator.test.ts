@@ -201,4 +201,46 @@ describe('DamageSimulator', () => {
     expect(baseDamage).toBeCloseTo(121232.76);
     expect(finalDamage).toBeCloseTo(155385.52);
   });
+
+  it('calculates the damage of attacks correctly, with gear dmg buffs', () => {
+    // Arrange
+    const loadout = new Loadout('loadout', 'Frost', new Team(), new GearSet(), {
+      characterLevel: 100,
+    });
+
+    const { loadoutStats } = loadout;
+    loadoutStats.frostAttack = new ElementalAttack(26777, 0);
+    loadoutStats.critFlat = 12452;
+
+    const weapon = new Weapon(weaponDefinitions.byId['Tsubasa']);
+    loadout.team.weapon1 = weapon;
+
+    const sut = new DamageSimulator(loadout, new Relics());
+    const attackDefinition = weaponDefinitions.byId['Tsubasa'].attacks?.find(
+      (attack) => attack.id == 'Tsubasa - Auto chain'
+    ) as AttackDefinition;
+    sut.attackSequence.addAttack(weapon, attackDefinition);
+
+    // Act
+    const damageStat = new RandomStat(statTypesLookup.byId['Frost Damage %']);
+    damageStat.value = 0.02867;
+    // This one shouldn't count, as it is not frost
+    const otherDamageStat = new RandomStat(
+      statTypesLookup.byId['Flame Damage %']
+    );
+    otherDamageStat.value = 0.0126;
+
+    loadout.gearSet.getGearByType('Microreactor').randomStats[0] = damageStat;
+    loadout.gearSet.getGearByType('Microreactor').randomStats[1] =
+      otherDamageStat;
+
+    // Assert
+    const {
+      damageSummary: {
+        totalDamage: { baseDamage, finalDamage },
+      },
+    } = sut;
+    expect(baseDamage).toBeCloseTo(121232.76);
+    expect(finalDamage).toBeCloseTo(152228.98);
+  });
 });

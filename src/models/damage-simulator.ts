@@ -58,6 +58,8 @@ export class DamageSimulator {
 
       const baseDamage = totalAttack.times(multiplierDamage).plus(flatDamage);
 
+      const gearDamageValue = loadout.getElementalDamageUnbuffed(elementalType);
+
       const { weaponResonance } = loadout.team;
       const weaponResonanceDamageBuff =
         weaponResonanceDamageBuffsLookup[weaponResonance];
@@ -68,6 +70,7 @@ export class DamageSimulator {
       );
 
       const finalDamage = baseDamage
+        .times(BigNumber(gearDamageValue).plus(1))
         .times(BigNumber(weaponResonanceDamageBuff).plus(1))
         .times(BigNumber(passiveRelicDamageBuffValue).plus(1));
 
