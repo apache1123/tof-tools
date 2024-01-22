@@ -1,19 +1,7 @@
 import type { DataAllIds, DataById } from '../models/data';
 import type { Relic } from '../models/relic';
 
-export type SrRelicName =
-  | 'Couant'
-  | 'Cybernetic Arm'
-  | 'Hovering Cannon'
-  | 'Jetboard'
-  | 'Jetpack'
-  | 'Lava Bomb'
-  | 'Magnetic Pulse'
-  | 'Magnetic Storm'
-  | 'Missile Barrage'
-  | 'Omnium Handcannon'
-  | 'Quantum Cloak'
-  | 'Strange Cube';
+export const maxRelicStars = 5;
 
 export type SsrRelicName =
   | 'Alternate Destiny'
@@ -33,22 +21,21 @@ export type SsrRelicName =
   | 'Type II Couant'
   | 'Type V Armor';
 
-export type RelicName = SrRelicName | SsrRelicName;
+export type SrRelicName =
+  | 'Couant'
+  | 'Cybernetic Arm'
+  | 'Hovering Cannon'
+  | 'Jetboard'
+  | 'Jetpack'
+  | 'Lava Bomb'
+  | 'Magnetic Pulse'
+  | 'Magnetic Storm'
+  | 'Missile Barrage'
+  | 'Omnium Handcannon'
+  | 'Quantum Cloak'
+  | 'Strange Cube';
 
-export const srRelicsOrder: DataAllIds<SrRelicName> = [
-  'Couant',
-  'Cybernetic Arm',
-  'Hovering Cannon',
-  'Jetboard',
-  'Jetpack',
-  'Lava Bomb',
-  'Magnetic Pulse',
-  'Magnetic Storm',
-  'Missile Barrage',
-  'Omnium Handcannon',
-  'Quantum Cloak',
-  'Strange Cube',
-];
+export type RelicName = SsrRelicName | SrRelicName;
 
 export const ssrRelicsOrder: DataAllIds<SsrRelicName> = [
   'Alternate Destiny',
@@ -66,6 +53,51 @@ export const ssrRelicsOrder: DataAllIds<SsrRelicName> = [
   'Thalassic Heart',
   'Triple Mask',
   'Type II Couant',
+  'Type V Armor',
+];
+
+export const srRelicsOrder: DataAllIds<SrRelicName> = [
+  'Couant',
+  'Cybernetic Arm',
+  'Hovering Cannon',
+  'Jetboard',
+  'Jetpack',
+  'Lava Bomb',
+  'Magnetic Pulse',
+  'Magnetic Storm',
+  'Missile Barrage',
+  'Omnium Handcannon',
+  'Quantum Cloak',
+  'Strange Cube',
+];
+
+/** Relics which are commonly used in meta damage-orientated rotations */
+export const metaDamageRelics: DataAllIds<RelicName> = [
+  'Bubble Gun',
+  'Omnium Shield',
+  'Overdrive Shot',
+  'Thalassic Heart',
+  'Triple Mask',
+  'Type II Couant',
+  'Spacetime Rift',
+];
+
+/** Relics for which it is important to know the star levels of when calculating damage, because they provide passive damage buffs (usually at 4 stars) (excluding the commonly used relics above)  */
+export const passiveBuffRelics: DataAllIds<RelicName> = [
+  'Alternate Destiny',
+  'Mini Pelican',
+  'Confinement',
+  'Couant',
+  'Cybernetic Arm',
+  'Hologram Projector',
+  'Hoverboard',
+  'Hovering Cannon',
+  'Lava Bomb',
+  'Magnetic Storm',
+  'Missile Barrage',
+  'Omnium Handcannon',
+  'Quantum Cloak',
+  'Strange Cube',
   'Type V Armor',
 ];
 
