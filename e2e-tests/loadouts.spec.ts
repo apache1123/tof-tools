@@ -296,6 +296,6 @@ test('loadout gear set stat summary', async ({ page }) => {
     .fill('215');
 
   await expect(
-    page.getByTestId('current-gear-set-stat-summary')
-  ).toHaveScreenshot();
+    await page.getByTestId('current-gear-set-stat-summary').textContent()
+  ).toMatchSnapshot();
 });

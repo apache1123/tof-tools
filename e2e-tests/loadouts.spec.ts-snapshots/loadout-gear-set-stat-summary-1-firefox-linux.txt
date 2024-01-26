@@ -1,0 +1,1 @@
+The following are the stat values for all gears added up together. Doesn't mean very much, but maybe will help you compare how good your gear is for one loadout vs. another.Attack1,090Attack %1.26%Damage %3.53%Crit3,269Crit %5.81%
