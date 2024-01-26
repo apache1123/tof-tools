@@ -39,15 +39,15 @@ export function ReplacementGear() {
       }
       actions={
         <>
+          <SaveGearModal
+            gear={gearState}
+            targetLoadout={gearComparerState.loadoutsState.selectedLoadout}
+          />
           <GearOCRModal
             onFinalizeGear={(gearFromOCR) => {
               gearComparerState.replacementGearGearSet.setGear(gearFromOCR);
               gearComparerState.selectedGearTypeId = gearFromOCR.type.id;
             }}
-          />
-          <SaveGearModal
-            gear={gearState}
-            targetLoadout={gearComparerState.loadoutsState.selectedLoadout}
           />
         </>
       }

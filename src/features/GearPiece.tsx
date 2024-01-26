@@ -97,6 +97,7 @@ export const GearPiece = ({
                   gearState.isAugmented = checked;
                 }}
                 color="titan"
+                size="small"
               />
             }
             label="Titan"
@@ -214,23 +215,18 @@ function Layout({
     <Paper sx={{ p: 2 }} square elevation={2} data-testid={dataTestId}>
       <Grid container spacing={2}>
         <Grid maxWidth={90} display="flex" alignItems="center">
-          {typeIcon}
+          <Stack alignItems="center" spacing={0.5}>
+            {typeIcon}
+            {titanToggle}
+          </Stack>
         </Grid>
         <Grid xs display="flex" flexDirection="column" justifyContent="center">
           {typeSelector}
           <Box mt={1}>{starsSelector}</Box>
         </Grid>
       </Grid>
-      <Stack
-        direction="row"
-        justifyContent={titanToggle ? 'space-between' : 'flex-end'}
-        spacing={2}
-        mb={2}
-      >
-        {titanToggle}
-        <Stack direction="row-reverse" spacing={1}>
-          {actions}
-        </Stack>
+      <Stack direction="row" justifyContent="flex-end" spacing={1} mb={2}>
+        {actions}
       </Stack>
       <Box mb={3}>{randomStats}</Box>
       <Box>{summary}</Box>

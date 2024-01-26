@@ -175,4 +175,10 @@ export const changelog: Changelog = [
       />
     ),
   },
+  {
+    semver: '3.8.0',
+    date: new Date(Date.UTC(2024, 0, 26)),
+    title:
+      'Add back the Compare button for a piece of gear in the Loadouts page',
+  },
 ];
