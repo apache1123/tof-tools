@@ -113,8 +113,11 @@ test('import gear, ocr fills in correct gear', async ({ page }) => {
     .getByRole('button', { name: 'Roll breakdown' })
     .click();
   await expect(
-    page.getByTestId('loadout-gear').getByTestId('roll-breakdown-panel-content')
-  ).toHaveScreenshot();
+    await page
+      .getByTestId('loadout-gear')
+      .getByTestId('roll-breakdown-panel-content')
+      .textContent()
+  ).toMatchSnapshot();
 });
 
 test('gear value is calculated correctly', async ({ page }) => {
@@ -536,10 +539,11 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .getByRole('button', { name: 'Stat values at max titan' })
     .click();
   await expect(
-    page
+    await page
       .getByTestId('loadout-gear')
       .getByTestId('max-titan-stats-panel-content')
-  ).toHaveScreenshot();
+      .textContent()
+  ).toMatchSnapshot();
 
   // Test ele atk pull-up with 3 random ele atk stats
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
@@ -630,10 +634,11 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .fill('247');
 
   await expect(
-    page
+    await page
       .getByTestId('loadout-gear')
       .getByTestId('max-titan-stats-panel-content')
-  ).toHaveScreenshot();
+      .textContent()
+  ).toMatchSnapshot();
 
   // Test random resistance stats do not get pulled-up
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
@@ -726,10 +731,11 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .fill('52');
 
   await expect(
-    page
+    await page
       .getByTestId('loadout-gear')
       .getByTestId('max-titan-stats-panel-content')
-  ).toHaveScreenshot();
+      .textContent()
+  ).toMatchSnapshot();
 
   // Test ele atk % pull-up
   await page.getByTestId('loadout-gear').getByLabel('Select gear type').click();
@@ -822,8 +828,9 @@ test('stat values at max titan is calculated correctly', async ({ page }) => {
     .fill('69');
 
   await expect(
-    page
+    await page
       .getByTestId('loadout-gear')
       .getByTestId('max-titan-stats-panel-content')
-  ).toHaveScreenshot();
+      .textContent()
+  ).toMatchSnapshot();
 });

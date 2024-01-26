@@ -1,0 +1,1 @@
+The max increase amount each stat gets at max potential titan (120 augmentations)Random statsCrit: 3,493 + 1,570 = 5,063Physical Attack: 593 + 384 = 977Frost Attack: 69 + 859 = 928HP: 4,125 + 19,938 = 24,063Augment statsFlame Resistance: 215 + 1,039 = 1,254Frost Resistance: 215 + 1,039 = 1,254Crit 5,063 (17.95%)

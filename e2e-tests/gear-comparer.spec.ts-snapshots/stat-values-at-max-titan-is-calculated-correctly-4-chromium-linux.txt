@@ -1,0 +1,1 @@
+The max increase amount each stat gets at max potential titan (120 augmentations)Random statsFlame Attack %: 5.58% + 1.13% = 6.71%Volt Attack: 461 + 371 = 832HP %: 0.94% + 0.68% = 1.62%Physical Attack: 69 + 721 = 790Augment statsFrost Attack %: 1.26% + 5.11% = 6.37%Physical Attack %: 1.26% + 5.11% = 6.37%Attack 6.71%
