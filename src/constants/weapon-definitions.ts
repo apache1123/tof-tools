@@ -27,6 +27,7 @@ export type WeaponName =
   | 'Ming Jing'
   | 'Nan Yin'
   | 'Nemesis'
+  | 'Plotti'
   | 'Rubilia'
   | 'Ruby'
   | 'Saki Fuwa'
@@ -66,6 +67,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Ming Jing',
     'Nan Yin',
     'Nemesis',
+    'Plotti',
     'Rubilia',
     'Ruby',
     'Saki Fuwa',
@@ -770,6 +772,40 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           isActivePassively: false,
           minStarRequirement: 6,
           maxStarRequirement: 6,
+        },
+      ],
+      critRateBuffs: [],
+    },
+    ['Plotti']: {
+      id: 'Plotti',
+      displayName: 'Plotti',
+      elementalTypes: ['Flame', 'Physical'],
+      type: 'DPS',
+      attackPercentBuffs: [
+        {
+          id: 'Flame Resonance',
+          displayName: 'Flame Resonance',
+          description: '+15% flame ATK when equipping 2 or more flame weapons',
+          value: 0.15,
+          elementalTypes: ['Flame'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Flame'],
+        },
+        {
+          id: 'Physical Resonance',
+          displayName: 'Physical Resonance',
+          description:
+            '+15% physical ATK when equipping 2 or more physical weapons',
+          value: 0.15,
+          elementalTypes: ['Physical'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Physical'],
         },
       ],
       critRateBuffs: [],

@@ -181,4 +181,9 @@ export const changelog: Changelog = [
     title:
       'Add back the Compare button for a piece of gear in the Loadouts page',
   },
+  {
+    semver: '3.9.0',
+    date: new Date(Date.UTC(2024, 1, 5)),
+    title: 'Add Plotti',
+  },
 ];
