@@ -35,6 +35,7 @@ export type MatrixSetBaseName =
   | 'Ming Jing'
   | 'Nan Yin'
   | 'Nemesis'
+  | 'Plotti'
   | 'Rubilia'
   | 'Ruby'
   | 'Saki Fuwa'
@@ -75,6 +76,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Ming Jing 2pc',
   'Nan Yin 2pc',
   'Nemesis 2pc',
+  'Plotti 2pc',
   'Rubilia 2pc',
   'Ruby 2pc',
   'Saki Fuwa 2pc',
@@ -116,6 +118,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Ming Jing 4pc',
   'Nan Yin 4pc',
   'Nemesis 4pc',
+  'Plotti 4pc',
   'Rubilia 4pc',
   'Ruby 4pc',
   'Saki Fuwa 4pc',
@@ -510,6 +513,27 @@ export const matrixSetDefinitionsLookup: DataById<
         elementalTypes: ['Volt'],
         canStack: false,
         isActivePassively: false,
+      },
+    ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Plotti 2pc': {
+    id: 'Plotti 2pc',
+    displayName: 'Plotti 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description: 'Increase flame and physical ATK, works off-hand',
+        starValues: [
+          { star: 0, value: 0.19 },
+          { star: 1, value: 0.21 },
+          { star: 2, value: 0.23 },
+          { star: 3, value: 0.25 },
+        ],
+        elementalTypes: ['Flame', 'Physical'],
+        canStack: false,
+        isActivePassively: true,
       },
     ],
     critRateBuffs: [],
@@ -979,6 +1003,14 @@ export const matrixSetDefinitionsLookup: DataById<
   'Nemesis 4pc': {
     id: 'Nemesis 4pc',
     displayName: 'Nemesis 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Plotti 4pc': {
+    id: 'Plotti 4pc',
+    displayName: 'Plotti 4pc',
     pieces: 4,
     attackPercentBuffs: [],
     critRateBuffs: [],
