@@ -15,8 +15,12 @@ export function GearsSideBySide() {
     loadoutsState: { selectedLoadout },
   } = useSnapshot(gearComparerState);
 
-  const selectedLoadoutGearMaxTitan = selectedLoadoutGear.getMaxTitanGear();
-  const replacementGearMaxTitan = replacementGear.getMaxTitanGear();
+  const { elementalType } = selectedLoadout;
+
+  const selectedLoadoutGearMaxTitan =
+    selectedLoadoutGear.getMaxTitanGear(elementalType);
+  const replacementGearMaxTitan =
+    replacementGear.getMaxTitanGear(elementalType);
 
   const selectedLoadoutGearMaxTitanValue = selectedLoadoutGearMaxTitan
     ? selectedLoadout.getSubstituteGearValue(selectedLoadoutGearMaxTitan)
@@ -31,7 +35,7 @@ export function GearsSideBySide() {
         <Typography variant="h5" mb={1}>
           Current gear in loadout
         </Typography>
-        <LoadoutGear />
+        <LoadoutGear maxTitanGear={selectedLoadoutGearMaxTitan} />
         <LoadoutGearValue
           maxTitanGearValue={selectedLoadoutGearMaxTitanValue}
           isMaxTitanGearValueHigher={
@@ -48,7 +52,7 @@ export function GearsSideBySide() {
             New gear
           </Typography>
         </Box>
-        <ReplacementGear />
+        <ReplacementGear maxTitanGear={replacementGearMaxTitan} />
         <ReplacementGearValue
           maxTitanGearValue={replacementGearMaxTitanValue}
           isMaxTitanGearValueHigher={
