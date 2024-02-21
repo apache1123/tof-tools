@@ -35,6 +35,7 @@ export interface GearPieceProps {
   actions?: ReactNode;
   showTitanToggle?: boolean;
   showStatSummary?: CoreElementalType;
+  showMaxTitanGear?: { maxTitanGear: Gear | undefined };
   additionalAccordions?: ReactNode;
   ['data-testid']?: string;
 }
@@ -46,14 +47,13 @@ export const GearPiece = ({
   actions,
   showTitanToggle,
   showStatSummary,
+  showMaxTitanGear,
   additionalAccordions,
   'data-testid': dataTestId,
 }: GearPieceProps) => {
   const gearType = gearSnap.type;
   const isTitan = gearSnap.isAugmented;
   const possibleRandomStatTypes = getPossibleRandomStatTypes(gearType);
-
-  const maxTitanGear = gearSnap.getMaxTitanGear();
 
   return (
     <Layout
@@ -126,63 +126,65 @@ export const GearPiece = ({
                 <GearRollBreakdown gearSnap={gearSnap} />
               </AccordionDetails>
             </Accordion>
-            <Accordion elevation={3}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="max-titan-stats-panel-content"
-                id="max-titan-stats-panel-header"
-              >
-                <Typography>Stat values at max titan</Typography>
-              </AccordionSummary>
-              <AccordionDetails data-testid="max-titan-stats-panel-content">
-                <>
-                  <Typography sx={{ mb: 3 }}>
-                    The max increase amount each stat gets at max potential
-                    titan (120 augmentations)
-                  </Typography>
-                  {gearSnap.stars !== 5 &&
-                  gearSnap.getPossibleStars().length > 1 ? (
-                    <Typography color="info.main" gutterBottom>
-                      Can&apos;t determine the number of stars{' '}
-                      <strong>
-                        (either {gearSnap.getPossibleStars().join(' or ')}{' '}
-                        stars)
-                      </strong>
-                      . Select it above to continue
+            {showMaxTitanGear && (
+              <Accordion elevation={3}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="max-titan-stats-panel-content"
+                  id="max-titan-stats-panel-header"
+                >
+                  <Typography>Stat values at max titan</Typography>
+                </AccordionSummary>
+                <AccordionDetails data-testid="max-titan-stats-panel-content">
+                  <>
+                    <Typography sx={{ mb: 3 }}>
+                      The max increase amount each stat gets at max potential
+                      titan (120 augmentations)
                     </Typography>
-                  ) : gearSnap.stars !== 5 &&
-                    gearSnap.getPossibleStars().length === 1 &&
-                    gearSnap.getPossibleStars()[0] !== 5 ? (
-                    <Typography color="info.main" gutterBottom>
-                      Can&apos;t calculate max titan stat values if gear is not
-                      at 5 star
-                    </Typography>
-                  ) : gearSnap && maxTitanGear ? (
-                    <TitanGearMaxStats
-                      maxTitanGearSnap={maxTitanGear}
-                      elementalType={showStatSummary}
-                    />
-                  ) : (
-                    <Box>
-                      <Typography color="info.main">
+                    {gearSnap.stars !== 5 &&
+                    gearSnap.getPossibleStars().length > 1 ? (
+                      <Typography color="info.main" gutterBottom>
+                        Can&apos;t determine the number of stars{' '}
+                        <strong>
+                          (either {gearSnap.getPossibleStars().join(' or ')}{' '}
+                          stars)
+                        </strong>
+                        . Select it above to continue
+                      </Typography>
+                    ) : gearSnap.stars !== 5 &&
+                      gearSnap.getPossibleStars().length === 1 &&
+                      gearSnap.getPossibleStars()[0] !== 5 ? (
+                      <Typography color="info.main" gutterBottom>
                         Can&apos;t calculate max titan stat values if gear is
-                        not at 5 star.
+                        not at 5 star
                       </Typography>
-                      <Typography color="info.main" mt={2} gutterBottom>
-                        If the gear is already augmented/at titan, use the
-                        original 5 star values (found on the augment screen)
-                      </Typography>
-                      <Image
-                        src="/stat_original_5_star_value_example.jpg"
-                        alt="stat-original-5-star-value-example"
-                        width={415}
-                        height={230}
+                    ) : gearSnap && showMaxTitanGear.maxTitanGear ? (
+                      <TitanGearMaxStats
+                        maxTitanGearSnap={showMaxTitanGear.maxTitanGear}
+                        elementalType={showStatSummary}
                       />
-                    </Box>
-                  )}
-                </>
-              </AccordionDetails>
-            </Accordion>
+                    ) : (
+                      <Box>
+                        <Typography color="info.main">
+                          Can&apos;t calculate max titan stat values if gear is
+                          not at 5 star.
+                        </Typography>
+                        <Typography color="info.main" mt={2} gutterBottom>
+                          If the gear is already augmented/at titan, use the
+                          original 5 star values (found on the augment screen)
+                        </Typography>
+                        <Image
+                          src="/stat_original_5_star_value_example.jpg"
+                          alt="stat-original-5-star-value-example"
+                          width={415}
+                          height={230}
+                        />
+                      </Box>
+                    )}
+                  </>
+                </AccordionDetails>
+              </Accordion>
+            )}
             {additionalAccordions}
           </Box>
         </>

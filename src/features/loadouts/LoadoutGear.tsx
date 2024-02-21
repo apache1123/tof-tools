@@ -19,6 +19,7 @@ export function LoadoutGear({ gearSnap, gearState }: LoadoutGearProps) {
   const { selectedLoadout: loadoutSnap } = useSnapshot(
     loadoutsState
   ) as LoadoutsState;
+  const { elementalType } = loadoutSnap;
 
   const {
     selectedLoadoutItem: {
@@ -29,7 +30,7 @@ export function LoadoutGear({ gearSnap, gearState }: LoadoutGearProps) {
   const gearTypeId = gearSnap.type.id;
   const gearValue = loadoutSnap.getGearValue(gearTypeId);
 
-  const maxTitanGear = gearSnap.getMaxTitanGear();
+  const maxTitanGear = gearSnap.getMaxTitanGear(elementalType);
   const maxTitanGearValue = maxTitanGear
     ? loadoutSnap.getSubstituteGearValue(maxTitanGear)
     : undefined;
@@ -76,6 +77,7 @@ export function LoadoutGear({ gearSnap, gearState }: LoadoutGearProps) {
         }
         showTitanToggle
         showStatSummary={loadoutSnap.elementalType}
+        showMaxTitanGear={{ maxTitanGear }}
         data-testid={gearTypeId}
       />
       <GearValue

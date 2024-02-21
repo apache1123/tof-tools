@@ -2,12 +2,17 @@ import { useSnapshot } from 'valtio';
 
 import { GearTypeSelector } from '../../components/GearTypeSelector/GearTypeSelector';
 import { gearTypesLookup } from '../../constants/gear-types';
+import type { Gear } from '../../models/gear';
 import type { GearComparerState } from '../../states/gear-comparer';
 import { gearComparerState } from '../../states/states';
 import { GearOCRModal } from '../GearOCRModal';
 import { GearPiece } from '../GearPiece';
 
-export function LoadoutGear() {
+export function LoadoutGear({
+  maxTitanGear,
+}: {
+  maxTitanGear: Gear | undefined;
+}) {
   const {
     selectedLoadoutGear: gearSnap,
     loadoutsState: {
@@ -46,6 +51,7 @@ export function LoadoutGear() {
       }
       showTitanToggle
       showStatSummary={elementalType}
+      showMaxTitanGear={{ maxTitanGear }}
       data-testid={'loadout-gear'}
     />
   );
