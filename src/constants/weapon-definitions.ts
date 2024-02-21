@@ -37,6 +37,7 @@ export type WeaponName =
   | 'Tsubasa'
   | 'Umi'
   | 'Yan Miao'
+  | 'Yanuo'
   | 'Yu Lan'
   | 'Zero';
 
@@ -77,6 +78,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Tsubasa',
     'Umi',
     'Yan Miao',
+    'Yanuo',
     'Yu Lan',
     'Zero',
   ],
@@ -994,6 +996,39 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           minStarRequirement: 0,
           maxStarRequirement: 6,
           elementalResonanceRequirements: ['Flame'],
+        },
+      ],
+      critRateBuffs: [],
+    },
+    ['Yanuo']: {
+      id: 'Yanuo',
+      displayName: 'Yanuo',
+      elementalTypes: ['Frost', 'Volt'],
+      type: 'DPS',
+      attackPercentBuffs: [
+        {
+          id: 'Frost Resonance',
+          displayName: 'Frost Resonance',
+          description: '+15% frost ATK when equipping 2 or more frost weapons',
+          value: 0.15,
+          elementalTypes: ['Frost'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Frost'],
+        },
+        {
+          id: 'Volt Resonance',
+          displayName: 'Volt Resonance',
+          description: '+15% volt ATK when equipping 2 or more volt weapons',
+          value: 0.15,
+          elementalTypes: ['Volt'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Volt'],
         },
       ],
       critRateBuffs: [],
