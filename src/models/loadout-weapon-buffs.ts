@@ -21,10 +21,7 @@ export class LoadoutWeaponBuffs {
     const { elementalType, team } = this._loadout;
 
     const buffs: WeaponAttackPercentBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = team;
-    [weapon1, weapon2, weapon3].forEach((weapon) => {
-      if (!weapon) return;
-
+    team.weapons.forEach((weapon) => {
       const weaponDefinition = weapon.definition;
       weaponDefinition.attackPercentBuffs.forEach((buffDefinition) => {
         if (!this.hasMetBuffRequirements(buffDefinition, weapon)) return;
@@ -61,10 +58,7 @@ export class LoadoutWeaponBuffs {
    */
   public get critRateBuffs(): WeaponCritRateBuff[] {
     const buffs: WeaponCritRateBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = this._loadout.team;
-    [weapon1, weapon2, weapon3].forEach((weapon) => {
-      if (!weapon) return;
-
+    this._loadout.team.weapons.forEach((weapon) => {
       const weaponDefinition = weapon.definition;
       weaponDefinition.critRateBuffs.forEach((buffDefinition) => {
         if (!this.hasMetBuffRequirements(buffDefinition, weapon)) return;
@@ -127,9 +121,8 @@ export class LoadoutWeaponBuffs {
 
     // TODO: This is duplicated in loadout-matrix-set-buffs.ts
     if (elementalWeaponsRequirements) {
-      const { weapon1, weapon2, weapon3 } = this._loadout.team;
-      const weaponElementalTypes = [weapon1, weapon2, weapon3].flatMap(
-        (weapon) => (weapon ? weapon.definition.elementalTypes : [])
+      const weaponElementalTypes = this._loadout.team.weapons.flatMap(
+        (weapon) => weapon.definition.elementalTypes
       );
 
       let hasMetElementalWeaponsRequirement = false;

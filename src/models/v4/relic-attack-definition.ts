@@ -1,4 +1,4 @@
-import type { WeaponElementalType } from '../constants/elemental-type';
+import type { WeaponElementalType } from '../../constants/elemental-type';
 
 export interface RelicAttackDefinition {
   id: string;

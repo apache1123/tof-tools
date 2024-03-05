@@ -1,7 +1,11 @@
+import type { CommonWeaponAttackBuffId } from '../constants/common-weapon-attack-buffs';
 import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
-import type { AttackDefinition } from './attack-definition';
+import type {
+  NormalAttackDefinition,
+  SkillAttackDefinition,
+} from './v4/attack-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -17,7 +21,13 @@ export interface WeaponDefinition {
   type: WeaponType;
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
   critRateBuffs: WeaponCritRateBuffDefinition[];
-  attacks: AttackDefinition[];
+
+  /** v4 below */
+  normalAttacks: NormalAttackDefinition[];
+  skills: SkillAttackDefinition[];
+
+  commonAttackBuffs: CommonWeaponAttackBuffId[];
+  // TODO: weapon specific attack buffs
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

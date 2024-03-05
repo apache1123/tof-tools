@@ -1,11 +1,10 @@
-import type { WeaponElementalType } from '../constants/elemental-type';
 import type { RelicName } from '../constants/relics';
 import { maxRelicStars, relicsLookup } from '../constants/relics';
 import { keysOf } from '../utils/object-utils';
 import type { DataById } from './data';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
-import type { RelicBuffDefinition } from './relic-buff-definition';
+import type { RelicBuffDefinition } from './v4/relic-buff-definition';
 
 export class Relics implements Persistable<RelicsDto> {
   private readonly _relicStars: DataById<RelicName, number>;
@@ -29,21 +28,15 @@ export class Relics implements Persistable<RelicsDto> {
     );
   }
 
-  /** Returns all activated "passive relic dmg buffs" from all relics of the specified element */
-  public getPassiveRelicBuffs(
-    elementalType: WeaponElementalType
-  ): RelicBuffDefinition[] {
+  /** Activated "passive relic dmg buffs" from all relics  */
+  public get passiveRelicBuffs(): RelicBuffDefinition[] {
     return keysOf(this._relicStars).flatMap((relicName) => {
       const stars = this._relicStars[relicName];
       const relicDefinition = relicsLookup[relicName];
       if (relicDefinition) {
         // Find any relic passive buffs that have passed the star requirements to be activated
         const buffs = relicDefinition.buffs
-          .filter(
-            (buff) =>
-              buff.damageBuff.category === 'Relic passive' &&
-              buff.damageBuff.elementalTypes.includes(elementalType)
-          )
+          .filter((buff) => buff.category === 'Relic passive')
           .filter(
             ({ minStarRequirement, maxStarRequirement }) =>
               stars >= minStarRequirement && stars <= maxStarRequirement

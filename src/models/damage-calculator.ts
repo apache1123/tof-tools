@@ -3,22 +3,15 @@ import BigNumber from 'bignumber.js';
 import { weaponResonanceDamageBuffsLookup } from '../constants/weapon-resonance';
 import { filterOutUndefined } from '../utils/array-utils';
 import { additiveSum } from '../utils/math-utils';
-import { AttackSequence } from './attack-sequence';
+import type { CombatSimulator } from './combat-simulator';
 import { Damage } from './damage';
 import { DamageSummary } from './damage-summary';
-import type { Loadout } from './loadout';
-import type { Relics } from './relics';
 
-export class DamageSimulator {
-  public readonly attackSequence: AttackSequence = new AttackSequence();
-
-  public constructor(
-    public readonly loadout: Loadout,
-    public readonly relics: Relics
-  ) {}
+export class DamageCalculator {
+  public constructor(private readonly combatSimulator: CombatSimulator) {}
 
   public get damageSummary(): DamageSummary {
-    const { loadout, attackSequence } = this;
+    const { loadout, attackTimeline: attackSequence } = this.combatSimulator;
     const { weapon1, weapon2, weapon3 } = loadout.team;
 
     const weapons = filterOutUndefined([weapon1, weapon2, weapon3]);
@@ -64,7 +57,8 @@ export class DamageSimulator {
       const weaponResonanceDamageBuff =
         weaponResonanceDamageBuffsLookup[weaponResonance];
 
-      const passiveRelicBuffs = this.relics.getPassiveRelicBuffs(elementalType);
+      const passiveRelicBuffs =
+        this.combatSimulator.relics.getPassiveRelicBuffs(elementalType);
       const passiveRelicDamageBuffValue = additiveSum(
         passiveRelicBuffs.map((buff) => buff.damageBuff.value)
       );

@@ -4,4 +4,4 @@ export type WeaponElementalType = CoreElementalType | 'Altered';
 
 export type ElementalType = WeaponElementalType | 'None' | 'All';
 
-export type AttackElementalType = WeaponElementalType;
+export type AttackDefinitionElementalType = WeaponElementalType | 'LastWeapon';
