@@ -1,0 +1,5 @@
+.timelineRow :global(.timeline-editor-action) {
+  height: 28px !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
