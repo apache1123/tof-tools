@@ -4,7 +4,7 @@ import { keysOf } from '../utils/object-utils';
 import type { DataById } from './data';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
-import type { RelicBuffDefinition } from './v4/relic-buff-definition';
+import type { RelicDamageBuffDefinition } from './v4/relic-damage-buff-definition';
 
 export class Relics implements Persistable<RelicsDto> {
   private readonly _relicStars: DataById<RelicName, number>;
@@ -29,18 +29,16 @@ export class Relics implements Persistable<RelicsDto> {
   }
 
   /** Activated "passive relic dmg buffs" from all relics  */
-  public get passiveRelicBuffs(): RelicBuffDefinition[] {
+  public get passiveRelicBuffs(): RelicDamageBuffDefinition[] {
     return keysOf(this._relicStars).flatMap((relicName) => {
       const stars = this._relicStars[relicName];
       const relicDefinition = relicsLookup[relicName];
       if (relicDefinition) {
         // Find any relic passive buffs that have passed the star requirements to be activated
-        const buffs = relicDefinition.buffs
-          .filter((buff) => buff.category === 'Relic passive')
-          .filter(
-            ({ minStarRequirement, maxStarRequirement }) =>
-              stars >= minStarRequirement && stars <= maxStarRequirement
-          );
+        const buffs = relicDefinition.passiveBuffs.filter(
+          ({ minStarRequirement, maxStarRequirement }) =>
+            stars >= minStarRequirement && stars <= maxStarRequirement
+        );
         return buffs || [];
       }
       return [];

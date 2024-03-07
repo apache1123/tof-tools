@@ -1,11 +1,11 @@
-import { commonWeaponAttackBuffs } from '../constants/common-weapon-attack-buffs';
+import { commonWeaponPassiveAttackBuffs } from '../constants/common-weapon-attack-buffs';
 import type { Loadout } from './loadout';
 import type { Relics } from './relics';
 import type { Attack } from './v4/attack';
+import { AttackBuffEvent } from './v4/attack-buff-event';
 import { AttackEvent } from './v4/attack-event';
+import { DamageBuffEvent } from './v4/damage-buff-event';
 import { Timeline } from './v4/timeline';
-import { WeaponAttackBuffEvent } from './v4/weapon-attack-buff-event';
-import { WeaponDamageBuffEvent } from './v4/weapon-damage-buff-event';
 import type { Weapon } from './weapon';
 
 export class CombatSimulator {
@@ -13,17 +13,17 @@ export class CombatSimulator {
     Weapon,
     Timeline<AttackEvent>
   >();
-  public readonly weaponAttackBuffTimelinesByBuff = new Map<
+  public readonly weaponPassiveAttackBuffTimelinesByBuff = new Map<
     string,
-    Timeline<WeaponAttackBuffEvent>
+    Timeline<AttackBuffEvent>
   >();
   public readonly weaponDamageBuffTimelinesByBuff = new Map<
     string,
-    Timeline<WeaponDamageBuffEvent>
+    Timeline<DamageBuffEvent>
   >();
   public readonly relicPassiveDamageBuffTimelinesByBuff = new Map<
     string,
-    Timeline<WeaponDamageBuffEvent>
+    Timeline<DamageBuffEvent>
   >();
 
   public constructor(
@@ -126,56 +126,35 @@ export class CombatSimulator {
 
     // Add attack buffs triggered at the start of combat
     if (nextEarliestAttackStartTime === 0) {
-      this.triggerAttackBuffsAtCombatStart();
-      this.triggerRelicPassiveBuffsAtCombatStart();
+      this.triggerWeaponPassiveAttackBuffs();
+      this.triggerRelicPassiveBuffs();
     }
   }
 
-  private triggerAttackBuffsAtCombatStart() {
+  private triggerWeaponPassiveAttackBuffs() {
     this.loadout.team.weapons.forEach((weapon) => {
-      weapon.definition.commonAttackBuffs.forEach((buffId) => {
-        const buffDefinition = commonWeaponAttackBuffs[buffId];
-
-        // TODO: stacks
-        const { id, triggeredBy, endedBy } = buffDefinition;
-        if (triggeredBy?.includes('combat-start')) {
-          let timeline = this.weaponAttackBuffTimelinesByBuff.get(buffId);
-
-          if (!timeline) {
-            // No timeline added yet = no buff added yet i.e. 0 stacks
-            timeline = new Timeline<WeaponAttackBuffEvent>();
-            this.weaponAttackBuffTimelinesByBuff.set(id, timeline);
-
-            // TODO: Update 0 duration to buff duration if applicable
-            timeline.addEvent(
-              new WeaponAttackBuffEvent(
-                0,
-                endedBy?.includes('combat-end') ? this.combatDuration : 0,
-                buffDefinition
-              )
-            );
-          }
+      weapon.definition.commonPassiveAttackBuffs.forEach((buffId) => {
+        // Assuming all common weapon passive attack buffs can only have 1 stack each
+        if (!this.weaponPassiveAttackBuffTimelinesByBuff.has(buffId)) {
+          const buffDefinition = commonWeaponPassiveAttackBuffs[buffId];
+          const timeline = new Timeline<AttackBuffEvent>();
+          timeline.addEvent(
+            new AttackBuffEvent(0, this.combatDuration, buffDefinition)
+          );
+          this.weaponPassiveAttackBuffTimelinesByBuff.set(buffId, timeline);
         }
       });
     });
   }
 
-  private triggerRelicPassiveBuffsAtCombatStart() {
+  private triggerRelicPassiveBuffs() {
     this.relics.passiveRelicBuffs.forEach((buffDefinition) => {
-      const { id, triggeredBy, endedBy, duration } = buffDefinition;
-      if (triggeredBy?.combatActions?.includes('combat-start')) {
-        const timeline = new Timeline<WeaponDamageBuffEvent>();
-        timeline.addEvent(
-          new WeaponDamageBuffEvent(
-            0,
-            endedBy?.includes('combat-end')
-              ? this.combatDuration
-              : duration ?? 0,
-            buffDefinition
-          )
-        );
-        this.relicPassiveDamageBuffTimelinesByBuff.set(id, timeline);
-      }
+      const { id } = buffDefinition;
+      const timeline = new Timeline<DamageBuffEvent>();
+      timeline.addEvent(
+        new DamageBuffEvent(0, this.combatDuration, buffDefinition)
+      );
+      this.relicPassiveDamageBuffTimelinesByBuff.set(id, timeline);
     });
   }
 }

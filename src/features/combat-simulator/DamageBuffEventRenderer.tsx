@@ -1,12 +1,12 @@
 import { Box, Tooltip } from '@mui/material';
 
-import type { WeaponDamageBuffEvent } from '../../models/v4/weapon-damage-buff-event';
+import type { DamageBuffEvent } from '../../models/v4/damage-buff-event';
 import type { CombatSimulatorTimelineAction } from './CombatSimulatorTimeline';
 
-export function WeaponDamageBuffEventRenderer({
+export function DamageBuffEventRenderer({
   action,
 }: {
-  action: CombatSimulatorTimelineAction<WeaponDamageBuffEvent>;
+  action: CombatSimulatorTimelineAction<DamageBuffEvent>;
 }) {
   return (
     <Tooltip title={action.event.damageBuffDefinition.displayName}>

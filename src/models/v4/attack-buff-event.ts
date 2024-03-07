@@ -1,11 +1,11 @@
+import type { AttackBuffDefinition } from './attack-buff-definition';
 import { TimelineEvent } from './timeline-event';
-import type { WeaponAttackBuffDefinition } from './weapon-attack-buff-definition';
 
-export class WeaponAttackBuffEvent extends TimelineEvent {
+export class AttackBuffEvent extends TimelineEvent {
   public constructor(
     public readonly startTime: number,
     public readonly duration: number,
-    public readonly weaponAttackBuffDefinition: WeaponAttackBuffDefinition,
+    public readonly attackBuffDefinition: AttackBuffDefinition,
     public readonly stacks = 1
   ) {
     super(startTime, duration);

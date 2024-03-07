@@ -50,7 +50,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
+        "commonPassiveAttackBuffs": [
           "volt-resonance",
           "frost-resonance",
         ],
@@ -141,7 +141,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
+        "commonPassiveAttackBuffs": [
           "volt-resonance",
           "frost-resonance",
         ],
@@ -232,7 +232,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
+        "commonPassiveAttackBuffs": [
           "frost-resonance",
           "volt-resonance",
         ],
@@ -302,7 +302,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.3,
           },
         ],
-        "commonAttackBuffs": [],
+        "commonPassiveAttackBuffs": [],
         "critRateBuffs": [],
         "displayName": "Nan Yin",
         "elementalTypes": [
@@ -336,7 +336,7 @@ exports[`CombatSimulator passive relic damage buff is added at the start of comb
 Map {
   "Alternative Destiny passive damage buff" => Timeline {
     "_events": [
-      WeaponDamageBuffEvent {
+      DamageBuffEvent {
         "damageBuffDefinition": {
           "category": "Relic passive",
           "description": "Increase frost damage by 2%, even if not deployed.",
@@ -344,18 +344,10 @@ Map {
           "elementalTypes": [
             "Frost",
           ],
-          "endedBy": [
-            "combat-end",
-          ],
           "id": "Alternative Destiny passive damage buff",
           "maxStacks": 1,
           "maxStarRequirement": 5,
           "minStarRequirement": 4,
-          "triggeredBy": {
-            "combatActions": [
-              "combat-start",
-            ],
-          },
           "value": 0.02,
         },
         "duration": 150000,
@@ -366,7 +358,7 @@ Map {
   },
   "Cybernetic arm passive damage buff" => Timeline {
     "_events": [
-      WeaponDamageBuffEvent {
+      DamageBuffEvent {
         "damageBuffDefinition": {
           "category": "Relic passive",
           "description": "Increase frost damage by 1.5%, even if not deployed.",
@@ -374,18 +366,10 @@ Map {
           "elementalTypes": [
             "Frost",
           ],
-          "endedBy": [
-            "combat-end",
-          ],
           "id": "Cybernetic arm passive damage buff",
           "maxStacks": 1,
           "maxStarRequirement": 5,
           "minStarRequirement": 4,
-          "triggeredBy": {
-            "combatActions": [
-              "combat-start",
-            ],
-          },
           "value": 0.015,
         },
         "duration": 150000,
@@ -396,7 +380,7 @@ Map {
   },
   "Thalassic Heart passive damage buff" => Timeline {
     "_events": [
-      WeaponDamageBuffEvent {
+      DamageBuffEvent {
         "damageBuffDefinition": {
           "category": "Relic passive",
           "description": "Increase volt damage by 2%, even if not deployed.",
@@ -404,19 +388,37 @@ Map {
           "elementalTypes": [
             "Volt",
           ],
-          "endedBy": [
-            "combat-end",
-          ],
           "id": "Thalassic Heart passive damage buff",
           "maxStacks": 1,
           "maxStarRequirement": 5,
           "minStarRequirement": 4,
-          "triggeredBy": {
-            "combatActions": [
-              "combat-start",
-            ],
-          },
           "value": 0.02,
+        },
+        "duration": 150000,
+        "stacks": 1,
+        "startTime": 0,
+      },
+    ],
+  },
+  "Triple Mask damage buff" => Timeline {
+    "_events": [
+      DamageBuffEvent {
+        "damageBuffDefinition": {
+          "category": "DMG buff category 1",
+          "description": "While Triple Mask is deployed, elemental damage is increased by 6%.",
+          "displayName": "Triple Mask damage buff",
+          "elementalTypes": [
+            "Altered",
+            "Flame",
+            "Frost",
+            "Physical",
+            "Volt",
+          ],
+          "id": "Triple Mask damage buff",
+          "maxStacks": 1,
+          "maxStarRequirement": 4,
+          "minStarRequirement": 2,
+          "value": 0.06,
         },
         "duration": 150000,
         "stacks": 1,

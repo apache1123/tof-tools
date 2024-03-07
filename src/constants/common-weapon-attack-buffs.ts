@@ -1,10 +1,12 @@
-import type { CommonWeaponAttackBuffDefinition } from '../models/v4/weapon-attack-buff-definition';
+import type { CommonWeaponPassiveAttackBuffDefinition } from '../models/v4/common-weapon-passive-attack-buff-definition';
 
-export type CommonWeaponAttackBuffId = 'volt-resonance' | 'frost-resonance';
+export type CommonWeaponPassiveAttackBuffId =
+  | 'volt-resonance'
+  | 'frost-resonance';
 
-export const commonWeaponAttackBuffs: Record<
-  CommonWeaponAttackBuffId,
-  CommonWeaponAttackBuffDefinition
+export const commonWeaponPassiveAttackBuffs: Record<
+  CommonWeaponPassiveAttackBuffId,
+  CommonWeaponPassiveAttackBuffDefinition
 > = {
   'volt-resonance': {
     id: 'volt-resonance',
@@ -13,20 +15,6 @@ export const commonWeaponAttackBuffs: Record<
     value: 0.15,
     elementalTypes: ['Volt'],
     maxStacks: 1,
-    triggeredBy: ['combat-start'],
-    // {
-    //   weaponActions: [
-    //     {
-    //       weaponName: 'Brevey',
-    //       action: 'combat-start',
-    //     },
-    //     {
-    //       weaponName: 'Yanuo',
-    //       action: 'combat-start',
-    //     },
-    //   ],
-    // },
-    endedBy: ['combat-end'],
     elementalWeaponRequirements: [
       {
         weaponElementalType: 'Volt',
@@ -41,16 +29,6 @@ export const commonWeaponAttackBuffs: Record<
     value: 0.15,
     elementalTypes: ['Frost'],
     maxStacks: 1,
-    triggeredBy: ['combat-start'],
-    // {
-    //   weaponActions: [
-    //     {
-    //       weaponName: 'Brevey',
-    //       action: 'combat-start',
-    //     },
-    //   ],
-    // },
-    endedBy: ['combat-end'],
     elementalWeaponRequirements: [
       {
         weaponElementalType: 'Frost',

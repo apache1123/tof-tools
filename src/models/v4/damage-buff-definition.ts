@@ -1,8 +1,7 @@
 import type { CommonWeaponDamageBuffId } from '../../constants/common-weapon-damage-buffs';
 import type { WeaponElementalType } from '../../constants/elemental-type';
-import type { WeaponName } from '../../constants/weapon-definitions';
 
-export interface WeaponDamageBuffDefinition {
+export interface DamageBuffDefinition {
   id: string;
   displayName: string;
   description: string;
@@ -19,18 +18,18 @@ export interface WeaponDamageBuffDefinition {
     | '[TEMP_UNKNOWN]';
   maxStacks: number;
 
-  triggeredBy?: {
-    combatActions?: 'combat-start'[];
-    weaponActions?: {
-      weaponName: WeaponName;
-      action: 'full-charge';
-    }[];
-    weaponAttacks?: {
-      weaponName: WeaponName;
-      attackDefinitionId: string;
-    }[];
-  };
-  endedBy?: 'combat-end'[];
+  // triggeredBy?: {
+  //   combatActions?: 'combat-start'[];
+  //   weaponActions?: {
+  //     weaponName: WeaponName;
+  //     action: 'full-charge';
+  //   }[];
+  //   weaponAttacks?: {
+  //     weaponName: WeaponName;
+  //     attackDefinitionId: string;
+  //   }[];
+  // };
+  // endedBy?: 'combat-end'[];
   /** in ms */
   duration?: number;
   /** in ms */
@@ -40,7 +39,6 @@ export interface WeaponDamageBuffDefinition {
   remarks?: string;
 }
 
-export interface CommonWeaponDamageBuffDefinition
-  extends WeaponDamageBuffDefinition {
+export interface CommonWeaponDamageBuffDefinition extends DamageBuffDefinition {
   id: CommonWeaponDamageBuffId;
 }

@@ -1,4 +1,4 @@
-import type { CommonWeaponAttackBuffId } from '../constants/common-weapon-attack-buffs';
+import type { CommonWeaponPassiveAttackBuffId } from '../constants/common-weapon-attack-buffs';
 import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
@@ -26,7 +26,7 @@ export interface WeaponDefinition {
   normalAttacks: NormalAttackDefinition[];
   skills: SkillAttackDefinition[];
 
-  commonAttackBuffs: CommonWeaponAttackBuffId[];
+  commonPassiveAttackBuffs: CommonWeaponPassiveAttackBuffId[];
   // TODO: weapon specific attack buffs
 }
 

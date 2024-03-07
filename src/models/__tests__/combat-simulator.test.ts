@@ -89,11 +89,13 @@ describe('CombatSimulator', () => {
       });
 
       const voltResonanceBuffEvent =
-        sut.weaponAttackBuffTimelinesByBuff.get('volt-resonance')?.events[0];
+        sut.weaponPassiveAttackBuffTimelinesByBuff.get('volt-resonance')
+          ?.events[0];
       expect(voltResonanceBuffEvent).toBeDefined();
 
       const frostResonanceBuffEvent =
-        sut.weaponAttackBuffTimelinesByBuff.get('frost-resonance')?.events[0];
+        sut.weaponPassiveAttackBuffTimelinesByBuff.get('frost-resonance')
+          ?.events[0];
       expect(frostResonanceBuffEvent).toBeDefined();
       if (frostResonanceBuffEvent) {
         expect(frostResonanceBuffEvent.startTime).toBe(0);
@@ -110,6 +112,7 @@ describe('CombatSimulator', () => {
       customRelics.setRelicStars('Alternate Destiny', 5); // Frost +2%
       customRelics.setRelicStars('Strange Cube', 3); // Volt, not activated
       customRelics.setRelicStars('Thalassic Heart', 4); // Volt +2%
+      customRelics.setRelicStars('Triple Mask', 3); // All +6%
 
       const sut = new CombatSimulator(combatDuration, loadout, customRelics);
       sut.performAttack({
