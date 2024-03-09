@@ -1,4 +1,3 @@
-import type { CommonWeaponDamageBuffId } from '../../constants/common-weapon-damage-buffs';
 import type { WeaponElementalType } from '../../constants/elemental-type';
 
 export interface DamageBuffDefinition {
@@ -37,8 +36,4 @@ export interface DamageBuffDefinition {
 
   /** Assumptions, compromises made etc. */
   remarks?: string;
-}
-
-export interface CommonWeaponDamageBuffDefinition extends DamageBuffDefinition {
-  id: CommonWeaponDamageBuffId;
 }

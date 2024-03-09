@@ -20,6 +20,7 @@ export class Team implements Persistable<TeamDto> {
     return filterOutUndefined([this.weapon1, this.weapon2, this.weapon3]);
   }
 
+  // TODO: remove this when old buff definitions are replaced by v4 buff definitions
   /** This returns the presumed elemental resonance(s), depending on the number of weapons of each element. However, whether or not to activate elemental resonance buff(s) will depend on if the weapons themselves have the buff(s) available. */
   public get elementalResonances(): ElementalResonance[] {
     const elementalTypes = this.weapons.flatMap(

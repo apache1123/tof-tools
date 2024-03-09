@@ -244,6 +244,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       commonPassiveAttackBuffs: ['volt-resonance', 'frost-resonance'],
+      commonDamageBuffs: [
+        {
+          buffId: 'force-impact',
+          triggeredByFullCharge: true,
+          triggeredByAttackIds: ['brevey-skill-million-metz-shockwave'],
+        },
+      ],
     },
     Claudia: {
       id: 'Claudia',
@@ -529,6 +536,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       skills: [],
+      commonPassiveAttackBuffs: ['volt-resonance'],
     },
     Huma: {
       id: 'Huma',
@@ -816,6 +824,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       skills: [],
       commonPassiveAttackBuffs: [],
+      commonDamageBuffs: [],
     },
     Nemesis: {
       id: 'Nemesis',
@@ -1143,6 +1152,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       skills: [],
       commonPassiveAttackBuffs: ['frost-resonance', 'volt-resonance'],
+      commonDamageBuffs: [],
     },
     'Yu Lan': {
       id: 'Yu Lan',

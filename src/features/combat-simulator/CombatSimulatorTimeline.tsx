@@ -7,15 +7,13 @@ import { Timeline } from '@xzdarcy/react-timeline-editor';
 import { proxy, useSnapshot } from 'valtio';
 
 import { weaponDefinitions } from '../../constants/weapon-definitions';
-import { CombatSimulator } from '../../models/combat-simulator';
 import { GearSet } from '../../models/gear-set';
 import { Loadout } from '../../models/loadout';
-import { Relics } from '../../models/relics';
 import { Team } from '../../models/team';
-import type { AttackBuffEvent } from '../../models/v4/attack-buff-event';
-import type { AttackEvent } from '../../models/v4/attack-event';
-import type { DamageBuffEvent } from '../../models/v4/damage-buff-event';
-import type { TimelineEvent } from '../../models/v4/timeline-event';
+import { CombatSimulator } from '../../models/v4/combat-simulator';
+import { Relics } from '../../models/v4/relics';
+import type { TimelineEvent } from '../../models/v4/timeline/timeline-event';
+import type { TimelineEventData } from '../../models/v4/timeline/timeline-event-data';
 import { Weapon } from '../../models/weapon';
 import { AttackBuffEventRenderer } from './AttackBuffEventRenderer';
 import { AttackEventRenderer } from './AttackEventRenderer';
@@ -64,10 +62,9 @@ export interface CombatSimulatorTimelineRow extends TimelineRow {
   displayName: string;
 }
 
-export interface CombatSimulatorTimelineAction<T extends TimelineEvent>
-  extends TimelineAction {
+export interface CombatSimulatorTimelineAction extends TimelineAction {
   effectId: CombatSimulatorTimelineEffectId;
-  event: T;
+  event: TimelineEvent<TimelineEventData>;
 }
 
 export type CombatSimulatorTimelineEffectId =
@@ -105,35 +102,15 @@ export function CombatSimulatorTimeline() {
     editorData.push({
       id: weapon.definition.id,
       displayName: weapon.definition.displayName,
-      actions: attackTimeline.events.map<
-        CombatSimulatorTimelineAction<AttackEvent>
-      >((attackEvent, index) => ({
-        id: `${weapon.definition.id}-attack-${index}`,
-        start: attackEvent.startTime,
-        end: attackEvent.endTime,
-        effectId: 'attack-event',
-        event: attackEvent,
-      })),
-      classNames: [styles.timelineRow],
-    });
-  }
-
-  for (const [
-    buffId,
-    buffTimeline,
-  ] of combatSimulatorSnap.weaponPassiveAttackBuffTimelinesByBuff) {
-    editorData.push({
-      id: buffId,
-      displayName: buffTimeline.events[0].attackBuffDefinition.displayName,
-      actions: buffTimeline.events.map<
-        CombatSimulatorTimelineAction<AttackBuffEvent>
-      >((attackBuffEvent, index) => ({
-        id: `${buffId}-weapon-passive-attack-buff-${index}`,
-        start: attackBuffEvent.startTime,
-        end: attackBuffEvent.endTime,
-        effectId: 'attack-buff-event',
-        event: attackBuffEvent,
-      })),
+      actions: attackTimeline.events.map<CombatSimulatorTimelineAction>(
+        (attackEvent, index) => ({
+          id: `${weapon.definition.id}-attack-${index}`,
+          start: attackEvent.startTime,
+          end: attackEvent.endTime,
+          effectId: 'attack-event',
+          event: attackEvent,
+        })
+      ),
       classNames: [styles.timelineRow],
     });
   }
@@ -144,16 +121,36 @@ export function CombatSimulatorTimeline() {
   ] of combatSimulatorSnap.weaponDamageBuffTimelinesByBuff) {
     editorData.push({
       id: buffId,
-      displayName: buffTimeline.events[0].damageBuffDefinition.displayName,
-      actions: buffTimeline.events.map<
-        CombatSimulatorTimelineAction<DamageBuffEvent>
-      >((damageBuffEvent, index) => ({
-        id: `${buffId}-weapon-damage-buff-${index}`,
-        start: damageBuffEvent.startTime,
-        end: damageBuffEvent.endTime,
-        effectId: 'damage-buff-event',
-        event: damageBuffEvent,
-      })),
+      displayName: buffTimeline.events[0].data.displayName,
+      actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
+        (damageBuffEvent, index) => ({
+          id: `${buffId}-weapon-damage-buff-${index}`,
+          start: damageBuffEvent.startTime,
+          end: damageBuffEvent.endTime,
+          effectId: 'damage-buff-event',
+          event: damageBuffEvent,
+        })
+      ),
+      classNames: [styles.timelineRow],
+    });
+  }
+
+  for (const [
+    buffId,
+    buffTimeline,
+  ] of combatSimulatorSnap.weaponPassiveAttackBuffTimelinesByBuff) {
+    editorData.push({
+      id: buffId,
+      displayName: buffTimeline.events[0].data.displayName,
+      actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
+        (attackBuffEvent, index) => ({
+          id: `${buffId}-weapon-passive-attack-buff-${index}`,
+          start: attackBuffEvent.startTime,
+          end: attackBuffEvent.endTime,
+          effectId: 'attack-buff-event',
+          event: attackBuffEvent,
+        })
+      ),
       classNames: [styles.timelineRow],
     });
   }
@@ -164,16 +161,16 @@ export function CombatSimulatorTimeline() {
   ] of combatSimulatorSnap.relicPassiveDamageBuffTimelinesByBuff) {
     editorData.push({
       id: buffId,
-      displayName: buffTimeline.events[0].damageBuffDefinition.displayName,
-      actions: buffTimeline.events.map<
-        CombatSimulatorTimelineAction<DamageBuffEvent>
-      >((damageBuffEvent, index) => ({
-        id: `${buffId}-relic-passive-damage-buff-${index}`,
-        start: damageBuffEvent.startTime,
-        end: damageBuffEvent.endTime,
-        effectId: 'damage-buff-event',
-        event: damageBuffEvent,
-      })),
+      displayName: buffTimeline.events[0].data.displayName,
+      actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
+        (damageBuffEvent, index) => ({
+          id: `${buffId}-relic-passive-damage-buff-${index}`,
+          start: damageBuffEvent.startTime,
+          end: damageBuffEvent.endTime,
+          effectId: 'damage-buff-event',
+          event: damageBuffEvent,
+        })
+      ),
       classNames: [styles.timelineRow],
     });
   }
@@ -185,32 +182,13 @@ export function CombatSimulatorTimeline() {
       disableDrag
       autoScroll={true}
       getActionRender={(action) => {
-        const customAction =
-          action as CombatSimulatorTimelineAction<TimelineEvent>;
-        if (customAction.effectId === 'attack-event') {
-          return (
-            <AttackEventRenderer
-              action={
-                customAction as CombatSimulatorTimelineAction<AttackEvent>
-              }
-            />
-          );
-        } else if (customAction.effectId === 'attack-buff-event') {
-          return (
-            <AttackBuffEventRenderer
-              action={
-                customAction as CombatSimulatorTimelineAction<AttackBuffEvent>
-              }
-            />
-          );
-        } else if (customAction.effectId === 'damage-buff-event') {
-          return (
-            <DamageBuffEventRenderer
-              action={
-                customAction as CombatSimulatorTimelineAction<DamageBuffEvent>
-              }
-            />
-          );
+        const typedAction = action as CombatSimulatorTimelineAction;
+        if (typedAction.effectId === 'attack-event') {
+          return <AttackEventRenderer action={typedAction} />;
+        } else if (typedAction.effectId === 'attack-buff-event') {
+          return <AttackBuffEventRenderer action={typedAction} />;
+        } else if (typedAction.effectId === 'damage-buff-event') {
+          return <DamageBuffEventRenderer action={typedAction} />;
         }
       }}
       scale={10000} // 10s

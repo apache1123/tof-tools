@@ -1,10 +1,10 @@
-import type { RelicName } from '../constants/relics';
-import { maxRelicStars, relicsLookup } from '../constants/relics';
-import { keysOf } from '../utils/object-utils';
-import type { DataById } from './data';
-import type { Dto } from './dto';
-import type { Persistable } from './persistable';
-import type { RelicDamageBuffDefinition } from './v4/relic-damage-buff-definition';
+import type { RelicName } from '../../constants/relics';
+import { maxRelicStars, relicsLookup } from '../../constants/relics';
+import { keysOf } from '../../utils/object-utils';
+import type { DataById } from '../data';
+import type { Dto } from '../dto';
+import type { Persistable } from '../persistable';
+import type { RelicDamageBuffDefinition } from './relic-damage-buff-definition';
 
 export class Relics implements Persistable<RelicsDto> {
   private readonly _relicStars: DataById<RelicName, number>;

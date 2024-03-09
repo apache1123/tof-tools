@@ -1,5 +1,5 @@
 import type { DataAllIds, DataById } from '../models/data';
-import type { Relic } from '../models/relic';
+import type { Relic } from '../models/v4/relic';
 
 export const maxRelicStars = 5;
 

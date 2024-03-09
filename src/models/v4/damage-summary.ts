@@ -1,6 +1,6 @@
-import type { WeaponName } from '../constants/weapon-definitions';
+import type { WeaponName } from '../../constants/weapon-definitions';
+import type { Weapon } from '../weapon';
 import { Damage } from './damage';
-import type { Weapon } from './weapon';
 import { WeaponDamageSummary } from './weapon-damage-summary';
 
 export class DamageSummary {

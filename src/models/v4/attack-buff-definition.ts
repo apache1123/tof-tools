@@ -1,4 +1,5 @@
 import type { WeaponElementalType } from '../../constants/elemental-type';
+import type { WeaponResonance } from '../../constants/weapon-resonance';
 
 export interface AttackBuffDefinition {
   id: string;
@@ -14,4 +15,6 @@ export interface AttackBuffDefinition {
     weaponElementalType: WeaponElementalType;
     minNumOfWeapons: number;
   }[];
+  /** "OR" requirements */
+  weaponResonanceRequirements?: WeaponResonance[];
 }

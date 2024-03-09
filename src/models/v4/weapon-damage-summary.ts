@@ -1,4 +1,4 @@
-import type { AttackType } from '../constants/attack-type';
+import type { AttackType } from '../../constants/attack-type';
 import { Damage } from './damage';
 import { ElementalDamageSummary } from './elemental-damage-summary';
 

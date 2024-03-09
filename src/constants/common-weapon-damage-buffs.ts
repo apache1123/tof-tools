@@ -1,4 +1,4 @@
-import type { CommonWeaponDamageBuffDefinition } from '../models/v4/damage-buff-definition';
+import type { CommonWeaponDamageBuffDefinition } from '../models/v4/common-weapon-damage-buff-definition';
 
 export type CommonWeaponDamageBuffId = 'force-impact';
 
@@ -15,19 +15,7 @@ export const commonWeaponDamageBuffs: Record<
     elementalTypes: ['Frost', 'Volt'],
     category: '[TEMP_UNKNOWN]',
     maxStacks: 1,
-    triggeredBy: {
-      weaponActions: [
-        {
-          weaponName: 'Brevey',
-          action: 'full-charge',
-        },
-      ],
-      weaponAttacks: [
-        {
-          weaponName: 'Brevey',
-          attackDefinitionId: 'brevey-skill-million-metz-shockwave',
-        },
-      ],
-    },
+    duration: 45000,
+    cooldown: 15000,
   },
 };
