@@ -4,6 +4,7 @@ import type { WeaponDefinition } from '../models/weapon-definition';
 export type WeaponName =
   | 'Alyss'
   | 'Annabella'
+  | 'Asuka'
   | 'Brevey'
   | 'Claudia'
   | 'Cobalt-B'
@@ -45,6 +46,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   allIds: [
     'Alyss',
     'Annabella',
+    'Asuka',
     'Brevey',
     'Claudia',
     'Cobalt-B',
@@ -83,7 +85,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Zero',
   ],
   byId: {
-    ['Alyss']: {
+    Alyss: {
       id: 'Alyss',
       displayName: 'Alyss',
       elementalTypes: ['Frost'],
@@ -104,7 +106,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Annabella']: {
+    Annabella: {
       id: 'Annabella',
       displayName: 'Annabella',
       elementalTypes: ['Flame'],
@@ -148,7 +150,41 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
     },
-    ['Brevey']: {
+    Asuka: {
+      id: 'Asuka',
+      displayName: 'Asuka',
+      elementalTypes: ['Physical', 'Flame'],
+      type: 'Defense',
+      attackPercentBuffs: [
+        {
+          id: 'Physical Resonance',
+          displayName: 'Physical Resonance',
+          description:
+            '+15% physical ATK when equipping 2 or more physical weapons',
+          value: 0.15,
+          elementalTypes: ['Physical'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Physical'],
+        },
+        {
+          id: 'Flame Resonance',
+          displayName: 'Flame Resonance',
+          description: '+15% flame ATK when equipping 2 or more flame weapons',
+          value: 0.15,
+          elementalTypes: ['Flame'],
+          canStack: false,
+          isActivePassively: true,
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          elementalResonanceRequirements: ['Flame'],
+        },
+      ],
+      critRateBuffs: [],
+    },
+    Brevey: {
       id: 'Brevey',
       displayName: 'Brevey',
       elementalTypes: ['Volt', 'Frost'],
@@ -181,7 +217,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Claudia']: {
+    Claudia: {
       id: 'Claudia',
       displayName: 'Claudia',
       elementalTypes: ['Physical'],
@@ -203,7 +239,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Cobalt-B']: {
+    'Cobalt-B': {
       id: 'Cobalt-B',
       displayName: 'Cobalt-B',
       elementalTypes: ['Flame'],
@@ -224,7 +260,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Cocoritter']: {
+    Cocoritter: {
       id: 'Cocoritter',
       displayName: 'Cocoritter',
       elementalTypes: ['Frost'],
@@ -258,7 +294,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Crow']: {
+    Crow: {
       id: 'Crow',
       displayName: 'Crow',
       elementalTypes: ['Volt'],
@@ -266,7 +302,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       attackPercentBuffs: [],
       critRateBuffs: [],
     },
-    ['Fei Se']: {
+    'Fei Se': {
       id: 'Fei Se',
       displayName: 'Fei Se',
       elementalTypes: ['Flame'],
@@ -287,7 +323,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Fenrir']: {
+    Fenrir: {
       id: 'Fenrir',
       displayName: 'Fenrir',
       elementalTypes: ['Volt'],
@@ -332,7 +368,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
     },
-    ['Fiona']: {
+    Fiona: {
       id: 'Fiona',
       displayName: 'Fiona',
       elementalTypes: ['Altered'],
@@ -365,7 +401,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Frigg']: {
+    Frigg: {
       id: 'Frigg',
       displayName: 'Frigg',
       elementalTypes: ['Frost'],
@@ -408,7 +444,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Gnonno']: {
+    Gnonno: {
       id: 'Gnonno',
       displayName: 'Gnonno',
       elementalTypes: ['Physical'],
@@ -430,7 +466,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Huang (Mimi)']: {
+    'Huang (Mimi)': {
       id: 'Huang (Mimi)',
       displayName: 'Huang (Mimi)',
       elementalTypes: ['Volt'],
@@ -451,7 +487,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Huma']: {
+    Huma: {
       id: 'Huma',
       displayName: 'Huma',
       elementalTypes: ['Flame'],
@@ -459,7 +495,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       attackPercentBuffs: [],
       critRateBuffs: [],
     },
-    ['Icarus']: {
+    Icarus: {
       id: 'Icarus',
       displayName: 'Icarus',
       elementalTypes: ['Frost'],
@@ -480,7 +516,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['King']: {
+    King: {
       id: 'King',
       displayName: 'King',
       elementalTypes: ['Flame'],
@@ -488,7 +524,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       attackPercentBuffs: [],
       critRateBuffs: [],
     },
-    ['Lan']: {
+    Lan: {
       id: 'Lan',
       displayName: 'Lan',
       elementalTypes: ['Flame'],
@@ -509,7 +545,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Lin']: {
+    Lin: {
       id: 'Lin',
       displayName: 'Lin',
       elementalTypes: ['Altered'],
@@ -565,7 +601,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Ling Han']: {
+    'Ling Han': {
       id: 'Ling Han',
       displayName: 'Ling Han',
       elementalTypes: ['Frost'],
@@ -597,7 +633,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Liu Huo']: {
+    'Liu Huo': {
       id: 'Liu Huo',
       displayName: 'Liu Huo',
       elementalTypes: ['Flame'],
@@ -618,7 +654,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Lyra']: {
+    Lyra: {
       id: 'Lyra',
       displayName: 'Lyra',
       elementalTypes: ['Physical'],
@@ -653,7 +689,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Meryl']: {
+    Meryl: {
       id: 'Meryl',
       displayName: 'Meryl',
       elementalTypes: ['Frost'],
@@ -661,7 +697,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       attackPercentBuffs: [],
       critRateBuffs: [],
     },
-    ['Ming Jing']: {
+    'Ming Jing': {
       id: 'Ming Jing',
       displayName: 'Ming Jing (Zeke)',
       elementalTypes: ['Physical', 'Flame'],
@@ -695,7 +731,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Nan Yin']: {
+    'Nan Yin': {
       id: 'Nan Yin',
       displayName: 'Nan Yin',
       elementalTypes: ['Altered'],
@@ -722,7 +758,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Nemesis']: {
+    Nemesis: {
       id: 'Nemesis',
       displayName: 'Nemesis',
       elementalTypes: ['Volt'],
@@ -778,7 +814,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Plotti']: {
+    Plotti: {
       id: 'Plotti',
       displayName: 'Plotti',
       elementalTypes: ['Flame', 'Physical'],
@@ -812,7 +848,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Rubilia']: {
+    Rubilia: {
       id: 'Rubilia',
       displayName: 'Rubilia',
       elementalTypes: ['Volt'],
@@ -833,7 +869,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Ruby']: {
+    Ruby: {
       id: 'Ruby',
       displayName: 'Ruby',
       elementalTypes: ['Flame'],
@@ -865,7 +901,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Saki Fuwa']: {
+    'Saki Fuwa': {
       id: 'Saki Fuwa',
       displayName: 'Saki Fuwa',
       elementalTypes: ['Frost'],
@@ -886,7 +922,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Samir']: {
+    Samir: {
       id: 'Samir',
       displayName: 'Samir',
       elementalTypes: ['Volt'],
@@ -894,7 +930,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       attackPercentBuffs: [],
       critRateBuffs: [],
     },
-    ['Shiro']: {
+    Shiro: {
       id: 'Shiro',
       displayName: 'Shiro',
       elementalTypes: ['Physical'],
@@ -902,7 +938,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       attackPercentBuffs: [],
       critRateBuffs: [],
     },
-    ['Tian Lang']: {
+    'Tian Lang': {
       id: 'Tian Lang',
       displayName: 'Tian Lang',
       elementalTypes: ['Volt'],
@@ -936,7 +972,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Tsubasa']: {
+    Tsubasa: {
       id: 'Tsubasa',
       displayName: 'Tsubasa',
       elementalTypes: ['Frost'],
@@ -944,7 +980,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       attackPercentBuffs: [],
       critRateBuffs: [],
     },
-    ['Umi']: {
+    Umi: {
       id: 'Umi',
       displayName: 'Umi',
       elementalTypes: ['Physical'],
@@ -966,7 +1002,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Yan Miao']: {
+    'Yan Miao': {
       id: 'Yan Miao',
       displayName: 'Yan Miao',
       elementalTypes: ['Physical', 'Flame'],
@@ -1000,7 +1036,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Yanuo']: {
+    Yanuo: {
       id: 'Yanuo',
       displayName: 'Yanuo',
       elementalTypes: ['Frost', 'Volt'],
@@ -1033,7 +1069,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Yu Lan']: {
+    'Yu Lan': {
       id: 'Yu Lan',
       displayName: 'Yu Lan',
       elementalTypes: ['Frost'],
@@ -1054,7 +1090,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       critRateBuffs: [],
     },
-    ['Zero']: {
+    Zero: {
       id: 'Zero',
       displayName: 'Zero',
       elementalTypes: ['Flame'],
