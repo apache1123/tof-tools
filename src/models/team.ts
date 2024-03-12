@@ -2,6 +2,7 @@ import groupBy from 'lodash.groupby';
 
 import type { ElementalResonance } from '../constants/elemental-resonance';
 import type { WeaponElementalType } from '../constants/elemental-type';
+import type { WeaponName } from '../constants/weapon-definitions';
 import type { WeaponResonance } from '../constants/weapon-resonance';
 import { filterOutUndefined } from '../utils/array-utils';
 import type { Dto } from './dto';
@@ -18,6 +19,14 @@ export class Team implements Persistable<TeamDto> {
   /** Returns all equipped weapons */
   public get weapons(): Weapon[] {
     return filterOutUndefined([this.weapon1, this.weapon2, this.weapon3]);
+  }
+  /** Returns all equipped weapon names */
+  public get weaponNames(): WeaponName[] {
+    return this.weapons.map((weapon) => weapon.definition.id);
+  }
+  /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
+  public get weaponElementalTypes(): WeaponElementalType[] {
+    return this.weapons.flatMap((weapon) => weapon.definition.elementalTypes);
   }
 
   // TODO: remove this when old buff definitions are replaced by v4 buff definitions

@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid';
 import { defaultCritDamagePercent } from '../constants/damage-formula';
 import type { CoreElementalType } from '../constants/elemental-type';
 import type { GearName } from '../constants/gear-types';
+import type { SimulacrumName } from '../constants/simulacrum-traits';
+import { simulacrumTraits } from '../constants/simulacrum-traits';
 import { calculateDamageMultiplier } from '../utils/damage-calculation-utils';
 import { additiveSum } from '../utils/math-utils';
 import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
@@ -17,9 +19,12 @@ import { LoadoutWeaponBuffs } from './loadout-weapon-buffs';
 import type { Persistable } from './persistable';
 import type { Team, TeamDto } from './team';
 import type { UserStats } from './user-stats';
+import type { SimulacrumTrait } from './v4/simulacrum-trait';
 
 export class Loadout implements Persistable<LoadoutDto> {
   private _id: string;
+
+  public simulacrumTrait: SimulacrumTrait | undefined;
 
   public readonly loadoutStats: LoadoutStats;
   public readonly weaponBuffs: LoadoutWeaponBuffs;
@@ -295,18 +300,37 @@ export class Loadout implements Persistable<LoadoutDto> {
   }
 
   public copyFromDto(dto: LoadoutDto): void {
-    const { id, name, elementalType, team, gearSet, loadoutStats } = dto;
+    const {
+      id,
+      name,
+      elementalType,
+      team,
+      gearSet,
+      loadoutStats,
+      simulacrumTraitId,
+    } = dto;
 
     this._id = id;
     this.name = name;
     this.elementalType = elementalType;
+    this.simulacrumTrait = simulacrumTraitId
+      ? simulacrumTraits.byId[simulacrumTraitId]
+      : undefined;
     this.team.copyFromDto(team);
     this.gearSet.copyFromDto(gearSet);
     this.loadoutStats.copyFromDto(loadoutStats);
   }
 
   public toDto(): LoadoutDto {
-    const { id, name, elementalType, team, gearSet, loadoutStats } = this;
+    const {
+      id,
+      name,
+      elementalType,
+      team,
+      gearSet,
+      loadoutStats,
+      simulacrumTrait,
+    } = this;
 
     return {
       id,
@@ -315,6 +339,7 @@ export class Loadout implements Persistable<LoadoutDto> {
       team: team.toDto(),
       gearSet: gearSet.toDto(),
       loadoutStats: loadoutStats.toDto(),
+      simulacrumTraitId: simulacrumTrait?.id,
       version: 1,
     };
   }
@@ -327,5 +352,6 @@ export interface LoadoutDto extends Dto {
   team: TeamDto;
   gearSet: GearSetDtoV2;
   loadoutStats: LoadoutStatsDto;
+  simulacrumTraitId: SimulacrumName | undefined;
   version: 1;
 }

@@ -143,16 +143,13 @@ export class LoadoutMatrixSetBuffs {
 
     // TODO: This is duplicated in loadout-weapon-buffs.ts
     if (elementalWeaponsRequirements) {
-      const weaponElementalTypes = this._loadout.team.weapons.flatMap(
-        (weapon) => weapon.definition.elementalTypes
-      );
-
       let hasMetElementalWeaponsRequirement = false;
       elementalWeaponsRequirements.forEach(
         ({ weaponElementalType, minNumOfWeapons }) => {
           if (
-            weaponElementalTypes.filter((x) => x === weaponElementalType)
-              .length >= minNumOfWeapons
+            this._loadout.team.weaponElementalTypes.filter(
+              (x) => x === weaponElementalType
+            ).length >= minNumOfWeapons
           )
             hasMetElementalWeaponsRequirement = true;
         }
@@ -162,11 +159,8 @@ export class LoadoutMatrixSetBuffs {
     }
 
     if (weaponRequirement) {
-      const weaponNames = this._loadout.team.weapons.map(
-        (weapon) => weapon.definition.id
-      );
-
-      if (!weaponNames.includes(weaponRequirement)) return false;
+      if (!this._loadout.team.weaponNames.includes(weaponRequirement))
+        return false;
     }
 
     return true;

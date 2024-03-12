@@ -10,6 +10,12 @@ export interface AttackBuffDefinition {
   elementalTypes: WeaponElementalType[];
   maxStacks: number;
 
+  duration?: number;
+  cooldown?: number;
+
+  /** Assumptions, compromises made etc. */
+  remarks?: string;
+
   /** "OR" requirements */
   elementalWeaponRequirements?: {
     weaponElementalType: WeaponElementalType;

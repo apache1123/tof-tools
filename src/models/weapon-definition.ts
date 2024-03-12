@@ -4,6 +4,8 @@ import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
 import type {
+  DischargeAttackDefinition,
+  DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
 } from './v4/attack-definition';
@@ -26,7 +28,9 @@ export interface WeaponDefinition {
   /** v4 below */
 
   normalAttacks: NormalAttackDefinition[];
+  dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
+  discharge: DischargeAttackDefinition;
 
   commonPassiveAttackBuffs: CommonWeaponPassiveAttackBuffId[];
   // TODO: weapon specific attack buffs

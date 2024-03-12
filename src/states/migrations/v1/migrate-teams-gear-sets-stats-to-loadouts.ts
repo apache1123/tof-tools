@@ -217,6 +217,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
         critDamage: defaultCritDamagePercent,
         version: 1,
       },
+      simulacrumTraitId: undefined,
       version: 1,
     };
 

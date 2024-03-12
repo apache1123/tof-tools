@@ -6,6 +6,7 @@ import type {
 import { Timeline } from '@xzdarcy/react-timeline-editor';
 import { proxy, useSnapshot } from 'valtio';
 
+import { simulacrumTraits } from '../../constants/simulacrum-traits';
 import { weaponDefinitions } from '../../constants/weapon-definitions';
 import { GearSet } from '../../models/gear-set';
 import { Loadout } from '../../models/loadout';
@@ -33,6 +34,7 @@ team.weapon3 = weapon3;
 const loadout = new Loadout('loadout', 'Volt', team, new GearSet(), {
   characterLevel: 100,
 });
+loadout.simulacrumTrait = simulacrumTraits.byId['Alyss'];
 
 const relics = new Relics();
 relics.setRelicStars('Cybernetic Arm', 4); // Frost +1.5%
@@ -95,10 +97,7 @@ export function CombatSimulatorTimeline() {
 
   const editorData: CombatSimulatorTimelineRow[] = [];
 
-  for (const [
-    weapon,
-    attackTimeline,
-  ] of combatSimulatorSnap.attackTimelinesByWeapon) {
+  for (const [weapon, attackTimeline] of combatSimulatorSnap.attackTimelines) {
     editorData.push({
       id: weapon.definition.id,
       displayName: weapon.definition.displayName,
@@ -118,7 +117,7 @@ export function CombatSimulatorTimeline() {
   for (const [
     buffId,
     buffTimeline,
-  ] of combatSimulatorSnap.weaponDamageBuffTimelinesByBuff) {
+  ] of combatSimulatorSnap.weaponDamageBuffTimelines) {
     editorData.push({
       id: buffId,
       displayName: buffTimeline.events[0].data.displayName,
@@ -138,7 +137,7 @@ export function CombatSimulatorTimeline() {
   for (const [
     buffId,
     buffTimeline,
-  ] of combatSimulatorSnap.weaponPassiveAttackBuffTimelinesByBuff) {
+  ] of combatSimulatorSnap.weaponPassiveAttackBuffTimelines) {
     editorData.push({
       id: buffId,
       displayName: buffTimeline.events[0].data.displayName,
@@ -158,7 +157,27 @@ export function CombatSimulatorTimeline() {
   for (const [
     buffId,
     buffTimeline,
-  ] of combatSimulatorSnap.relicPassiveDamageBuffTimelinesByBuff) {
+  ] of combatSimulatorSnap.simulacrumTraitDamageBuffTimelines) {
+    editorData.push({
+      id: buffId,
+      displayName: buffTimeline.events[0].data.displayName,
+      actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
+        (damageBuffEvent, index) => ({
+          id: `${buffId}-simulacrum-trait-damage-buff-${index}`,
+          start: damageBuffEvent.startTime,
+          end: damageBuffEvent.endTime,
+          effectId: 'damage-buff-event',
+          event: damageBuffEvent,
+        })
+      ),
+      classNames: [styles.timelineRow],
+    });
+  }
+
+  for (const [
+    buffId,
+    buffTimeline,
+  ] of combatSimulatorSnap.relicPassiveDamageBuffTimelines) {
     editorData.push({
       id: buffId,
       displayName: buffTimeline.events[0].data.displayName,

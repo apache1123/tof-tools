@@ -6,7 +6,9 @@ import type { TimelineEventData } from './timeline-event-data';
 export class StackableChronologicalTimeline<
   TData extends TimelineEventData
 > extends ChronologicalTimeline<TData, StackableTimelineEvent<TData>> {
-  /** Adds an event to the end of the timeline. The new event can overlap with the last existing event in the timeline, but cannot be before it */
+  /** Adds an event to the end of the timeline. The new event can overlap with the last existing event in the timeline, but cannot be before it.
+   *
+   * If there is an overlapping existing event, increase its stack count by the number of stacks in the new event, up to the max stack count. If the resulting stack count of the existing event is the same as the new event, simply "merge" the two events by increasing the duration of the existing event. */
   public addEvent(event: StackableTimelineEvent<TData>) {
     const { lastEvent } = this;
 
@@ -22,6 +24,11 @@ export class StackableChronologicalTimeline<
         lastEvent.maxStacks
       );
 
+      if (newStacksOfOverlappingPeriod === event.stacks) {
+        lastEvent.endTime = event.endTime;
+        return;
+      }
+
       if (newStacksOfOverlappingPeriod === lastEvent.stacks) {
         const newEvent = new StackableTimelineEvent<TData>(
           lastEvent.endTime,
@@ -31,31 +38,33 @@ export class StackableChronologicalTimeline<
           event.stacks
         );
         super.addEvent(newEvent);
-      } else {
-        const oldLastEventEndTime = lastEvent.endTime;
-
-        lastEvent.endTime = event.startTime;
-
-        const newEventOfOverlappingPeriod = new StackableTimelineEvent<TData>(
-          event.startTime,
-          oldLastEventEndTime - event.startTime,
-          lastEvent.data,
-          lastEvent.maxStacks,
-          newStacksOfOverlappingPeriod
-        );
-        super.addEvent(newEventOfOverlappingPeriod);
-
-        const newEvent = new StackableTimelineEvent<TData>(
-          newEventOfOverlappingPeriod.endTime,
-          event.endTime - newEventOfOverlappingPeriod.endTime,
-          event.data,
-          event.maxStacks,
-          event.stacks
-        );
-        super.addEvent(newEvent);
+        return;
       }
-    } else {
-      super.addEvent(event);
+
+      const oldLastEventEndTime = lastEvent.endTime;
+
+      lastEvent.endTime = event.startTime;
+
+      const newEventOfOverlappingPeriod = new StackableTimelineEvent<TData>(
+        event.startTime,
+        oldLastEventEndTime - event.startTime,
+        lastEvent.data,
+        lastEvent.maxStacks,
+        newStacksOfOverlappingPeriod
+      );
+      super.addEvent(newEventOfOverlappingPeriod);
+
+      const newEvent = new StackableTimelineEvent<TData>(
+        newEventOfOverlappingPeriod.endTime,
+        event.endTime - newEventOfOverlappingPeriod.endTime,
+        event.data,
+        event.maxStacks,
+        event.stacks
+      );
+      super.addEvent(newEvent);
+      return;
     }
+
+    super.addEvent(event);
   }
 }

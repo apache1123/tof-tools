@@ -14,21 +14,10 @@ export interface DamageBuffDefinition {
     | 'Enemy debuff'
     | 'DMG buff category 1'
     | 'DMG buff category 2'
+    | '[TEMP_TRAIT]'
     | '[TEMP_UNKNOWN]';
   maxStacks: number;
 
-  // triggeredBy?: {
-  //   combatActions?: 'combat-start'[];
-  //   weaponActions?: {
-  //     weaponName: WeaponName;
-  //     action: 'full-charge';
-  //   }[];
-  //   weaponAttacks?: {
-  //     weaponName: WeaponName;
-  //     attackDefinitionId: string;
-  //   }[];
-  // };
-  // endedBy?: 'combat-end'[];
   /** in ms */
   duration?: number;
   /** in ms */
@@ -36,4 +25,9 @@ export interface DamageBuffDefinition {
 
   /** Assumptions, compromises made etc. */
   remarks?: string;
+
+  elementalWeaponRequirement?: {
+    weaponElementalType: WeaponElementalType;
+    numOfWeapons: number;
+  };
 }
