@@ -11,6 +11,7 @@ export const matrixSet4pcLabel = '4pc';
 export type MatrixSetBaseName =
   | 'Alyss'
   | 'Annabella'
+  | 'Asuka'
   | 'Brevey'
   | 'Claudia'
   | 'Cobalt-B'
@@ -53,6 +54,7 @@ export type MatrixSetBaseName =
 export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Alyss 2pc',
   'Annabella 2pc',
+  'Asuka 2pc',
   'Brevey 2pc',
   'Claudia 2pc',
   'Cobalt-B 2pc',
@@ -96,6 +98,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
 export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Alyss 4pc',
   'Annabella 4pc',
+  'Asuka 4pc',
   'Brevey 4pc',
   'Claudia 4pc',
   'Cobalt-B 4pc',
@@ -166,6 +169,27 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: false,
       },
     ],
+    critDamageBuffs: [],
+  },
+  'Asuka 2pc': {
+    id: 'Asuka 2pc',
+    displayName: 'Asuka 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description: 'Increase physical and flame ATK, works off-hand',
+        starValues: [
+          { star: 0, value: 0.2 },
+          { star: 1, value: 0.22 },
+          { star: 2, value: 0.24 },
+          { star: 3, value: 0.26 },
+        ],
+        elementalTypes: ['Flame', 'Physical'],
+        canStack: false,
+        isActivePassively: true,
+      },
+    ],
+    critRateBuffs: [],
     critDamageBuffs: [],
   },
   'Brevey 2pc': {
@@ -741,6 +765,14 @@ export const matrixSetDefinitionsLookup: DataById<
         ],
       },
     ],
+  },
+  'Asuka 4pc': {
+    id: 'Asuka 4pc',
+    displayName: 'Asuka 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
   },
   'Brevey 4pc': {
     id: 'Brevey 4pc',
