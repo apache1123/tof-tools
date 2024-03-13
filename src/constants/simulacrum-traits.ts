@@ -8,6 +8,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
   allIds: [
     'Alyss',
     'Annabella',
+    'Asuka',
     'Brevey',
     'Claudia',
     'Cobalt-B',
@@ -77,6 +78,26 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       // TODO:
       conditionalDamageBuffs: [],
       remarks: 'Annabella trait not implemented yet',
+      conditionalAttackBuffs: [],
+      passiveAttackBuffs: [],
+      passiveMiscellaneousBuffs: [],
+      conditionalMiscellaneousBuffs: [],
+    },
+    Asuka: {
+      id: 'Asuka',
+      displayName: 'Asuka',
+      passiveDamageBuffs: [
+        {
+          id: 'asuka-trait',
+          displayName: 'Asuka trait',
+          description: 'Increase final damage by 18%',
+          value: 0.18,
+          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+          category: '[TEMP_TRAIT]',
+          maxStacks: 1,
+        },
+      ],
+      conditionalDamageBuffs: [],
       conditionalAttackBuffs: [],
       passiveAttackBuffs: [],
       passiveMiscellaneousBuffs: [],
