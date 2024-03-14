@@ -137,7 +137,7 @@ export function CombatSimulatorTimeline() {
   for (const [
     buffId,
     buffTimeline,
-  ] of combatSimulatorSnap.weaponPassiveAttackBuffTimelines) {
+  ] of combatSimulatorSnap.weaponAttackBuffTimelines) {
     editorData.push({
       id: buffId,
       displayName: buffTimeline.events[0].data.displayName,
@@ -157,7 +157,7 @@ export function CombatSimulatorTimeline() {
   for (const [
     buffId,
     buffTimeline,
-  ] of combatSimulatorSnap.simulacrumTraitDamageBuffTimelines) {
+  ] of combatSimulatorSnap.traitDamageBuffTimelines) {
     editorData.push({
       id: buffId,
       displayName: buffTimeline.events[0].data.displayName,
@@ -177,7 +177,7 @@ export function CombatSimulatorTimeline() {
   for (const [
     buffId,
     buffTimeline,
-  ] of combatSimulatorSnap.relicPassiveDamageBuffTimelines) {
+  ] of combatSimulatorSnap.relicDamageBuffTimelines) {
     editorData.push({
       id: buffId,
       displayName: buffTimeline.events[0].data.displayName,

@@ -106,27 +106,51 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     id: 'Alternate Destiny',
     displayName: 'Alternate Destiny',
     rarity: 'SSR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Alternative Destiny passive damage buff',
         displayName: 'Alternative Destiny passive damage buff',
         description: 'Increase frost damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Frost'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   'Bubble Gun': {
     id: 'Bubble Gun',
     displayName: 'Bubble Gun',
     rarity: 'SSR',
-    buffs: [
+    damageBuffs: [
+      {
+        id: 'Bubble Gun passive damage buff',
+        displayName: 'Bubble Gun passive damage buff',
+        description: 'Increase flame damage by 2%, even if not deployed.',
+        value: 0.02,
+        elementalTypes: ['Flame'],
+        damageCategory: 'Relic passive',
+        maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
+        minStarRequirement: 4,
+        maxStarRequirement: 5,
+      },
       {
         id: 'Bubble Gun Happy Time damage buff',
         displayName: 'Bubble Gun Happy Time damage buff',
@@ -134,9 +158,15 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'Increases the damage dealt by 9% for 60 seconds (assuming max stacks at all times)',
         value: 0.09,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 1',
+        damageCategory: 'DMG buff category 1',
         maxStacks: 1,
-        // TODO: trigger
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 2,
         maxStarRequirement: 4,
         remarks:
@@ -149,9 +179,15 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'Increases the damage dealt by 12% for 60 seconds (assuming max stacks at all times)',
         value: 0.12,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 1',
+        damageCategory: 'DMG buff category 1',
         maxStacks: 1,
-        // TODO: trigger
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 5,
         maxStarRequirement: 5,
         remarks:
@@ -159,48 +195,40 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
       },
     ],
     attacks: [],
-    passiveBuffs: [
-      {
-        id: 'Bubble Gun passive damage buff',
-        displayName: 'Bubble Gun passive damage buff',
-        description: 'Increase flame damage by 2%, even if not deployed.',
-        value: 0.02,
-        elementalTypes: ['Flame'],
-        category: 'Relic passive',
-        maxStacks: 1,
-        minStarRequirement: 4,
-        maxStarRequirement: 5,
-      },
-    ],
   },
   'Colossus Arm': {
     id: 'Colossus Arm',
     displayName: 'Colossus Arm',
     rarity: 'SSR',
-    buffs: [],
+    damageBuffs: [],
     attacks: [],
-    passiveBuffs: [],
     remarks: 'Colossus Arm damage is not calculated',
   },
   Confinement: {
     id: 'Confinement',
     displayName: 'Confinement',
     rarity: 'SSR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Confinement passive damage buff',
         displayName: 'Confinement passive damage buff',
         description: 'Increase physical damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Physical'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
     remarks:
       'The damage from Confinement itself is not calculated. It is negligible',
   },
@@ -208,7 +236,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     id: 'Couant',
     displayName: 'Couant',
     rarity: 'SR',
-    buffs: [
+    damageBuffs: [
       {
         id: 'Couant damage buff',
         displayName: 'Couant damage buff',
@@ -216,43 +244,51 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'After shield breaks, increase final damage by 20% for 10 seconds.',
         value: 0.2,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 2',
+        damageCategory: 'DMG buff category 2',
         maxStacks: 1,
         // TODO: trigger
-        duration: 10000,
+        triggeredBy: {},
+        duration: {
+          value: 10000,
+        },
         cooldown: 30000,
         minStarRequirement: 2,
         maxStarRequirement: 5,
       },
     ],
     attacks: [],
-    passiveBuffs: [],
   },
   'Cybernetic Arm': {
     id: 'Cybernetic Arm',
     displayName: 'Cybernetic Arm',
     rarity: 'SR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Cybernetic arm passive damage buff',
         displayName: 'Cybernetic arm passive damage buff',
         description: 'Increase frost damage by 1.5%, even if not deployed.',
         value: 0.015,
         elementalTypes: ['Frost'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   Drone: {
     id: 'Drone',
     displayName: 'Drone',
     rarity: 'SSR',
-    buffs: [
+    damageBuffs: [
       {
         id: 'Drone inspiration damage buff',
         displayName: 'Drone inspiration damage buff',
@@ -260,10 +296,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'Every 5 seconds, additionally grant Wanderers one stack of inspiration, increasing damage dealt by 5% per stack.',
         value: 0.15,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 2',
+        damageCategory: 'DMG buff category 2',
         maxStacks: 1,
         // TODO: trigger
-        duration: 25000,
+        triggeredBy: {},
+        duration: { value: 25000 },
         cooldown: 120000,
         minStarRequirement: 3,
         maxStarRequirement: 5,
@@ -272,27 +309,32 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
       },
     ],
     attacks: [],
-    passiveBuffs: [],
   },
   'Hologram Projector': {
     id: 'Hologram Projector',
     displayName: 'Hologram Projector',
     rarity: 'SSR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Hologram Projector passive damage buff',
         displayName: 'Hologram Projector passive damage buff',
         description: 'Increase volt damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Volt'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
     // TODO: support hologram damage?
     remarks: 'The damage dealt by the hologram is not calculated',
   },
@@ -300,41 +342,53 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     id: 'Hoverboard',
     displayName: 'Hoverboard',
     rarity: 'SSR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Hoverboard passive damage buff',
         displayName: 'Hoverboard passive damage buff',
         description: 'Increase flame damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Flame'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   'Hovering Cannon': {
     id: 'Hovering Cannon',
     displayName: 'Hovering Cannon',
     rarity: 'SR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Hovering Cannon passive damage buff',
         displayName: 'Hovering Cannon passive damage buff',
         description: 'Increase frost damage by 1.5%, even if not deployed.',
         value: 0.015,
         elementalTypes: ['Frost'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
     remarks:
       "The damage from Hovering Cannon's attacks is not calculated. It is negligible",
   },
@@ -342,37 +396,41 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     id: 'Jetboard',
     displayName: 'Jetboard',
     rarity: 'SR',
-    buffs: [],
+    damageBuffs: [],
     attacks: [],
-    passiveBuffs: [],
   },
   Jetpack: {
     id: 'Jetpack',
     displayName: 'Jetpack',
     rarity: 'SR',
-    buffs: [],
+    damageBuffs: [],
     attacks: [],
-    passiveBuffs: [],
   },
   'Lava Bomb': {
     id: 'Lava Bomb',
     displayName: 'Lava Bomb',
     rarity: 'SR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Lava Bomb passive damage buff',
         displayName: 'Lava Bomb passive damage buff',
         description: 'Increase flame damage by 1.5%, even if not deployed.',
         value: 0.015,
         elementalTypes: ['Flame'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
     remarks:
       'The damage from the Lava Bomb is not calculated. It is negligible',
   },
@@ -380,9 +438,8 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     id: 'Magnetic Pulse',
     displayName: 'Magnetic Pulse',
     rarity: 'SR',
-    buffs: [],
+    damageBuffs: [],
     attacks: [],
-    passiveBuffs: [],
     remarks:
       'The damage from the Lava Bomb is not calculated. It is negligible',
   },
@@ -390,7 +447,26 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     id: 'Magnetic Storm',
     displayName: 'Magnetic Storm',
     rarity: 'SR',
-    buffs: [],
+    damageBuffs: [
+      {
+        id: 'Magnetic Storm passive damage buff',
+        displayName: 'Magnetic Storm passive damage buff',
+        description: 'Increase volt damage by 1.5%, even if not deployed.',
+        value: 0.015,
+        elementalTypes: ['Volt'],
+        damageCategory: 'Relic passive',
+        maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
+        minStarRequirement: 4,
+        maxStarRequirement: 5,
+      },
+    ],
     attacks: [
       {
         id: 'Magnetic Storm electric tornadoes',
@@ -433,86 +509,91 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStarRequirement: 5,
       },
     ],
-    passiveBuffs: [
-      {
-        id: 'Magnetic Storm passive damage buff',
-        displayName: 'Magnetic Storm passive damage buff',
-        description: 'Increase volt damage by 1.5%, even if not deployed.',
-        value: 0.015,
-        elementalTypes: ['Volt'],
-        category: 'Relic passive',
-        maxStacks: 1,
-        minStarRequirement: 4,
-        maxStarRequirement: 5,
-      },
-    ],
   },
   'Mini Pelican': {
     id: 'Mini Pelican',
     displayName: 'Mini Pelican',
     rarity: 'SSR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Mini Pelican passive damage buff',
         displayName: 'Mini Pelican passive damage buff',
         description: 'Increase volt damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Volt'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   'Missile Barrage': {
     id: 'Missile Barrage',
     displayName: 'Missile Barrage',
     rarity: 'SR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Missile Barrage passive damage buff',
         displayName: 'Missile Barrage passive damage buff',
         description: 'Increase physical damage by 1.5%, even if not deployed.',
         value: 0.015,
         elementalTypes: ['Physical'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
     remarks: 'The damage from the Missile Barrage is not calculated (untested)',
   },
   'Omnium Handcannon': {
     id: 'Omnium Handcannon',
     displayName: 'Omnium Handcannon',
     rarity: 'SR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Omnium Handcannon passive damage buff',
         displayName: 'Omnium Handcannon passive damage buff',
         description: 'Increase flame damage by 1.5%, even if not deployed.',
         value: 0.015,
         elementalTypes: ['Flame'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   'Omnium Shield': {
     id: 'Omnium Shield',
     displayName: 'Omnium Shield',
     rarity: 'SSR',
-    buffs: [
+    damageBuffs: [
       {
         id: 'Omnium Shield damage buff',
         displayName: 'Omnium Shield damage buff',
@@ -520,10 +601,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'When Wanderers or allies pass through the Omnium Shield, damage dealt increases by 25% for 7 seconds.',
         value: 0.25,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 2',
+        damageCategory: 'DMG buff category 2',
         maxStacks: 1,
         // TODO: trigger
-        duration: 27000,
+        triggeredBy: {},
+        duration: { value: 27000 },
         cooldown: 60000,
         minStarRequirement: 5,
         maxStarRequirement: 5,
@@ -532,64 +614,76 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
       },
     ],
     attacks: [],
-    passiveBuffs: [],
   },
   'Overdrive Shot': {
     id: 'Overdrive Shot',
     displayName: 'Overdrive Shot',
     rarity: 'SSR',
     // TODO: marking buff mechanic
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Overdrive Shot passive damage buff',
         displayName: 'Overdrive Shot passive damage buff',
         description: 'Increase physical damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Physical'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   'Quantum Cloak': {
     id: 'Quantum Cloak',
     displayName: 'Quantum Cloak',
     rarity: 'SR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Quantum Cloak passive damage buff',
         displayName: 'Quantum Cloak passive damage buff',
         description: 'Increase volt damage by 1.5%, even if not deployed.',
         value: 0.015,
         elementalTypes: ['Volt'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   'Spacetime Rift': {
     id: 'Spacetime Rift',
     displayName: 'Spacetime Rift',
     rarity: 'SSR',
-    buffs: [
+    damageBuffs: [
       {
         id: 'Spacetime Rift damage buff',
         displayName: 'Spacetime Rift damage buff',
         description: 'Increase damage dealt to targets in the area by 20%.',
         value: 0.2,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'Enemy debuff',
+        damageCategory: 'Enemy debuff',
         maxStacks: 1,
         // TODO: trigger
-        duration: 15000,
+        triggeredBy: {},
+        duration: { value: 15000 },
         cooldown: 100000,
         minStarRequirement: 3,
         maxStarRequirement: 5,
@@ -617,35 +711,39 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStarRequirement: 5,
       },
     ],
-    passiveBuffs: [],
   },
   Speedwalkers: {
     id: 'Speedwalkers',
     displayName: 'Speedwalkers',
     rarity: 'SSR',
-    buffs: [],
+    damageBuffs: [],
     attacks: [],
-    passiveBuffs: [],
   },
   'Strange Cube': {
     id: 'Strange Cube',
     displayName: 'Strange Cube',
     rarity: 'SR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Strange Cube passive damage buff',
         displayName: 'Strange Cube passive damage buff',
         description: 'Increase volt damage by 1.5%, even if not deployed.',
         value: 0.015,
         elementalTypes: ['Volt'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
     remarks:
       'The damage increase from activating Strange Cube is not implemented.',
   },
@@ -653,7 +751,25 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     id: 'Thalassic Heart',
     displayName: 'Thalassic Heart',
     rarity: 'SSR',
-    buffs: [
+    damageBuffs: [
+      {
+        id: 'Thalassic Heart passive damage buff',
+        displayName: 'Thalassic Heart passive damage buff',
+        description: 'Increase volt damage by 2%, even if not deployed.',
+        value: 0.02,
+        elementalTypes: ['Volt'],
+        damageCategory: 'Relic passive',
+        maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
+        minStarRequirement: 4,
+        maxStarRequirement: 5,
+      },
       {
         id: 'Thalassic Heart damage buff',
         displayName: 'Thalassic Heart damage buff',
@@ -661,10 +777,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'Damage received by targets hit by Thalassic Heart is increased by 4%',
         value: 0.04,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'Enemy debuff',
+        damageCategory: 'Enemy debuff',
         maxStacks: 1,
         // TODO: trigger
-        duration: 50000,
+        triggeredBy: {},
+        duration: { value: 50000 },
         cooldown: 60000,
         minStarRequirement: 0,
         maxStarRequirement: 1,
@@ -678,9 +795,14 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'Damage received by targets hit by Thalassic Heart is increased by 4%',
         value: 0.04,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'Enemy debuff',
+        damageCategory: 'Enemy debuff',
         maxStacks: 1,
         // TODO: trigger
+        triggeredBy: {},
+        duration: {
+          value: 90000,
+        },
+        cooldown: 60000,
         minStarRequirement: 2,
         maxStarRequirement: 2,
         remarks:
@@ -693,9 +815,14 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'Damage received by targets hit by Thalassic Heart is increased by 9.5%',
         value: 0.095,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'Enemy debuff',
+        damageCategory: 'Enemy debuff',
         maxStacks: 1,
         // TODO: trigger
+        triggeredBy: {},
+        duration: {
+          value: 90000,
+        },
+        cooldown: 60000,
         minStarRequirement: 3,
         maxStarRequirement: 5,
         remarks:
@@ -704,35 +831,27 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
     ],
     // TODO:
     attacks: [],
-    passiveBuffs: [
-      {
-        id: 'Thalassic Heart passive damage buff',
-        displayName: 'Thalassic Heart passive damage buff',
-        description: 'Increase volt damage by 2%, even if not deployed.',
-        value: 0.02,
-        elementalTypes: ['Volt'],
-        category: 'Relic passive',
-        maxStacks: 1,
-        minStarRequirement: 4,
-        maxStarRequirement: 5,
-      },
-    ],
   },
   'Triple Mask': {
     id: 'Triple Mask',
     displayName: 'Triple Mask',
     rarity: 'SSR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Triple Mask passive damage buff',
         displayName: 'Triple Mask passive damage buff',
         description: 'Increase frost damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Frost'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
@@ -743,8 +862,15 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'While Triple Mask is deployed, elemental damage is increased by 6%.',
         value: 0.06,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 1',
+        damageCategory: 'DMG buff category 1',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 2,
         maxStarRequirement: 4,
       },
@@ -755,18 +881,44 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'While Triple Mask is deployed, elemental damage is increased by 12%.',
         value: 0.12,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 1',
+        damageCategory: 'DMG buff category 1',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 5,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
   },
   'Type II Couant': {
     id: 'Type II Couant',
     displayName: 'Type II Couant',
     rarity: 'SSR',
-    buffs: [
+    damageBuffs: [
+      {
+        id: 'Type II Couant passive damage buff',
+        displayName: 'Type II Couant passive damage buff',
+        description: 'Increase flame damage by 2%, even if not deployed.',
+        value: 0.02,
+        elementalTypes: ['Flame'],
+        damageCategory: 'Relic passive',
+        maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
+        minStarRequirement: 4,
+        maxStarRequirement: 5,
+      },
       {
         id: 'Type II Couant damage buff',
         displayName: 'Type II Couant damage buff',
@@ -774,10 +926,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'After the shield is broken, increase damage by 20% for 10 seconds',
         value: 0.2,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 2',
+        damageCategory: 'DMG buff category 2',
         maxStacks: 1,
         // TODO: trigger
-        duration: 10000,
+        triggeredBy: {},
+        duration: { value: 10000 },
         cooldown: 30000,
         minStarRequirement: 0,
         maxStarRequirement: 1,
@@ -789,10 +942,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'After the shield is broken, increase damage by 20% for 12 seconds',
         value: 0.2,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 2',
+        damageCategory: 'DMG buff category 2',
         maxStacks: 1,
         // TODO: trigger
-        duration: 12000,
+        triggeredBy: {},
+        duration: { value: 12000 },
         cooldown: 30000,
         minStarRequirement: 1,
         maxStarRequirement: 2,
@@ -804,10 +958,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'After the shield is broken, increase damage by 20% for 12 seconds. Ever stack of blessing additionally increases final damage by 1%',
         value: 0.25,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 2',
+        damageCategory: 'DMG buff category 2',
         maxStacks: 1,
         // TODO: trigger
-        duration: 12000,
+        triggeredBy: {},
+        duration: { value: 12000 },
         cooldown: 30000,
         minStarRequirement: 3,
         maxStarRequirement: 4,
@@ -820,10 +975,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           'After the shield is broken, increase damage by 20% for 12 seconds. Ever stack of blessing additionally increases final damage by 1%. When there are full 5 stacks of blessing, additionally increase final damage by 2.5%',
         value: 0.275,
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-        category: 'DMG buff category 2',
+        damageCategory: 'DMG buff category 2',
         maxStacks: 1,
         // TODO: trigger
-        duration: 12000,
+        triggeredBy: {},
+        duration: { value: 12000 },
         cooldown: 30000,
         minStarRequirement: 5,
         maxStarRequirement: 5,
@@ -831,39 +987,32 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
       },
     ],
     attacks: [],
-    passiveBuffs: [
-      {
-        id: 'Type II Couant passive damage buff',
-        displayName: 'Type II Couant passive damage buff',
-        description: 'Increase flame damage by 2%, even if not deployed.',
-        value: 0.02,
-        elementalTypes: ['Flame'],
-        category: 'Relic passive',
-        maxStacks: 1,
-        minStarRequirement: 4,
-        maxStarRequirement: 5,
-      },
-    ],
   },
   'Type V Armor': {
     id: 'Type V Armor',
     displayName: 'Type V Armor',
     rarity: 'SSR',
-    buffs: [],
-    attacks: [],
-    passiveBuffs: [
+    damageBuffs: [
       {
         id: 'Type V Armor passive damage buff',
         displayName: 'Type V Armor passive damage buff',
         description: 'Increase flame damage by 2%, even if not deployed.',
         value: 0.02,
         elementalTypes: ['Flame'],
-        category: 'Relic passive',
+        damageCategory: 'Relic passive',
         maxStacks: 1,
+        triggeredBy: {
+          combatStart: true,
+        },
+        duration: {
+          untilCombatEnd: true,
+        },
+        cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
       },
     ],
+    attacks: [],
     remarks:
       'The damage from the Type V Armor is not calculated and unimplemented',
   },

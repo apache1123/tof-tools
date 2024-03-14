@@ -1,25 +1,14 @@
 import type { SimulacrumName } from '../../constants/simulacrum-traits';
-import type {
-  SimulacrumTraitConditionalAttackBuffDefinition,
-  SimulacrumTraitPassiveAttackBuffDefinition,
-} from './simulacrum-trait-attack-buff-definition';
-import type {
-  SimulacrumTraitConditionalDamageBuffDefinition,
-  SimulacrumTraitPassiveDamageBuffDefinition,
-} from './simulacrum-trait-damage-buff-definition';
-import type {
-  SimulacrumTraitConditionalMiscBuffDefinition,
-  SimulacrumTraitPassiveMiscBuffDefinition,
-} from './simulacrum-trait-misc-buff-definition';
+import type { AttackBuffDefinition } from './buffs/attack-buff-definition';
+import type { DamageBuffDefinition } from './buffs/damage-buff-definition';
+import type { MiscellaneousBuffDefinition } from './buffs/miscellaneous-buff-definition';
 
 export interface SimulacrumTrait {
   id: SimulacrumName;
   displayName: string;
-  passiveDamageBuffs: SimulacrumTraitPassiveDamageBuffDefinition[];
-  conditionalDamageBuffs: SimulacrumTraitConditionalDamageBuffDefinition[];
-  passiveAttackBuffs: SimulacrumTraitPassiveAttackBuffDefinition[];
-  conditionalAttackBuffs: SimulacrumTraitConditionalAttackBuffDefinition[];
-  passiveMiscellaneousBuffs: SimulacrumTraitPassiveMiscBuffDefinition[];
-  conditionalMiscellaneousBuffs: SimulacrumTraitConditionalMiscBuffDefinition[];
+  attackBuffs: AttackBuffDefinition[];
+  damageBuffs: DamageBuffDefinition[];
+  miscellaneousBuffs: MiscellaneousBuffDefinition[];
+
   remarks?: string;
 }

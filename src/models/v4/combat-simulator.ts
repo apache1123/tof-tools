@@ -1,15 +1,16 @@
 import BigNumber from 'bignumber.js';
 import groupBy from 'lodash.groupby';
 
-import { commonWeaponPassiveAttackBuffs } from '../../constants/common-weapon-attack-buffs';
+import { commonWeaponAttackBuffs } from '../../constants/common-weapon-attack-buffs';
 import { commonWeaponDamageBuffs } from '../../constants/common-weapon-damage-buffs';
 import type { Loadout } from '../loadout';
 import type { Weapon } from '../weapon';
 import type { Attack } from './attack';
-import type { AttackBuffDefinition } from './attack-buff-definition';
 import { AttackEventData } from './attack-event-data';
-import type { DamageBuffDefinition } from './damage-buff-definition';
-import type { MiscellaneousBuffDefinition } from './miscellaneous-buff-definition';
+import type { AttackBuffDefinition } from './buffs/attack-buff-definition';
+import type { BuffDefinition } from './buffs/buff-definition';
+import type { DamageBuffDefinition } from './buffs/damage-buff-definition';
+import type { MiscellaneousBuffDefinition } from './buffs/miscellaneous-buff-definition';
 import type { Relics } from './relics';
 import { ChronologicalTimeline } from './timeline/chronological-timeline';
 import { StackableChronologicalTimeline } from './timeline/stackable-timeline';
@@ -21,7 +22,7 @@ export class CombatSimulator {
     Weapon,
     ChronologicalTimeline<AttackEventData>
   >();
-  public readonly weaponPassiveAttackBuffTimelines = new Map<
+  public readonly weaponAttackBuffTimelines = new Map<
     string,
     StackableChronologicalTimeline<AttackBuffDefinition>
   >();
@@ -29,22 +30,31 @@ export class CombatSimulator {
     string,
     StackableChronologicalTimeline<DamageBuffDefinition>
   >();
-  public readonly relicPassiveDamageBuffTimelines = new Map<
+  public readonly relicDamageBuffTimelines = new Map<
     string,
     StackableChronologicalTimeline<DamageBuffDefinition>
   >();
-  public readonly simulacrumTraitDamageBuffTimelines = new Map<
-    string,
-    StackableChronologicalTimeline<DamageBuffDefinition>
-  >();
-  public readonly simulacrumTraitAttackBuffTimelines = new Map<
+  public readonly traitAttackBuffTimelines = new Map<
     string,
     StackableChronologicalTimeline<AttackBuffDefinition>
   >();
-  public readonly simulacrumTraitMiscBuffTimelines = new Map<
+  public readonly traitDamageBuffTimelines = new Map<
+    string,
+    StackableChronologicalTimeline<DamageBuffDefinition>
+  >();
+  public readonly traitMiscBuffTimelines = new Map<
     string,
     StackableChronologicalTimeline<MiscellaneousBuffDefinition>
   >();
+
+  /** Registered buff definitions will be checked whenever an attack happens. A buff event will be added to the timeline if the conditions defined in the buff definition are met */
+  private registeredBuffs: {
+    buffDefinitions: BuffDefinition[];
+    timelineGroupToAddTo: Map<
+      string,
+      StackableChronologicalTimeline<BuffDefinition>
+    >;
+  }[] = [];
 
   public constructor(
     public readonly combatDuration: number,
@@ -57,6 +67,8 @@ export class CombatSimulator {
         new ChronologicalTimeline<AttackEventData>()
       );
     });
+
+    this.registerBuffs();
   }
 
   public get activeWeapon(): Weapon | undefined {
@@ -165,457 +177,280 @@ export class CombatSimulator {
     );
     attackTimeline.addEvent(attackEvent);
 
-    this.triggerCommonWeaponDamageBuffs(attackEvent);
-    this.triggerTraitDamageBuffs(attackEvent);
-    this.triggerTraitAttackBuffs(attackEvent);
-    this.triggerTraitMiscBuffs(attackEvent);
-
-    // Add buffs triggered at the start of combat
-    if (nextEarliestAttackStartTime === 0) {
-      this.triggerWeaponPassiveAttackBuffs();
-      this.triggerRelicPassiveBuffs();
-      this.triggerTraitPassiveDamageBuffs();
-      this.triggerTraitPassiveAttackBuffs();
-      this.triggerTraitPassiveMiscBuffs();
+    // Register all buffs first at the start of combat
+    if (attackEvent.startTime === 0) {
+      this.registerBuffs();
     }
+
+    this.triggerRegisteredBuffsIfApplicable(attackEvent);
   }
 
-  private triggerCommonWeaponDamageBuffs(
+  private triggerRegisteredBuffsIfApplicable(
     attackEvent: TimelineEvent<AttackEventData>
   ) {
+    this.registeredBuffs.forEach(
+      ({ buffDefinitions, timelineGroupToAddTo }) => {
+        buffDefinitions.forEach((buffDefinition) => {
+          this.addBuffIfApplicable(
+            buffDefinition,
+            timelineGroupToAddTo,
+            attackEvent
+          );
+        });
+      }
+    );
+  }
+
+  private registerBuffs() {
+    this.registeredBuffs = [
+      {
+        buffDefinitions: this.loadout.team.weapons.flatMap((weapon) =>
+          weapon.definition.commonAttackBuffs.map(
+            (buffId) => commonWeaponAttackBuffs[buffId]
+          )
+        ),
+        timelineGroupToAddTo: this.weaponAttackBuffTimelines,
+      },
+      {
+        buffDefinitions: this.loadout.team.weapons.flatMap((weapon) =>
+          weapon.definition.commonDamageBuffs.map(
+            (buffId) => commonWeaponDamageBuffs[buffId]
+          )
+        ),
+        timelineGroupToAddTo: this.weaponDamageBuffTimelines,
+      },
+      {
+        buffDefinitions: this.relics.passiveRelicBuffs,
+        timelineGroupToAddTo: this.relicDamageBuffTimelines,
+      },
+      {
+        buffDefinitions: this.loadout.simulacrumTrait?.attackBuffs ?? [],
+        timelineGroupToAddTo: this.traitAttackBuffTimelines,
+      },
+      {
+        buffDefinitions: this.loadout.simulacrumTrait?.damageBuffs ?? [],
+        timelineGroupToAddTo: this.traitDamageBuffTimelines,
+      },
+      {
+        buffDefinitions: this.loadout.simulacrumTrait?.miscellaneousBuffs ?? [],
+        timelineGroupToAddTo: this.traitMiscBuffTimelines,
+      },
+    ];
+  }
+
+  private addBuffIfApplicable(
+    buffDefinition: BuffDefinition,
+    timelineGroup: Map<string, StackableChronologicalTimeline<BuffDefinition>>,
+    attackEvent: TimelineEvent<AttackEventData>
+  ) {
+    if (!this.hasBuffMetRequirements(buffDefinition)) return;
+    if (!this.shouldTriggerBuff(buffDefinition, attackEvent)) return;
+
+    const buffTimePeriod = this.determineBuffTimePeriod(
+      buffDefinition,
+      attackEvent
+    );
+    if (!buffTimePeriod) return;
+
+    const { id, maxStacks } = buffDefinition;
+
+    if (!timelineGroup.has(id)) {
+      timelineGroup.set(id, new StackableChronologicalTimeline());
+    }
+
+    timelineGroup
+      .get(id)
+      ?.addEvent(
+        new StackableTimelineEvent(
+          buffTimePeriod.startTime,
+          buffTimePeriod.duration,
+          buffDefinition,
+          maxStacks
+        )
+      );
+  }
+
+  private hasBuffMetRequirements(buff: BuffDefinition): boolean {
+    const { requirements } = buff;
+    if (!requirements) return true;
+
+    const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
+      this.loadout.team;
+
+    // Check requirements from most specific to least specific for efficiency
+
+    if (
+      requirements.weaponInTeam &&
+      !weaponNames.includes(requirements.weaponInTeam)
+    )
+      return false;
+
+    if (
+      requirements.weaponResonance &&
+      weaponResonance !== requirements.weaponResonance
+    )
+      return false;
+
+    const elementalTypeWeaponRequirement =
+      requirements.elementalTypeWeaponsInTeam;
+    if (elementalTypeWeaponRequirement) {
+      const numOfWeaponsOfElementalType = weaponElementalTypes.filter(
+        (x) => x === elementalTypeWeaponRequirement.elementalType
+      ).length;
+
+      if (
+        numOfWeaponsOfElementalType !==
+        elementalTypeWeaponRequirement.numOfWeapons
+      )
+        return false;
+    }
+
+    const notElementalTypeWeaponRequirement =
+      requirements.notElementalTypeWeaponsInTeam;
+    if (notElementalTypeWeaponRequirement) {
+      const numOfNotElementalTypeWeapons = weapons.filter(
+        (weapon) =>
+          !weapon.definition.elementalTypes.includes(
+            notElementalTypeWeaponRequirement.notElementalType
+          )
+      ).length;
+
+      if (
+        numOfNotElementalTypeWeapons !==
+        notElementalTypeWeaponRequirement.numOfWeapons
+      )
+        return false;
+    }
+
+    if (requirements.numOfDifferentElementalTypesInTeam) {
+      const numOfDifferentElementalTypes = Object.keys(
+        groupBy(weaponElementalTypes)
+      ).length;
+
+      if (
+        numOfDifferentElementalTypes !==
+        requirements.numOfDifferentElementalTypesInTeam
+      )
+        return false;
+    }
+
+    return true;
+  }
+
+  private shouldTriggerBuff(
+    buffDefinition: BuffDefinition,
+    attackEvent: TimelineEvent<AttackEventData>
+  ): boolean {
+    // TODO: cooldown
+    const { triggeredBy } = buffDefinition;
+
     const {
       data: {
         attack: {
-          weapon: { definition: weaponDefinition },
-          attackDefinition,
+          attackDefinition: { id: attackId, type: attackType },
+          weapon: {
+            definition: {
+              id: weaponId,
+              type: weaponType,
+              elementalTypes: weaponElementalTypes,
+            },
+          },
         },
       },
     } = attackEvent;
 
-    weaponDefinition.commonDamageBuffs.forEach(
-      ({ buffId, triggeredByAttackIds }) => {
-        if (triggeredByAttackIds?.includes(attackDefinition.id)) {
-          const buffDefinition = commonWeaponDamageBuffs[buffId];
+    // Check triggers from least specific to most specific for efficiency
 
-          if (!buffDefinition.duration) return;
+    if (triggeredBy.combatStart && attackEvent.startTime === 0) return true;
 
-          if (!this.weaponDamageBuffTimelines.has(buffId)) {
-            const timeline =
-              new StackableChronologicalTimeline<DamageBuffDefinition>();
-            timeline.addEvent(
-              new StackableTimelineEvent(
-                attackEvent.startTime,
-                buffDefinition.duration,
-                buffDefinition,
-                buffDefinition.maxStacks
-              )
-            );
-            this.weaponDamageBuffTimelines.set(buffId, timeline);
-          }
-        }
-      }
-    );
-  }
+    if (triggeredBy.skillOfAnyWeapon && attackType === 'skill') return true;
 
-  private triggerWeaponPassiveAttackBuffs() {
-    this.loadout.team.weapons.forEach((weapon) => {
-      weapon.definition.commonPassiveAttackBuffs.forEach((buffId) => {
-        const buffDefinition = commonWeaponPassiveAttackBuffs[buffId];
-
-        if (!this.hasAttackBuffMetRequirements(buffDefinition)) return;
-
-        // Assuming all common weapon passive attack buffs can only have 1 stack each
-        if (!this.weaponPassiveAttackBuffTimelines.has(buffId)) {
-          const timeline =
-            new StackableChronologicalTimeline<AttackBuffDefinition>();
-          timeline.addEvent(
-            new StackableTimelineEvent(0, this.combatDuration, buffDefinition)
-          );
-          this.weaponPassiveAttackBuffTimelines.set(buffId, timeline);
-        }
-      });
-    });
-  }
-
-  private triggerRelicPassiveBuffs() {
-    this.relics.passiveRelicBuffs.forEach((buffDefinition) => {
-      const { id } = buffDefinition;
-      const timeline =
-        new StackableChronologicalTimeline<DamageBuffDefinition>();
-      timeline.addEvent(
-        new StackableTimelineEvent(0, this.combatDuration, buffDefinition)
-      );
-      this.relicPassiveDamageBuffTimelines.set(id, timeline);
-    });
-  }
-
-  private triggerTraitPassiveDamageBuffs() {
-    this.loadout.simulacrumTrait?.passiveDamageBuffs.forEach(
-      (buffDefinition) => {
-        const {
-          id,
-          maxStacks,
-          applyToEndSegmentOfCombat,
-          weaponRequirement,
-          differentWeaponElementalTypeRequirement,
-          elementalWeaponRequirement,
-          weaponResonanceRequirement,
-        } = buffDefinition;
-
-        // Check requirements first. If any requirement fails, exit out immediately
-        if (
-          weaponRequirement &&
-          !this.loadout.team.weaponNames.includes(weaponRequirement)
-        )
-          return;
-        if (differentWeaponElementalTypeRequirement) {
-          const numOfDifferentElementalTypes = Object.keys(
-            groupBy(this.loadout.team.weaponElementalTypes)
-          ).length;
-          if (
-            numOfDifferentElementalTypes !==
-            differentWeaponElementalTypeRequirement.numOfDifferentElementalTypes
-          ) {
-            return;
-          }
-        }
-        // TODO: this is duplicated below
-        if (elementalWeaponRequirement) {
-          const numOfWeaponsOfElementalType =
-            this.loadout.team.weaponElementalTypes.filter(
-              (x) => x === elementalWeaponRequirement.weaponElementalType
-            ).length;
-
-          if (
-            numOfWeaponsOfElementalType !==
-            elementalWeaponRequirement.numOfWeapons
-          ) {
-            return;
-          }
-        }
-        if (
-          weaponResonanceRequirement &&
-          this.loadout.team.weaponResonance !== weaponResonanceRequirement
-        ) {
-          return;
-        }
-
-        let startTime = 0;
-        let buffDuration = this.combatDuration;
-        if (applyToEndSegmentOfCombat) {
-          buffDuration = BigNumber(this.combatDuration)
-            .times(applyToEndSegmentOfCombat)
-            .toNumber();
-          startTime = BigNumber(this.combatDuration)
-            .minus(buffDuration)
-            .toNumber();
-        }
-
-        const timeline =
-          new StackableChronologicalTimeline<DamageBuffDefinition>();
-        timeline.addEvent(
-          new StackableTimelineEvent(
-            startTime,
-            buffDuration,
-            buffDefinition,
-            maxStacks
-          )
-        );
-        this.simulacrumTraitDamageBuffTimelines.set(id, timeline);
-      }
-    );
-  }
-
-  private triggerTraitPassiveAttackBuffs() {
-    this.loadout.simulacrumTrait?.passiveAttackBuffs.forEach(
-      (buffDefinition) => {
-        const { id, maxStacks } = buffDefinition;
-
-        // Check requirements first. If any requirement fails, exit out immediately
-
-        const timeline =
-          new StackableChronologicalTimeline<AttackBuffDefinition>();
-        timeline.addEvent(
-          new StackableTimelineEvent(
-            0,
-            this.combatDuration,
-            buffDefinition,
-            maxStacks
-          )
-        );
-        this.simulacrumTraitAttackBuffTimelines.set(id, timeline);
-      }
-    );
-  }
-
-  private triggerTraitPassiveMiscBuffs() {
-    this.loadout.simulacrumTrait?.passiveMiscellaneousBuffs.forEach(
-      (buffDefinition) => {
-        const { id } = buffDefinition;
-
-        const timeline =
-          new StackableChronologicalTimeline<MiscellaneousBuffDefinition>();
-        timeline.addEvent(
-          new StackableTimelineEvent(0, this.combatDuration, buffDefinition)
-        );
-        this.simulacrumTraitMiscBuffTimelines.set(id, timeline);
-      }
-    );
-  }
-
-  private triggerTraitDamageBuffs(attackEvent: TimelineEvent<AttackEventData>) {
-    this.loadout.simulacrumTrait?.conditionalDamageBuffs.forEach(
-      (buffDefinition) => {
-        const {
-          id,
-          duration,
-          triggeredByAnyWeaponSkill,
-          triggeredByCombatStart,
-          triggeredByWeaponAttack,
-          triggeredByActiveWeapon,
-          triggeredByElementalTypeSkill,
-          triggeredByElementalTypeDischarge,
-          elementalWeaponRequirement,
-          notElementalTypeWeaponRequirement,
-        } = buffDefinition;
-
-        // Check requirements first. If any requirement fails, exit out immediately
-        if (elementalWeaponRequirement) {
-          const numOfWeaponsOfElementalType =
-            this.loadout.team.weaponElementalTypes.filter(
-              (x) => x === elementalWeaponRequirement.weaponElementalType
-            ).length;
-
-          if (
-            numOfWeaponsOfElementalType !==
-            elementalWeaponRequirement.numOfWeapons
-          )
-            return;
-        }
-        if (notElementalTypeWeaponRequirement) {
-          const numOfNotElementalTypeWeapons = this.loadout.team.weapons.filter(
-            (weapon) =>
-              !weapon.definition.elementalTypes.includes(
-                notElementalTypeWeaponRequirement.notElementalType
-              )
-          ).length;
-
-          if (
-            numOfNotElementalTypeWeapons !==
-            notElementalTypeWeaponRequirement.numOfWeapons
-          )
-            return;
-        }
-
-        // Check triggers (from most specific to least).
-        let shouldAddBuff = false;
-        let buffDuration = duration;
-        if (
-          triggeredByWeaponAttack &&
-          attackEvent.data.attack.attackDefinition.id ===
-            triggeredByWeaponAttack
-        ) {
-          shouldAddBuff = true;
-        } else if (
-          triggeredByActiveWeapon &&
-          attackEvent.data.attack.weapon.definition.id ===
-            triggeredByActiveWeapon
-        ) {
-          shouldAddBuff = true;
-          buffDuration = buffDuration ?? attackEvent.duration;
-        } else if (
-          triggeredByElementalTypeSkill &&
-          attackEvent.data.attack.attackDefinition.type === 'skill' &&
-          attackEvent.data.attack.weapon.definition.elementalTypes.includes(
-            triggeredByElementalTypeSkill
-          )
-        ) {
-          shouldAddBuff = true;
-        } else if (
-          triggeredByElementalTypeDischarge &&
-          attackEvent.data.attack.attackDefinition.type === 'discharge' &&
-          attackEvent.data.attack.weapon.definition.elementalTypes.includes(
-            triggeredByElementalTypeDischarge
-          )
-        ) {
-          shouldAddBuff = true;
-        } else if (
-          triggeredByAnyWeaponSkill &&
-          attackEvent.data.attack.attackDefinition.type === 'skill'
-        ) {
-          shouldAddBuff = true;
-        } else if (triggeredByCombatStart && attackEvent.startTime === 0) {
-          shouldAddBuff = true;
-        }
-
-        if (shouldAddBuff && buffDuration) {
-          if (!this.simulacrumTraitDamageBuffTimelines.has(id)) {
-            this.simulacrumTraitDamageBuffTimelines.set(
-              id,
-              new StackableChronologicalTimeline()
-            );
-          }
-
-          this.simulacrumTraitDamageBuffTimelines
-            .get(id)
-            ?.addEvent(
-              new StackableTimelineEvent(
-                attackEvent.startTime,
-                buffDuration,
-                buffDefinition,
-                buffDefinition.maxStacks
-              )
-            );
-        }
-      }
-    );
-  }
-
-  public triggerTraitAttackBuffs(attackEvent: TimelineEvent<AttackEventData>) {
-    this.loadout.simulacrumTrait?.conditionalAttackBuffs.forEach(
-      (buffDefinition) => {
-        const {
-          id,
-          duration,
-          maxStacks,
-          triggeredBySkillOfWeaponType,
-          triggeredByDischargeOfWeaponType,
-          triggeredByWeaponAttack,
-          triggeredByAnyWeaponSkill,
-          triggeredByAnyWeaponDischarge,
-        } = buffDefinition;
-
-        let shouldAddBuff = false;
-        if (
-          triggeredByWeaponAttack &&
-          triggeredByWeaponAttack ===
-            attackEvent.data.attack.attackDefinition.id
-        ) {
-          shouldAddBuff = true;
-        } else if (
-          triggeredBySkillOfWeaponType &&
-          attackEvent.data.attack.attackDefinition.type === 'skill' &&
-          triggeredBySkillOfWeaponType.weaponType ===
-            attackEvent.data.attack.weapon.definition.type
-        ) {
-          shouldAddBuff = true;
-        } else if (
-          triggeredByDischargeOfWeaponType &&
-          attackEvent.data.attack.attackDefinition.type === 'discharge' &&
-          triggeredByDischargeOfWeaponType.weaponType ===
-            attackEvent.data.attack.weapon.definition.type
-        ) {
-          shouldAddBuff = true;
-        } else if (
-          triggeredByAnyWeaponSkill &&
-          attackEvent.data.attack.attackDefinition.type === 'skill'
-        ) {
-          shouldAddBuff = true;
-        } else if (
-          triggeredByAnyWeaponDischarge &&
-          attackEvent.data.attack.attackDefinition.type === 'discharge'
-        ) {
-          shouldAddBuff = true;
-        }
-
-        if (shouldAddBuff && duration) {
-          if (!this.simulacrumTraitAttackBuffTimelines.has(id)) {
-            this.simulacrumTraitAttackBuffTimelines.set(
-              id,
-              new StackableChronologicalTimeline()
-            );
-          }
-
-          this.simulacrumTraitAttackBuffTimelines
-            .get(id)
-            ?.addEvent(
-              new StackableTimelineEvent(
-                attackEvent.startTime,
-                duration,
-                buffDefinition,
-                maxStacks
-              )
-            );
-        }
-      }
-    );
-  }
-
-  private triggerTraitMiscBuffs(attackEvent: TimelineEvent<AttackEventData>) {
-    this.loadout.simulacrumTrait?.conditionalMiscellaneousBuffs.forEach(
-      (buffDefinition) => {
-        const { id, triggeredByActiveWeapon, elementalWeaponRequirement } =
-          buffDefinition;
-
-        if (
-          elementalWeaponRequirement &&
-          this.loadout.team.weaponElementalTypes.filter(
-            (elementalType) =>
-              elementalType === elementalWeaponRequirement.weaponElementalType
-          ).length !== elementalWeaponRequirement.numOfWeapons
-        ) {
-          return;
-        }
-
-        if (
-          triggeredByActiveWeapon &&
-          triggeredByActiveWeapon ===
-            attackEvent.data.attack.weapon.definition.id
-        ) {
-          if (!this.simulacrumTraitMiscBuffTimelines.has(id)) {
-            this.simulacrumTraitMiscBuffTimelines.set(
-              id,
-              new StackableChronologicalTimeline()
-            );
-          }
-
-          this.simulacrumTraitMiscBuffTimelines
-            .get(id)
-            ?.addEvent(
-              new StackableTimelineEvent(
-                attackEvent.startTime,
-                attackEvent.duration,
-                buffDefinition
-              )
-            );
-        }
-      }
-    );
-  }
-
-  private hasAttackBuffMetRequirements(
-    attackBuff: AttackBuffDefinition
-  ): boolean {
-    const { elementalWeaponRequirements, weaponResonanceRequirements } =
-      attackBuff;
-    const { weapons, weaponResonance } = this.loadout.team;
-
-    if (elementalWeaponRequirements) {
-      const weaponElementalTypes = weapons.flatMap(
-        (weapon) => weapon.definition.elementalTypes
-      );
-
-      let hasMetElementalWeaponsRequirement = false;
-      elementalWeaponRequirements.forEach(
-        ({ weaponElementalType, minNumOfWeapons }) => {
-          if (
-            weaponElementalTypes.filter((x) => x === weaponElementalType)
-              .length >= minNumOfWeapons
-          )
-            hasMetElementalWeaponsRequirement = true;
-        }
-      );
-
-      if (!hasMetElementalWeaponsRequirement) return false;
-    }
+    if (triggeredBy.dischargeOfAnyWeapon && attackType === 'discharge')
+      return true;
 
     if (
-      weaponResonanceRequirements &&
-      (!weaponResonance ||
-        !weaponResonanceRequirements.includes(weaponResonance))
+      triggeredBy.skillOfWeaponType &&
+      attackType === 'skill' &&
+      weaponType === triggeredBy.skillOfWeaponType
     )
-      return false;
+      return true;
 
-    return true;
+    if (
+      triggeredBy.dischargeOfWeaponType &&
+      attackType === 'discharge' &&
+      weaponType === triggeredBy.dischargeOfWeaponType
+    )
+      return true;
+
+    // TODO: need to check if dual element weapons trigger this
+    if (
+      triggeredBy.skillOfElementalType &&
+      attackType === 'skill' &&
+      weaponElementalTypes.includes(triggeredBy.skillOfElementalType)
+    )
+      return true;
+
+    // TODO: need to check if dual element weapons trigger this
+    if (
+      triggeredBy.dischargeOfElementalType &&
+      attackType === 'discharge' &&
+      weaponElementalTypes.includes(triggeredBy.dischargeOfElementalType)
+    )
+      return true;
+
+    if (triggeredBy.activeWeapon && weaponId === triggeredBy.activeWeapon)
+      return true;
+
+    if (
+      triggeredBy.weaponAttacks &&
+      triggeredBy.weaponAttacks.includes(attackId)
+    )
+      return true;
+
+    return false;
+  }
+
+  private determineBuffTimePeriod(
+    buff: BuffDefinition,
+    attackEvent: TimelineEvent<AttackEventData>
+  ): { startTime: number; duration: number } | undefined {
+    const {
+      duration: {
+        value,
+        followActiveWeapon,
+        applyToEndSegmentOfCombat,
+        untilCombatEnd,
+      },
+    } = buff;
+
+    if (value) {
+      return { startTime: attackEvent.startTime, duration: value };
+    }
+    if (followActiveWeapon) {
+      return {
+        startTime: attackEvent.startTime,
+        duration: attackEvent.duration,
+      };
+    }
+    if (applyToEndSegmentOfCombat) {
+      const duration = BigNumber(this.combatDuration)
+        .times(applyToEndSegmentOfCombat)
+        .toNumber();
+      const startTime = BigNumber(this.combatDuration)
+        .minus(duration)
+        .toNumber();
+
+      return { startTime, duration };
+    }
+    if (untilCombatEnd) {
+      return {
+        startTime: attackEvent.startTime,
+        duration: BigNumber(this.combatDuration)
+          .minus(attackEvent.startTime)
+          .toNumber(),
+      };
+    }
+
+    return undefined;
   }
 }

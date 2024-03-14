@@ -1,4 +1,4 @@
-import type { CommonWeaponPassiveAttackBuffId } from '../constants/common-weapon-attack-buffs';
+import type { CommonWeaponAttackBuffId } from '../constants/common-weapon-attack-buffs';
 import type { CommonWeaponDamageBuffId } from '../constants/common-weapon-damage-buffs';
 import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
@@ -32,14 +32,10 @@ export interface WeaponDefinition {
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
 
-  commonPassiveAttackBuffs: CommonWeaponPassiveAttackBuffId[];
+  commonAttackBuffs: CommonWeaponAttackBuffId[];
   // TODO: weapon specific attack buffs
 
-  commonDamageBuffs: {
-    buffId: CommonWeaponDamageBuffId;
-    triggeredByFullCharge?: boolean;
-    triggeredByAttackIds?: string[];
-  }[];
+  commonDamageBuffs: CommonWeaponDamageBuffId[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

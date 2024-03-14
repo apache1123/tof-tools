@@ -1,12 +1,10 @@
-import type { CommonWeaponPassiveAttackBuffDefinition } from '../models/v4/common-weapon-passive-attack-buff-definition';
+import type { CommonWeaponAttackBuffDefinition } from '../models/v4/common-weapon-attack-buff-definition';
 
-export type CommonWeaponPassiveAttackBuffId =
-  | 'volt-resonance'
-  | 'frost-resonance';
+export type CommonWeaponAttackBuffId = 'volt-resonance' | 'frost-resonance';
 
-export const commonWeaponPassiveAttackBuffs: Record<
-  CommonWeaponPassiveAttackBuffId,
-  CommonWeaponPassiveAttackBuffDefinition
+export const commonWeaponAttackBuffs: Record<
+  CommonWeaponAttackBuffId,
+  CommonWeaponAttackBuffDefinition
 > = {
   'volt-resonance': {
     id: 'volt-resonance',
@@ -15,12 +13,19 @@ export const commonWeaponPassiveAttackBuffs: Record<
     value: 0.15,
     elementalTypes: ['Volt'],
     maxStacks: 1,
-    elementalWeaponRequirements: [
-      {
-        weaponElementalType: 'Volt',
-        minNumOfWeapons: 2,
+    triggeredBy: {
+      combatStart: true,
+    },
+    duration: {
+      untilCombatEnd: true,
+    },
+    cooldown: 0,
+    requirements: {
+      elementalTypeWeaponsInTeam: {
+        elementalType: 'Volt',
+        numOfWeapons: 2,
       },
-    ],
+    },
   },
   'frost-resonance': {
     id: 'frost-resonance',
@@ -29,11 +34,18 @@ export const commonWeaponPassiveAttackBuffs: Record<
     value: 0.15,
     elementalTypes: ['Frost'],
     maxStacks: 1,
-    elementalWeaponRequirements: [
-      {
-        weaponElementalType: 'Frost',
-        minNumOfWeapons: 2,
+    triggeredBy: {
+      combatStart: true,
+    },
+    duration: {
+      untilCombatEnd: true,
+    },
+    cooldown: 0,
+    requirements: {
+      elementalTypeWeaponsInTeam: {
+        elementalType: 'Frost',
+        numOfWeapons: 2,
       },
-    ],
+    },
   },
 };

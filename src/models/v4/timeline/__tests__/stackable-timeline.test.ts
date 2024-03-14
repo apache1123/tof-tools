@@ -37,5 +37,46 @@ describe('Stackable chronological timeline', () => {
       expect(sut.events.length).toBe(1);
       expect(sut.events[0].endTime).toBe(15);
     });
+
+    it("doesn't add a new event if the two events are of the exact same time period and the stack count cannot be increased further", () => {
+      const sut = new StackableChronologicalTimeline();
+      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 1));
+      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 1));
+
+      expect(sut.events.length).toBe(1);
+      expect(sut.events[0].startTime).toBe(0);
+      expect(sut.events[0].endTime).toBe(10);
+      expect(sut.events[0].stacks).toBe(1);
+    });
+
+    it("doesn't add a new event if the two events are of the exact same time period, but increase the stack count of the existing event if it can be increased further", () => {
+      const sut = new StackableChronologicalTimeline();
+      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 3, 1));
+      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 3, 2));
+
+      expect(sut.events.length).toBe(1);
+      expect(sut.events[0].startTime).toBe(0);
+      expect(sut.events[0].endTime).toBe(10);
+      expect(sut.events[0].stacks).toBe(3);
+    });
+  });
+
+  it('adds a new event when there are no previous events', () => {
+    const sut = new StackableChronologicalTimeline();
+    sut.addEvent(new StackableTimelineEvent(0, 10, mockData));
+
+    expect(sut.events.length).toBe(1);
+    expect(sut.events[0].startTime).toBe(0);
+    expect(sut.events[0].endTime).toBe(10);
+  });
+
+  it("adds a new event when it doesn't overlap with the last event", () => {
+    const sut = new StackableChronologicalTimeline();
+    sut.addEvent(new StackableTimelineEvent(0, 10, mockData));
+    sut.addEvent(new StackableTimelineEvent(10, 10, mockData));
+
+    expect(sut.events.length).toBe(2);
+    expect(sut.events[1].startTime).toBe(10);
+    expect(sut.events[1].endTime).toBe(20);
   });
 });

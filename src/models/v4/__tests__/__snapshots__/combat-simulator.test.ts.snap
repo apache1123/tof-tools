@@ -50,18 +50,12 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonDamageBuffs": [
-          {
-            "buffId": "force-impact",
-            "triggeredByAttackIds": [
-              "brevey-skill-million-metz-shockwave",
-            ],
-            "triggeredByFullCharge": true,
-          },
-        ],
-        "commonPassiveAttackBuffs": [
+        "commonAttackBuffs": [
           "volt-resonance",
           "frost-resonance",
+        ],
+        "commonDamageBuffs": [
+          "force-impact",
         ],
         "critRateBuffs": [],
         "discharge": {
@@ -174,18 +168,12 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonDamageBuffs": [
-          {
-            "buffId": "force-impact",
-            "triggeredByAttackIds": [
-              "brevey-skill-million-metz-shockwave",
-            ],
-            "triggeredByFullCharge": true,
-          },
-        ],
-        "commonPassiveAttackBuffs": [
+        "commonAttackBuffs": [
           "volt-resonance",
           "frost-resonance",
+        ],
+        "commonDamageBuffs": [
+          "force-impact",
         ],
         "critRateBuffs": [],
         "discharge": {
@@ -298,18 +286,12 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonDamageBuffs": [
-          {
-            "buffId": "force-impact",
-            "triggeredByAttackIds": [
-              "brevey-skill-million-metz-shockwave",
-            ],
-            "triggeredByFullCharge": true,
-          },
-        ],
-        "commonPassiveAttackBuffs": [
+        "commonAttackBuffs": [
           "volt-resonance",
           "frost-resonance",
+        ],
+        "commonDamageBuffs": [
+          "force-impact",
         ],
         "critRateBuffs": [],
         "discharge": {
@@ -422,18 +404,12 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonDamageBuffs": [
-          {
-            "buffId": "force-impact",
-            "triggeredByAttackIds": [
-              "brevey-skill-million-metz-shockwave",
-            ],
-            "triggeredByFullCharge": true,
-          },
-        ],
-        "commonPassiveAttackBuffs": [
+        "commonAttackBuffs": [
           "volt-resonance",
           "frost-resonance",
+        ],
+        "commonDamageBuffs": [
+          "force-impact",
         ],
         "critRateBuffs": [],
         "discharge": {
@@ -546,11 +522,11 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonDamageBuffs": [],
-        "commonPassiveAttackBuffs": [
+        "commonAttackBuffs": [
           "frost-resonance",
           "volt-resonance",
         ],
+        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "discharge": {
           "attackFlat": 0,
@@ -650,11 +626,11 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonDamageBuffs": [],
-        "commonPassiveAttackBuffs": [
+        "commonAttackBuffs": [
           "frost-resonance",
           "volt-resonance",
         ],
+        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "discharge": {
           "attackFlat": 0,
@@ -754,11 +730,11 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.15,
           },
         ],
-        "commonDamageBuffs": [],
-        "commonPassiveAttackBuffs": [
+        "commonAttackBuffs": [
           "frost-resonance",
           "volt-resonance",
         ],
+        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "discharge": {
           "attackFlat": 0,
@@ -849,8 +825,8 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.3,
           },
         ],
+        "commonAttackBuffs": [],
         "commonDamageBuffs": [],
-        "commonPassiveAttackBuffs": [],
         "critRateBuffs": [],
         "discharge": {
           "attackFlat": 0,
@@ -928,8 +904,8 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "value": 0.3,
           },
         ],
+        "commonAttackBuffs": [],
         "commonDamageBuffs": [],
-        "commonPassiveAttackBuffs": [],
         "critRateBuffs": [],
         "discharge": {
           "attackFlat": 0,
@@ -971,15 +947,19 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
 ]
 `;
 
-exports[`CombatSimulator passive relic damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
+exports[`CombatSimulator relic damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
 Map {
   "Alternative Destiny passive damage buff" => StackableChronologicalTimeline {
     "_events": [
       StackableTimelineEvent {
         "data": {
-          "category": "Relic passive",
+          "cooldown": 0,
+          "damageCategory": "Relic passive",
           "description": "Increase frost damage by 2%, even if not deployed.",
           "displayName": "Alternative Destiny passive damage buff",
+          "duration": {
+            "untilCombatEnd": true,
+          },
           "elementalTypes": [
             "Frost",
           ],
@@ -987,6 +967,9 @@ Map {
           "maxStacks": 1,
           "maxStarRequirement": 5,
           "minStarRequirement": 4,
+          "triggeredBy": {
+            "combatStart": true,
+          },
           "value": 0.02,
         },
         "duration": 150000,
@@ -1000,9 +983,13 @@ Map {
     "_events": [
       StackableTimelineEvent {
         "data": {
-          "category": "Relic passive",
+          "cooldown": 0,
+          "damageCategory": "Relic passive",
           "description": "Increase frost damage by 1.5%, even if not deployed.",
           "displayName": "Cybernetic arm passive damage buff",
+          "duration": {
+            "untilCombatEnd": true,
+          },
           "elementalTypes": [
             "Frost",
           ],
@@ -1010,6 +997,9 @@ Map {
           "maxStacks": 1,
           "maxStarRequirement": 5,
           "minStarRequirement": 4,
+          "triggeredBy": {
+            "combatStart": true,
+          },
           "value": 0.015,
         },
         "duration": 150000,
@@ -1023,9 +1013,13 @@ Map {
     "_events": [
       StackableTimelineEvent {
         "data": {
-          "category": "Relic passive",
+          "cooldown": 0,
+          "damageCategory": "Relic passive",
           "description": "Increase volt damage by 2%, even if not deployed.",
           "displayName": "Thalassic Heart passive damage buff",
+          "duration": {
+            "untilCombatEnd": true,
+          },
           "elementalTypes": [
             "Volt",
           ],
@@ -1033,6 +1027,9 @@ Map {
           "maxStacks": 1,
           "maxStarRequirement": 5,
           "minStarRequirement": 4,
+          "triggeredBy": {
+            "combatStart": true,
+          },
           "value": 0.02,
         },
         "duration": 150000,
@@ -1046,9 +1043,13 @@ Map {
     "_events": [
       StackableTimelineEvent {
         "data": {
-          "category": "DMG buff category 1",
+          "cooldown": 0,
+          "damageCategory": "DMG buff category 1",
           "description": "While Triple Mask is deployed, elemental damage is increased by 6%.",
           "displayName": "Triple Mask damage buff",
+          "duration": {
+            "untilCombatEnd": true,
+          },
           "elementalTypes": [
             "Altered",
             "Flame",
@@ -1060,6 +1061,9 @@ Map {
           "maxStacks": 1,
           "maxStarRequirement": 4,
           "minStarRequirement": 2,
+          "triggeredBy": {
+            "combatStart": true,
+          },
           "value": 0.06,
         },
         "duration": 150000,
