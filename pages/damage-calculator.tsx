@@ -7,7 +7,7 @@ export default function DamageCalculatorPage() {
   return (
     <>
       <Head>
-        <title>ToF Damage Calculator</title>
+        <title>Damage Calculator | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>

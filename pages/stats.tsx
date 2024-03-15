@@ -9,7 +9,7 @@ export default function StatsPage() {
   return (
     <>
       <Head>
-        <title>ToF Stats stuff</title>
+        <title>Stats Stuff | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>

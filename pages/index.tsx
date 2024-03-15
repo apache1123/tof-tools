@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>ToF tools</title>
+        <title>Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}></Container>

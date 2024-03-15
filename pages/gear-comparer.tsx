@@ -13,7 +13,7 @@ export default function GearComparerPage() {
   return (
     <>
       <Head>
-        <title>ToF Gear Comparer</title>
+        <title>Compare Gear | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>
