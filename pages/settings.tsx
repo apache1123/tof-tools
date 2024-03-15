@@ -7,7 +7,7 @@ export default function StatsPage() {
   return (
     <>
       <Head>
-        <title>ToF tools settings</title>
+        <title>Settings | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>

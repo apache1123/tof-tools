@@ -9,7 +9,7 @@ export default function DamageSimulatorPage() {
   return (
     <>
       <Head>
-        <title>ToF Damage Simulator</title>
+        <title>Damage Simulator | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>

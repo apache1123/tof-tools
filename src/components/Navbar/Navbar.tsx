@@ -24,7 +24,7 @@ const pages: { label: string; path: string }[] = [
     path: '/loadouts',
   },
   {
-    label: 'Gear comparer',
+    label: 'Compare Gear',
     path: '/gear-comparer',
   },
   {
@@ -34,6 +34,10 @@ const pages: { label: string; path: string }[] = [
   {
     label: 'Settings',
     path: '/settings',
+  },
+  {
+    label: 'Useful Links',
+    path: '/links',
   },
 ];
 
