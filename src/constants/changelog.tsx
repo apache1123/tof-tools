@@ -196,4 +196,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 2, 13)),
     title: 'Add Asuka',
   },
+  {
+    semver: '3.12.0',
+    date: new Date(Date.UTC(2024, 2, 15)),
+    title: 'Add a page containing useful links',
+  },
 ];

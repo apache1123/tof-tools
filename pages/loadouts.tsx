@@ -13,7 +13,7 @@ export default function LoadoutsPage() {
   return (
     <>
       <Head>
-        <title>ToF Loadouts</title>
+        <title>Loadouts | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="xl" sx={{ p: 3 }}>
