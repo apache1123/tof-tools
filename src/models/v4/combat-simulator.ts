@@ -12,6 +12,7 @@ import type { BuffDefinition } from './buffs/buff-definition';
 import type { DamageBuffDefinition } from './buffs/damage-buff-definition';
 import type { MiscellaneousBuffDefinition } from './buffs/miscellaneous-buff-definition';
 import type { Relics } from './relics';
+import { ChargeTimeline } from './timeline/charge-timeline';
 import { ChronologicalTimeline } from './timeline/chronological-timeline';
 import { StackableChronologicalTimeline } from './timeline/stackable-timeline';
 import { StackableTimelineEvent } from './timeline/stackable-timeline-event';
@@ -22,6 +23,7 @@ export class CombatSimulator {
     Weapon,
     ChronologicalTimeline<AttackEventData>
   >();
+
   public readonly weaponAttackBuffTimelines = new Map<
     string,
     StackableChronologicalTimeline<AttackBuffDefinition>
@@ -46,6 +48,8 @@ export class CombatSimulator {
     string,
     StackableChronologicalTimeline<MiscellaneousBuffDefinition>
   >();
+
+  public readonly chargeTimeline = new ChargeTimeline();
 
   /** Registered buff definitions will be checked whenever an attack happens. A buff event will be added to the timeline if the conditions defined in the buff definition are met */
   private registeredBuffs: {
@@ -97,41 +101,33 @@ export class CombatSimulator {
 
   public get availableAttacks(): Attack[] {
     const allAttacks = this.loadout.team.weapons.flatMap((weapon): Attack[] => {
-      const normalAttacks = weapon.definition.normalAttacks.map(
+      const {
+        definition: { normalAttacks, dodgeAttacks, skills, discharge },
+      } = weapon;
+
+      return [...normalAttacks, ...dodgeAttacks, ...skills, discharge].map(
         (attackDefinition) => ({
           weapon,
           attackDefinition,
         })
       );
-
-      const dodgeAttacks = weapon.definition.dodgeAttacks.map(
-        (attackDefinition) => ({
-          weapon,
-          attackDefinition,
-        })
-      );
-
-      const skills = weapon.definition.skills.map((attackDefinition) => ({
-        weapon,
-        attackDefinition,
-      }));
-
-      // TODO: discharge depends on charge
-      const discharge = {
-        weapon: weapon,
-        attackDefinition: weapon.definition.discharge,
-      };
-
-      return [...normalAttacks, ...dodgeAttacks, ...skills, discharge];
     });
 
     return allAttacks.filter((attack) => {
-      // Check to see if this attack has been performed in the timeline in the cooldown range
       const {
         attackDefinition: { cooldown },
       } = attack;
       const { nextEarliestAttackStartTime } = this;
 
+      // Discharge attacks require full charge and cannot be from the active weapon
+      if (attack.attackDefinition.type === 'discharge') {
+        return (
+          this.chargeTimeline.hasFullCharge &&
+          attack.weapon !== this.activeWeapon
+        );
+      }
+
+      // Check to see if this attack has been performed in the timeline in the cooldown range
       const attackEventsToCheck =
         this.attackTimelines
           .get(attack.weapon)
@@ -177,12 +173,21 @@ export class CombatSimulator {
     );
     attackTimeline.addEvent(attackEvent);
 
+    this.addCharge(attackEvent);
+
     // Register all buffs first at the start of combat
     if (attackEvent.startTime === 0) {
       this.registerBuffs();
     }
 
     this.triggerRegisteredBuffsIfApplicable(attackEvent);
+  }
+
+  private addCharge(attackEvent: TimelineEvent<AttackEventData>) {
+    this.chargeTimeline.addCharge(
+      attackEvent.data.attack.attackDefinition.charge,
+      attackEvent.endTime
+    );
   }
 
   private triggerRegisteredBuffsIfApplicable(

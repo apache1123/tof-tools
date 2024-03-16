@@ -1,5 +1,6 @@
 import { simulacrumTraits } from '../../../constants/simulacrum-traits';
 import { weaponDefinitions } from '../../../constants/weapon-definitions';
+import { repeat } from '../../../utils/test-utils';
 import { GearSet } from '../../gear-set';
 import { Loadout } from '../../loadout';
 import { Team } from '../../team';
@@ -72,6 +73,44 @@ describe('CombatSimulator', () => {
       sut.performAttack(attack);
 
       expect(sut.availableAttacks).not.toContainEqual(attack);
+    });
+
+    it('does not include discharges if there is no full charge available', () => {
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      expect(
+        sut.availableAttacks.some(
+          (attack) => attack.attackDefinition.type === 'discharge'
+        )
+      ).toBe(false);
+
+      sut.performAttack({
+        weapon: weapon1,
+        attackDefinition: weapon1.definition.normalAttacks[0],
+      });
+      expect(
+        sut.availableAttacks.some(
+          (attack) => attack.attackDefinition.type === 'discharge'
+        )
+      ).toBe(false);
+    });
+
+    it('includes discharges from weapons that are not the active weapon, if there is a full charge available', () => {
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      // Ensure full charge
+      repeat(() => {
+        sut.performAttack({
+          weapon: weapon1,
+          attackDefinition: weapon1.definition.normalAttacks[0],
+        });
+      }, 20);
+
+      const dischargeAttacks = sut.availableAttacks.filter(
+        (attack) => attack.attackDefinition.type === 'discharge'
+      );
+      expect(dischargeAttacks.length).not.toBe(0);
+      expect(
+        dischargeAttacks.every((attack) => attack.weapon !== weapon1)
+      ).toBe(true);
     });
   });
 
@@ -599,6 +638,13 @@ describe('CombatSimulator', () => {
         loadout.simulacrumTrait = tianLangTrait;
 
         const sut = new CombatSimulator(combatDuration, loadout, relics);
+        // Ensure full charge
+        repeat(() => {
+          sut.performAttack({
+            weapon: weapon2,
+            attackDefinition: weapon2.definition.normalAttacks[0],
+          });
+        }, 20);
         sut.performAttack({
           weapon: weapon1,
           attackDefinition: weapon1.definition.discharge,
@@ -662,6 +708,13 @@ describe('CombatSimulator', () => {
         loadout.simulacrumTrait = cocoTrait;
 
         const sut = new CombatSimulator(combatDuration, loadout, relics);
+        // Ensure full charge
+        repeat(() => {
+          sut.performAttack({
+            weapon: weapon2,
+            attackDefinition: weapon2.definition.normalAttacks[0],
+          });
+        }, 20);
         sut.performAttack({
           weapon: weapon1,
           attackDefinition: weapon1.definition.discharge,
@@ -672,7 +725,9 @@ describe('CombatSimulator', () => {
         )?.events[0];
         expect(attackBuffEvent).toBeDefined();
         if (attackBuffEvent) {
-          expect(attackBuffEvent.startTime).toBe(0);
+          expect(attackBuffEvent.startTime).toBe(
+            weapon2.definition.normalAttacks[0].duration * 20
+          );
           expect(attackBuffEvent.duration).toBe(
             cocoTrait.attackBuffs[0].duration.value
           );
@@ -680,9 +735,16 @@ describe('CombatSimulator', () => {
 
         // Negative case
         const sut2 = new CombatSimulator(combatDuration, loadout, relics);
+        // Ensure full charge
+        repeat(() => {
+          sut2.performAttack({
+            weapon: weapon1,
+            attackDefinition: weapon1.definition.normalAttacks[0],
+          });
+        }, 20);
         sut2.performAttack({
           weapon: weapon2,
-          attackDefinition: weapon2.definition.skills[0],
+          attackDefinition: weapon2.definition.discharge,
         });
 
         expect(
@@ -731,6 +793,13 @@ describe('CombatSimulator', () => {
         loadout.simulacrumTrait = shiroTrait;
 
         const sut = new CombatSimulator(combatDuration, loadout, relics);
+        // Ensure full charge
+        repeat(() => {
+          sut.performAttack({
+            weapon: weapon2,
+            attackDefinition: weapon2.definition.normalAttacks[0],
+          });
+        }, 20);
         sut.performAttack({
           weapon: weapon1,
           attackDefinition: weapon1.definition.discharge,
@@ -850,6 +919,19 @@ describe('CombatSimulator', () => {
           false
         );
       });
+    });
+  });
+
+  describe('weapon charge', () => {
+    it('adds the amount of charge at the end of an attack', () => {
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      sut.performAttack({
+        weapon: weapon1,
+        attackDefinition: weapon1.definition.normalAttacks[0],
+      });
+      expect(sut.chargeTimeline.cumulatedCharge).toBe(
+        weapon1.definition.normalAttacks[0].charge
+      );
     });
   });
 });

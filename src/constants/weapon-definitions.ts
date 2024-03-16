@@ -274,8 +274,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackFlat: 51,
           duration: 3650,
           cooldown: 0,
-          // TODO:
-          charge: 0,
+          // TODO: this is a placeholder value
+          charge: 250,
         },
       ],
       dodgeAttacks: [
@@ -1777,8 +1777,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackFlat: 51,
           duration: 3650,
           cooldown: 0,
-          // TODO:
-          charge: 0,
+          // TODO: this is a placeholder value
+          charge: 250,
         },
       ],
       dodgeAttacks: [],
