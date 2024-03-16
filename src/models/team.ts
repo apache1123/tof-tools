@@ -2,7 +2,9 @@ import groupBy from 'lodash.groupby';
 
 import type { ElementalResonance } from '../constants/elemental-resonance';
 import type { WeaponElementalType } from '../constants/elemental-type';
+import type { WeaponName } from '../constants/weapon-definitions';
 import type { WeaponResonance } from '../constants/weapon-resonance';
+import { filterOutUndefined } from '../utils/array-utils';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 import type { WeaponDto } from './weapon';
@@ -14,10 +16,24 @@ export class Team implements Persistable<TeamDto> {
   public weapon2: WeaponSlot;
   public weapon3: WeaponSlot;
 
+  /** Returns all equipped weapons */
+  public get weapons(): Weapon[] {
+    return filterOutUndefined([this.weapon1, this.weapon2, this.weapon3]);
+  }
+  /** Returns all equipped weapon names */
+  public get weaponNames(): WeaponName[] {
+    return this.weapons.map((weapon) => weapon.definition.id);
+  }
+  /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
+  public get weaponElementalTypes(): WeaponElementalType[] {
+    return this.weapons.flatMap((weapon) => weapon.definition.elementalTypes);
+  }
+
+  // TODO: remove this when old buff definitions are replaced by v4 buff definitions
+  /** This returns the presumed elemental resonance(s), depending on the number of weapons of each element. However, whether or not to activate elemental resonance buff(s) will depend on if the weapons themselves have the buff(s) available. */
   public get elementalResonances(): ElementalResonance[] {
-    const { weapon1, weapon2, weapon3 } = this;
-    const elementalTypes = [weapon1, weapon2, weapon3].flatMap((weapon) =>
-      weapon ? weapon.definition.elementalTypes : []
+    const elementalTypes = this.weapons.flatMap(
+      (weapon) => weapon.definition.elementalTypes
     );
 
     const elementalTypeGroups = groupBy(elementalTypes);
@@ -31,12 +47,8 @@ export class Team implements Persistable<TeamDto> {
   }
 
   public get weaponResonance(): WeaponResonance {
-    const { weapon1, weapon2, weapon3 } = this;
-    if (!weapon1 || !weapon2 || !weapon3) return 'None';
-
-    const weaponTypes = [weapon1, weapon2, weapon3].map((weapon) => {
-      const definition = weapon.definition;
-      return definition.type;
+    const weaponTypes = this.weapons.flatMap((weapon) => {
+      return weapon.definition.type;
     });
 
     if (weaponTypes.filter((type) => type === 'DPS').length > 1)
@@ -45,8 +57,14 @@ export class Team implements Persistable<TeamDto> {
       return 'Fortitude';
     if (weaponTypes.filter((type) => type === 'Support').length > 1)
       return 'Benediction';
+    if (
+      weaponTypes.filter((type) => type === 'DPS').length &&
+      weaponTypes.filter((type) => type === 'Defense').length &&
+      weaponTypes.filter((type) => type === 'Support').length
+    )
+      return 'Balance';
 
-    return 'Balance';
+    return 'None';
   }
 
   public copyFromDto(dto: TeamDto): void {

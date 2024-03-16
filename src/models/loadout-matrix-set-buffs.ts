@@ -21,10 +21,7 @@ export class LoadoutMatrixSetBuffs {
     const { elementalType, team } = this._loadout;
 
     const buffs: MatrixSetAttackPercentBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = team;
-    [weapon1, weapon2, weapon3].forEach((weapon) => {
-      if (!weapon) return;
-
+    team.weapons.forEach((weapon) => {
       weapon.matrixSets.getMatrixSets().forEach((matrixSet) => {
         const { stars } = matrixSet;
         const matrixSetDefinition = matrixSet.definition;
@@ -65,10 +62,7 @@ export class LoadoutMatrixSetBuffs {
    */
   public get critRateBuffs(): MatrixSetCritRateBuff[] {
     const buffs: MatrixSetCritRateBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = this._loadout.team;
-    [weapon1, weapon2, weapon3].forEach((weapon) => {
-      if (!weapon) return;
-
+    this._loadout.team.weapons.forEach((weapon) => {
       weapon.matrixSets.getMatrixSets().forEach((matrixSet) => {
         const { stars } = matrixSet;
         const matrixSetDefinition = matrixSet.definition;
@@ -102,10 +96,7 @@ export class LoadoutMatrixSetBuffs {
    */
   public get critDamageBuffs(): MatrixSetCritDamageBuff[] {
     const buffs: MatrixSetCritDamageBuff[] = [];
-    const { weapon1, weapon2, weapon3 } = this._loadout.team;
-    [weapon1, weapon2, weapon3].forEach((weapon) => {
-      if (!weapon) return;
-
+    this._loadout.team.weapons.forEach((weapon) => {
       weapon.matrixSets.getMatrixSets().forEach((matrixSet) => {
         const { stars } = matrixSet;
         const matrixSetDefinition = matrixSet.definition;
@@ -152,17 +143,13 @@ export class LoadoutMatrixSetBuffs {
 
     // TODO: This is duplicated in loadout-weapon-buffs.ts
     if (elementalWeaponsRequirements) {
-      const { weapon1, weapon2, weapon3 } = this._loadout.team;
-      const weaponElementalTypes = [weapon1, weapon2, weapon3].flatMap(
-        (weapon) => (weapon ? weapon.definition.elementalTypes : [])
-      );
-
       let hasMetElementalWeaponsRequirement = false;
       elementalWeaponsRequirements.forEach(
         ({ weaponElementalType, minNumOfWeapons }) => {
           if (
-            weaponElementalTypes.filter((x) => x === weaponElementalType)
-              .length >= minNumOfWeapons
+            this._loadout.team.weaponElementalTypes.filter(
+              (x) => x === weaponElementalType
+            ).length >= minNumOfWeapons
           )
             hasMetElementalWeaponsRequirement = true;
         }
@@ -172,12 +159,8 @@ export class LoadoutMatrixSetBuffs {
     }
 
     if (weaponRequirement) {
-      const { weapon1, weapon2, weapon3 } = this._loadout.team;
-      const weaponNames = [weapon1, weapon2, weapon3].map((weapon) =>
-        weapon ? weapon.definition.id : undefined
-      );
-
-      if (!weaponNames.includes(weaponRequirement)) return false;
+      if (!this._loadout.team.weaponNames.includes(weaponRequirement))
+        return false;
     }
 
     return true;

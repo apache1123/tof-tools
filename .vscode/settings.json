@@ -17,8 +17,10 @@
     "Rubilia",
     "Sabatons",
     "Spaulders",
+    "Stackable",
     "Tesseract",
     "testid",
+    "Unbuffed",
     "valtio"
   ],
   "files.exclude": {
