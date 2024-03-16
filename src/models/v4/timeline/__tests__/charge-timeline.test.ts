@@ -18,6 +18,23 @@ describe('Charge timeline', () => {
     });
   });
 
+  describe('deducting a full charge', () => {
+    it('deducts the full charge amount from the cumulated charge amount', () => {
+      const sut = new ChargeTimeline();
+      sut.addCharge(1300, 1000);
+      sut.deductOneFullCharge(2000);
+      expect(sut.cumulatedCharge).toBe(300);
+    });
+
+    it('throws an error if there is not enough charge to deduct', () => {
+      const sut = new ChargeTimeline();
+      sut.addCharge(300, 1000);
+      expect(() => {
+        sut.deductOneFullCharge(2000);
+      }).toThrow();
+    });
+  });
+
   it('returns whether there is at least one full charge', () => {
     const sut = new ChargeTimeline();
     sut.addCharge(500, 1000);

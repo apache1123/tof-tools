@@ -173,7 +173,7 @@ export class CombatSimulator {
     );
     attackTimeline.addEvent(attackEvent);
 
-    this.addCharge(attackEvent);
+    this.adjustCharge(attackEvent);
 
     // Register all buffs first at the start of combat
     if (attackEvent.startTime === 0) {
@@ -183,11 +183,15 @@ export class CombatSimulator {
     this.triggerRegisteredBuffsIfApplicable(attackEvent);
   }
 
-  private addCharge(attackEvent: TimelineEvent<AttackEventData>) {
-    this.chargeTimeline.addCharge(
-      attackEvent.data.attack.attackDefinition.charge,
-      attackEvent.endTime
-    );
+  private adjustCharge(attackEvent: TimelineEvent<AttackEventData>) {
+    if (attackEvent.data.attack.attackDefinition.type === 'discharge') {
+      this.chargeTimeline.deductOneFullCharge(attackEvent.startTime);
+    } else {
+      this.chargeTimeline.addCharge(
+        attackEvent.data.attack.attackDefinition.charge,
+        attackEvent.endTime
+      );
+    }
   }
 
   private triggerRegisteredBuffsIfApplicable(

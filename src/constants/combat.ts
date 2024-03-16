@@ -2,4 +2,4 @@
 export const maxCharge = 2000;
 
 /** The amount of charge units for a full charge. A full charge = discharge available */
-export const fullChargeThreshold = 1000;
+export const fullCharge = 1000;

@@ -1,3 +1,4 @@
+import { fullCharge, maxCharge } from '../../../constants/combat';
 import { simulacrumTraits } from '../../../constants/simulacrum-traits';
 import { weaponDefinitions } from '../../../constants/weapon-definitions';
 import { repeat } from '../../../utils/test-utils';
@@ -931,6 +932,29 @@ describe('CombatSimulator', () => {
       });
       expect(sut.chargeTimeline.cumulatedCharge).toBe(
         weapon1.definition.normalAttacks[0].charge
+      );
+      expect(sut.chargeTimeline.lastEvent?.time).toBe(
+        weapon1.definition.normalAttacks[0].duration
+      );
+    });
+
+    it('deducts a full charge at the start of a discharge attack', () => {
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      repeat(() => {
+        sut.performAttack({
+          weapon: weapon1,
+          attackDefinition: weapon1.definition.normalAttacks[0],
+        });
+      }, 20);
+      expect(sut.chargeTimeline.cumulatedCharge).toBe(maxCharge);
+
+      sut.performAttack({
+        weapon: weapon2,
+        attackDefinition: weapon2.definition.discharge,
+      });
+      expect(sut.chargeTimeline.cumulatedCharge).toBe(maxCharge - fullCharge);
+      expect(sut.chargeTimeline.lastEvent?.time).toBe(
+        sut.attackTimelines.get(weapon2)?.lastEvent?.startTime
       );
     });
   });
