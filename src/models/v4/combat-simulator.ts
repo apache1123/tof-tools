@@ -51,6 +51,7 @@ export class CombatSimulator {
 
   public readonly chargeTimeline = new ChargeTimeline();
 
+  private _activeWeapon: Weapon | undefined;
   /** Registered buff definitions will be checked whenever an attack happens. A buff event will be added to the timeline if the conditions defined in the buff definition are met */
   private registeredBuffs: {
     buffDefinitions: BuffDefinition[];
@@ -76,27 +77,7 @@ export class CombatSimulator {
   }
 
   public get activeWeapon(): Weapon | undefined {
-    // Find the weapon with the latest attack
-    let result:
-      | {
-          weapon: Weapon;
-          attackTimeline: ChronologicalTimeline<AttackEventData>;
-        }
-      | undefined;
-
-    for (const [weapon, attackTimeline] of this.attackTimelines) {
-      if (
-        attackTimeline.lastEvent &&
-        (!result ||
-          (result.attackTimeline.lastEvent &&
-            attackTimeline.lastEvent.endTime >
-              result.attackTimeline.lastEvent.endTime))
-      ) {
-        result = { weapon, attackTimeline };
-      }
-    }
-
-    return result?.weapon;
+    return this._activeWeapon;
   }
 
   public get availableAttacks(): Attack[] {
@@ -173,13 +154,14 @@ export class CombatSimulator {
     );
     attackTimeline.addEvent(attackEvent);
 
-    this.adjustCharge(attackEvent);
+    this._activeWeapon = weapon;
 
     // Register all buffs first at the start of combat
     if (attackEvent.startTime === 0) {
       this.registerBuffs();
     }
 
+    this.adjustCharge(attackEvent);
     this.triggerRegisteredBuffsIfApplicable(attackEvent);
   }
 

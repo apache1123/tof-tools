@@ -2,11 +2,11 @@ import { Box, Container, Paper, Typography } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
 
-export default function DamageSimulatorPage() {
+export default function DamageCalculatorPage() {
   return (
     <>
       <Head>
-        <title>Damage Simulator | Tower of Fantasy Tools</title>
+        <title>Damage Calculator | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>

@@ -5,11 +5,11 @@ import { CombatSimulatorTimeline } from '../src/features/combat-simulator/Combat
 import { DamageSimulator } from '../src/features/damage-simulator/DamageSimulator';
 import { Relics } from '../src/features/relics/Relics';
 
-export default function DamageSimulatorTestPage() {
+export default function DamageCalculatorTestPage() {
   return (
     <>
       <Head>
-        <title>Damage Simulator | Tower of Fantasy Tools</title>
+        <title>Damage Calculator | Tower of Fantasy Tools</title>
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>
