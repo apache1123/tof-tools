@@ -193,9 +193,16 @@ export class CombatSimulator {
   }
 
   private registerBuffs() {
+    const {
+      loadout: {
+        team: { weapons },
+        simulacrumTrait,
+      },
+      relics,
+    } = this;
     this.registeredBuffs = [
       {
-        buffDefinitions: this.loadout.team.weapons.flatMap((weapon) =>
+        buffDefinitions: weapons.flatMap((weapon) =>
           weapon.definition.commonAttackBuffs.map(
             (buffId) => commonWeaponAttackBuffs[buffId]
           )
@@ -203,7 +210,7 @@ export class CombatSimulator {
         timelineGroupToAddTo: this.weaponAttackBuffTimelines,
       },
       {
-        buffDefinitions: this.loadout.team.weapons.flatMap((weapon) =>
+        buffDefinitions: weapons.flatMap((weapon) =>
           weapon.definition.commonDamageBuffs.map(
             (buffId) => commonWeaponDamageBuffs[buffId]
           )
@@ -211,19 +218,25 @@ export class CombatSimulator {
         timelineGroupToAddTo: this.weaponDamageBuffTimelines,
       },
       {
-        buffDefinitions: this.relics.passiveRelicBuffs,
+        buffDefinitions: weapons.flatMap(
+          (weapon) => weapon.definition.attackBuffs
+        ),
+        timelineGroupToAddTo: this.weaponAttackBuffTimelines,
+      },
+      {
+        buffDefinitions: relics.passiveRelicBuffs,
         timelineGroupToAddTo: this.relicDamageBuffTimelines,
       },
       {
-        buffDefinitions: this.loadout.simulacrumTrait?.attackBuffs ?? [],
+        buffDefinitions: simulacrumTrait?.attackBuffs ?? [],
         timelineGroupToAddTo: this.traitAttackBuffTimelines,
       },
       {
-        buffDefinitions: this.loadout.simulacrumTrait?.damageBuffs ?? [],
+        buffDefinitions: simulacrumTrait?.damageBuffs ?? [],
         timelineGroupToAddTo: this.traitDamageBuffTimelines,
       },
       {
-        buffDefinitions: this.loadout.simulacrumTrait?.miscellaneousBuffs ?? [],
+        buffDefinitions: simulacrumTrait?.miscellaneousBuffs ?? [],
         timelineGroupToAddTo: this.traitMiscBuffTimelines,
       },
     ];
