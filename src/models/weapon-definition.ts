@@ -9,6 +9,7 @@ import type {
   NormalAttackDefinition,
   SkillAttackDefinition,
 } from './v4/attack-definition';
+import type { AttackBuffDefinition } from './v4/buffs/attack-buff-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -33,9 +34,9 @@ export interface WeaponDefinition {
   discharge: DischargeAttackDefinition;
 
   commonAttackBuffs: CommonWeaponAttackBuffId[];
-  // TODO: weapon specific attack buffs
-
   commonDamageBuffs: CommonWeaponDamageBuffId[];
+
+  attackBuffs: AttackBuffDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

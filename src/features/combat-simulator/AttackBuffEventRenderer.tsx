@@ -8,7 +8,7 @@ export function AttackBuffEventRenderer({
   action: CombatSimulatorTimelineAction;
 }) {
   return (
-    <Tooltip title={action.event.data.displayName}>
+    <Tooltip title={action.event.displayName}>
       <Box width="100%" height="100%"></Box>
     </Tooltip>
   );

@@ -16,8 +16,8 @@ import { RandomSticker } from '../RandomSticker/RandomSticker';
 
 const pages: { label: string; path: string }[] = [
   {
-    label: 'Damage Simulator',
-    path: '/damage-simulator',
+    label: 'Damage Calculator',
+    path: '/damage-calculator',
   },
   {
     label: 'Loadouts',

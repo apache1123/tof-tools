@@ -1,15 +1,15 @@
-import { StackableChronologicalTimeline } from '../stackable-timeline';
-import { StackableTimelineEvent } from '../stackable-timeline-event';
-import type { TimelineEventData } from '../timeline-event-data';
+import type { BuffDefinition } from '../../buffs/buff-definition';
+import { BuffEvent } from '../buff-event';
+import { BuffTimeline } from '../buff-timeline';
 
-describe('Stackable chronological timeline', () => {
-  const mockData = {} as TimelineEventData;
+describe('Buff timeline', () => {
+  const mockBuffDefinition = {} as BuffDefinition;
 
   describe('adding an event that overlaps with an existing one', () => {
     it('splits the events into smaller events with the correct stacks', () => {
-      const sut = new StackableChronologicalTimeline();
-      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 2));
-      sut.addEvent(new StackableTimelineEvent(5, 10, mockData, 2));
+      const sut = new BuffTimeline();
+      sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition, 2));
+      sut.addEvent(new BuffEvent(5, 10, mockBuffDefinition, 2));
 
       expect(sut.events.length).toBe(3);
 
@@ -30,18 +30,18 @@ describe('Stackable chronological timeline', () => {
     });
 
     it('merges the two events by increasing the existing the duration of the existing event, if the resulting stacks of the two events are the same', () => {
-      const sut = new StackableChronologicalTimeline();
-      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 1));
-      sut.addEvent(new StackableTimelineEvent(5, 10, mockData, 1));
+      const sut = new BuffTimeline();
+      sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition, 1));
+      sut.addEvent(new BuffEvent(5, 10, mockBuffDefinition, 1));
 
       expect(sut.events.length).toBe(1);
       expect(sut.events[0].endTime).toBe(15);
     });
 
     it("doesn't add a new event if the two events are of the exact same time period and the stack count cannot be increased further", () => {
-      const sut = new StackableChronologicalTimeline();
-      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 1));
-      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 1));
+      const sut = new BuffTimeline();
+      sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition, 1));
+      sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition, 1));
 
       expect(sut.events.length).toBe(1);
       expect(sut.events[0].startTime).toBe(0);
@@ -50,9 +50,9 @@ describe('Stackable chronological timeline', () => {
     });
 
     it("doesn't add a new event if the two events are of the exact same time period, but increase the stack count of the existing event if it can be increased further", () => {
-      const sut = new StackableChronologicalTimeline();
-      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 3, 1));
-      sut.addEvent(new StackableTimelineEvent(0, 10, mockData, 3, 2));
+      const sut = new BuffTimeline();
+      sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition, 3, 1));
+      sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition, 3, 2));
 
       expect(sut.events.length).toBe(1);
       expect(sut.events[0].startTime).toBe(0);
@@ -62,8 +62,8 @@ describe('Stackable chronological timeline', () => {
   });
 
   it('adds a new event when there are no previous events', () => {
-    const sut = new StackableChronologicalTimeline();
-    sut.addEvent(new StackableTimelineEvent(0, 10, mockData));
+    const sut = new BuffTimeline();
+    sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition));
 
     expect(sut.events.length).toBe(1);
     expect(sut.events[0].startTime).toBe(0);
@@ -71,9 +71,9 @@ describe('Stackable chronological timeline', () => {
   });
 
   it("adds a new event when it doesn't overlap with the last event", () => {
-    const sut = new StackableChronologicalTimeline();
-    sut.addEvent(new StackableTimelineEvent(0, 10, mockData));
-    sut.addEvent(new StackableTimelineEvent(10, 10, mockData));
+    const sut = new BuffTimeline();
+    sut.addEvent(new BuffEvent(0, 10, mockBuffDefinition));
+    sut.addEvent(new BuffEvent(10, 10, mockBuffDefinition));
 
     expect(sut.events.length).toBe(2);
     expect(sut.events[1].startTime).toBe(10);

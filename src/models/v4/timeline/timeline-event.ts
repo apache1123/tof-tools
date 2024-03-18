@@ -1,12 +1,9 @@
-import type { TimelineEventData } from './timeline-event-data';
-
-export class TimelineEvent<T extends TimelineEventData> {
+export class TimelineEvent {
   public constructor(
     /** in ms */
     public startTime: number,
     /** in ms */
-    public duration: number,
-    public data: T
+    public duration: number
   ) {}
 
   /** in ms */
@@ -18,6 +15,10 @@ export class TimelineEvent<T extends TimelineEventData> {
       throw new Error('End time cannot be earlier than start time');
     }
     this.duration = value - this.startTime;
+  }
+
+  public get displayName() {
+    return '';
   }
 }
 

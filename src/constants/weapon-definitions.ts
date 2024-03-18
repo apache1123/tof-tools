@@ -121,6 +121,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Annabella: {
       id: 'Annabella',
@@ -181,6 +182,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Asuka: {
       id: 'Asuka',
@@ -231,6 +233,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Brevey: {
       id: 'Brevey',
@@ -317,6 +320,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonAttackBuffs: ['volt-resonance', 'frost-resonance'],
       commonDamageBuffs: ['force-impact'],
+      attackBuffs: [],
     },
     Claudia: {
       id: 'Claudia',
@@ -355,6 +359,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Cobalt-B': {
       id: 'Cobalt-B',
@@ -392,6 +397,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Cocoritter: {
       id: 'Cocoritter',
@@ -442,6 +448,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Crow: {
       id: 'Crow',
@@ -466,6 +473,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Fei Se': {
       id: 'Fei Se',
@@ -515,6 +523,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Fenrir: {
       id: 'Fenrir',
@@ -576,6 +585,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Fiona: {
       id: 'Fiona',
@@ -625,6 +635,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Frigg: {
       id: 'Frigg',
@@ -684,6 +695,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Gnonno: {
       id: 'Gnonno',
@@ -722,6 +734,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Huang (Mimi)': {
       id: 'Huang (Mimi)',
@@ -772,6 +785,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: ['volt-resonance'],
+      attackBuffs: [],
     },
     Huma: {
       id: 'Huma',
@@ -796,6 +810,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Icarus: {
       id: 'Icarus',
@@ -833,6 +848,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     King: {
       id: 'King',
@@ -857,6 +873,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Lan: {
       id: 'Lan',
@@ -894,6 +911,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Lin: {
       id: 'Lin',
@@ -966,6 +984,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Ling Han': {
       id: 'Ling Han',
@@ -1014,6 +1033,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Liu Huo': {
       id: 'Liu Huo',
@@ -1051,6 +1071,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Lyra: {
       id: 'Lyra',
@@ -1102,6 +1123,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Meryl: {
       id: 'Meryl',
@@ -1126,6 +1148,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Ming Jing': {
       id: 'Ming Jing',
@@ -1188,6 +1211,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Nan Yin': {
       id: 'Nan Yin',
@@ -1244,6 +1268,29 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonAttackBuffs: [],
       commonDamageBuffs: [],
+      attackBuffs: [
+        {
+          id: 'nanyin-atk-buff-the-final-tune',
+          displayName: 'Nan Yin - The final tune',
+          description: '',
+          value: 0.3,
+          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+          maxStacks: 1,
+          triggeredBy: {
+            combatStart: true,
+          },
+          duration: {
+            untilCombatEnd: true,
+          },
+          cooldown: 0,
+          requirements: {
+            elementalTypeWeaponsInTeam: {
+              elementalType: 'Altered',
+              numOfWeapons: 3,
+            },
+          },
+        },
+      ],
     },
     Nemesis: {
       id: 'Nemesis',
@@ -1316,6 +1363,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Plotti: {
       id: 'Plotti',
@@ -1366,6 +1414,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Rubilia: {
       id: 'Rubilia',
@@ -1403,6 +1452,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Ruby: {
       id: 'Ruby',
@@ -1463,6 +1513,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Saki Fuwa': {
       id: 'Saki Fuwa',
@@ -1500,6 +1551,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Samir: {
       id: 'Samir',
@@ -1524,6 +1576,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Shiro: {
       id: 'Shiro',
@@ -1548,6 +1601,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Tian Lang': {
       id: 'Tian Lang',
@@ -1598,6 +1652,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Tsubasa: {
       id: 'Tsubasa',
@@ -1622,6 +1677,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Umi: {
       id: 'Umi',
@@ -1672,6 +1728,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     'Yan Miao': {
       id: 'Yan Miao',
@@ -1734,6 +1791,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Yanuo: {
       id: 'Yanuo',
@@ -1808,6 +1866,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonAttackBuffs: ['frost-resonance', 'volt-resonance'],
       commonDamageBuffs: [],
+      attackBuffs: [],
     },
     'Yu Lan': {
       id: 'Yu Lan',
@@ -1845,6 +1904,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
     Zero: {
       id: 'Zero',
@@ -1895,6 +1955,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       commonDamageBuffs: [],
       commonAttackBuffs: [],
+      attackBuffs: [],
     },
   },
 };

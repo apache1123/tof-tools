@@ -1,10 +1,6 @@
 import type { TimelineEvent } from './timeline-event';
-import type { TimelineEventData } from './timeline-event-data';
 
-export class Timeline<
-  TData extends TimelineEventData,
-  TEvent extends TimelineEvent<TData> = TimelineEvent<TData>
-> {
+export class Timeline<TEvent extends TimelineEvent> {
   protected readonly _events: TEvent[] = [];
 
   public get events(): ReadonlyArray<TEvent> {

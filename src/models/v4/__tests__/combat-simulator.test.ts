@@ -143,7 +143,7 @@ describe('CombatSimulator', () => {
     });
   });
 
-  describe('weapon attack buff', () => {
+  describe('common weapon attack buff', () => {
     it('is added at the start of combat and lasts for the entire combat duration', () => {
       const sut = new CombatSimulator(combatDuration, loadout, relics);
       sut.performAttack({
@@ -184,6 +184,58 @@ describe('CombatSimulator', () => {
       const frostResonanceBuffEvent =
         sut.weaponAttackBuffTimelines.get('frost-resonance')?.events[0];
       expect(frostResonanceBuffEvent).toBeUndefined();
+    });
+  });
+
+  describe('weapon attack buff', () => {
+    it('is added at the start of combat and lasts until the end of combat', () => {
+      // Test nan yin final tune
+      team.weapon1 = new Weapon(weaponDefinitions.byId['Lin']);
+      team.weapon2 = new Weapon(weaponDefinitions.byId['Fiona']);
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      sut.performAttack({
+        weapon: weapon3,
+        attackDefinition: weapon3.definition.normalAttacks[0],
+      });
+
+      const timeline = sut.weaponAttackBuffTimelines.get(
+        weaponDefinitions.byId['Nan Yin'].attackBuffs[0].id
+      );
+      expect(timeline).toBeDefined();
+      if (timeline) {
+        expect(timeline.events.length).toBe(1);
+        expect(timeline.lastEvent?.startTime).toBe(0);
+        expect(timeline.lastEvent?.endTime).toBe(combatDuration);
+      }
+    });
+
+    it('is added based on an elemental weapon requirement', () => {
+      // Test nan yin final tune
+      // Negative case
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      sut.performAttack({
+        weapon: weapon3,
+        attackDefinition: weapon3.definition.normalAttacks[0],
+      });
+      expect(
+        sut.weaponAttackBuffTimelines.has(
+          weaponDefinitions.byId['Nan Yin'].attackBuffs[0].id
+        )
+      ).toBe(false);
+
+      // Positive case
+      team.weapon1 = new Weapon(weaponDefinitions.byId['Lin']);
+      team.weapon2 = new Weapon(weaponDefinitions.byId['Fiona']);
+      const sut2 = new CombatSimulator(combatDuration, loadout, relics);
+      sut2.performAttack({
+        weapon: weapon3,
+        attackDefinition: weapon3.definition.normalAttacks[0],
+      });
+      expect(
+        sut2.weaponAttackBuffTimelines.has(
+          weaponDefinitions.byId['Nan Yin'].attackBuffs[0].id
+        )
+      ).toBe(true);
     });
   });
 
