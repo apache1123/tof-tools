@@ -14,7 +14,6 @@ import { Team } from '../../models/team';
 import { CombatSimulator } from '../../models/v4/combat-simulator';
 import { Relics } from '../../models/v4/relics';
 import type { TimelineEvent } from '../../models/v4/timeline/timeline-event';
-import type { TimelineEventData } from '../../models/v4/timeline/timeline-event-data';
 import { Weapon } from '../../models/weapon';
 import { AttackBuffEventRenderer } from './AttackBuffEventRenderer';
 import { AttackEventRenderer } from './AttackEventRenderer';
@@ -66,7 +65,7 @@ export interface CombatSimulatorTimelineRow extends TimelineRow {
 
 export interface CombatSimulatorTimelineAction extends TimelineAction {
   effectId: CombatSimulatorTimelineEffectId;
-  event: TimelineEvent<TimelineEventData>;
+  event: TimelineEvent;
 }
 
 export type CombatSimulatorTimelineEffectId =
@@ -120,7 +119,7 @@ export function CombatSimulatorTimeline() {
   ] of combatSimulatorSnap.weaponDamageBuffTimelines) {
     editorData.push({
       id: buffId,
-      displayName: buffTimeline.events[0].data.displayName,
+      displayName: buffTimeline.events[0].displayName,
       actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
         (damageBuffEvent, index) => ({
           id: `${buffId}-weapon-damage-buff-${index}`,
@@ -140,7 +139,7 @@ export function CombatSimulatorTimeline() {
   ] of combatSimulatorSnap.weaponAttackBuffTimelines) {
     editorData.push({
       id: buffId,
-      displayName: buffTimeline.events[0].data.displayName,
+      displayName: buffTimeline.events[0].displayName,
       actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
         (attackBuffEvent, index) => ({
           id: `${buffId}-weapon-passive-attack-buff-${index}`,
@@ -160,7 +159,7 @@ export function CombatSimulatorTimeline() {
   ] of combatSimulatorSnap.traitDamageBuffTimelines) {
     editorData.push({
       id: buffId,
-      displayName: buffTimeline.events[0].data.displayName,
+      displayName: buffTimeline.events[0].displayName,
       actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
         (damageBuffEvent, index) => ({
           id: `${buffId}-simulacrum-trait-damage-buff-${index}`,
@@ -180,7 +179,7 @@ export function CombatSimulatorTimeline() {
   ] of combatSimulatorSnap.relicDamageBuffTimelines) {
     editorData.push({
       id: buffId,
-      displayName: buffTimeline.events[0].data.displayName,
+      displayName: buffTimeline.events[0].displayName,
       actions: buffTimeline.events.map<CombatSimulatorTimelineAction>(
         (damageBuffEvent, index) => ({
           id: `${buffId}-relic-passive-damage-buff-${index}`,

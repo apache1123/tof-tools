@@ -682,10 +682,10 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
 
 exports[`CombatSimulator relic damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
 Map {
-  "Alternative Destiny passive damage buff" => StackableChronologicalTimeline {
+  "Alternative Destiny passive damage buff" => BuffTimeline {
     "_events": [
-      StackableTimelineEvent {
-        "data": {
+      BuffEvent {
+        "buffDefinition": {
           "cooldown": 0,
           "damageCategory": "Relic passive",
           "description": "Increase frost damage by 2%, even if not deployed.",
@@ -712,10 +712,10 @@ Map {
       },
     ],
   },
-  "Cybernetic arm passive damage buff" => StackableChronologicalTimeline {
+  "Cybernetic arm passive damage buff" => BuffTimeline {
     "_events": [
-      StackableTimelineEvent {
-        "data": {
+      BuffEvent {
+        "buffDefinition": {
           "cooldown": 0,
           "damageCategory": "Relic passive",
           "description": "Increase frost damage by 1.5%, even if not deployed.",
@@ -742,10 +742,10 @@ Map {
       },
     ],
   },
-  "Thalassic Heart passive damage buff" => StackableChronologicalTimeline {
+  "Thalassic Heart passive damage buff" => BuffTimeline {
     "_events": [
-      StackableTimelineEvent {
-        "data": {
+      BuffEvent {
+        "buffDefinition": {
           "cooldown": 0,
           "damageCategory": "Relic passive",
           "description": "Increase volt damage by 2%, even if not deployed.",
@@ -772,10 +772,10 @@ Map {
       },
     ],
   },
-  "Triple Mask damage buff" => StackableChronologicalTimeline {
+  "Triple Mask damage buff" => BuffTimeline {
     "_events": [
-      StackableTimelineEvent {
-        "data": {
+      BuffEvent {
+        "buffDefinition": {
           "cooldown": 0,
           "damageCategory": "DMG buff category 1",
           "description": "While Triple Mask is deployed, elemental damage is increased by 6%.",

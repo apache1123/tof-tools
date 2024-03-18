@@ -6,48 +6,23 @@ import { commonWeaponDamageBuffs } from '../../constants/common-weapon-damage-bu
 import type { Loadout } from '../loadout';
 import type { Weapon } from '../weapon';
 import type { Attack } from './attack';
-import { AttackEventData } from './attack-event-data';
-import type { AttackBuffDefinition } from './buffs/attack-buff-definition';
 import type { BuffDefinition } from './buffs/buff-definition';
-import type { DamageBuffDefinition } from './buffs/damage-buff-definition';
-import type { MiscellaneousBuffDefinition } from './buffs/miscellaneous-buff-definition';
 import type { Relics } from './relics';
+import { AttackEvent } from './timeline/attack-event';
+import { AttackTimeline } from './timeline/attack-timeline';
+import { BuffEvent } from './timeline/buff-event';
+import { BuffTimeline } from './timeline/buff-timeline';
 import { ChargeTimeline } from './timeline/charge-timeline';
-import { ChronologicalTimeline } from './timeline/chronological-timeline';
-import { StackableChronologicalTimeline } from './timeline/stackable-timeline';
-import { StackableTimelineEvent } from './timeline/stackable-timeline-event';
-import { TimelineEvent } from './timeline/timeline-event';
 
 export class CombatSimulator {
-  public readonly attackTimelines = new Map<
-    Weapon,
-    ChronologicalTimeline<AttackEventData>
-  >();
+  public readonly attackTimelines = new Map<Weapon, AttackTimeline>();
 
-  public readonly weaponAttackBuffTimelines = new Map<
-    string,
-    StackableChronologicalTimeline<AttackBuffDefinition>
-  >();
-  public readonly weaponDamageBuffTimelines = new Map<
-    string,
-    StackableChronologicalTimeline<DamageBuffDefinition>
-  >();
-  public readonly relicDamageBuffTimelines = new Map<
-    string,
-    StackableChronologicalTimeline<DamageBuffDefinition>
-  >();
-  public readonly traitAttackBuffTimelines = new Map<
-    string,
-    StackableChronologicalTimeline<AttackBuffDefinition>
-  >();
-  public readonly traitDamageBuffTimelines = new Map<
-    string,
-    StackableChronologicalTimeline<DamageBuffDefinition>
-  >();
-  public readonly traitMiscBuffTimelines = new Map<
-    string,
-    StackableChronologicalTimeline<MiscellaneousBuffDefinition>
-  >();
+  public readonly weaponAttackBuffTimelines = new Map<string, BuffTimeline>();
+  public readonly weaponDamageBuffTimelines = new Map<string, BuffTimeline>();
+  public readonly relicDamageBuffTimelines = new Map<string, BuffTimeline>();
+  public readonly traitAttackBuffTimelines = new Map<string, BuffTimeline>();
+  public readonly traitDamageBuffTimelines = new Map<string, BuffTimeline>();
+  public readonly traitMiscBuffTimelines = new Map<string, BuffTimeline>();
 
   public readonly chargeTimeline = new ChargeTimeline();
 
@@ -55,10 +30,7 @@ export class CombatSimulator {
   /** Registered buff definitions will be checked whenever an attack happens. A buff event will be added to the timeline if the conditions defined in the buff definition are met */
   private registeredBuffs: {
     buffDefinitions: BuffDefinition[];
-    timelineGroupToAddTo: Map<
-      string,
-      StackableChronologicalTimeline<BuffDefinition>
-    >;
+    timelineGroupToAddTo: Map<string, BuffTimeline>;
   }[] = [];
 
   public constructor(
@@ -67,10 +39,7 @@ export class CombatSimulator {
     private readonly relics: Relics
   ) {
     loadout.team.weapons.forEach((weapon) => {
-      this.attackTimelines.set(
-        weapon,
-        new ChronologicalTimeline<AttackEventData>()
-      );
+      this.attackTimelines.set(weapon, new AttackTimeline());
     });
 
     this.registerBuffs();
@@ -117,7 +86,7 @@ export class CombatSimulator {
             nextEarliestAttackStartTime
           ) ?? [];
       return attackEventsToCheck.every(
-        (x) => x.data.attack.attackDefinition.id !== attack.attackDefinition.id
+        (x) => x.attack.attackDefinition.id !== attack.attackDefinition.id
       );
     });
   }
@@ -147,11 +116,7 @@ export class CombatSimulator {
       throw new Error('Weapon attack timeline not set up');
     }
 
-    const attackEvent = new TimelineEvent(
-      nextEarliestAttackStartTime,
-      attack.attackDefinition.duration,
-      new AttackEventData(attack)
-    );
+    const attackEvent = new AttackEvent(nextEarliestAttackStartTime, attack);
     attackTimeline.addEvent(attackEvent);
 
     this._activeWeapon = weapon;
@@ -165,20 +130,18 @@ export class CombatSimulator {
     this.triggerRegisteredBuffsIfApplicable(attackEvent);
   }
 
-  private adjustCharge(attackEvent: TimelineEvent<AttackEventData>) {
-    if (attackEvent.data.attack.attackDefinition.type === 'discharge') {
+  private adjustCharge(attackEvent: AttackEvent) {
+    if (attackEvent.attack.attackDefinition.type === 'discharge') {
       this.chargeTimeline.deductOneFullCharge(attackEvent.startTime);
     } else {
       this.chargeTimeline.addCharge(
-        attackEvent.data.attack.attackDefinition.charge,
+        attackEvent.attack.attackDefinition.charge,
         attackEvent.endTime
       );
     }
   }
 
-  private triggerRegisteredBuffsIfApplicable(
-    attackEvent: TimelineEvent<AttackEventData>
-  ) {
+  private triggerRegisteredBuffsIfApplicable(attackEvent: AttackEvent) {
     this.registeredBuffs.forEach(
       ({ buffDefinitions, timelineGroupToAddTo }) => {
         buffDefinitions.forEach((buffDefinition) => {
@@ -244,8 +207,8 @@ export class CombatSimulator {
 
   private addBuffIfApplicable(
     buffDefinition: BuffDefinition,
-    timelineGroup: Map<string, StackableChronologicalTimeline<BuffDefinition>>,
-    attackEvent: TimelineEvent<AttackEventData>
+    timelineGroup: Map<string, BuffTimeline>,
+    attackEvent: AttackEvent
   ) {
     if (!this.hasBuffMetRequirements(buffDefinition)) return;
     if (!this.shouldTriggerBuff(buffDefinition, attackEvent)) return;
@@ -259,13 +222,13 @@ export class CombatSimulator {
     const { id, maxStacks } = buffDefinition;
 
     if (!timelineGroup.has(id)) {
-      timelineGroup.set(id, new StackableChronologicalTimeline());
+      timelineGroup.set(id, new BuffTimeline());
     }
 
     timelineGroup
       .get(id)
       ?.addEvent(
-        new StackableTimelineEvent(
+        new BuffEvent(
           buffTimePeriod.startTime,
           buffTimePeriod.duration,
           buffDefinition,
@@ -343,21 +306,19 @@ export class CombatSimulator {
 
   private shouldTriggerBuff(
     buffDefinition: BuffDefinition,
-    attackEvent: TimelineEvent<AttackEventData>
+    attackEvent: AttackEvent
   ): boolean {
     // TODO: cooldown
     const { triggeredBy } = buffDefinition;
 
     const {
-      data: {
-        attack: {
-          attackDefinition: { id: attackId, type: attackType },
-          weapon: {
-            definition: {
-              id: weaponId,
-              type: weaponType,
-              elementalTypes: weaponElementalTypes,
-            },
+      attack: {
+        attackDefinition: { id: attackId, type: attackType },
+        weapon: {
+          definition: {
+            id: weaponId,
+            type: weaponType,
+            elementalTypes: weaponElementalTypes,
           },
         },
       },
@@ -416,7 +377,7 @@ export class CombatSimulator {
 
   private determineBuffTimePeriod(
     buff: BuffDefinition,
-    attackEvent: TimelineEvent<AttackEventData>
+    attackEvent: AttackEvent
   ): { startTime: number; duration: number } | undefined {
     const {
       duration: {
