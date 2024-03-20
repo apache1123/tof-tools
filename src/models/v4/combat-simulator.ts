@@ -27,6 +27,9 @@ export class CombatSimulator {
   public readonly chargeTimeline = new ChargeTimeline();
 
   private _activeWeapon: Weapon | undefined;
+  /** The previous weapon before switching to the current active weapon */
+  private _previousWeapon: Weapon | undefined;
+
   /** Registered buff definitions will be checked whenever an attack happens. A buff event will be added to the timeline if the conditions defined in the buff definition are met */
   private registeredBuffs: {
     buffDefinitions: BuffDefinition[];
@@ -49,8 +52,8 @@ export class CombatSimulator {
     return this._activeWeapon;
   }
 
-  public get availableAttacks(): Attack[] {
-    const allAttacks = this.loadout.team.weapons.flatMap((weapon): Attack[] => {
+  public get availableAttacks(): Pick<Attack, 'weapon' | 'attackDefinition'>[] {
+    const allAttacks = this.loadout.team.weapons.flatMap((weapon) => {
       const {
         definition: { normalAttacks, dodgeAttacks, skills, discharge },
       } = weapon;
@@ -86,7 +89,7 @@ export class CombatSimulator {
             nextEarliestAttackStartTime
           ) ?? [];
       return attackEventsToCheck.every(
-        (x) => x.attack.attackDefinition.id !== attack.attackDefinition.id
+        (x) => x.attackDefinition.id !== attack.attackDefinition.id
       );
     });
   }
@@ -97,8 +100,10 @@ export class CombatSimulator {
       : 0;
   }
 
-  public performAttack(attack: Attack) {
-    const { weapon, attackDefinition } = attack;
+  public performAttack({
+    weapon,
+    attackDefinition,
+  }: Pick<Attack, 'weapon' | 'attackDefinition'>) {
     if (
       !this.availableAttacks.find(
         (availableAttack) =>
@@ -110,16 +115,31 @@ export class CombatSimulator {
     }
 
     const { nextEarliestAttackStartTime } = this;
-    const attackTimeline = this.attackTimelines.get(attack.weapon);
+    const attackTimeline = this.attackTimelines.get(weapon);
 
     if (!attackTimeline) {
       throw new Error('Weapon attack timeline not set up');
     }
 
-    const attackEvent = new AttackEvent(nextEarliestAttackStartTime, attack);
-    attackTimeline.addEvent(attackEvent);
+    if (this._activeWeapon !== weapon) {
+      this._previousWeapon = this._activeWeapon;
+      this._activeWeapon = weapon;
+    }
 
-    this._activeWeapon = weapon;
+    const attackEvent = new AttackEvent(
+      nextEarliestAttackStartTime,
+      weapon,
+      attackDefinition
+    );
+
+    if (
+      attackDefinition.followLastWeaponElementalType &&
+      this._previousWeapon
+    ) {
+      attackEvent.elementalType = this._previousWeapon.definition.damageElement;
+    }
+
+    attackTimeline.addEvent(attackEvent);
 
     // Register all buffs first at the start of combat
     if (attackEvent.startTime === 0) {
@@ -131,11 +151,11 @@ export class CombatSimulator {
   }
 
   private adjustCharge(attackEvent: AttackEvent) {
-    if (attackEvent.attack.attackDefinition.type === 'discharge') {
+    if (attackEvent.attackDefinition.type === 'discharge') {
       this.chargeTimeline.deductOneFullCharge(attackEvent.startTime);
     } else {
       this.chargeTimeline.addCharge(
-        attackEvent.attack.attackDefinition.charge,
+        attackEvent.attackDefinition.charge,
         attackEvent.endTime
       );
     }
@@ -277,7 +297,7 @@ export class CombatSimulator {
     if (notElementalTypeWeaponRequirement) {
       const numOfNotElementalTypeWeapons = weapons.filter(
         (weapon) =>
-          !weapon.definition.elementalTypes.includes(
+          !weapon.definition.resonanceElements.includes(
             notElementalTypeWeaponRequirement.notElementalType
           )
       ).length;
@@ -312,14 +332,12 @@ export class CombatSimulator {
     const { triggeredBy } = buffDefinition;
 
     const {
-      attack: {
-        attackDefinition: { id: attackId, type: attackType },
-        weapon: {
-          definition: {
-            id: weaponId,
-            type: weaponType,
-            elementalTypes: weaponElementalTypes,
-          },
+      attackDefinition: { id: attackId, type: attackType },
+      weapon: {
+        definition: {
+          id: weaponId,
+          type: weaponType,
+          resonanceElements: weaponElementalTypes,
         },
       },
     } = attackEvent;

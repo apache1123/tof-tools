@@ -59,6 +59,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
           "force-impact",
         ],
         "critRateBuffs": [],
+        "damageElement": "Volt",
         "discharge": {
           "attackFlat": 0,
           "attackMultiplier": 0,
@@ -84,10 +85,6 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "type": "dodge",
           },
         ],
-        "elementalTypes": [
-          "Volt",
-          "Frost",
-        ],
         "id": "Brevey",
         "normalAttacks": [
           {
@@ -101,6 +98,10 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "id": "brevey-normal-auto-chain",
             "type": "normal",
           },
+        ],
+        "resonanceElements": [
+          "Volt",
+          "Frost",
         ],
         "skills": [
           {
@@ -178,6 +179,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
           "force-impact",
         ],
         "critRateBuffs": [],
+        "damageElement": "Volt",
         "discharge": {
           "attackFlat": 0,
           "attackMultiplier": 0,
@@ -203,10 +205,6 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "type": "dodge",
           },
         ],
-        "elementalTypes": [
-          "Volt",
-          "Frost",
-        ],
         "id": "Brevey",
         "normalAttacks": [
           {
@@ -220,6 +218,10 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "id": "brevey-normal-auto-chain",
             "type": "normal",
           },
+        ],
+        "resonanceElements": [
+          "Volt",
+          "Frost",
         ],
         "skills": [
           {
@@ -297,6 +299,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
           "force-impact",
         ],
         "critRateBuffs": [],
+        "damageElement": "Volt",
         "discharge": {
           "attackFlat": 0,
           "attackMultiplier": 0,
@@ -322,10 +325,6 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "type": "dodge",
           },
         ],
-        "elementalTypes": [
-          "Volt",
-          "Frost",
-        ],
         "id": "Brevey",
         "normalAttacks": [
           {
@@ -339,6 +338,10 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "id": "brevey-normal-auto-chain",
             "type": "normal",
           },
+        ],
+        "resonanceElements": [
+          "Volt",
+          "Frost",
         ],
         "skills": [
           {
@@ -414,6 +417,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         ],
         "commonDamageBuffs": [],
         "critRateBuffs": [],
+        "damageElement": "Frost",
         "discharge": {
           "attackFlat": 0,
           "attackMultiplier": 0,
@@ -427,10 +431,6 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         },
         "displayName": "Yanuo",
         "dodgeAttacks": [],
-        "elementalTypes": [
-          "Frost",
-          "Volt",
-        ],
         "id": "Yanuo",
         "normalAttacks": [
           {
@@ -444,6 +444,10 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "id": "Yanuo - [Placeholder auto attack]",
             "type": "normal",
           },
+        ],
+        "resonanceElements": [
+          "Frost",
+          "Volt",
         ],
         "skills": [
           {
@@ -519,6 +523,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         ],
         "commonDamageBuffs": [],
         "critRateBuffs": [],
+        "damageElement": "Frost",
         "discharge": {
           "attackFlat": 0,
           "attackMultiplier": 0,
@@ -532,10 +537,6 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         },
         "displayName": "Yanuo",
         "dodgeAttacks": [],
-        "elementalTypes": [
-          "Frost",
-          "Volt",
-        ],
         "id": "Yanuo",
         "normalAttacks": [
           {
@@ -549,6 +550,10 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "id": "Yanuo - [Placeholder auto attack]",
             "type": "normal",
           },
+        ],
+        "resonanceElements": [
+          "Frost",
+          "Volt",
         ],
         "skills": [
           {
@@ -577,7 +582,8 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
       "cooldown": 0,
       "displayName": "Nan Yin - Auto chain",
       "duration": 6000,
-      "elementalType": "LastWeapon",
+      "elementalType": "Altered",
+      "followLastWeaponElementalType": true,
       "id": "nanyin-normal-auto-chain",
       "type": "normal",
     },
@@ -640,6 +646,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         "commonAttackBuffs": [],
         "commonDamageBuffs": [],
         "critRateBuffs": [],
+        "damageElement": "Altered",
         "discharge": {
           "attackFlat": 0,
           "attackMultiplier": 0,
@@ -647,15 +654,13 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
           "cooldown": 30000,
           "displayName": "Nan Yin - discharge",
           "duration": 5000,
-          "elementalType": "LastWeapon",
+          "elementalType": "Altered",
+          "followLastWeaponElementalType": true,
           "id": "nanyin-discharge",
           "type": "discharge",
         },
         "displayName": "Nan Yin",
         "dodgeAttacks": [],
-        "elementalTypes": [
-          "Altered",
-        ],
         "id": "Nan Yin",
         "normalAttacks": [
           {
@@ -665,10 +670,14 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "cooldown": 0,
             "displayName": "Nan Yin - Auto chain",
             "duration": 6000,
-            "elementalType": "LastWeapon",
+            "elementalType": "Altered",
+            "followLastWeaponElementalType": true,
             "id": "nanyin-normal-auto-chain",
             "type": "normal",
           },
+        ],
+        "resonanceElements": [
+          "Altered",
         ],
         "skills": [],
         "type": "DPS",

@@ -1,4 +1,5 @@
 import { fullCharge, maxCharge } from '../../../constants/combat';
+import type { WeaponElementalType } from '../../../constants/elemental-type';
 import { simulacrumTraits } from '../../../constants/simulacrum-traits';
 import { weaponDefinitions } from '../../../constants/weapon-definitions';
 import { repeat } from '../../../utils/test-utils';
@@ -6,7 +7,6 @@ import { GearSet } from '../../gear-set';
 import { Loadout } from '../../loadout';
 import { Team } from '../../team';
 import { Weapon } from '../../weapon';
-import type { Attack } from '../attack';
 import type { AttackDefinition } from '../attack-definition';
 import { CombatSimulator } from '../combat-simulator';
 import { Relics } from '../relics';
@@ -67,7 +67,21 @@ describe('CombatSimulator', () => {
 
     it('does not include attacks if they are on cooldown', () => {
       const sut = new CombatSimulator(combatDuration, loadout, relics);
-      const attack: Attack = {
+      // sut.performAttack({
+      //   weapon: weapon1,
+      //   attackDefinition: weapon1.definition.skills[0],
+      // });
+
+      // expect(
+      //   sut.availableAttacks
+      //     .get(weapon1)
+      //     ?.some(
+      //       (attackDefinition) =>
+      //         attackDefinition.id === weapon1.definition.skills[0].id
+      //     )
+      // ).toBe(false);
+
+      const attack = {
         weapon: weapon1,
         attackDefinition: weapon1.definition.skills[0],
       };
@@ -79,6 +93,9 @@ describe('CombatSimulator', () => {
     it('does not include discharges if there is no full charge available', () => {
       const sut = new CombatSimulator(combatDuration, loadout, relics);
       expect(
+        // Array.from(sut.availableAttacks.values())
+        //   .flat()
+        //   .some((attackDefinition) => attackDefinition.type === 'discharge')
         sut.availableAttacks.some(
           (attack) => attack.attackDefinition.type === 'discharge'
         )
@@ -89,6 +106,9 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon1.definition.normalAttacks[0],
       });
       expect(
+        // Array.from(sut.availableAttacks.values())
+        //   .flat()
+        //   .some((attackDefinition) => attackDefinition.type === 'discharge')
         sut.availableAttacks.some(
           (attack) => attack.attackDefinition.type === 'discharge'
         )
@@ -105,6 +125,9 @@ describe('CombatSimulator', () => {
         });
       }, 20);
 
+      // const dischargeAttacks = Array.from(sut.availableAttacks.values())
+      //   .flat()
+      //   .filter((attackDefinition) => attackDefinition.type === 'discharge');
       const dischargeAttacks = sut.availableAttacks.filter(
         (attack) => attack.attackDefinition.type === 'discharge'
       );
@@ -125,6 +148,30 @@ describe('CombatSimulator', () => {
           attackDefinition: {} as AttackDefinition,
         });
       }).toThrow();
+    });
+
+    it("changes the attack's element to follow that of the previous weapon", () => {
+      // Test nan yin attacks
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      sut.performAttack({
+        weapon: weapon3,
+        attackDefinition: weapon3.definition.normalAttacks[0],
+      });
+      expect(
+        sut.attackTimelines.get(weapon3)?.lastEvent?.elementalType
+      ).toBe<WeaponElementalType>('Altered');
+
+      sut.performAttack({
+        weapon: weapon1,
+        attackDefinition: weapon1.definition.normalAttacks[0],
+      });
+      sut.performAttack({
+        weapon: weapon3,
+        attackDefinition: weapon3.definition.normalAttacks[0],
+      });
+      expect(
+        sut.attackTimelines.get(weapon3)?.lastEvent?.elementalType
+      ).toBe<WeaponElementalType>('Volt');
     });
   });
 
