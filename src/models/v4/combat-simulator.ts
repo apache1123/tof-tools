@@ -90,7 +90,9 @@ export class CombatSimulator {
             nextEarliestAttackStartTime
           ) ?? [];
       return attackEventsToCheck.every(
-        (x) => x.attackDefinition.id !== attack.attackDefinition.id
+        (x) =>
+          x.attackDefinition.id !== attack.attackDefinition.id ||
+          x.cooldownEndsAt <= nextEarliestAttackStartTime
       );
     });
   }
@@ -354,7 +356,6 @@ export class CombatSimulator {
     effectDefinition: EffectDefinition,
     attackEvent: AttackEvent
   ): boolean {
-    // TODO: cooldown
     const { triggeredBy } = effectDefinition;
 
     const {

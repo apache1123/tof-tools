@@ -22,4 +22,8 @@ export class AttackEvent extends TimelineEvent implements Attack {
   public get displayName() {
     return this.attackDefinition.displayName;
   }
+
+  public get cooldownEndsAt() {
+    return this.startTime + this.cooldown;
+  }
 }

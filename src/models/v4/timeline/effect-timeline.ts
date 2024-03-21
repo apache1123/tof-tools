@@ -9,6 +9,11 @@ export class EffectTimeline extends Timeline<EffectEvent> {
   public addEvent(event: EffectEvent) {
     const { lastEvent } = this;
 
+    // Last event still on cooldown
+    if (lastEvent && lastEvent.cooldownEndsAt > event.startTime) {
+      return;
+    }
+
     // Event does not overlap with an existing one whatsoever, add new event as usual
     if (!lastEvent || event.startTime > lastEvent.endTime) {
       super.addEvent(event);

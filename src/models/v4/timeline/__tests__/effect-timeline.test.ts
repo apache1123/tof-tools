@@ -89,4 +89,25 @@ describe('Effect timeline', () => {
     expect(sut.events[1].startTime).toBe(10);
     expect(sut.events[1].endTime).toBe(20);
   });
+
+  it('does not add new event if the last event is still on cooldown', () => {
+    const sut = new EffectTimeline();
+    const eventWithCooldown = new EffectEvent(0, 10, mockEffectDefinition);
+    eventWithCooldown.cooldown = 5;
+    sut.addEvent(eventWithCooldown);
+
+    expect(sut.events.length).toBe(1);
+    expect(sut.lastEvent?.startTime).toBe(0);
+    expect(sut.lastEvent?.endTime).toBe(10);
+
+    sut.addEvent(new EffectEvent(3, 10, mockEffectDefinition));
+    expect(sut.events.length).toBe(1);
+    expect(sut.lastEvent?.startTime).toBe(0);
+    expect(sut.lastEvent?.endTime).toBe(10);
+
+    sut.addEvent(new EffectEvent(7, 10, mockEffectDefinition));
+    expect(sut.events.length).toBe(1);
+    expect(sut.lastEvent?.startTime).toBe(0);
+    expect(sut.lastEvent?.endTime).toBe(17);
+  });
 });
