@@ -6,34 +6,35 @@ import { commonWeaponDamageBuffs } from '../../constants/common-weapon-damage-bu
 import type { Loadout } from '../loadout';
 import type { Weapon } from '../weapon';
 import type { Attack } from './attack';
-import type { BuffDefinition } from './buffs/buff-definition';
+import type { EffectDefinition } from './effect-definition';
 import type { Relics } from './relics';
 import { AttackEvent } from './timeline/attack-event';
 import { AttackTimeline } from './timeline/attack-timeline';
-import { BuffEvent } from './timeline/buff-event';
-import { BuffTimeline } from './timeline/buff-timeline';
 import { ChargeTimeline } from './timeline/charge-timeline';
+import { EffectEvent } from './timeline/effect-event';
+import { EffectTimeline } from './timeline/effect-timeline';
 
 export class CombatSimulator {
   public readonly attackTimelines = new Map<Weapon, AttackTimeline>();
 
-  public readonly weaponAttackBuffTimelines = new Map<string, BuffTimeline>();
-  public readonly weaponDamageBuffTimelines = new Map<string, BuffTimeline>();
-  public readonly relicDamageBuffTimelines = new Map<string, BuffTimeline>();
-  public readonly traitAttackBuffTimelines = new Map<string, BuffTimeline>();
-  public readonly traitDamageBuffTimelines = new Map<string, BuffTimeline>();
-  public readonly traitMiscBuffTimelines = new Map<string, BuffTimeline>();
+  public readonly weaponAttackBuffTimelines = new Map<string, EffectTimeline>();
+  public readonly weaponDamageBuffTimelines = new Map<string, EffectTimeline>();
+  public readonly relicDamageBuffTimelines = new Map<string, EffectTimeline>();
+  public readonly traitAttackBuffTimelines = new Map<string, EffectTimeline>();
+  public readonly traitDamageBuffTimelines = new Map<string, EffectTimeline>();
+  public readonly traitMiscBuffTimelines = new Map<string, EffectTimeline>();
 
   public readonly chargeTimeline = new ChargeTimeline();
+  public readonly weaponEffectsTimelines = new Map<string, EffectTimeline>();
 
   private _activeWeapon: Weapon | undefined;
   /** The previous weapon before switching to the current active weapon */
   private _previousWeapon: Weapon | undefined;
 
-  /** Registered buff definitions will be checked whenever an attack happens. A buff event will be added to the timeline if the conditions defined in the buff definition are met */
-  private registeredBuffs: {
-    buffDefinitions: BuffDefinition[];
-    timelineGroupToAddTo: Map<string, BuffTimeline>;
+  /** Registered effect definitions will be checked whenever an attack happens. An effect event will be added to the specified timeline if the conditions defined in the effect definition are met */
+  private registeredEffects: {
+    effectDefinitions: EffectDefinition[];
+    timelineGroupToAddTo: Map<string, EffectTimeline>;
   }[] = [];
 
   public constructor(
@@ -45,7 +46,7 @@ export class CombatSimulator {
       this.attackTimelines.set(weapon, new AttackTimeline());
     });
 
-    this.registerBuffs();
+    this.registerEffects();
   }
 
   public get activeWeapon(): Weapon | undefined {
@@ -141,13 +142,14 @@ export class CombatSimulator {
 
     attackTimeline.addEvent(attackEvent);
 
-    // Register all buffs first at the start of combat
+    // Register all events first at the start of combat
     if (attackEvent.startTime === 0) {
-      this.registerBuffs();
+      this.registerEffects();
     }
 
     this.adjustCharge(attackEvent);
-    this.triggerRegisteredBuffsIfApplicable(attackEvent);
+
+    this.triggerRegisteredEffectsIfApplicable(attackEvent);
   }
 
   private adjustCharge(attackEvent: AttackEvent) {
@@ -161,12 +163,12 @@ export class CombatSimulator {
     }
   }
 
-  private triggerRegisteredBuffsIfApplicable(attackEvent: AttackEvent) {
-    this.registeredBuffs.forEach(
-      ({ buffDefinitions, timelineGroupToAddTo }) => {
-        buffDefinitions.forEach((buffDefinition) => {
-          this.addBuffIfApplicable(
-            buffDefinition,
+  private triggerRegisteredEffectsIfApplicable(attackEvent: AttackEvent) {
+    this.registeredEffects.forEach(
+      ({ effectDefinitions, timelineGroupToAddTo }) => {
+        effectDefinitions.forEach((effectDefinition) => {
+          this.addEffectIfApplicable(
+            effectDefinition,
             timelineGroupToAddTo,
             attackEvent
           );
@@ -175,7 +177,7 @@ export class CombatSimulator {
     );
   }
 
-  private registerBuffs() {
+  private registerEffects() {
     const {
       loadout: {
         team: { weapons },
@@ -183,9 +185,27 @@ export class CombatSimulator {
       },
       relics,
     } = this;
-    this.registeredBuffs = [
+
+    // NOTE: Add these in least likely to be depended on from another effect to most likely. This pretty much means order these in most broad to most specific buffs. This is to avoid an effect that is supposed to depend on another to be triggered at the exact same time. This can be improved upon in the future (perhaps add "ticks"?) but it'll do for now (right now a "tick" = when a new attack occurs)
+    this.registeredEffects = [
       {
-        buffDefinitions: weapons.flatMap((weapon) =>
+        effectDefinitions: relics.passiveRelicBuffs,
+        timelineGroupToAddTo: this.relicDamageBuffTimelines,
+      },
+      {
+        effectDefinitions: simulacrumTrait?.attackBuffs ?? [],
+        timelineGroupToAddTo: this.traitAttackBuffTimelines,
+      },
+      {
+        effectDefinitions: simulacrumTrait?.damageBuffs ?? [],
+        timelineGroupToAddTo: this.traitDamageBuffTimelines,
+      },
+      {
+        effectDefinitions: simulacrumTrait?.miscellaneousBuffs ?? [],
+        timelineGroupToAddTo: this.traitMiscBuffTimelines,
+      },
+      {
+        effectDefinitions: weapons.flatMap((weapon) =>
           weapon.definition.commonAttackBuffs.map(
             (buffId) => commonWeaponAttackBuffs[buffId]
           )
@@ -193,7 +213,7 @@ export class CombatSimulator {
         timelineGroupToAddTo: this.weaponAttackBuffTimelines,
       },
       {
-        buffDefinitions: weapons.flatMap((weapon) =>
+        effectDefinitions: weapons.flatMap((weapon) =>
           weapon.definition.commonDamageBuffs.map(
             (buffId) => commonWeaponDamageBuffs[buffId]
           )
@@ -201,70 +221,76 @@ export class CombatSimulator {
         timelineGroupToAddTo: this.weaponDamageBuffTimelines,
       },
       {
-        buffDefinitions: weapons.flatMap(
+        effectDefinitions: weapons.flatMap(
           (weapon) => weapon.definition.attackBuffs
         ),
         timelineGroupToAddTo: this.weaponAttackBuffTimelines,
       },
       {
-        buffDefinitions: relics.passiveRelicBuffs,
-        timelineGroupToAddTo: this.relicDamageBuffTimelines,
+        effectDefinitions: weapons.flatMap(
+          (weapon) => weapon.definition.damageBuffs
+        ),
+        timelineGroupToAddTo: this.weaponDamageBuffTimelines,
       },
       {
-        buffDefinitions: simulacrumTrait?.attackBuffs ?? [],
-        timelineGroupToAddTo: this.traitAttackBuffTimelines,
-      },
-      {
-        buffDefinitions: simulacrumTrait?.damageBuffs ?? [],
-        timelineGroupToAddTo: this.traitDamageBuffTimelines,
-      },
-      {
-        buffDefinitions: simulacrumTrait?.miscellaneousBuffs ?? [],
-        timelineGroupToAddTo: this.traitMiscBuffTimelines,
+        effectDefinitions: weapons.flatMap(
+          (weapon) => weapon.definition.effects
+        ),
+        timelineGroupToAddTo: this.weaponEffectsTimelines,
       },
     ];
   }
 
-  private addBuffIfApplicable(
-    buffDefinition: BuffDefinition,
-    timelineGroup: Map<string, BuffTimeline>,
+  private addEffectIfApplicable(
+    effectDefinition: EffectDefinition,
+    timelineGroup: Map<string, EffectTimeline>,
     attackEvent: AttackEvent
   ) {
-    if (!this.hasBuffMetRequirements(buffDefinition)) return;
-    if (!this.shouldTriggerBuff(buffDefinition, attackEvent)) return;
+    if (!this.hasEffectMetRequirements(effectDefinition, attackEvent.startTime))
+      return;
+    if (!this.shouldTriggerEffect(effectDefinition, attackEvent)) return;
 
-    const buffTimePeriod = this.determineBuffTimePeriod(
-      buffDefinition,
+    const effectTimePeriod = this.determineEffectTimePeriod(
+      effectDefinition,
       attackEvent
     );
-    if (!buffTimePeriod) return;
+    if (!effectTimePeriod) return;
 
-    const { id, maxStacks } = buffDefinition;
+    const { id, maxStacks } = effectDefinition;
 
     if (!timelineGroup.has(id)) {
-      timelineGroup.set(id, new BuffTimeline());
+      timelineGroup.set(id, new EffectTimeline());
     }
 
     timelineGroup
       .get(id)
       ?.addEvent(
-        new BuffEvent(
-          buffTimePeriod.startTime,
-          buffTimePeriod.duration,
-          buffDefinition,
+        new EffectEvent(
+          effectTimePeriod.startTime,
+          effectTimePeriod.duration,
+          effectDefinition,
           maxStacks
         )
       );
   }
 
-  private hasBuffMetRequirements(buff: BuffDefinition): boolean {
-    const { requirements } = buff;
+  private hasEffectMetRequirements(
+    effect: EffectDefinition,
+    time: number
+  ): boolean {
+    const { requirements } = effect;
     if (!requirements) return true;
 
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
       this.loadout.team;
 
     // Check requirements from most specific to least specific for efficiency
+
+    if (
+      requirements.activeEffect &&
+      !this.isEffectActive(requirements.activeEffect, time)
+    )
+      return false;
 
     if (
       requirements.weaponInTeam &&
@@ -324,12 +350,12 @@ export class CombatSimulator {
     return true;
   }
 
-  private shouldTriggerBuff(
-    buffDefinition: BuffDefinition,
+  private shouldTriggerEffect(
+    effectDefinition: EffectDefinition,
     attackEvent: AttackEvent
   ): boolean {
     // TODO: cooldown
-    const { triggeredBy } = buffDefinition;
+    const { triggeredBy } = effectDefinition;
 
     const {
       attackDefinition: { id: attackId, type: attackType },
@@ -381,6 +407,9 @@ export class CombatSimulator {
     )
       return true;
 
+    if (triggeredBy.notActiveWeapon && weaponId !== triggeredBy.notActiveWeapon)
+      return true;
+
     if (triggeredBy.activeWeapon && weaponId === triggeredBy.activeWeapon)
       return true;
 
@@ -393,8 +422,8 @@ export class CombatSimulator {
     return false;
   }
 
-  private determineBuffTimePeriod(
-    buff: BuffDefinition,
+  private determineEffectTimePeriod(
+    effect: EffectDefinition,
     attackEvent: AttackEvent
   ): { startTime: number; duration: number } | undefined {
     const {
@@ -404,7 +433,7 @@ export class CombatSimulator {
         applyToEndSegmentOfCombat,
         untilCombatEnd,
       },
-    } = buff;
+    } = effect;
 
     if (value) {
       return { startTime: attackEvent.startTime, duration: value };
@@ -435,5 +464,18 @@ export class CombatSimulator {
     }
 
     return undefined;
+  }
+
+  /** Check if an effect at the given time by checking through the registered effects */
+  private isEffectActive(effectId: string, time: number) {
+    // Assume there will only be one timeline holding the effect, not multiple
+    for (const { timelineGroupToAddTo } of this.registeredEffects) {
+      const eventTimeline = timelineGroupToAddTo.get(effectId);
+      if (eventTimeline) {
+        return eventTimeline.getEventsOverlapping(time, time).length !== 0;
+      }
+    }
+
+    return false;
   }
 }

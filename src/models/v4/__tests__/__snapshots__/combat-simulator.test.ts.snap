@@ -59,6 +59,50 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
           "force-impact",
         ],
         "critRateBuffs": [],
+        "damageBuffs": [
+          {
+            "cooldown": 0,
+            "damageCategory": "[TEMP_UNKNOWN]",
+            "description": "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's volt damage by 25%.",
+            "displayName": "Brevey - Pact Amplification Volt Buff",
+            "duration": {
+              "followActiveWeapon": true,
+            },
+            "elementalTypes": [
+              "Volt",
+            ],
+            "id": "brevey-damage-buff-pact-amplification-volt",
+            "maxStacks": 1,
+            "requirements": {
+              "activeEffect": "brevey-effect-pact-amplification",
+            },
+            "triggeredBy": {
+              "activeWeapon": "Brevey",
+            },
+            "value": 0.25,
+          },
+          {
+            "cooldown": 0,
+            "damageCategory": "[TEMP_UNKNOWN]",
+            "description": "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's frost damage by 10%.",
+            "displayName": "Brevey - Pact Amplification Frost Buff",
+            "duration": {
+              "followActiveWeapon": true,
+            },
+            "elementalTypes": [
+              "Frost",
+            ],
+            "id": "brevey-damage-buff-pact-amplification-frost",
+            "maxStacks": 1,
+            "requirements": {
+              "activeEffect": "brevey-effect-pact-amplification",
+            },
+            "triggeredBy": {
+              "notActiveWeapon": "Brevey",
+            },
+            "value": 0.25,
+          },
+        ],
         "damageElement": "Volt",
         "discharge": {
           "attackFlat": 0,
@@ -83,6 +127,23 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "elementalType": "Volt",
             "id": "brevey-dodge-placeholder",
             "type": "dodge",
+          },
+        ],
+        "effects": [
+          {
+            "cooldown": 30000,
+            "description": "",
+            "displayName": "Brevey - Pact Amplification",
+            "duration": {
+              "value": 30000,
+            },
+            "id": "brevey-effect-pact-amplification",
+            "maxStacks": 1,
+            "triggeredBy": {
+              "weaponAttacks": [
+                "brevey-skill-million-metz-shockwave",
+              ],
+            },
           },
         ],
         "id": "Brevey",
@@ -179,6 +240,50 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
           "force-impact",
         ],
         "critRateBuffs": [],
+        "damageBuffs": [
+          {
+            "cooldown": 0,
+            "damageCategory": "[TEMP_UNKNOWN]",
+            "description": "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's volt damage by 25%.",
+            "displayName": "Brevey - Pact Amplification Volt Buff",
+            "duration": {
+              "followActiveWeapon": true,
+            },
+            "elementalTypes": [
+              "Volt",
+            ],
+            "id": "brevey-damage-buff-pact-amplification-volt",
+            "maxStacks": 1,
+            "requirements": {
+              "activeEffect": "brevey-effect-pact-amplification",
+            },
+            "triggeredBy": {
+              "activeWeapon": "Brevey",
+            },
+            "value": 0.25,
+          },
+          {
+            "cooldown": 0,
+            "damageCategory": "[TEMP_UNKNOWN]",
+            "description": "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's frost damage by 10%.",
+            "displayName": "Brevey - Pact Amplification Frost Buff",
+            "duration": {
+              "followActiveWeapon": true,
+            },
+            "elementalTypes": [
+              "Frost",
+            ],
+            "id": "brevey-damage-buff-pact-amplification-frost",
+            "maxStacks": 1,
+            "requirements": {
+              "activeEffect": "brevey-effect-pact-amplification",
+            },
+            "triggeredBy": {
+              "notActiveWeapon": "Brevey",
+            },
+            "value": 0.25,
+          },
+        ],
         "damageElement": "Volt",
         "discharge": {
           "attackFlat": 0,
@@ -203,6 +308,23 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "elementalType": "Volt",
             "id": "brevey-dodge-placeholder",
             "type": "dodge",
+          },
+        ],
+        "effects": [
+          {
+            "cooldown": 30000,
+            "description": "",
+            "displayName": "Brevey - Pact Amplification",
+            "duration": {
+              "value": 30000,
+            },
+            "id": "brevey-effect-pact-amplification",
+            "maxStacks": 1,
+            "triggeredBy": {
+              "weaponAttacks": [
+                "brevey-skill-million-metz-shockwave",
+              ],
+            },
           },
         ],
         "id": "Brevey",
@@ -299,6 +421,50 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
           "force-impact",
         ],
         "critRateBuffs": [],
+        "damageBuffs": [
+          {
+            "cooldown": 0,
+            "damageCategory": "[TEMP_UNKNOWN]",
+            "description": "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's volt damage by 25%.",
+            "displayName": "Brevey - Pact Amplification Volt Buff",
+            "duration": {
+              "followActiveWeapon": true,
+            },
+            "elementalTypes": [
+              "Volt",
+            ],
+            "id": "brevey-damage-buff-pact-amplification-volt",
+            "maxStacks": 1,
+            "requirements": {
+              "activeEffect": "brevey-effect-pact-amplification",
+            },
+            "triggeredBy": {
+              "activeWeapon": "Brevey",
+            },
+            "value": 0.25,
+          },
+          {
+            "cooldown": 0,
+            "damageCategory": "[TEMP_UNKNOWN]",
+            "description": "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's frost damage by 10%.",
+            "displayName": "Brevey - Pact Amplification Frost Buff",
+            "duration": {
+              "followActiveWeapon": true,
+            },
+            "elementalTypes": [
+              "Frost",
+            ],
+            "id": "brevey-damage-buff-pact-amplification-frost",
+            "maxStacks": 1,
+            "requirements": {
+              "activeEffect": "brevey-effect-pact-amplification",
+            },
+            "triggeredBy": {
+              "notActiveWeapon": "Brevey",
+            },
+            "value": 0.25,
+          },
+        ],
         "damageElement": "Volt",
         "discharge": {
           "attackFlat": 0,
@@ -323,6 +489,23 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             "elementalType": "Volt",
             "id": "brevey-dodge-placeholder",
             "type": "dodge",
+          },
+        ],
+        "effects": [
+          {
+            "cooldown": 30000,
+            "description": "",
+            "displayName": "Brevey - Pact Amplification",
+            "duration": {
+              "value": 30000,
+            },
+            "id": "brevey-effect-pact-amplification",
+            "maxStacks": 1,
+            "triggeredBy": {
+              "weaponAttacks": [
+                "brevey-skill-million-metz-shockwave",
+              ],
+            },
           },
         ],
         "id": "Brevey",
@@ -417,6 +600,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         ],
         "commonDamageBuffs": [],
         "critRateBuffs": [],
+        "damageBuffs": [],
         "damageElement": "Frost",
         "discharge": {
           "attackFlat": 0,
@@ -431,6 +615,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         },
         "displayName": "Yanuo",
         "dodgeAttacks": [],
+        "effects": [],
         "id": "Yanuo",
         "normalAttacks": [
           {
@@ -523,6 +708,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         ],
         "commonDamageBuffs": [],
         "critRateBuffs": [],
+        "damageBuffs": [],
         "damageElement": "Frost",
         "discharge": {
           "attackFlat": 0,
@@ -537,6 +723,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         },
         "displayName": "Yanuo",
         "dodgeAttacks": [],
+        "effects": [],
         "id": "Yanuo",
         "normalAttacks": [
           {
@@ -646,6 +833,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         "commonAttackBuffs": [],
         "commonDamageBuffs": [],
         "critRateBuffs": [],
+        "damageBuffs": [],
         "damageElement": "Altered",
         "discharge": {
           "attackFlat": 0,
@@ -661,6 +849,7 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
         },
         "displayName": "Nan Yin",
         "dodgeAttacks": [],
+        "effects": [],
         "id": "Nan Yin",
         "normalAttacks": [
           {
@@ -691,10 +880,11 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
 
 exports[`CombatSimulator relic damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
 Map {
-  "Alternative Destiny passive damage buff" => BuffTimeline {
+  "Alternative Destiny passive damage buff" => EffectTimeline {
     "_events": [
-      BuffEvent {
-        "buffDefinition": {
+      EffectEvent {
+        "duration": 150000,
+        "effectDefinition": {
           "cooldown": 0,
           "damageCategory": "Relic passive",
           "description": "Increase frost damage by 2%, even if not deployed.",
@@ -714,17 +904,17 @@ Map {
           },
           "value": 0.02,
         },
-        "duration": 150000,
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,
       },
     ],
   },
-  "Cybernetic arm passive damage buff" => BuffTimeline {
+  "Cybernetic arm passive damage buff" => EffectTimeline {
     "_events": [
-      BuffEvent {
-        "buffDefinition": {
+      EffectEvent {
+        "duration": 150000,
+        "effectDefinition": {
           "cooldown": 0,
           "damageCategory": "Relic passive",
           "description": "Increase frost damage by 1.5%, even if not deployed.",
@@ -744,17 +934,17 @@ Map {
           },
           "value": 0.015,
         },
-        "duration": 150000,
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,
       },
     ],
   },
-  "Thalassic Heart passive damage buff" => BuffTimeline {
+  "Thalassic Heart passive damage buff" => EffectTimeline {
     "_events": [
-      BuffEvent {
-        "buffDefinition": {
+      EffectEvent {
+        "duration": 150000,
+        "effectDefinition": {
           "cooldown": 0,
           "damageCategory": "Relic passive",
           "description": "Increase volt damage by 2%, even if not deployed.",
@@ -774,17 +964,17 @@ Map {
           },
           "value": 0.02,
         },
-        "duration": 150000,
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,
       },
     ],
   },
-  "Triple Mask damage buff" => BuffTimeline {
+  "Triple Mask damage buff" => EffectTimeline {
     "_events": [
-      BuffEvent {
-        "buffDefinition": {
+      EffectEvent {
+        "duration": 150000,
+        "effectDefinition": {
           "cooldown": 0,
           "damageCategory": "DMG buff category 1",
           "description": "While Triple Mask is deployed, elemental damage is increased by 6%.",
@@ -808,7 +998,6 @@ Map {
           },
           "value": 0.06,
         },
-        "duration": 150000,
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,

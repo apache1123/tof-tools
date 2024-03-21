@@ -1,11 +1,11 @@
-import type { BuffDefinition } from '../buffs/buff-definition';
+import type { EffectDefinition } from '../effect-definition';
 import { TimelineEvent } from './timeline-event';
 
-export class BuffEvent extends TimelineEvent {
+export class EffectEvent extends TimelineEvent {
   public constructor(
     public startTime: number,
     public duration: number,
-    public buffDefinition: BuffDefinition,
+    public effectDefinition: EffectDefinition,
     public maxStacks: number = 1,
     public stacks: number = 1
   ) {
@@ -13,6 +13,6 @@ export class BuffEvent extends TimelineEvent {
   }
 
   public get displayName(): string {
-    return this.buffDefinition.displayName;
+    return this.effectDefinition.displayName;
   }
 }

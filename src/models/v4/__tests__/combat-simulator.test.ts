@@ -286,6 +286,55 @@ describe('CombatSimulator', () => {
     });
   });
 
+  describe('weapon damage buff', () => {
+    it('is added based on an active effect, active/not-active weapon', () => {
+      // Test Brevey's volt buff and frost buff during her Pact Amplification
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      sut.performAttack({
+        weapon: weapon1,
+        attackDefinition: weapon1.definition.skills[0],
+      });
+      sut.performAttack({
+        weapon: weapon1,
+        attackDefinition: weapon1.definition.normalAttacks[0],
+      });
+      sut.performAttack({
+        weapon: weapon1,
+        attackDefinition: weapon1.definition.normalAttacks[0],
+      });
+      sut.performAttack({
+        weapon: weapon2,
+        attackDefinition: weapon2.definition.normalAttacks[0],
+      });
+
+      const voltBuffEvent = sut.weaponDamageBuffTimelines.get(
+        'brevey-damage-buff-pact-amplification-volt'
+      )?.lastEvent;
+      expect(voltBuffEvent).toBeDefined();
+      if (voltBuffEvent) {
+        expect(voltBuffEvent.startTime).toBe(
+          sut.attackTimelines.get(weapon1)?.events[1].startTime
+        );
+        expect(voltBuffEvent.endTime).toBe(
+          sut.attackTimelines.get(weapon1)?.events[2].endTime
+        );
+      }
+
+      const frostBuffEvent = sut.weaponDamageBuffTimelines.get(
+        'brevey-damage-buff-pact-amplification-frost'
+      )?.lastEvent;
+      expect(frostBuffEvent).toBeDefined();
+      if (frostBuffEvent) {
+        expect(frostBuffEvent.startTime).toBe(
+          sut.attackTimelines.get(weapon2)?.lastEvent?.startTime
+        );
+        expect(frostBuffEvent.endTime).toBe(
+          sut.attackTimelines.get(weapon2)?.lastEvent?.endTime
+        );
+      }
+    });
+  });
+
   describe('relic damage buff', () => {
     it('is added at the start of combat and lasts for the entire combat duration', () => {
       relics.setRelicStars('Cybernetic Arm', 4); // Frost +1.5%
@@ -1055,6 +1104,27 @@ describe('CombatSimulator', () => {
       expect(sut.chargeTimeline.lastEvent?.time).toBe(
         sut.attackTimelines.get(weapon2)?.lastEvent?.startTime
       );
+    });
+  });
+
+  describe('weapon effect', () => {
+    it('is added with a duration, triggered by an attack', () => {
+      const sut = new CombatSimulator(combatDuration, loadout, relics);
+      sut.performAttack({
+        weapon: weapon1,
+        attackDefinition: weapon1.definition.skills[0],
+      });
+
+      const effectEvent = sut.weaponEffectsTimelines.get(
+        'brevey-effect-pact-amplification'
+      )?.lastEvent;
+      expect(effectEvent).toBeDefined();
+      if (effectEvent) {
+        expect(effectEvent.startTime).toBe(
+          sut.attackTimelines.get(weapon1)?.lastEvent?.startTime
+        );
+        expect(effectEvent.duration).toBe(30000);
+      }
     });
   });
 });

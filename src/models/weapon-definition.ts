@@ -10,6 +10,8 @@ import type {
   SkillAttackDefinition,
 } from './v4/attack-definition';
 import type { AttackBuffDefinition } from './v4/buffs/attack-buff-definition';
+import type { DamageBuffDefinition } from './v4/buffs/damage-buff-definition';
+import type { EffectDefinition } from './v4/effect-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -35,10 +37,13 @@ export interface WeaponDefinition {
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
 
+  effects: EffectDefinition[];
+
   commonAttackBuffs: CommonWeaponAttackBuffId[];
   commonDamageBuffs: CommonWeaponDamageBuffId[];
 
   attackBuffs: AttackBuffDefinition[];
+  damageBuffs: DamageBuffDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {
