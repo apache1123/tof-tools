@@ -88,7 +88,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     Alyss: {
       id: 'Alyss',
       displayName: 'Alyss',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -120,13 +121,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Annabella: {
       id: 'Annabella',
       displayName: 'Annabella',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -181,13 +185,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Asuka: {
       id: 'Asuka',
       displayName: 'Asuka',
-      elementalTypes: ['Physical', 'Flame'],
+      resonanceElements: ['Physical', 'Flame'],
+      damageElement: 'Physical',
       type: 'Defense',
       attackPercentBuffs: [
         {
@@ -232,13 +239,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Brevey: {
       id: 'Brevey',
       displayName: 'Brevey',
-      elementalTypes: ['Volt', 'Frost'],
+      resonanceElements: ['Volt', 'Frost'],
+      damageElement: 'Volt',
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -318,14 +328,72 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         cooldown: 0,
         charge: 0,
       },
+      effects: [
+        {
+          id: 'brevey-effect-pact-amplification',
+          displayName: 'Brevey - Pact Amplification',
+          description: '',
+          maxStacks: 1,
+          triggeredBy: {
+            weaponAttacks: ['brevey-skill-million-metz-shockwave'],
+          },
+          duration: {
+            value: 30000,
+          },
+          cooldown: 30000,
+        },
+      ],
       commonAttackBuffs: ['volt-resonance', 'frost-resonance'],
       commonDamageBuffs: ['force-impact'],
       attackBuffs: [],
+      damageBuffs: [
+        {
+          id: 'brevey-damage-buff-pact-amplification-volt',
+          displayName: 'Brevey - Pact Amplification Volt Buff',
+          description:
+            "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's volt damage by 25%.",
+          value: 0.25,
+          elementalTypes: ['Volt'],
+          damageCategory: '[TEMP_UNKNOWN]',
+          maxStacks: 1,
+          triggeredBy: {
+            activeWeapon: 'Brevey',
+          },
+          duration: {
+            followActiveWeapon: true,
+          },
+          cooldown: 0,
+          requirements: {
+            activeEffect: 'brevey-effect-pact-amplification',
+          },
+        },
+        {
+          id: 'brevey-damage-buff-pact-amplification-frost',
+          displayName: 'Brevey - Pact Amplification Frost Buff',
+          description:
+            "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's frost damage by 10%.",
+          value: 0.25,
+          elementalTypes: ['Frost'],
+          damageCategory: '[TEMP_UNKNOWN]',
+          maxStacks: 1,
+          triggeredBy: {
+            notActiveWeapon: 'Brevey',
+          },
+          duration: {
+            followActiveWeapon: true,
+          },
+          cooldown: 0,
+          requirements: {
+            activeEffect: 'brevey-effect-pact-amplification',
+          },
+        },
+      ],
     },
     Claudia: {
       id: 'Claudia',
       displayName: 'Claudia',
-      elementalTypes: ['Physical'],
+      resonanceElements: ['Physical'],
+      damageElement: 'Physical',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -358,13 +426,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Cobalt-B': {
       id: 'Cobalt-B',
       displayName: 'Cobalt-B',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -396,13 +467,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Cocoritter: {
       id: 'Cocoritter',
       displayName: 'Cocoritter',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -447,13 +521,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Crow: {
       id: 'Crow',
       displayName: 'Crow',
-      elementalTypes: ['Volt'],
+      resonanceElements: ['Volt'],
+      damageElement: 'Volt',
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -472,13 +549,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Fei Se': {
       id: 'Fei Se',
       displayName: 'Fei Se',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -522,13 +602,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Fenrir: {
       id: 'Fenrir',
       displayName: 'Fenrir',
-      elementalTypes: ['Volt'],
+      resonanceElements: ['Volt'],
+      damageElement: 'Volt',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -584,13 +667,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Fiona: {
       id: 'Fiona',
       displayName: 'Fiona',
-      elementalTypes: ['Altered'],
+      resonanceElements: ['Altered'],
+      damageElement: 'Altered',
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -634,13 +720,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Frigg: {
       id: 'Frigg',
       displayName: 'Frigg',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -694,13 +783,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Gnonno: {
       id: 'Gnonno',
       displayName: 'Gnonno',
-      elementalTypes: ['Physical'],
+      resonanceElements: ['Physical'],
+      damageElement: 'Physical',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -733,13 +825,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Huang (Mimi)': {
       id: 'Huang (Mimi)',
       displayName: 'Huang (Mimi)',
-      elementalTypes: ['Volt'],
+      resonanceElements: ['Volt'],
+      damageElement: 'Volt',
       type: 'Defense',
       attackPercentBuffs: [
         {
@@ -784,13 +879,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: ['volt-resonance'],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Huma: {
       id: 'Huma',
       displayName: 'Huma',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'Defense',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -809,13 +907,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Icarus: {
       id: 'Icarus',
       displayName: 'Icarus',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -847,13 +948,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     King: {
       id: 'King',
       displayName: 'King',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -872,13 +976,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Lan: {
       id: 'Lan',
       displayName: 'Lan',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'Defense',
       attackPercentBuffs: [
         {
@@ -910,13 +1017,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Lin: {
       id: 'Lin',
       displayName: 'Lin',
-      elementalTypes: ['Altered'],
+      resonanceElements: ['Altered'],
+      damageElement: 'Altered',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -983,13 +1093,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Ling Han': {
       id: 'Ling Han',
       displayName: 'Ling Han',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1032,13 +1145,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Liu Huo': {
       id: 'Liu Huo',
       displayName: 'Liu Huo',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1070,13 +1186,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Lyra: {
       id: 'Lyra',
       displayName: 'Lyra',
-      elementalTypes: ['Physical'],
+      resonanceElements: ['Physical'],
+      damageElement: 'Physical',
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -1122,13 +1241,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Meryl: {
       id: 'Meryl',
       displayName: 'Meryl',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'Defense',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -1147,13 +1269,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Ming Jing': {
       id: 'Ming Jing',
       displayName: 'Ming Jing (Zeke)',
-      elementalTypes: ['Physical', 'Flame'],
+      resonanceElements: ['Physical', 'Flame'],
+      damageElement: 'Physical',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1210,13 +1335,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Nan Yin': {
       id: 'Nan Yin',
       displayName: 'Nan Yin',
-      elementalTypes: ['Altered'],
+      resonanceElements: ['Altered'],
+      damageElement: 'Altered',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1243,7 +1371,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         {
           id: 'nanyin-normal-auto-chain',
           displayName: 'Nan Yin - Auto chain',
-          elementalType: 'LastWeapon',
+          elementalType: 'Altered',
+          followLastWeaponElementalType: true,
           type: 'normal',
           attackMultiplier: 11.98,
           attackFlat: 63,
@@ -1258,7 +1387,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       discharge: {
         id: 'nanyin-discharge',
         displayName: 'Nan Yin - discharge',
-        elementalType: 'LastWeapon',
+        elementalType: 'Altered',
+        followLastWeaponElementalType: true,
         type: 'discharge',
         attackMultiplier: 0,
         attackFlat: 0,
@@ -1266,6 +1396,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         cooldown: 30000,
         charge: 0,
       },
+      effects: [],
       commonAttackBuffs: [],
       commonDamageBuffs: [],
       attackBuffs: [
@@ -1291,11 +1422,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
         },
       ],
+      damageBuffs: [],
     },
     Nemesis: {
       id: 'Nemesis',
       displayName: 'Nemesis',
-      elementalTypes: ['Volt'],
+      resonanceElements: ['Volt'],
+      damageElement: 'Volt',
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -1362,13 +1495,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Plotti: {
       id: 'Plotti',
       displayName: 'Plotti',
-      elementalTypes: ['Flame', 'Physical'],
+      resonanceElements: ['Flame', 'Physical'],
+      damageElement: 'Flame',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1413,13 +1549,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Rubilia: {
       id: 'Rubilia',
       displayName: 'Rubilia',
-      elementalTypes: ['Volt'],
+      resonanceElements: ['Volt'],
+      damageElement: 'Volt',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1451,13 +1590,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Ruby: {
       id: 'Ruby',
       displayName: 'Ruby',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1512,13 +1654,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Saki Fuwa': {
       id: 'Saki Fuwa',
       displayName: 'Saki Fuwa',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1550,13 +1695,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Samir: {
       id: 'Samir',
       displayName: 'Samir',
-      elementalTypes: ['Volt'],
+      resonanceElements: ['Volt'],
+      damageElement: 'Volt',
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -1575,13 +1723,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Shiro: {
       id: 'Shiro',
       displayName: 'Shiro',
-      elementalTypes: ['Physical'],
+      resonanceElements: ['Physical'],
+      damageElement: 'Physical',
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -1600,13 +1751,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Tian Lang': {
       id: 'Tian Lang',
       displayName: 'Tian Lang',
-      elementalTypes: ['Volt'],
+      resonanceElements: ['Volt'],
+      damageElement: 'Volt',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1651,13 +1805,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Tsubasa: {
       id: 'Tsubasa',
       displayName: 'Tsubasa',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
@@ -1676,13 +1833,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Umi: {
       id: 'Umi',
       displayName: 'Umi',
-      elementalTypes: ['Physical'],
+      resonanceElements: ['Physical'],
+      damageElement: 'Physical',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1727,13 +1887,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Yan Miao': {
       id: 'Yan Miao',
       displayName: 'Yan Miao',
-      elementalTypes: ['Physical', 'Flame'],
+      resonanceElements: ['Physical', 'Flame'],
+      damageElement: 'Physical',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1790,13 +1953,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Yanuo: {
       id: 'Yanuo',
       displayName: 'Yanuo',
-      elementalTypes: ['Frost', 'Volt'],
+      resonanceElements: ['Frost', 'Volt'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1864,14 +2030,17 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         cooldown: 30000,
         charge: 0,
       },
+      effects: [],
       commonAttackBuffs: ['frost-resonance', 'volt-resonance'],
       commonDamageBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     'Yu Lan': {
       id: 'Yu Lan',
       displayName: 'Yu Lan',
-      elementalTypes: ['Frost'],
+      resonanceElements: ['Frost'],
+      damageElement: 'Frost',
       type: 'DPS',
       attackPercentBuffs: [
         {
@@ -1903,13 +2072,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
     Zero: {
       id: 'Zero',
       displayName: 'Zero',
-      elementalTypes: ['Flame'],
+      resonanceElements: ['Flame'],
+      damageElement: 'Flame',
       type: 'Support',
       attackPercentBuffs: [
         {
@@ -1954,8 +2126,10 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         charge: 0,
       },
       commonDamageBuffs: [],
+      effects: [],
       commonAttackBuffs: [],
       attackBuffs: [],
+      damageBuffs: [],
     },
   },
 };

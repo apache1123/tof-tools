@@ -5,7 +5,7 @@ import type {
 } from '../../../constants/weapon-definitions';
 import type { WeaponResonance } from '../../../constants/weapon-resonance';
 
-export interface BuffDefinition {
+export interface EffectDefinition {
   id: string;
   displayName: string;
   description: string;
@@ -21,24 +21,27 @@ export interface BuffDefinition {
     skillOfElementalType?: WeaponElementalType;
     dischargeOfElementalType?: WeaponElementalType;
     fullChargeOfWeapons?: WeaponName[];
+    /** e.g. If [weapon] is in off-hand slot, ... */
+    notActiveWeapon?: WeaponName;
     activeWeapon?: WeaponName;
     weaponAttacks?: string[];
   };
 
   duration: {
     value?: number;
-    /** Buff ends when active weapon changes */
+    /** Effect ends when active weapon changes */
     followActiveWeapon?: boolean;
-    /** Number between 0 to 1. e.g. 0.7 = buff only applies to 0.7 of the combat duration at the end. The starting 30% has no buffs. Useful for buffs like "increase damage dealt to targets with less than x% HP" */
+    /** Number between 0 to 1. e.g. 0.7 = effect only applies to 0.7 of the combat duration at the end. The starting 30% has no effect. Useful for effects like "increase damage dealt to targets with less than x% HP" */
     applyToEndSegmentOfCombat?: number;
-    /** Buff lasts until combat ends */
+    /** Effect lasts until combat ends */
     untilCombatEnd?: boolean;
   };
-  /** Buff goes into cooldown when triggered and cannot be triggered again until cooldown ends */
+  /** Effect goes into cooldown when triggered and cannot be triggered again until cooldown ends */
   cooldown: number;
 
   // Order requirements from most specific to least specific. Check in this order for efficiency
   requirements?: {
+    activeEffect?: string;
     weaponInTeam?: WeaponName;
     weaponResonance?: WeaponResonance;
     elementalTypeWeaponsInTeam?: {

@@ -1026,7 +1026,6 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           duration: {
             value: 8000,
           },
-          // TODO: implement cooldown logic on buffs
           cooldown: 16000,
         },
         {
@@ -1044,7 +1043,6 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           duration: {
             value: 8000,
           },
-          // TODO: implement cooldown logic on buffs
           cooldown: 16000,
         },
       ],

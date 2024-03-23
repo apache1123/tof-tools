@@ -26,14 +26,16 @@ export class Team implements Persistable<TeamDto> {
   }
   /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
   public get weaponElementalTypes(): WeaponElementalType[] {
-    return this.weapons.flatMap((weapon) => weapon.definition.elementalTypes);
+    return this.weapons.flatMap(
+      (weapon) => weapon.definition.resonanceElements
+    );
   }
 
   // TODO: remove this when old buff definitions are replaced by v4 buff definitions
   /** This returns the presumed elemental resonance(s), depending on the number of weapons of each element. However, whether or not to activate elemental resonance buff(s) will depend on if the weapons themselves have the buff(s) available. */
   public get elementalResonances(): ElementalResonance[] {
     const elementalTypes = this.weapons.flatMap(
-      (weapon) => weapon.definition.elementalTypes
+      (weapon) => weapon.definition.resonanceElements
     );
 
     const elementalTypeGroups = groupBy(elementalTypes);

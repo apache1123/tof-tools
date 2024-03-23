@@ -1,7 +1,7 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type { BuffDefinition } from './buff-definition';
+import type { EffectDefinition } from '../effects/effect-definition';
 
-export interface DamageBuffDefinition extends BuffDefinition {
+export interface DamageBuffDefinition extends EffectDefinition {
   value: number;
   /** The elemental types the damage buff applies to */
   elementalTypes: WeaponElementalType[];

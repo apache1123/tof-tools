@@ -8,8 +8,10 @@ import type {
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
-} from './v4/attack-definition';
+} from './v4/attacks/attack-definition';
 import type { AttackBuffDefinition } from './v4/buffs/attack-buff-definition';
+import type { DamageBuffDefinition } from './v4/buffs/damage-buff-definition';
+import type { EffectDefinition } from './v4/effects/effect-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -21,7 +23,9 @@ export interface WeaponDefinition {
   /** The elemental type the weapon is considered to be for the purposes of elemental resonance, matrix effects etc. (not the damage dealing elemental type)
    * E.g. For Yan Miao, her weapon is considered to be both Physical and Flame to trigger Physical resonance and Flame resonance, but deals (mainly) physical damage.
    */
-  elementalTypes: WeaponElementalType[];
+  resonanceElements: WeaponElementalType[];
+  /** The element the weapon deals damage in when it is on field */
+  damageElement: WeaponElementalType;
   type: WeaponType;
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
   critRateBuffs: WeaponCritRateBuffDefinition[];
@@ -33,10 +37,13 @@ export interface WeaponDefinition {
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
 
+  effects: EffectDefinition[];
+
   commonAttackBuffs: CommonWeaponAttackBuffId[];
   commonDamageBuffs: CommonWeaponDamageBuffId[];
 
   attackBuffs: AttackBuffDefinition[];
+  damageBuffs: DamageBuffDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

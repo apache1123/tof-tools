@@ -1,12 +1,14 @@
-import type { AttackType } from '../../constants/attack-type';
-import type { AttackDefinitionElementalType } from '../../constants/elemental-type';
+import type { AttackType } from '../../../constants/attack-type';
+import type { WeaponElementalType } from '../../../constants/elemental-type';
 
 export interface AttackDefinition {
   id: string;
   displayName: string;
   description?: string;
 
-  elementalType: AttackDefinitionElementalType;
+  elementalType: WeaponElementalType;
+  followLastWeaponElementalType?: boolean;
+
   type: AttackType;
 
   /** the "x%" part of "dealing damage equal to x% of ATK plus y to target" / `base damage = ATK * x% + y` */
