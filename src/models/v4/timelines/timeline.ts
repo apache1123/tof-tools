@@ -3,6 +3,11 @@ import type { TimelineEvent } from './timeline-event';
 export class Timeline<TEvent extends TimelineEvent> {
   protected readonly _events: TEvent[] = [];
 
+  public constructor(
+    public displayName: string,
+    public readonly totalDuration: number
+  ) {}
+
   public get events(): ReadonlyArray<TEvent> {
     return this._events;
   }
@@ -12,6 +17,17 @@ export class Timeline<TEvent extends TimelineEvent> {
   }
 
   public addEvent(event: TEvent) {
+    if (event.startTime >= this.totalDuration) {
+      throw new Error(
+        "Cannot add event that starts after the timeline's duration"
+      );
+    }
+
+    // Cut off event if it goes past the timeline duration
+    if (event.endTime > this.totalDuration) {
+      event.endTime = this.totalDuration;
+    }
+
     this._events.push(event);
   }
 

@@ -7,7 +7,7 @@ import { GearSet } from '../../gear-set';
 import { Loadout } from '../../loadout';
 import { Team } from '../../team';
 import { Weapon } from '../../weapon';
-import type { AttackDefinition } from '../attack-definition';
+import type { AttackDefinition } from '../attacks/attack-definition';
 import { CombatSimulator } from '../combat-simulator';
 import { Relics } from '../relics';
 
@@ -67,19 +67,6 @@ describe('CombatSimulator', () => {
 
     it('does not include attacks if they are on cooldown', () => {
       const sut = new CombatSimulator(combatDuration, loadout, relics);
-      // sut.performAttack({
-      //   weapon: weapon1,
-      //   attackDefinition: weapon1.definition.skills[0],
-      // });
-
-      // expect(
-      //   sut.availableAttacks
-      //     .get(weapon1)
-      //     ?.some(
-      //       (attackDefinition) =>
-      //         attackDefinition.id === weapon1.definition.skills[0].id
-      //     )
-      // ).toBe(false);
 
       const attack = {
         weapon: weapon1,
@@ -93,9 +80,6 @@ describe('CombatSimulator', () => {
     it('does not include discharges if there is no full charge available', () => {
       const sut = new CombatSimulator(combatDuration, loadout, relics);
       expect(
-        // Array.from(sut.availableAttacks.values())
-        //   .flat()
-        //   .some((attackDefinition) => attackDefinition.type === 'discharge')
         sut.availableAttacks.some(
           (attack) => attack.attackDefinition.type === 'discharge'
         )
@@ -106,9 +90,6 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon1.definition.normalAttacks[0],
       });
       expect(
-        // Array.from(sut.availableAttacks.values())
-        //   .flat()
-        //   .some((attackDefinition) => attackDefinition.type === 'discharge')
         sut.availableAttacks.some(
           (attack) => attack.attackDefinition.type === 'discharge'
         )
@@ -125,9 +106,6 @@ describe('CombatSimulator', () => {
         });
       }, 20);
 
-      // const dischargeAttacks = Array.from(sut.availableAttacks.values())
-      //   .flat()
-      //   .filter((attackDefinition) => attackDefinition.type === 'discharge');
       const dischargeAttacks = sut.availableAttacks.filter(
         (attack) => attack.attackDefinition.type === 'discharge'
       );
@@ -185,7 +163,7 @@ describe('CombatSimulator', () => {
       });
 
       expect(
-        sut.weaponDamageBuffTimelines.get('force-impact')?.events[0]
+        sut.effectPool.getEffectTimeline('force-impact')?.events[0]
       ).toBeDefined();
     });
   });
@@ -199,11 +177,11 @@ describe('CombatSimulator', () => {
       });
 
       const voltResonanceBuffEvent =
-        sut.weaponAttackBuffTimelines.get('volt-resonance')?.events[0];
+        sut.effectPool.getEffectTimeline('volt-resonance')?.events[0];
       expect(voltResonanceBuffEvent).toBeDefined();
 
       const frostResonanceBuffEvent =
-        sut.weaponAttackBuffTimelines.get('frost-resonance')?.events[0];
+        sut.effectPool.getEffectTimeline('frost-resonance')?.events[0];
       expect(frostResonanceBuffEvent).toBeDefined();
       if (frostResonanceBuffEvent) {
         expect(frostResonanceBuffEvent.startTime).toBe(0);
@@ -222,14 +200,14 @@ describe('CombatSimulator', () => {
       });
 
       const voltResonanceBuffEvent =
-        sut.weaponAttackBuffTimelines.get('volt-resonance')?.events[0];
+        sut.effectPool.getEffectTimeline('volt-resonance')?.events[0];
       expect(voltResonanceBuffEvent).toBeDefined();
       if (voltResonanceBuffEvent) {
         expect(voltResonanceBuffEvent.stacks).toBe(1);
       }
 
       const frostResonanceBuffEvent =
-        sut.weaponAttackBuffTimelines.get('frost-resonance')?.events[0];
+        sut.effectPool.getEffectTimeline('frost-resonance')?.events[0];
       expect(frostResonanceBuffEvent).toBeUndefined();
     });
   });
@@ -245,7 +223,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon3.definition.normalAttacks[0],
       });
 
-      const timeline = sut.weaponAttackBuffTimelines.get(
+      const timeline = sut.effectPool.getEffectTimeline(
         weaponDefinitions.byId['Nan Yin'].attackBuffs[0].id
       );
       expect(timeline).toBeDefined();
@@ -265,7 +243,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon3.definition.normalAttacks[0],
       });
       expect(
-        sut.weaponAttackBuffTimelines.has(
+        sut.effectPool.hasEffect(
           weaponDefinitions.byId['Nan Yin'].attackBuffs[0].id
         )
       ).toBe(false);
@@ -279,7 +257,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon3.definition.normalAttacks[0],
       });
       expect(
-        sut2.weaponAttackBuffTimelines.has(
+        sut2.effectPool.hasEffect(
           weaponDefinitions.byId['Nan Yin'].attackBuffs[0].id
         )
       ).toBe(true);
@@ -307,7 +285,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon2.definition.normalAttacks[0],
       });
 
-      const voltBuffEvent = sut.weaponDamageBuffTimelines.get(
+      const voltBuffEvent = sut.effectPool.getEffectTimeline(
         'brevey-damage-buff-pact-amplification-volt'
       )?.lastEvent;
       expect(voltBuffEvent).toBeDefined();
@@ -320,7 +298,7 @@ describe('CombatSimulator', () => {
         );
       }
 
-      const frostBuffEvent = sut.weaponDamageBuffTimelines.get(
+      const frostBuffEvent = sut.effectPool.getEffectTimeline(
         'brevey-damage-buff-pact-amplification-frost'
       )?.lastEvent;
       expect(frostBuffEvent).toBeDefined();
@@ -349,7 +327,9 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon1.definition.normalAttacks[0],
       });
 
-      expect(sut.relicDamageBuffTimelines).toMatchSnapshot();
+      expect(
+        sut.effectPool.getEffectGroup('Relic passive buffs')?.effectTimelines
+      ).toMatchSnapshot();
     });
   });
 
@@ -366,7 +346,7 @@ describe('CombatSimulator', () => {
         });
 
         const damageBuffEvent =
-          sut.traitDamageBuffTimelines.get('brevey-trait')?.events[0];
+          sut.effectPool.getEffectTimeline('brevey-trait')?.events[0];
         if (damageBuffEvent) {
           expect(damageBuffEvent.startTime).toBe(0);
           expect(damageBuffEvent.duration).toBe(combatDuration);
@@ -384,7 +364,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        const damageBuffEvent = sut.traitDamageBuffTimelines.get(
+        const damageBuffEvent = sut.effectPool.getEffectTimeline(
           'brevey-trait-additional'
         )?.events[0];
         expect(damageBuffEvent).toBeDefined();
@@ -403,9 +383,9 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon2.definition.normalAttacks[0],
         });
 
-        expect(
-          sut2.traitDamageBuffTimelines.has('brevey-trait-additional')
-        ).toBe(false);
+        expect(sut2.effectPool.hasEffect('brevey-trait-additional')).toBe(
+          false
+        );
       });
 
       it('is added, based on the number of weapons of different elements', () => {
@@ -430,12 +410,12 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        expect(
-          sut.traitDamageBuffTimelines.has(fenrir2ElementalTypesBuff.id)
-        ).toBe(false);
-        expect(
-          sut.traitDamageBuffTimelines.has(fenrir3ElementalTypesBuff.id)
-        ).toBe(true);
+        expect(sut.effectPool.hasEffect(fenrir2ElementalTypesBuff.id)).toBe(
+          false
+        );
+        expect(sut.effectPool.hasEffect(fenrir3ElementalTypesBuff.id)).toBe(
+          true
+        );
 
         // 2 elemental types
         team.weapon3 = new Weapon(weaponDefinitions.byId['Huang (Mimi)']);
@@ -445,12 +425,12 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        expect(
-          sut2.traitDamageBuffTimelines.has(fenrir2ElementalTypesBuff.id)
-        ).toBe(true);
-        expect(
-          sut2.traitDamageBuffTimelines.has(fenrir3ElementalTypesBuff.id)
-        ).toBe(false);
+        expect(sut2.effectPool.hasEffect(fenrir2ElementalTypesBuff.id)).toBe(
+          true
+        );
+        expect(sut2.effectPool.hasEffect(fenrir3ElementalTypesBuff.id)).toBe(
+          false
+        );
       });
 
       it('is added, based on the number of weapons of an element', () => {
@@ -470,9 +450,7 @@ describe('CombatSimulator', () => {
           weapon: weapon1,
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
-        expect(sut.traitDamageBuffTimelines.has(mimiTripleVoltBuff.id)).toBe(
-          false
-        );
+        expect(sut.effectPool.hasEffect(mimiTripleVoltBuff.id)).toBe(false);
 
         // Positive case
         team.weapon3 = new Weapon(weaponDefinitions.byId['Huang (Mimi)']);
@@ -481,9 +459,7 @@ describe('CombatSimulator', () => {
           weapon: weapon1,
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
-        expect(sut2.traitDamageBuffTimelines.has(mimiTripleVoltBuff.id)).toBe(
-          true
-        );
+        expect(sut2.effectPool.hasEffect(mimiTripleVoltBuff.id)).toBe(true);
       });
 
       it('is added, based on the team weapon resonance', () => {
@@ -496,7 +472,7 @@ describe('CombatSimulator', () => {
           weapon: weapon1,
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
-        expect(sut.traitDamageBuffTimelines.has('lan-trait')).toBe(false);
+        expect(sut.effectPool.hasEffect('lan-trait')).toBe(false);
 
         // Positive case
         team.weapon2 = new Weapon(weaponDefinitions.byId['Huang (Mimi)']);
@@ -506,7 +482,7 @@ describe('CombatSimulator', () => {
           weapon: weapon1,
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
-        expect(sut2.traitDamageBuffTimelines.has('lan-trait')).toBe(true);
+        expect(sut2.effectPool.hasEffect('lan-trait')).toBe(true);
       });
 
       it('is added only for a later segment of the combat duration', () => {
@@ -520,7 +496,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        const buffEvent = sut.traitDamageBuffTimelines.get(
+        const buffEvent = sut.effectPool.getEffectTimeline(
           'yanmiao-trait-weapon-buff'
         )?.events[0];
         expect(buffEvent).toBeDefined();
@@ -544,7 +520,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.skills[0],
         });
 
-        const damageBuffEvent = sut.traitDamageBuffTimelines.get(
+        const damageBuffEvent = sut.effectPool.getEffectTimeline(
           alyssTrait.damageBuffs[0].id
         )?.events[0];
         if (damageBuffEvent) {
@@ -567,7 +543,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        const damageBuffEvent = sut.traitDamageBuffTimelines.get(
+        const damageBuffEvent = sut.effectPool.getEffectTimeline(
           crowTrait.damageBuffs[1].id
         )?.events[0];
         expect(damageBuffEvent).toBeDefined();
@@ -591,7 +567,7 @@ describe('CombatSimulator', () => {
         });
         expect(
           feiseTrait.damageBuffs.some((buff) =>
-            sut.traitDamageBuffTimelines.has(buff.id)
+            sut.effectPool.hasEffect(buff.id)
           )
         ).toBe(false);
 
@@ -605,7 +581,7 @@ describe('CombatSimulator', () => {
         });
         expect(
           feiseTrait.damageBuffs.some((buff) =>
-            sut2.traitDamageBuffTimelines.has(buff.id)
+            sut2.effectPool.hasEffect(buff.id)
           )
         ).toBe(true);
       });
@@ -643,15 +619,9 @@ describe('CombatSimulator', () => {
           attackDefinition: feiseWeapon.definition.skills[0],
         });
 
-        expect(sut1.traitDamageBuffTimelines.has(feiseTrait1FlameBuff.id)).toBe(
-          true
-        );
-        expect(sut1.traitDamageBuffTimelines.has(feiseTrait2FlameBuff.id)).toBe(
-          false
-        );
-        expect(sut1.traitDamageBuffTimelines.has(feiseTrait3FlameBuff.id)).toBe(
-          false
-        );
+        expect(sut1.effectPool.hasEffect(feiseTrait1FlameBuff.id)).toBe(true);
+        expect(sut1.effectPool.hasEffect(feiseTrait2FlameBuff.id)).toBe(false);
+        expect(sut1.effectPool.hasEffect(feiseTrait3FlameBuff.id)).toBe(false);
 
         // 2 flame weapons
         team.weapon1 = feiseWeapon;
@@ -662,15 +632,9 @@ describe('CombatSimulator', () => {
           attackDefinition: feiseWeapon.definition.skills[0],
         });
 
-        expect(sut2.traitDamageBuffTimelines.has(feiseTrait1FlameBuff.id)).toBe(
-          false
-        );
-        expect(sut2.traitDamageBuffTimelines.has(feiseTrait2FlameBuff.id)).toBe(
-          true
-        );
-        expect(sut2.traitDamageBuffTimelines.has(feiseTrait3FlameBuff.id)).toBe(
-          false
-        );
+        expect(sut2.effectPool.hasEffect(feiseTrait1FlameBuff.id)).toBe(false);
+        expect(sut2.effectPool.hasEffect(feiseTrait2FlameBuff.id)).toBe(true);
+        expect(sut2.effectPool.hasEffect(feiseTrait3FlameBuff.id)).toBe(false);
 
         // 3 flame weapons
         team.weapon1 = feiseWeapon;
@@ -682,15 +646,9 @@ describe('CombatSimulator', () => {
           attackDefinition: feiseWeapon.definition.skills[0],
         });
 
-        expect(sut3.traitDamageBuffTimelines.has(feiseTrait1FlameBuff.id)).toBe(
-          false
-        );
-        expect(sut3.traitDamageBuffTimelines.has(feiseTrait2FlameBuff.id)).toBe(
-          false
-        );
-        expect(sut3.traitDamageBuffTimelines.has(feiseTrait3FlameBuff.id)).toBe(
-          true
-        );
+        expect(sut3.effectPool.hasEffect(feiseTrait1FlameBuff.id)).toBe(false);
+        expect(sut3.effectPool.hasEffect(feiseTrait2FlameBuff.id)).toBe(false);
+        expect(sut3.effectPool.hasEffect(feiseTrait3FlameBuff.id)).toBe(true);
       });
 
       it('is added, triggered by active weapon', () => {
@@ -713,20 +671,24 @@ describe('CombatSimulator', () => {
           'nanyin-trait-active-weapon-2-non-altered',
           'nanyin-trait-active-weapon-3-non-altered',
         ];
-        expect(
-          Array.from(sut.traitDamageBuffTimelines.keys()).some((buffId) =>
-            buffIdsToCheck.includes(buffId)
-          )
-        ).toBe(true);
+        const effectGroup = sut.effectPool.getEffectGroup('Trait damage buffs');
+        expect(effectGroup).toBeDefined();
+        if (effectGroup) {
+          expect(
+            Array.from(effectGroup.effectTimelines.keys()).some((buffId) =>
+              buffIdsToCheck.includes(buffId)
+            )
+          ).toBe(true);
 
-        for (const [buffId, timeline] of sut.traitDamageBuffTimelines) {
-          if (!buffIdsToCheck.includes(buffId)) continue;
+          for (const [buffId, timeline] of effectGroup.effectTimelines) {
+            if (!buffIdsToCheck.includes(buffId)) continue;
 
-          expect(timeline.events.length).toBe(1);
-          expect(timeline.lastEvent?.startTime).toBe(attackStartTime);
-          expect(timeline.lastEvent?.duration).toBe(
-            weapon3.definition.normalAttacks[0].duration
-          );
+            expect(timeline.events.length).toBe(1);
+            expect(timeline.lastEvent?.startTime).toBe(attackStartTime);
+            expect(timeline.lastEvent?.duration).toBe(
+              weapon3.definition.normalAttacks[0].duration
+            );
+          }
         }
       });
 
@@ -746,12 +708,8 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon3.definition.normalAttacks[0],
         });
 
-        expect(sut.traitDamageBuffTimelines.has(nanyin1NonAlteredBuffId)).toBe(
-          false
-        );
-        expect(sut.traitDamageBuffTimelines.has(nanyin2NanAlteredBuffId)).toBe(
-          true
-        );
+        expect(sut.effectPool.hasEffect(nanyin1NonAlteredBuffId)).toBe(false);
+        expect(sut.effectPool.hasEffect(nanyin2NanAlteredBuffId)).toBe(true);
 
         // 1 non-altered weapon
         team.weapon1 = new Weapon(weaponDefinitions.byId['Fiona']);
@@ -761,12 +719,8 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon3.definition.normalAttacks[0],
         });
 
-        expect(sut2.traitDamageBuffTimelines.has(nanyin1NonAlteredBuffId)).toBe(
-          true
-        );
-        expect(sut2.traitDamageBuffTimelines.has(nanyin2NanAlteredBuffId)).toBe(
-          false
-        );
+        expect(sut2.effectPool.hasEffect(nanyin1NonAlteredBuffId)).toBe(true);
+        expect(sut2.effectPool.hasEffect(nanyin2NanAlteredBuffId)).toBe(false);
       });
 
       it('is added, triggered by weapon skill of a specific element weapon', () => {
@@ -779,7 +733,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.skills[0],
         });
 
-        expect(sut.traitDamageBuffTimelines.has('tianlang-trait')).toBe(true);
+        expect(sut.effectPool.hasEffect('tianlang-trait')).toBe(true);
       });
 
       it('is added, triggered by weapon discharge of a specific element weapon', () => {
@@ -799,7 +753,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.discharge,
         });
 
-        expect(sut.traitDamageBuffTimelines.has('tianlang-trait')).toBe(true);
+        expect(sut.effectPool.hasEffect('tianlang-trait')).toBe(true);
       });
     });
 
@@ -814,7 +768,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        expect(sut.traitAttackBuffTimelines.has('frigg-trait')).toBe(true);
+        expect(sut.effectPool.hasEffect('frigg-trait')).toBe(true);
       });
 
       it('is added, triggered by weapon skill with a weapon type requirement', () => {
@@ -828,7 +782,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.skills[0],
         });
 
-        const attackBuffEvent = sut.traitAttackBuffTimelines.get(
+        const attackBuffEvent = sut.effectPool.getEffectTimeline(
           cocoTrait.attackBuffs[0].id
         )?.events[0];
         expect(attackBuffEvent).toBeDefined();
@@ -846,9 +800,9 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon2.definition.skills[0],
         });
 
-        expect(
-          sut2.traitAttackBuffTimelines.has(cocoTrait.attackBuffs[0].id)
-        ).toBe(false);
+        expect(sut2.effectPool.hasEffect(cocoTrait.attackBuffs[0].id)).toBe(
+          false
+        );
       });
 
       it('is added, triggered by weapon discharge with a weapon type requirement', () => {
@@ -869,7 +823,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.discharge,
         });
 
-        const attackBuffEvent = sut.traitAttackBuffTimelines.get(
+        const attackBuffEvent = sut.effectPool.getEffectTimeline(
           cocoTrait.attackBuffs[0].id
         )?.events[0];
         expect(attackBuffEvent).toBeDefined();
@@ -896,9 +850,9 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon2.definition.discharge,
         });
 
-        expect(
-          sut2.traitAttackBuffTimelines.has(cocoTrait.attackBuffs[0].id)
-        ).toBe(false);
+        expect(sut2.effectPool.hasEffect(cocoTrait.attackBuffs[0].id)).toBe(
+          false
+        );
       });
 
       it('is added, triggered by a specific weapon attack', () => {
@@ -914,9 +868,7 @@ describe('CombatSimulator', () => {
           attackDefinition: rubyWeapon.definition.dodgeAttacks[0],
         });
 
-        expect(sut.traitAttackBuffTimelines.has('ruby-trait-dolly-atk')).toBe(
-          true
-        );
+        expect(sut.effectPool.hasEffect('ruby-trait-dolly-atk')).toBe(true);
       });
 
       it('is added, triggered by any weapon skill', () => {
@@ -930,11 +882,15 @@ describe('CombatSimulator', () => {
         });
 
         const buffIdsToCheck = shiroTrait.attackBuffs.map((buff) => buff.id);
-        const addedBuffIds = Array.from(sut.traitAttackBuffTimelines.keys());
-        expect(addedBuffIds.length).not.toBe(0);
-        expect(
-          addedBuffIds.every((buffId) => buffIdsToCheck.includes(buffId))
-        ).toBe(true);
+        const effectGroup = sut.effectPool.getEffectGroup('Trait attack buffs');
+        expect(effectGroup).toBeDefined();
+        if (effectGroup) {
+          const addedBuffIds = Array.from(effectGroup.effectTimelines.keys());
+          expect(addedBuffIds.length).not.toBe(0);
+          expect(
+            addedBuffIds.every((buffId) => buffIdsToCheck.includes(buffId))
+          ).toBe(true);
+        }
       });
 
       it('is added, triggered by any weapon discharge', () => {
@@ -955,11 +911,15 @@ describe('CombatSimulator', () => {
         });
 
         const buffIdsToCheck = shiroTrait.attackBuffs.map((buff) => buff.id);
-        const addedBuffIds = Array.from(sut.traitAttackBuffTimelines.keys());
-        expect(addedBuffIds.length).not.toBe(0);
-        expect(
-          addedBuffIds.every((buffId) => buffIdsToCheck.includes(buffId))
-        ).toBe(true);
+        const effectGroup = sut.effectPool.getEffectGroup('Trait attack buffs');
+        expect(effectGroup).toBeDefined();
+        if (effectGroup) {
+          const addedBuffIds = Array.from(effectGroup.effectTimelines.keys());
+          expect(addedBuffIds.length).not.toBe(0);
+          expect(
+            addedBuffIds.every((buffId) => buffIdsToCheck.includes(buffId))
+          ).toBe(true);
+        }
       });
     });
 
@@ -974,7 +934,10 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        expect(sut.traitMiscBuffTimelines.size).toBe(1);
+        expect(
+          sut.effectPool.getEffectGroup('Trait miscellaneous buffs')
+            ?.effectTimelines.size
+        ).toBe(1);
       });
 
       it('is added, triggered by specific weapon normal attack', () => {
@@ -995,7 +958,7 @@ describe('CombatSimulator', () => {
           attackDefinition: mingJingWeapon.definition.normalAttacks[0],
         });
 
-        const buffTimeline = sut.traitMiscBuffTimelines.get(
+        const buffTimeline = sut.effectPool.getEffectTimeline(
           'mingjing-trait-normal-attack'
         );
         expect(buffTimeline).toBeDefined();
@@ -1040,15 +1003,9 @@ describe('CombatSimulator', () => {
           attackDefinition: yanmiaoWeapon.definition.normalAttacks[0],
         });
 
-        expect(sut.traitMiscBuffTimelines.has(yanmiaoTrait1PhysBuff.id)).toBe(
-          true
-        );
-        expect(sut.traitMiscBuffTimelines.has(yanmiaoTrait2PhysBuff.id)).toBe(
-          false
-        );
-        expect(sut.traitMiscBuffTimelines.has(yanmiaoTrait3PhysBuff.id)).toBe(
-          false
-        );
+        expect(sut.effectPool.hasEffect(yanmiaoTrait1PhysBuff.id)).toBe(true);
+        expect(sut.effectPool.hasEffect(yanmiaoTrait2PhysBuff.id)).toBe(false);
+        expect(sut.effectPool.hasEffect(yanmiaoTrait3PhysBuff.id)).toBe(false);
 
         // 2 Phys weapon
         team.weapon2 = new Weapon(weaponDefinitions.byId['Plotti']);
@@ -1058,15 +1015,9 @@ describe('CombatSimulator', () => {
           attackDefinition: yanmiaoWeapon.definition.normalAttacks[0],
         });
 
-        expect(sut2.traitMiscBuffTimelines.has(yanmiaoTrait1PhysBuff.id)).toBe(
-          false
-        );
-        expect(sut2.traitMiscBuffTimelines.has(yanmiaoTrait2PhysBuff.id)).toBe(
-          true
-        );
-        expect(sut2.traitMiscBuffTimelines.has(yanmiaoTrait3PhysBuff.id)).toBe(
-          false
-        );
+        expect(sut2.effectPool.hasEffect(yanmiaoTrait1PhysBuff.id)).toBe(false);
+        expect(sut2.effectPool.hasEffect(yanmiaoTrait2PhysBuff.id)).toBe(true);
+        expect(sut2.effectPool.hasEffect(yanmiaoTrait3PhysBuff.id)).toBe(false);
       });
     });
   });
@@ -1115,7 +1066,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon1.definition.skills[0],
       });
 
-      const effectEvent = sut.weaponEffectsTimelines.get(
+      const effectEvent = sut.effectPool.getEffectTimeline(
         'brevey-effect-pact-amplification'
       )?.lastEvent;
       expect(effectEvent).toBeDefined();

@@ -1,5 +1,5 @@
-import type { AttackType } from '../../constants/attack-type';
-import type { WeaponElementalType } from '../../constants/elemental-type';
+import type { AttackType } from '../../../constants/attack-type';
+import type { WeaponElementalType } from '../../../constants/elemental-type';
 
 export interface AttackDefinition {
   id: string;

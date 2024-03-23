@@ -1,4 +1,4 @@
-import type { CommonWeaponAttackBuffDefinition } from '../models/v4/common-weapon-attack-buff-definition';
+import type { CommonWeaponAttackBuffDefinition } from '../models/v4/buffs/common-weapon-attack-buff-definition';
 
 export type CommonWeaponAttackBuffId = 'volt-resonance' | 'frost-resonance';
 

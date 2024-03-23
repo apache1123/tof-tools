@@ -1,5 +1,5 @@
-import type { WeaponElementalType } from '../../constants/elemental-type';
-import type { Weapon } from '../weapon';
+import type { WeaponElementalType } from '../../../constants/elemental-type';
+import type { Weapon } from '../../weapon';
 import type { AttackDefinition } from './attack-definition';
 
 export interface Attack {

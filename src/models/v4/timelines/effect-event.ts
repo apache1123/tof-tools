@@ -1,4 +1,4 @@
-import type { EffectDefinition } from '../effect-definition';
+import type { EffectDefinition } from '../effects/effect-definition';
 import { TimelineEvent } from './timeline-event';
 
 export class EffectEvent extends TimelineEvent {

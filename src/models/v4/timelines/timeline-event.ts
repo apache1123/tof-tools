@@ -21,5 +21,3 @@ export class TimelineEvent {
     return '';
   }
 }
-
-// export type ReadonlyTimelineEvent<TData> = Readonly<TimelineEvent<TData>>;

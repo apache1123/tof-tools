@@ -883,6 +883,7 @@ Map {
   "Alternative Destiny passive damage buff" => EffectTimeline {
     "_events": [
       EffectEvent {
+        "cooldown": 0,
         "duration": 150000,
         "effectDefinition": {
           "cooldown": 0,
@@ -909,10 +910,13 @@ Map {
         "startTime": 0,
       },
     ],
+    "displayName": "Alternative Destiny passive damage buff",
+    "totalDuration": 150000,
   },
   "Cybernetic arm passive damage buff" => EffectTimeline {
     "_events": [
       EffectEvent {
+        "cooldown": 0,
         "duration": 150000,
         "effectDefinition": {
           "cooldown": 0,
@@ -939,10 +943,13 @@ Map {
         "startTime": 0,
       },
     ],
+    "displayName": "Cybernetic arm passive damage buff",
+    "totalDuration": 150000,
   },
   "Thalassic Heart passive damage buff" => EffectTimeline {
     "_events": [
       EffectEvent {
+        "cooldown": 0,
         "duration": 150000,
         "effectDefinition": {
           "cooldown": 0,
@@ -969,10 +976,13 @@ Map {
         "startTime": 0,
       },
     ],
+    "displayName": "Thalassic Heart passive damage buff",
+    "totalDuration": 150000,
   },
   "Triple Mask damage buff" => EffectTimeline {
     "_events": [
       EffectEvent {
+        "cooldown": 0,
         "duration": 150000,
         "effectDefinition": {
           "cooldown": 0,
@@ -1003,6 +1013,8 @@ Map {
         "startTime": 0,
       },
     ],
+    "displayName": "Triple Mask damage buff",
+    "totalDuration": 150000,
   },
 }
 `;
