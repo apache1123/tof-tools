@@ -342,6 +342,22 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           cooldown: 30000,
         },
+        {
+          id: 'brevey-effect-metz-energy-wave-charges',
+          displayName: 'Brevey - Metz Energy Wave charges',
+          description: '',
+          maxStacks: 3,
+          additionallyGainStacksBy: {
+            accumulatedDamageThreshold: {
+              timesOfAttack: 100,
+            },
+          },
+          triggeredBy: {
+            weaponAttacks: ['brevey-skill-million-metz-shockwave'],
+          },
+          duration: {},
+          cooldown: 10000,
+        },
       ],
       commonAttackBuffs: ['volt-resonance', 'frost-resonance'],
       commonDamageBuffs: ['force-impact'],

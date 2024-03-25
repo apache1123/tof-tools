@@ -3,10 +3,7 @@ import type { TimelineEvent } from './timeline-event';
 export class Timeline<TEvent extends TimelineEvent> {
   protected readonly _events: TEvent[] = [];
 
-  public constructor(
-    public displayName: string,
-    public readonly totalDuration: number
-  ) {}
+  public constructor(public readonly totalDuration: number) {}
 
   public get events(): ReadonlyArray<TEvent> {
     return this._events;

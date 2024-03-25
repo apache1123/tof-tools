@@ -145,6 +145,24 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
               ],
             },
           },
+          {
+            "additionallyGainStacksBy": {
+              "accumulatedDamageThreshold": {
+                "timesOfAttack": 100,
+              },
+            },
+            "cooldown": 10000,
+            "description": "",
+            "displayName": "Brevey - Metz Energy Wave charges",
+            "duration": {},
+            "id": "brevey-effect-metz-energy-wave-charges",
+            "maxStacks": 3,
+            "triggeredBy": {
+              "weaponAttacks": [
+                "brevey-skill-million-metz-shockwave",
+              ],
+            },
+          },
         ],
         "id": "Brevey",
         "normalAttacks": [
@@ -326,6 +344,24 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
               ],
             },
           },
+          {
+            "additionallyGainStacksBy": {
+              "accumulatedDamageThreshold": {
+                "timesOfAttack": 100,
+              },
+            },
+            "cooldown": 10000,
+            "description": "",
+            "displayName": "Brevey - Metz Energy Wave charges",
+            "duration": {},
+            "id": "brevey-effect-metz-energy-wave-charges",
+            "maxStacks": 3,
+            "triggeredBy": {
+              "weaponAttacks": [
+                "brevey-skill-million-metz-shockwave",
+              ],
+            },
+          },
         ],
         "id": "Brevey",
         "normalAttacks": [
@@ -501,6 +537,24 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
             },
             "id": "brevey-effect-pact-amplification",
             "maxStacks": 1,
+            "triggeredBy": {
+              "weaponAttacks": [
+                "brevey-skill-million-metz-shockwave",
+              ],
+            },
+          },
+          {
+            "additionallyGainStacksBy": {
+              "accumulatedDamageThreshold": {
+                "timesOfAttack": 100,
+              },
+            },
+            "cooldown": 10000,
+            "description": "",
+            "displayName": "Brevey - Metz Energy Wave charges",
+            "duration": {},
+            "id": "brevey-effect-metz-energy-wave-charges",
+            "maxStacks": 3,
             "triggeredBy": {
               "weaponAttacks": [
                 "brevey-skill-million-metz-shockwave",
@@ -879,142 +933,58 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
 `;
 
 exports[`CombatSimulator relic damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
-Map {
-  "Alternative Destiny passive damage buff" => EffectTimeline {
+[
+  EffectTimeline {
     "_events": [
       EffectEvent {
         "cooldown": 0,
+        "displayName": "Alternative Destiny passive damage buff",
         "duration": 150000,
-        "effectDefinition": {
-          "cooldown": 0,
-          "damageCategory": "Relic passive",
-          "description": "Increase frost damage by 2%, even if not deployed.",
-          "displayName": "Alternative Destiny passive damage buff",
-          "duration": {
-            "untilCombatEnd": true,
-          },
-          "elementalTypes": [
-            "Frost",
-          ],
-          "id": "Alternative Destiny passive damage buff",
-          "maxStacks": 1,
-          "maxStarRequirement": 5,
-          "minStarRequirement": 4,
-          "triggeredBy": {
-            "combatStart": true,
-          },
-          "value": 0.02,
-        },
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,
       },
     ],
-    "displayName": "Alternative Destiny passive damage buff",
     "totalDuration": 150000,
   },
-  "Cybernetic arm passive damage buff" => EffectTimeline {
+  EffectTimeline {
     "_events": [
       EffectEvent {
         "cooldown": 0,
+        "displayName": "Cybernetic arm passive damage buff",
         "duration": 150000,
-        "effectDefinition": {
-          "cooldown": 0,
-          "damageCategory": "Relic passive",
-          "description": "Increase frost damage by 1.5%, even if not deployed.",
-          "displayName": "Cybernetic arm passive damage buff",
-          "duration": {
-            "untilCombatEnd": true,
-          },
-          "elementalTypes": [
-            "Frost",
-          ],
-          "id": "Cybernetic arm passive damage buff",
-          "maxStacks": 1,
-          "maxStarRequirement": 5,
-          "minStarRequirement": 4,
-          "triggeredBy": {
-            "combatStart": true,
-          },
-          "value": 0.015,
-        },
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,
       },
     ],
-    "displayName": "Cybernetic arm passive damage buff",
     "totalDuration": 150000,
   },
-  "Thalassic Heart passive damage buff" => EffectTimeline {
+  EffectTimeline {
     "_events": [
       EffectEvent {
         "cooldown": 0,
+        "displayName": "Thalassic Heart passive damage buff",
         "duration": 150000,
-        "effectDefinition": {
-          "cooldown": 0,
-          "damageCategory": "Relic passive",
-          "description": "Increase volt damage by 2%, even if not deployed.",
-          "displayName": "Thalassic Heart passive damage buff",
-          "duration": {
-            "untilCombatEnd": true,
-          },
-          "elementalTypes": [
-            "Volt",
-          ],
-          "id": "Thalassic Heart passive damage buff",
-          "maxStacks": 1,
-          "maxStarRequirement": 5,
-          "minStarRequirement": 4,
-          "triggeredBy": {
-            "combatStart": true,
-          },
-          "value": 0.02,
-        },
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,
       },
     ],
-    "displayName": "Thalassic Heart passive damage buff",
     "totalDuration": 150000,
   },
-  "Triple Mask damage buff" => EffectTimeline {
+  EffectTimeline {
     "_events": [
       EffectEvent {
         "cooldown": 0,
+        "displayName": "Triple Mask damage buff",
         "duration": 150000,
-        "effectDefinition": {
-          "cooldown": 0,
-          "damageCategory": "DMG buff category 1",
-          "description": "While Triple Mask is deployed, elemental damage is increased by 6%.",
-          "displayName": "Triple Mask damage buff",
-          "duration": {
-            "untilCombatEnd": true,
-          },
-          "elementalTypes": [
-            "Altered",
-            "Flame",
-            "Frost",
-            "Physical",
-            "Volt",
-          ],
-          "id": "Triple Mask damage buff",
-          "maxStacks": 1,
-          "maxStarRequirement": 4,
-          "minStarRequirement": 2,
-          "triggeredBy": {
-            "combatStart": true,
-          },
-          "value": 0.06,
-        },
         "maxStacks": 1,
         "stacks": 1,
         "startTime": 0,
       },
     ],
-    "displayName": "Triple Mask damage buff",
     "totalDuration": 150000,
   },
-}
+]
 `;

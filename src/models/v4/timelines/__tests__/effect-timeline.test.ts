@@ -1,17 +1,14 @@
-import type { EffectDefinition } from '../../effects/effect-definition';
 import { EffectEvent } from '../effect-event';
 import { EffectTimeline } from '../effect-timeline';
 
 describe('Effect timeline', () => {
-  const timelineName = '';
   const timelineDuration = 100;
-  const mockEffectDefinition = {} as EffectDefinition;
 
   describe('adding an event that overlaps with an existing one', () => {
     it('splits the events into smaller events with the correct stacks', () => {
-      const sut = new EffectTimeline(timelineName, timelineDuration);
-      sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 2));
-      sut.addEvent(new EffectEvent(5, 10, mockEffectDefinition, 2));
+      const sut = new EffectTimeline(timelineDuration);
+      sut.addEvent(new EffectEvent(0, 10, 0, 2));
+      sut.addEvent(new EffectEvent(5, 10, 0, 2));
 
       expect(sut.events.length).toBe(3);
 
@@ -32,18 +29,18 @@ describe('Effect timeline', () => {
     });
 
     it('merges the two events by increasing the existing the duration of the existing event, if the resulting stacks of the two events are the same', () => {
-      const sut = new EffectTimeline(timelineName, timelineDuration);
-      sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 1));
-      sut.addEvent(new EffectEvent(5, 10, mockEffectDefinition, 1));
+      const sut = new EffectTimeline(timelineDuration);
+      sut.addEvent(new EffectEvent(0, 10, 0, 1));
+      sut.addEvent(new EffectEvent(5, 10, 0, 1));
 
       expect(sut.events.length).toBe(1);
       expect(sut.events[0].endTime).toBe(15);
     });
 
     it("doesn't add a new event if the two events are of the exact same time period and the stack count cannot be increased further", () => {
-      const sut = new EffectTimeline(timelineName, timelineDuration);
-      sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 1));
-      sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 1));
+      const sut = new EffectTimeline(timelineDuration);
+      sut.addEvent(new EffectEvent(0, 10, 0, 1));
+      sut.addEvent(new EffectEvent(0, 10, 0, 1));
 
       expect(sut.events.length).toBe(1);
       expect(sut.events[0].startTime).toBe(0);
@@ -52,9 +49,9 @@ describe('Effect timeline', () => {
     });
 
     it("doesn't add a new event if the two events are of the exact same time period, but increase the stack count of the existing event if it can be increased further", () => {
-      const sut = new EffectTimeline(timelineName, timelineDuration);
-      sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 3, 1));
-      sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 3, 2));
+      const sut = new EffectTimeline(timelineDuration);
+      sut.addEvent(new EffectEvent(0, 10, 0, 3, 1));
+      sut.addEvent(new EffectEvent(0, 10, 0, 3, 2));
 
       expect(sut.events.length).toBe(1);
       expect(sut.events[0].startTime).toBe(0);
@@ -64,8 +61,8 @@ describe('Effect timeline', () => {
   });
 
   it('adds a new event when there are no previous events', () => {
-    const sut = new EffectTimeline(timelineName, timelineDuration);
-    sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition));
+    const sut = new EffectTimeline(timelineDuration);
+    sut.addEvent(new EffectEvent(0, 10, 0));
 
     expect(sut.events.length).toBe(1);
     expect(sut.events[0].startTime).toBe(0);
@@ -73,9 +70,9 @@ describe('Effect timeline', () => {
   });
 
   it('adds a new event onto the previous event (merges them) when the new event starts when the previous event ends and the two have the same number of stacks', () => {
-    const sut = new EffectTimeline(timelineName, timelineDuration);
-    sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 2, 1));
-    sut.addEvent(new EffectEvent(10, 10, mockEffectDefinition, 2, 1));
+    const sut = new EffectTimeline(timelineDuration);
+    sut.addEvent(new EffectEvent(0, 10, 0, 2, 1));
+    sut.addEvent(new EffectEvent(10, 10, 0, 2, 1));
 
     expect(sut.events.length).toBe(1);
     expect(sut.events[0].startTime).toBe(0);
@@ -83,9 +80,9 @@ describe('Effect timeline', () => {
   });
 
   it('adds a new event when the new event starts when the previous event ends but the two do not have the same number of stacks', () => {
-    const sut = new EffectTimeline(timelineName, timelineDuration);
-    sut.addEvent(new EffectEvent(0, 10, mockEffectDefinition, 2, 1));
-    sut.addEvent(new EffectEvent(10, 10, mockEffectDefinition, 2, 2));
+    const sut = new EffectTimeline(timelineDuration);
+    sut.addEvent(new EffectEvent(0, 10, 0, 2, 1));
+    sut.addEvent(new EffectEvent(10, 10, 0, 2, 2));
 
     expect(sut.events.length).toBe(2);
     expect(sut.events[1].startTime).toBe(10);
@@ -93,21 +90,21 @@ describe('Effect timeline', () => {
   });
 
   it('does not add new event if the last event is still on cooldown', () => {
-    const sut = new EffectTimeline(timelineName, timelineDuration);
-    const eventWithCooldown = new EffectEvent(0, 10, mockEffectDefinition);
-    eventWithCooldown.cooldown = 5;
+    const sut = new EffectTimeline(timelineDuration);
+    const cooldown = 5;
+    const eventWithCooldown = new EffectEvent(0, 10, cooldown);
     sut.addEvent(eventWithCooldown);
 
     expect(sut.events.length).toBe(1);
     expect(sut.lastEvent?.startTime).toBe(0);
     expect(sut.lastEvent?.endTime).toBe(10);
 
-    sut.addEvent(new EffectEvent(3, 10, mockEffectDefinition));
+    sut.addEvent(new EffectEvent(3, 10, cooldown));
     expect(sut.events.length).toBe(1);
     expect(sut.lastEvent?.startTime).toBe(0);
     expect(sut.lastEvent?.endTime).toBe(10);
 
-    sut.addEvent(new EffectEvent(7, 10, mockEffectDefinition));
+    sut.addEvent(new EffectEvent(7, 10, cooldown));
     expect(sut.events.length).toBe(1);
     expect(sut.lastEvent?.startTime).toBe(0);
     expect(sut.lastEvent?.endTime).toBe(17);

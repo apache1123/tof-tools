@@ -1,7 +1,7 @@
 import type { SimulacrumName } from '../../constants/simulacrum-traits';
-import type { AttackBuffDefinition } from './buffs/attack-buff-definition';
-import type { DamageBuffDefinition } from './buffs/damage-buff-definition';
-import type { MiscellaneousBuffDefinition } from './buffs/miscellaneous-buff-definition';
+import type { AttackBuffDefinition } from './attack-buff/attack-buff-definition';
+import type { DamageBuffDefinition } from './damage-buff/damage-buff-definition';
+import type { MiscellaneousBuffDefinition } from './miscellaneous-buff/miscellaneous-buff-definition';
 
 export interface SimulacrumTrait {
   id: SimulacrumName;

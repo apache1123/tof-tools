@@ -7,6 +7,7 @@ export class EffectTimeline extends Timeline<EffectEvent> {
    *
    * If there is an overlapping existing event, increase its stack count by the number of stacks in the new event, up to the max stack count. If the resulting stack count of the existing event is the same as the new event, simply "merge" the two events by increasing the duration of the existing event. */
   public addEvent(event: EffectEvent) {
+    // TODO: this method is awkward, feels like it shouldn't belong here
     const { lastEvent } = this;
 
     // Last event still on cooldown
@@ -68,7 +69,7 @@ export class EffectTimeline extends Timeline<EffectEvent> {
       const newEvent = new EffectEvent(
         lastEvent.endTime,
         event.duration,
-        event.effectDefinition,
+        event.cooldown,
         event.maxStacks,
         event.stacks
       );
@@ -83,7 +84,7 @@ export class EffectTimeline extends Timeline<EffectEvent> {
     const newEventOfOverlappingPeriod = new EffectEvent(
       event.startTime,
       oldLastEventEndTime - event.startTime,
-      lastEvent.effectDefinition,
+      lastEvent.cooldown,
       lastEvent.maxStacks,
       newStacksOfOverlappingPeriod
     );
@@ -92,7 +93,7 @@ export class EffectTimeline extends Timeline<EffectEvent> {
     const newEvent = new EffectEvent(
       newEventOfOverlappingPeriod.endTime,
       event.endTime - newEventOfOverlappingPeriod.endTime,
-      event.effectDefinition,
+      event.cooldown,
       event.maxStacks,
       event.stacks
     );

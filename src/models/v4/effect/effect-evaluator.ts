@@ -1,21 +1,22 @@
+import BigNumber from 'bignumber.js';
 import groupBy from 'lodash.groupby';
 
 import type { Team } from '../../team';
 import type { AttackEvent } from '../timelines/attack-event';
-import type { EffectDefinition } from './effect-definition';
+import type { Effect } from './effect';
 import type { EffectPool } from './effect-pool';
 
 export class EffectEvaluator {
   public constructor(
+    private readonly effect: Effect,
+    private readonly attackEvent: AttackEvent,
     private readonly effectPool: EffectPool,
-    private readonly team: Team
+    private readonly team: Team,
+    private readonly combatDuration: number
   ) {}
 
-  public canEffectTrigger(
-    effectDefinition: EffectDefinition,
-    attackEvent: AttackEvent
-  ): boolean {
-    const { triggeredBy } = effectDefinition;
+  public canEffectTrigger(): boolean {
+    const { triggeredBy } = this.effect.effectDefinition;
 
     const {
       attackDefinition: { id: attackId, type: attackType },
@@ -26,11 +27,12 @@ export class EffectEvaluator {
           resonanceElements: weaponElementalTypes,
         },
       },
-    } = attackEvent;
+      startTime,
+    } = this.attackEvent;
 
     // Check triggers from least specific to most specific for efficiency
 
-    if (triggeredBy.combatStart && attackEvent.startTime === 0) return true;
+    if (triggeredBy.combatStart && startTime === 0) return true;
 
     if (triggeredBy.skillOfAnyWeapon && attackType === 'skill') return true;
 
@@ -82,11 +84,8 @@ export class EffectEvaluator {
     return false;
   }
 
-  public hasEffectMetRequirements(
-    effectDefinition: EffectDefinition,
-    attackEvent: AttackEvent
-  ): boolean {
-    const { requirements } = effectDefinition;
+  public hasEffectMetRequirements(): boolean {
+    const { requirements } = this.effect.effectDefinition;
     if (!requirements) return true;
 
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
@@ -94,14 +93,10 @@ export class EffectEvaluator {
 
     // Check requirements from most specific to least specific for efficiency
 
-    if (
-      requirements.activeEffect &&
-      !this.effectPool.isEffectActive(
-        requirements.activeEffect,
-        attackEvent.startTime
-      )
-    )
-      return false;
+    if (requirements.activeEffect) {
+      const effect = this.effectPool.getEffect(requirements.activeEffect);
+      return effect?.isActiveAt(this.attackEvent.startTime) ?? false;
+    }
 
     if (
       requirements.weaponInTeam &&
@@ -159,5 +154,47 @@ export class EffectEvaluator {
     }
 
     return true;
+  }
+
+  public determineEffectTimePeriod():
+    | { startTime: number; duration: number }
+    | undefined {
+    const {
+      duration: {
+        value,
+        followActiveWeapon,
+        applyToEndSegmentOfCombat,
+        untilCombatEnd,
+      },
+    } = this.effect.effectDefinition;
+    const { startTime, duration } = this.attackEvent;
+
+    if (value) {
+      return { startTime, duration: value };
+    }
+    if (followActiveWeapon) {
+      return {
+        startTime,
+        duration,
+      };
+    }
+    if (applyToEndSegmentOfCombat) {
+      const duration = BigNumber(this.combatDuration)
+        .times(applyToEndSegmentOfCombat)
+        .toNumber();
+      const startTime = BigNumber(this.combatDuration)
+        .minus(duration)
+        .toNumber();
+
+      return { startTime, duration };
+    }
+    if (untilCombatEnd) {
+      return {
+        startTime,
+        duration: BigNumber(this.combatDuration).minus(startTime).toNumber(),
+      };
+    }
+
+    return undefined;
   }
 }

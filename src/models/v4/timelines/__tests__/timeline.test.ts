@@ -3,7 +3,7 @@ import { TimelineEvent } from '../timeline-event';
 
 describe('Timeline', () => {
   it('returns correct events overlapping with the specified start and end time', () => {
-    const sut = new Timeline('', 100);
+    const sut = new Timeline(100);
 
     // Test against the period of 6 to 11.
     const event1 = new TimelineEvent(0, 5); // out

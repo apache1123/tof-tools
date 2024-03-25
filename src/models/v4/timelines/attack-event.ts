@@ -1,8 +1,8 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { Weapon } from '../../weapon';
-import type { Attack } from '../attacks/attack';
-import type { AttackCommand } from '../attacks/attack-command';
-import type { AttackDefinition } from '../attacks/attack-definition';
+import type { Attack } from '../attack/attack';
+import type { AttackCommand } from '../attack/attack-command';
+import type { AttackDefinition } from '../attack/attack-definition';
 import { TimelineEvent } from './timeline-event';
 
 export class AttackEvent extends TimelineEvent implements Attack {
@@ -19,10 +19,8 @@ export class AttackEvent extends TimelineEvent implements Attack {
     this.attackDefinition = attackDefinition;
     this.elementalType = attackDefinition.elementalType;
     this.cooldown = attackDefinition.cooldown;
-  }
 
-  public get displayName() {
-    return this.attackDefinition.displayName;
+    this.displayName = this.attackDefinition.displayName;
   }
 
   public get cooldownEndsAt() {

@@ -118,14 +118,14 @@ export function CombatSimulatorTimeline() {
     });
   }
 
-  for (const effectGroup of combatSimulatorSnap.effectPool.effectGroups) {
-    for (const [effectId, effectTimeline] of effectGroup.effectTimelines) {
+  for (const effectGroup of combatSimulatorSnap.effectPool.allEffectGroups) {
+    for (const { id, displayName, timeline } of effectGroup.items.values()) {
       editorData.push({
-        id: effectId,
-        displayName: effectTimeline.displayName,
-        actions: effectTimeline.events.map<CombatSimulatorTimelineAction>(
+        id,
+        displayName,
+        actions: timeline.events.map<CombatSimulatorTimelineAction>(
           (effectEvent, index) => ({
-            id: `${effectId}-${index}`,
+            id: `${id}-${index}`,
             start: effectEvent.startTime,
             end: effectEvent.endTime,
             effectId: 'effect-event',

@@ -1,6 +1,6 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { WeaponName } from '../../../constants/weapon-definitions';
-import type { EffectDefinition } from '../effects/effect-definition';
+import type { EffectDefinition } from '../effect/effect-definition';
 
 export interface MiscellaneousBuffDefinition extends EffectDefinition {
   // Order buffs from most specific to least specific. Check in this order for efficiency

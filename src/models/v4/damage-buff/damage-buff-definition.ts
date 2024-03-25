@@ -1,5 +1,5 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type { EffectDefinition } from '../effects/effect-definition';
+import type { EffectDefinition } from '../effect/effect-definition';
 
 export interface DamageBuffDefinition extends EffectDefinition {
   value: number;

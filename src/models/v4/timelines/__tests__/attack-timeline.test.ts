@@ -1,4 +1,4 @@
-import type { AttackCommand } from '../../attacks/attack-command';
+import type { AttackCommand } from '../../attack/attack-command';
 import { AttackEvent } from '../attack-event';
 import { AttackTimeline } from '../attack-timeline';
 
@@ -10,11 +10,10 @@ describe('Attack timeline', () => {
     },
   } as AttackCommand;
 
-  const timelineName = '';
   const timelineDuration = 100;
 
   it('returns the next valid start time', () => {
-    const sut = new AttackTimeline(timelineName, timelineDuration);
+    const sut = new AttackTimeline(timelineDuration);
     expect(sut.nextEarliestStartTime).toBe(0);
 
     sut.addEvent(new AttackEvent(sut.nextEarliestStartTime, mockAttackCommand));
@@ -22,7 +21,7 @@ describe('Attack timeline', () => {
   });
 
   it('throws an error when trying to add a new event with a start time earlier than the latest event', () => {
-    const sut = new AttackTimeline(timelineName, timelineDuration);
+    const sut = new AttackTimeline(timelineDuration);
     sut.addEvent(new AttackEvent(5, mockAttackCommand));
 
     expect(() => {

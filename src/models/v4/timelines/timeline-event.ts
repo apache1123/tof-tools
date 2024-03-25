@@ -1,4 +1,6 @@
 export class TimelineEvent {
+  public displayName = '';
+
   public constructor(
     /** in ms */
     public startTime: number,
@@ -15,9 +17,5 @@ export class TimelineEvent {
       throw new Error('End time cannot be earlier than start time');
     }
     this.duration = value - this.startTime;
-  }
-
-  public get displayName() {
-    return '';
   }
 }

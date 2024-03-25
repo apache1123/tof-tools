@@ -9,7 +9,14 @@ export interface EffectDefinition {
   id: string;
   displayName: string;
   description: string;
+
   maxStacks: number;
+  additionallyGainStacksBy?: {
+    accumulatedDamageThreshold?: {
+      /** e.g. dealing accumulated damage equal to 100 times of ATK */
+      timesOfAttack?: number;
+    };
+  };
 
   // Order triggers from least specific to most specific. Check in this order for efficiency
   triggeredBy: {
