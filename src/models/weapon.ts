@@ -1,6 +1,7 @@
 import type { WeaponName } from '../constants/weapon-definitions';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
+import type { AttackDefinition } from './v4/attack/attack-definition';
 import {
   getWeaponDefinition,
   type WeaponDefinition,
@@ -18,6 +19,16 @@ export class Weapon implements Persistable<WeaponDto> {
     this.definition = definition;
     this.stars = 0;
     this.matrixSets = new WeaponMatrixSets();
+  }
+
+  public get id() {
+    return this.definition.id;
+  }
+
+  public get allAttackDefinitions(): AttackDefinition[] {
+    // TODO: filter by star requirements
+    const { normalAttacks, dodgeAttacks, skills, discharge } = this.definition;
+    return [...normalAttacks, ...dodgeAttacks, ...skills, discharge];
   }
 
   public copyFromDto(dto: WeaponDto): void {

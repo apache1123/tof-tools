@@ -1,3 +1,7 @@
-import type { Attack } from './attack';
+import type { Weapon } from '../../weapon';
+import type { AttackDefinition } from './attack-definition';
 
-export type AttackCommand = Pick<Attack, 'weapon' | 'attackDefinition'>;
+export interface AttackCommand {
+  weapon: Weapon;
+  attackDefinition: AttackDefinition;
+}

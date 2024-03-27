@@ -26,6 +26,10 @@ export interface AttackDefinition {
   cooldown: number;
 
   charge: number;
+
+  requirements?: {
+    fullCharge?: boolean;
+  };
 }
 
 export interface NormalAttackDefinition extends AttackDefinition {

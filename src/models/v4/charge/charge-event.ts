@@ -1,4 +1,4 @@
-import { TimelineEvent } from './timeline-event';
+import { TimelineEvent } from '../timeline/timeline-event';
 
 export class ChargeEvent extends TimelineEvent {
   public constructor(public time: number, public cumulatedCharge: number) {

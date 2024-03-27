@@ -1,11 +1,17 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type { Weapon } from '../../weapon';
-import type { AttackDefinition } from './attack-definition';
+import { TimelineEvent } from '../timeline/timeline-event';
 
-export interface Attack {
-  weapon: Weapon;
-  attackDefinition: AttackDefinition;
-  /** The damage element of the attack. This is needed because it could be different from what's defined in the attack definition e.g. Nanyin's attack element is based off of the previous weapon */
-  elementalType: WeaponElementalType;
-  cooldown: number;
+export class Attack extends TimelineEvent {
+  public constructor(
+    public startTime: number,
+    public duration: number,
+    public cooldown: number,
+    public elementalType: WeaponElementalType
+  ) {
+    super(startTime, duration);
+  }
+
+  public get cooldownEndsAt() {
+    return this.startTime + this.cooldown;
+  }
 }

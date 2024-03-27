@@ -1,36 +1,17 @@
-import { EffectEvent } from '../timelines/effect-event';
-import type { EffectTimeline } from '../timelines/effect-timeline';
-import type { EffectDefinition } from './effect-definition';
+import { TimelineEvent } from '../timeline/timeline-event';
 
-export class Effect {
+export class Effect extends TimelineEvent {
   public constructor(
-    public readonly effectDefinition: EffectDefinition,
-    public readonly timeline: EffectTimeline
-  ) {}
-
-  public get id() {
-    return this.effectDefinition.id;
+    public startTime: number,
+    public duration: number,
+    public cooldown: number,
+    public maxStacks: number = 1,
+    public stacks: number = 1
+  ) {
+    super(startTime, duration);
   }
 
-  public get displayName() {
-    return this.effectDefinition.displayName;
-  }
-
-  public trigger(startTime: number, duration: number) {
-    const { displayName, cooldown, maxStacks } = this.effectDefinition;
-
-    const effectEvent = new EffectEvent(
-      startTime,
-      duration,
-      cooldown,
-      maxStacks
-    );
-    effectEvent.displayName = displayName;
-
-    this.timeline.addEvent(effectEvent);
-  }
-
-  public isActiveAt(time: number) {
-    return this.timeline.getEventsOverlapping(time, time).length !== 0;
+  public get cooldownEndsAt() {
+    return this.startTime + this.cooldown;
   }
 }

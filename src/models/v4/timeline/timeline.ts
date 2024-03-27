@@ -1,7 +1,7 @@
 import type { TimelineEvent } from './timeline-event';
 
 export class Timeline<TEvent extends TimelineEvent> {
-  protected readonly _events: TEvent[] = [];
+  private readonly _events: TEvent[] = [];
 
   public constructor(public readonly totalDuration: number) {}
 
@@ -17,6 +17,12 @@ export class Timeline<TEvent extends TimelineEvent> {
     if (event.startTime >= this.totalDuration) {
       throw new Error(
         "Cannot add event that starts after the timeline's duration"
+      );
+    }
+
+    if (this.lastEvent && event.startTime < this.lastEvent.startTime) {
+      throw new Error(
+        'Cannot add an event that is earlier than the latest event'
       );
     }
 
@@ -36,9 +42,18 @@ export class Timeline<TEvent extends TimelineEvent> {
   }
 
   /** Returns events that have any sort of overlap with the period of start time to end time */
-  public getEventsOverlapping(startTime: number, endTime: number): TEvent[] {
+  public getEventsOverlappingPeriod(
+    startTime: number,
+    endTime: number
+  ): TEvent[] {
     return this._events.filter(
       (event) => event.startTime < endTime && event.endTime >= startTime
+    );
+  }
+
+  public getEventsOverlappingTime(time: number) {
+    return this._events.filter(
+      (event) => event.startTime <= time && event.endTime > time
     );
   }
 }

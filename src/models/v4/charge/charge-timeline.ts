@@ -1,17 +1,27 @@
 import { fullCharge, maxCharge } from '../../../constants/combat';
+import { Timeline } from '../timeline/timeline';
 import { ChargeEvent } from './charge-event';
-import { Timeline } from './timeline';
 
 /** Timeline to track how much charge has been cumulated at a point of time. Charges must be added chronologically */
-export class ChargeTimeline extends Timeline<ChargeEvent> {
+export class ChargeTimeline {
+  private readonly timeline: Timeline<ChargeEvent>;
+
+  public constructor(public readonly totalDuration: number) {
+    this.timeline = new Timeline(totalDuration);
+  }
+
   /** Cumulated charge at the end of the timeline */
   public get cumulatedCharge() {
-    return this.lastEvent?.cumulatedCharge ?? 0;
+    return this.timeline.lastEvent?.cumulatedCharge ?? 0;
   }
 
   /** Has at least one full charge */
   public get hasFullCharge() {
     return this.cumulatedCharge - fullCharge >= 0;
+  }
+
+  public get lastChargeEvent() {
+    return this.timeline.lastEvent;
   }
 
   /** Adds a number of charge units at a point of time. Charges must be added chronologically */
@@ -37,11 +47,11 @@ export class ChargeTimeline extends Timeline<ChargeEvent> {
   }
 
   public addEvent(event: ChargeEvent) {
-    const { lastEvent } = this;
+    const { lastEvent } = this.timeline;
     if (lastEvent && event.time < lastEvent.time) {
       throw new Error('Charges must be added chronologically');
     }
 
-    super.addEvent(event);
+    this.timeline.addEvent(event);
   }
 }

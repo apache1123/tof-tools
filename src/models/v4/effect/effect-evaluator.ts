@@ -2,21 +2,27 @@ import BigNumber from 'bignumber.js';
 import groupBy from 'lodash.groupby';
 
 import type { Team } from '../../team';
-import type { AttackEvent } from '../timelines/attack-event';
-import type { Effect } from './effect';
-import type { EffectPool } from './effect-pool';
+import type { AttackResult } from '../attack/attack-result';
+import type { EffectControllerContext } from './effect-controller-context';
+import type { EffectDefinition } from './effect-definition';
+import type { EffectTimeline } from './effect-timeline';
 
 export class EffectEvaluator {
   public constructor(
-    private readonly effect: Effect,
-    private readonly attackEvent: AttackEvent,
-    private readonly effectPool: EffectPool,
-    private readonly team: Team,
-    private readonly combatDuration: number
+    private readonly attackResult: AttackResult,
+    private readonly effectDefinition: EffectDefinition,
+    private readonly effectTimeline: EffectTimeline,
+    private readonly effectControllerContext: EffectControllerContext,
+    private readonly team: Team
   ) {}
 
-  public canEffectTrigger(): boolean {
-    const { triggeredBy } = this.effect.effectDefinition;
+  public isEffectOnCooldown(): boolean {
+    const { startTime } = this.attackResult;
+    return this.effectTimeline.isEffectOnCooldownAt(startTime);
+  }
+
+  public canEffectBeTriggered(): boolean {
+    const { triggeredBy } = this.effectDefinition;
 
     const {
       attackDefinition: { id: attackId, type: attackType },
@@ -28,7 +34,7 @@ export class EffectEvaluator {
         },
       },
       startTime,
-    } = this.attackEvent;
+    } = this.attackResult;
 
     // Check triggers from least specific to most specific for efficiency
 
@@ -85,7 +91,7 @@ export class EffectEvaluator {
   }
 
   public hasEffectMetRequirements(): boolean {
-    const { requirements } = this.effect.effectDefinition;
+    const { requirements } = this.effectDefinition;
     if (!requirements) return true;
 
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
@@ -94,8 +100,12 @@ export class EffectEvaluator {
     // Check requirements from most specific to least specific for efficiency
 
     if (requirements.activeEffect) {
-      const effect = this.effectPool.getEffect(requirements.activeEffect);
-      return effect?.isActiveAt(this.attackEvent.startTime) ?? false;
+      const effectController = this.effectControllerContext.getEffectController(
+        requirements.activeEffect
+      );
+      return (
+        effectController?.isEffectActiveAt(this.attackResult.startTime) ?? false
+      );
     }
 
     if (
@@ -156,7 +166,7 @@ export class EffectEvaluator {
     return true;
   }
 
-  public determineEffectTimePeriod():
+  public calculateEffectTimePeriod():
     | { startTime: number; duration: number }
     | undefined {
     const {
@@ -166,8 +176,8 @@ export class EffectEvaluator {
         applyToEndSegmentOfCombat,
         untilCombatEnd,
       },
-    } = this.effect.effectDefinition;
-    const { startTime, duration } = this.attackEvent;
+    } = this.effectDefinition;
+    const { startTime, duration } = this.attackResult;
 
     if (value) {
       return { startTime, duration: value };
@@ -179,10 +189,10 @@ export class EffectEvaluator {
       };
     }
     if (applyToEndSegmentOfCombat) {
-      const duration = BigNumber(this.combatDuration)
+      const duration = BigNumber(this.effectTimeline.totalDuration)
         .times(applyToEndSegmentOfCombat)
         .toNumber();
-      const startTime = BigNumber(this.combatDuration)
+      const startTime = BigNumber(this.effectTimeline.totalDuration)
         .minus(duration)
         .toNumber();
 
@@ -191,7 +201,9 @@ export class EffectEvaluator {
     if (untilCombatEnd) {
       return {
         startTime,
-        duration: BigNumber(this.combatDuration).minus(startTime).toNumber(),
+        duration: BigNumber(this.effectTimeline.totalDuration)
+          .minus(startTime)
+          .toNumber(),
       };
     }
 

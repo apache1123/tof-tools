@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CombatSimulator available attacks includes attacks from all weapons at the start of combat 1`] = `
+exports[`CombatSimulator next available attacks includes attacks from all weapons at the start of combat 1`] = `
 [
   {
     "attackDefinition": {
@@ -932,58 +932,54 @@ exports[`CombatSimulator available attacks includes attacks from all weapons at 
 ]
 `;
 
-exports[`CombatSimulator relic damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
+exports[`CombatSimulator relic passive damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
 [
   EffectTimeline {
-    "_events": [
-      EffectEvent {
-        "cooldown": 0,
-        "displayName": "Alternative Destiny passive damage buff",
-        "duration": 150000,
-        "maxStacks": 1,
-        "stacks": 1,
-        "startTime": 0,
-      },
-    ],
+    "timeline": Timeline {
+      "_events": [
+        Effect {
+          "cooldown": 0,
+          "displayName": "Alternative Destiny passive damage buff",
+          "duration": 150000,
+          "maxStacks": 1,
+          "stacks": 1,
+          "startTime": 0,
+        },
+      ],
+      "totalDuration": 150000,
+    },
     "totalDuration": 150000,
   },
   EffectTimeline {
-    "_events": [
-      EffectEvent {
-        "cooldown": 0,
-        "displayName": "Cybernetic arm passive damage buff",
-        "duration": 150000,
-        "maxStacks": 1,
-        "stacks": 1,
-        "startTime": 0,
-      },
-    ],
+    "timeline": Timeline {
+      "_events": [
+        Effect {
+          "cooldown": 0,
+          "displayName": "Cybernetic arm passive damage buff",
+          "duration": 150000,
+          "maxStacks": 1,
+          "stacks": 1,
+          "startTime": 0,
+        },
+      ],
+      "totalDuration": 150000,
+    },
     "totalDuration": 150000,
   },
   EffectTimeline {
-    "_events": [
-      EffectEvent {
-        "cooldown": 0,
-        "displayName": "Thalassic Heart passive damage buff",
-        "duration": 150000,
-        "maxStacks": 1,
-        "stacks": 1,
-        "startTime": 0,
-      },
-    ],
-    "totalDuration": 150000,
-  },
-  EffectTimeline {
-    "_events": [
-      EffectEvent {
-        "cooldown": 0,
-        "displayName": "Triple Mask damage buff",
-        "duration": 150000,
-        "maxStacks": 1,
-        "stacks": 1,
-        "startTime": 0,
-      },
-    ],
+    "timeline": Timeline {
+      "_events": [
+        Effect {
+          "cooldown": 0,
+          "displayName": "Thalassic Heart passive damage buff",
+          "duration": 150000,
+          "maxStacks": 1,
+          "stacks": 1,
+          "startTime": 0,
+        },
+      ],
+      "totalDuration": 150000,
+    },
     "totalDuration": 150000,
   },
 ]
