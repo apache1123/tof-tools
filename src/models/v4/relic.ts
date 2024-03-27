@@ -1,5 +1,5 @@
 import type { RelicName } from '../../constants/relics';
-import type { RelicDamageBuffDefinition } from './buffs/relic-damage-buff-definition';
+import type { RelicDamageBuffDefinition } from './damage-buff/relic-damage-buff-definition';
 import type { RelicAttackDefinition } from './relic-attack-definition';
 
 export interface Relic {

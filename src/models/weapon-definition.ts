@@ -8,10 +8,10 @@ import type {
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
-} from './v4/attacks/attack-definition';
-import type { AttackBuffDefinition } from './v4/buffs/attack-buff-definition';
-import type { DamageBuffDefinition } from './v4/buffs/damage-buff-definition';
-import type { EffectDefinition } from './v4/effects/effect-definition';
+} from './v4/attack/attack-definition';
+import type { AttackBuffDefinition } from './v4/attack-buff/attack-buff-definition';
+import type { DamageBuffDefinition } from './v4/damage-buff/damage-buff-definition';
+import type { EffectDefinition } from './v4/effect/effect-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,

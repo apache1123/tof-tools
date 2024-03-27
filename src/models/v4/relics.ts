@@ -4,7 +4,7 @@ import { keysOf } from '../../utils/object-utils';
 import type { DataById } from '../data';
 import type { Dto } from '../dto';
 import type { Persistable } from '../persistable';
-import type { RelicDamageBuffDefinition } from './buffs/relic-damage-buff-definition';
+import type { RelicDamageBuffDefinition } from './damage-buff/relic-damage-buff-definition';
 
 export class Relics implements Persistable<RelicsDto> {
   private readonly _relicStars: DataById<RelicName, number>;

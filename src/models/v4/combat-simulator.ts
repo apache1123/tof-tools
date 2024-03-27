@@ -1,142 +1,142 @@
+import { commonWeaponAttackBuffs } from '../../constants/common-weapon-attack-buffs';
+import { commonWeaponDamageBuffs } from '../../constants/common-weapon-damage-buffs';
 import type { Loadout } from '../loadout';
-import type { Weapon } from '../weapon';
-import type { AttackCommand } from './attacks/attack-command';
-import { EffectPool } from './effects/effect-pool';
+import type { AttackCommand } from './attack/attack-command';
+import type { AttackResult } from './attack/attack-result';
+import { TeamAttackController } from './attack/team-attack-controller';
+import type { AttackBuffDefinition } from './attack-buff/attack-buff-definition';
+import { ChargeTimeline } from './charge/charge-timeline';
+import type { DamageBuffDefinition } from './damage-buff/damage-buff-definition';
+import { EffectController } from './effect/effect-controller';
+import { EffectControllerContext } from './effect/effect-controller-context';
+import { EffectControllerSet } from './effect/effect-controller-set';
+import { EffectEvaluator } from './effect/effect-evaluator';
+import { EffectTimeline } from './effect/effect-timeline';
 import type { Relics } from './relics';
-import { AttackEvent } from './timelines/attack-event';
-import { AttackTimeline } from './timelines/attack-timeline';
-import { ChargeTimeline } from './timelines/charge-timeline';
 
 export class CombatSimulator {
-  public readonly attackTimelines = new Map<Weapon, AttackTimeline>();
+  public readonly teamAttackController: TeamAttackController;
   public readonly chargeTimeline: ChargeTimeline;
-  public readonly effectPool: EffectPool;
-
-  private _activeWeapon: Weapon | undefined;
-  /** The previous weapon before switching to the current active weapon */
-  private _previousWeapon: Weapon | undefined;
+  public readonly effectControllerContext: EffectControllerContext;
 
   public constructor(
     public readonly combatDuration: number,
     private readonly loadout: Loadout,
     private readonly relics: Relics
   ) {
-    loadout.team.weapons.forEach((weapon) => {
-      this.attackTimelines.set(
-        weapon,
-        new AttackTimeline(weapon.definition.displayName, combatDuration)
-      );
-    });
+    const {
+      team: { weapons },
+      simulacrumTrait,
+    } = loadout;
 
-    this.chargeTimeline = new ChargeTimeline('Weapon charge', combatDuration);
-    this.effectPool = new EffectPool(combatDuration, loadout, relics);
-  }
+    this.chargeTimeline = new ChargeTimeline(combatDuration);
 
-  public get activeWeapon(): Weapon | undefined {
-    return this._activeWeapon;
-  }
+    this.teamAttackController = new TeamAttackController(
+      loadout.team,
+      combatDuration,
+      this.chargeTimeline
+    );
 
-  public get availableAttacks(): AttackCommand[] {
-    const allAttacks = this.loadout.team.weapons.flatMap((weapon) => {
-      const {
-        definition: { normalAttacks, dodgeAttacks, skills, discharge },
-      } = weapon;
-
-      return [...normalAttacks, ...dodgeAttacks, ...skills, discharge].map(
-        (attackDefinition) => ({
-          weapon,
-          attackDefinition,
+    const attackBuffControllers = new Map(
+      weapons
+        .flatMap<AttackBuffDefinition>((weapon) =>
+          weapon.definition.commonAttackBuffs.map(
+            (buffId) => commonWeaponAttackBuffs[buffId]
+          )
+        )
+        .concat(weapons.flatMap((weapon) => weapon.definition.attackBuffs))
+        .concat(simulacrumTrait?.attackBuffs ?? [])
+        .map((attackBuffDefinition) => {
+          const timeline = new EffectTimeline(combatDuration);
+          return [
+            attackBuffDefinition.id,
+            new EffectController(attackBuffDefinition, timeline),
+          ];
         })
-      );
-    });
+    );
 
-    return allAttacks.filter((attack) => {
-      const {
-        attackDefinition: { cooldown },
-      } = attack;
-      const { nextEarliestAttackStartTime } = this;
+    const damageBuffControllers = new Map(
+      weapons
+        .flatMap<DamageBuffDefinition>((weapon) =>
+          weapon.definition.commonDamageBuffs.map(
+            (buffId) => commonWeaponDamageBuffs[buffId]
+          )
+        )
+        .concat(weapons.flatMap((weapon) => weapon.definition.damageBuffs))
+        .concat(simulacrumTrait?.damageBuffs ?? [])
+        .concat(relics.passiveRelicBuffs)
+        .map((damageBuffDefinition) => {
+          const timeline = new EffectTimeline(combatDuration);
+          return [
+            damageBuffDefinition.id,
+            new EffectController(damageBuffDefinition, timeline),
+          ];
+        })
+    );
 
-      // Discharge attacks require full charge and cannot be from the active weapon
-      if (attack.attackDefinition.type === 'discharge') {
-        return (
-          this.chargeTimeline.hasFullCharge &&
-          attack.weapon !== this.activeWeapon
-        );
-      }
+    const miscBuffControllers = new Map(
+      (simulacrumTrait?.miscellaneousBuffs ?? []).map((miscBuffDefinition) => {
+        const timeline = new EffectTimeline(combatDuration);
+        return [
+          miscBuffDefinition.id,
+          new EffectController(miscBuffDefinition, timeline),
+        ];
+      })
+    );
 
-      // Check to see if this attack has been performed in the timeline in the cooldown range
-      const attackEventsToCheck =
-        this.attackTimelines
-          .get(attack.weapon)
-          ?.getEventsBetween(
-            nextEarliestAttackStartTime - cooldown,
-            nextEarliestAttackStartTime
-          ) ?? [];
-      return attackEventsToCheck.every(
-        (x) =>
-          x.attackDefinition.id !== attack.attackDefinition.id ||
-          x.cooldownEndsAt <= nextEarliestAttackStartTime
-      );
-    });
+    const weaponEffectControllers = new Map(
+      weapons
+        .flatMap((weapon) => weapon.definition.effects)
+        .map((effectDefinition) => {
+          const timeline = new EffectTimeline(combatDuration);
+          return [
+            effectDefinition.id,
+            new EffectController(effectDefinition, timeline),
+          ];
+        })
+    );
+
+    this.effectControllerContext = new EffectControllerContext(
+      new EffectControllerSet('Attack buffs', attackBuffControllers),
+      new EffectControllerSet('Damage buffs', damageBuffControllers),
+      new EffectControllerSet('Miscellaneous buffs', miscBuffControllers),
+      new EffectControllerSet('Weapon effects', weaponEffectControllers)
+    );
   }
 
-  public get nextEarliestAttackStartTime(): number {
-    return this.activeWeapon
-      ? this.attackTimelines.get(this.activeWeapon)?.nextEarliestStartTime ?? 0
-      : 0;
+  public get nextAvailableAttacks() {
+    return this.teamAttackController.nextAvailableAttacks;
   }
 
   public performAttack(attackCommand: AttackCommand) {
-    const { weapon, attackDefinition } = attackCommand;
-    if (
-      !this.availableAttacks.find(
-        (availableAttack) =>
-          availableAttack.weapon === weapon &&
-          availableAttack.attackDefinition.id === attackDefinition.id
-      )
-    ) {
-      throw new Error('Attack not available to be performed');
-    }
+    const attackResult = this.teamAttackController.performAttack(attackCommand);
 
-    const { nextEarliestAttackStartTime } = this;
-    const attackTimeline = this.attackTimelines.get(weapon);
-
-    if (!attackTimeline) {
-      throw new Error('Weapon attack timeline not set up');
-    }
-
-    if (this._activeWeapon !== weapon) {
-      this._previousWeapon = this._activeWeapon;
-      this._activeWeapon = weapon;
-    }
-
-    const attackEvent = new AttackEvent(
-      nextEarliestAttackStartTime,
-      attackCommand
-    );
-
-    if (
-      attackDefinition.followLastWeaponElementalType &&
-      this._previousWeapon
-    ) {
-      attackEvent.elementalType = this._previousWeapon.definition.damageElement;
-    }
-
-    attackTimeline.addEvent(attackEvent);
-
-    this.adjustCharge(attackEvent);
-
-    this.effectPool.triggerEffects(attackEvent);
+    this.adjustCharge(attackResult);
+    this.triggerEffects(attackResult);
   }
 
-  private adjustCharge(attackEvent: AttackEvent) {
-    if (attackEvent.attackDefinition.type === 'discharge') {
-      this.chargeTimeline.deductOneFullCharge(attackEvent.startTime);
+  private adjustCharge(attackResult: AttackResult) {
+    if (attackResult.attackDefinition.type === 'discharge') {
+      this.chargeTimeline.deductOneFullCharge(attackResult.startTime);
     } else {
       this.chargeTimeline.addCharge(
-        attackEvent.attackDefinition.charge,
-        attackEvent.endTime
+        attackResult.attackDefinition.charge,
+        attackResult.endTime
       );
+    }
+  }
+
+  private triggerEffects(attackResult: AttackResult) {
+    for (const effectController of this.effectControllerContext
+      .allEffectControllers) {
+      const effectEvaluator = new EffectEvaluator(
+        attackResult,
+        effectController.definition,
+        effectController.timeline,
+        this.effectControllerContext,
+        this.loadout.team
+      );
+      effectController.triggerEffect(effectEvaluator);
     }
   }
 }

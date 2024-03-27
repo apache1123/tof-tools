@@ -13,7 +13,7 @@ import { Loadout } from '../../models/loadout';
 import { Team } from '../../models/team';
 import { CombatSimulator } from '../../models/v4/combat-simulator';
 import { Relics } from '../../models/v4/relics';
-import type { TimelineEvent } from '../../models/v4/timelines/timeline-event';
+import type { TimelineEvent } from '../../models/v4/timeline/timeline-event';
 import { Weapon } from '../../models/weapon';
 import { AttackBuffEventRenderer } from './AttackBuffEventRenderer';
 import { AttackEventRenderer } from './AttackEventRenderer';
@@ -101,39 +101,41 @@ export function CombatSimulatorTimeline() {
 
   const editorData: CombatSimulatorTimelineRow[] = [];
 
-  for (const [weapon, attackTimeline] of combatSimulatorSnap.attackTimelines) {
+  for (const [weapon, weaponAttackController] of combatSimulatorSnap
+    .teamAttackController.weaponAttackControllers) {
     editorData.push({
       id: weapon.definition.id,
       displayName: weapon.definition.displayName,
-      actions: attackTimeline.events.map<CombatSimulatorTimelineAction>(
-        (attackEvent, index) => ({
-          id: `${weapon.definition.id}-attack-${index}`,
-          start: attackEvent.startTime,
-          end: attackEvent.endTime,
-          effectId: 'attack-event',
-          event: attackEvent,
-        })
-      ),
+      actions:
+        weaponAttackController.combinedAttackTimeline.attacks.map<CombatSimulatorTimelineAction>(
+          (attackEvent, index) => ({
+            id: `${weapon.definition.id}-attack-${index}`,
+            start: attackEvent.startTime,
+            end: attackEvent.endTime,
+            effectId: 'attack-event',
+            event: attackEvent,
+          })
+        ),
       classNames: [styles.timelineRow],
     });
   }
 
-  for (const effectGroup of combatSimulatorSnap.effectPool.effectGroups) {
-    for (const [effectId, effectTimeline] of effectGroup.effectTimelines) {
-      editorData.push({
-        id: effectId,
-        displayName: effectTimeline.displayName,
-        actions: effectTimeline.events.map<CombatSimulatorTimelineAction>(
-          (effectEvent, index) => ({
-            id: `${effectId}-${index}`,
-            start: effectEvent.startTime,
-            end: effectEvent.endTime,
-            effectId: 'effect-event',
-            event: effectEvent,
-          })
-        ),
-      });
-    }
+  for (const effectController of combatSimulatorSnap.effectControllerContext
+    .allEffectControllers) {
+    const { id, displayName, timeline } = effectController;
+    editorData.push({
+      id,
+      displayName,
+      actions: timeline.effects.map<CombatSimulatorTimelineAction>(
+        (effectEvent, index) => ({
+          id: `${id}-${index}`,
+          start: effectEvent.startTime,
+          end: effectEvent.endTime,
+          effectId: 'effect-event',
+          event: effectEvent,
+        })
+      ),
+    });
   }
 
   return (

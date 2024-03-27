@@ -1,4 +1,4 @@
-import type { CommonWeaponDamageBuffDefinition } from '../models/v4/buffs/common-weapon-damage-buff-definition';
+import type { CommonWeaponDamageBuffDefinition } from '../models/v4/damage-buff/common-weapon-damage-buff-definition';
 
 export type CommonWeaponDamageBuffId = 'force-impact';
 
