@@ -39,12 +39,17 @@ export class TeamAttackController {
           .map((attackDefinition) => ({ weapon, attackDefinition }))
           // TODO: This should probably be refactored out
           .filter((attackCommand) => {
-            if (attackCommand.attackDefinition.type === 'discharge') {
-              return (
-                this.chargeTimeline.hasFullCharge &&
-                attackCommand.weapon !== this.activeWeapon
-              );
-            }
+            const { weapon, attackDefinition } = attackCommand;
+            const { requirements } = attackDefinition;
+
+            if (
+              requirements?.hasFullCharge &&
+              !this.chargeTimeline.hasFullCharge
+            )
+              return false;
+
+            if (requirements?.notActiveWeapon && weapon === this.activeWeapon)
+              return false;
 
             return true;
           })
