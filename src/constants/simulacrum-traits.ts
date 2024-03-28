@@ -853,6 +853,50 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
       ],
     },
+    Rei: {
+      id: 'Rei',
+      displayName: 'Rei',
+      attackBuffs: [],
+      damageBuffs: [
+        {
+          id: 'rei-trait',
+          displayName: 'Rei trait',
+          description: 'Increase final damage by 18%',
+          value: 0.18,
+          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+          damageCategory: '[TEMP_TRAIT]',
+          maxStacks: 1,
+          triggeredBy: {
+            combatStart: true,
+          },
+          duration: {
+            untilCombatEnd: true,
+          },
+          cooldown: 0,
+        },
+        {
+          id: 'rei-trait-attack-resonance',
+          displayName: 'Rei trait - Attack resonance',
+          description:
+            'Increase volt damage by 8% when Attack Resonance is activated',
+          value: 0.08,
+          elementalTypes: ['Volt'],
+          damageCategory: '[TEMP_TRAIT]',
+          maxStacks: 1,
+          triggeredBy: {
+            combatStart: true,
+          },
+          duration: {
+            untilCombatEnd: true,
+          },
+          cooldown: 0,
+          requirements: {
+            weaponResonance: 'Attack',
+          },
+        },
+      ],
+      miscellaneousBuffs: [],
+    },
     Rubilia: {
       id: 'Rubilia',
       displayName: 'Rubilia',

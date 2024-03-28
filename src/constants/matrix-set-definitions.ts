@@ -37,6 +37,7 @@ export type MatrixSetBaseName =
   | 'Nan Yin'
   | 'Nemesis'
   | 'Plotti'
+  | 'Rei'
   | 'Rubilia'
   | 'Ruby'
   | 'Saki Fuwa'
@@ -80,6 +81,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Nan Yin 2pc',
   'Nemesis 2pc',
   'Plotti 2pc',
+  'Rei 2pc',
   'Rubilia 2pc',
   'Ruby 2pc',
   'Saki Fuwa 2pc',
@@ -124,6 +126,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Nan Yin 4pc',
   'Nemesis 4pc',
   'Plotti 4pc',
+  'Rei 4pc',
   'Rubilia 4pc',
   'Ruby 4pc',
   'Saki Fuwa 4pc',
@@ -563,6 +566,14 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: true,
       },
     ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Rei 2pc': {
+    id: 'Rei 2pc',
+    displayName: 'Rei 2pc',
+    pieces: 2,
+    attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
   },
@@ -1069,6 +1080,29 @@ export const matrixSetDefinitionsLookup: DataById<
     displayName: 'Plotti 4pc',
     pieces: 4,
     attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Rei 4pc': {
+    id: 'Rei 4pc',
+    displayName: 'Rei 4pc',
+    pieces: 4,
+    attackPercentBuffs: [
+      {
+        description:
+          "After dealing damage with Rei's weapon, increase volt and frost ATK by 12% for 5 seconds",
+        starValues: [
+          { star: 0, value: 0.12 },
+          { star: 1, value: 0.12 },
+          { star: 2, value: 0.12 },
+          { star: 3, value: 0.12 },
+        ],
+        elementalTypes: ['Volt', 'Frost'],
+        canStack: false,
+        isActivePassively: false,
+        weaponRequirement: 'Rei',
+      },
+    ],
     critRateBuffs: [],
     critDamageBuffs: [],
   },
