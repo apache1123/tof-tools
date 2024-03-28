@@ -1,5 +1,3 @@
-import type { CommonWeaponAttackBuffId } from '../constants/common-weapon-attack-buffs';
-import type { CommonWeaponDamageBuffId } from '../constants/common-weapon-damage-buffs';
 import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
@@ -38,9 +36,6 @@ export interface WeaponDefinition {
   discharge: DischargeAttackDefinition;
 
   effects: EffectDefinition[];
-
-  commonAttackBuffs: CommonWeaponAttackBuffId[];
-  commonDamageBuffs: CommonWeaponDamageBuffId[];
 
   attackBuffs: AttackBuffDefinition[];
   damageBuffs: DamageBuffDefinition[];

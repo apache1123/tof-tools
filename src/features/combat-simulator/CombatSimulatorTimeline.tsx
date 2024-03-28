@@ -120,7 +120,7 @@ export function CombatSimulatorTimeline() {
     });
   }
 
-  for (const effectController of combatSimulatorSnap.effectControllerContext
+  for (const effectController of combatSimulatorSnap.effectRegistry
     .allEffectControllers) {
     const { id, displayName, timeline } = effectController;
     editorData.push({

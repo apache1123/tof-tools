@@ -41,11 +41,15 @@ export class Timeline<TEvent extends TimelineEvent> {
     );
   }
 
-  /** Returns events that have any sort of overlap with the period of start time to end time */
+  /** Returns events that have any sort of overlap with the period of start time to end time. */
   public getEventsOverlappingPeriod(
     startTime: number,
     endTime: number
   ): TEvent[] {
+    if (startTime === endTime) {
+      return this.getEventsOverlappingTime(startTime);
+    }
+
     return this._events.filter(
       (event) => event.startTime < endTime && event.endTime >= startTime
     );

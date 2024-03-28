@@ -3,8 +3,8 @@ import groupBy from 'lodash.groupby';
 
 import type { Team } from '../../team';
 import type { AttackResult } from '../attack/attack-result';
-import type { EffectControllerContext } from './effect-controller-context';
 import type { EffectDefinition } from './effect-definition';
+import type { EffectRegistry } from './effect-registry';
 import type { EffectTimeline } from './effect-timeline';
 
 export class EffectEvaluator {
@@ -12,7 +12,7 @@ export class EffectEvaluator {
     private readonly attackResult: AttackResult,
     private readonly effectDefinition: EffectDefinition,
     private readonly effectTimeline: EffectTimeline,
-    private readonly effectControllerContext: EffectControllerContext,
+    private readonly effectRegistry: EffectRegistry,
     private readonly team: Team
   ) {}
 
@@ -100,7 +100,7 @@ export class EffectEvaluator {
     // Check requirements from most specific to least specific for efficiency
 
     if (requirements.activeEffect) {
-      const effectController = this.effectControllerContext.getEffectController(
+      const effectController = this.effectRegistry.getEffectController(
         requirements.activeEffect
       );
       return (
@@ -109,8 +109,10 @@ export class EffectEvaluator {
     }
 
     if (
-      requirements.weaponInTeam &&
-      !weaponNames.includes(requirements.weaponInTeam)
+      requirements.anyWeaponInTeam &&
+      requirements.anyWeaponInTeam.every(
+        (weaponName) => !weaponNames.includes(weaponName)
+      )
     )
       return false;
 

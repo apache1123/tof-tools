@@ -51,13 +51,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "volt-resonance",
-          "frost-resonance",
-        ],
-        "commonDamageBuffs": [
-          "force-impact",
-        ],
         "critRateBuffs": [],
         "damageBuffs": [
           {
@@ -113,6 +106,10 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
           "duration": 5000,
           "elementalType": "Volt",
           "id": "brevey-discharge",
+          "requirements": {
+            "hasFullCharge": true,
+            "notActiveWeapon": "Brevey",
+          },
           "type": "discharge",
         },
         "displayName": "Brevey",
@@ -250,13 +247,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "volt-resonance",
-          "frost-resonance",
-        ],
-        "commonDamageBuffs": [
-          "force-impact",
-        ],
         "critRateBuffs": [],
         "damageBuffs": [
           {
@@ -312,6 +302,10 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
           "duration": 5000,
           "elementalType": "Volt",
           "id": "brevey-discharge",
+          "requirements": {
+            "hasFullCharge": true,
+            "notActiveWeapon": "Brevey",
+          },
           "type": "discharge",
         },
         "displayName": "Brevey",
@@ -449,13 +443,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "volt-resonance",
-          "frost-resonance",
-        ],
-        "commonDamageBuffs": [
-          "force-impact",
-        ],
         "critRateBuffs": [],
         "damageBuffs": [
           {
@@ -511,6 +498,10 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
           "duration": 5000,
           "elementalType": "Volt",
           "id": "brevey-discharge",
+          "requirements": {
+            "hasFullCharge": true,
+            "notActiveWeapon": "Brevey",
+          },
           "type": "discharge",
         },
         "displayName": "Brevey",
@@ -648,11 +639,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "frost-resonance",
-          "volt-resonance",
-        ],
-        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "damageBuffs": [],
         "damageElement": "Frost",
@@ -665,6 +651,10 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
           "duration": 5000,
           "elementalType": "Frost",
           "id": "yanuo-discharge",
+          "requirements": {
+            "hasFullCharge": true,
+            "notActiveWeapon": "Yanuo",
+          },
           "type": "discharge",
         },
         "displayName": "Yanuo",
@@ -756,11 +746,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "frost-resonance",
-          "volt-resonance",
-        ],
-        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "damageBuffs": [],
         "damageElement": "Frost",
@@ -773,6 +758,10 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
           "duration": 5000,
           "elementalType": "Frost",
           "id": "yanuo-discharge",
+          "requirements": {
+            "hasFullCharge": true,
+            "notActiveWeapon": "Yanuo",
+          },
           "type": "discharge",
         },
         "displayName": "Yanuo",
@@ -884,8 +873,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.3,
           },
         ],
-        "commonAttackBuffs": [],
-        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "damageBuffs": [],
         "damageElement": "Altered",
@@ -899,6 +886,10 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
           "elementalType": "Altered",
           "followLastWeaponElementalType": true,
           "id": "nanyin-discharge",
+          "requirements": {
+            "hasFullCharge": true,
+            "notActiveWeapon": "Nan Yin",
+          },
           "type": "discharge",
         },
         "displayName": "Nan Yin",

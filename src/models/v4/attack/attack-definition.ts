@@ -1,5 +1,6 @@
 import type { AttackType } from '../../../constants/attack-type';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
+import type { WeaponName } from '../../../constants/weapon-definitions';
 
 export interface AttackDefinition {
   id: string;
@@ -28,7 +29,9 @@ export interface AttackDefinition {
   charge: number;
 
   requirements?: {
-    fullCharge?: boolean;
+    hasFullCharge?: boolean;
+    /** Can only be triggered when [weapon] is not active weapon e.g. the [weapon]'s discharge */
+    notActiveWeapon?: WeaponName;
   };
 }
 
@@ -46,4 +49,9 @@ export interface SkillAttackDefinition extends AttackDefinition {
 
 export interface DischargeAttackDefinition extends AttackDefinition {
   type: 'discharge';
+
+  requirements: {
+    hasFullCharge: true;
+    notActiveWeapon: WeaponName;
+  };
 }

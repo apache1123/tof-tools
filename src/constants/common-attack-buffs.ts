@@ -1,12 +1,7 @@
-import type { CommonWeaponAttackBuffDefinition } from '../models/v4/attack-buff/common-weapon-attack-buff-definition';
+import type { AttackBuffDefinition } from '../models/v4/attack-buff/attack-buff-definition';
 
-export type CommonWeaponAttackBuffId = 'volt-resonance' | 'frost-resonance';
-
-export const commonWeaponAttackBuffs: Record<
-  CommonWeaponAttackBuffId,
-  CommonWeaponAttackBuffDefinition
-> = {
-  'volt-resonance': {
+export const commonAttackBuffs: AttackBuffDefinition[] = [
+  {
     id: 'volt-resonance',
     displayName: 'Volt Resonance',
     description: '+15% volt ATK when equipping 2 or more volt weapons',
@@ -21,13 +16,14 @@ export const commonWeaponAttackBuffs: Record<
     },
     cooldown: 0,
     requirements: {
+      anyWeaponInTeam: ['Brevey', 'Huang (Mimi)', 'Yanuo'],
       elementalTypeWeaponsInTeam: {
         elementalType: 'Volt',
         numOfWeapons: 2,
       },
     },
   },
-  'frost-resonance': {
+  {
     id: 'frost-resonance',
     displayName: 'Frost Resonance',
     description: '+15% frost ATK when equipping 2 or more frost weapons',
@@ -42,10 +38,11 @@ export const commonWeaponAttackBuffs: Record<
     },
     cooldown: 0,
     requirements: {
+      anyWeaponInTeam: ['Brevey', 'Yanuo'],
       elementalTypeWeaponsInTeam: {
         elementalType: 'Frost',
         numOfWeapons: 2,
       },
     },
   },
-};
+];

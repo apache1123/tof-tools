@@ -118,8 +118,8 @@ describe('CombatSimulator', () => {
       expect(hasEffectEvent(sut, 'volt-resonance')).toBe(true);
 
       const frostResonanceBuff =
-        sut.effectControllerContext.getEffectController('frost-resonance')
-          ?.timeline.effects[0];
+        sut.effectRegistry.getEffectController('frost-resonance')?.timeline
+          .effects[0];
       expect(frostResonanceBuff).toBeDefined();
       if (frostResonanceBuff) {
         expect(frostResonanceBuff.startTime).toBe(0);
@@ -138,8 +138,8 @@ describe('CombatSimulator', () => {
       });
 
       const voltResonanceBuffEvent =
-        sut.effectControllerContext.getEffectController('volt-resonance')
-          ?.timeline.effects[0];
+        sut.effectRegistry.getEffectController('volt-resonance')?.timeline
+          .effects[0];
       expect(voltResonanceBuffEvent).toBeDefined();
       if (voltResonanceBuffEvent) {
         expect(voltResonanceBuffEvent.stacks).toBe(1);
@@ -156,7 +156,7 @@ describe('CombatSimulator', () => {
       });
 
       expect(
-        sut.effectControllerContext.allEffectControllers.filter(
+        sut.effectRegistry.allEffectControllers.filter(
           (effectController) => effectController.id === 'volt-resonance'
         ).length
       ).toBe(1);
@@ -174,7 +174,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon3.definition.normalAttacks[0],
       });
 
-      const effect = sut.effectControllerContext.getEffectController(
+      const effect = sut.effectRegistry.getEffectController(
         weaponDefinitions.byId['Nan Yin'].attackBuffs[0].id
       );
       expect(effect).toBeDefined();
@@ -235,7 +235,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon2.definition.normalAttacks[0],
       });
 
-      const voltBuffEvent = sut.effectControllerContext.getEffectController(
+      const voltBuffEvent = sut.effectRegistry.getEffectController(
         'brevey-damage-buff-pact-amplification-volt'
       )?.timeline.lastEffect;
       expect(voltBuffEvent).toBeDefined();
@@ -250,7 +250,7 @@ describe('CombatSimulator', () => {
         );
       }
 
-      const frostBuffEvent = sut.effectControllerContext.getEffectController(
+      const frostBuffEvent = sut.effectRegistry.getEffectController(
         'brevey-damage-buff-pact-amplification-frost'
       )?.timeline.lastEffect;
       expect(frostBuffEvent).toBeDefined();
@@ -282,7 +282,7 @@ describe('CombatSimulator', () => {
 
       expect(
         Array.from(
-          sut.effectControllerContext.damageBuffControllers.controllers.values()
+          sut.effectRegistry.damageBuffControllers.controllers.values()
         )
           .filter(
             (damageBuffController) =>
@@ -308,8 +308,8 @@ describe('CombatSimulator', () => {
         });
 
         const damageBuffEvent =
-          sut.effectControllerContext.getEffectController('brevey-trait')
-            ?.timeline.effects[0];
+          sut.effectRegistry.getEffectController('brevey-trait')?.timeline
+            .effects[0];
         if (damageBuffEvent) {
           expect(damageBuffEvent.startTime).toBe(0);
           expect(damageBuffEvent.duration).toBe(combatDuration);
@@ -327,7 +327,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        const damageBuffEvent = sut.effectControllerContext.getEffectController(
+        const damageBuffEvent = sut.effectRegistry.getEffectController(
           'brevey-trait-additional'
         )?.timeline.effects[0];
         expect(damageBuffEvent).toBeDefined();
@@ -449,7 +449,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        const buffEvent = sut.effectControllerContext.getEffectController(
+        const buffEvent = sut.effectRegistry.getEffectController(
           'yanmiao-trait-weapon-buff'
         )?.timeline.effects[0];
         expect(buffEvent).toBeDefined();
@@ -473,7 +473,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.skills[0],
         });
 
-        const damageBuffEvent = sut.effectControllerContext.getEffectController(
+        const damageBuffEvent = sut.effectRegistry.getEffectController(
           alyssTrait.damageBuffs[0].id
         )?.timeline.effects[0];
         if (damageBuffEvent) {
@@ -497,7 +497,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.normalAttacks[0],
         });
 
-        const damageBuffEvent = sut.effectControllerContext.getEffectController(
+        const damageBuffEvent = sut.effectRegistry.getEffectController(
           crowTrait.damageBuffs[1].id
         )?.timeline.effects[0];
         expect(damageBuffEvent).toBeDefined();
@@ -522,8 +522,8 @@ describe('CombatSimulator', () => {
         expect(
           feiseTrait.damageBuffs.some(
             (buff) =>
-              !!sut.effectControllerContext.getEffectController(buff.id)
-                ?.timeline.lastEffect
+              !!sut.effectRegistry.getEffectController(buff.id)?.timeline
+                .lastEffect
           )
         ).toBe(false);
 
@@ -538,8 +538,8 @@ describe('CombatSimulator', () => {
         expect(
           feiseTrait.damageBuffs.some(
             (buff) =>
-              !!sut2.effectControllerContext.getEffectController(buff.id)
-                ?.timeline.lastEffect
+              !!sut2.effectRegistry.getEffectController(buff.id)?.timeline
+                .lastEffect
           )
         ).toBe(true);
       });
@@ -624,7 +624,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon3.definition.normalAttacks[0],
         });
 
-        const buffController = sut.effectControllerContext.getEffectController(
+        const buffController = sut.effectRegistry.getEffectController(
           'nanyin-trait-active-weapon-2-non-altered'
         );
         expect(buffController).toBeDefined();
@@ -729,7 +729,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.skills[0],
         });
 
-        const attackBuffEvent = sut.effectControllerContext.getEffectController(
+        const attackBuffEvent = sut.effectRegistry.getEffectController(
           cocoTrait.attackBuffs[0].id
         )?.timeline.effects[0];
         expect(attackBuffEvent).toBeDefined();
@@ -768,7 +768,7 @@ describe('CombatSimulator', () => {
           attackDefinition: weapon1.definition.discharge,
         });
 
-        const attackBuffEvent = sut.effectControllerContext.getEffectController(
+        const attackBuffEvent = sut.effectRegistry.getEffectController(
           cocoTrait.attackBuffs[0].id
         )?.timeline.effects[0];
         expect(attackBuffEvent).toBeDefined();
@@ -882,7 +882,7 @@ describe('CombatSimulator', () => {
           attackDefinition: mingJingWeapon.definition.normalAttacks[0],
         });
 
-        const buffController = sut.effectControllerContext.getEffectController(
+        const buffController = sut.effectRegistry.getEffectController(
           'mingjing-trait-normal-attack'
         );
         expect(buffController).toBeDefined();
@@ -993,7 +993,7 @@ describe('CombatSimulator', () => {
         attackDefinition: weapon1.definition.skills[0],
       });
 
-      const effectEvent = sut.effectControllerContext.getEffectController(
+      const effectEvent = sut.effectRegistry.getEffectController(
         'brevey-effect-pact-amplification'
       )?.timeline.lastEffect;
       expect(effectEvent).toBeDefined();
@@ -1009,6 +1009,6 @@ describe('CombatSimulator', () => {
 });
 
 function hasEffectEvent(combatSimulator: CombatSimulator, effectId: string) {
-  return !!combatSimulator.effectControllerContext.getEffectController(effectId)
+  return !!combatSimulator.effectRegistry.getEffectController(effectId)
     ?.timeline.lastEffect;
 }
