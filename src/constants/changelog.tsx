@@ -201,4 +201,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 2, 15)),
     title: 'Add a page containing useful links',
   },
+  {
+    semver: '3.13.0',
+    date: new Date(Date.UTC(2024, 2, 29)),
+    title: 'Add Rei',
+  },
 ];
