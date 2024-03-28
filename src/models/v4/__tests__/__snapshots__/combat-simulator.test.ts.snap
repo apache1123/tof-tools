@@ -51,13 +51,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "volt-resonance",
-          "frost-resonance",
-        ],
-        "commonDamageBuffs": [
-          "force-impact",
-        ],
         "critRateBuffs": [],
         "damageBuffs": [
           {
@@ -253,13 +246,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "minStarRequirement": 0,
             "value": 0.15,
           },
-        ],
-        "commonAttackBuffs": [
-          "volt-resonance",
-          "frost-resonance",
-        ],
-        "commonDamageBuffs": [
-          "force-impact",
         ],
         "critRateBuffs": [],
         "damageBuffs": [
@@ -457,13 +443,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "volt-resonance",
-          "frost-resonance",
-        ],
-        "commonDamageBuffs": [
-          "force-impact",
-        ],
         "critRateBuffs": [],
         "damageBuffs": [
           {
@@ -660,11 +639,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "frost-resonance",
-          "volt-resonance",
-        ],
-        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "damageBuffs": [],
         "damageElement": "Frost",
@@ -772,11 +746,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.15,
           },
         ],
-        "commonAttackBuffs": [
-          "frost-resonance",
-          "volt-resonance",
-        ],
-        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "damageBuffs": [],
         "damageElement": "Frost",
@@ -904,8 +873,6 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
             "value": 0.3,
           },
         ],
-        "commonAttackBuffs": [],
-        "commonDamageBuffs": [],
         "critRateBuffs": [],
         "damageBuffs": [],
         "damageElement": "Altered",

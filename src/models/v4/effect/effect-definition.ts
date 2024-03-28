@@ -18,8 +18,10 @@ export interface EffectDefinition {
     };
   };
 
-  // Order triggers from least specific to most specific. Check in this order for efficiency
+  /** Triggers are treated as an "OR" check i.e. the effect is triggered when any defined trigger passes check */
   triggeredBy: {
+    // Order triggers from least specific to most specific. Check in this order for efficiency
+
     combatStart?: boolean;
     skillOfAnyWeapon?: boolean;
     dischargeOfAnyWeapon?: boolean;
@@ -46,10 +48,12 @@ export interface EffectDefinition {
   /** Effect goes into cooldown when triggered and cannot be triggered again until cooldown ends */
   cooldown: number;
 
-  // Order requirements from most specific to least specific. Check in this order for efficiency
+  /** Requirements are treated as a "AND" check i.e. the effect is triggered when all defined requirements pass check */
   requirements?: {
+    // Order requirements from most specific to least specific. Check in this order for efficiency
+
     activeEffect?: string;
-    weaponInTeam?: WeaponName;
+    anyWeaponInTeam?: WeaponName[];
     weaponResonance?: WeaponResonance;
     elementalTypeWeaponsInTeam?: {
       elementalType: WeaponElementalType;

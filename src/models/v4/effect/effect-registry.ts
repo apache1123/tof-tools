@@ -4,7 +4,7 @@ import type { MiscellaneousBuffDefinition } from '../miscellaneous-buff/miscella
 import type { EffectControllerSet } from './effect-controller-set';
 import type { EffectDefinition } from './effect-definition';
 
-export class EffectControllerContext {
+export class EffectRegistry {
   public constructor(
     public readonly attackBuffControllers: EffectControllerSet<AttackBuffDefinition>,
     public readonly damageBuffControllers: EffectControllerSet<DamageBuffDefinition>,

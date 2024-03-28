@@ -143,7 +143,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           },
           cooldown: 0,
           requirements: {
-            weaponInTeam: 'Brevey',
+            anyWeaponInTeam: ['Brevey'],
           },
         },
       ],
@@ -492,7 +492,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           },
           cooldown: 0,
           requirements: {
-            weaponInTeam: 'Icarus',
+            anyWeaponInTeam: ['Icarus'],
           },
         },
       ],
@@ -1281,7 +1281,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           },
           cooldown: 0,
           requirements: {
-            weaponInTeam: 'Yanuo',
+            anyWeaponInTeam: ['Yanuo'],
           },
         },
       ],

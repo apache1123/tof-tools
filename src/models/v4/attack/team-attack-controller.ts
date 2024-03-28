@@ -15,7 +15,7 @@ export class TeamAttackController {
   private previousWeapon: Weapon | undefined;
 
   public constructor(
-    public readonly team: Team,
+    team: Team,
     combatDuration: number,
     private readonly chargeTimeline: ChargeTimeline
   ) {

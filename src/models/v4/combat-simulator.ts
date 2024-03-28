@@ -1,28 +1,26 @@
-import { commonWeaponAttackBuffs } from '../../constants/common-weapon-attack-buffs';
-import { commonWeaponDamageBuffs } from '../../constants/common-weapon-damage-buffs';
+import { commonAttackBuffs } from '../../constants/common-attack-buffs';
+import { commonDamageBuffs } from '../../constants/common-damage-buffs';
 import type { Loadout } from '../loadout';
 import type { AttackCommand } from './attack/attack-command';
 import type { AttackResult } from './attack/attack-result';
 import { TeamAttackController } from './attack/team-attack-controller';
-import type { AttackBuffDefinition } from './attack-buff/attack-buff-definition';
 import { ChargeTimeline } from './charge/charge-timeline';
-import type { DamageBuffDefinition } from './damage-buff/damage-buff-definition';
 import { EffectController } from './effect/effect-controller';
-import { EffectControllerContext } from './effect/effect-controller-context';
 import { EffectControllerSet } from './effect/effect-controller-set';
 import { EffectEvaluator } from './effect/effect-evaluator';
+import { EffectRegistry } from './effect/effect-registry';
 import { EffectTimeline } from './effect/effect-timeline';
 import type { Relics } from './relics';
 
 export class CombatSimulator {
   public readonly teamAttackController: TeamAttackController;
   public readonly chargeTimeline: ChargeTimeline;
-  public readonly effectControllerContext: EffectControllerContext;
+  public readonly effectRegistry: EffectRegistry;
 
   public constructor(
     public readonly combatDuration: number,
     private readonly loadout: Loadout,
-    private readonly relics: Relics
+    relics: Relics
   ) {
     const {
       team: { weapons },
@@ -39,12 +37,8 @@ export class CombatSimulator {
 
     const attackBuffControllers = new Map(
       weapons
-        .flatMap<AttackBuffDefinition>((weapon) =>
-          weapon.definition.commonAttackBuffs.map(
-            (buffId) => commonWeaponAttackBuffs[buffId]
-          )
-        )
-        .concat(weapons.flatMap((weapon) => weapon.definition.attackBuffs))
+        .flatMap((weapon) => weapon.definition.attackBuffs)
+        .concat(commonAttackBuffs)
         .concat(simulacrumTrait?.attackBuffs ?? [])
         .map((attackBuffDefinition) => {
           const timeline = new EffectTimeline(combatDuration);
@@ -57,12 +51,8 @@ export class CombatSimulator {
 
     const damageBuffControllers = new Map(
       weapons
-        .flatMap<DamageBuffDefinition>((weapon) =>
-          weapon.definition.commonDamageBuffs.map(
-            (buffId) => commonWeaponDamageBuffs[buffId]
-          )
-        )
-        .concat(weapons.flatMap((weapon) => weapon.definition.damageBuffs))
+        .flatMap((weapon) => weapon.definition.damageBuffs)
+        .concat(commonDamageBuffs)
         .concat(simulacrumTrait?.damageBuffs ?? [])
         .concat(relics.passiveRelicBuffs)
         .map((damageBuffDefinition) => {
@@ -96,7 +86,7 @@ export class CombatSimulator {
         })
     );
 
-    this.effectControllerContext = new EffectControllerContext(
+    this.effectRegistry = new EffectRegistry(
       new EffectControllerSet('Attack buffs', attackBuffControllers),
       new EffectControllerSet('Damage buffs', damageBuffControllers),
       new EffectControllerSet('Miscellaneous buffs', miscBuffControllers),
@@ -127,13 +117,12 @@ export class CombatSimulator {
   }
 
   private triggerEffects(attackResult: AttackResult) {
-    for (const effectController of this.effectControllerContext
-      .allEffectControllers) {
+    for (const effectController of this.effectRegistry.allEffectControllers) {
       const effectEvaluator = new EffectEvaluator(
         attackResult,
         effectController.definition,
         effectController.timeline,
-        this.effectControllerContext,
+        this.effectRegistry,
         this.loadout.team
       );
       effectController.triggerEffect(effectEvaluator);

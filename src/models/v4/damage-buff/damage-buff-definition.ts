@@ -7,6 +7,7 @@ export interface DamageBuffDefinition extends EffectDefinition {
   elementalTypes: WeaponElementalType[];
   /** Damage buffs in the same category are additive. If they are not, they are multiplicative */
   damageCategory:
+    | 'Weapon resonance'
     | 'Relic passive'
     | 'Enemy debuff'
     | 'DMG buff category 1'
