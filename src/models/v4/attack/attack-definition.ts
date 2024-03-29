@@ -2,6 +2,17 @@ import type { AttackType } from '../../../constants/attack-type';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { WeaponName } from '../../../constants/weapon-definitions';
 
+export interface AttackDamageModifiers {
+  /** the "x%" part of "dealing damage equal to x% of ATK plus y to target" / `base damage = ATK * x% + y` */
+  attackMultiplier: number;
+  /** the "y" part of "dealing damage equal to x% of ATK plus y to target" / `base damage = ATK * x% + y` */
+  // TODO: for weapon attacks, this varies based on skill level
+  attackFlat: number;
+  hpMultiplier?: number;
+  sumOfResistancesMultiplier?: number;
+  critFlatMultiplier?: number;
+}
+
 export interface AttackDefinition {
   id: string;
   displayName: string;
@@ -12,14 +23,7 @@ export interface AttackDefinition {
 
   type: AttackType;
 
-  /** the "x%" part of "dealing damage equal to x% of ATK plus y to target" / `base damage = ATK * x% + y` */
-  attackMultiplier: number;
-  /** the "y" part of "dealing damage equal to x% of ATK plus y to target" / `base damage = ATK * x% + y` */
-  // TODO: for weapon attacks, this varies based on skill level
-  attackFlat: number;
-  hpMultiplier?: number;
-  sumOfResistancesMultiplier?: number;
-  critFlatMultiplier?: number;
+  damageModifiers: AttackDamageModifiers;
 
   /** in ms */
   duration: number;

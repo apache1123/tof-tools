@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import type { CoreElementalType } from '../constants/elemental-type';
 import type { GearName } from '../constants/gear-types';
 import { gearTypesLookup } from '../constants/gear-types';
-import { additiveSum } from '../utils/math-utils';
+import { sum } from '../utils/math-utils';
 import type { DataById } from './data';
 import type { Dto } from './dto';
 import type { GearDto } from './gear';
@@ -32,8 +32,8 @@ export class GearSet implements Persistable<GearSetDtoV2> {
   }
 
   public getTotalAttackFlat(elementalType: CoreElementalType): number {
-    return additiveSum(
-      Object.keys(this._gearsByTypeId).map((typeId) => {
+    return sum(
+      ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalAttackFlat(elementalType) : 0;
       })
@@ -41,8 +41,8 @@ export class GearSet implements Persistable<GearSetDtoV2> {
   }
 
   public getTotalAttackPercent(elementalType: CoreElementalType): number {
-    return additiveSum(
-      Object.keys(this._gearsByTypeId).map((typeId) => {
+    return sum(
+      ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalAttackPercent(elementalType) : 0;
       })
@@ -50,8 +50,8 @@ export class GearSet implements Persistable<GearSetDtoV2> {
   }
 
   public getTotalCritFlat(): number {
-    return additiveSum(
-      Object.keys(this._gearsByTypeId).map((typeId) => {
+    return sum(
+      ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalCritFlat() : 0;
       })
@@ -59,8 +59,8 @@ export class GearSet implements Persistable<GearSetDtoV2> {
   }
 
   public getTotalCritPercent(): number {
-    return additiveSum(
-      Object.keys(this._gearsByTypeId).map((typeId) => {
+    return sum(
+      ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalCritPercent() : 0;
       })
@@ -68,8 +68,8 @@ export class GearSet implements Persistable<GearSetDtoV2> {
   }
 
   public getTotalDamagePercent(elementalType: CoreElementalType): number {
-    return additiveSum(
-      Object.keys(this._gearsByTypeId).map((typeId) => {
+    return sum(
+      ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalElementalDamagePercent(elementalType) : 0;
       })

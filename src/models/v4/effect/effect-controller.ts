@@ -6,7 +6,7 @@ import type { EffectTimeline } from './effect-timeline';
 export class EffectController<T extends EffectDefinition> {
   public constructor(
     public readonly definition: T,
-    public readonly timeline: EffectTimeline
+    private readonly timeline: EffectTimeline
   ) {}
 
   public get id() {
@@ -15,6 +15,18 @@ export class EffectController<T extends EffectDefinition> {
 
   public get displayName() {
     return this.definition.displayName;
+  }
+
+  public get totalDuration() {
+    return this.timeline.totalDuration;
+  }
+
+  public get effects() {
+    return this.timeline.effects;
+  }
+
+  public get lastEffect() {
+    return this.timeline.lastEffect;
   }
 
   public triggerEffect(effectEvaluator: EffectEvaluator) {
@@ -39,5 +51,13 @@ export class EffectController<T extends EffectDefinition> {
 
   public isEffectActiveAt(time: number) {
     return this.timeline.isEffectActiveAt(time);
+  }
+
+  public isEffectOnCooldownAt(time: number) {
+    return this.timeline.isEffectOnCooldownAt(time);
+  }
+
+  public getEffectsOverlappingPeriod(startTime: number, endTime: number) {
+    return this.timeline.getEffectsOverlappingPeriod(startTime, endTime);
   }
 }

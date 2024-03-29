@@ -32,6 +32,9 @@ team.weapon3 = weapon3;
 const loadout = new Loadout('loadout', 'Volt', team, new GearSet(), {
   characterLevel: 100,
 });
+loadout.loadoutStats.voltAttack.baseAttack = 30000;
+loadout.loadoutStats.frostAttack.baseAttack = 30000;
+loadout.loadoutStats.critFlat = 18000;
 loadout.simulacrumTrait = simulacrumTraits.byId['Alyss'];
 
 const relics = new Relics();
@@ -101,6 +104,36 @@ export function CombatSimulatorTimeline() {
 
   const editorData: CombatSimulatorTimelineRow[] = [];
 
+  editorData.push({
+    id: 'damage-summary',
+    displayName: 'Damage summary',
+    actions:
+      combatSimulatorSnap.damageSummaryTimeline.damageSummaryEvents.map<CombatSimulatorTimelineAction>(
+        (damageSummaryEvent, index) => ({
+          id: `damage-summary-${index}`,
+          start: damageSummaryEvent.startTime,
+          end: damageSummaryEvent.endTime,
+          effectId: 'attack-event',
+          event: damageSummaryEvent,
+        })
+      ),
+  });
+
+  editorData.push({
+    id: 'charge',
+    displayName: 'Charge',
+    actions:
+      combatSimulatorSnap.chargeTimeline.chargeEvents.map<CombatSimulatorTimelineAction>(
+        (chargeEvent, index) => ({
+          id: `charge-${index}`,
+          start: chargeEvent.startTime,
+          end: chargeEvent.endTime,
+          effectId: 'attack-event',
+          event: chargeEvent,
+        })
+      ),
+  });
+
   for (const [weapon, weaponAttackController] of combatSimulatorSnap
     .teamAttackController.weaponAttackControllers) {
     editorData.push({
@@ -122,11 +155,11 @@ export function CombatSimulatorTimeline() {
 
   for (const effectController of combatSimulatorSnap.effectRegistry
     .allEffectControllers) {
-    const { id, displayName, timeline } = effectController;
+    const { id, displayName, effects } = effectController;
     editorData.push({
       id,
       displayName,
-      actions: timeline.effects.map<CombatSimulatorTimelineAction>(
+      actions: effects.map<CombatSimulatorTimelineAction>(
         (effectEvent, index) => ({
           id: `${id}-${index}`,
           start: effectEvent.startTime,

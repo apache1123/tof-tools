@@ -1,4 +1,6 @@
-export class TimelineEvent {
+import type { TimePeriod } from '../time-period';
+
+export class TimelineEvent implements TimePeriod {
   public displayName = '';
 
   public constructor(

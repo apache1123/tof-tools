@@ -1,10 +1,10 @@
-import type { WeaponElementalType } from '../../../constants/elemental-type';
-import { weaponDefinitions } from '../../../constants/weapon-definitions';
-import { Team } from '../../team';
-import { Weapon } from '../../weapon';
-import type { AttackDefinition } from '../attack/attack-definition';
-import { TeamAttackController } from '../attack/team-attack-controller';
-import { ChargeTimeline } from '../charge/charge-timeline';
+import type { WeaponElementalType } from '../../../../constants/elemental-type';
+import { weaponDefinitions } from '../../../../constants/weapon-definitions';
+import { Team } from '../../../team';
+import { Weapon } from '../../../weapon';
+import { ChargeTimeline } from '../../charge/charge-timeline';
+import type { AttackDefinition } from '../attack-definition';
+import { TeamAttackController } from '../team-attack-controller';
 
 describe('TeamAttackController', () => {
   let weapon1: Weapon;

@@ -3,26 +3,25 @@ import groupBy from 'lodash.groupby';
 
 import type { Team } from '../../team';
 import type { AttackResult } from '../attack/attack-result';
+import type { EffectController } from './effect-controller';
 import type { EffectDefinition } from './effect-definition';
 import type { EffectRegistry } from './effect-registry';
-import type { EffectTimeline } from './effect-timeline';
 
 export class EffectEvaluator {
   public constructor(
     private readonly attackResult: AttackResult,
-    private readonly effectDefinition: EffectDefinition,
-    private readonly effectTimeline: EffectTimeline,
+    private readonly effectController: EffectController<EffectDefinition>,
     private readonly effectRegistry: EffectRegistry,
     private readonly team: Team
   ) {}
 
   public isEffectOnCooldown(): boolean {
     const { startTime } = this.attackResult;
-    return this.effectTimeline.isEffectOnCooldownAt(startTime);
+    return this.effectController.isEffectOnCooldownAt(startTime);
   }
 
   public canEffectBeTriggered(): boolean {
-    const { triggeredBy } = this.effectDefinition;
+    const { triggeredBy } = this.effectController.definition;
 
     const {
       attackDefinition: { id: attackId, type: attackType },
@@ -91,7 +90,7 @@ export class EffectEvaluator {
   }
 
   public hasEffectMetRequirements(): boolean {
-    const { requirements } = this.effectDefinition;
+    const { requirements } = this.effectController.definition;
     if (!requirements) return true;
 
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
@@ -178,7 +177,7 @@ export class EffectEvaluator {
         applyToEndSegmentOfCombat,
         untilCombatEnd,
       },
-    } = this.effectDefinition;
+    } = this.effectController.definition;
     const { startTime, duration } = this.attackResult;
 
     if (value) {
@@ -191,10 +190,10 @@ export class EffectEvaluator {
       };
     }
     if (applyToEndSegmentOfCombat) {
-      const duration = BigNumber(this.effectTimeline.totalDuration)
+      const duration = BigNumber(this.effectController.totalDuration)
         .times(applyToEndSegmentOfCombat)
         .toNumber();
-      const startTime = BigNumber(this.effectTimeline.totalDuration)
+      const startTime = BigNumber(this.effectController.totalDuration)
         .minus(duration)
         .toNumber();
 
@@ -203,7 +202,7 @@ export class EffectEvaluator {
     if (untilCombatEnd) {
       return {
         startTime,
-        duration: BigNumber(this.effectTimeline.totalDuration)
+        duration: BigNumber(this.effectController.totalDuration)
           .minus(startTime)
           .toNumber(),
       };

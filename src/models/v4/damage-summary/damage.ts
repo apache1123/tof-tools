@@ -4,7 +4,7 @@ export class Damage {
   private _baseDamage: number;
   private _finalDamage: number;
 
-  public constructor(baseDamage = 0, finalDamage = 0) {
+  public constructor(baseDamage: number, finalDamage: number) {
     this._baseDamage = baseDamage;
     this._finalDamage = finalDamage;
   }
@@ -20,13 +20,16 @@ export class Damage {
     return BigNumber(this.finalDamage).dividedBy(this.baseDamage).toNumber();
   }
 
-  public add(damage: Damage): this {
+  /** Adds damage. Returns another Damage instance without modifying the originals */
+  public add(damage: Damage): Damage {
     const { baseDamage, finalDamage } = damage;
-    this._baseDamage = BigNumber(this._baseDamage).plus(baseDamage).toNumber();
-    this._finalDamage = BigNumber(this._finalDamage)
+    const baseDamageSum = BigNumber(this._baseDamage)
+      .plus(baseDamage)
+      .toNumber();
+    const finalDamageSum = BigNumber(this._finalDamage)
       .plus(finalDamage)
       .toNumber();
 
-    return this;
+    return new Damage(baseDamageSum, finalDamageSum);
   }
 }

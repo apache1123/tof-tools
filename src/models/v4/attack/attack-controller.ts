@@ -17,12 +17,23 @@ export class AttackController {
     time: number,
     elementalTypeOverwrite?: WeaponElementalType
   ): Attack {
-    const { duration, cooldown, displayName } = this.definition;
+    const { duration, cooldown, displayName, damageModifiers, type } =
+      this.definition;
+
     const elementalType =
       elementalTypeOverwrite ?? this.definition.elementalType;
+    const damageModifiersCopy = { ...damageModifiers };
 
-    const attack = new Attack(time, duration, cooldown, elementalType);
+    const attack = new Attack(
+      time,
+      duration,
+      cooldown,
+      elementalType,
+      damageModifiersCopy,
+      type
+    );
     attack.displayName = displayName;
+
     this.timeline.addAttack(attack);
 
     return attack;

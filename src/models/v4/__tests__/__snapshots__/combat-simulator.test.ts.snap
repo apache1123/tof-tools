@@ -925,53 +925,35 @@ exports[`CombatSimulator next available attacks includes attacks from all weapon
 
 exports[`CombatSimulator relic passive damage buff is added at the start of combat and lasts for the entire combat duration 1`] = `
 [
-  EffectTimeline {
-    "timeline": Timeline {
-      "_events": [
-        Effect {
-          "cooldown": 0,
-          "displayName": "Alternative Destiny passive damage buff",
-          "duration": 150000,
-          "maxStacks": 1,
-          "stacks": 1,
-          "startTime": 0,
-        },
-      ],
-      "totalDuration": 150000,
+  [
+    Effect {
+      "cooldown": 0,
+      "displayName": "Alternative Destiny passive damage buff",
+      "duration": 150000,
+      "maxStacks": 1,
+      "stacks": 1,
+      "startTime": 0,
     },
-    "totalDuration": 150000,
-  },
-  EffectTimeline {
-    "timeline": Timeline {
-      "_events": [
-        Effect {
-          "cooldown": 0,
-          "displayName": "Cybernetic arm passive damage buff",
-          "duration": 150000,
-          "maxStacks": 1,
-          "stacks": 1,
-          "startTime": 0,
-        },
-      ],
-      "totalDuration": 150000,
+  ],
+  [
+    Effect {
+      "cooldown": 0,
+      "displayName": "Cybernetic arm passive damage buff",
+      "duration": 150000,
+      "maxStacks": 1,
+      "stacks": 1,
+      "startTime": 0,
     },
-    "totalDuration": 150000,
-  },
-  EffectTimeline {
-    "timeline": Timeline {
-      "_events": [
-        Effect {
-          "cooldown": 0,
-          "displayName": "Thalassic Heart passive damage buff",
-          "duration": 150000,
-          "maxStacks": 1,
-          "stacks": 1,
-          "startTime": 0,
-        },
-      ],
-      "totalDuration": 150000,
+  ],
+  [
+    Effect {
+      "cooldown": 0,
+      "displayName": "Thalassic Heart passive damage buff",
+      "duration": 150000,
+      "maxStacks": 1,
+      "stacks": 1,
+      "startTime": 0,
     },
-    "totalDuration": 150000,
-  },
+  ],
 ]
 `;

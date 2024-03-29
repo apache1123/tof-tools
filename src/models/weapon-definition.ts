@@ -22,7 +22,9 @@ export interface WeaponDefinition {
    * E.g. For Yan Miao, her weapon is considered to be both Physical and Flame to trigger Physical resonance and Flame resonance, but deals (mainly) physical damage.
    */
   resonanceElements: WeaponElementalType[];
-  /** The element the weapon deals damage in when it is on field */
+  /** When calculating this weapon's damage, use the highest value out of these elements for base ATK, ATK%, DMG% respectively - e.g. "Volt-Frost Fusion"/"Fusion of Mass and Flame" */
+  calculationElements: WeaponElementalType[];
+  /** The default element the weapon deals damage in when it is on field */
   damageElement: WeaponElementalType;
   type: WeaponType;
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];

@@ -15,7 +15,7 @@ export class TeamAttackController {
   private previousWeapon: Weapon | undefined;
 
   public constructor(
-    team: Team,
+    private readonly team: Team,
     combatDuration: number,
     private readonly chargeTimeline: ChargeTimeline
   ) {
@@ -29,6 +29,10 @@ export class TeamAttackController {
 
   public get activeWeapon() {
     return this._activeWeapon;
+  }
+
+  public get weapons() {
+    return this.team.weapons;
   }
 
   public get nextAvailableAttacks(): AttackCommand[] {

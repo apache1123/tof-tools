@@ -5,6 +5,8 @@ import type { AttackCommand } from './attack/attack-command';
 import type { AttackResult } from './attack/attack-result';
 import { TeamAttackController } from './attack/team-attack-controller';
 import { ChargeTimeline } from './charge/charge-timeline';
+import { DamageCalculator } from './damage-calculation/damage-calculator';
+import { DamageSummaryTimeline } from './damage-summary-timeline/damage-summary-timeline';
 import { EffectController } from './effect/effect-controller';
 import { EffectControllerSet } from './effect/effect-controller-set';
 import { EffectEvaluator } from './effect/effect-evaluator';
@@ -14,8 +16,12 @@ import type { Relics } from './relics';
 
 export class CombatSimulator {
   public readonly teamAttackController: TeamAttackController;
-  public readonly chargeTimeline: ChargeTimeline;
   public readonly effectRegistry: EffectRegistry;
+
+  public readonly chargeTimeline: ChargeTimeline;
+
+  public readonly damageSummaryTimeline: DamageSummaryTimeline;
+  private readonly damageCalculator: DamageCalculator;
 
   public constructor(
     public readonly combatDuration: number,
@@ -92,6 +98,15 @@ export class CombatSimulator {
       new EffectControllerSet('Miscellaneous buffs', miscBuffControllers),
       new EffectControllerSet('Weapon effects', weaponEffectControllers)
     );
+
+    this.damageSummaryTimeline = new DamageSummaryTimeline(combatDuration);
+    this.damageCalculator = new DamageCalculator(
+      this.damageSummaryTimeline,
+      loadout,
+      loadout.loadoutStats,
+      this.teamAttackController,
+      this.effectRegistry
+    );
   }
 
   public get nextAvailableAttacks() {
@@ -103,15 +118,21 @@ export class CombatSimulator {
 
     this.adjustCharge(attackResult);
     this.triggerEffects(attackResult);
+
+    this.calculateDamage(attackResult);
   }
 
   private adjustCharge(attackResult: AttackResult) {
     if (attackResult.attackDefinition.type === 'discharge') {
-      this.chargeTimeline.deductOneFullCharge(attackResult.startTime);
+      this.chargeTimeline.deductOneFullCharge(
+        attackResult.startTime,
+        attackResult.duration
+      );
     } else {
       this.chargeTimeline.addCharge(
         attackResult.attackDefinition.charge,
-        attackResult.endTime
+        attackResult.startTime,
+        attackResult.duration
       );
     }
   }
@@ -120,12 +141,15 @@ export class CombatSimulator {
     for (const effectController of this.effectRegistry.allEffectControllers) {
       const effectEvaluator = new EffectEvaluator(
         attackResult,
-        effectController.definition,
-        effectController.timeline,
+        effectController,
         this.effectRegistry,
         this.loadout.team
       );
       effectController.triggerEffect(effectEvaluator);
     }
+  }
+
+  private calculateDamage(attackResult: AttackResult) {
+    this.damageCalculator.calculateDamageUntil(attackResult.endTime);
   }
 }

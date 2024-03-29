@@ -31,6 +31,10 @@ export class Weapon implements Persistable<WeaponDto> {
     return [...normalAttacks, ...dodgeAttacks, ...skills, discharge];
   }
 
+  public get calculationElements() {
+    return this.definition.calculationElements;
+  }
+
   public copyFromDto(dto: WeaponDto): void {
     const { definitionId, stars, matrixSets: matrixSetsDto } = dto;
 

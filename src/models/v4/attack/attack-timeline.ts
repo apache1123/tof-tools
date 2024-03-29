@@ -31,4 +31,8 @@ export class AttackTimeline {
       (attack) => attack.startTime <= time && attack.cooldownEndsAt > time
     );
   }
+
+  public getAttacksOverlappingPeriod(startTime: number, endTime: number) {
+    return this.timeline.getEventsOverlappingPeriod(startTime, endTime);
+  }
 }

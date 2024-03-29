@@ -1,6 +1,7 @@
 import type { EffectController } from './effect-controller';
 import type { EffectDefinition } from './effect-definition';
 
+// TODO: Review. This class feels unnecessary
 export class EffectControllerSet<T extends EffectDefinition> {
   public constructor(
     public label: string,

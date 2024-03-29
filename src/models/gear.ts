@@ -17,7 +17,7 @@ import type { StatName, StatRole } from '../constants/stat-types';
 import { statTypesLookup } from '../constants/stat-types';
 import { filterOutUndefined } from '../utils/array-utils';
 import { cartesian } from '../utils/cartesian-utils';
-import { additiveSum } from '../utils/math-utils';
+import { sum } from '../utils/math-utils';
 import type { AugmentStatDto } from './augment-stat';
 import { AugmentStat } from './augment-stat';
 import type { Dto } from './dto';
@@ -352,8 +352,8 @@ export class Gear implements Persistable<GearDto> {
   private additiveSumStatValues(
     predicate: (statType: StatType) => boolean
   ): number {
-    return additiveSum(
-      this.randomStats.concat(this.augmentStats).map((stat) => {
+    return sum(
+      ...this.randomStats.concat(this.augmentStats).map((stat) => {
         if (!stat) return 0;
 
         const statType = stat.type;
@@ -367,8 +367,8 @@ export class Gear implements Persistable<GearDto> {
     elementalType: CoreElementalType,
     predicate: (statType: StatType, elementalType: CoreElementalType) => boolean
   ): number {
-    return additiveSum(
-      this.randomStats.concat(this.augmentStats).map((stat) => {
+    return sum(
+      ...this.randomStats.concat(this.augmentStats).map((stat) => {
         if (!stat) return 0;
 
         const statType = stat.type;

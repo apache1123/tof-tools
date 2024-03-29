@@ -107,4 +107,8 @@ export class EffectTimeline {
       (effect) => effect.startTime <= time && effect.cooldownEndsAt > time
     );
   }
+
+  public getEffectsOverlappingPeriod(startTime: number, endTime: number) {
+    return this.timeline.getEventsOverlappingPeriod(startTime, endTime);
+  }
 }

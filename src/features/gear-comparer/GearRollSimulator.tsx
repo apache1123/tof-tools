@@ -20,7 +20,7 @@ import type { GearRandomStatRollCombinations } from '../../models/gear-random-st
 import type { RandomStat } from '../../models/random-stat';
 import { gearComparerState, rollSimulatorState } from '../../states/states';
 import { getComparisonColor } from '../../utils/color-utils';
-import { additiveSum } from '../../utils/math-utils';
+import { sum } from '../../utils/math-utils';
 import { GearRollSimulatorStat } from './GearRollSimulatorStat';
 
 export function GearRollSimulator() {
@@ -136,7 +136,7 @@ function DeterminedStars({
 
   const startingRolls =
     gearSnap.stars || (randomStatRollCombinations[0]?.stars ?? 0);
-  const totalRolls = startingRolls + additiveSum(rolls as number[]).toNumber();
+  const totalRolls = startingRolls + sum(...rolls).toNumber();
 
   const matchingRandomStatRollCombinations = randomStatRollCombinations.find(
     (x) => x.stars === startingRolls
