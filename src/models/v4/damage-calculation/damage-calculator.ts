@@ -34,6 +34,7 @@ export class DamageCalculator {
       tickPeriodStart = tickPeriodStart + tickDuration
     ) {
       const damageSummary = new DamageSummary(
+        tickDuration,
         ...this.teamAttackController.weapons
       );
 

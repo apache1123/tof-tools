@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material';
 import type {
   TimelineAction,
   TimelineEffect,
@@ -6,12 +7,14 @@ import type {
 import { Timeline } from '@xzdarcy/react-timeline-editor';
 import { proxy, useSnapshot } from 'valtio';
 
+import { DamageSummaryBreakdown } from '../../components/DamageSummaryBreakdown/DamageSummaryBreakdown';
 import { simulacrumTraits } from '../../constants/simulacrum-traits';
 import { weaponDefinitions } from '../../constants/weapon-definitions';
 import { GearSet } from '../../models/gear-set';
 import { Loadout } from '../../models/loadout';
 import { Team } from '../../models/team';
 import { CombatSimulator } from '../../models/v4/combat-simulator';
+import type { DamageSummary } from '../../models/v4/damage-summary/damage-summary';
 import { Relics } from '../../models/v4/relics';
 import type { TimelineEvent } from '../../models/v4/timeline/timeline-event';
 import { Weapon } from '../../models/weapon';
@@ -172,24 +175,34 @@ export function CombatSimulatorTimeline() {
   }
 
   return (
-    <Timeline
-      editorData={editorData}
-      effects={effects}
-      disableDrag
-      autoScroll={true}
-      getActionRender={(action) => {
-        const typedAction = action as CombatSimulatorTimelineAction;
-        if (typedAction.effectId === 'attack-event') {
-          return <AttackEventRenderer action={typedAction} />;
-        } else {
-          return <AttackBuffEventRenderer action={typedAction} />;
-        }
-      }}
-      scale={10000} // 10s
-      getScaleRender={(scale) => (
-        <CombatSimulatorTimelineScaleRenderer scale={scale} />
+    <Stack spacing={2}>
+      <Timeline
+        editorData={editorData}
+        effects={effects}
+        disableDrag
+        autoScroll={true}
+        getActionRender={(action) => {
+          const typedAction = action as CombatSimulatorTimelineAction;
+          if (typedAction.effectId === 'attack-event') {
+            return <AttackEventRenderer action={typedAction} />;
+          } else {
+            return <AttackBuffEventRenderer action={typedAction} />;
+          }
+        }}
+        scale={10000} // 10s
+        getScaleRender={(scale) => (
+          <CombatSimulatorTimelineScaleRenderer scale={scale} />
+        )}
+        style={{ width: '100%' }}
+      />
+      {combatSimulatorSnap.damageSummaryTimeline.cumulatedDamageSummary && (
+        <DamageSummaryBreakdown
+          damageSummary={
+            combatSimulatorSnap.damageSummaryTimeline
+              .cumulatedDamageSummary as DamageSummary
+          }
+        />
       )}
-      style={{ width: '100%' }}
-    />
+    </Stack>
   );
 }

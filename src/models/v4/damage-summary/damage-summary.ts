@@ -1,4 +1,5 @@
 import type { WeaponName } from '../../../constants/weapon-definitions';
+import { toPercentageString } from '../../../utils/number-utils';
 import type { Weapon } from '../../weapon';
 import { Damage } from './damage';
 import { WeaponDamageSummary } from './weapon-damage-summary';
@@ -9,7 +10,7 @@ export class DamageSummary {
     WeaponDamageSummary
   >();
 
-  public constructor(...weapons: Weapon[]) {
+  public constructor(public duration: number, ...weapons: Weapon[]) {
     for (const weapon of weapons) {
       this.weaponDamageSummaries.set(
         weapon.definition.id,
@@ -26,6 +27,21 @@ export class DamageSummary {
     );
   }
 
+  public get damagePercentageByWeapon(): {
+    weaponName: WeaponName;
+    percentageString: string;
+  }[] {
+    const totalFinalDamage = this.totalDamage.finalDamage;
+    return Array.from(this.weaponDamageSummaries.entries()).map(
+      ([weaponName, weaponDamageSummary]) => ({
+        weaponName,
+        percentageString: toPercentageString(
+          weaponDamageSummary.totalDamage.finalDamage / totalFinalDamage
+        ),
+      })
+    );
+  }
+
   /** Adds another damage summary. The weapons of the two damage summaries must be the same. Returns another instance without modifying the originals */
   public add(damageSummary: DamageSummary): DamageSummary {
     for (const weaponName of this.weaponDamageSummaries.keys()) {
@@ -36,7 +52,7 @@ export class DamageSummary {
       }
     }
 
-    const result = new DamageSummary();
+    const result = new DamageSummary(this.duration + damageSummary.duration);
 
     for (const [weaponName, thisWeaponDamageSummary] of this
       .weaponDamageSummaries) {

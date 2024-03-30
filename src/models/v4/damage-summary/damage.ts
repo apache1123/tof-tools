@@ -17,7 +17,9 @@ export class Damage {
   }
 
   public get damageMultiplier(): number {
-    return BigNumber(this.finalDamage).dividedBy(this.baseDamage).toNumber();
+    return this.baseDamage === 0
+      ? 0
+      : BigNumber(this.finalDamage).dividedBy(this.baseDamage).toNumber();
   }
 
   /** Adds damage. Returns another Damage instance without modifying the originals */
