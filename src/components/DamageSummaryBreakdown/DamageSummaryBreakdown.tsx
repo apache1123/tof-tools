@@ -2,7 +2,7 @@ import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
 
 import type { WeaponName } from '../../constants/weapon-definitions';
-import type { DamageSummary } from '../../models/v4/damage-summary/damage-summary';
+import type { DamageSummarySnapshot } from '../../models/v4/combat-simulator-snapshot/damage-summary-snapshot';
 import { DamageSummaryBreakdownSideBar } from './DamageSummaryBreakdownSideBar';
 import { DamageSummaryBreakdownTable } from './DamageSummaryBreakdownTable';
 import { DamageSummaryBreakdownTopBar } from './DamageSummaryBreakdownTopBar';
@@ -10,20 +10,16 @@ import { DamageSummaryBreakdownTopBar } from './DamageSummaryBreakdownTopBar';
 export function DamageSummaryBreakdown({
   damageSummary,
 }: {
-  damageSummary: DamageSummary;
+  damageSummary: DamageSummarySnapshot;
 }) {
-  const [selectedWeaponName, setSelectedWeaponName] = useState<WeaponName>(
-    damageSummary.weaponDamageSummaries.keys().next().value
-  );
+  const [selectedWeaponName, setSelectedWeaponName] = useState<
+    WeaponName | undefined
+  >(damageSummary.damageByWeapon[0]?.weaponName ?? undefined);
 
-  const {
-    totalDamage,
-    duration,
-    damagePercentageByWeapon,
-    weaponDamageSummaries,
-  } = damageSummary;
-  const selectedWeaponDamageSummary =
-    weaponDamageSummaries.get(selectedWeaponName);
+  const { totalDamage, duration, damageByWeapon } = damageSummary;
+  const selectedWeaponDamageSummary = damageByWeapon.find(
+    ({ weaponName }) => weaponName === selectedWeaponName
+  );
 
   return (
     <Stack spacing={1} width={600}>
@@ -35,7 +31,12 @@ export function DamageSummaryBreakdown({
       />
       <Stack direction="row">
         <DamageSummaryBreakdownSideBar
-          damagePercentageByWeapon={damagePercentageByWeapon}
+          damagePercentageByWeapon={damageSummary.damageByWeapon.map(
+            ({ weaponName, percentageOfTotalDamage }) => ({
+              weaponName,
+              percentageOfTotalDamage,
+            })
+          )}
           selectedWeaponName={selectedWeaponName}
           onWeaponChange={(selectedWeaponName) => {
             setSelectedWeaponName(selectedWeaponName);

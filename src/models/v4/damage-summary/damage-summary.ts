@@ -1,5 +1,4 @@
 import type { WeaponName } from '../../../constants/weapon-definitions';
-import { toPercentageString } from '../../../utils/number-utils';
 import type { Weapon } from '../../weapon';
 import { Damage } from './damage';
 import { WeaponDamageSummary } from './weapon-damage-summary';
@@ -29,15 +28,14 @@ export class DamageSummary {
 
   public get damagePercentageByWeapon(): {
     weaponName: WeaponName;
-    percentageString: string;
+    percentage: number;
   }[] {
     const totalFinalDamage = this.totalDamage.finalDamage;
     return Array.from(this.weaponDamageSummaries.entries()).map(
       ([weaponName, weaponDamageSummary]) => ({
         weaponName,
-        percentageString: toPercentageString(
-          weaponDamageSummary.totalDamage.finalDamage / totalFinalDamage
-        ),
+        percentage:
+          weaponDamageSummary.totalDamage.finalDamage / totalFinalDamage,
       })
     );
   }

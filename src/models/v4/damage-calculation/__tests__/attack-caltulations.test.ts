@@ -5,9 +5,7 @@ import type { LoadoutStats } from '../../../loadout-stats';
 import { Team } from '../../../team';
 import { Weapon } from '../../../weapon';
 import type { Attack } from '../../attack/attack';
-import type { AttackBuffDefinition } from '../../attack-buff/attack-buff-definition';
-import type { DamageBuffDefinition } from '../../damage-buff/damage-buff-definition';
-import type { EffectInstance } from '../../effect/effect-instance';
+import type { Buff } from '../../buff/buff';
 import { AttackCalculations } from '../attack-calculations';
 
 describe('AttackCalculations', () => {
@@ -18,6 +16,7 @@ describe('AttackCalculations', () => {
   let loadout: jest.Mocked<Loadout>;
 
   beforeEach(() => {
+    // NOTE: Both Brevey & Yanuo has volt/frost fusion. Using highest volt or frost values
     weapon1 = new Weapon(weaponDefinitions.byId['Brevey']);
     weapon2 = new Weapon(weaponDefinitions.byId['Yanuo']);
     weapon3 = new Weapon(weaponDefinitions.byId['Nan Yin']);
@@ -51,7 +50,6 @@ describe('AttackCalculations', () => {
         weapon2,
         loadout,
         loadout.loadoutStats,
-        [],
         []
       );
 
@@ -64,7 +62,6 @@ describe('AttackCalculations', () => {
         weapon3,
         loadout,
         loadout.loadoutStats,
-        [],
         []
       );
 
@@ -79,7 +76,6 @@ describe('AttackCalculations', () => {
         weapon2,
         loadout,
         loadout.loadoutStats,
-        [],
         []
       );
 
@@ -92,7 +88,6 @@ describe('AttackCalculations', () => {
         weapon3,
         loadout,
         loadout.loadoutStats,
-        [],
         []
       );
 
@@ -107,7 +102,6 @@ describe('AttackCalculations', () => {
         weapon2,
         loadout,
         loadout.loadoutStats,
-        [],
         []
       );
 
@@ -120,7 +114,6 @@ describe('AttackCalculations', () => {
         weapon3,
         loadout,
         loadout.loadoutStats,
-        [],
         []
       );
 
@@ -137,15 +130,14 @@ describe('AttackCalculations', () => {
         loadout.loadoutStats,
         [
           {
-            definition: { elementalTypes: ['Frost'], value: 0.2 },
-            effect: { stacks: 2 },
+            attackBuff: { elementalTypes: ['Frost'], value: 0.2 },
+            stacks: 2,
           },
           {
-            definition: { elementalTypes: ['Frost'], value: 0.3 },
-            effect: { stacks: 1 },
+            attackBuff: { elementalTypes: ['Frost'], value: 0.3 },
+            stacks: 1,
           },
-        ] as EffectInstance<AttackBuffDefinition>[],
-        []
+        ] as Buff[]
       );
 
       expect(sut.getTotalAttackBuffValue()).toBe(1.2);
@@ -159,15 +151,14 @@ describe('AttackCalculations', () => {
         loadout.loadoutStats,
         [
           {
-            definition: { elementalTypes: ['Frost'], value: 0.2 },
-            effect: { stacks: 2 },
+            attackBuff: { elementalTypes: ['Frost'], value: 0.2 },
+            stacks: 2,
           },
           {
-            definition: { elementalTypes: ['Volt'], value: 0.3 },
-            effect: { stacks: 1 },
+            attackBuff: { elementalTypes: ['Volt'], value: 0.3 },
+            stacks: 1,
           },
-        ] as EffectInstance<AttackBuffDefinition>[],
-        []
+        ] as Buff[]
       );
 
       expect(sut.getTotalAttackBuffValue()).toBe(0.9);
@@ -181,33 +172,32 @@ describe('AttackCalculations', () => {
         weapon2,
         loadout,
         loadout.loadoutStats,
-        [],
         [
           {
-            definition: {
+            damageBuff: {
               elementalTypes: ['Frost'],
               value: 0.2,
               damageCategory: 'DMG buff category 1',
             },
-            effect: { stacks: 2 },
+            stacks: 2,
           },
           {
-            definition: {
+            damageBuff: {
               elementalTypes: ['Frost'],
               value: 0.3,
               damageCategory: 'DMG buff category 1',
             },
-            effect: { stacks: 1 },
+            stacks: 1,
           },
           {
-            definition: {
+            damageBuff: {
               elementalTypes: ['Frost'],
               value: 0.15,
               damageCategory: 'DMG buff category 2',
             },
-            effect: { stacks: 1 },
+            stacks: 1,
           },
-        ] as EffectInstance<DamageBuffDefinition>[]
+        ] as Buff[]
       );
 
       expect(sut.getTotalDamageBuffValue()).toBe(1.9325);

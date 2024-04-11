@@ -7,9 +7,7 @@ import type {
   NormalAttackDefinition,
   SkillAttackDefinition,
 } from './v4/attack/attack-definition';
-import type { AttackBuffDefinition } from './v4/attack-buff/attack-buff-definition';
-import type { DamageBuffDefinition } from './v4/damage-buff/damage-buff-definition';
-import type { EffectDefinition } from './v4/effect/effect-definition';
+import type { BuffDefinition } from './v4/buff/buff-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -36,11 +34,10 @@ export interface WeaponDefinition {
   dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
+  // TODO:
+  triggeredAttacks: unknown[];
 
-  effects: EffectDefinition[];
-
-  attackBuffs: AttackBuffDefinition[];
-  damageBuffs: DamageBuffDefinition[];
+  buffs: BuffDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

@@ -3,11 +3,15 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
 
 import type { WeaponName } from '../../constants/weapon-definitions';
-import type { DamageSummary } from '../../models/v4/damage-summary/damage-summary';
+import type { DamageSummarySnapshot } from '../../models/v4/combat-simulator-snapshot/damage-summary-snapshot';
+import { toPercentageString } from '../../utils/number-utils';
 
 export interface DamageSummaryBreakdownSideBarProps {
-  damagePercentageByWeapon: DamageSummary['damagePercentageByWeapon'];
-  selectedWeaponName: WeaponName;
+  damagePercentageByWeapon: Pick<
+    DamageSummarySnapshot['damageByWeapon'][number],
+    'weaponName' | 'percentageOfTotalDamage'
+  >[];
+  selectedWeaponName: WeaponName | undefined;
   onWeaponChange(selectedWeaponName: WeaponName): void;
 }
 
@@ -53,20 +57,22 @@ export function DamageSummaryBreakdownSideBar({
       // justifyContent="space-between"
       spacing={1}
     >
-      {damagePercentageByWeapon.map(({ weaponName, percentageString }) => (
-        <WeaponButton
-          key={weaponName}
-          onClick={() => {
-            onWeaponChange(weaponName);
-          }}
-        >
-          <Weapon>
-            <Typography>
-              {weaponName}: {percentageString}
-            </Typography>
-          </Weapon>
-        </WeaponButton>
-      ))}
+      {damagePercentageByWeapon.map(
+        ({ weaponName, percentageOfTotalDamage }) => (
+          <WeaponButton
+            key={weaponName}
+            onClick={() => {
+              onWeaponChange(weaponName);
+            }}
+          >
+            <Weapon>
+              <Typography>
+                {weaponName}: {toPercentageString(percentageOfTotalDamage)}
+              </Typography>
+            </Weapon>
+          </WeaponButton>
+        )
+      )}
     </Stack>
   );
 }

@@ -7,9 +7,7 @@ import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Weapon } from '../../weapon';
 import type { Attack } from '../attack/attack';
-import type { AttackBuffDefinition } from '../attack-buff/attack-buff-definition';
-import type { DamageBuffDefinition } from '../damage-buff/damage-buff-definition';
-import type { EffectInstance } from '../effect/effect-instance';
+import type { Buff } from '../buff/buff';
 
 // TODO: Unsure about this class' naming
 export class AttackCalculations {
@@ -18,8 +16,7 @@ export class AttackCalculations {
     private readonly weapon: Weapon,
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
-    private readonly activeAttackBuffs: EffectInstance<AttackBuffDefinition>[],
-    private readonly activeDamageBuffs: EffectInstance<DamageBuffDefinition>[] // private readonly activeMiscBuffs: EffectInstance<MiscellaneousBuffDefinition>[], // private readonly activeWeaponEffects: EffectInstance<EffectDefinition>[]
+    private readonly activeBuffs: Buff[]
   ) {}
 
   public getBaseAttack(): number {
@@ -40,39 +37,37 @@ export class AttackCalculations {
   }
 
   public getTotalAttackBuffValue(): number {
-    const attackBuffs = this.activeAttackBuffs.filter((attackBuff) =>
-      attackBuff.definition.elementalTypes.includes(this.attack.elementalType)
-    );
-    return sum(
-      this.getGearAttackBuffValue(),
-      ...attackBuffs.map((attackBuff) =>
-        product(
-          attackBuff.definition.value,
-          attackBuff.effect.stacks
-        ).toNumber()
+    const attackBuffValues = this.activeBuffs
+      .filter(
+        (buff) =>
+          buff.attackBuff &&
+          buff.attackBuff.elementalTypes.includes(this.attack.elementalType)
       )
-    ).toNumber();
+      .map((buff) =>
+        product(buff.attackBuff?.value ?? 0, buff.stacks).toNumber()
+      );
+
+    return sum(this.getGearAttackBuffValue(), ...attackBuffValues).toNumber();
   }
 
   public getTotalDamageBuffValue(): number {
-    const damageBuffs = this.activeDamageBuffs.filter((damageBuff) =>
-      damageBuff.definition.elementalTypes.includes(this.attack.elementalType)
+    const damageBuffs = this.activeBuffs.filter(
+      (buff) =>
+        buff.damageBuff &&
+        buff.damageBuff.elementalTypes.includes(this.attack.elementalType)
     );
 
     const damageBuffsByDamageCategory = groupBy(
       damageBuffs,
-      (damageBuff) => damageBuff.definition.damageCategory
+      (buff) => buff.damageBuff?.damageCategory
     );
 
     return product(
       BigNumber(this.getGearDamageBuffValue()).plus(1).toNumber(),
-      ...Object.values(damageBuffsByDamageCategory).map((damageBuffs) =>
+      ...Object.values(damageBuffsByDamageCategory).map((buffs) =>
         sum(
-          ...damageBuffs.map((damageBuff) =>
-            product(
-              damageBuff.definition.value,
-              damageBuff.effect.stacks
-            ).toNumber()
+          ...buffs.map((buff) =>
+            product(buff.damageBuff?.value ?? 0, buff.stacks).toNumber()
           ),
           1
         ).toNumber()

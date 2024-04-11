@@ -1,12 +1,14 @@
 import type { GridColDef } from '@mui/x-data-grid';
 import { DataGrid } from '@mui/x-data-grid';
 
-import type { ElementalDamageSummary } from '../../models/v4/damage-summary/elemental-damage-summary';
-import type { WeaponDamageSummary } from '../../models/v4/damage-summary/weapon-damage-summary';
+import type {
+  DamageSnapshot,
+  DamageSummarySnapshot,
+} from '../../models/v4/combat-simulator-snapshot/damage-summary-snapshot';
 import { toShortNumberFormat } from '../../utils/locale-utils';
 
 export interface DamageSummaryBreakdownTableProps {
-  weaponDamageSummary: WeaponDamageSummary;
+  weaponDamageSummary: DamageSummarySnapshot['damageByWeapon'][number];
 }
 
 interface Row {
@@ -44,35 +46,35 @@ export function DamageSummaryBreakdownTable({
 
   const attackTypeDamageSummaryToRow = (
     attackTypeLabel: string,
-    elementalDamageSummary: ElementalDamageSummary
+    damage: DamageSnapshot
   ): Row => ({
     id: attackTypeLabel,
     attackTypeLabel: attackTypeLabel,
-    baseDamage: elementalDamageSummary.totalDamage.baseDamage,
-    finalDamage: elementalDamageSummary.totalDamage.finalDamage,
-    multiplier: elementalDamageSummary.totalDamage.damageMultiplier,
+    baseDamage: damage.baseDamage,
+    finalDamage: damage.finalDamage,
+    multiplier: damage.damageMultiplier,
   });
 
   const rows: Row[] = [
     attackTypeDamageSummaryToRow(
       'Normal attack',
-      weaponDamageSummary.attackTypeDamageSummaries.normal
+      weaponDamageSummary.normalAttackDamage
     ),
     attackTypeDamageSummaryToRow(
       'Dodge',
-      weaponDamageSummary.attackTypeDamageSummaries.dodge
+      weaponDamageSummary.dodgeAttackDamage
     ),
     attackTypeDamageSummaryToRow(
       'Discharge',
-      weaponDamageSummary.attackTypeDamageSummaries.discharge
+      weaponDamageSummary.dischargeAttackDamage
     ),
     attackTypeDamageSummaryToRow(
       'Passive',
-      weaponDamageSummary.attackTypeDamageSummaries.passive
+      weaponDamageSummary.passiveAttackDamage
     ),
     attackTypeDamageSummaryToRow(
       'Skill',
-      weaponDamageSummary.attackTypeDamageSummaries.skill
+      weaponDamageSummary.skillAttackDamage
     ),
     {
       id: 'Total',
@@ -83,5 +85,7 @@ export function DamageSummaryBreakdownTable({
     },
   ];
 
-  return <DataGrid rows={rows} columns={columns} hideFooter />;
+  return (
+    <DataGrid rows={rows} columns={columns} disableColumnSorting hideFooter />
+  );
 }

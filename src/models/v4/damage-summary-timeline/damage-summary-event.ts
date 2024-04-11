@@ -1,15 +1,14 @@
 import type { DamageSummary } from '../damage-summary/damage-summary';
+import type { TimePeriod } from '../time-period';
 import { TimelineEvent } from '../timeline/timeline-event';
 
 export class DamageSummaryEvent extends TimelineEvent {
   public constructor(
-    public startTime: number,
-    public duration: number,
+    timePeriod: TimePeriod,
     public damageSummary: DamageSummary,
     public cumulatedDamageSummary: DamageSummary
   ) {
-    super(startTime, duration);
-
-    this.displayName = `${damageSummary.totalDamage.finalDamage}(${damageSummary.totalDamage.baseDamage}) / ${cumulatedDamageSummary.totalDamage.finalDamage}(${cumulatedDamageSummary.totalDamage.baseDamage})`;
+    const { startTime, endTime } = timePeriod;
+    super(startTime, endTime);
   }
 }

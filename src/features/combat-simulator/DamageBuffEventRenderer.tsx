@@ -8,7 +8,7 @@ export function DamageBuffEventRenderer({
   action: CombatSimulatorTimelineAction;
 }) {
   return (
-    <Tooltip title={action.event.displayName}>
+    <Tooltip title={action.displayName}>
       <Box width="100%" height="100%"></Box>
     </Tooltip>
   );

@@ -7,13 +7,13 @@ describe('Timeline', () => {
 
     // Test against the period of 6 to 11.
     const event1 = new TimelineEvent(0, 5); // out
-    const event2 = new TimelineEvent(2, 7); // in
-    const event3 = new TimelineEvent(5, 20); // in
-    const event4 = new TimelineEvent(6, 0); // in
-    const event5 = new TimelineEvent(7, 11); // in
-    const event6 = new TimelineEvent(9, 14); // in
-    const event7 = new TimelineEvent(11, 0); // out
-    const event8 = new TimelineEvent(12, 17); // out
+    const event2 = new TimelineEvent(2, 9); // in
+    const event3 = new TimelineEvent(5, 25); // in
+    const event4 = new TimelineEvent(6, 6); // in
+    const event5 = new TimelineEvent(7, 18); // in
+    const event6 = new TimelineEvent(9, 23); // in
+    const event7 = new TimelineEvent(11, 11); // out
+    const event8 = new TimelineEvent(12, 29); // out
 
     sut.addEvent(event1);
     sut.addEvent(event2);
@@ -41,8 +41,8 @@ describe('Timeline', () => {
     const sut = new Timeline(100);
 
     const event1 = new TimelineEvent(0, 5);
-    const event2 = new TimelineEvent(3, 7);
-    const event3 = new TimelineEvent(10, 5);
+    const event2 = new TimelineEvent(3, 10);
+    const event3 = new TimelineEvent(10, 15);
 
     sut.addEvent(event1);
     sut.addEvent(event2);

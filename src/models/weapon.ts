@@ -25,6 +25,10 @@ export class Weapon implements Persistable<WeaponDto> {
     return this.definition.id;
   }
 
+  public get displayName() {
+    return this.definition.displayName;
+  }
+
   public get allAttackDefinitions(): AttackDefinition[] {
     // TODO: filter by star requirements
     const { normalAttacks, dodgeAttacks, skills, discharge } = this.definition;
@@ -33,6 +37,10 @@ export class Weapon implements Persistable<WeaponDto> {
 
   public get calculationElements() {
     return this.definition.calculationElements;
+  }
+
+  public get type() {
+    return this.definition.type;
   }
 
   public copyFromDto(dto: WeaponDto): void {

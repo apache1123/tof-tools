@@ -1,27 +1,17 @@
 import type { AttackType } from '../../../constants/attack-type';
-import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { ActionDefinition, ActionId } from '../action/action-definition';
+import type { ActionRequirements } from '../action/action-requirements';
+import type { AttackDamageModifiers } from './attack-damage-modifiers';
+import type { AttackElementalType } from './attack-elemental-type';
 
-export interface AttackDamageModifiers {
-  /** the "x%" part of "dealing damage equal to x% of ATK plus y to target" / `base damage = ATK * x% + y` */
-  attackMultiplier: number;
-  /** the "y" part of "dealing damage equal to x% of ATK plus y to target" / `base damage = ATK * x% + y` */
-  // TODO: for weapon attacks, this varies based on skill level
-  attackFlat: number;
-  hpMultiplier?: number;
-  sumOfResistancesMultiplier?: number;
-  critFlatMultiplier?: number;
-}
+export type AttackId = ActionId;
 
-export interface AttackDefinition {
-  id: string;
-  displayName: string;
-  description?: string;
-
-  elementalType: WeaponElementalType;
-  followLastWeaponElementalType?: boolean;
-
+export interface AttackDefinition extends ActionDefinition, ActionRequirements {
+  id: AttackId;
   type: AttackType;
+
+  elementalType: AttackElementalType;
 
   damageModifiers: AttackDamageModifiers;
 
@@ -31,12 +21,6 @@ export interface AttackDefinition {
   cooldown: number;
 
   charge: number;
-
-  requirements?: {
-    hasFullCharge?: boolean;
-    /** Can only be triggered when [weapon] is not active weapon e.g. the [weapon]'s discharge */
-    notActiveWeapon?: WeaponName;
-  };
 }
 
 export interface NormalAttackDefinition extends AttackDefinition {

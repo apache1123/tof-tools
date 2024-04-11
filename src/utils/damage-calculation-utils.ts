@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import type { AttackDamageModifiers } from '../models/v4/attack/attack-definition';
+import type { AttackDamageModifiers } from '../models/v4/attack/attack-damage-modifiers';
 
 export function calculateTotalAttack(
   baseAttack: BigNumber,

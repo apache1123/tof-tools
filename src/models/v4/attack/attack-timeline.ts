@@ -1,38 +1,13 @@
-import { Timeline } from '../timeline/timeline';
+import { ActionTimeline } from '../action/action-timeline';
 import type { Attack } from './attack';
 
-/** Attack timeline that forces adding events in sequential chronological order i.e. a subsequent event cannot be added before the previous event has ended */
-export class AttackTimeline {
-  private readonly timeline: Timeline<Attack>;
-
-  public constructor(public readonly totalDuration: number) {
-    this.timeline = new Timeline(totalDuration);
-  }
-
-  public get attacks(): readonly Attack[] {
-    return this.timeline.events;
-  }
-
-  public get lastAttack() {
-    return this.timeline.lastEvent;
-  }
-
-  /** Adds a new attack at the end of the timeline. The new attack's start time cannot be earlier than the end time of the existing last attack */
+export class AttackTimeline extends ActionTimeline<Attack> {
+  /** Adds a new attack. The new attack's start time cannot be earlier than the start time of the existing last attack. If the new attack overlaps with the previous, the previous one is cut short at the point where the new one is added. Attacks should be checked for cooldown before being added */
   public addAttack(attack: Attack) {
-    if (this.lastAttack && attack.startTime < this.lastAttack.endTime) {
-      throw new Error('Invalid startTime when adding a new TimelineEvent');
+    if (this.lastEvent && attack.startTime < this.lastEvent?.endTime) {
+      this.lastEvent.endTime = attack.startTime;
     }
 
-    this.timeline.addEvent(attack);
-  }
-
-  public isAttackOnCooldownAt(time: number) {
-    return this.attacks.some(
-      (attack) => attack.startTime <= time && attack.cooldownEndsAt > time
-    );
-  }
-
-  public getAttacksOverlappingPeriod(startTime: number, endTime: number) {
-    return this.timeline.getEventsOverlappingPeriod(startTime, endTime);
+    this.addEvent(attack);
   }
 }

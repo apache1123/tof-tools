@@ -1,6 +1,6 @@
 import type { TimelineEvent } from './timeline-event';
 
-export class Timeline<TEvent extends TimelineEvent> {
+export class Timeline<TEvent extends TimelineEvent = TimelineEvent> {
   private readonly _events: TEvent[] = [];
 
   public constructor(public readonly totalDuration: number) {}
