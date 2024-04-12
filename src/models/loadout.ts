@@ -230,6 +230,10 @@ export class Loadout implements Persistable<LoadoutDto> {
     ).toNumber();
   }
 
+  public get critFlat(): number {
+    return this.loadoutStats.critFlat;
+  }
+
   /** Crit rate% - accounting from stats and gear only */
   public get critPercentUnbuffed(): number {
     return sum(

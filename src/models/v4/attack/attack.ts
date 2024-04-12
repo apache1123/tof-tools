@@ -8,7 +8,7 @@ import type { AttackRequest } from '../attack-request/attack-request';
 import { eventIdProvider } from '../event/event-id-provider';
 import { TimePeriod } from '../time-period';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
-import type { AttackId } from './attack-definition';
+import type { AttackDefinition, AttackId } from './attack-definition';
 
 export class Attack extends Action {
   public attackId: AttackId;
@@ -19,21 +19,21 @@ export class Attack extends Action {
   /** The weapon this attack derived from, for convenience */
   public weapon: Weapon;
 
-  public constructor(attackRequest: AttackRequest) {
+  public constructor(
+    definition: AttackDefinition,
+    weapon: Weapon,
+    attackRequest: AttackRequest
+  ) {
     const {
-      weapon,
-      attackDefinition: {
-        id,
-        duration,
-        cooldown,
-        damageModifiers,
-        elementalType,
-        type,
-        charge,
-      },
-      time,
-      elementalTypeOverwrite,
-    } = attackRequest;
+      id,
+      duration,
+      cooldown,
+      damageModifiers,
+      elementalType,
+      type,
+      charge,
+    } = definition;
+    const { time, elementalTypeOverwrite } = attackRequest;
 
     const endTime = time + duration;
     const timePeriod = new TimePeriod(time, endTime);
@@ -76,9 +76,17 @@ export class Attack extends Action {
       eventIdProvider.getAttackStartEventId(attackId),
       attackStartEvent
     );
+    notifier.notify(
+      eventIdProvider.getActionStartEventId(attackId),
+      attackStartEvent
+    );
 
     // Attack end events
 
+    notifier.notify(
+      eventIdProvider.getAttackEndEventId(attackId),
+      attackEndEvent
+    );
     notifier.notify(
       eventIdProvider.getActionEndEventId(attackId),
       attackEndEvent

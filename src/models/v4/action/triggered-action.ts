@@ -7,6 +7,8 @@ import type {
 export interface TriggeredAction {
   /** Triggers are treated as an "OR" check i.e. the action is triggered when any defined trigger passes check */
   triggeredBy: {
+    /** Triggered manually by player as part of gameplay */
+    playerInput?: boolean;
     combatStart?: boolean;
     skillOfAnyWeapon?: boolean;
     dischargeOfAnyWeapon?: boolean;

@@ -35,7 +35,7 @@ export class AttackRegistry {
     );
   }
 
-  public getLastAttack(): Attack | undefined {
+  public get lastAttack(): Attack | undefined {
     let result: Attack | undefined;
 
     for (const item of this._items) {

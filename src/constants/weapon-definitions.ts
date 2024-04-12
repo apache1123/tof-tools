@@ -129,6 +129,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Alyss',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -198,6 +201,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Annabella',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -257,6 +263,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Asuka',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -310,6 +319,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           // TODO: this is a placeholder value
           charge: 250,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       dodgeAttacks: [
@@ -326,6 +338,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 5000,
           cooldown: 0,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       skills: [
@@ -342,6 +357,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 2250,
           cooldown: 30000,
           charge: 100,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       discharge: {
@@ -360,6 +378,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Brevey',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [
@@ -484,6 +505,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Claudia',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -529,6 +553,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Cobalt-B',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -589,6 +616,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Cocoritter',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -621,6 +651,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Crow',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -664,6 +697,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 5000,
           cooldown: 20000,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       discharge: {
@@ -682,6 +718,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Fei Se',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -753,6 +792,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Fenrir',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -810,6 +852,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Fiona',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -879,6 +924,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Frigg',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -926,6 +974,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Gnonno',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -967,6 +1018,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           // TODO:
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       dodgeAttacks: [],
@@ -987,6 +1041,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Huang (Mimi)',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1020,6 +1077,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Huma',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1067,6 +1127,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Icarus',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1099,6 +1162,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'King',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1145,6 +1211,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Lan',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1227,6 +1296,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Lin',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1284,6 +1356,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Ling Han',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1329,6 +1404,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Liu Huo',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1390,6 +1468,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Lyra',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1422,6 +1503,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Meryl',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1476,6 +1560,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 5000,
           cooldown: 0,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       dodgeAttacks: [],
@@ -1496,6 +1583,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Ming Jing',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1547,6 +1637,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           // TODO:
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       dodgeAttacks: [],
@@ -1570,6 +1663,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Nan Yin',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [
@@ -1678,6 +1774,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Nemesis',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1736,6 +1835,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Plotti',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -1813,6 +1915,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 5000,
           cooldown: 0,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       discharge: {
@@ -1831,6 +1936,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Rei',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       triggeredAttacks: [
@@ -1945,6 +2053,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Rubilia',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1997,6 +2108,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 30000,
           cooldown: 0,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       skills: [],
@@ -2016,6 +2130,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Ruby',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -2063,6 +2180,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Saki Fuwa',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2096,6 +2216,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Samir',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2128,6 +2251,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Shiro',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -2188,6 +2314,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           hasFullCharge: true,
           notActiveWeapon: 'Tian Lang',
         },
+        triggeredBy: {
+          playerInput: true,
+        },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2220,6 +2349,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Tsubasa',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -2264,6 +2396,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 5000,
           cooldown: 0,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       discharge: {
@@ -2282,6 +2417,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Umi',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -2336,6 +2474,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 5000,
           cooldown: 0,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       dodgeAttacks: [],
@@ -2356,6 +2497,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Yan Miao',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -2410,6 +2554,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           // TODO: this is a placeholder value
           charge: 250,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       dodgeAttacks: [],
@@ -2427,6 +2574,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           duration: 5000,
           cooldown: 30000,
           charge: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
         },
       ],
       discharge: {
@@ -2445,6 +2595,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Yanuo',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -2491,6 +2644,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Yu Lan',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],
@@ -2550,6 +2706,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         requirements: {
           hasFullCharge: true,
           notActiveWeapon: 'Zero',
+        },
+        triggeredBy: {
+          playerInput: true,
         },
       },
       buffs: [],

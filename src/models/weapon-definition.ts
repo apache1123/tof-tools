@@ -2,6 +2,7 @@ import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
 import type {
+  AttackDefinition,
   DischargeAttackDefinition,
   DodgeAttackDefinition,
   NormalAttackDefinition,
@@ -34,8 +35,7 @@ export interface WeaponDefinition {
   dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
-  // TODO:
-  triggeredAttacks: unknown[];
+  triggeredAttacks: AttackDefinition[];
 
   buffs: BuffDefinition[];
 }

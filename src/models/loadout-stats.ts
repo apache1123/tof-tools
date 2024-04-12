@@ -110,6 +110,16 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
       value > defaultCritDamagePercent ? value : defaultCritDamagePercent;
   }
 
+  public get sumOfAllResistances(): number {
+    return (
+      this.flameResistance +
+      this.frostResistance +
+      this.physicalResistance +
+      this.voltResistance +
+      this.alteredResistance
+    );
+  }
+
   public copyFromDto(dto: LoadoutStatsDto): void {
     const {
       flameAttack,

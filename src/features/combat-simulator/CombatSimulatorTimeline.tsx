@@ -46,10 +46,7 @@ const combatDuration = 150000;
 
 const combatSimulator = new CombatSimulator(combatDuration, loadout, relics);
 
-combatSimulator.performAttack({
-  weapon: weapon2,
-  attackDefinition: weapon2.definition.skills[0],
-});
+combatSimulator.performAttack(weapon2.definition.skills[0].id);
 
 const combatSimulatorSnapshot = combatSimulator.snapshot();
 
@@ -81,7 +78,8 @@ const effects: Record<
 
 export function CombatSimulatorTimeline() {
   const editorData: CombatSimulatorTimelineRow[] =
-    combatSimulatorSnapshot.attackTimelines
+    combatSimulatorSnapshot.playerInputAttackTimelines
+      .concat(combatSimulatorSnapshot.triggeredAttackTimelines)
       .concat(combatSimulatorSnapshot.buffTimelines)
       .map((timeline) => ({
         id: timeline.id,

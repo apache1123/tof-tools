@@ -1,16 +1,16 @@
-import type { AttackRequest } from '../attack-request/attack-request';
-import { AttackRequestHandler } from '../attack-request/attack-request-handler';
+import type { EventData } from '../event/event-data';
+import { EventHandler } from '../event/event-handler';
 import type { ActionTimeline } from './action-timeline';
 
-export class ActionCooldownHandler extends AttackRequestHandler {
+export class ActionCooldownHandler extends EventHandler {
   public constructor(private readonly actionTimeline: ActionTimeline) {
     super();
   }
 
-  public handle(attackRequest: AttackRequest): boolean {
-    if (this.isActionOnCooldown(attackRequest.time)) return false;
+  public handle(eventData: EventData): boolean {
+    if (this.isActionOnCooldown(eventData.time)) return false;
 
-    return super.handle(attackRequest);
+    return super.handle(eventData);
   }
 
   private isActionOnCooldown(time: number) {

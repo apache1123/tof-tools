@@ -1,33 +1,29 @@
-import type { WeaponElementalType } from '../../../constants/elemental-type';
+import type { AttackDefinition } from '../attack/attack-definition';
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { AttackRequest } from './attack-request';
 import { AttackRequestHandler } from './attack-request-handler';
 
 export class AttackElementalTypeOverwriteHandler extends AttackRequestHandler {
-  public constructor(private readonly weaponTracker: WeaponTracker) {
+  public constructor(
+    private readonly definition: AttackDefinition,
+    private readonly weaponTracker: WeaponTracker
+  ) {
     super();
   }
 
   public handle(attackRequest: AttackRequest): boolean {
-    attackRequest.elementalTypeOverwrite =
-      this.getElementalTypeOverwrite(attackRequest);
+    this.overwriteElementalType(attackRequest);
     return super.handle(attackRequest);
   }
 
-  private getElementalTypeOverwrite(attackRequest: AttackRequest) {
-    let elementalTypeOverwrite: WeaponElementalType | undefined;
-    const {
-      attackDefinition: { elementalType },
-    } = attackRequest;
-
+  private overwriteElementalType(attackRequest: AttackRequest) {
+    const { elementalType } = this.definition;
     if (
       elementalType.followLastWeaponElementalType &&
       this.weaponTracker.previousWeapon
     ) {
-      elementalTypeOverwrite =
+      attackRequest.elementalTypeOverwrite =
         this.weaponTracker.previousWeapon.definition.damageElement;
     }
-
-    return elementalTypeOverwrite;
   }
 }

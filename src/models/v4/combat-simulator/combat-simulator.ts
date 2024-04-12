@@ -1,24 +1,21 @@
-import type { Optional } from 'utility-types';
-
 import type { Loadout } from '../../loadout';
 import type { Weapon } from '../../weapon';
 import { ActionNotifier } from '../action/action-notifier';
-import type { AttackRegistry } from '../attack/attack-registry';
+import type { AttackId } from '../attack/attack-definition';
 import { AttackRegistryFactory } from '../attack/attack-registry-factory';
+import { CombinedAttackRegistry } from '../attack/combined-attack-registry';
 import { WeaponTracker } from '../attack/weapon-tracker';
 import { AttackNotifier } from '../attack-event/attack-notifier';
-import { AttackNotifierConfigurator } from '../attack-event/attack-notifier-configurator';
-import type { AttackRequest } from '../attack-request/attack-request';
 import { AttackRequestNotifier } from '../attack-request/attack-request-notifier';
-import { AttackRequestNotifierConfigurator } from '../attack-request/attack-request-notifier-configurator';
 import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffRegistryFactory } from '../buff/buff-registry-factory';
 import { ChargeTimeline } from '../charge/charge-timeline';
 import type { CombatSimulatorSnapshot } from '../combat-simulator-snapshot/combat-simulator-snapshot';
 import type { DamageSummarySnapshot } from '../combat-simulator-snapshot/damage-summary-snapshot';
 import type { TimelineSnapshot } from '../combat-simulator-snapshot/timeline-snapshot';
-import { DamageCalculator } from '../damage-calculation/damage-calculator';
+import { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-calculator';
 import { DamageSummaryTimeline } from '../damage-summary-timeline/damage-summary-timeline';
+import { EventConfigurator } from '../event/event-configurator';
 import { eventIdProvider } from '../event/event-id-provider';
 import type { EventNotifier } from '../event/event-notifier';
 import type { Relics } from '../relics/relics';
@@ -29,7 +26,7 @@ export class CombatSimulator {
   private readonly timeTracker: TimeTracker;
   private readonly chargeTimeline: ChargeTimeline;
 
-  private readonly attackRegistry: AttackRegistry;
+  private readonly combinedAttackRegistry: CombinedAttackRegistry;
   private readonly buffRegistry: BuffRegistry;
 
   private readonly attackRequestNotifier: AttackRequestNotifier;
@@ -37,7 +34,7 @@ export class CombatSimulator {
   private readonly eventNotifier: EventNotifier;
 
   private readonly damageSummaryTimeline: DamageSummaryTimeline;
-  private readonly damageCalculator: DamageCalculator;
+  private readonly damageCalculator: DamageTimelineCalculator;
 
   public constructor(
     public readonly combatDuration: number,
@@ -50,7 +47,18 @@ export class CombatSimulator {
     this.timeTracker = new TimeTracker();
     this.chargeTimeline = new ChargeTimeline(combatDuration);
 
-    this.attackRegistry = AttackRegistryFactory.create(combatDuration, team);
+    const playerInputAttackRegistry =
+      AttackRegistryFactory.createPlayerInputAttackRegistry(
+        combatDuration,
+        team
+      );
+    const triggeredAttackRegistry =
+      AttackRegistryFactory.createTriggeredAttackRegistry(combatDuration, team);
+    this.combinedAttackRegistry = new CombinedAttackRegistry(
+      playerInputAttackRegistry,
+      triggeredAttackRegistry
+    );
+
     this.buffRegistry = BuffRegistryFactory.create(
       combatDuration,
       loadout,
@@ -61,76 +69,57 @@ export class CombatSimulator {
     this.attackNotifier = new AttackNotifier();
     this.eventNotifier = new ActionNotifier();
 
-    AttackRequestNotifierConfigurator.configure(
+    EventConfigurator.configure(
       this.attackRequestNotifier,
+      this.attackNotifier,
+      this.eventNotifier,
       team,
       this.weaponTracker,
       this.timeTracker,
       this.chargeTimeline,
-      this.attackRegistry,
-      this.buffRegistry,
-      this.attackNotifier
-    );
-    AttackNotifierConfigurator.configure(
-      this.attackNotifier,
-      team,
-      this.weaponTracker,
-      this.chargeTimeline,
-      this.buffRegistry,
-      this.eventNotifier
+      this.combinedAttackRegistry,
+      this.buffRegistry
     );
 
     this.damageSummaryTimeline = new DamageSummaryTimeline(combatDuration);
-    this.damageCalculator = new DamageCalculator(
+    this.damageCalculator = new DamageTimelineCalculator(
       this.damageSummaryTimeline,
       loadout,
       loadout.loadoutStats,
       team,
-      this.attackRegistry,
+      this.combinedAttackRegistry,
       this.buffRegistry
     );
   }
 
-  public get nextAvailableAttacks(): AttackRequest[] {
-    return this.attackRegistry
-      .getNextAttacksOffCooldown(this.timeTracker)
-      .map((item) => ({
-        time: this.timeTracker.nextAttackTime,
-        attackDefinition: item.attackDefinition,
-        weapon: item.weapon,
-      }));
+  public get nextAvailableAttacks(): AttackId[] {
+    return this.combinedAttackRegistry
+      .getNextPlayerInputAttacksOffCooldown(this.timeTracker)
+      .map((item) => item.attackDefinition.id);
   }
 
-  public performAttack(attackRequest: Optional<AttackRequest, 'time'>) {
-    const { attackDefinition, weapon } = attackRequest;
-
-    let time = attackRequest.time;
-    if (time === undefined) {
-      time = this.timeTracker.nextAttackTime;
+  public performAttack(attackId: AttackId, time?: number) {
+    if (!this.nextAvailableAttacks.includes(attackId)) {
+      throw new Error(
+        `Player input attack ${attackId} is not available to be performed`
+      );
     }
 
-    const attackRequestWithTime: AttackRequest = {
-      time,
-      attackDefinition,
-      weapon,
-    };
     this.attackRequestNotifier.notify(
-      eventIdProvider.getAttackRequestEventId(
-        attackRequest.attackDefinition.id
-      ),
-      attackRequestWithTime
+      eventIdProvider.getAttackRequestEventId(attackId),
+      { time: time ?? this.timeTracker.nextAttackTime }
     );
 
     this.calculateDamageForLastAttack();
   }
 
   public snapshot(): CombatSimulatorSnapshot {
-    const attackTimelines = [];
-    const weaponTimelineMap = new Map<Weapon, TimelineSnapshot>();
+    const playerInputAttackTimelines = [];
 
-    // Combine all attack timelines into one, for each weapon
+    const weaponTimelineMap = new Map<Weapon, TimelineSnapshot>();
+    // Combine all player input attack timelines into one, for each weapon
     for (const { weapon, attackDefinition, attackTimeline } of this
-      .attackRegistry.items) {
+      .combinedAttackRegistry.playerInputAttackItems) {
       if (!weaponTimelineMap.has(weapon)) {
         weaponTimelineMap.set(weapon, {
           id: weapon.id,
@@ -152,11 +141,26 @@ export class CombatSimulator {
         });
       }
     }
-
     // Sort timeline events chronologically for each weapon and push to result
     for (const [, timeline] of weaponTimelineMap) {
       timeline.events.sort((a, b) => a.startTime - b.startTime);
-      attackTimelines.push(timeline);
+      playerInputAttackTimelines.push(timeline);
+    }
+
+    const triggeredAttackTimelines = [];
+    for (const { attackDefinition, attackTimeline } of this
+      .combinedAttackRegistry.triggeredAttackItems) {
+      if (!attackTimeline.events.length) continue;
+
+      triggeredAttackTimelines.push({
+        id: attackDefinition.id,
+        displayName: attackDefinition.displayName,
+        events: attackTimeline.events.map((attack) => ({
+          displayName: attackDefinition.displayName,
+          startTime: attack.startTime,
+          endTime: attack.endTime,
+        })),
+      });
     }
 
     const buffTimelines = [];
@@ -227,7 +231,8 @@ export class CombatSimulator {
     }
 
     return {
-      attackTimelines,
+      playerInputAttackTimelines,
+      triggeredAttackTimelines,
       buffTimelines,
       damageTimeline,
       damageSummary: damageSummarySnapshot,
@@ -235,7 +240,7 @@ export class CombatSimulator {
   }
 
   private calculateDamageForLastAttack() {
-    const lastAttack = this.attackRegistry.getLastAttack();
+    const lastAttack = this.combinedAttackRegistry.lastPlayerInputAttack;
     if (lastAttack) {
       this.damageCalculator.calculateDamageUntil(lastAttack.endTime);
     }

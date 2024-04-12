@@ -4,9 +4,27 @@ import type { AttackRegistryItem } from './attack-registry-item';
 import { AttackTimeline } from './attack-timeline';
 
 export class AttackRegistryFactory {
-  public static create(combatDuration: number, team: Team) {
+  public static createPlayerInputAttackRegistry(
+    combatDuration: number,
+    team: Team
+  ) {
     const items: AttackRegistryItem[] = team.weapons.flatMap((weapon) =>
-      weapon.allAttackDefinitions.map((attackDefinition) => ({
+      weapon.allPlayerInputAttackDefinitions.map((attackDefinition) => ({
+        weapon,
+        attackDefinition,
+        attackTimeline: new AttackTimeline(combatDuration),
+      }))
+    );
+
+    return new AttackRegistry(items);
+  }
+
+  public static createTriggeredAttackRegistry(
+    combatDuration: number,
+    team: Team
+  ) {
+    const items: AttackRegistryItem[] = team.weapons.flatMap((weapon) =>
+      weapon.allTriggeredAttackDefinitions.map((attackDefinition) => ({
         weapon,
         attackDefinition,
         attackTimeline: new AttackTimeline(combatDuration),
