@@ -10,3 +10,11 @@ export function getNumberSeparators(): {
     parts.find((part) => part.type === 'group')?.value ?? ',';
   return { decimalSeparator, groupSeparator };
 }
+
+export function toShortNumberFormat(number: number) {
+  const formatter = new Intl.NumberFormat(undefined, {
+    notation: 'compact',
+    maximumFractionDigits: 2,
+  });
+  return formatter.format(number);
+}

@@ -1,10 +1,10 @@
 import { fullCharge, maxCharge } from '../../../constants/combat';
 import { Timeline } from '../timeline/timeline';
-import { ChargeEvent } from './charge-event';
+import { Charge } from './charge';
 
 /** Timeline to track how much charge has been cumulated at a point of time. Charges must be added chronologically */
 export class ChargeTimeline {
-  private readonly timeline: Timeline<ChargeEvent>;
+  private readonly timeline: Timeline<Charge>;
 
   public constructor(public readonly totalDuration: number) {
     this.timeline = new Timeline(totalDuration);
@@ -12,7 +12,7 @@ export class ChargeTimeline {
 
   /** Cumulated charge at the end of the timeline */
   public get cumulatedCharge() {
-    return this.timeline.lastEvent?.cumulatedCharge ?? 0;
+    return this.timeline.lastEvent?.cumulatedChargeValue ?? 0;
   }
 
   /** Has at least one full charge */
@@ -20,38 +20,66 @@ export class ChargeTimeline {
     return this.cumulatedCharge - fullCharge >= 0;
   }
 
+  public get numOfFullCharges(): number {
+    return Math.trunc(this.cumulatedCharge / fullCharge);
+  }
+
+  public get chargeEvents() {
+    return this.timeline.events;
+  }
+
   public get lastChargeEvent() {
     return this.timeline.lastEvent;
   }
 
-  /** Adds a number of charge units at a point of time. Charges must be added chronologically */
-  public addCharge(charge: number, time: number) {
-    const event = new ChargeEvent(
-      time,
-      Math.min(this.cumulatedCharge + charge, maxCharge)
+  /** Adds a number of charge units at a point of time. Charges must be added chronologically.
+   * @returns true if a new full charge is achieved as a result of the charge being added
+   */
+  public addCharge(
+    chargeValue: number,
+    startTime: number,
+    endTime: number
+  ): boolean {
+    const oldNumOfFullCharges = this.numOfFullCharges;
+
+    const newChargeValue = Math.min(
+      this.cumulatedCharge + chargeValue,
+      maxCharge
     );
-    this.addEvent(event);
+    this.addEvent(startTime, endTime, newChargeValue);
+    const newNumOfFullCharges = this.numOfFullCharges;
+
+    if (newNumOfFullCharges > oldNumOfFullCharges) {
+      return true;
+    }
+
+    return false;
   }
 
-  public deductOneFullCharge(time: number) {
+  public deductOneFullCharge(startTime: number, endTime: number) {
     if (!this.hasFullCharge)
       throw new Error(
         'Cannot deduct a full charge when there is no full charge'
       );
 
-    const event = new ChargeEvent(
-      time,
+    this.addEvent(
+      startTime,
+      endTime,
       Math.max(this.cumulatedCharge - fullCharge, 0)
     );
-    this.addEvent(event);
   }
 
-  public addEvent(event: ChargeEvent) {
+  private addEvent(
+    startTime: number,
+    endTime: number,
+    cumulatedCharge: number
+  ) {
     const { lastEvent } = this.timeline;
-    if (lastEvent && event.time < lastEvent.time) {
+    if (lastEvent && startTime < lastEvent.endTime) {
       throw new Error('Charges must be added chronologically');
     }
 
+    const event = new Charge(startTime, endTime, cumulatedCharge);
     this.timeline.addEvent(event);
   }
 }

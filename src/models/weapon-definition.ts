@@ -2,14 +2,13 @@ import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
 import type {
+  AttackDefinition,
   DischargeAttackDefinition,
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
 } from './v4/attack/attack-definition';
-import type { AttackBuffDefinition } from './v4/attack-buff/attack-buff-definition';
-import type { DamageBuffDefinition } from './v4/damage-buff/damage-buff-definition';
-import type { EffectDefinition } from './v4/effect/effect-definition';
+import type { BuffDefinition } from './v4/buff/buff-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -22,7 +21,9 @@ export interface WeaponDefinition {
    * E.g. For Yan Miao, her weapon is considered to be both Physical and Flame to trigger Physical resonance and Flame resonance, but deals (mainly) physical damage.
    */
   resonanceElements: WeaponElementalType[];
-  /** The element the weapon deals damage in when it is on field */
+  /** When calculating this weapon's damage, use the highest value out of these elements for base ATK, ATK%, DMG% respectively - e.g. "Volt-Frost Fusion"/"Fusion of Mass and Flame" */
+  calculationElements: WeaponElementalType[];
+  /** The default element the weapon deals damage in when it is on field */
   damageElement: WeaponElementalType;
   type: WeaponType;
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
@@ -34,11 +35,9 @@ export interface WeaponDefinition {
   dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
+  triggeredAttacks: AttackDefinition[];
 
-  effects: EffectDefinition[];
-
-  attackBuffs: AttackBuffDefinition[];
-  damageBuffs: DamageBuffDefinition[];
+  buffs: BuffDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

@@ -1,5 +1,12 @@
 import type BigNumber from 'bignumber.js';
 
+export function calculateTotalAttack(
+  baseAttack: BigNumber,
+  totalAttackPercent: BigNumber
+) {
+  return baseAttack.times(totalAttackPercent.plus(1));
+}
+
 export function calculateDamageMultiplier(
   attackFlat: BigNumber,
   attackPercent: BigNumber,
@@ -7,8 +14,7 @@ export function calculateDamageMultiplier(
   critDamagePercent: BigNumber,
   damagePercent: BigNumber
 ): BigNumber {
-  return attackFlat
-    .multipliedBy(attackPercent.plus(1))
+  return calculateTotalAttack(attackFlat, attackPercent)
     .multipliedBy(critPercent.multipliedBy(critDamagePercent).plus(1))
     .multipliedBy(damagePercent.plus(1));
 }
