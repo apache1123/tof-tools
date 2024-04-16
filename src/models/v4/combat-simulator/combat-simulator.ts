@@ -239,7 +239,7 @@ export class CombatSimulator {
       id: 'charge',
       displayName: 'Charge',
       actions: this.charge.actions.map((chargeAction) => ({
-        displayName: `Charge: ${chargeAction.cumulatedAmount}`,
+        displayName: `Charge: ${chargeAction.amount}`,
         startTime: chargeAction.startTime,
         endTime: chargeAction.endTime,
       })),

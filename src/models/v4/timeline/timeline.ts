@@ -35,13 +35,6 @@ export class Timeline<TAction extends TimelineAction> {
     this._actions.push(action);
   }
 
-  /** Returns actions that start between the start and end time, inclusive */
-  public getActionsBetween(startTime: number, endTime: number): TAction[] {
-    return this._actions.filter(
-      (action) => action.startTime >= startTime && action.startTime <= endTime
-    );
-  }
-
   /** Returns actions that have any sort of overlap with the period of start time to end time. */
   public getActionsOverlappingPeriod(
     startTime: number,

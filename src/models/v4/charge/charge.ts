@@ -5,12 +5,12 @@ import { TimePeriod } from '../time-period';
 
 export class Charge extends Resource {
   /** Has at least one full charge. This is different from having the max amount of charge. (Having the max amount of charge means you have two full charges) */
-  public get hasFullCharge() {
-    return this.cumulatedAmount - fullCharge >= 0;
+  public hasFullCharge(time: number) {
+    return this.getCumulatedAmount(time) - fullCharge >= 0;
   }
 
-  public get numOfFullCharges(): number {
-    return Math.trunc(this.cumulatedAmount / fullCharge);
+  public getNumOfFullCharges(time: number): number {
+    return Math.trunc(this.getCumulatedAmount(time) / fullCharge);
   }
 
   /** Adjust the charge amount based on an attack
@@ -35,10 +35,10 @@ export class Charge extends Resource {
     startTime: number,
     endTime: number
   ): boolean {
-    const oldNumOfFullCharges = this.numOfFullCharges;
+    const oldNumOfFullCharges = this.getNumOfFullCharges(startTime);
 
     this.addResourceAction(new TimePeriod(startTime, endTime), chargeValue);
-    const newNumOfFullCharges = this.numOfFullCharges;
+    const newNumOfFullCharges = this.getNumOfFullCharges(endTime);
 
     if (newNumOfFullCharges > oldNumOfFullCharges) {
       return true;

@@ -98,7 +98,7 @@ export class ActionRequirementsHandler extends EventHandler {
         return false;
     }
 
-    if (this.requirements?.hasFullCharge && !this.charge.hasFullCharge)
+    if (this.requirements?.hasFullCharge && !this.charge.hasFullCharge(time))
       return false;
 
     return true;

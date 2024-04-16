@@ -1,4 +1,5 @@
-import type { TimePeriod } from '../time-period';
+import { sum } from '../../../utils/math-utils';
+import { TimePeriod } from '../time-period';
 import type { Timeline } from '../timeline/timeline';
 import { ResourceAction } from './resource-action';
 import type { ResourceDefinition } from './resource-definition';
@@ -15,13 +16,19 @@ export class Resource {
     this.timeline = timeline;
   }
 
-  /** Cumulated amount of resource at the last event */
-  public get cumulatedAmount() {
-    return this.timeline.lastAction?.cumulatedAmount ?? 0;
+  /** Cumulated amount of resource at a point of time */
+  public getCumulatedAmount(time: number) {
+    const timePeriod = new TimePeriod(0, time);
+    const resourceActions = this.timeline.getActionsEndingBetween(timePeriod);
+    return sum(...resourceActions.map((action) => action.amount)).toNumber();
   }
 
   public get maxAmount() {
     return this.definition.maxAmount;
+  }
+
+  public get minAmount() {
+    return 0;
   }
 
   public get actions() {
@@ -32,20 +39,40 @@ export class Resource {
     return this.timeline.lastAction;
   }
 
-  /** Adds a resource action at a point of time.
+  /** Adds a resource action at a point of time. The amount of resource cannot be added past the max amount or cannot be subtracted past 0.
    * @param amount the amount of resource to add; can be negative
    */
   public addResourceAction(timePeriod: TimePeriod, amount: number) {
     if (!amount) return;
 
-    const cumulatedAmount = Math.max(
-      Math.min(this.cumulatedAmount + amount, this.maxAmount),
-      0
+    const cumulatedAmountPreceding = this.getCumulatedAmount(
+      timePeriod.startTime
     );
+
+    if (
+      cumulatedAmountPreceding >= this.maxAmount ||
+      cumulatedAmountPreceding < this.minAmount
+    )
+      return;
+
+    let amountToAdd: number;
+    if (amount > 0) {
+      amountToAdd =
+        cumulatedAmountPreceding + amount > this.maxAmount
+          ? this.maxAmount - cumulatedAmountPreceding
+          : amount;
+    } else {
+      // Negative amount
+      amountToAdd =
+        cumulatedAmountPreceding + amount < this.minAmount
+          ? cumulatedAmountPreceding - this.minAmount
+          : amount;
+    }
+
     const resource = new ResourceAction(
       timePeriod,
       this.definition,
-      cumulatedAmount
+      amountToAdd
     );
     this.timeline.addAction(resource);
   }

@@ -48,6 +48,13 @@ const combatSimulator = new CombatSimulator(combatDuration, loadout, relics);
 
 combatSimulator.performAttack(weapon2.definition.skills[0].id);
 combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon2.definition.discharge.id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon2.definition.discharge.id);
 
 const combatSimulatorSnapshot = combatSimulator.snapshot();
 
