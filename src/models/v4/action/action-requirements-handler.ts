@@ -3,32 +3,28 @@ import groupBy from 'lodash.groupby';
 import type { Team } from '../../team';
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
-import type { ChargeTimeline } from '../charge/charge-timeline';
+import type { Charge } from '../charge/charge';
 import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
 import type { ActionRequirements } from './action-requirements';
 
 export class ActionRequirementsHandler extends EventHandler {
   public constructor(
-    private readonly actionRequirements: ActionRequirements,
+    private readonly requirements: ActionRequirements,
     private readonly team: Team,
     private readonly weaponTracker: WeaponTracker,
-    private readonly chargeTimeline: ChargeTimeline,
+    private readonly charge: Charge,
     private readonly buffRegistry: BuffRegistry
   ) {
     super();
   }
 
-  public handle(data: EventData): boolean {
-    if (!this.hasActionMetRequirements(data)) return false;
-
+  public handle(data: EventData) {
+    if (!this.hasActionMetRequirements(data)) return;
     return super.handle(data);
   }
 
   private hasActionMetRequirements(eventData: EventData): boolean {
-    const { requirements } = this.actionRequirements;
-    if (!requirements) return true;
-
     const { time } = eventData;
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
       this.team;
@@ -36,34 +32,34 @@ export class ActionRequirementsHandler extends EventHandler {
     // Check requirements from most specific to least specific for efficiency
 
     if (
-      requirements.activeBuff &&
-      !this.buffRegistry.isBuffActiveAt(requirements.activeBuff, time)
+      this.requirements.activeBuff &&
+      !this.buffRegistry.isBuffActiveAt(this.requirements.activeBuff, time)
     )
       return false;
 
     if (
-      requirements?.notActiveWeapon &&
-      requirements.notActiveWeapon === this.weaponTracker.activeWeapon?.id
+      this.requirements?.notActiveWeapon &&
+      this.requirements.notActiveWeapon === this.weaponTracker.activeWeapon?.id
     )
       return false;
 
     if (
-      requirements.anyWeaponInTeam &&
-      requirements.anyWeaponInTeam.every(
+      this.requirements.anyWeaponInTeam &&
+      this.requirements.anyWeaponInTeam.every(
         (weaponName) => !weaponNames.includes(weaponName)
       )
     )
       return false;
 
     if (
-      requirements.weaponResonance &&
-      weaponResonance !== requirements.weaponResonance
+      this.requirements.weaponResonance &&
+      weaponResonance !== this.requirements.weaponResonance
     )
       return false;
 
     if (
-      requirements?.elementalTypeWeaponsInTeam &&
-      requirements.elementalTypeWeaponsInTeam.every((requirement) => {
+      this.requirements?.elementalTypeWeaponsInTeam &&
+      this.requirements.elementalTypeWeaponsInTeam.every((requirement) => {
         const numOfWeaponsOfElementalType = weaponElementalTypes.filter(
           (x) => x === requirement.elementalType
         ).length;
@@ -74,7 +70,7 @@ export class ActionRequirementsHandler extends EventHandler {
       return false;
 
     const notElementalTypeWeaponRequirement =
-      requirements.notElementalTypeWeaponsInTeam;
+      this.requirements.notElementalTypeWeaponsInTeam;
     if (notElementalTypeWeaponRequirement) {
       const numOfNotElementalTypeWeapons = weapons.filter(
         (weapon) =>
@@ -90,19 +86,19 @@ export class ActionRequirementsHandler extends EventHandler {
         return false;
     }
 
-    if (requirements.numOfDifferentElementalTypesInTeam) {
+    if (this.requirements.numOfDifferentElementalTypesInTeam) {
       const numOfDifferentElementalTypes = Object.keys(
         groupBy(weaponElementalTypes)
       ).length;
 
       if (
         numOfDifferentElementalTypes !==
-        requirements.numOfDifferentElementalTypesInTeam
+        this.requirements.numOfDifferentElementalTypesInTeam
       )
         return false;
     }
 
-    if (requirements?.hasFullCharge && !this.chargeTimeline.hasFullCharge)
+    if (this.requirements?.hasFullCharge && !this.charge.hasFullCharge(time))
       return false;
 
     return true;

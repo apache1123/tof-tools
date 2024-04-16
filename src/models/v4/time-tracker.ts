@@ -1,3 +1,3 @@
 export class TimeTracker {
-  public nextAttackTime = 0;
+  public nextPlayerInputAttackTime = 0;
 }

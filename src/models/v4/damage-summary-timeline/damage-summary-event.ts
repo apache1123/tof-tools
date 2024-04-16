@@ -1,8 +1,8 @@
 import type { DamageSummary } from '../damage-summary/damage-summary';
 import type { TimePeriod } from '../time-period';
-import { TimelineEvent } from '../timeline/timeline-event';
+import { TimelineAction } from '../timeline/timeline-action';
 
-export class DamageSummaryEvent extends TimelineEvent {
+export class DamageSummaryEvent extends TimelineAction {
   public constructor(
     timePeriod: TimePeriod,
     public damageSummary: DamageSummary,

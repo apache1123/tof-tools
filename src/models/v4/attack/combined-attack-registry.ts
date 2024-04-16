@@ -1,5 +1,5 @@
 import type { TimeTracker } from '../time-tracker';
-import type { Attack } from './attack';
+import type { AttackAction } from './attack-action';
 import { AttackRegistry } from './attack-registry';
 
 export class CombinedAttackRegistry extends AttackRegistry {
@@ -11,20 +11,20 @@ export class CombinedAttackRegistry extends AttackRegistry {
     triggeredAttackRegistry: AttackRegistry
   ) {
     super([
-      ...playerInputAttackRegistry.items,
-      ...triggeredAttackRegistry.items,
+      ...playerInputAttackRegistry.attacks,
+      ...triggeredAttackRegistry.attacks,
     ]);
 
     this.playerInputAttackRegistry = playerInputAttackRegistry;
     this.triggeredAttackRegistry = triggeredAttackRegistry;
   }
 
-  public get playerInputAttackItems() {
-    return this.playerInputAttackRegistry.items;
+  public get playerInputAttacks() {
+    return this.playerInputAttackRegistry.attacks;
   }
 
-  public get triggeredAttackItems() {
-    return this.triggeredAttackRegistry.items;
+  public get triggeredAttacks() {
+    return this.triggeredAttackRegistry.attacks;
   }
 
   public getNextPlayerInputAttacksOffCooldown(timeTracker: TimeTracker) {
@@ -33,7 +33,7 @@ export class CombinedAttackRegistry extends AttackRegistry {
     );
   }
 
-  public get lastPlayerInputAttack(): Attack | undefined {
-    return this.playerInputAttackRegistry.lastAttack;
+  public get lastPlayerInputAttackAction(): AttackAction | undefined {
+    return this.playerInputAttackRegistry.lastAttackAction;
   }
 }

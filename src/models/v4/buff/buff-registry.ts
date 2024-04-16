@@ -1,25 +1,33 @@
 import type { TimePeriod } from '../time-period';
 import type { Buff } from './buff';
-import type { BuffDefinition, BuffId } from './buff-definition';
-import type { BuffTimeline } from './buff-timeline';
+import type { BuffAction } from './buff-action';
+import type { BuffId } from './buff-definition';
 
 export class BuffRegistry {
-  public constructor(
-    public readonly buffTimelines: Map<BuffDefinition, BuffTimeline>
-  ) {}
+  public readonly buffs: Buff[];
+
+  public constructor(buffs: Buff[]) {
+    this.buffs = buffs;
+  }
 
   public isBuffActiveAt(buffId: BuffId, time: number) {
-    const timeline = [...this.buffTimelines].find(
-      ([buffDefinition]) => buffDefinition.id === buffId
-    )?.[1];
+    const timeline = [...this.buffs].find(
+      ({ definition }) => definition.id === buffId
+    )?.timeline;
 
     return timeline && timeline.isActionActiveAt(time);
   }
 
-  public getActiveBuffs(timePeriod: TimePeriod): Buff[] {
+  public getActiveBuffActions(timePeriod: TimePeriod): BuffAction[] {
     const { startTime, endTime } = timePeriod;
-    return [...this.buffTimelines].flatMap(([, buffTimeline]) =>
-      buffTimeline.getEventsOverlappingPeriod(startTime, endTime)
+    return [...this.buffs].flatMap(({ timeline }) =>
+      timeline.getActionsOverlappingPeriod(startTime, endTime)
+    );
+  }
+
+  public getBuffActionsEndingBetween(timePeriod: TimePeriod): BuffAction[] {
+    return this.buffs.flatMap((buff) =>
+      buff.getBuffActionsEndingBetween(timePeriod)
     );
   }
 }

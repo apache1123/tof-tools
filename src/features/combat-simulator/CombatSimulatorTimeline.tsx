@@ -47,6 +47,14 @@ const combatDuration = 150000;
 const combatSimulator = new CombatSimulator(combatDuration, loadout, relics);
 
 combatSimulator.performAttack(weapon2.definition.skills[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon2.definition.discharge.id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon2.definition.discharge.id);
 
 const combatSimulatorSnapshot = combatSimulator.snapshot();
 
@@ -81,10 +89,11 @@ export function CombatSimulatorTimeline() {
     combatSimulatorSnapshot.playerInputAttackTimelines
       .concat(combatSimulatorSnapshot.triggeredAttackTimelines)
       .concat(combatSimulatorSnapshot.buffTimelines)
+      .concat(combatSimulatorSnapshot.chargeTimeline)
       .map((timeline) => ({
         id: timeline.id,
         displayName: timeline.displayName,
-        actions: timeline.events.map<CombatSimulatorTimelineAction>(
+        actions: timeline.actions.map<CombatSimulatorTimelineAction>(
           (event, index) => ({
             id: `${timeline.id}-${index}`,
             displayName: event.displayName,
@@ -123,7 +132,7 @@ export function CombatSimulatorTimeline() {
         />
       )}
       Damage timeline events:
-      {JSON.stringify(combatSimulatorSnapshot.damageTimeline.events)}
+      {JSON.stringify(combatSimulatorSnapshot.damageTimeline.actions)}
     </Stack>
   );
 }

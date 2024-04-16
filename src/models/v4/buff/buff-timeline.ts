@@ -1,4 +1,4 @@
 import { ActionTimeline } from '../action/action-timeline';
-import type { Buff } from './buff';
+import type { BuffAction } from './buff-action';
 
-export class BuffTimeline extends ActionTimeline<Buff> {}
+export class BuffTimeline extends ActionTimeline<BuffAction> {}

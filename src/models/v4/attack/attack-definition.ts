@@ -1,30 +1,25 @@
 import type { AttackType } from '../../../constants/attack-type';
 import type { WeaponName } from '../../../constants/weapon-definitions';
 import type { ActionDefinition, ActionId } from '../action/action-definition';
+import type { ActionEndedBy } from '../action/action-ended-by';
 import type { ActionRequirements } from '../action/action-requirements';
-import type { TriggeredAction } from '../action/triggered-action';
+import type { ActionTriggeredBy } from '../action/action-triggered-by';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackElementalType } from './attack-elemental-type';
 
 export type AttackId = ActionId;
 
-export interface AttackDefinition
-  extends ActionDefinition,
-    ActionRequirements,
-    TriggeredAction {
+export interface AttackDefinition extends ActionDefinition {
   id: AttackId;
   type: AttackType;
-
   elementalType: AttackElementalType;
-
+  charge: number;
   damageModifiers: AttackDamageModifiers;
 
-  /** in ms */
-  duration: number;
-  /** in ms */
-  cooldown: number;
+  triggeredBy: ActionTriggeredBy;
+  endedBy: ActionEndedBy;
 
-  charge: number;
+  requirements: ActionRequirements;
 }
 
 export interface PlayerInputAttackDefinition extends AttackDefinition {

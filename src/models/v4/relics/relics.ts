@@ -38,12 +38,12 @@ export class Relics implements Persistable<RelicsDto> {
         const buffs = relicDefinition.buffs.filter(
           ({
             triggeredBy: { combatStart },
-            duration: { untilCombatEnd },
+            endedBy: { combatEnd },
             minStarRequirement,
             maxStarRequirement,
           }) =>
             combatStart &&
-            untilCombatEnd &&
+            combatEnd &&
             stars >= minStarRequirement &&
             stars <= maxStarRequirement
         );

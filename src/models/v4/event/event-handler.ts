@@ -17,11 +17,11 @@ export abstract class EventHandler implements EventSubscriber {
   /** Processes an event. Passes the event data for the next handler, if there is one, to handle
    * @returns true the event has been fully consumed, false if the event cannot be consumed
    */
-  public handle(data: EventData): boolean {
+  public handle(data: EventData): void {
     if (this.nextHandler) {
       return this.nextHandler.handle(data);
     }
 
-    return true;
+    return;
   }
 }
