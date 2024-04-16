@@ -12,15 +12,15 @@ export class DamageSummaryTimeline {
   }
 
   public get damageSummaryEvents() {
-    return this.timeline.events;
+    return this.timeline.actions;
   }
 
   public get lastDamageSummaryEvent() {
-    return this.timeline.lastEvent;
+    return this.timeline.lastAction;
   }
 
   public get cumulatedDamageSummary() {
-    return this.timeline.lastEvent?.cumulatedDamageSummary;
+    return this.timeline.lastAction?.cumulatedDamageSummary;
   }
 
   public addDamageSummary(
@@ -28,13 +28,13 @@ export class DamageSummaryTimeline {
     startTime: number,
     duration: number
   ) {
-    const { lastEvent } = this.timeline;
+    const { lastAction: lastEvent } = this.timeline;
     if (lastEvent && startTime < lastEvent.endTime) {
       throw new Error('DamageSummaries must be added chronologically');
     }
 
     const timePeriod = new TimePeriod(startTime, startTime + duration);
-    this.timeline.addEvent(
+    this.timeline.addAction(
       new DamageSummaryEvent(
         timePeriod,
         damageSummary,

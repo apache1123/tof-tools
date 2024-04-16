@@ -81,10 +81,11 @@ export function CombatSimulatorTimeline() {
     combatSimulatorSnapshot.playerInputAttackTimelines
       .concat(combatSimulatorSnapshot.triggeredAttackTimelines)
       .concat(combatSimulatorSnapshot.buffTimelines)
+      .concat(combatSimulatorSnapshot.chargeTimeline)
       .map((timeline) => ({
         id: timeline.id,
         displayName: timeline.displayName,
-        actions: timeline.events.map<CombatSimulatorTimelineAction>(
+        actions: timeline.actions.map<CombatSimulatorTimelineAction>(
           (event, index) => ({
             id: `${timeline.id}-${index}`,
             displayName: event.displayName,
@@ -123,7 +124,7 @@ export function CombatSimulatorTimeline() {
         />
       )}
       Damage timeline events:
-      {JSON.stringify(combatSimulatorSnapshot.damageTimeline.events)}
+      {JSON.stringify(combatSimulatorSnapshot.damageTimeline.actions)}
     </Stack>
   );
 }

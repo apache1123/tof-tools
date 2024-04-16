@@ -13,8 +13,8 @@ export const commonBuffs: BuffDefinition[] = [
     triggeredBy: {
       combatStart: true,
     },
-    duration: {
-      untilCombatEnd: true,
+    endedBy: {
+      combatEnd: true,
     },
     cooldown: 0,
     requirements: {
@@ -39,8 +39,8 @@ export const commonBuffs: BuffDefinition[] = [
     triggeredBy: {
       combatStart: true,
     },
-    duration: {
-      untilCombatEnd: true,
+    endedBy: {
+      combatEnd: true,
     },
     cooldown: 0,
     requirements: {
@@ -67,8 +67,8 @@ export const commonBuffs: BuffDefinition[] = [
     triggeredBy: {
       combatStart: true,
     },
-    duration: {
-      untilCombatEnd: true,
+    endedBy: {
+      combatEnd: true,
     },
     cooldown: 0,
     requirements: { weaponResonance: 'Attack' },
@@ -87,9 +87,7 @@ export const commonBuffs: BuffDefinition[] = [
     triggeredBy: {
       combatStart: true,
     },
-    duration: {
-      untilCombatEnd: true,
-    },
+    endedBy: { combatEnd: true },
     cooldown: 0,
     requirements: { weaponResonance: 'Balance' },
   },
@@ -108,8 +106,8 @@ export const commonBuffs: BuffDefinition[] = [
       fullChargeOfWeapons: ['Brevey', 'Rei'],
       weaponAttacks: ['brevey-skill-million-metz-shockwave'],
     },
-    duration: {
-      value: 45000,
+    endedBy: {
+      duration: 45000,
     },
     cooldown: 15000,
     requirements: {

@@ -120,12 +120,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -148,12 +149,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
       {
         id: 'Bubble Gun Happy Time damage buff',
@@ -169,14 +171,15 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 2,
         maxStarRequirement: 4,
         remarks:
           'Assumes Happy Time buff is active at all times, for simplicity',
+        requirements: {},
       },
       {
         id: 'Bubble Gun Happy Time damage buff',
@@ -192,14 +195,15 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 5,
         maxStarRequirement: 5,
         remarks:
           'Assumes Happy Time buff is active at all times, for simplicity',
+        requirements: {},
       },
     ],
     attacks: [],
@@ -230,12 +234,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -260,12 +265,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: {
-          value: 10000,
+        endedBy: {
+          duration: 10000,
         },
         cooldown: 30000,
         minStarRequirement: 2,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -288,12 +294,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -316,12 +323,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 25000 },
+        endedBy: { duration: 25000 },
         cooldown: 120000,
         minStarRequirement: 3,
         maxStarRequirement: 5,
         remarks:
           'Assume a constant 15% damage buff over 25 seconds, for simplicity',
+        requirements: {},
       },
     ],
     attacks: [],
@@ -344,12 +352,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -374,12 +383,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -402,12 +412,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -446,12 +457,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -485,12 +497,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [
@@ -554,12 +567,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -582,12 +596,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -611,12 +626,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -639,12 +655,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 27000 },
+        endedBy: { duration: 27000 },
         cooldown: 60000,
         minStarRequirement: 5,
         maxStarRequirement: 5,
         remarks:
           'Assuming perfect uptime for the damage buff for 27 seconds in total',
+        requirements: {},
       },
     ],
     attacks: [],
@@ -668,12 +685,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -696,12 +714,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -723,10 +742,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 15000 },
+        endedBy: { duration: 15000 },
         cooldown: 100000,
         minStarRequirement: 3,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [
@@ -777,12 +797,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -807,12 +828,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
       {
         id: 'Thalassic Heart damage buff',
@@ -827,12 +849,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 50000 },
+        endedBy: { duration: 50000 },
         cooldown: 60000,
         minStarRequirement: 0,
         maxStarRequirement: 1,
         remarks:
           'The entire duration of the damage buff is assumed be 50s - which is the entire duration of the Thalassic Heart being deployed (45s) plus the max amount of time the buff lasts for at the end (5s)',
+        requirements: {},
       },
       {
         id: 'Thalassic Heart damage buff',
@@ -847,14 +870,15 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: {
-          value: 90000,
+        endedBy: {
+          duration: 90000,
         },
         cooldown: 60000,
         minStarRequirement: 2,
         maxStarRequirement: 2,
         remarks:
           'Assuming the buff is always active for simplicity, as the Thalassic Heart should be always on-field because its cooldown is shorter than its duration',
+        requirements: {},
       },
       {
         id: 'Thalassic Heart damage buff',
@@ -869,14 +893,15 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: {
-          value: 90000,
+        endedBy: {
+          duration: 90000,
         },
         cooldown: 60000,
         minStarRequirement: 3,
         maxStarRequirement: 5,
         remarks:
           'Assuming the buff is always active for simplicity, as the Thalassic Heart should be always on-field because its cooldown is shorter than its duration',
+        requirements: {},
       },
     ],
     // TODO:
@@ -900,12 +925,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
       {
         id: 'Triple Mask damage buff',
@@ -921,12 +947,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 2,
         maxStarRequirement: 4,
+        requirements: {},
       },
       {
         id: 'Triple Mask damage buff',
@@ -942,12 +969,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 5,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],
@@ -970,12 +998,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
       {
         id: 'Type II Couant damage buff',
@@ -990,10 +1019,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 10000 },
+        endedBy: { duration: 10000 },
         cooldown: 30000,
         minStarRequirement: 0,
         maxStarRequirement: 1,
+        requirements: {},
       },
       {
         id: 'Type II Couant damage buff',
@@ -1008,10 +1038,11 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 12000 },
+        endedBy: { duration: 12000 },
         cooldown: 30000,
         minStarRequirement: 1,
         maxStarRequirement: 2,
+        requirements: {},
       },
       {
         id: 'Type II Couant damage buff',
@@ -1026,11 +1057,12 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 12000 },
+        endedBy: { duration: 12000 },
         cooldown: 30000,
         minStarRequirement: 3,
         maxStarRequirement: 4,
         remarks: 'Assuming always max stacks of blessing when shield is broken',
+        requirements: {},
       },
       {
         id: 'Type II Couant damage buff',
@@ -1045,11 +1077,12 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
-        duration: { value: 12000 },
+        endedBy: { duration: 12000 },
         cooldown: 30000,
         minStarRequirement: 5,
         maxStarRequirement: 5,
         remarks: 'Assuming always max stacks of blessing when shield is broken',
+        requirements: {},
       },
     ],
     attacks: [],
@@ -1072,12 +1105,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         triggeredBy: {
           combatStart: true,
         },
-        duration: {
-          untilCombatEnd: true,
+        endedBy: {
+          combatEnd: true,
         },
         cooldown: 0,
         minStarRequirement: 4,
         maxStarRequirement: 5,
+        requirements: {},
       },
     ],
     attacks: [],

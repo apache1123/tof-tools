@@ -7,4 +7,6 @@ export interface CombatSimulatorSnapshot {
   buffTimelines: TimelineSnapshot[];
   damageTimeline: TimelineSnapshot;
   damageSummary: DamageSummarySnapshot;
+
+  chargeTimeline: TimelineSnapshot;
 }

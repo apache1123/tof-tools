@@ -7,8 +7,8 @@ export class ActionCooldownHandler extends EventHandler {
     super();
   }
 
-  public handle(eventData: EventData): boolean {
-    if (this.isActionOnCooldown(eventData.time)) return false;
+  public handle(eventData: EventData) {
+    if (this.isActionOnCooldown(eventData.time)) return;
 
     return super.handle(eventData);
   }

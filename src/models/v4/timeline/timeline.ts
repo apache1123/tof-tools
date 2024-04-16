@@ -1,63 +1,63 @@
-import type { TimelineEvent } from './timeline-event';
+import type { TimelineAction } from './timeline-action';
 
-export class Timeline<TEvent extends TimelineEvent = TimelineEvent> {
-  private readonly _events: TEvent[] = [];
+export class Timeline<TAction extends TimelineAction> {
+  private readonly _actions: TAction[] = [];
 
   public constructor(public readonly totalDuration: number) {}
 
-  public get events(): ReadonlyArray<TEvent> {
-    return this._events;
+  public get actions(): ReadonlyArray<TAction> {
+    return this._actions;
   }
 
-  public get lastEvent(): TEvent | undefined {
-    return this.events[this.events.length - 1];
+  public get lastAction(): TAction | undefined {
+    return this.actions[this.actions.length - 1];
   }
 
-  public addEvent(event: TEvent) {
-    if (event.startTime >= this.totalDuration) {
+  public addAction(action: TAction) {
+    if (action.startTime >= this.totalDuration) {
       throw new Error(
-        "Cannot add event that starts after the timeline's duration"
+        "Cannot add action that starts after the timeline's duration"
       );
     }
 
-    if (this.lastEvent && event.startTime < this.lastEvent.startTime) {
+    if (this.lastAction && action.startTime < this.lastAction.startTime) {
       throw new Error(
-        'Cannot add an event that is earlier than the latest event'
+        'Cannot add an action that is earlier than the latest action'
       );
     }
 
-    // Cut off event if it goes past the timeline duration
-    if (event.endTime > this.totalDuration) {
-      event.endTime = this.totalDuration;
+    // Cut off action if it goes past the timeline duration
+    if (action.endTime > this.totalDuration) {
+      action.endTime = this.totalDuration;
     }
 
-    this._events.push(event);
+    this._actions.push(action);
   }
 
-  /** Returns events that start between the start and end time, inclusive */
-  public getEventsBetween(startTime: number, endTime: number): TEvent[] {
-    return this._events.filter(
-      (event) => event.startTime >= startTime && event.startTime <= endTime
+  /** Returns actions that start between the start and end time, inclusive */
+  public getActionsBetween(startTime: number, endTime: number): TAction[] {
+    return this._actions.filter(
+      (action) => action.startTime >= startTime && action.startTime <= endTime
     );
   }
 
-  /** Returns events that have any sort of overlap with the period of start time to end time. */
-  public getEventsOverlappingPeriod(
+  /** Returns actions that have any sort of overlap with the period of start time to end time. */
+  public getActionsOverlappingPeriod(
     startTime: number,
     endTime: number
-  ): TEvent[] {
+  ): TAction[] {
     if (startTime === endTime) {
-      return this.getEventsOverlappingTime(startTime);
+      return this.getActionsOverlappingTime(startTime);
     }
 
-    return this._events.filter(
-      (event) => event.startTime < endTime && event.endTime >= startTime
+    return this._actions.filter(
+      (action) => action.startTime < endTime && action.endTime >= startTime
     );
   }
 
-  public getEventsOverlappingTime(time: number) {
-    return this._events.filter(
-      (event) => event.startTime <= time && event.endTime > time
+  public getActionsOverlappingTime(time: number) {
+    return this._actions.filter(
+      (action) => action.startTime <= time && action.endTime > time
     );
   }
 }

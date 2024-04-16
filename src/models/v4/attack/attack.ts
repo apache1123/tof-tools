@@ -1,120 +1,51 @@
-import type { AttackType } from '../../../constants/attack-type';
-import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { Weapon } from '../../weapon';
-import { Action } from '../action/action';
-import type { AttackEvent } from '../attack-event/attack-event';
-import type { AttackNotifier } from '../attack-event/attack-notifier';
-import type { AttackRequest } from '../attack-request/attack-request';
-import { eventIdProvider } from '../event/event-id-provider';
-import { TimePeriod } from '../time-period';
-import type { AttackDamageModifiers } from './attack-damage-modifiers';
-import type { AttackDefinition, AttackId } from './attack-definition';
+import type { ActionTimeCalculator } from '../action/action-time-calculator';
+import { AttackAction } from './attack-action';
+import type { AttackDefinition } from './attack-definition';
+import type { AttackTimeline } from './attack-timeline';
 
-export class Attack extends Action {
-  public attackId: AttackId;
-  public elementalType: WeaponElementalType;
-  public damageModifiers: AttackDamageModifiers;
-  public type: AttackType;
-  public charge: number;
-  /** The weapon this attack derived from, for convenience */
-  public weapon: Weapon;
+export class Attack {
+  public readonly weapon: Weapon;
+  public readonly definition: AttackDefinition;
+  public readonly timeline: AttackTimeline;
+
+  private readonly actionTimeCalculator: ActionTimeCalculator;
 
   public constructor(
-    definition: AttackDefinition,
     weapon: Weapon,
-    attackRequest: AttackRequest
+    definition: AttackDefinition,
+    timeline: AttackTimeline,
+    actionTimeCalculator: ActionTimeCalculator
   ) {
-    const {
-      id,
-      duration,
-      cooldown,
-      damageModifiers,
-      elementalType,
-      type,
-      charge,
-    } = definition;
-    const { time, elementalTypeOverwrite } = attackRequest;
-
-    const endTime = time + duration;
-    const timePeriod = new TimePeriod(time, endTime);
-
-    super(timePeriod, cooldown);
-
-    const resolvedElementalType =
-      elementalTypeOverwrite ?? elementalType.defaultElementalType;
-    const damageModifiersCopy = { ...damageModifiers };
-
-    this.attackId = id;
-    this.elementalType = resolvedElementalType;
-    this.damageModifiers = damageModifiersCopy;
-    this.type = type;
-    this.charge = charge;
     this.weapon = weapon;
+    this.definition = definition;
+    this.timeline = timeline;
+    this.actionTimeCalculator = actionTimeCalculator;
   }
 
-  public broadcast(notifier: AttackNotifier) {
-    const { startTime, endTime, attackId, elementalType, type } = this;
+  /** Is an attack that requires the weapon to be the active weapon to perform e.g. any sort of player input attack */
+  public get isActiveWeaponAttack() {
+    return !!this.definition.triggeredBy.playerInput;
+  }
 
-    const attackStartEvent: AttackEvent = {
-      time: startTime,
-      attack: this,
-    };
-    const attackEndEvent: AttackEvent = {
-      time: endTime,
-      attack: this,
-    };
+  public trigger(time: number): AttackAction {
+    const attackAction = this.createNewAttackAction(time);
+    this.timeline.addAttackAction(attackAction);
+    return attackAction;
+  }
 
-    // Attack start events
+  public endActiveAttacksAt(time: number) {
+    return this.timeline.endAnyActionsAt(time);
+  }
 
-    if (startTime === 0) {
-      notifier.notify(
-        eventIdProvider.getCombatStartEventId(),
-        attackStartEvent
-      );
-    }
-    notifier.notify(
-      eventIdProvider.getAttackStartEventId(attackId),
-      attackStartEvent
+  private createNewAttackAction(time: number) {
+    const timePeriod =
+      this.actionTimeCalculator.calculateActionTimePeriod(time);
+    const attackAction = new AttackAction(
+      timePeriod,
+      this.definition,
+      this.weapon
     );
-    notifier.notify(
-      eventIdProvider.getActionStartEventId(attackId),
-      attackStartEvent
-    );
-
-    // Attack end events
-
-    notifier.notify(
-      eventIdProvider.getAttackEndEventId(attackId),
-      attackEndEvent
-    );
-    notifier.notify(
-      eventIdProvider.getActionEndEventId(attackId),
-      attackEndEvent
-    );
-
-    if (type === 'skill') {
-      notifier.notify(eventIdProvider.getSkillAttackEventId(), attackEndEvent);
-      notifier.notify(
-        eventIdProvider.getSkillOfWeaponTypeEventId(this.weapon.type),
-        attackEndEvent
-      );
-      notifier.notify(
-        eventIdProvider.getSkillOfElementalTypeEventId(elementalType),
-        attackEndEvent
-      );
-    } else if (type === 'discharge') {
-      notifier.notify(
-        eventIdProvider.getDischargeAttackEventId(),
-        attackEndEvent
-      );
-      notifier.notify(
-        eventIdProvider.getDischargeOfWeaponTypeEventId(this.weapon.type),
-        attackEndEvent
-      );
-      notifier.notify(
-        eventIdProvider.getDischargeOfElementalTypeEventId(elementalType),
-        attackEndEvent
-      );
-    }
+    return attackAction;
   }
 }

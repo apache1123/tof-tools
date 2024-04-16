@@ -39,17 +39,17 @@ export class DamageTimelineCalculator {
       const tickPeriodEnd = tickPeriodStart + tickDuration;
       const tickPeriod = new TimePeriod(tickPeriodStart, tickPeriodEnd);
 
-      const attacks = this.attackRegistry.getAttacks(tickPeriod);
-      const buffs = this.buffRegistry.getActiveBuffs(tickPeriod);
+      const attackActions = this.attackRegistry.getAttackActions(tickPeriod);
+      const buffActions = this.buffRegistry.getActiveBuffActions(tickPeriod);
 
-      for (const attack of attacks) {
-        const { type, elementalType, weapon } = attack;
+      for (const attackAction of attackActions) {
+        const { type, elementalType, weapon } = attackAction;
         const attackCalculator = new DamageCalculator(
-          attack,
+          attackAction,
           weapon,
           this.loadout,
           this.loadoutStats,
-          buffs
+          buffActions
         );
 
         // This is the base damage + final damage of the whole attack. Since the attack time period is likely not the same as the tick period, we need to take a portion of the damage that's equal to the overlapping duration of the attack period and the tick period.
@@ -57,7 +57,10 @@ export class DamageTimelineCalculator {
         const baseDamageOfEntireAttack = attackCalculator.getBaseDamage();
         const finalDamageOfEntireAttack = attackCalculator.getFinalDamage();
 
-        const attackPeriod = new TimePeriod(attack.startTime, attack.endTime);
+        const attackPeriod = new TimePeriod(
+          attackAction.startTime,
+          attackAction.endTime
+        );
         const overlappingDuration = calculateOverlapDuration(
           attackPeriod,
           tickPeriod
@@ -65,10 +68,10 @@ export class DamageTimelineCalculator {
 
         const baseDamage = BigNumber(baseDamageOfEntireAttack)
           .times(overlappingDuration)
-          .dividedBy(attack.duration);
+          .dividedBy(attackAction.duration);
         const finalDamage = BigNumber(finalDamageOfEntireAttack)
           .times(overlappingDuration)
-          .dividedBy(attack.duration);
+          .dividedBy(attackAction.duration);
 
         const weaponDamageSummary = damageSummary.weaponDamageSummaries.get(
           weapon.id

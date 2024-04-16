@@ -66,10 +66,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             skillOfAnyWeapon: true,
           },
-          duration: {
-            value: 18000,
+          endedBy: {
+            duration: 18000,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -97,10 +98,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -121,10 +123,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'brevey-trait-additional',
@@ -140,8 +143,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -179,10 +182,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             skillOfWeaponType: 'Support',
             dischargeOfWeaponType: 'Support',
           },
-          duration: {
-            value: 5000,
+          endedBy: {
+            duration: 5000,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -203,10 +207,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         // TODO: verify if this is 10+12% or 10+2%
         {
@@ -223,10 +228,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            value: 12000,
+          endedBy: {
+            duration: 12000,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -248,8 +254,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             weaponAttacks: ['feise-skill-whirling'],
           },
-          duration: {
-            value: 30000,
+          endedBy: {
+            duration: 30000,
           },
           cooldown: 0,
           requirements: {
@@ -275,8 +281,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             weaponAttacks: ['feise-skill-whirling'],
           },
-          duration: {
-            value: 30000,
+          endedBy: {
+            duration: 30000,
           },
           cooldown: 0,
           requirements: {
@@ -302,8 +308,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             weaponAttacks: ['feise-skill-whirling'],
           },
-          duration: {
-            value: 30000,
+          endedBy: {
+            duration: 30000,
           },
           cooldown: 0,
           requirements: {
@@ -335,8 +341,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -357,8 +363,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -385,10 +391,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -409,10 +416,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
       remarks:
@@ -442,10 +450,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'mimi-trait-triple-volt',
@@ -461,8 +470,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -499,8 +508,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -532,8 +541,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -566,10 +575,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'linghan-trait-1-frost',
@@ -585,8 +595,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -612,8 +622,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -639,8 +649,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -672,10 +682,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -706,10 +717,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'mingjing-trait-physical-increase',
@@ -723,10 +735,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'mingjing-trait-normal-attack',
@@ -743,10 +756,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             activeWeapon: 'Ming Jing',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            notActiveWeapon: 'Ming Jing',
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -767,10 +781,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'nanyin-trait-active-weapon-1-non-altered',
@@ -786,8 +801,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             activeWeapon: 'Nan Yin',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            notActiveWeapon: 'Nan Yin',
           },
           cooldown: 0,
           requirements: {
@@ -811,8 +826,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             activeWeapon: 'Nan Yin',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            notActiveWeapon: 'Nan Yin',
           },
           cooldown: 0,
           requirements: {
@@ -847,10 +862,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'plotti-trait-weapon-damage-buff',
@@ -867,10 +883,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -891,10 +908,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'rei-trait-attack-resonance',
@@ -910,8 +928,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -938,8 +956,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -965,8 +983,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -992,8 +1010,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -1024,10 +1042,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             weaponAttacks: ['ruby-dodge-go-dolly'],
           },
-          duration: {
-            value: 10000,
+          endedBy: {
+            duration: 10000,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'ruby-trait-dolly-dmg',
@@ -1043,11 +1062,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             weaponAttacks: ['ruby-dodge-go-dolly'],
           },
-          duration: {
-            value: 10000,
+          endedBy: {
+            duration: 10000,
           },
           cooldown: 0,
           remarks: 'Assumes Dolly remains for 10 seconds and enemy is near it',
+          requirements: {},
         },
       ],
     },
@@ -1074,12 +1094,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           remarks:
             'For simplicity, assume max stacks at all times (+20% damage at all times)',
+          requirements: {},
         },
       ],
     },
@@ -1101,10 +1122,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             skillOfAnyWeapon: true,
             dischargeOfAnyWeapon: true,
           },
-          duration: {
-            value: 8000,
+          endedBy: {
+            duration: 8000,
           },
           cooldown: 16000,
+          requirements: {},
         },
         {
           id: 'shiro-trait-phys-atk',
@@ -1120,10 +1142,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             skillOfAnyWeapon: true,
             dischargeOfAnyWeapon: true,
           },
-          duration: {
-            value: 8000,
+          endedBy: {
+            duration: 8000,
           },
           cooldown: 16000,
+          requirements: {},
         },
       ],
     },
@@ -1147,12 +1170,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             skillOfElementalType: 'Volt',
             dischargeOfElementalType: 'Volt',
           },
-          duration: {
-            value: 8000,
+          endedBy: {
+            duration: 8000,
           },
           cooldown: 0,
           remarks:
             'Assuming the effect activates every volt weapon skill or discharge, ignoring the "simultaneously" requirement',
+          requirements: {},
         },
       ],
     },
@@ -1173,11 +1197,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           remarks: 'For simplicity, assume max stacks at all times (+18% ATK)',
+          requirements: {},
         },
       ],
     },
@@ -1199,10 +1224,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             weaponAttacks: ["umi-skill-it's-magic-time"],
           },
-          duration: {
-            value: 30000,
+          endedBy: {
+            duration: 30000,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },
@@ -1223,14 +1249,16 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'yanmiao-trait-weapon-buff',
           displayName: 'Yan Miao trait - Equilibrium buff',
+          // TODO:
           description:
             'When Equilibrium is equipped, increase physical damage dealt to targets with less than 80% of HP by 10%',
           damageBuff: {
@@ -1242,11 +1270,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            applyToEndSegmentOfCombat: 0.8,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           remarks: 'This is assumed to be active 80% of the battle duration',
+          requirements: {},
         },
         {
           id: 'yanmiao-trait-normal-atk-buff-1-phys',
@@ -1263,8 +1292,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             activeWeapon: 'Yan Miao',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            notActiveWeapon: 'Yan Miao',
           },
           cooldown: 0,
           requirements: {
@@ -1291,8 +1320,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             activeWeapon: 'Yan Miao',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            notActiveWeapon: 'Yan Miao',
           },
           cooldown: 0,
           requirements: {
@@ -1319,8 +1348,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             activeWeapon: 'Yan Miao',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            notActiveWeapon: 'Yan Miao',
           },
           cooldown: 0,
           requirements: {
@@ -1351,10 +1380,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
         {
           id: 'yanuo-trait-additional',
@@ -1370,8 +1400,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -1398,10 +1428,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
+          requirements: {},
         },
       ],
     },

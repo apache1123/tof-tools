@@ -122,7 +122,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -194,7 +194,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackFlat: 0,
           damageDealtIsPerSecond: false,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -256,7 +256,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -315,13 +315,14 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 9.58,
             attackFlat: 51,
           },
-          duration: 3650,
+          endedBy: { duration: 3650 },
           cooldown: 0,
           // TODO: this is a placeholder value
           charge: 250,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       dodgeAttacks: [
@@ -335,12 +336,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
-          duration: 5000,
+          endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       skills: [
@@ -354,12 +356,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 5.85,
             attackFlat: 31,
           },
-          duration: 2250,
+          endedBy: { duration: 2250 },
           cooldown: 30000,
           charge: 100,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       discharge: {
@@ -372,7 +375,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -392,10 +395,11 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             weaponAttacks: ['brevey-skill-million-metz-shockwave'],
           },
-          duration: {
-            value: 30000,
+          endedBy: {
+            duration: 30000,
           },
           cooldown: 30000,
+          requirements: {},
         },
         {
           id: 'brevey-buff-metz-energy-wave-charges',
@@ -410,10 +414,11 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             weaponAttacks: ['brevey-skill-million-metz-shockwave'],
           },
-          duration: {
-            value: 30000,
+          endedBy: {
+            duration: 30000,
           },
           cooldown: 10000,
+          requirements: {},
         },
         {
           id: 'brevey-damage-buff-pact-amplification-volt',
@@ -429,8 +434,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             activeWeapon: 'Brevey',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            notActiveWeapon: 'Brevey',
           },
           cooldown: 0,
           requirements: {
@@ -441,7 +446,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           id: 'brevey-damage-buff-pact-amplification-frost',
           displayName: 'Brevey - Pact Amplification Frost Buff',
           description:
-            "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's frost damage by 10%.",
+            "During Pact Amplification, when Pactcrest ☆ Metz is in the off-hand slot, increase the Wanderer's frost damage by 10%.",
           damageBuff: {
             value: 0.25,
             elementalTypes: ['Frost'],
@@ -451,8 +456,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             notActiveWeapon: 'Brevey',
           },
-          duration: {
-            followActiveWeapon: true,
+          endedBy: {
+            activeWeapon: 'Brevey',
           },
           cooldown: 0,
           requirements: {
@@ -498,7 +503,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -547,7 +552,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -609,7 +614,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -645,7 +650,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -694,12 +699,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
-          duration: 5000,
+          endedBy: { duration: 5000 },
           cooldown: 20000,
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       discharge: {
@@ -712,7 +718,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -785,7 +791,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -846,7 +852,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -917,7 +923,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -967,7 +973,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1014,13 +1020,14 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 11.257,
             attackFlat: 59,
           },
-          duration: 3370,
+          endedBy: { duration: 3370 },
           cooldown: 0,
           // TODO:
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       dodgeAttacks: [],
@@ -1035,7 +1042,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1071,7 +1078,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1120,7 +1127,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1156,7 +1163,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1205,7 +1212,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1289,7 +1296,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1349,7 +1356,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1398,7 +1405,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1461,7 +1468,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1497,7 +1504,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1557,12 +1564,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
-          duration: 5000,
+          endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       dodgeAttacks: [],
@@ -1577,7 +1585,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1633,13 +1641,14 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 11.98,
             attackFlat: 63,
           },
-          duration: 6000,
+          endedBy: { duration: 6000 },
           cooldown: 0,
           // TODO:
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       dodgeAttacks: [],
@@ -1657,7 +1666,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 30000,
         charge: 0,
         requirements: {
@@ -1681,8 +1690,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             combatStart: true,
           },
-          duration: {
-            untilCombatEnd: true,
+          endedBy: {
+            combatEnd: true,
           },
           cooldown: 0,
           requirements: {
@@ -1767,7 +1776,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1829,7 +1838,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1912,12 +1921,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 10.08,
             attackFlat: 308,
           },
-          duration: 5000,
+          endedBy: { duration: 5000 },
           cooldown: 0,
-          charge: 0,
+          charge: 500,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       discharge: {
@@ -1930,7 +1940,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -1961,9 +1971,10 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             weaponAttacks: ['rei-skill-mecha-strike'],
           },
-          duration: 30000,
+          endedBy: { duration: 30000 },
           cooldown: 30000,
           charge: 0,
+          requirements: {},
         },
         {
           id: 'detachment',
@@ -1984,7 +1995,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             weaponAttacks: ['rei-skill-mecha-strike'],
           },
-          duration: 30000,
+          endedBy: { duration: 30000 },
           cooldown: 30000,
           charge: 0,
           requirements: {
@@ -2046,7 +2057,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2105,12 +2116,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
-          duration: 30000,
+          endedBy: { duration: 30000 },
           cooldown: 0,
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       skills: [],
@@ -2124,7 +2136,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2173,7 +2185,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2209,7 +2221,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2245,7 +2257,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2307,7 +2319,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2343,7 +2355,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2393,12 +2405,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
-          duration: 5000,
+          endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       discharge: {
@@ -2411,7 +2424,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2471,12 +2484,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
-          duration: 5000,
+          endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       dodgeAttacks: [],
@@ -2491,7 +2505,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2550,13 +2564,14 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 9.58,
             attackFlat: 51,
           },
-          duration: 3650,
+          endedBy: { duration: 3650 },
           cooldown: 0,
           // TODO: this is a placeholder value
           charge: 250,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       dodgeAttacks: [],
@@ -2571,12 +2586,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
-          duration: 5000,
+          endedBy: { duration: 5000 },
           cooldown: 30000,
           charge: 0,
           triggeredBy: {
             playerInput: true,
           },
+          requirements: {},
         },
       ],
       discharge: {
@@ -2589,7 +2605,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 30000,
         charge: 0,
         requirements: {
@@ -2638,7 +2654,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {
@@ -2700,7 +2716,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
-        duration: 5000,
+        endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
         requirements: {

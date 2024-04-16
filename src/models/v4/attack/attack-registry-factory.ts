@@ -1,6 +1,9 @@
 import type { Team } from '../../team';
+import type { Weapon } from '../../weapon';
+import { ActionTimeCalculator } from '../action/action-time-calculator';
+import { Attack } from './attack';
+import type { AttackDefinition } from './attack-definition';
 import { AttackRegistry } from './attack-registry';
-import type { AttackRegistryItem } from './attack-registry-item';
 import { AttackTimeline } from './attack-timeline';
 
 export class AttackRegistryFactory {
@@ -8,29 +11,38 @@ export class AttackRegistryFactory {
     combatDuration: number,
     team: Team
   ) {
-    const items: AttackRegistryItem[] = team.weapons.flatMap((weapon) =>
-      weapon.allPlayerInputAttackDefinitions.map((attackDefinition) => ({
-        weapon,
-        attackDefinition,
-        attackTimeline: new AttackTimeline(combatDuration),
-      }))
+    const attacks: Attack[] = team.weapons.flatMap((weapon) =>
+      weapon.allPlayerInputAttackDefinitions.map((definition) =>
+        this.createAttack(combatDuration, weapon, definition)
+      )
     );
-
-    return new AttackRegistry(items);
+    return new AttackRegistry(attacks);
   }
 
   public static createTriggeredAttackRegistry(
     combatDuration: number,
     team: Team
   ) {
-    const items: AttackRegistryItem[] = team.weapons.flatMap((weapon) =>
-      weapon.allTriggeredAttackDefinitions.map((attackDefinition) => ({
-        weapon,
-        attackDefinition,
-        attackTimeline: new AttackTimeline(combatDuration),
-      }))
+    const attacks: Attack[] = team.weapons.flatMap((weapon) =>
+      weapon.allTriggeredAttackDefinitions.map((definition) =>
+        this.createAttack(combatDuration, weapon, definition)
+      )
     );
 
-    return new AttackRegistry(items);
+    return new AttackRegistry(attacks);
+  }
+
+  private static createAttack(
+    combatDuration: number,
+    weapon: Weapon,
+    definition: AttackDefinition
+  ) {
+    const timeline = new AttackTimeline(combatDuration);
+    return new Attack(
+      weapon,
+      definition,
+      timeline,
+      new ActionTimeCalculator(definition.endedBy, timeline)
+    );
   }
 }

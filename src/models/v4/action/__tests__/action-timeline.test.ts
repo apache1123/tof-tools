@@ -12,7 +12,7 @@ describe('Action timeline', () => {
 
     it('should be on cooldown of there is an action with cooldown', () => {
       const sut = new ActionTimeline(timelineDuration);
-      sut.addEvent(
+      sut.addAction(
         newFakeAction({ startTime: 0, endTime: 10, cooldownEndsAt: 5 })
       );
       expect(sut.isActionOnCooldownAt(0)).toBe(true);

@@ -3,20 +3,18 @@ import type {
   WeaponName,
   WeaponType,
 } from '../../../constants/weapon-definitions';
-import type { ActionId } from '../action/action-definition';
 import type { AttackId } from '../attack/attack-definition';
+import type { BuffId } from '../buff/buff-definition';
 
 export const eventIdProvider = {
-  // Events - only passes along time info
-  getActionStartEventId: (actionId: ActionId) => `action-start-${actionId}`,
-  getActionEndEventId: (actionId: ActionId) => `action-end-${actionId}`,
-
-  // AttackEvents - passes along time, the attack performed
+  // General combat events
   getCombatStartEventId: () => 'combat-start',
   getActiveWeaponEventId: (weaponName: WeaponName) =>
     `active-weapon-${weaponName}`,
   getWeaponFullChargeEventId: (weaponName: WeaponName) =>
     `full-charge-${weaponName}`,
+
+  // Attack events
   getAnyAttackEndEventId: () => `attack-end`,
   getAttackStartEventId: (attackId: AttackId) => `attack-start-${attackId}`,
   getAttackEndEventId: (attackId: AttackId) => `attack-end-${attackId}`,
@@ -33,6 +31,10 @@ export const eventIdProvider = {
   getDischargeOfElementalTypeEventId: (elementalType: WeaponElementalType) =>
     `discharge-elemental-type-${elementalType}`,
 
-  // AttackRequestEvents - passes along time, the attack requested
+  // Attack requests
   getAttackRequestEventId: (attackId: AttackId) => `attack-request-${attackId}`,
+
+  // Buff events
+  getBuffStartEventId: (buffId: BuffId) => `buff-start-${buffId}`,
+  getBuffEndEventId: (buffId: BuffId) => `buff-end-${buffId}`,
 };

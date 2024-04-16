@@ -6,22 +6,22 @@ import { product, sum } from '../../../utils/math-utils';
 import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Weapon } from '../../weapon';
-import type { Attack } from '../attack/attack';
+import type { AttackAction } from '../attack/attack-action';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
-import type { Buff } from '../buff/buff';
+import type { BuffAction } from '../buff/buff-action';
 
 /** Based on an attack, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */
 export class DamageCalculator {
   public constructor(
-    private readonly attack: Attack,
+    private readonly attackAction: AttackAction,
     private readonly weapon: Weapon,
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
-    private readonly activeBuffs: Buff[]
+    private readonly activeBuffActions: BuffAction[]
   ) {}
 
   public getBaseDamage(): number {
-    const { duration, damageModifiers } = this.attack;
+    const { duration, damageModifiers } = this.attackAction;
     const { damageDealtIsPerSecond } = damageModifiers;
 
     // Work out the total attack damage modifiers over the attack's duration if they are defined to be per second. If they are not defined to be per second, the attack damage modifiers are already assumed to be over the attack's duration
@@ -31,7 +31,7 @@ export class DamageCalculator {
     let totalDamageModifiers: Omit<
       AttackDamageModifiers,
       'damageDealtIsPerSecond'
-    > = this.attack.damageModifiers;
+    > = this.attackAction.damageModifiers;
     if (damageDealtIsPerSecond) {
       totalDamageModifiers = {
         attackMultiplier: calculatePerSecondValueToTotal(
@@ -101,11 +101,13 @@ export class DamageCalculator {
   }
 
   public getTotalAttackPercent(): number {
-    const attackBuffValues = this.activeBuffs
+    const attackBuffValues = this.activeBuffActions
       .filter(
         (buff) =>
           buff.attackBuff &&
-          buff.attackBuff.elementalTypes.includes(this.attack.elementalType)
+          buff.attackBuff.elementalTypes.includes(
+            this.attackAction.elementalType
+          )
       )
       .map((buff) =>
         product(buff.attackBuff?.value ?? 0, buff.stacks).toNumber()
@@ -116,10 +118,10 @@ export class DamageCalculator {
 
   public getTotalDamagePercent(): number {
     // TODO: cannotBeDamageBuffedExceptByTitans
-    const damageBuffs = this.activeBuffs.filter(
+    const damageBuffs = this.activeBuffActions.filter(
       (buff) =>
         buff.damageBuff &&
-        buff.damageBuff.elementalTypes.includes(this.attack.elementalType)
+        buff.damageBuff.elementalTypes.includes(this.attackAction.elementalType)
     );
 
     const damageBuffsByDamageCategory = groupBy(
