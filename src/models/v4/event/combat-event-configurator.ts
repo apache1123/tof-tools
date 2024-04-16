@@ -20,10 +20,10 @@ export class CombatEventConfigurator {
     weaponTracker: WeaponTracker,
     timeTracker: TimeTracker,
     charge: Charge,
-    combinedAttackRegistry: CombinedAttackRegistry,
+    attackRegistry: CombinedAttackRegistry,
     buffRegistry: BuffRegistry
   ) {
-    for (const attack of combinedAttackRegistry.playerInputAttacks) {
+    for (const attack of attackRegistry.playerInputAttacks) {
       const {
         definition: { id },
       } = attack;
@@ -43,7 +43,7 @@ export class CombatEventConfigurator {
 
     const { weapons } = team;
 
-    for (const attack of combinedAttackRegistry.triggeredAttacks) {
+    for (const attack of attackRegistry.triggeredAttacks) {
       const { definition } = attack;
       const eventIdsToTriggerAttackOn = this.getEventIdsToTriggerActionOn(
         definition.triggeredBy,

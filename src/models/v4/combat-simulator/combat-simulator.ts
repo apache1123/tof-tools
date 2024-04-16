@@ -19,20 +19,23 @@ import { EventManager } from '../event/event-manager';
 import type { Relics } from '../relics/relics';
 import { TimeTracker } from '../time-tracker';
 import { Timeline } from '../timeline/timeline';
+import { TickProcessor } from './tick-processor';
 
 export class CombatSimulator {
   private readonly weaponTracker: WeaponTracker;
   private readonly timeTracker: TimeTracker;
   private readonly charge: Charge;
 
-  private readonly combinedAttackRegistry: CombinedAttackRegistry;
+  private readonly attackRegistry: CombinedAttackRegistry;
   private readonly buffRegistry: BuffRegistry;
 
   private readonly eventManager: EventManager;
   private readonly combatEventNotifier: CombatEventNotifier;
 
   private readonly damageSummaryTimeline: DamageSummaryTimeline;
-  private readonly damageCalculator: DamageTimelineCalculator;
+  private readonly damageTimelineCalculator: DamageTimelineCalculator;
+
+  private readonly tickProcessor: TickProcessor;
 
   public constructor(
     public readonly combatDuration: number,
@@ -52,7 +55,7 @@ export class CombatSimulator {
       );
     const triggeredAttackRegistry =
       AttackRegistryFactory.createTriggeredAttackRegistry(combatDuration, team);
-    this.combinedAttackRegistry = new CombinedAttackRegistry(
+    this.attackRegistry = new CombinedAttackRegistry(
       playerInputAttackRegistry,
       triggeredAttackRegistry
     );
@@ -73,23 +76,30 @@ export class CombatSimulator {
       this.weaponTracker,
       this.timeTracker,
       this.charge,
-      this.combinedAttackRegistry,
+      this.attackRegistry,
       this.buffRegistry
     );
 
     this.damageSummaryTimeline = new DamageSummaryTimeline(combatDuration);
-    this.damageCalculator = new DamageTimelineCalculator(
+    this.damageTimelineCalculator = new DamageTimelineCalculator(
       this.damageSummaryTimeline,
       loadout,
       loadout.loadoutStats,
       team,
-      this.combinedAttackRegistry,
+      this.attackRegistry,
       this.buffRegistry
+    );
+
+    this.tickProcessor = new TickProcessor(
+      this.attackRegistry,
+      this.buffRegistry,
+      this.damageTimelineCalculator,
+      this.combatEventNotifier
     );
   }
 
   public get nextAvailableAttacks(): AttackId[] {
-    return this.combinedAttackRegistry
+    return this.attackRegistry
       .getNextPlayerInputAttacksOffCooldown(this.timeTracker)
       .map((item) => item.definition.id);
   }
@@ -102,11 +112,11 @@ export class CombatSimulator {
     }
 
     this.combatEventNotifier.notifyAttackRequest(
-      time ?? this.timeTracker.nextAttackTime,
+      time ?? this.timeTracker.nextPlayerInputAttackTime,
       attackId
     );
 
-    this.calculateDamageForLastAttack();
+    this.tickProcessor.processTicksForLastAttack();
   }
 
   public snapshot(): CombatSimulatorSnapshot {
@@ -114,7 +124,7 @@ export class CombatSimulator {
 
     const weaponTimelineMap = new Map<Weapon, TimelineSnapshot>();
     // Combine all player input attack timelines into one, for each weapon
-    for (const { weapon, definition, timeline } of this.combinedAttackRegistry
+    for (const { weapon, definition, timeline } of this.attackRegistry
       .playerInputAttacks) {
       if (!weaponTimelineMap.has(weapon)) {
         weaponTimelineMap.set(weapon, {
@@ -144,7 +154,7 @@ export class CombatSimulator {
     }
 
     const triggeredAttackTimelines = [];
-    for (const { definition, timeline } of this.combinedAttackRegistry
+    for (const { definition, timeline } of this.attackRegistry
       .triggeredAttacks) {
       if (!timeline.actions.length) continue;
 
@@ -243,12 +253,5 @@ export class CombatSimulator {
       damageSummary: damageSummarySnapshot,
       chargeTimeline,
     };
-  }
-
-  private calculateDamageForLastAttack() {
-    const lastAttack = this.combinedAttackRegistry.lastPlayerInputAttackAction;
-    if (lastAttack) {
-      this.damageCalculator.calculateDamageUntil(lastAttack.endTime);
-    }
   }
 }

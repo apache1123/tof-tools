@@ -30,6 +30,10 @@ export class Buff {
     return this.timeline.endAnyActionsAt(time);
   }
 
+  public getBuffActionsEndingBetween(timePeriod: TimePeriod) {
+    return this.timeline.getActionsEndingBetween(timePeriod);
+  }
+
   /** Adds a new buff action to the timeline. Merging with the latest buff in the timeline if overlaps occur. */
   private addNewBuffAction(buffAction: BuffAction): BuffAction {
     const { lastAction } = this.timeline;

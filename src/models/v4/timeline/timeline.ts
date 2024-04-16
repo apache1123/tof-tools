@@ -1,3 +1,4 @@
+import type { TimePeriod } from '../time-period';
 import type { TimelineAction } from './timeline-action';
 
 export class Timeline<TAction extends TimelineAction> {
@@ -58,6 +59,14 @@ export class Timeline<TAction extends TimelineAction> {
   public getActionsOverlappingTime(time: number) {
     return this._actions.filter(
       (action) => action.startTime <= time && action.endTime > time
+    );
+  }
+
+  public getActionsEndingBetween(timePeriod: TimePeriod) {
+    return this._actions.filter(
+      (action) =>
+        action.endTime > timePeriod.startTime &&
+        action.endTime <= timePeriod.endTime
     );
   }
 }

@@ -14,8 +14,6 @@ import { TimePeriod } from '../time-period';
 import { DamageCalculator } from './damage-calculator';
 
 export class DamageTimelineCalculator {
-  private damageLastCalculatedAt = 0;
-
   public constructor(
     private readonly damageSummaryTimeline: DamageSummaryTimeline,
     private readonly loadout: Loadout,
@@ -25,80 +23,65 @@ export class DamageTimelineCalculator {
     private readonly buffRegistry: BuffRegistry
   ) {}
 
-  public calculateDamageUntil(endTime: number) {
-    for (
-      let tickPeriodStart = this.damageLastCalculatedAt;
-      tickPeriodStart <= endTime - tickDuration;
-      tickPeriodStart = tickPeriodStart + tickDuration
-    ) {
-      const damageSummary = new DamageSummary(
-        tickDuration,
-        ...this.team.weapons
+  public calculateDamage(timePeriod: TimePeriod) {
+    const damageSummary = new DamageSummary(tickDuration, ...this.team.weapons);
+
+    const attackActions = this.attackRegistry.getAttackActions(timePeriod);
+    const buffActions = this.buffRegistry.getActiveBuffActions(timePeriod);
+
+    for (const attackAction of attackActions) {
+      const { type, elementalType, weapon } = attackAction;
+      const attackCalculator = new DamageCalculator(
+        attackAction,
+        weapon,
+        this.loadout,
+        this.loadoutStats,
+        buffActions
       );
 
-      const tickPeriodEnd = tickPeriodStart + tickDuration;
-      const tickPeriod = new TimePeriod(tickPeriodStart, tickPeriodEnd);
+      // This is the base damage + final damage of the whole attack. Since the attack time period is likely not the same as the tick period, we need to take a portion of the damage that's equal to the overlapping duration of the attack period and the tick period.
+      // NOTE: A compromise is made averaging out the attack's damage over its duration, for simplicity
+      const baseDamageOfEntireAttack = attackCalculator.getBaseDamage();
+      const finalDamageOfEntireAttack = attackCalculator.getFinalDamage();
 
-      const attackActions = this.attackRegistry.getAttackActions(tickPeriod);
-      const buffActions = this.buffRegistry.getActiveBuffActions(tickPeriod);
+      const attackPeriod = new TimePeriod(
+        attackAction.startTime,
+        attackAction.endTime
+      );
+      const overlappingDuration = calculateOverlapDuration(
+        attackPeriod,
+        timePeriod
+      );
 
-      for (const attackAction of attackActions) {
-        const { type, elementalType, weapon } = attackAction;
-        const attackCalculator = new DamageCalculator(
-          attackAction,
-          weapon,
-          this.loadout,
-          this.loadoutStats,
-          buffActions
+      const baseDamage = BigNumber(baseDamageOfEntireAttack)
+        .times(overlappingDuration)
+        .dividedBy(attackAction.duration);
+      const finalDamage = BigNumber(finalDamageOfEntireAttack)
+        .times(overlappingDuration)
+        .dividedBy(attackAction.duration);
+
+      const weaponDamageSummary = damageSummary.weaponDamageSummaries.get(
+        weapon.id
+      );
+      if (!weaponDamageSummary) {
+        throw new Error(
+          'Cannot find weapon damage summary to store attack damage result'
         );
-
-        // This is the base damage + final damage of the whole attack. Since the attack time period is likely not the same as the tick period, we need to take a portion of the damage that's equal to the overlapping duration of the attack period and the tick period.
-        // NOTE: A compromise is made averaging out the attack's damage over its duration, for simplicity
-        const baseDamageOfEntireAttack = attackCalculator.getBaseDamage();
-        const finalDamageOfEntireAttack = attackCalculator.getFinalDamage();
-
-        const attackPeriod = new TimePeriod(
-          attackAction.startTime,
-          attackAction.endTime
-        );
-        const overlappingDuration = calculateOverlapDuration(
-          attackPeriod,
-          tickPeriod
-        );
-
-        const baseDamage = BigNumber(baseDamageOfEntireAttack)
-          .times(overlappingDuration)
-          .dividedBy(attackAction.duration);
-        const finalDamage = BigNumber(finalDamageOfEntireAttack)
-          .times(overlappingDuration)
-          .dividedBy(attackAction.duration);
-
-        const weaponDamageSummary = damageSummary.weaponDamageSummaries.get(
-          weapon.id
-        );
-        if (!weaponDamageSummary) {
-          throw new Error(
-            'Cannot find weapon damage summary to store attack damage result'
-          );
-        }
-
-        weaponDamageSummary.attackTypeDamageSummaries[
-          type
-        ].elementalTypeDamages[elementalType] =
-          weaponDamageSummary.attackTypeDamageSummaries[
-            type
-          ].elementalTypeDamages[elementalType].add(
-            new Damage(baseDamage.toNumber(), finalDamage.toNumber())
-          );
       }
 
-      this.damageSummaryTimeline.addDamageSummary(
-        damageSummary,
-        tickPeriodStart,
-        tickDuration
+      weaponDamageSummary.attackTypeDamageSummaries[type].elementalTypeDamages[
+        elementalType
+      ] = weaponDamageSummary.attackTypeDamageSummaries[
+        type
+      ].elementalTypeDamages[elementalType].add(
+        new Damage(baseDamage.toNumber(), finalDamage.toNumber())
       );
-
-      this.damageLastCalculatedAt = tickPeriodEnd;
     }
+
+    this.damageSummaryTimeline.addDamageSummary(
+      damageSummary,
+      timePeriod.startTime,
+      timePeriod.duration
+    );
   }
 }

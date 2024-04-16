@@ -14,7 +14,9 @@ export class AttackRegistry {
   public getNextAttacksOffCooldown(timeTracker: TimeTracker) {
     return this.attacks.filter(
       (attack) =>
-        !attack.timeline.isActionOnCooldownAt(timeTracker.nextAttackTime)
+        !attack.timeline.isActionOnCooldownAt(
+          timeTracker.nextPlayerInputAttackTime
+        )
     );
   }
 
@@ -46,5 +48,11 @@ export class AttackRegistry {
     }
 
     return result;
+  }
+
+  public getAttackActionsEndingBetween(timePeriod: TimePeriod): AttackAction[] {
+    return this.attacks.flatMap((attack) =>
+      attack.getAttackActionsEndingBetween(timePeriod)
+    );
   }
 }

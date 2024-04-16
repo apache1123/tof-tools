@@ -27,7 +27,10 @@ export class AttackTrigger extends EventHandler {
 
     const { time } = eventData;
     const attackAction = this.attack.trigger(time);
-    this.timeTracker.nextAttackTime = attackAction.endTime;
+
+    if (this.attack.isPlayerInputAttack) {
+      this.timeTracker.nextPlayerInputAttackTime = attackAction.endTime;
+    }
     this.combatEventNotifier.notifyAttackStart(attackAction);
 
     const fullChargeGained = this.charge.adjustCharge(attackAction);

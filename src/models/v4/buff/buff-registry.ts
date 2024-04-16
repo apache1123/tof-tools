@@ -24,4 +24,10 @@ export class BuffRegistry {
       timeline.getActionsOverlappingPeriod(startTime, endTime)
     );
   }
+
+  public getBuffActionsEndingBetween(timePeriod: TimePeriod): BuffAction[] {
+    return this.buffs.flatMap((buff) =>
+      buff.getBuffActionsEndingBetween(timePeriod)
+    );
+  }
 }

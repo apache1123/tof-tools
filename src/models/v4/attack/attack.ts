@@ -1,5 +1,6 @@
 import type { Weapon } from '../../weapon';
 import type { ActionTimeCalculator } from '../action/action-time-calculator';
+import type { TimePeriod } from '../time-period';
 import { AttackAction } from './attack-action';
 import type { AttackDefinition } from './attack-definition';
 import type { AttackTimeline } from './attack-timeline';
@@ -28,6 +29,10 @@ export class Attack {
     return !!this.definition.triggeredBy.playerInput;
   }
 
+  public get isPlayerInputAttack() {
+    return !!this.definition.triggeredBy.playerInput;
+  }
+
   public trigger(time: number): AttackAction {
     const attackAction = this.createNewAttackAction(time);
     this.timeline.addAttackAction(attackAction);
@@ -36,6 +41,10 @@ export class Attack {
 
   public endActiveAttacksAt(time: number) {
     return this.timeline.endAnyActionsAt(time);
+  }
+
+  public getAttackActionsEndingBetween(timePeriod: TimePeriod) {
+    return this.timeline.getActionsEndingBetween(timePeriod);
   }
 
   private createNewAttackAction(time: number) {

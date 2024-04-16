@@ -36,6 +36,8 @@ export class Resource {
    * @param amount the amount of resource to add; can be negative
    */
   public addResourceAction(timePeriod: TimePeriod, amount: number) {
+    if (!amount) return;
+
     const cumulatedAmount = Math.max(
       Math.min(this.cumulatedAmount + amount, this.maxAmount),
       0
