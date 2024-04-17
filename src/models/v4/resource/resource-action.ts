@@ -1,8 +1,9 @@
 import { Action } from '../action/action';
 import type { TimePeriod } from '../time-period';
-import type { ResourceDefinition } from './resource-definition';
+import type { ResourceDefinition, ResourceId } from './resource-definition';
 
 export class ResourceAction extends Action {
+  public resourceId: ResourceId;
   /** Amount of resource added or subtracted */
   public amount: number;
 
@@ -12,6 +13,7 @@ export class ResourceAction extends Action {
     amount: number
   ) {
     super(timePeriod, definition.cooldown);
+    this.resourceId = definition.id;
     this.amount = amount;
   }
 }

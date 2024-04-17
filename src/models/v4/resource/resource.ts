@@ -45,6 +45,7 @@ export class Resource {
 
   /** Adds a resource action at a point of time. The amount of resource cannot be added past the max amount or cannot be subtracted past 0.
    * @param amount the amount of resource to add; can be negative
+   * @returns a resource action if one has been added
    */
   public addResourceAction(timePeriod: TimePeriod, amount: number) {
     if (!amount) return;
@@ -75,11 +76,12 @@ export class Resource {
 
     if (!amountToAdd) return;
 
-    const resource = new ResourceAction(
+    const resourceAction = new ResourceAction(
       timePeriod,
       this.definition,
       amountToAdd
     );
-    this.timeline.addAction(resource);
+    this.timeline.addAction(resourceAction);
+    return resourceAction;
   }
 }

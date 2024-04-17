@@ -86,10 +86,13 @@ export class AttackTrigger extends EventHandler {
         );
       }
 
-      resource.addResourceAction(
+      const resourceAction = resource.addResourceAction(
         new TimePeriod(attackAction.startTime, attackAction.endTime),
         amount
       );
+      if (resourceAction) {
+        this.combatEventNotifier.notifyResourceUpdate(resourceAction);
+      }
     }
   }
 }

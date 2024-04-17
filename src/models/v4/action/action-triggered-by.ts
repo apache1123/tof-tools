@@ -3,6 +3,7 @@ import type {
   WeaponName,
   WeaponType,
 } from '../../../constants/weapon-definitions';
+import type { ResourceId } from '../resource/resource-definition';
 
 export interface ActionTriggeredBy {
   /** Triggered manually by player as part of gameplay */
@@ -24,4 +25,6 @@ export interface ActionTriggeredBy {
   /** e.g. If [weapon] is in off-hand slot, ... */
   notActiveWeapon?: WeaponName;
   activeWeapon?: WeaponName;
+
+  resourceUpdate?: ResourceId;
 }

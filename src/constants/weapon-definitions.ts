@@ -2165,7 +2165,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           id: 'rei-homing-arrow',
           displayName: 'Rei - Homing Arrow',
           description:
-            'When using any weapon to deal damage, fire 1 Homing Arrow toward the targets, dealing damage equal to 120% of ATK to the first target hit.',
+            'When using any weapon to deal damage, fire 1 Homing Arrow toward the targets, dealing damage equal to 120% of ATK to the first target hit. Homing Arrow can trigger up to 1 time every 0.5 seconds.',
           type: 'passive',
           elementalType: { defaultElementalType: 'Volt' },
           damageModifiers: {
@@ -2195,6 +2195,36 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 4,
             },
           ],
+        },
+        {
+          id: 'rei-homing-arrow-explosion',
+          displayName: 'Rei - Homing Arrow explosion',
+          description:
+            'When the number of Homing Arrows on a target reaches 3, the arrows will detonate, dealing damage equal to 360% of ATK to nearby targets.',
+          type: 'passive',
+          elementalType: { defaultElementalType: 'Volt' },
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 3.6,
+            attackFlat: 0,
+          },
+          hitCount: {
+            numberOfHitsFixed: 0,
+          },
+          triggeredBy: {
+            resourceUpdate: 'rei-homing-arrows-on-enemy',
+          },
+          endedBy: {
+            duration: minActionDuration,
+          },
+          cooldown: 0,
+          charge: 0,
+          requirements: {
+            hasResource: {
+              resourceId: 'rei-homing-arrows-on-enemy',
+              minAmount: 3,
+            },
+          },
         },
       ],
       buffs: [],

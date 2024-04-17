@@ -98,6 +98,7 @@ export class CombatEventConfigurator {
         weaponTracker,
         charge,
         buffRegistry,
+        resourceRegistry,
         combatEventNotifier
       );
       for (const eventId of eventIdsToTriggerBuffOn) {
@@ -208,6 +209,14 @@ export class CombatEventConfigurator {
           eventIdProvider.getAttackEndEventId(attackId)
         );
       });
+    }
+
+    if (actionTriggeredBy.resourceUpdate) {
+      eventIdsToTriggerActionOn.push(
+        eventIdProvider.getResourceUpdateEventId(
+          actionTriggeredBy.resourceUpdate
+        )
+      );
     }
 
     return eventIdsToTriggerActionOn;

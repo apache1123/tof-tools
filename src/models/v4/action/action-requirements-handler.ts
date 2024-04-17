@@ -6,6 +6,7 @@ import type { BuffRegistry } from '../buff/buff-registry';
 import type { Charge } from '../charge/charge';
 import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
+import type { ResourceRegistry } from '../resource/resource-registry';
 import type { ActionRequirements } from './action-requirements';
 
 export class ActionRequirementsHandler extends EventHandler {
@@ -14,7 +15,8 @@ export class ActionRequirementsHandler extends EventHandler {
     private readonly team: Team,
     private readonly weaponTracker: WeaponTracker,
     private readonly charge: Charge,
-    private readonly buffRegistry: BuffRegistry
+    private readonly buffRegistry: BuffRegistry,
+    private readonly resourceRegistry: ResourceRegistry
   ) {
     super();
   }
@@ -30,6 +32,16 @@ export class ActionRequirementsHandler extends EventHandler {
       this.team;
 
     // Check requirements from most specific to least specific for efficiency
+
+    if (
+      this.requirements.hasResource &&
+      !this.resourceRegistry.hasResource(
+        this.requirements.hasResource.resourceId,
+        time,
+        this.requirements.hasResource.minAmount
+      )
+    )
+      return false;
 
     if (
       this.requirements.activeBuff &&

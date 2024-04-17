@@ -33,7 +33,8 @@ export class EventHandlerFactory {
         team,
         weaponTracker,
         charge,
-        buffRegistry
+        buffRegistry,
+        resourceRegistry
       ),
       new AttackTrigger(
         attack,
@@ -59,6 +60,7 @@ export class EventHandlerFactory {
     weaponTracker: WeaponTracker,
     charge: Charge,
     buffRegistry: BuffRegistry,
+    resourceRegistry: ResourceRegistry,
     combatEventNotifier: CombatEventNotifier
   ): EventHandler {
     return EventHandler.link(
@@ -68,7 +70,8 @@ export class EventHandlerFactory {
         team,
         weaponTracker,
         charge,
-        buffRegistry
+        buffRegistry,
+        resourceRegistry
       ),
       new BuffTrigger(buff, combatEventNotifier)
     );

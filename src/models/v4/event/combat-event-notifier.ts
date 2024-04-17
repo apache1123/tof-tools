@@ -2,6 +2,7 @@ import type { Weapon } from '../../weapon';
 import type { AttackAction } from '../attack/attack-action';
 import type { AttackId } from '../attack/attack-definition';
 import type { BuffAction } from '../buff/buff-action';
+import type { ResourceAction } from '../resource/resource-action';
 import type { EventData } from './event-data';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
@@ -109,6 +110,13 @@ export class CombatEventNotifier {
       {
         time: buffAction.endTime,
       }
+    );
+  }
+
+  public notifyResourceUpdate(resourceAction: ResourceAction) {
+    this.eventManager.notify(
+      eventIdProvider.getResourceUpdateEventId(resourceAction.resourceId),
+      { time: resourceAction.endTime }
     );
   }
 }

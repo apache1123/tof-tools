@@ -1,11 +1,16 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { WeaponName } from '../../../constants/weapon-definitions';
 import type { WeaponResonance } from '../../../constants/weapon-resonance';
+import type { ResourceId } from '../resource/resource-definition';
 
 /** Requirements are treated as a "AND" check i.e. the action can be triggered when all defined requirements pass check */
 export interface ActionRequirements {
   // Order requirements from most specific to least specific. Check in this order for efficiency
 
+  hasResource?: {
+    resourceId: ResourceId;
+    minAmount: number;
+  };
   activeBuff?: string;
   /** Can only be triggered when [weapon] is not active weapon e.g. the [weapon]'s discharge */
   notActiveWeapon?: WeaponName;
