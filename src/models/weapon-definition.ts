@@ -8,8 +8,8 @@ import type {
   NormalAttackDefinition,
   SkillAttackDefinition,
 } from './v4/attack/attack-definition';
-import type { BuffDefinition } from './v4/buff/buff-definition';
 import type { ResourceDefinition } from './v4/resource/resource-definition';
+import type { WeaponBuffDefinition } from './v4/weapon/weapon-buff-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -38,7 +38,7 @@ export interface WeaponDefinition {
   discharge: DischargeAttackDefinition;
   triggeredAttacks: AttackDefinition[];
 
-  buffs: BuffDefinition[];
+  buffs: WeaponBuffDefinition[];
 
   resources: ResourceDefinition[];
 }

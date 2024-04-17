@@ -22,6 +22,7 @@ import styles from './styles.module.css';
 
 const weapon1 = new Weapon(weaponDefinitions.byId['Brevey']);
 const weapon2 = new Weapon(weaponDefinitions.byId['Rei']);
+weapon2.stars = 6;
 const weapon3 = new Weapon(weaponDefinitions.byId['Nan Yin']);
 
 const team = new Team();

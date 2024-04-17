@@ -425,6 +425,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           cooldown: 30000,
           requirements: {},
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
         },
         {
           id: 'brevey-buff-metz-energy-wave-charges',
@@ -444,6 +446,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           cooldown: 10000,
           requirements: {},
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
         },
         {
           id: 'brevey-damage-buff-pact-amplification-volt',
@@ -466,6 +470,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {
             activeBuff: 'brevey-buff-pact-amplification',
           },
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
         },
         {
           id: 'brevey-damage-buff-pact-amplification-frost',
@@ -488,6 +494,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {
             activeBuff: 'brevey-buff-pact-amplification',
           },
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
         },
       ],
       triggeredAttacks: [],
@@ -1823,6 +1831,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               },
             ],
           },
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
         },
       ],
       triggeredAttacks: [],
@@ -2233,7 +2243,30 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           ],
         },
       ],
-      buffs: [],
+      buffs: [
+        {
+          id: 'rei-overloaded',
+          displayName: 'Rei: Overloaded',
+          description:
+            'Homing arrow applies Overload for 30 seconds. Increase the volt damage dealt to targets with Homing Arrow: Overloaded by 10% and frost damage by 10%',
+          cooldown: 0,
+          maxStacks: 1,
+          triggeredBy: {
+            weaponAttacks: ['rei-homing-arrow'],
+          },
+          endedBy: {
+            duration: 30000,
+          },
+          requirements: {},
+          minStarRequirement: 6,
+          maxStarRequirement: 6,
+          damageBuff: {
+            value: 0.1,
+            elementalTypes: ['Volt', 'Frost'],
+            damageCategory: '[TEMP_UNKNOWN]',
+          },
+        },
+      ],
       resources: [
         {
           id: 'rei-special-energy',
