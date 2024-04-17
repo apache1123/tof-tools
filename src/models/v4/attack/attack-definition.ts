@@ -6,6 +6,7 @@ import type { ActionRequirements } from '../action/action-requirements';
 import type { ActionTriggeredBy } from '../action/action-triggered-by';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackElementalType } from './attack-elemental-type';
+import type { AttackHitCount } from './attack-hit-count';
 
 export type AttackId = ActionId;
 
@@ -15,6 +16,7 @@ export interface AttackDefinition extends ActionDefinition {
   elementalType: AttackElementalType;
   charge: number;
   damageModifiers: AttackDamageModifiers;
+  hitCount: AttackHitCount;
 
   triggeredBy: ActionTriggeredBy;
   endedBy: ActionEndedBy;

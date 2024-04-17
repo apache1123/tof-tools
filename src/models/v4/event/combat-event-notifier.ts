@@ -35,6 +35,12 @@ export class CombatEventNotifier {
     );
   }
 
+  public notifyAttackHit(time: number) {
+    this.eventManager.notify(eventIdProvider.getAnyAttackHitEventId(), {
+      time,
+    });
+  }
+
   public notifyAttackEnd(attackAction: AttackAction) {
     const { endTime, attackId, elementalType, type, weapon } = attackAction;
 

@@ -120,7 +120,7 @@ export function CombatSimulatorTimeline() {
             return <AttackBuffEventRenderer action={typedAction} />;
           }
         }}
-        scale={10000} // 10s
+        scale={1000} // 10s
         getScaleRender={(scale) => (
           <CombatSimulatorTimelineScaleRenderer scale={scale} />
         )}

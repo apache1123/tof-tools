@@ -1,5 +1,6 @@
 import type { Data } from '../models/data';
 import type { WeaponDefinition } from '../models/weapon-definition';
+import { minActionDuration } from './tick';
 
 export type WeaponName =
   | 'Alyss'
@@ -122,6 +123,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -194,6 +198,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackFlat: 0,
           damageDealtIsPerSecond: false,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -256,6 +263,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -315,6 +325,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 9.58,
             attackFlat: 51,
           },
+          hitCount: {
+            numberOfHitsFixed: 5,
+          },
           endedBy: { duration: 3650 },
           cooldown: 0,
           // TODO: this is a placeholder value
@@ -336,6 +349,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
           endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
@@ -356,6 +372,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 5.85,
             attackFlat: 31,
           },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
           endedBy: { duration: 2250 },
           cooldown: 30000,
           charge: 100,
@@ -374,6 +393,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -503,6 +525,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -551,6 +576,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -614,6 +642,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 0,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -649,6 +680,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -699,6 +733,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
           endedBy: { duration: 5000 },
           cooldown: 20000,
           charge: 0,
@@ -717,6 +754,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -791,6 +831,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -851,6 +894,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -923,6 +969,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -973,6 +1022,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -1020,6 +1072,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 11.257,
             attackFlat: 59,
           },
+          hitCount: {
+            numberOfHitsFixed: 5,
+          },
           endedBy: { duration: 3370 },
           cooldown: 0,
           // TODO:
@@ -1041,6 +1096,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1077,6 +1135,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1127,6 +1188,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -1162,6 +1226,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1211,6 +1278,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1296,6 +1366,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -1356,6 +1429,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -1404,6 +1480,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1468,6 +1547,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -1503,6 +1585,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1564,6 +1649,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
+          hitCount: {
+            numberOfHitsFixed: 5,
+          },
           endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
@@ -1584,6 +1672,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1641,6 +1732,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 11.98,
             attackFlat: 63,
           },
+          hitCount: {
+            numberOfHitsFixed: 5,
+          },
           endedBy: { duration: 6000 },
           cooldown: 0,
           // TODO:
@@ -1665,6 +1759,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 30000,
@@ -1776,6 +1873,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -1837,6 +1937,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -1921,6 +2024,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 10.08,
             attackFlat: 308,
           },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
           endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 500,
@@ -1940,6 +2046,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -1954,7 +2063,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       triggeredAttacks: [
         {
           id: 'detachment',
-          displayName: 'Flash: Detachment',
+          displayName: 'Rei - Flash: Detachment',
           description:
             'After using Mecha Strike, deal damage equal to a % of ATK plus a % of Max HP plus a % of the sum of all resistance types plus a % of crit to target every second for 30 seconds',
           type: 'other',
@@ -1968,6 +2077,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             critFlatMultiplier: 2.109,
             cannotBeDamageBuffedExceptByTitans: true,
           },
+          hitCount: {
+            numberOfHitsFixed: 0,
+          },
           triggeredBy: {
             weaponAttacks: ['rei-skill-mecha-strike'],
           },
@@ -1978,7 +2090,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         {
           id: 'detachment',
-          displayName: 'Flash: Detachment - physical/flame equipped',
+          displayName: 'Rei - Flash: Detachment - physical/flame equipped',
           description:
             'After using Mecha Strike, deal damage equal to a % of ATK plus a % of Max HP plus a % of the sum of all resistance types plus a % of crit to target every second for 30 seconds. If any 1 physical or flame weapon is equipped, Flash damage is increased to 1.3 times.',
           type: 'skill',
@@ -1991,6 +2103,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             sumOfResistancesMultiplier: 0.7319,
             critFlatMultiplier: 2.7417,
             cannotBeDamageBuffedExceptByTitans: true,
+          },
+          hitCount: {
+            numberOfHitsFixed: 0,
           },
           triggeredBy: {
             weaponAttacks: ['rei-skill-mecha-strike'],
@@ -2018,6 +2133,31 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               },
             ],
           },
+        },
+        {
+          id: 'rei-homing-arrow',
+          displayName: 'Rei - Homing Arrow',
+          description:
+            'When using any weapon to deal damage, fire 1 Homing Arrow toward the targets, dealing damage equal to 120% of ATK to the first target hit.',
+          type: 'passive',
+          elementalType: { defaultElementalType: 'Volt' },
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 1.2,
+            attackFlat: 0,
+          },
+          hitCount: {
+            numberOfHitsFixed: 0,
+          },
+          triggeredBy: {
+            hitOfAnyWeapon: true,
+          },
+          endedBy: {
+            duration: minActionDuration,
+          },
+          cooldown: 500,
+          charge: 0,
+          requirements: {},
         },
       ],
       buffs: [],
@@ -2056,6 +2196,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -2116,6 +2259,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
           endedBy: { duration: 30000 },
           cooldown: 0,
           charge: 0,
@@ -2135,6 +2281,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -2185,6 +2334,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -2221,6 +2373,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -2256,6 +2411,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -2319,6 +2477,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           attackMultiplier: 0,
           attackFlat: 0,
         },
+        hitCount: {
+          numberOfHitsFixed: 1,
+        },
         endedBy: { duration: 5000 },
         cooldown: 0,
         charge: 0,
@@ -2354,6 +2515,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -2405,6 +2569,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
           endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
@@ -2423,6 +2590,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -2484,6 +2654,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
+          hitCount: {
+            numberOfHitsFixed: 6,
+          },
           endedBy: { duration: 5000 },
           cooldown: 0,
           charge: 0,
@@ -2504,6 +2677,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -2564,6 +2740,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 9.58,
             attackFlat: 51,
           },
+          hitCount: {
+            numberOfHitsFixed: 6,
+          },
           endedBy: { duration: 3650 },
           cooldown: 0,
           // TODO: this is a placeholder value
@@ -2586,6 +2765,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 0,
             attackFlat: 0,
           },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
           endedBy: { duration: 5000 },
           cooldown: 30000,
           charge: 0,
@@ -2604,6 +2786,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 30000,
@@ -2653,6 +2838,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
@@ -2715,6 +2903,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageDealtIsPerSecond: false,
           attackMultiplier: 0,
           attackFlat: 0,
+        },
+        hitCount: {
+          numberOfHitsFixed: 1,
         },
         endedBy: { duration: 5000 },
         cooldown: 0,

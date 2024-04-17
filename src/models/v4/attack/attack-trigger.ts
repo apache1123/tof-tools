@@ -4,6 +4,7 @@ import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
 import type { TimeTracker } from '../time-tracker';
 import type { Attack } from './attack';
+import type { AttackAction } from './attack-action';
 import type { WeaponTracker } from './weapon-tracker';
 
 export class AttackTrigger extends EventHandler {
@@ -33,6 +34,8 @@ export class AttackTrigger extends EventHandler {
     }
     this.combatEventNotifier.notifyAttackStart(attackAction);
 
+    this.notifyAttackHits(attackAction);
+
     const fullChargeGained = this.charge.adjustCharge(attackAction);
     if (fullChargeGained) {
       this.combatEventNotifier.notifyWeaponFullCharge(
@@ -52,6 +55,12 @@ export class AttackTrigger extends EventHandler {
         eventData.time,
         this.attack.weapon
       );
+    }
+  }
+
+  private notifyAttackHits(attackAction: AttackAction) {
+    for (const timeOfHit of attackAction.timeOfHits) {
+      this.combatEventNotifier.notifyAttackHit(timeOfHit);
     }
   }
 }

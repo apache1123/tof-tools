@@ -152,6 +152,10 @@ export class CombatEventConfigurator {
         });
     }
 
+    if (actionTriggeredBy.hitOfAnyWeapon) {
+      eventIdsToTriggerActionOn.push(eventIdProvider.getAnyAttackHitEventId());
+    }
+
     if (actionTriggeredBy.skillOfAnyWeapon) {
       eventIdsToTriggerActionOn.push(eventIdProvider.getSkillAttackEventId());
     }

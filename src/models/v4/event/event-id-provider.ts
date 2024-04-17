@@ -15,6 +15,7 @@ export const eventIdProvider = {
     `full-charge-${weaponName}`,
 
   // Attack events
+  getAnyAttackHitEventId: () => `attack-hit`,
   getAnyAttackEndEventId: () => `attack-end`,
   getAttackStartEventId: (attackId: AttackId) => `attack-start-${attackId}`,
   getAttackEndEventId: (attackId: AttackId) => `attack-end-${attackId}`,

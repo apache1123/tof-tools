@@ -11,6 +11,7 @@ export interface ActionTriggeredBy {
   combatStart?: boolean;
   // TODO: applyToEndSegmentOfCombat
 
+  hitOfAnyWeapon?: boolean;
   skillOfAnyWeapon?: boolean;
   dischargeOfAnyWeapon?: boolean;
   skillOfWeaponType?: WeaponType;
