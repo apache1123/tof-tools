@@ -139,6 +139,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Annabella: {
       id: 'Annabella',
@@ -214,6 +215,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Asuka: {
       id: 'Asuka',
@@ -279,6 +281,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Brevey: {
       id: 'Brevey',
@@ -488,6 +491,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       triggeredAttacks: [],
+      resources: [],
     },
     Claudia: {
       id: 'Claudia',
@@ -541,6 +545,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Cobalt-B': {
       id: 'Cobalt-B',
@@ -593,6 +598,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Cocoritter: {
       id: 'Cocoritter',
@@ -658,6 +664,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Crow: {
       id: 'Crow',
@@ -697,6 +704,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Fei Se': {
       id: 'Fei Se',
@@ -771,6 +779,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Fenrir: {
       id: 'Fenrir',
@@ -847,6 +856,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Fiona: {
       id: 'Fiona',
@@ -911,6 +921,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Frigg: {
       id: 'Frigg',
@@ -985,6 +996,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Gnonno: {
       id: 'Gnonno',
@@ -1038,6 +1050,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Huang (Mimi)': {
       id: 'Huang (Mimi)',
@@ -1113,6 +1126,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Huma: {
       id: 'Huma',
@@ -1152,6 +1166,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Icarus: {
       id: 'Icarus',
@@ -1204,6 +1219,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     King: {
       id: 'King',
@@ -1243,6 +1259,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Lan: {
       id: 'Lan',
@@ -1295,6 +1312,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Lin: {
       id: 'Lin',
@@ -1382,6 +1400,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Ling Han': {
       id: 'Ling Han',
@@ -1445,6 +1464,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Liu Huo': {
       id: 'Liu Huo',
@@ -1497,6 +1517,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Lyra: {
       id: 'Lyra',
@@ -1563,6 +1584,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Meryl: {
       id: 'Meryl',
@@ -1602,6 +1624,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Ming Jing': {
       id: 'Ming Jing',
@@ -1689,6 +1712,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Nan Yin': {
       id: 'Nan Yin',
@@ -1802,6 +1826,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       triggeredAttacks: [],
+      resources: [],
     },
     Nemesis: {
       id: 'Nemesis',
@@ -1889,6 +1914,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Plotti: {
       id: 'Plotti',
@@ -1954,6 +1980,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Rei: {
       id: 'Rei',
@@ -2158,9 +2185,33 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 500,
           charge: 0,
           requirements: {},
+          addsToResources: [
+            {
+              resourceId: 'rei-homing-arrows-on-enemy',
+              amount: 1,
+            },
+            {
+              resourceId: 'rei-special-energy',
+              amount: 4,
+            },
+          ],
         },
       ],
       buffs: [],
+      resources: [
+        {
+          id: 'rei-special-energy',
+          displayName: 'Rei - Special energy',
+          maxAmount: 100,
+          cooldown: 0,
+        },
+        {
+          id: 'rei-homing-arrows-on-enemy',
+          displayName: 'Rei - Number of homing arrows on enemy',
+          maxAmount: 3,
+          cooldown: 0,
+        },
+      ],
     },
     Rubilia: {
       id: 'Rubilia',
@@ -2213,6 +2264,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Ruby: {
       id: 'Ruby',
@@ -2298,6 +2350,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Saki Fuwa': {
       id: 'Saki Fuwa',
@@ -2350,6 +2403,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Samir: {
       id: 'Samir',
@@ -2389,6 +2443,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Shiro: {
       id: 'Shiro',
@@ -2428,6 +2483,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Tian Lang': {
       id: 'Tian Lang',
@@ -2493,6 +2549,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Tsubasa: {
       id: 'Tsubasa',
@@ -2532,6 +2589,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Umi: {
       id: 'Umi',
@@ -2607,6 +2665,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Yan Miao': {
       id: 'Yan Miao',
@@ -2694,6 +2753,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Yanuo: {
       id: 'Yanuo',
@@ -2803,6 +2863,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     'Yu Lan': {
       id: 'Yu Lan',
@@ -2855,6 +2916,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
     Zero: {
       id: 'Zero',
@@ -2920,6 +2982,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       },
       buffs: [],
       triggeredAttacks: [],
+      resources: [],
     },
   },
 };

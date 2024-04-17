@@ -10,6 +10,7 @@ import { BuffEnder } from '../buff/buff-ender';
 import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffTrigger } from '../buff/buff-trigger';
 import type { Charge } from '../charge/charge';
+import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TimeTracker } from '../time-tracker';
 import type { CombatEventNotifier } from './combat-event-notifier';
 import { EventHandler } from './event-handler';
@@ -22,6 +23,7 @@ export class EventHandlerFactory {
     timeTracker: TimeTracker,
     charge: Charge,
     buffRegistry: BuffRegistry,
+    resourceRegistry: ResourceRegistry,
     combatEventNotifier: CombatEventNotifier
   ): EventHandler {
     return EventHandler.link(
@@ -38,6 +40,7 @@ export class EventHandlerFactory {
         weaponTracker,
         timeTracker,
         charge,
+        resourceRegistry,
         combatEventNotifier
       )
     );

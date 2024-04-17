@@ -90,6 +90,7 @@ export function CombatSimulatorTimeline() {
       .concat(combatSimulatorSnapshot.triggeredAttackTimelines)
       .concat(combatSimulatorSnapshot.buffTimelines)
       .concat(combatSimulatorSnapshot.chargeTimeline)
+      .concat(combatSimulatorSnapshot.resourceTimelines)
       .map((timeline) => ({
         id: timeline.id,
         displayName: timeline.displayName,

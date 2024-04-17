@@ -5,8 +5,8 @@ import { ResourceAction } from './resource-action';
 import type { ResourceDefinition } from './resource-definition';
 
 export class Resource {
-  private readonly definition: ResourceDefinition;
-  private readonly timeline: Timeline<ResourceAction>;
+  public readonly definition: ResourceDefinition;
+  public readonly timeline: Timeline<ResourceAction>;
 
   public constructor(
     definition: ResourceDefinition,
@@ -21,6 +21,10 @@ export class Resource {
     const timePeriod = new TimePeriod(0, time);
     const resourceActions = this.timeline.getActionsEndingBetween(timePeriod);
     return sum(...resourceActions.map((action) => action.amount)).toNumber();
+  }
+
+  public get id() {
+    return this.definition.id;
   }
 
   public get maxAmount() {

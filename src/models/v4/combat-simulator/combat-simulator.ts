@@ -17,6 +17,8 @@ import { CombatEventConfigurator } from '../event/combat-event-configurator';
 import { CombatEventNotifier } from '../event/combat-event-notifier';
 import { EventManager } from '../event/event-manager';
 import type { Relics } from '../relics/relics';
+import type { ResourceRegistry } from '../resource/resource-registry';
+import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
 import { TimeTracker } from '../time-tracker';
 import { Timeline } from '../timeline/timeline';
 import { TickProcessor } from './tick-processor';
@@ -28,6 +30,7 @@ export class CombatSimulator {
 
   private readonly attackRegistry: CombinedAttackRegistry;
   private readonly buffRegistry: BuffRegistry;
+  private readonly resourceRegistry: ResourceRegistry;
 
   private readonly eventManager: EventManager;
   private readonly combatEventNotifier: CombatEventNotifier;
@@ -66,6 +69,11 @@ export class CombatSimulator {
       relics
     );
 
+    this.resourceRegistry = ResourceRegistryFactory.create(
+      combatDuration,
+      team
+    );
+
     this.eventManager = new EventManager();
     this.combatEventNotifier = new CombatEventNotifier(this.eventManager);
 
@@ -77,7 +85,8 @@ export class CombatSimulator {
       this.timeTracker,
       this.charge,
       this.attackRegistry,
-      this.buffRegistry
+      this.buffRegistry,
+      this.resourceRegistry
     );
 
     this.damageSummaryTimeline = new DamageSummaryTimeline(combatDuration);
@@ -241,11 +250,31 @@ export class CombatSimulator {
       id: 'charge',
       displayName: 'Charge',
       actions: this.charge.actions.map((chargeAction) => ({
-        displayName: `Charge: ${chargeAction.amount}`,
+        displayName: `Charge: ${
+          chargeAction.amount
+        }. Cumulative: ${this.charge.getCumulatedAmount(chargeAction.endTime)}`,
         startTime: chargeAction.startTime,
         endTime: chargeAction.endTime,
       })),
     };
+
+    const resourceTimelines = [];
+    for (const resource of this.resourceRegistry.resources) {
+      const { definition, timeline } = resource;
+      if (!timeline.actions.length) continue;
+
+      resourceTimelines.push({
+        id: definition.id,
+        displayName: definition.displayName,
+        actions: timeline.actions.map((resourceAction) => ({
+          displayName: `${definition.displayName} - Amount: ${
+            resourceAction.amount
+          }. Cumulated: ${resource.getCumulatedAmount(resourceAction.endTime)}`,
+          startTime: resourceAction.startTime,
+          endTime: resourceAction.endTime,
+        })),
+      });
+    }
 
     return {
       playerInputAttackTimelines,
@@ -254,6 +283,7 @@ export class CombatSimulator {
       damageTimeline,
       damageSummary: damageSummarySnapshot,
       chargeTimeline,
+      resourceTimelines,
     };
   }
 }

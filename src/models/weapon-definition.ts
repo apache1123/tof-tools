@@ -9,6 +9,7 @@ import type {
   SkillAttackDefinition,
 } from './v4/attack/attack-definition';
 import type { BuffDefinition } from './v4/buff/buff-definition';
+import type { ResourceDefinition } from './v4/resource/resource-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -38,6 +39,8 @@ export interface WeaponDefinition {
   triggeredAttacks: AttackDefinition[];
 
   buffs: BuffDefinition[];
+
+  resources: ResourceDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

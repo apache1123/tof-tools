@@ -5,6 +5,7 @@ import type { CombinedAttackRegistry } from '../attack/combined-attack-registry'
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { Charge } from '../charge/charge';
+import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TimeTracker } from '../time-tracker';
 import type { CombatEventNotifier } from './combat-event-notifier';
 import { EventHandlerFactory } from './event-handler-factory';
@@ -21,7 +22,8 @@ export class CombatEventConfigurator {
     timeTracker: TimeTracker,
     charge: Charge,
     attackRegistry: CombinedAttackRegistry,
-    buffRegistry: BuffRegistry
+    buffRegistry: BuffRegistry,
+    resourceRegistry: ResourceRegistry
   ) {
     for (const attack of attackRegistry.playerInputAttacks) {
       const {
@@ -36,6 +38,7 @@ export class CombatEventConfigurator {
           timeTracker,
           charge,
           buffRegistry,
+          resourceRegistry,
           combatEventNotifier
         )
       );
@@ -62,6 +65,7 @@ export class CombatEventConfigurator {
           timeTracker,
           charge,
           buffRegistry,
+          resourceRegistry,
           combatEventNotifier
         );
       for (const eventId of eventIdsToTriggerAttackOn) {

@@ -4,6 +4,7 @@ import type { ActionDefinition, ActionId } from '../action/action-definition';
 import type { ActionEndedBy } from '../action/action-ended-by';
 import type { ActionRequirements } from '../action/action-requirements';
 import type { ActionTriggeredBy } from '../action/action-triggered-by';
+import type { AttackAddsToResource } from './attack-adds-to-resource';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackElementalType } from './attack-elemental-type';
 import type { AttackHitCount } from './attack-hit-count';
@@ -22,6 +23,8 @@ export interface AttackDefinition extends ActionDefinition {
   endedBy: ActionEndedBy;
 
   requirements: ActionRequirements;
+
+  addsToResources?: AttackAddsToResource[];
 }
 
 export interface PlayerInputAttackDefinition extends AttackDefinition {

@@ -24,6 +24,10 @@ export class Attack {
     this.actionTimeCalculator = actionTimeCalculator;
   }
 
+  public get id() {
+    return this.definition.id;
+  }
+
   /** Is an attack that requires the weapon to be the active weapon to perform e.g. any sort of player input attack */
   public get isActiveWeaponAttack() {
     return !!this.definition.triggeredBy.playerInput;
@@ -31,6 +35,10 @@ export class Attack {
 
   public get isPlayerInputAttack() {
     return !!this.definition.triggeredBy.playerInput;
+  }
+
+  public get addsToResources() {
+    return this.definition.addsToResources;
   }
 
   public trigger(time: number): AttackAction {
