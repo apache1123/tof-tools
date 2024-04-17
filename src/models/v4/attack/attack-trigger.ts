@@ -74,11 +74,11 @@ export class AttackTrigger extends EventHandler {
 
   /** Adjusts resources defined in the attack's definition, based off one attack action */
   private adjustResources(attackAction: AttackAction) {
-    const { addsToResources } = this.attack;
-    if (!addsToResources) return;
+    const { updatesResources } = this.attack;
+    if (!updatesResources) return;
 
-    for (const addsToResource of addsToResources) {
-      const { resourceId, amount } = addsToResource;
+    for (const updatesResource of updatesResources) {
+      const { resourceId, amount } = updatesResource;
       const resource = this.resourceRegistry.getResource(resourceId);
       if (!resource) {
         throw new Error(

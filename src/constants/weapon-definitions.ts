@@ -2185,7 +2185,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 500,
           charge: 0,
           requirements: {},
-          addsToResources: [
+          updatesResources: [
             {
               resourceId: 'rei-homing-arrows-on-enemy',
               amount: 1,
@@ -2225,6 +2225,12 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               minAmount: 3,
             },
           },
+          updatesResources: [
+            {
+              resourceId: 'rei-homing-arrows-on-enemy',
+              amount: -3,
+            },
+          ],
         },
       ],
       buffs: [],

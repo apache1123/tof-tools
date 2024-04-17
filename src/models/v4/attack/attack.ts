@@ -37,8 +37,8 @@ export class Attack {
     return !!this.definition.triggeredBy.playerInput;
   }
 
-  public get addsToResources() {
-    return this.definition.addsToResources;
+  public get updatesResources() {
+    return this.definition.updatesResources;
   }
 
   public trigger(time: number): AttackAction {
