@@ -76,6 +76,10 @@ export function DamageSummaryBreakdownTable({
       'Skill',
       weaponDamageSummary.skillAttackDamage
     ),
+    attackTypeDamageSummaryToRow(
+      'Other',
+      weaponDamageSummary.otherAttackDamage
+    ),
     {
       id: 'Total',
       attackTypeLabel: 'Total',

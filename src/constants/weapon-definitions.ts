@@ -318,7 +318,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           endedBy: { duration: 3650 },
           cooldown: 0,
           // TODO: this is a placeholder value
-          charge: 250,
+          charge: 500,
           triggeredBy: {
             playerInput: true,
           },
@@ -1957,7 +1957,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           displayName: 'Flash: Detachment',
           description:
             'After using Mecha Strike, deal damage equal to a % of ATK plus a % of Max HP plus a % of the sum of all resistance types plus a % of crit to target every second for 30 seconds',
-          type: 'skill',
+          type: 'other',
           elementalType: { defaultElementalType: 'Volt' },
           damageModifiers: {
             damageDealtIsPerSecond: true,

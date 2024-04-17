@@ -17,6 +17,7 @@ export interface DamageSummarySnapshot {
     skillAttackDamage: DamageSnapshot;
     dischargeAttackDamage: DamageSnapshot;
     passiveAttackDamage: DamageSnapshot;
+    otherAttackDamage: DamageSnapshot;
   }[];
   duration: number;
 }

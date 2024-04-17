@@ -50,7 +50,7 @@ export class Resource {
     );
 
     if (
-      cumulatedAmountPreceding >= this.maxAmount ||
+      cumulatedAmountPreceding > this.maxAmount ||
       cumulatedAmountPreceding < this.minAmount
     )
       return;
@@ -68,6 +68,8 @@ export class Resource {
           ? cumulatedAmountPreceding - this.minAmount
           : amount;
     }
+
+    if (!amountToAdd) return;
 
     const resource = new ResourceAction(
       timePeriod,

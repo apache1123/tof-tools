@@ -13,6 +13,7 @@ export class WeaponDamageSummary {
     skill: new ElementalDamageSummary(),
     discharge: new ElementalDamageSummary(),
     passive: new ElementalDamageSummary(),
+    other: new ElementalDamageSummary(),
   };
 
   public get totalDamage(): Damage {

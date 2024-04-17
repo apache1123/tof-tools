@@ -219,6 +219,8 @@ export class CombatSimulator {
               weaponDamageSummary.attackTypeDamageSummaries.discharge.totalDamage.toDto(),
             passiveAttackDamage:
               weaponDamageSummary.attackTypeDamageSummaries.passive.totalDamage.toDto(),
+            otherAttackDamage:
+              weaponDamageSummary.attackTypeDamageSummaries.other.totalDamage.toDto(),
           })
         ),
         duration: damageSummary.duration,
