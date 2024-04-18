@@ -1,6 +1,11 @@
 import type { Data } from '../models/data';
 import type { WeaponDefinition } from '../models/weapon-definition';
-import { chargeResourceId, enduranceResourceId, fullCharge } from './resources';
+import {
+  chargeResourceId,
+  dodgeResourceId,
+  enduranceResourceId,
+  fullCharge,
+} from './resources';
 import { minActionDuration } from './tick';
 
 export type WeaponName =
@@ -413,11 +418,20 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             playerInput: true,
           },
-          requirements: {},
+          requirements: {
+            hasResource: {
+              resourceId: 'dodge',
+              minAmount: 1,
+            },
+          },
           updatesResources: [
             {
               resourceId: chargeResourceId,
               amount: 0,
+            },
+            {
+              resourceId: dodgeResourceId,
+              amount: -1,
             },
           ],
         },
@@ -2614,11 +2628,20 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             playerInput: true,
           },
-          requirements: {},
+          requirements: {
+            hasResource: {
+              resourceId: 'dodge',
+              minAmount: 1,
+            },
+          },
           updatesResources: [
             {
               resourceId: chargeResourceId,
               amount: 0,
+            },
+            {
+              resourceId: dodgeResourceId,
+              amount: -1,
             },
           ],
         },

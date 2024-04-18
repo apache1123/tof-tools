@@ -22,3 +22,14 @@ export const enduranceDefinition: ResourceDefinition = {
   startingAmount: maxEndurance,
   regenerateAmountPerSecond: 105,
 };
+
+export const dodgeResourceId = 'dodge';
+const maxDodges = 3;
+export const dodgeResourceDefinition: ResourceDefinition = {
+  id: dodgeResourceId,
+  displayName: 'Dodges',
+  cooldown: 0,
+  maxAmount: maxDodges,
+  startingAmount: maxDodges,
+  regenerateAmountPerSecond: 0.25,
+};

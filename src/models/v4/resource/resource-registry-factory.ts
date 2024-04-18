@@ -1,5 +1,6 @@
 import {
   chargeDefinition,
+  dodgeResourceDefinition,
   enduranceDefinition,
 } from '../../../constants/resources';
 import type { Team } from '../../team';
@@ -9,7 +10,11 @@ import { ResourceRegistry } from './resource-registry';
 
 export class ResourceRegistryFactory {
   public static create(combatDuration: number, team: Team) {
-    const defaultResources = [chargeDefinition, enduranceDefinition].map(
+    const defaultResources = [
+      chargeDefinition,
+      dodgeResourceDefinition,
+      enduranceDefinition,
+    ].map(
       (resourceDefinition) =>
         new Resource(resourceDefinition, new Timeline(combatDuration))
     );

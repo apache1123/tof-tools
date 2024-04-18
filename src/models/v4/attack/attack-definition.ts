@@ -1,6 +1,7 @@
 import type { AttackType } from '../../../constants/attack-type';
 import type {
   chargeResourceId,
+  dodgeResourceId,
   fullCharge,
 } from '../../../constants/resources';
 import type { WeaponName } from '../../../constants/weapon-definitions';
@@ -42,6 +43,13 @@ export interface NormalAttackDefinition extends PlayerInputAttackDefinition {
 
 export interface DodgeAttackDefinition extends PlayerInputAttackDefinition {
   type: 'dodge';
+
+  requirements: {
+    hasResource: {
+      resourceId: typeof dodgeResourceId;
+      minAmount: 1;
+    };
+  };
 }
 
 export interface SkillAttackDefinition extends PlayerInputAttackDefinition {

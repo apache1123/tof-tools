@@ -51,6 +51,8 @@ const combatSimulator = new CombatSimulator(combatDuration, loadout, relics);
 combatSimulator.performAttack(weapon2.definition.skills[0].id);
 combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
 combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.dodgeAttacks[0].id);
+combatSimulator.performAttack(weapon1.definition.dodgeAttacks[0].id);
 combatSimulator.performAttack(weapon2.definition.discharge.id);
 repeat(() => {
   combatSimulator.performAttack(weapon1.definition.normalAttacks[1].id);
