@@ -119,4 +119,11 @@ export class CombatEventNotifier {
       { time: resourceAction.endTime }
     );
   }
+
+  public notifyResourceDepleted(resourceAction: ResourceAction) {
+    this.eventManager.notify(
+      eventIdProvider.getResourceDepletedEventId(resourceAction.resourceId),
+      { time: resourceAction.endTime }
+    );
+  }
 }

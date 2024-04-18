@@ -79,6 +79,10 @@ export class AttackTrigger extends EventHandler {
       );
       if (resourceAction) {
         this.combatEventNotifier.notifyResourceUpdate(resourceAction);
+
+        const isDepleted = resource.isDepleted(attackAction.endTime);
+        if (isDepleted)
+          this.combatEventNotifier.notifyResourceDepleted(resourceAction);
       }
     }
   }

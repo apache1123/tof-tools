@@ -3,6 +3,7 @@ import type {
   WeaponName,
   WeaponType,
 } from '../../../constants/weapon-definitions';
+import type { BuffId } from '../buff/buff-definition';
 import type { ResourceId } from '../resource/resource-definition';
 
 export interface ActionTriggeredBy {
@@ -21,6 +22,8 @@ export interface ActionTriggeredBy {
   dischargeOfElementalType?: WeaponElementalType;
   fullChargeOfWeapons?: WeaponName[];
   weaponAttacks?: string[];
+
+  buffStart?: BuffId;
 
   /** e.g. If [weapon] is in off-hand slot, ... */
   notActiveWeapon?: WeaponName;

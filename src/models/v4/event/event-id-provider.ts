@@ -43,4 +43,6 @@ export const eventIdProvider = {
   // Resource events
   getResourceUpdateEventId: (resourceId: ResourceId) =>
     `resource-update-${resourceId}`,
+  getResourceDepletedEventId: (resourceId: ResourceId) =>
+    `resource-depleted-${resourceId}`,
 };

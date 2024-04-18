@@ -14,11 +14,23 @@ export class ActionTimeCalculator {
   public calculateActionTimePeriod(time: number): TimePeriod {
     let endTime!: number;
 
-    const { duration, combatEnd, activeWeapon, notActiveWeapon } =
-      this.actionEndedBy;
+    const {
+      duration,
+      combatEnd,
+      buffEnd,
+      activeWeapon,
+      notActiveWeapon,
+      resourceDepleted,
+    } = this.actionEndedBy;
     if (duration) {
       endTime = time + duration;
-    } else if (combatEnd || activeWeapon || notActiveWeapon) {
+    } else if (
+      combatEnd ||
+      buffEnd ||
+      activeWeapon ||
+      notActiveWeapon ||
+      resourceDepleted
+    ) {
       // For actions that are ended by a certain condition, set the end time to be the total duration. The action will be ended by an event related to that condition
       endTime = this.timeline.totalDuration;
     } else {

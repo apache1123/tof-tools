@@ -58,6 +58,7 @@ repeat(() => {
   combatSimulator.performAttack(weapon1.definition.normalAttacks[1].id);
 }, 10);
 combatSimulator.performAttack(weapon2.definition.discharge.id);
+combatSimulator.performAttack('rei-normal-backjump-arrow');
 
 const combatSimulatorSnapshot = combatSimulator.snapshot();
 
@@ -127,7 +128,7 @@ export function CombatSimulatorTimeline() {
         getScaleRender={(scale) => (
           <CombatSimulatorTimelineScaleRenderer scale={scale} />
         )}
-        style={{ width: '100%' }}
+        style={{ width: '100%', height: 900 }}
       />
       {combatSimulatorSnapshot.damageSummary && (
         <DamageSummaryBreakdown

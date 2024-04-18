@@ -26,6 +26,10 @@ export class Resource {
     return sum(...resourceActions.map((action) => action.amount)).toNumber();
   }
 
+  public isDepleted(time: number) {
+    return this.getCumulatedAmount(time) === 0;
+  }
+
   public get id() {
     return this.definition.id;
   }

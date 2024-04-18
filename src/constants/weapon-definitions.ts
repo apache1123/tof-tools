@@ -407,7 +407,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           type: 'dodge',
           damageModifiers: {
             damageDealtIsPerSecond: false,
-            attackMultiplier: 0,
+            attackMultiplier: 1,
             attackFlat: 0,
           },
           hitCount: {
@@ -2265,7 +2265,34 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
       ],
       critRateBuffs: [],
-      normalAttacks: [],
+      normalAttacks: [
+        {
+          id: 'rei-normal-backjump-arrow',
+          displayName: 'Rei - Backjump Arrow',
+          elementalType: { defaultElementalType: 'Volt' },
+          type: 'normal',
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 272,
+            attackFlat: 1632,
+          },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
+          cooldown: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
+          endedBy: { duration: 200 }, // TODO: placeholder
+          requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 500,
+            },
+          ],
+        },
+      ],
       dodgeAttacks: [],
       skills: [
         {
@@ -2282,7 +2309,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             numberOfHitsFixed: 1,
           },
           endedBy: { duration: 5000 },
-          cooldown: 0,
+          cooldown: 20000,
           triggeredBy: {
             playerInput: true,
           },
@@ -2291,6 +2318,10 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             {
               resourceId: chargeResourceId,
               amount: 500,
+            },
+            {
+              resourceId: 'rei-special-energy',
+              amount: 35,
             },
           ],
         },
@@ -2500,6 +2531,28 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             elementalTypes: ['Volt', 'Frost'],
             damageCategory: '[TEMP_UNKNOWN]',
           },
+        },
+        {
+          id: 'rei-energy-consumption',
+          displayName: 'Rei: Energy Consumption',
+          description:
+            'If special energy is greater than 70 when performing Backjump Arrow, trigger Energy Consumption',
+          cooldown: 0,
+          maxStacks: 1,
+          triggeredBy: {
+            weaponAttacks: ['rei-normal-backjump-arrow'],
+          },
+          endedBy: {
+            resourceDepleted: 'rei-special-energy',
+          },
+          requirements: {
+            hasResource: {
+              resourceId: 'rei-special-energy',
+              minAmount: 70,
+            },
+          },
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
         },
       ],
       resources: [
