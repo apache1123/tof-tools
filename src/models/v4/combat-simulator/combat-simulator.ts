@@ -1,4 +1,3 @@
-import { chargeDefinition } from '../../../constants/resources';
 import type { Loadout } from '../../loadout';
 import type { Weapon } from '../../weapon';
 import type { AttackId } from '../attack/attack-definition';
@@ -7,7 +6,6 @@ import { CombinedAttackRegistry } from '../attack/combined-attack-registry';
 import { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffRegistryFactory } from '../buff/buff-registry-factory';
-import { Charge } from '../charge/charge';
 import type { CombatSimulatorSnapshot } from '../combat-simulator-snapshot/combat-simulator-snapshot';
 import type { DamageSummarySnapshot } from '../combat-simulator-snapshot/damage-summary-snapshot';
 import type { TimelineSnapshot } from '../combat-simulator-snapshot/timeline-snapshot';
@@ -20,13 +18,11 @@ import type { Relics } from '../relics/relics';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
 import { TimeTracker } from '../time-tracker';
-import { Timeline } from '../timeline/timeline';
 import { TickProcessor } from './tick-processor';
 
 export class CombatSimulator {
   private readonly weaponTracker: WeaponTracker;
   private readonly timeTracker: TimeTracker;
-  private readonly charge: Charge;
 
   private readonly attackRegistry: CombinedAttackRegistry;
   private readonly buffRegistry: BuffRegistry;
@@ -49,7 +45,6 @@ export class CombatSimulator {
 
     this.weaponTracker = new WeaponTracker();
     this.timeTracker = new TimeTracker();
-    this.charge = new Charge(chargeDefinition, new Timeline(combatDuration));
 
     const playerInputAttackRegistry =
       AttackRegistryFactory.createPlayerInputAttackRegistry(
@@ -83,7 +78,6 @@ export class CombatSimulator {
       team,
       this.weaponTracker,
       this.timeTracker,
-      this.charge,
       this.attackRegistry,
       this.buffRegistry,
       this.resourceRegistry
@@ -250,18 +244,6 @@ export class CombatSimulator {
       };
     }
 
-    const chargeTimeline: TimelineSnapshot = {
-      id: 'charge',
-      displayName: 'Charge',
-      actions: this.charge.actions.map((chargeAction) => ({
-        displayName: `Charge: ${
-          chargeAction.amount
-        }. Cumulative: ${this.charge.getCumulatedAmount(chargeAction.endTime)}`,
-        startTime: chargeAction.startTime,
-        endTime: chargeAction.endTime,
-      })),
-    };
-
     const resourceTimelines = [];
     for (const resource of this.resourceRegistry.resources) {
       const { definition, timeline } = resource;
@@ -284,10 +266,9 @@ export class CombatSimulator {
       playerInputAttackTimelines,
       triggeredAttackTimelines,
       buffTimelines,
+      resourceTimelines,
       damageTimeline,
       damageSummary: damageSummarySnapshot,
-      chargeTimeline,
-      resourceTimelines,
     };
   }
 

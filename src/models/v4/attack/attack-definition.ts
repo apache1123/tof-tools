@@ -1,4 +1,8 @@
 import type { AttackType } from '../../../constants/attack-type';
+import type {
+  chargeResourceId,
+  fullCharge,
+} from '../../../constants/resources';
 import type { WeaponName } from '../../../constants/weapon-definitions';
 import type { ActionDefinition, ActionId } from '../action/action-definition';
 import type { ActionEndedBy } from '../action/action-ended-by';
@@ -15,7 +19,6 @@ export interface AttackDefinition extends ActionDefinition {
   id: AttackId;
   type: AttackType;
   elementalType: AttackElementalType;
-  charge: number;
   damageModifiers: AttackDamageModifiers;
   hitCount: AttackHitCount;
 
@@ -49,7 +52,10 @@ export interface DischargeAttackDefinition extends PlayerInputAttackDefinition {
   type: 'discharge';
 
   requirements: {
-    hasFullCharge: true;
+    hasResource: {
+      resourceId: typeof chargeResourceId;
+      minAmount: typeof fullCharge;
+    };
     notActiveWeapon: WeaponName;
   };
 }

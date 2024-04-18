@@ -5,9 +5,7 @@ export interface CombatSimulatorSnapshot {
   playerInputAttackTimelines: TimelineSnapshot[];
   triggeredAttackTimelines: TimelineSnapshot[];
   buffTimelines: TimelineSnapshot[];
+  resourceTimelines: TimelineSnapshot[];
   damageTimeline: TimelineSnapshot;
   damageSummary: DamageSummarySnapshot;
-
-  chargeTimeline: TimelineSnapshot;
-  resourceTimelines: TimelineSnapshot[];
 }

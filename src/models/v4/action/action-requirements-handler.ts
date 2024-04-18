@@ -3,7 +3,6 @@ import groupBy from 'lodash.groupby';
 import type { Team } from '../../team';
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
-import type { Charge } from '../charge/charge';
 import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
 import type { ResourceRegistry } from '../resource/resource-registry';
@@ -14,7 +13,6 @@ export class ActionRequirementsHandler extends EventHandler {
     private readonly requirements: ActionRequirements,
     private readonly team: Team,
     private readonly weaponTracker: WeaponTracker,
-    private readonly charge: Charge,
     private readonly buffRegistry: BuffRegistry,
     private readonly resourceRegistry: ResourceRegistry
   ) {
@@ -109,9 +107,6 @@ export class ActionRequirementsHandler extends EventHandler {
       )
         return false;
     }
-
-    if (this.requirements?.hasFullCharge && !this.charge.hasFullCharge(time))
-      return false;
 
     return true;
   }

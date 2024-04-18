@@ -1,6 +1,6 @@
 import type { Data } from '../models/data';
 import type { WeaponDefinition } from '../models/weapon-definition';
-import { enduranceResourceId } from './resources';
+import { chargeResourceId, enduranceResourceId, fullCharge } from './resources';
 import { minActionDuration } from './tick';
 
 export type WeaponName =
@@ -129,14 +129,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Alyss',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -205,14 +210,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Annabella',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -271,14 +281,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Asuka',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -334,12 +349,17 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 3650 },
           cooldown: 0,
-          // TODO: this is a placeholder value
-          charge: 500,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              // TODO: this is a placeholder value
+              amount: 500,
+            },
+          ],
         },
         {
           id: 'brevey-normal-hold',
@@ -364,11 +384,14 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {},
           updatesResources: [
             {
+              resourceId: chargeResourceId,
+              amount: 100, // TODO: placeholder. Assuming duration is 1s. Maybe a per second option is needed
+            },
+            {
               resourceId: enduranceResourceId,
               amount: -21, // Assuming duration is 1s. TODO: maybe an amountPerSecond option is needed
             },
           ],
-          charge: 100, // TODO: placeholder. Assuming duration is 1s. Maybe a per second option is needed
         },
       ],
       dodgeAttacks: [
@@ -387,11 +410,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 5000 },
           cooldown: 0,
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
       ],
       skills: [
@@ -410,11 +438,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 2250 },
           cooldown: 30000,
-          charge: 100,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 100,
+            },
+          ],
         },
       ],
       discharge: {
@@ -432,14 +465,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Brevey',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [
         {
@@ -572,14 +610,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Claudia',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -625,14 +668,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Cobalt-B',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -691,14 +739,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Cocoritter',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -731,14 +784,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Crow',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -784,11 +842,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 5000 },
           cooldown: 20000,
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
       ],
       discharge: {
@@ -806,14 +869,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Fei Se',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -883,14 +951,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Fenrir',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -948,14 +1021,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Fiona',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1023,14 +1101,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Frigg',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1077,14 +1160,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Gnonno',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1128,12 +1216,17 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 3370 },
           cooldown: 0,
-          // TODO:
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              // TODO:
+              amount: 0,
+            },
+          ],
         },
       ],
       dodgeAttacks: [],
@@ -1153,14 +1246,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Huang (Mimi)',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1193,14 +1291,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Huma',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1246,14 +1349,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Icarus',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1286,14 +1394,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'King',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1339,14 +1452,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Lan',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1427,14 +1545,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Lin',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1491,14 +1614,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Ling Han',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1544,14 +1672,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Liu Huo',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1611,14 +1744,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Lyra',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1651,14 +1789,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Meryl',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1715,11 +1858,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 5000 },
           cooldown: 0,
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
       ],
       dodgeAttacks: [],
@@ -1739,14 +1887,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Ming Jing',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1799,12 +1952,17 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 6000 },
           cooldown: 0,
-          // TODO:
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              // TODO:
+              amount: 0,
+            },
+          ],
         },
       ],
       dodgeAttacks: [],
@@ -1827,14 +1985,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 30000,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Nan Yin',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [
         {
@@ -1943,14 +2106,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Nemesis',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2009,14 +2177,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Plotti',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2096,11 +2269,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 5000 },
           cooldown: 0,
-          charge: 500,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 500,
+            },
+          ],
         },
       ],
       discharge: {
@@ -2118,14 +2296,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Rei',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       triggeredAttacks: [
         {
@@ -2152,8 +2335,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 30000 },
           cooldown: 30000,
-          charge: 0,
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
         {
           id: 'detachment',
@@ -2179,7 +2367,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 30000 },
           cooldown: 30000,
-          charge: 0,
           requirements: {
             elementalTypeWeaponsInTeam: [
               {
@@ -2200,6 +2387,12 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               },
             ],
           },
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
         {
           id: 'rei-homing-arrow',
@@ -2223,7 +2416,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             duration: minActionDuration,
           },
           cooldown: 500,
-          charge: 0,
           requirements: {},
           updatesResources: [
             {
@@ -2258,7 +2450,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             duration: minActionDuration,
           },
           cooldown: 0,
-          charge: 0,
           requirements: {
             hasResource: {
               resourceId: 'rei-homing-arrows-on-enemy',
@@ -2352,14 +2543,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Rubilia',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2415,11 +2611,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 30000 },
           cooldown: 0,
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
       ],
       skills: [],
@@ -2438,14 +2639,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Ruby',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2491,14 +2697,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Saki Fuwa',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2531,14 +2742,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Samir',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2571,14 +2787,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Shiro',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2637,14 +2858,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Tian Lang',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2677,14 +2903,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Tsubasa',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2731,11 +2962,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 5000 },
           cooldown: 0,
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
       ],
       discharge: {
@@ -2753,14 +2989,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Umi',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2817,11 +3058,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 5000 },
           cooldown: 0,
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
       ],
       dodgeAttacks: [],
@@ -2841,14 +3087,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Yan Miao',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2904,12 +3155,17 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 3650 },
           cooldown: 0,
-          // TODO: this is a placeholder value
-          charge: 250,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              // TODO: this is a placeholder value
+              amount: 250,
+            },
+          ],
         },
       ],
       dodgeAttacks: [],
@@ -2929,11 +3185,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: { duration: 5000 },
           cooldown: 30000,
-          charge: 0,
           triggeredBy: {
             playerInput: true,
           },
           requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
         },
       ],
       discharge: {
@@ -2951,14 +3212,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 30000,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Yanuo',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3004,14 +3270,19 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Yu Lan',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          {
+            resourceId: chargeResourceId,
+            amount: -fullCharge,
+          },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3070,14 +3341,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         },
         endedBy: { duration: 5000 },
         cooldown: 0,
-        charge: 0,
         requirements: {
-          hasFullCharge: true,
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Zero',
         },
         triggeredBy: {
           playerInput: true,
         },
+        updatesResources: [
+          { resourceId: chargeResourceId, amount: -fullCharge },
+        ],
       },
       buffs: [],
       triggeredAttacks: [],

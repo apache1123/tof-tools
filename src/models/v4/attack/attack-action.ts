@@ -14,7 +14,6 @@ export class AttackAction extends Action {
   public elementalType: WeaponElementalType;
   public damageModifiers: AttackDamageModifiers;
   public type: AttackType;
-  public charge: number;
   public hitCount: AttackHitCount;
   /** The weapon this attack derived from, for convenience */
   public readonly weapon: Weapon;
@@ -24,15 +23,8 @@ export class AttackAction extends Action {
     definition: AttackDefinition,
     weapon: Weapon
   ) {
-    const {
-      id,
-      cooldown,
-      damageModifiers,
-      elementalType,
-      type,
-      charge,
-      hitCount,
-    } = definition;
+    const { id, cooldown, damageModifiers, elementalType, type, hitCount } =
+      definition;
 
     super(timePeriod, cooldown);
 
@@ -40,7 +32,6 @@ export class AttackAction extends Action {
     this.elementalType = elementalType.defaultElementalType;
     this.damageModifiers = { ...damageModifiers };
     this.type = type;
-    this.charge = charge;
     this.hitCount = { ...hitCount };
     this.weapon = weapon;
   }

@@ -9,7 +9,6 @@ import type { Buff } from '../buff/buff';
 import { BuffEnder } from '../buff/buff-ender';
 import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffTrigger } from '../buff/buff-trigger';
-import type { Charge } from '../charge/charge';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TimeTracker } from '../time-tracker';
 import type { CombatEventNotifier } from './combat-event-notifier';
@@ -21,7 +20,6 @@ export class EventHandlerFactory {
     team: Team,
     weaponTracker: WeaponTracker,
     timeTracker: TimeTracker,
-    charge: Charge,
     buffRegistry: BuffRegistry,
     resourceRegistry: ResourceRegistry,
     combatEventNotifier: CombatEventNotifier
@@ -32,7 +30,6 @@ export class EventHandlerFactory {
         attack.definition.requirements,
         team,
         weaponTracker,
-        charge,
         buffRegistry,
         resourceRegistry
       ),
@@ -40,7 +37,6 @@ export class EventHandlerFactory {
         attack,
         weaponTracker,
         timeTracker,
-        charge,
         resourceRegistry,
         combatEventNotifier
       )
@@ -58,7 +54,6 @@ export class EventHandlerFactory {
     buff: Buff,
     team: Team,
     weaponTracker: WeaponTracker,
-    charge: Charge,
     buffRegistry: BuffRegistry,
     resourceRegistry: ResourceRegistry,
     combatEventNotifier: CombatEventNotifier
@@ -69,7 +64,6 @@ export class EventHandlerFactory {
         buff.definition.requirements,
         team,
         weaponTracker,
-        charge,
         buffRegistry,
         resourceRegistry
       ),

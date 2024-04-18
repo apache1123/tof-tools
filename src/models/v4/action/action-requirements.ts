@@ -28,5 +28,4 @@ export interface ActionRequirements {
   };
   /** The specified number of different elemental weapon types must be in team */
   numOfDifferentElementalTypesInTeam?: number;
-  hasFullCharge?: boolean;
 }

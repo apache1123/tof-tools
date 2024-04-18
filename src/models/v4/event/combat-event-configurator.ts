@@ -4,7 +4,6 @@ import type { ActionTriggeredBy } from '../action/action-triggered-by';
 import type { CombinedAttackRegistry } from '../attack/combined-attack-registry';
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
-import type { Charge } from '../charge/charge';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TimeTracker } from '../time-tracker';
 import type { CombatEventNotifier } from './combat-event-notifier';
@@ -20,7 +19,6 @@ export class CombatEventConfigurator {
     team: Team,
     weaponTracker: WeaponTracker,
     timeTracker: TimeTracker,
-    charge: Charge,
     attackRegistry: CombinedAttackRegistry,
     buffRegistry: BuffRegistry,
     resourceRegistry: ResourceRegistry
@@ -36,7 +34,6 @@ export class CombatEventConfigurator {
           team,
           weaponTracker,
           timeTracker,
-          charge,
           buffRegistry,
           resourceRegistry,
           combatEventNotifier
@@ -63,7 +60,6 @@ export class CombatEventConfigurator {
           team,
           weaponTracker,
           timeTracker,
-          charge,
           buffRegistry,
           resourceRegistry,
           combatEventNotifier
@@ -96,7 +92,6 @@ export class CombatEventConfigurator {
         buff,
         team,
         weaponTracker,
-        charge,
         buffRegistry,
         resourceRegistry,
         combatEventNotifier

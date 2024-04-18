@@ -1,4 +1,3 @@
-import type { Charge } from '../charge/charge';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
@@ -14,7 +13,6 @@ export class AttackTrigger extends EventHandler {
     private readonly attack: Attack,
     private readonly weaponTracker: WeaponTracker,
     private readonly timeTracker: TimeTracker,
-    private readonly charge: Charge,
     private readonly resourceRegistry: ResourceRegistry,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {
@@ -39,18 +37,7 @@ export class AttackTrigger extends EventHandler {
     this.combatEventNotifier.notifyAttackStart(attackAction);
     this.notifyAttackHits(attackAction);
 
-    this.adjustCharge(attackAction);
     this.adjustResources(attackAction);
-  }
-
-  private adjustCharge(attackAction: AttackAction) {
-    const fullChargeGained = this.charge.adjustCharge(attackAction);
-    if (fullChargeGained) {
-      this.combatEventNotifier.notifyWeaponFullCharge(
-        attackAction.endTime,
-        attackAction.weapon
-      );
-    }
   }
 
   private switchWeaponsIfNeeded(eventData: EventData) {
