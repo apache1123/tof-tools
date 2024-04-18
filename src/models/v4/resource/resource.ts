@@ -1,3 +1,6 @@
+import BigNumber from 'bignumber.js';
+
+import { minActionDuration, tickDuration } from '../../../constants/tick';
 import { sum } from '../../../utils/math-utils';
 import { TimePeriod } from '../time-period';
 import type { Timeline } from '../timeline/timeline';
@@ -18,7 +21,7 @@ export class Resource {
 
   /** Cumulated amount of resource at a point of time */
   public getCumulatedAmount(time: number) {
-    const timePeriod = new TimePeriod(0, time);
+    const timePeriod = new TimePeriod(-minActionDuration, time); // start time is negative because there could be an action that adds the starting amount of a resource before the combat start time of time=0
     const resourceActions = this.timeline.getActionsEndingBetween(timePeriod);
     return sum(...resourceActions.map((action) => action.amount)).toNumber();
   }
@@ -83,5 +86,39 @@ export class Resource {
     );
     this.timeline.addAction(resourceAction);
     return resourceAction;
+  }
+
+  /** regenerate the resource amount for a tick period, if there are no other actions in that tick period
+   * @returns the regenerate resource action if one has been added
+   */
+  public regenerate(tickStartTime: number) {
+    const { regenerateAmountPerSecond } = this.definition;
+    if (!regenerateAmountPerSecond) return;
+
+    const tickEndTime = tickStartTime + tickDuration;
+    const existingActions = this.timeline.getActionsOverlappingPeriod(
+      tickStartTime,
+      tickEndTime
+    );
+    if (existingActions.length) return;
+
+    const regenerateAmount = BigNumber(regenerateAmountPerSecond)
+      .times(tickDuration)
+      .div(1000)
+      .toNumber();
+    return this.addResourceAction(
+      new TimePeriod(tickStartTime, tickEndTime),
+      regenerateAmount
+    );
+  }
+
+  /** Adds the defined starting amount of resource, e.g. before combat start */
+  public addStartingAmount() {
+    const { startingAmount } = this.definition;
+    if (!startingAmount) return;
+    this.addResourceAction(
+      new TimePeriod(-minActionDuration, 0),
+      startingAmount
+    );
   }
 }

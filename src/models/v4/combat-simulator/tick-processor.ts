@@ -3,6 +3,7 @@ import type { CombinedAttackRegistry } from '../attack/combined-attack-registry'
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-calculator';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
+import type { ResourceRegistry } from '../resource/resource-registry';
 import { TimePeriod } from '../time-period';
 
 export class TickProcessor {
@@ -11,6 +12,7 @@ export class TickProcessor {
   public constructor(
     private readonly attackRegistry: CombinedAttackRegistry,
     private readonly buffRegistry: BuffRegistry,
+    private readonly resourceRegistry: ResourceRegistry,
     private readonly damageTimelineCalculator: DamageTimelineCalculator,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {}
@@ -44,6 +46,13 @@ export class TickProcessor {
       timePeriod
     )) {
       this.combatEventNotifier.notifyBuffEnd(buffAction);
+    }
+
+    for (const resource of this.resourceRegistry.resources) {
+      const regenerateAction = resource.regenerate(timePeriod.startTime);
+      if (regenerateAction) {
+        this.combatEventNotifier.notifyResourceUpdate(regenerateAction);
+      }
     }
 
     this.damageTimelineCalculator.calculateDamage(timePeriod);

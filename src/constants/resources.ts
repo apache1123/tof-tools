@@ -11,3 +11,13 @@ export const chargeDefinition: ResourceDefinition = {
   cooldown: 0,
   maxAmount: maxCharge,
 };
+
+export const enduranceResourceId = 'endurance';
+export const enduranceDefinition: ResourceDefinition = {
+  id: enduranceResourceId,
+  displayName: 'Endurance',
+  cooldown: 0,
+  maxAmount: 1300, // TODO: should this be dynamic
+  startingAmount: 1300,
+  regenerateAmountPerSecond: 105,
+};

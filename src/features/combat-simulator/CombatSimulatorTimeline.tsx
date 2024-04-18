@@ -15,6 +15,7 @@ import { Team } from '../../models/team';
 import { CombatSimulator } from '../../models/v4/combat-simulator/combat-simulator';
 import { Relics } from '../../models/v4/relics/relics';
 import { Weapon } from '../../models/weapon';
+import { repeat } from '../../utils/test-utils';
 import { AttackBuffEventRenderer } from './AttackBuffEventRenderer';
 import { AttackEventRenderer } from './AttackEventRenderer';
 import { CombatSimulatorTimelineScaleRenderer } from './CombatSimulatorTimelineScaleRenderer';
@@ -51,10 +52,9 @@ combatSimulator.performAttack(weapon2.definition.skills[0].id);
 combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
 combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
 combatSimulator.performAttack(weapon2.definition.discharge.id);
-combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
-combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
-combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
-combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
+repeat(() => {
+  combatSimulator.performAttack(weapon1.definition.normalAttacks[1].id);
+}, 10);
 combatSimulator.performAttack(weapon2.definition.discharge.id);
 
 const combatSimulatorSnapshot = combatSimulator.snapshot();

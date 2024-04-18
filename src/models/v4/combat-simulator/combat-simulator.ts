@@ -102,6 +102,7 @@ export class CombatSimulator {
     this.tickProcessor = new TickProcessor(
       this.attackRegistry,
       this.buffRegistry,
+      this.resourceRegistry,
       this.damageTimelineCalculator,
       this.combatEventNotifier
     );
@@ -114,6 +115,9 @@ export class CombatSimulator {
   }
 
   public performAttack(attackId: AttackId, time?: number) {
+    if (time === 0 || this.timeTracker.nextPlayerInputAttackTime === 0)
+      this.preCombat();
+
     if (!this.nextAvailableAttacks.includes(attackId)) {
       throw new Error(
         `Player input attack ${attackId} is not available to be performed`
@@ -285,5 +289,11 @@ export class CombatSimulator {
       chargeTimeline,
       resourceTimelines,
     };
+  }
+
+  private preCombat() {
+    for (const resource of this.resourceRegistry.resources) {
+      resource.addStartingAmount();
+    }
   }
 }

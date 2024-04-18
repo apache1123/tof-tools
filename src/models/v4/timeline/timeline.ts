@@ -45,7 +45,11 @@ export class Timeline<TAction extends TimelineAction> {
     }
 
     return this._actions.filter(
-      (action) => action.startTime < endTime && action.endTime >= startTime
+      (action) =>
+        (action.startTime < endTime && action.endTime > startTime) ||
+        (action.startTime === action.endTime &&
+          action.startTime >= startTime &&
+          action.startTime < endTime)
     );
   }
 

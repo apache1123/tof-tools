@@ -1,5 +1,6 @@
 import type { Data } from '../models/data';
 import type { WeaponDefinition } from '../models/weapon-definition';
+import { enduranceResourceId } from './resources';
 import { minActionDuration } from './tick';
 
 export type WeaponName =
@@ -339,6 +340,35 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             playerInput: true,
           },
           requirements: {},
+        },
+        {
+          id: 'brevey-normal-hold',
+          displayName: 'Brevey - Auto hold',
+          elementalType: { defaultElementalType: 'Volt' },
+          type: 'normal',
+          damageModifiers: {
+            damageDealtIsPerSecond: true,
+            attackMultiplier: 2.58,
+            attackFlat: 0,
+          },
+          hitCount: {
+            numberOfHitsFixed: 6, // TODO: this assumes duration is 1s
+          },
+          cooldown: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
+          endedBy: {
+            duration: 1000, // TODO: what to do about hold attacks with no duration?
+          },
+          requirements: {},
+          updatesResources: [
+            {
+              resourceId: enduranceResourceId,
+              amount: -21, // Assuming duration is 1s. TODO: maybe an amountPerSecond option is needed
+            },
+          ],
+          charge: 100, // TODO: placeholder. Assuming duration is 1s. Maybe a per second option is needed
         },
       ],
       dodgeAttacks: [
