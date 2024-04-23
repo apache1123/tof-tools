@@ -66,4 +66,11 @@ export class Timeline<TAction extends TimelineAction> {
         action.endTime <= timePeriod.endTime
     );
   }
+
+  public removeAction(action: TAction) {
+    const index = this._actions.indexOf(action);
+    if (index !== -1) {
+      this._actions.splice(index, 1);
+    }
+  }
 }

@@ -6,6 +6,9 @@ export class AttackTimeline extends ActionTimeline<AttackAction> {
   public addAttackAction(attack: AttackAction) {
     if (this.lastAction && attack.startTime < this.lastAction?.endTime) {
       this.lastAction.endTime = attack.startTime;
+      if (this.lastAction.startTime === this.lastAction.endTime) {
+        this.removeAction(this.lastAction);
+      }
     }
 
     this.addAction(attack);

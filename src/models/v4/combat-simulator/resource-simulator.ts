@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import { oneSecondDuration } from '../../../utils/time-utils';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { Resource } from '../resource/resource';
 import type { ResourceRegistry } from '../resource/resource-registry';
@@ -36,7 +37,7 @@ export class ResourceSimulator {
 
     const regenerateAmount = BigNumber(regenerateAmountPerSecond)
       .times(tickPeriod.duration)
-      .div(1000)
+      .div(oneSecondDuration)
       .toNumber();
     const regenerateAction = resource.addResourceAction(
       tickPeriod,

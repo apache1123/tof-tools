@@ -20,6 +20,22 @@ export class Action extends TimePeriod {
     this.endTime = value.endTime;
   }
 
+  public get startTime(): number {
+    return super.startTime;
+  }
+  public set startTime(value: number) {
+    super.startTime = value;
+    this._timePeriod.startTime = value;
+  }
+
+  public get endTime(): number {
+    return super.endTime;
+  }
+  public set endTime(value: number) {
+    super.endTime = value;
+    this._timePeriod.endTime = value;
+  }
+
   public get cooldownEndsAt() {
     return this.startTime + this.cooldown;
   }
