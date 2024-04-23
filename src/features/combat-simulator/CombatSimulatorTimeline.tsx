@@ -59,6 +59,9 @@ repeat(() => {
 }, 10);
 combatSimulator.performAttack(weapon2.definition.discharge.id);
 combatSimulator.performAttack('rei-normal-backjump-arrow');
+repeat(() => {
+  combatSimulator.performAttack(weapon2.definition.normalAttacks[0].id);
+}, 10);
 
 const combatSimulatorSnapshot = combatSimulator.snapshot();
 

@@ -34,4 +34,9 @@ export class TimePeriod {
   public get duration(): number {
     return this._endTime - this._startTime;
   }
+
+  /** Determines whether a time lies in this time period */
+  public includes(time: number) {
+    return time >= this._startTime && time < this._endTime;
+  }
 }

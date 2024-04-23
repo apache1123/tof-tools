@@ -1,12 +1,12 @@
-import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
+import type { TickTracker } from '../tick-tracker';
 import type { Buff } from './buff';
 
 export class BuffTrigger extends EventHandler {
   public constructor(
     private readonly buff: Buff,
-    private readonly combatEventNotifier: CombatEventNotifier
+    private readonly tickTracker: TickTracker
   ) {
     super();
   }
@@ -17,7 +17,7 @@ export class BuffTrigger extends EventHandler {
   }
 
   private trigger(eventData: EventData) {
-    const buffAction = this.buff.trigger(eventData.time);
-    this.combatEventNotifier.notifyBuffStart(buffAction);
+    const tickStart = this.tickTracker.getNextClosestTickStart(eventData.time);
+    this.buff.trigger(tickStart);
   }
 }

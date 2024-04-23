@@ -11,17 +11,22 @@ export class BuffRegistry {
   }
 
   public isBuffActiveAt(buffId: BuffId, time: number) {
-    const timeline = [...this.buffs].find(
+    const timeline = this.buffs.find(
       ({ definition }) => definition.id === buffId
     )?.timeline;
 
     return timeline && timeline.isActionActiveAt(time);
   }
 
+  public getActiveBuffs(timePeriod: TimePeriod): Buff[] {
+    return this.buffs.filter(
+      (buff) => buff.getBuffActionsOverlappingPeriod(timePeriod).length
+    );
+  }
+
   public getActiveBuffActions(timePeriod: TimePeriod): BuffAction[] {
-    const { startTime, endTime } = timePeriod;
-    return [...this.buffs].flatMap(({ timeline }) =>
-      timeline.getActionsOverlappingPeriod(startTime, endTime)
+    return this.buffs.flatMap((buff) =>
+      buff.getBuffActionsOverlappingPeriod(timePeriod)
     );
   }
 

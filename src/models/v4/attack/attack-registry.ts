@@ -1,5 +1,4 @@
 import type { TimePeriod } from '../time-period';
-import type { TimeTracker } from '../time-tracker';
 import type { Attack } from './attack';
 import type { AttackAction } from './attack-action';
 import type { AttackDefinition } from './attack-definition';
@@ -11,12 +10,9 @@ export class AttackRegistry {
     this.attacks = attacks;
   }
 
-  public getNextAttacksOffCooldown(timeTracker: TimeTracker) {
+  public getAvailableAttacks(time: number) {
     return this.attacks.filter(
-      (attack) =>
-        !attack.timeline.isActionOnCooldownAt(
-          timeTracker.nextPlayerInputAttackTime
-        )
+      (attack) => !attack.timeline.isActionOnCooldownAt(time)
     );
   }
 

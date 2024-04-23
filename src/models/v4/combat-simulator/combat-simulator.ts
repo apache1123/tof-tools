@@ -1,5 +1,7 @@
+import { tickDuration } from '../../../constants/tick';
 import type { Loadout } from '../../loadout';
 import type { Weapon } from '../../weapon';
+import { ActionResourceUpdater } from '../action/action-resource-updater';
 import type { AttackId } from '../attack/attack-definition';
 import { AttackRegistryFactory } from '../attack/attack-registry-factory';
 import { CombinedAttackRegistry } from '../attack/combined-attack-registry';
@@ -13,28 +15,36 @@ import { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-
 import { DamageSummaryTimeline } from '../damage-summary-timeline/damage-summary-timeline';
 import { CombatEventConfigurator } from '../event/combat-event-configurator';
 import { CombatEventNotifier } from '../event/combat-event-notifier';
-import { EventManager } from '../event/event-manager';
+import { QueuedEventManager } from '../event/queued-event-manager';
 import type { Relics } from '../relics/relics';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
-import { TimeTracker } from '../time-tracker';
-import { TickProcessor } from './tick-processor';
+import { TickTracker } from '../tick-tracker';
+import { TimePeriod } from '../time-period';
+import { AttackSimulator } from './attack-simulator';
+import { BuffSimulator } from './buff-simulator';
+import { ResourceSimulator } from './resource-simulator';
+import { TickSimulator } from './tick-simulator';
 
 export class CombatSimulator {
-  private readonly weaponTracker: WeaponTracker;
-  private readonly timeTracker: TimeTracker;
+  private readonly tickTracker: TickTracker;
 
-  private readonly attackRegistry: CombinedAttackRegistry;
+  private readonly queuedEventManager: QueuedEventManager;
+  private readonly combatEventNotifier: CombatEventNotifier;
+
+  private readonly weaponTracker: WeaponTracker;
+
+  private readonly combinedAttackRegistry: CombinedAttackRegistry;
   private readonly buffRegistry: BuffRegistry;
   private readonly resourceRegistry: ResourceRegistry;
-
-  private readonly eventManager: EventManager;
-  private readonly combatEventNotifier: CombatEventNotifier;
 
   private readonly damageSummaryTimeline: DamageSummaryTimeline;
   private readonly damageTimelineCalculator: DamageTimelineCalculator;
 
-  private readonly tickProcessor: TickProcessor;
+  private readonly attackSimulator: AttackSimulator;
+  private readonly buffSimulator: BuffSimulator;
+  private readonly resourceSimulator: ResourceSimulator;
+  private readonly tickSimulator: TickSimulator;
 
   public constructor(
     public readonly combatDuration: number,
@@ -43,8 +53,13 @@ export class CombatSimulator {
   ) {
     const { team } = loadout;
 
+    const startingTickPeriod = new TimePeriod(-tickDuration, 0);
+    this.tickTracker = new TickTracker(startingTickPeriod, tickDuration);
+
+    this.queuedEventManager = new QueuedEventManager();
+    this.combatEventNotifier = new CombatEventNotifier(this.queuedEventManager);
+
     this.weaponTracker = new WeaponTracker();
-    this.timeTracker = new TimeTracker();
 
     const playerInputAttackRegistry =
       AttackRegistryFactory.createPlayerInputAttackRegistry(
@@ -53,7 +68,7 @@ export class CombatSimulator {
       );
     const triggeredAttackRegistry =
       AttackRegistryFactory.createTriggeredAttackRegistry(combatDuration, team);
-    this.attackRegistry = new CombinedAttackRegistry(
+    this.combinedAttackRegistry = new CombinedAttackRegistry(
       playerInputAttackRegistry,
       triggeredAttackRegistry
     );
@@ -69,16 +84,12 @@ export class CombatSimulator {
       team
     );
 
-    this.eventManager = new EventManager();
-    this.combatEventNotifier = new CombatEventNotifier(this.eventManager);
-
     CombatEventConfigurator.configure(
-      this.eventManager,
-      this.combatEventNotifier,
+      this.queuedEventManager,
       team,
+      this.tickTracker,
       this.weaponTracker,
-      this.timeTracker,
-      this.attackRegistry,
+      this.combinedAttackRegistry,
       this.buffRegistry,
       this.resourceRegistry
     );
@@ -89,41 +100,63 @@ export class CombatSimulator {
       loadout,
       loadout.loadoutStats,
       team,
-      this.attackRegistry,
+      this.combinedAttackRegistry,
       this.buffRegistry
     );
 
-    this.tickProcessor = new TickProcessor(
-      this.attackRegistry,
-      this.buffRegistry,
+    const actionResourceUpdater = new ActionResourceUpdater(
       this.resourceRegistry,
-      this.damageTimelineCalculator,
       this.combatEventNotifier
+    );
+    this.attackSimulator = new AttackSimulator(
+      this.tickTracker,
+      this.combinedAttackRegistry,
+      actionResourceUpdater,
+      this.combatEventNotifier
+    );
+    this.buffSimulator = new BuffSimulator(
+      this.tickTracker,
+      this.buffRegistry,
+      actionResourceUpdater,
+      this.combatEventNotifier
+    );
+    this.resourceSimulator = new ResourceSimulator(
+      this.tickTracker,
+      this.resourceRegistry,
+      this.combatEventNotifier
+    );
+    this.tickSimulator = new TickSimulator(
+      this.tickTracker,
+      this.queuedEventManager,
+      this.combinedAttackRegistry,
+      this.attackSimulator,
+      this.buffSimulator,
+      this.resourceSimulator,
+      this.damageTimelineCalculator
     );
   }
 
   public get nextAvailableAttacks(): AttackId[] {
-    return this.attackRegistry
-      .getNextPlayerInputAttacksOffCooldown(this.timeTracker)
+    return this.combinedAttackRegistry
+      .getAvailablePlayerInputAttacks(
+        this.tickTracker.currentTickPeriod.startTime
+      )
       .map((item) => item.definition.id);
   }
 
-  public performAttack(attackId: AttackId, time?: number) {
-    if (time === 0 || this.timeTracker.nextPlayerInputAttackTime === 0)
-      this.preCombat();
-
+  public performAttack(attackId: AttackId) {
     if (!this.nextAvailableAttacks.includes(attackId)) {
       throw new Error(
         `Player input attack ${attackId} is not available to be performed`
       );
     }
 
-    this.combatEventNotifier.notifyAttackRequest(
-      time ?? this.timeTracker.nextPlayerInputAttackTime,
-      attackId
-    );
+    const tickStart = this.tickTracker.currentTickPeriod.startTime;
+    if (tickStart <= 0) this.preCombat();
 
-    this.tickProcessor.processTicksForLastAttack();
+    this.combatEventNotifier.notifyAttackRequest(tickStart, attackId);
+
+    this.tickSimulator.simulateTicksForLastAttack();
   }
 
   public snapshot(): CombatSimulatorSnapshot {
@@ -131,7 +164,7 @@ export class CombatSimulator {
 
     const weaponTimelineMap = new Map<Weapon, TimelineSnapshot>();
     // Combine all player input attack timelines into one, for each weapon
-    for (const { weapon, definition, timeline } of this.attackRegistry
+    for (const { weapon, definition, timeline } of this.combinedAttackRegistry
       .playerInputAttacks) {
       if (!weaponTimelineMap.has(weapon)) {
         weaponTimelineMap.set(weapon, {
@@ -161,7 +194,7 @@ export class CombatSimulator {
     }
 
     const triggeredAttackTimelines = [];
-    for (const { definition, timeline } of this.attackRegistry
+    for (const { definition, timeline } of this.combinedAttackRegistry
       .triggeredAttacks) {
       if (!timeline.actions.length) continue;
 

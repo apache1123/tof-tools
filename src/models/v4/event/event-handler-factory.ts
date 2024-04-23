@@ -10,19 +10,17 @@ import { BuffEnder } from '../buff/buff-ender';
 import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffTrigger } from '../buff/buff-trigger';
 import type { ResourceRegistry } from '../resource/resource-registry';
-import type { TimeTracker } from '../time-tracker';
-import type { CombatEventNotifier } from './combat-event-notifier';
+import type { TickTracker } from '../tick-tracker';
 import { EventHandler } from './event-handler';
 
 export class EventHandlerFactory {
   public static createHandlerToTriggerAttack(
     attack: Attack,
     team: Team,
+    tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
-    timeTracker: TimeTracker,
     buffRegistry: BuffRegistry,
-    resourceRegistry: ResourceRegistry,
-    combatEventNotifier: CombatEventNotifier
+    resourceRegistry: ResourceRegistry
   ): EventHandler {
     return EventHandler.link(
       new ActionCooldownHandler(attack.timeline),
@@ -33,30 +31,24 @@ export class EventHandlerFactory {
         buffRegistry,
         resourceRegistry
       ),
-      new AttackTrigger(
-        attack,
-        weaponTracker,
-        timeTracker,
-        resourceRegistry,
-        combatEventNotifier
-      )
+      new AttackTrigger(attack, tickTracker, weaponTracker)
     );
   }
 
   public static createHandlerToEndAttack(
     attack: Attack,
-    combatEventNotifier: CombatEventNotifier
+    tickTracker: TickTracker
   ): EventHandler {
-    return EventHandler.link(new AttackEnder(attack, combatEventNotifier));
+    return EventHandler.link(new AttackEnder(attack, tickTracker));
   }
 
   public static createHandlerToTriggerBuff(
     buff: Buff,
     team: Team,
+    tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
     buffRegistry: BuffRegistry,
-    resourceRegistry: ResourceRegistry,
-    combatEventNotifier: CombatEventNotifier
+    resourceRegistry: ResourceRegistry
   ): EventHandler {
     return EventHandler.link(
       new ActionCooldownHandler(buff.timeline),
@@ -67,14 +59,14 @@ export class EventHandlerFactory {
         buffRegistry,
         resourceRegistry
       ),
-      new BuffTrigger(buff, combatEventNotifier)
+      new BuffTrigger(buff, tickTracker)
     );
   }
 
   public static createHandlerToEndBuff(
     buff: Buff,
-    combatEventNotifier: CombatEventNotifier
+    tickTracker: TickTracker
   ): EventHandler {
-    return EventHandler.link(new BuffEnder(buff, combatEventNotifier));
+    return EventHandler.link(new BuffEnder(buff, tickTracker));
   }
 }

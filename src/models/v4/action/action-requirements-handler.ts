@@ -48,6 +48,12 @@ export class ActionRequirementsHandler extends EventHandler {
       return false;
 
     if (
+      this.requirements?.activeWeapon &&
+      this.requirements.activeWeapon !== this.weaponTracker.activeWeapon?.id
+    )
+      return false;
+
+    if (
       this.requirements?.notActiveWeapon &&
       this.requirements.notActiveWeapon === this.weaponTracker.activeWeapon?.id
     )

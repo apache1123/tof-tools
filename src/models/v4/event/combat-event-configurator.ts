@@ -6,8 +6,7 @@ import type { CombinedAttackRegistry } from '../attack/combined-attack-registry'
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
-import type { TimeTracker } from '../time-tracker';
-import type { CombatEventNotifier } from './combat-event-notifier';
+import type { TickTracker } from '../tick-tracker';
 import { EventHandlerFactory } from './event-handler-factory';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
@@ -16,10 +15,9 @@ import type { EventManager } from './event-manager';
 export class CombatEventConfigurator {
   public static configure(
     eventManager: EventManager,
-    combatEventNotifier: CombatEventNotifier,
     team: Team,
+    tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
-    timeTracker: TimeTracker,
     attackRegistry: CombinedAttackRegistry,
     buffRegistry: BuffRegistry,
     resourceRegistry: ResourceRegistry
@@ -33,11 +31,10 @@ export class CombatEventConfigurator {
         EventHandlerFactory.createHandlerToTriggerAttack(
           attack,
           team,
+          tickTracker,
           weaponTracker,
-          timeTracker,
           buffRegistry,
-          resourceRegistry,
-          combatEventNotifier
+          resourceRegistry
         )
       );
     }
@@ -55,11 +52,10 @@ export class CombatEventConfigurator {
         EventHandlerFactory.createHandlerToTriggerAttack(
           attack,
           team,
+          tickTracker,
           weaponTracker,
-          timeTracker,
           buffRegistry,
-          resourceRegistry,
-          combatEventNotifier
+          resourceRegistry
         );
       for (const eventId of eventIdsToTriggerAttackOn) {
         eventManager.subscribe(eventId, triggerAttackHandler);
@@ -71,7 +67,7 @@ export class CombatEventConfigurator {
       );
       const endAttackHandler = EventHandlerFactory.createHandlerToEndAttack(
         attack,
-        combatEventNotifier
+        tickTracker
       );
       for (const eventId of eventIdsToEndAttackOn) {
         eventManager.subscribe(eventId, endAttackHandler);
@@ -88,10 +84,10 @@ export class CombatEventConfigurator {
       const triggerBuffHandler = EventHandlerFactory.createHandlerToTriggerBuff(
         buff,
         team,
+        tickTracker,
         weaponTracker,
         buffRegistry,
-        resourceRegistry,
-        combatEventNotifier
+        resourceRegistry
       );
       for (const eventId of eventIdsToTriggerBuffOn) {
         eventManager.subscribe(eventId, triggerBuffHandler);
@@ -103,7 +99,7 @@ export class CombatEventConfigurator {
       );
       const endBuffHandler = EventHandlerFactory.createHandlerToEndBuff(
         buff,
-        combatEventNotifier
+        tickTracker
       );
       for (const eventId of eventIdsToEndBuffOn) {
         eventManager.subscribe(eventId, endBuffHandler);

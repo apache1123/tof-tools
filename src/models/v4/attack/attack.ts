@@ -51,6 +51,13 @@ export class Attack {
     return this.timeline.endAnyActionsAt(time);
   }
 
+  public getAttackActionsOverlappingPeriod(timePeriod: TimePeriod) {
+    return this.timeline.getActionsOverlappingPeriod(
+      timePeriod.startTime,
+      timePeriod.endTime
+    );
+  }
+
   public getAttackActionsEndingBetween(timePeriod: TimePeriod) {
     return this.timeline.getActionsEndingBetween(timePeriod);
   }

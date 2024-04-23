@@ -2554,6 +2554,81 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           minStarRequirement: 0,
           maxStarRequirement: 6,
         },
+        {
+          id: 'rei-energy-consumption-volt',
+          displayName: 'Rei: Energy Consumption volt buff',
+          description:
+            'Energy Consumption: Increase volt ATK by 15% and frost ATK by 5%.',
+          cooldown: 0,
+          maxStacks: 1,
+          triggeredBy: {
+            buffStart: 'rei-energy-consumption',
+          },
+          endedBy: {
+            buffEnd: 'rei-energy-consumption',
+          },
+          requirements: {},
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          attackBuff: {
+            value: 0.15,
+            elementalTypes: ['Volt'],
+          },
+        },
+        {
+          id: 'rei-energy-consumption-frost',
+          displayName: 'Rei: Energy Consumption frost buff',
+          description:
+            'Energy Consumption: Increase volt ATK by 15% and frost ATK by 5%.',
+          cooldown: 0,
+          maxStacks: 1,
+          triggeredBy: {
+            buffStart: 'rei-energy-consumption',
+          },
+          endedBy: {
+            buffEnd: 'rei-energy-consumption',
+          },
+          requirements: {},
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          attackBuff: {
+            value: 0.05,
+            elementalTypes: ['Frost'],
+          },
+        },
+        {
+          id: 'rei-energy-comsumption-drain-onfield',
+          displayName: 'Rei: Energy Consumption on-field',
+          description:
+            "While Salvation is in the main slot, consume 5 special energy every 0.5 seconds. Increase Salvation's damage dealt by 30%.",
+          cooldown: 0,
+          maxStacks: 1,
+          triggeredBy: {
+            buffStart: 'rei-energy-consumption',
+            activeWeapon: 'Rei',
+          },
+          endedBy: {
+            notActiveWeapon: 'Rei',
+          },
+          requirements: {
+            activeWeapon: 'Rei',
+            activeBuff: 'rei-energy-consumption',
+          },
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          miscBuff: {
+            allAttackBuff: {
+              forWeapon: 'Rei',
+              value: 0.3,
+            },
+          },
+          updatesResources: [
+            {
+              resourceId: 'rei-special-energy',
+              amountPerSecond: -10,
+            },
+          ],
+        },
       ],
       resources: [
         {

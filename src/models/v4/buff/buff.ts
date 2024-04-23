@@ -34,6 +34,17 @@ export class Buff {
     return this.timeline.getActionsEndingBetween(timePeriod);
   }
 
+  public getBuffActionsOverlappingPeriod(timePeriod: TimePeriod) {
+    return this.timeline.getActionsOverlappingPeriod(
+      timePeriod.startTime,
+      timePeriod.endTime
+    );
+  }
+
+  public get updatesResources() {
+    return this.definition.updatesResources;
+  }
+
   /** Adds a new buff action to the timeline. Merging with the latest buff in the timeline if overlaps occur. */
   private addNewBuffAction(buffAction: BuffAction): BuffAction {
     const { lastAction } = this.timeline;

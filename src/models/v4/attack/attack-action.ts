@@ -4,6 +4,7 @@ import type { AttackType } from '../../../constants/attack-type';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { Weapon } from '../../weapon';
 import { Action } from '../action/action';
+import type { ActionUpdatesResource } from '../action/action-updates-resource';
 import type { TimePeriod } from '../time-period';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackDefinition, AttackId } from './attack-definition';
@@ -15,6 +16,7 @@ export class AttackAction extends Action {
   public damageModifiers: AttackDamageModifiers;
   public type: AttackType;
   public hitCount: AttackHitCount;
+  public updatesResources: ActionUpdatesResource[];
   /** The weapon this attack derived from, for convenience */
   public readonly weapon: Weapon;
 
@@ -23,8 +25,15 @@ export class AttackAction extends Action {
     definition: AttackDefinition,
     weapon: Weapon
   ) {
-    const { id, cooldown, damageModifiers, elementalType, type, hitCount } =
-      definition;
+    const {
+      id,
+      cooldown,
+      damageModifiers,
+      elementalType,
+      type,
+      hitCount,
+      updatesResources,
+    } = definition;
 
     super(timePeriod, cooldown);
 
@@ -33,6 +42,7 @@ export class AttackAction extends Action {
     this.damageModifiers = { ...damageModifiers };
     this.type = type;
     this.hitCount = { ...hitCount };
+    this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
     this.weapon = weapon;
   }
 

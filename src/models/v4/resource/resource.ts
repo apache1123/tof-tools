@@ -1,6 +1,4 @@
-import BigNumber from 'bignumber.js';
-
-import { minActionDuration, tickDuration } from '../../../constants/tick';
+import { minActionDuration } from '../../../constants/tick';
 import { sum } from '../../../utils/math-utils';
 import { TimePeriod } from '../time-period';
 import type { Timeline } from '../timeline/timeline';
@@ -58,7 +56,7 @@ export class Resource {
     if (!amount) return;
 
     const cumulatedAmountPreceding = this.getCumulatedAmount(
-      timePeriod.startTime
+      timePeriod.endTime
     );
 
     if (
@@ -92,30 +90,6 @@ export class Resource {
     return resourceAction;
   }
 
-  /** regenerate the resource amount for a tick period, if there are no other actions in that tick period
-   * @returns the regenerate resource action if one has been added
-   */
-  public regenerate(tickStartTime: number) {
-    const { regenerateAmountPerSecond } = this.definition;
-    if (!regenerateAmountPerSecond) return;
-
-    const tickEndTime = tickStartTime + tickDuration;
-    const existingActions = this.timeline.getActionsOverlappingPeriod(
-      tickStartTime,
-      tickEndTime
-    );
-    if (existingActions.length) return;
-
-    const regenerateAmount = BigNumber(regenerateAmountPerSecond)
-      .times(tickDuration)
-      .div(1000)
-      .toNumber();
-    return this.addResourceAction(
-      new TimePeriod(tickStartTime, tickEndTime),
-      regenerateAmount
-    );
-  }
-
   /** Adds the defined starting amount of resource, e.g. before combat start */
   public addStartingAmount() {
     const { startingAmount } = this.definition;
@@ -123,6 +97,13 @@ export class Resource {
     this.addResourceAction(
       new TimePeriod(-minActionDuration, 0),
       startingAmount
+    );
+  }
+
+  public getResourceActionsOverlappingPeriod(timePeriod: TimePeriod) {
+    return this.timeline.getActionsOverlappingPeriod(
+      timePeriod.startTime,
+      timePeriod.endTime
     );
   }
 }

@@ -12,6 +12,7 @@ export interface ActionRequirements {
     minAmount: number;
   };
   activeBuff?: string;
+  activeWeapon?: WeaponName;
   /** Can only be triggered when [weapon] is not active weapon e.g. the [weapon]'s discharge */
   notActiveWeapon?: WeaponName;
   anyWeaponInTeam?: WeaponName[];

@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import { tickDuration } from '../../../constants/tick';
 import { calculateOverlapDuration } from '../../../utils/time-period-utils';
 import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
@@ -24,7 +23,10 @@ export class DamageTimelineCalculator {
   ) {}
 
   public calculateDamage(timePeriod: TimePeriod) {
-    const damageSummary = new DamageSummary(tickDuration, ...this.team.weapons);
+    const damageSummary = new DamageSummary(
+      timePeriod.duration,
+      ...this.team.weapons
+    );
 
     const attackActions = this.attackRegistry.getAttackActions(timePeriod);
     const buffActions = this.buffRegistry.getActiveBuffActions(timePeriod);
