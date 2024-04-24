@@ -390,11 +390,11 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           updatesResources: [
             {
               resourceId: chargeResourceId,
-              amount: 100, // TODO: placeholder. Assuming duration is 1s. Maybe a per second option is needed
+              amountPerSecond: 100, // TODO: placeholder.
             },
             {
               resourceId: enduranceResourceId,
-              amount: -21, // Assuming duration is 1s. TODO: maybe an amountPerSecond option is needed
+              amountPerSecond: -21,
             },
           ],
         },
@@ -2018,10 +2018,12 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           id: 'nanyin-atk-buff-the-final-tune',
           displayName: 'Nan Yin - The final tune',
           description: '',
-          attackBuff: {
-            value: 0.3,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          },
+          attackBuffs: [
+            {
+              value: 0.3,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -2555,8 +2557,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           maxStarRequirement: 6,
         },
         {
-          id: 'rei-energy-consumption-volt',
-          displayName: 'Rei: Energy Consumption volt buff',
+          id: 'rei-energy-consumption-buff',
+          displayName: 'Rei: Energy Consumption buff',
           description:
             'Energy Consumption: Increase volt ATK by 15% and frost ATK by 5%.',
           cooldown: 0,
@@ -2570,31 +2572,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {},
           minStarRequirement: 0,
           maxStarRequirement: 6,
-          attackBuff: {
-            value: 0.15,
-            elementalTypes: ['Volt'],
-          },
-        },
-        {
-          id: 'rei-energy-consumption-frost',
-          displayName: 'Rei: Energy Consumption frost buff',
-          description:
-            'Energy Consumption: Increase volt ATK by 15% and frost ATK by 5%.',
-          cooldown: 0,
-          maxStacks: 1,
-          triggeredBy: {
-            buffStart: 'rei-energy-consumption',
-          },
-          endedBy: {
-            buffEnd: 'rei-energy-consumption',
-          },
-          requirements: {},
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
-          attackBuff: {
-            value: 0.05,
-            elementalTypes: ['Frost'],
-          },
+          attackBuffs: [
+            {
+              value: 0.15,
+              elementalTypes: ['Volt'],
+            },
+            {
+              value: 0.05,
+              elementalTypes: ['Frost'],
+            },
+          ],
         },
         {
           id: 'rei-energy-comsumption-drain-onfield',

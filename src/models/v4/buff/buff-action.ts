@@ -9,7 +9,7 @@ import type { MiscellaneousBuff } from './miscellaneous-buff';
 export class BuffAction extends Action {
   public buffId: BuffId;
   public stacks: number;
-  public attackBuff?: AttackBuff;
+  public attackBuffs: AttackBuff[];
   public damageBuff?: DamageBuff;
   public miscBuff?: MiscellaneousBuff;
   public updatesResources: ActionUpdatesResource[];
@@ -19,13 +19,13 @@ export class BuffAction extends Action {
     timePeriod: TimePeriod,
     stacks = 1
   ) {
-    const { cooldown, attackBuff, damageBuff, miscBuff, updatesResources } =
+    const { cooldown, attackBuffs, damageBuff, miscBuff, updatesResources } =
       definition;
     super(timePeriod, cooldown);
 
     this.buffId = definition.id;
     this.stacks = stacks;
-    this.attackBuff = attackBuff ? { ...attackBuff } : undefined;
+    this.attackBuffs = attackBuffs?.map((x) => ({ ...x })) ?? [];
     this.damageBuff = damageBuff ? { ...damageBuff } : undefined;
     this.miscBuff = miscBuff ? { ...miscBuff } : undefined;
     this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];

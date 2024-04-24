@@ -5,10 +5,12 @@ export const commonBuffs: BuffDefinition[] = [
     id: 'volt-resonance',
     displayName: 'Volt Resonance',
     description: '+15% volt ATK when equipping 2 or more volt weapons',
-    attackBuff: {
-      value: 0.15,
-      elementalTypes: ['Volt'],
-    },
+    attackBuffs: [
+      {
+        value: 0.15,
+        elementalTypes: ['Volt'],
+      },
+    ],
     maxStacks: 1,
     triggeredBy: {
       combatStart: true,
@@ -31,10 +33,12 @@ export const commonBuffs: BuffDefinition[] = [
     id: 'frost-resonance',
     displayName: 'Frost Resonance',
     description: '+15% frost ATK when equipping 2 or more frost weapons',
-    attackBuff: {
-      value: 0.15,
-      elementalTypes: ['Frost'],
-    },
+    attackBuffs: [
+      {
+        value: 0.15,
+        elementalTypes: ['Frost'],
+      },
+    ],
     maxStacks: 1,
     triggeredBy: {
       combatStart: true,

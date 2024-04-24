@@ -103,16 +103,14 @@ export class DamageCalculator {
 
   public getTotalAttackPercent(): number {
     const attackBuffValues = this.activeBuffActions
-      .filter(
-        (buff) =>
-          buff.attackBuff &&
-          buff.attackBuff.elementalTypes.includes(
-            this.attackAction.elementalType
+      .flatMap((buffAction) =>
+        buffAction.attackBuffs
+          .filter((attackBuff) =>
+            attackBuff.elementalTypes.includes(this.attackAction.elementalType)
           )
+          .map((attackBuff) => ({ attackBuff, stacks: buffAction.stacks }))
       )
-      .map((buff) =>
-        product(buff.attackBuff?.value ?? 0, buff.stacks).toNumber()
-      );
+      .map((buff) => product(buff.attackBuff.value, buff.stacks).toNumber());
 
     return sum(this.getGearAttackPercent(), ...attackBuffValues).toNumber();
   }

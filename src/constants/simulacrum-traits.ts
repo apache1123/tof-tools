@@ -173,10 +173,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Cocoritter trait',
           description:
             "Using a support-type weapon's discharge skill or weapon skill, increase nearby allies' (including self) ATK by 15% for 5 seconds.",
-          attackBuff: {
-            value: 0.15,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          },
+          attackBuffs: [
+            {
+              value: 0.15,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             skillOfWeaponType: 'Support',
@@ -408,10 +410,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Frigg trait',
           description:
             'Upon entering battle, gain 2.4% frost ATK for 5 seconds every 3 seconds, with up to 10 stacks. Assume max stacks at the start for simplicity',
-          attackBuff: {
-            value: 0.24,
-            elementalTypes: ['Frost'],
-          },
+          attackBuffs: [
+            {
+              value: 0.24,
+              elementalTypes: ['Frost'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1034,10 +1038,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ruby trait - Dolly ATK increase',
           description:
             'Increases flame ATK after throwing Dolly by 12% for 10 seconds',
-          attackBuff: {
-            value: 0.12,
-            elementalTypes: ['Flame'],
-          },
+          attackBuffs: [
+            {
+              value: 0.12,
+              elementalTypes: ['Flame'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             weaponAttacks: ['ruby-dodge-go-dolly'],
@@ -1109,34 +1115,20 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       displayName: 'Shiro',
       buffs: [
         {
-          id: 'shiro-trait-all-atk',
-          displayName: 'Shiro trait - all ATK increase',
+          id: 'shiro-trait',
+          displayName: 'Shiro trait',
           description:
             'After using a weapon skill/discharge skill, increase all kinds of ATK by 16% and physical ATK by an additional 10% for 8 seconds. Cooldown: 16 seconds.',
-          attackBuff: {
-            value: 0.16,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          },
-          maxStacks: 1,
-          triggeredBy: {
-            skillOfAnyWeapon: true,
-            dischargeOfAnyWeapon: true,
-          },
-          endedBy: {
-            duration: 8000,
-          },
-          cooldown: 16000,
-          requirements: {},
-        },
-        {
-          id: 'shiro-trait-phys-atk',
-          displayName: 'Shiro trait - physical ATK increase',
-          description:
-            'After using a weapon skill/discharge skill, increase all kinds of ATK by 16% and physical ATK by an additional 10% for 8 seconds. Cooldown: 16 seconds.',
-          attackBuff: {
-            value: 0.1,
-            elementalTypes: ['Physical'],
-          },
+          attackBuffs: [
+            {
+              value: 0.16,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            },
+            {
+              value: 0.1,
+              elementalTypes: ['Physical'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             skillOfAnyWeapon: true,
@@ -1189,10 +1181,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Tsubasa trait',
           description:
             'Each time Tsubasa deals damage, gain 1 stack of Fierce Strike, up to 1 stack per 1 second. Each stack adds 0.6% ATK, up to 30 stacks. Refreshes effect duration upon gaining the effect again. The effect lasts for 30 seconds.',
-          attackBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          },
+          attackBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
