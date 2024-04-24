@@ -1,4 +1,6 @@
+import type { TimeInterval } from '../time-interval';
 import type { Resource } from './resource';
+import type { ResourceAction } from './resource-action';
 import type { ResourceId } from './resource-definition';
 
 export class ResourceRegistry {
@@ -18,5 +20,11 @@ export class ResourceRegistry {
     if (!resource) return false;
 
     return resource.getCumulatedAmount(time) >= minAmount;
+  }
+
+  public getResourceActions(timeInterval: TimeInterval): ResourceAction[] {
+    return this.resources.flatMap((resource) =>
+      resource.getResourceActionsOverlappingInterval(timeInterval)
+    );
   }
 }

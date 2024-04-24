@@ -1,17 +1,13 @@
 import BigNumber from 'bignumber.js';
 
 import { oneSecondDuration } from '../../../utils/time-utils';
-import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TimeInterval } from '../time-interval';
 import type { ActionUpdatesResource } from './action-updates-resource';
 
 /** Updates resource(s) based on an action update resource definition */
 export class ActionResourceUpdater {
-  public constructor(
-    private readonly resourceRegistry: ResourceRegistry,
-    private readonly combatEventNotifier: CombatEventNotifier
-  ) {}
+  public constructor(private readonly resourceRegistry: ResourceRegistry) {}
 
   /** If an action is defined to update resources, adjust the amount of resources based on that given a time interval. If the action adds a flat amount of resources over its entire duration, distribute that over the time interval. */
   public adjustResources(
@@ -47,20 +43,7 @@ export class ActionResourceUpdater {
           .toNumber();
       }
 
-      const resourceAction = resource.addResourceAction(
-        timeInterval,
-        resolvedAmount,
-        hasPriority
-      );
-
-      if (resourceAction) {
-        this.combatEventNotifier.notifyResourceUpdate(resourceAction);
-
-        const { endTime } = timeInterval;
-        const isDepleted = resource.isDepleted(endTime);
-        if (isDepleted)
-          this.combatEventNotifier.notifyResourceDepleted(resourceAction);
-      }
+      resource.addResourceAction(timeInterval, resolvedAmount, hasPriority);
     }
   }
 }

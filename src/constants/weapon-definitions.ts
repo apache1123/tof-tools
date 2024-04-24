@@ -2544,7 +2544,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           id: 'rei-energy-consumption',
           displayName: 'Rei: Energy Consumption',
           description:
-            'If special energy is greater than 70 when performing Backjump Arrow, trigger Energy Consumption',
+            'If special energy is greater than 70 when performing Backjump Arrow, trigger Energy Consumption. Increase volt ATK by 15% and frost ATK by 5%.',
           cooldown: 0,
           maxStacks: 1,
           triggeredBy: {
@@ -2559,23 +2559,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               minAmount: 70,
             },
           },
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
-        },
-        {
-          id: 'rei-energy-consumption-buff',
-          displayName: 'Rei: Energy Consumption buff',
-          description:
-            'Energy Consumption: Increase volt ATK by 15% and frost ATK by 5%.',
-          cooldown: 0,
-          maxStacks: 1,
-          triggeredBy: {
-            buffStart: 'rei-energy-consumption',
-          },
-          endedBy: {
-            buffEnd: 'rei-energy-consumption',
-          },
-          requirements: {},
           minStarRequirement: 0,
           maxStarRequirement: 6,
           attackBuffs: [

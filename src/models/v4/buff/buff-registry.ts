@@ -18,13 +18,7 @@ export class BuffRegistry {
     return timeline && timeline.isActionActiveAt(time);
   }
 
-  public getActiveBuffs(timeInterval: TimeInterval): Buff[] {
-    return this.buffs.filter(
-      (buff) => buff.getBuffActionsOverlappingInterval(timeInterval).length
-    );
-  }
-
-  public getActiveBuffActions(timeInterval: TimeInterval): BuffAction[] {
+  public getBuffActions(timeInterval: TimeInterval): BuffAction[] {
     return this.buffs.flatMap((buff) =>
       buff.getBuffActionsOverlappingInterval(timeInterval)
     );

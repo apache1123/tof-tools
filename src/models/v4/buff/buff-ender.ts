@@ -12,8 +12,8 @@ export class BuffEnder extends EventHandler {
   }
 
   public handle(data: EventData): void {
-    const tickStart = this.tickTracker.getNextClosestTickStart(data.time);
-    this.buff.endActiveBuffsAt(tickStart);
+    const tickEnd = this.tickTracker.getNextClosestTickEnd(data.time);
+    this.buff.endActiveBuffsAt(tickEnd);
     return super.handle(data);
   }
 }

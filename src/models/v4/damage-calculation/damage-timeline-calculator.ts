@@ -29,7 +29,7 @@ export class DamageTimelineCalculator {
     );
 
     const attackActions = this.attackRegistry.getAttackActions(timeInterval);
-    const buffActions = this.buffRegistry.getActiveBuffActions(timeInterval);
+    const buffActions = this.buffRegistry.getBuffActions(timeInterval);
 
     for (const attackAction of attackActions) {
       const { type, elementalType, weapon } = attackAction;

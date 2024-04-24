@@ -24,6 +24,7 @@ export class Resource {
     return sum(...resourceActions.map((action) => action.amount)).toNumber();
   }
 
+  /** Is the resource depleted at a point of time (but not including that point of time) */
   public isDepleted(time: number) {
     return this.getCumulatedAmount(time) === 0;
   }

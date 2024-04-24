@@ -12,8 +12,8 @@ export class AttackEnder extends EventHandler {
   }
 
   public handle(data: EventData): void {
-    const tickStart = this.tickTracker.getNextClosestTickStart(data.time);
-    this.attack.endActiveAttacksAt(tickStart);
+    const tickEnd = this.tickTracker.getNextClosestTickEnd(data.time);
+    this.attack.endActiveAttacksAt(tickEnd);
     return super.handle(data);
   }
 }

@@ -106,8 +106,7 @@ export class CombatSimulator {
     );
 
     const actionResourceUpdater = new ActionResourceUpdater(
-      this.resourceRegistry,
-      this.combatEventNotifier
+      this.resourceRegistry
     );
     this.attackSimulator = new AttackSimulator(
       this.tickTracker,
