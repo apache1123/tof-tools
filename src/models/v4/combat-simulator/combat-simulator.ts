@@ -91,7 +91,8 @@ export class CombatSimulator {
       this.weaponTracker,
       this.combinedAttackRegistry,
       this.buffRegistry,
-      this.resourceRegistry
+      this.resourceRegistry,
+      this.combatEventNotifier
     );
 
     this.damageSummaryTimeline = new DamageSummaryTimeline(combatDuration);

@@ -7,6 +7,7 @@ import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TickTracker } from '../tick-tracker';
+import type { CombatEventNotifier } from './combat-event-notifier';
 import { EventHandlerFactory } from './event-handler-factory';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
@@ -20,7 +21,8 @@ export class CombatEventConfigurator {
     weaponTracker: WeaponTracker,
     attackRegistry: CombinedAttackRegistry,
     buffRegistry: BuffRegistry,
-    resourceRegistry: ResourceRegistry
+    resourceRegistry: ResourceRegistry,
+    combatEventNotifier: CombatEventNotifier
   ) {
     for (const attack of attackRegistry.playerInputAttacks) {
       const {
@@ -34,7 +36,8 @@ export class CombatEventConfigurator {
           tickTracker,
           weaponTracker,
           buffRegistry,
-          resourceRegistry
+          resourceRegistry,
+          combatEventNotifier
         )
       );
     }
@@ -55,7 +58,8 @@ export class CombatEventConfigurator {
           tickTracker,
           weaponTracker,
           buffRegistry,
-          resourceRegistry
+          resourceRegistry,
+          combatEventNotifier
         );
       for (const eventId of eventIdsToTriggerAttackOn) {
         eventManager.subscribe(eventId, triggerAttackHandler);
@@ -234,6 +238,14 @@ export class CombatEventConfigurator {
         .forEach((weapon) => {
           eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
+    }
+
+    if (actionEndedBy.resourceDepleted) {
+      eventIds.push(
+        eventIdProvider.getResourceDepletedEventId(
+          actionEndedBy.resourceDepleted
+        )
+      );
     }
 
     return eventIds;

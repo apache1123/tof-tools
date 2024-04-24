@@ -11,6 +11,7 @@ import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffTrigger } from '../buff/buff-trigger';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TickTracker } from '../tick-tracker';
+import type { CombatEventNotifier } from './combat-event-notifier';
 import { EventHandler } from './event-handler';
 
 export class EventHandlerFactory {
@@ -20,7 +21,8 @@ export class EventHandlerFactory {
     tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
     buffRegistry: BuffRegistry,
-    resourceRegistry: ResourceRegistry
+    resourceRegistry: ResourceRegistry,
+    combatEventNotifier: CombatEventNotifier
   ): EventHandler {
     return EventHandler.link(
       new ActionCooldownHandler(attack.timeline),
@@ -31,7 +33,7 @@ export class EventHandlerFactory {
         buffRegistry,
         resourceRegistry
       ),
-      new AttackTrigger(attack, tickTracker, weaponTracker)
+      new AttackTrigger(attack, tickTracker, weaponTracker, combatEventNotifier)
     );
   }
 
