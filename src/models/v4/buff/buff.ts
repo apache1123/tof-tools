@@ -1,5 +1,5 @@
 import type { ActionTimeCalculator } from '../action/action-time-calculator';
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 import { BuffAction } from './buff-action';
 import type { BuffDefinition } from './buff-definition';
 import type { BuffTimeline } from './buff-timeline';
@@ -21,23 +21,23 @@ export class Buff {
   }
 
   public trigger(time: number): BuffAction {
-    const timePeriod =
-      this.actionTimeCalculator.calculateActionTimePeriod(time);
-    return this.addNewBuffAction(new BuffAction(this.definition, timePeriod));
+    const timeInterval =
+      this.actionTimeCalculator.calculateActionTimeInterval(time);
+    return this.addNewBuffAction(new BuffAction(this.definition, timeInterval));
   }
 
   public endActiveBuffsAt(time: number) {
     return this.timeline.endAnyActionsAt(time);
   }
 
-  public getBuffActionsEndingBetween(timePeriod: TimePeriod) {
-    return this.timeline.getActionsEndingBetween(timePeriod);
+  public getBuffActionsEndingBetween(timeInterval: TimeInterval) {
+    return this.timeline.getActionsEndingBetween(timeInterval);
   }
 
-  public getBuffActionsOverlappingPeriod(timePeriod: TimePeriod) {
-    return this.timeline.getActionsOverlappingPeriod(
-      timePeriod.startTime,
-      timePeriod.endTime
+  public getBuffActionsOverlappingInterval(timeInterval: TimeInterval) {
+    return this.timeline.getActionsOverlappingInterval(
+      timeInterval.startTime,
+      timeInterval.endTime
     );
   }
 
@@ -66,7 +66,7 @@ export class Buff {
       return buffAction;
     }
 
-    // Same time period, increase stack count if applicable
+    // Same time interval, increase stack count if applicable
     if (
       buffAction.startTime === lastAction.startTime &&
       buffAction.endTime === lastAction.endTime
@@ -83,21 +83,21 @@ export class Buff {
       return buffAction;
     }
 
-    // Time periods overlap, but are not the same
-    const newStacksOfOverlappingPeriod = Math.min(
+    // Time intervals overlap, but are not the same
+    const newStacksOfOverlappingInterval = Math.min(
       lastAction.stacks + buffAction.stacks,
       maxStacks
     );
 
-    if (newStacksOfOverlappingPeriod === buffAction.stacks) {
+    if (newStacksOfOverlappingInterval === buffAction.stacks) {
       lastAction.endTime = buffAction.endTime;
       return buffAction;
     }
 
-    if (newStacksOfOverlappingPeriod === lastAction.stacks) {
+    if (newStacksOfOverlappingInterval === lastAction.stacks) {
       const newBuffAction = new BuffAction(
         this.definition,
-        new TimePeriod(
+        new TimeInterval(
           lastAction.endTime,
           lastAction.endTime + buffAction.duration
         ),
@@ -111,16 +111,19 @@ export class Buff {
 
     lastAction.endTime = buffAction.startTime;
 
-    const newBuffOfOverlappingPeriod = new BuffAction(
+    const newBuffOfOverlappingInterval = new BuffAction(
       this.definition,
-      new TimePeriod(buffAction.startTime, oldLastBuffEndTime),
-      newStacksOfOverlappingPeriod
+      new TimeInterval(buffAction.startTime, oldLastBuffEndTime),
+      newStacksOfOverlappingInterval
     );
-    this.timeline.addAction(newBuffOfOverlappingPeriod);
+    this.timeline.addAction(newBuffOfOverlappingInterval);
 
     const newBuffAction = new BuffAction(
       this.definition,
-      new TimePeriod(newBuffOfOverlappingPeriod.endTime, buffAction.endTime),
+      new TimeInterval(
+        newBuffOfOverlappingInterval.endTime,
+        buffAction.endTime
+      ),
       buffAction.stacks
     );
     this.timeline.addAction(newBuffAction);

@@ -14,21 +14,21 @@ export class AttackSimulator {
 
   public simulate() {
     for (const attackAction of this.attackRegistry.getAttackActions(
-      this.tickTracker.currentTickPeriod
+      this.tickTracker.currentTickInterval
     )) {
       this.simulateAction(attackAction);
     }
   }
 
   private simulateAction(attackAction: AttackAction) {
-    const tickPeriod = this.tickTracker.currentTickPeriod;
+    const tickInterval = this.tickTracker.currentTickInterval;
 
-    if (tickPeriod.includes(attackAction.startTime)) {
+    if (tickInterval.includes(attackAction.startTime)) {
       this.combatEventNotifier.notifyAttackStart(attackAction);
     }
 
     for (const timeOfHit of attackAction.timeOfHits.filter((time) =>
-      tickPeriod.includes(time)
+      tickInterval.includes(time)
     )) {
       this.combatEventNotifier.notifyAttackHit(timeOfHit);
     }
@@ -37,12 +37,12 @@ export class AttackSimulator {
     if (updatesResources) {
       this.actionResourceUpdater.adjustResources(
         updatesResources,
-        tickPeriod,
-        attackAction.timePeriod
+        tickInterval,
+        attackAction.timeInterval
       );
     }
 
-    if (tickPeriod.includes(attackAction.endTime)) {
+    if (tickInterval.includes(attackAction.endTimeInclusive)) {
       this.combatEventNotifier.notifyAttackEnd(attackAction);
     }
   }

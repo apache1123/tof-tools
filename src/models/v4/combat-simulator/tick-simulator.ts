@@ -17,19 +17,19 @@ export class TickSimulator {
     private readonly damageTimelineCalculator: DamageTimelineCalculator
   ) {}
 
-  /** Simulate ticks from the current tick period to the end of the tick period encompassing the last attack end time. This advances the current tick period to the next when it has been fully simulated */
+  /** Simulate ticks from the current tick interval to the end of the tick interval encompassing the last attack end time. This advances the current tick interval to the next when it has been fully simulated */
   public simulateTicksForLastAttack() {
     let lastAttack;
 
     // Simulate ticks until the entire of the last attack is simulated. Always trigger one tick first to trigger the next queued player input attack, then treat that as the last attack
     do {
-      this.tickTracker.advanceTickPeriod();
+      this.tickTracker.advanceTickInterval();
       this.simulateTick();
       lastAttack = this.combinedAttackRegistry.lastPlayerInputAttackAction;
     } while (
       !lastAttack ||
       (lastAttack &&
-        this.tickTracker.getNextTickPeriod().startTime < lastAttack.endTime)
+        this.tickTracker.getNextTickInterval().startTime < lastAttack.endTime)
     );
   }
 
@@ -41,7 +41,7 @@ export class TickSimulator {
     this.resourceSimulator.simulate();
 
     this.damageTimelineCalculator.calculateDamage(
-      this.tickTracker.currentTickPeriod
+      this.tickTracker.currentTickInterval
     );
   }
 }

@@ -1,6 +1,6 @@
 import { Action } from '../action/action';
 import type { ActionUpdatesResource } from '../action/action-updates-resource';
-import type { TimePeriod } from '../time-period';
+import type { TimeInterval } from '../time-interval';
 import type { AttackBuff } from './attack-buff';
 import type { BuffDefinition, BuffId } from './buff-definition';
 import type { DamageBuff } from './damage-buff';
@@ -16,12 +16,12 @@ export class BuffAction extends Action {
 
   public constructor(
     definition: BuffDefinition,
-    timePeriod: TimePeriod,
+    timeInterval: TimeInterval,
     stacks = 1
   ) {
     const { cooldown, attackBuffs, damageBuffs, miscBuff, updatesResources } =
       definition;
-    super(timePeriod, cooldown);
+    super(timeInterval, cooldown);
 
     this.buffId = definition.id;
     this.stacks = stacks;

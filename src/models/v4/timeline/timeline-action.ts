@@ -1,3 +1,3 @@
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 
-export class TimelineAction extends TimePeriod {}
+export class TimelineAction extends TimeInterval {}

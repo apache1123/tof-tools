@@ -1,14 +1,14 @@
 import type { DamageSummary } from '../damage-summary/damage-summary';
-import type { TimePeriod } from '../time-period';
+import type { TimeInterval } from '../time-interval';
 import { TimelineAction } from '../timeline/timeline-action';
 
 export class DamageSummaryEvent extends TimelineAction {
   public constructor(
-    timePeriod: TimePeriod,
+    timeInterval: TimeInterval,
     public damageSummary: DamageSummary,
     public cumulatedDamageSummary: DamageSummary
   ) {
-    const { startTime, endTime } = timePeriod;
+    const { startTime, endTime } = timeInterval;
     super(startTime, endTime);
   }
 }

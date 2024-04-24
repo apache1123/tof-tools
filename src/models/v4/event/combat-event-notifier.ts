@@ -43,9 +43,10 @@ export class CombatEventNotifier {
   }
 
   public notifyAttackEnd(attackAction: AttackAction) {
-    const { endTime, attackId, elementalType, type, weapon } = attackAction;
+    const { endTimeInclusive, attackId, elementalType, type, weapon } =
+      attackAction;
 
-    const eventData: EventData = { time: endTime };
+    const eventData: EventData = { time: endTimeInclusive };
 
     this.eventManager.notify(
       eventIdProvider.getAttackEndEventId(attackId),
@@ -108,7 +109,7 @@ export class CombatEventNotifier {
     this.eventManager.notify(
       eventIdProvider.getBuffEndEventId(buffAction.buffId),
       {
-        time: buffAction.endTime,
+        time: buffAction.endTimeInclusive,
       }
     );
   }
@@ -116,14 +117,14 @@ export class CombatEventNotifier {
   public notifyResourceUpdate(resourceAction: ResourceAction) {
     this.eventManager.notify(
       eventIdProvider.getResourceUpdateEventId(resourceAction.resourceId),
-      { time: resourceAction.endTime }
+      { time: resourceAction.endTimeInclusive }
     );
   }
 
   public notifyResourceDepleted(resourceAction: ResourceAction) {
     this.eventManager.notify(
       eventIdProvider.getResourceDepletedEventId(resourceAction.resourceId),
-      { time: resourceAction.endTime }
+      { time: resourceAction.endTimeInclusive }
     );
   }
 }

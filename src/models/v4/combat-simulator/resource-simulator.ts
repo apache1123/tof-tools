@@ -5,7 +5,7 @@ import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { Resource } from '../resource/resource';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TickTracker } from '../tick-tracker';
-import type { TimePeriod } from '../time-period';
+import type { TimeInterval } from '../time-interval';
 
 export class ResourceSimulator {
   public constructor(
@@ -16,31 +16,31 @@ export class ResourceSimulator {
 
   public simulate() {
     for (const resource of this.resourceRegistry.resources) {
-      this.simulateResource(resource, this.tickTracker.currentTickPeriod);
+      this.simulateResource(resource, this.tickTracker.currentTickInterval);
     }
   }
 
-  private simulateResource(resource: Resource, tickPeriod: TimePeriod) {
-    this.regenerateResource(resource, tickPeriod);
+  private simulateResource(resource: Resource, tickInterval: TimeInterval) {
+    this.regenerateResource(resource, tickInterval);
   }
 
-  /** regenerate the resource amount for a tick period, if there are no other actions in that tick period
+  /** regenerate the resource amount for a tick interval, if there are no other actions in that tick interval
    * @returns the regenerate resource action if one has been added
    */
-  private regenerateResource(resource: Resource, tickPeriod: TimePeriod) {
+  private regenerateResource(resource: Resource, tickInterval: TimeInterval) {
     const { regenerateAmountPerSecond } = resource.definition;
     if (!regenerateAmountPerSecond) return;
 
     const existingActions =
-      resource.getResourceActionsOverlappingPeriod(tickPeriod);
+      resource.getResourceActionsOverlappingInterval(tickInterval);
     if (existingActions.length) return;
 
     const regenerateAmount = BigNumber(regenerateAmountPerSecond)
-      .times(tickPeriod.duration)
+      .times(tickInterval.duration)
       .div(oneSecondDuration)
       .toNumber();
     const regenerateAction = resource.addResourceAction(
-      tickPeriod,
+      tickInterval,
       regenerateAmount
     );
 

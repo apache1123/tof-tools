@@ -1,4 +1,4 @@
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 import type { ActionEndedBy } from './action-ended-by';
 import type { ActionTimeline } from './action-timeline';
 
@@ -11,7 +11,7 @@ export class ActionTimeCalculator {
     this.timeline = timeline;
   }
 
-  public calculateActionTimePeriod(time: number): TimePeriod {
+  public calculateActionTimeInterval(time: number): TimeInterval {
     let endTime!: number;
 
     const {
@@ -37,6 +37,6 @@ export class ActionTimeCalculator {
       throw new Error('Cannot determine action end time');
     }
 
-    return new TimePeriod(time, endTime);
+    return new TimeInterval(time, endTime);
   }
 }

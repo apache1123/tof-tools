@@ -1,4 +1,4 @@
-import type { TimePeriod } from '../time-period';
+import type { TimeInterval } from '../time-interval';
 import type { Buff } from './buff';
 import type { BuffAction } from './buff-action';
 import type { BuffId } from './buff-definition';
@@ -18,21 +18,21 @@ export class BuffRegistry {
     return timeline && timeline.isActionActiveAt(time);
   }
 
-  public getActiveBuffs(timePeriod: TimePeriod): Buff[] {
+  public getActiveBuffs(timeInterval: TimeInterval): Buff[] {
     return this.buffs.filter(
-      (buff) => buff.getBuffActionsOverlappingPeriod(timePeriod).length
+      (buff) => buff.getBuffActionsOverlappingInterval(timeInterval).length
     );
   }
 
-  public getActiveBuffActions(timePeriod: TimePeriod): BuffAction[] {
+  public getActiveBuffActions(timeInterval: TimeInterval): BuffAction[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffActionsOverlappingPeriod(timePeriod)
+      buff.getBuffActionsOverlappingInterval(timeInterval)
     );
   }
 
-  public getBuffActionsEndingBetween(timePeriod: TimePeriod): BuffAction[] {
+  public getBuffActionsEndingBetween(timeInterval: TimeInterval): BuffAction[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffActionsEndingBetween(timePeriod)
+      buff.getBuffActionsEndingBetween(timeInterval)
     );
   }
 }

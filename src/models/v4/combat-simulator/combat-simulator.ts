@@ -20,7 +20,7 @@ import type { Relics } from '../relics/relics';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
 import { TickTracker } from '../tick-tracker';
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 import { AttackSimulator } from './attack-simulator';
 import { BuffSimulator } from './buff-simulator';
 import { ResourceSimulator } from './resource-simulator';
@@ -53,8 +53,8 @@ export class CombatSimulator {
   ) {
     const { team } = loadout;
 
-    const startingTickPeriod = new TimePeriod(-tickDuration, 0);
-    this.tickTracker = new TickTracker(startingTickPeriod, tickDuration);
+    const startingTickInterval = new TimeInterval(-tickDuration, 0);
+    this.tickTracker = new TickTracker(startingTickInterval, tickDuration);
 
     this.queuedEventManager = new QueuedEventManager();
     this.combatEventNotifier = new CombatEventNotifier(this.queuedEventManager);
@@ -139,7 +139,7 @@ export class CombatSimulator {
   public get nextAvailableAttacks(): AttackId[] {
     return this.combinedAttackRegistry
       .getAvailablePlayerInputAttacks(
-        this.tickTracker.currentTickPeriod.startTime
+        this.tickTracker.currentTickInterval.startTime
       )
       .map((item) => item.definition.id);
   }
@@ -151,7 +151,7 @@ export class CombatSimulator {
       );
     }
 
-    const tickStart = this.tickTracker.currentTickPeriod.startTime;
+    const tickStart = this.tickTracker.currentTickInterval.startTime;
     if (tickStart <= 0) this.preCombat();
 
     this.combatEventNotifier.notifyAttackRequest(tickStart, attackId);

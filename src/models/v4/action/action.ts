@@ -1,21 +1,21 @@
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 
-/** An action is anything a character does, spanning over a time period and has a cooldown. Attacks and buffs are all considered actions. */
-export class Action extends TimePeriod {
-  private _timePeriod: TimePeriod;
+/** An action is anything a character does, spanning over a time interval and has a cooldown. Attacks and buffs are all considered actions. */
+export class Action extends TimeInterval {
+  private _timeInterval: TimeInterval;
 
-  public constructor(timePeriod: TimePeriod, public cooldown: number) {
-    const { startTime, endTime } = timePeriod;
+  public constructor(timeInterval: TimeInterval, public cooldown: number) {
+    const { startTime, endTime } = timeInterval;
     super(startTime, endTime);
 
-    this._timePeriod = timePeriod;
+    this._timeInterval = timeInterval;
   }
 
-  public get timePeriod(): TimePeriod {
-    return this._timePeriod;
+  public get timeInterval(): TimeInterval {
+    return this._timeInterval;
   }
-  public set timePeriod(value: TimePeriod) {
-    this._timePeriod = value;
+  public set timeInterval(value: TimeInterval) {
+    this._timeInterval = value;
     this.startTime = value.startTime;
     this.endTime = value.endTime;
   }
@@ -25,7 +25,7 @@ export class Action extends TimePeriod {
   }
   public set startTime(value: number) {
     super.startTime = value;
-    this._timePeriod.startTime = value;
+    this._timeInterval.startTime = value;
   }
 
   public get endTime(): number {
@@ -33,9 +33,10 @@ export class Action extends TimePeriod {
   }
   public set endTime(value: number) {
     super.endTime = value;
-    this._timePeriod.endTime = value;
+    this._timeInterval.endTime = value;
   }
 
+  /** Cooldown ends at a point of time (exclusive) */
   public get cooldownEndsAt() {
     return this.startTime + this.cooldown;
   }

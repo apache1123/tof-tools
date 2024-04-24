@@ -14,16 +14,16 @@ export class BuffSimulator {
 
   public simulate() {
     for (const buffAction of this.buffRegistry.getActiveBuffActions(
-      this.tickTracker.currentTickPeriod
+      this.tickTracker.currentTickInterval
     )) {
       this.simulateAction(buffAction);
     }
   }
 
   private simulateAction(buffAction: BuffAction) {
-    const tickPeriod = this.tickTracker.currentTickPeriod;
+    const tickInterval = this.tickTracker.currentTickInterval;
 
-    if (tickPeriod.includes(buffAction.startTime)) {
+    if (tickInterval.includes(buffAction.startTime)) {
       this.combatEventNotifier.notifyBuffStart(buffAction);
     }
 
@@ -31,12 +31,12 @@ export class BuffSimulator {
     if (updatesResources) {
       this.actionResourceUpdater.adjustResources(
         updatesResources,
-        tickPeriod,
-        buffAction.timePeriod
+        tickInterval,
+        buffAction.timeInterval
       );
     }
 
-    if (tickPeriod.includes(buffAction.endTime)) {
+    if (tickInterval.includes(buffAction.endTimeInclusive)) {
       this.combatEventNotifier.notifyBuffEnd(buffAction);
     }
   }

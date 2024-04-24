@@ -1,6 +1,6 @@
 import { minActionDuration } from '../../../constants/tick';
 import { sum } from '../../../utils/math-utils';
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 import type { Timeline } from '../timeline/timeline';
 import { ResourceAction } from './resource-action';
 import type { ResourceDefinition } from './resource-definition';
@@ -17,10 +17,10 @@ export class Resource {
     this.timeline = timeline;
   }
 
-  /** Cumulated amount of resource at a point of time */
+  /** Cumulated amount of resource up to (but not including) a point of time */
   public getCumulatedAmount(time: number) {
-    const timePeriod = new TimePeriod(-minActionDuration, time); // start time is negative because there could be an action that adds the starting amount of a resource before the combat start time of time=0
-    const resourceActions = this.timeline.getActionsEndingBetween(timePeriod);
+    const timeInterval = new TimeInterval(-minActionDuration, time); // start time is negative because there could be an action that adds the starting amount of a resource before the combat start time of time=0
+    const resourceActions = this.timeline.getActionsEndingBetween(timeInterval);
     return sum(...resourceActions.map((action) => action.amount)).toNumber();
   }
 
@@ -52,11 +52,11 @@ export class Resource {
    * @param amount the amount of resource to add; can be negative
    * @returns a resource action if one has been added
    */
-  public addResourceAction(timePeriod: TimePeriod, amount: number) {
+  public addResourceAction(timeInterval: TimeInterval, amount: number) {
     if (!amount) return;
 
     const cumulatedAmountPreceding = this.getCumulatedAmount(
-      timePeriod.endTime
+      timeInterval.endTime
     );
 
     if (
@@ -82,7 +82,7 @@ export class Resource {
     if (!amountToAdd) return;
 
     const resourceAction = new ResourceAction(
-      timePeriod,
+      timeInterval,
       this.definition,
       amountToAdd
     );
@@ -95,15 +95,15 @@ export class Resource {
     const { startingAmount } = this.definition;
     if (!startingAmount) return;
     this.addResourceAction(
-      new TimePeriod(-minActionDuration, 0),
+      new TimeInterval(-minActionDuration, 0),
       startingAmount
     );
   }
 
-  public getResourceActionsOverlappingPeriod(timePeriod: TimePeriod) {
-    return this.timeline.getActionsOverlappingPeriod(
-      timePeriod.startTime,
-      timePeriod.endTime
+  public getResourceActionsOverlappingInterval(timeInterval: TimeInterval) {
+    return this.timeline.getActionsOverlappingInterval(
+      timeInterval.startTime,
+      timeInterval.endTime
     );
   }
 }

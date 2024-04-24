@@ -5,7 +5,7 @@ import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { Weapon } from '../../weapon';
 import { Action } from '../action/action';
 import type { ActionUpdatesResource } from '../action/action-updates-resource';
-import type { TimePeriod } from '../time-period';
+import type { TimeInterval } from '../time-interval';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackDefinition, AttackId } from './attack-definition';
 import type { AttackHitCount } from './attack-hit-count';
@@ -21,7 +21,7 @@ export class AttackAction extends Action {
   public readonly weapon: Weapon;
 
   public constructor(
-    timePeriod: TimePeriod,
+    timeInterval: TimeInterval,
     definition: AttackDefinition,
     weapon: Weapon
   ) {
@@ -35,7 +35,7 @@ export class AttackAction extends Action {
       updatesResources,
     } = definition;
 
-    super(timePeriod, cooldown);
+    super(timeInterval, cooldown);
 
     this.attackId = id;
     this.elementalType = elementalType.defaultElementalType;
@@ -48,15 +48,15 @@ export class AttackAction extends Action {
 
   /** The time of each attack hit within this action */
   public get timeOfHits(): number[] {
-    const { hitCount, startTime, endTime } = this;
+    const { hitCount, startTime, duration } = this;
 
     const result = [];
 
     // Distribute the number of hits evenly across the attack action's duration
     if (hitCount.numberOfHitsFixed) {
-      const durationBetweenHits = BigNumber(endTime)
-        .minus(startTime)
-        .div(hitCount.numberOfHitsFixed);
+      const durationBetweenHits = BigNumber(duration).div(
+        hitCount.numberOfHitsFixed
+      );
       for (
         let hitIndex = 0;
         hitIndex < hitCount.numberOfHitsFixed;

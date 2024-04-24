@@ -1,5 +1,5 @@
 import { Action } from '../action/action';
-import type { TimePeriod } from '../time-period';
+import type { TimeInterval } from '../time-interval';
 import type { ResourceDefinition, ResourceId } from './resource-definition';
 
 export class ResourceAction extends Action {
@@ -8,11 +8,11 @@ export class ResourceAction extends Action {
   public amount: number;
 
   public constructor(
-    timePeriod: TimePeriod,
+    timeInterval: TimeInterval,
     definition: ResourceDefinition,
     amount: number
   ) {
-    super(timePeriod, definition.cooldown);
+    super(timeInterval, definition.cooldown);
     this.resourceId = definition.id;
     this.amount = amount;
   }
