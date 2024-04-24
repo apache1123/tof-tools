@@ -19,7 +19,7 @@ export interface BuffDefinition extends ActionDefinition {
   };
 
   attackBuffs?: AttackBuff[];
-  damageBuff?: DamageBuff;
+  damageBuffs?: DamageBuff[];
   miscBuff?: MiscellaneousBuff;
 
   triggeredBy: ActionTriggeredBy;

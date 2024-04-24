@@ -177,33 +177,44 @@ describe('DamageCalculator', () => {
         loadout.loadoutStats,
         [
           {
-            damageBuff: {
-              elementalTypes: ['Frost'],
-              value: 0.2,
-              damageCategory: 'DMG buff category 1',
-            },
+            damageBuffs: [
+              {
+                elementalTypes: ['Frost'],
+                value: 0.2,
+                damageCategory: 'DMG buff category 1',
+              },
+              {
+                elementalTypes: ['Frost'],
+                value: 0.35,
+                damageCategory: 'DMG buff category 1',
+              },
+            ],
             stacks: 2,
           },
           {
-            damageBuff: {
-              elementalTypes: ['Frost'],
-              value: 0.3,
-              damageCategory: 'DMG buff category 1',
-            },
+            damageBuffs: [
+              {
+                elementalTypes: ['Frost'],
+                value: 0.3,
+                damageCategory: 'DMG buff category 1',
+              },
+            ],
             stacks: 1,
           },
           {
-            damageBuff: {
-              elementalTypes: ['Frost'],
-              value: 0.15,
-              damageCategory: 'DMG buff category 2',
-            },
+            damageBuffs: [
+              {
+                elementalTypes: ['Frost'],
+                value: 0.15,
+                damageCategory: 'DMG buff category 2',
+              },
+            ],
             stacks: 1,
           },
         ] as BuffAction[]
       );
 
-      expect(sut.getTotalDamagePercent()).toBe(1.9325);
+      expect(sut.getTotalDamagePercent()).toBe(3.14);
     });
   });
 });

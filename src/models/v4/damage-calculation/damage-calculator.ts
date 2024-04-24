@@ -117,15 +117,17 @@ export class DamageCalculator {
 
   public getTotalDamagePercent(): number {
     // TODO: cannotBeDamageBuffedExceptByTitans
-    const damageBuffs = this.activeBuffActions.filter(
-      (buff) =>
-        buff.damageBuff &&
-        buff.damageBuff.elementalTypes.includes(this.attackAction.elementalType)
+    const damageBuffs = this.activeBuffActions.flatMap((buffAction) =>
+      buffAction.damageBuffs
+        .filter((damageBuff) =>
+          damageBuff.elementalTypes.includes(this.attackAction.elementalType)
+        )
+        .map((damageBuff) => ({ damageBuff, stacks: buffAction.stacks }))
     );
 
     const damageBuffsByDamageCategory = groupBy(
       damageBuffs,
-      (buff) => buff.damageBuff?.damageCategory
+      (buff) => buff.damageBuff.damageCategory
     );
 
     return product(
@@ -133,7 +135,7 @@ export class DamageCalculator {
       ...Object.values(damageBuffsByDamageCategory).map((buffs) =>
         sum(
           ...buffs.map((buff) =>
-            product(buff.damageBuff?.value ?? 0, buff.stacks).toNumber()
+            product(buff.damageBuff.value ?? 0, buff.stacks).toNumber()
           ),
           1
         ).toNumber()

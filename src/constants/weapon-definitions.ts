@@ -536,11 +536,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           displayName: 'Brevey - Pact Amplification Volt Buff',
           description:
             "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's volt damage by 25%.",
-          damageBuff: {
-            value: 0.25,
-            elementalTypes: ['Volt'],
-            damageCategory: '[TEMP_UNKNOWN]',
-          },
+          damageBuffs: [
+            {
+              value: 0.25,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_UNKNOWN]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Brevey',
@@ -560,11 +562,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           displayName: 'Brevey - Pact Amplification Frost Buff',
           description:
             "During Pact Amplification, when Pactcrest ☆ Metz is in the off-hand slot, increase the Wanderer's frost damage by 10%.",
-          damageBuff: {
-            value: 0.25,
-            elementalTypes: ['Frost'],
-            damageCategory: '[TEMP_UNKNOWN]',
-          },
+          damageBuffs: [
+            {
+              value: 0.1,
+              elementalTypes: ['Frost'],
+              damageCategory: '[TEMP_UNKNOWN]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             notActiveWeapon: 'Brevey',
@@ -2528,11 +2532,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {},
           minStarRequirement: 6,
           maxStarRequirement: 6,
-          damageBuff: {
-            value: 0.1,
-            elementalTypes: ['Volt', 'Frost'],
-            damageCategory: '[TEMP_UNKNOWN]',
-          },
+          damageBuffs: [
+            {
+              value: 0.1,
+              elementalTypes: ['Volt', 'Frost'],
+              damageCategory: '[TEMP_UNKNOWN]',
+            },
+          ],
         },
         {
           id: 'rei-energy-consumption',

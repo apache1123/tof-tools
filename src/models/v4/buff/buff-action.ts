@@ -10,7 +10,7 @@ export class BuffAction extends Action {
   public buffId: BuffId;
   public stacks: number;
   public attackBuffs: AttackBuff[];
-  public damageBuff?: DamageBuff;
+  public damageBuffs: DamageBuff[];
   public miscBuff?: MiscellaneousBuff;
   public updatesResources: ActionUpdatesResource[];
 
@@ -19,14 +19,14 @@ export class BuffAction extends Action {
     timePeriod: TimePeriod,
     stacks = 1
   ) {
-    const { cooldown, attackBuffs, damageBuff, miscBuff, updatesResources } =
+    const { cooldown, attackBuffs, damageBuffs, miscBuff, updatesResources } =
       definition;
     super(timePeriod, cooldown);
 
     this.buffId = definition.id;
     this.stacks = stacks;
     this.attackBuffs = attackBuffs?.map((x) => ({ ...x })) ?? [];
-    this.damageBuff = damageBuff ? { ...damageBuff } : undefined;
+    this.damageBuffs = damageBuffs?.map((x) => ({ ...x })) ?? [];
     this.miscBuff = miscBuff ? { ...miscBuff } : undefined;
     this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
   }
