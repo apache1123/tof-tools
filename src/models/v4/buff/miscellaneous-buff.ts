@@ -2,8 +2,6 @@ import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { WeaponName } from '../../../constants/weapon-definitions';
 
 export interface MiscellaneousBuff {
-  // Order buffs from most specific to least specific. Check in this order for efficiency
-
   // TODO: calculations for these buffs
   /** Buffs all normal attacks of weapon by value, e.g. value = 0.5 = +50% */
   normalAttackBuff?: {

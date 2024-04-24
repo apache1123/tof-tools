@@ -21,6 +21,7 @@ export interface ActionTriggeredBy {
   skillOfElementalType?: WeaponElementalType;
   dischargeOfElementalType?: WeaponElementalType;
   fullChargeOfWeapons?: WeaponName[];
+
   weaponAttacks?: string[];
 
   buffStart?: BuffId;

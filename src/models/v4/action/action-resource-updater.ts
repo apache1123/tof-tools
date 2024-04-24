@@ -20,7 +20,8 @@ export class ActionResourceUpdater {
     actionInterval: TimeInterval
   ) {
     for (const updatesResource of updatesResources) {
-      const { resourceId, amount, amountPerSecond } = updatesResource;
+      const { resourceId, amount, amountPerSecond, hasPriority } =
+        updatesResource;
 
       if (!amount && !amountPerSecond) return;
 
@@ -48,7 +49,8 @@ export class ActionResourceUpdater {
 
       const resourceAction = resource.addResourceAction(
         timeInterval,
-        resolvedAmount
+        resolvedAmount,
+        hasPriority
       );
 
       if (resourceAction) {

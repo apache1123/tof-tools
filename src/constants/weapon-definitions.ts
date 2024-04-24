@@ -2590,8 +2590,8 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           ],
         },
         {
-          id: 'rei-energy-comsumption-drain-onfield',
-          displayName: 'Rei: Energy Consumption on-field',
+          id: 'rei-energy-consumption-drain-on-field-buff',
+          displayName: 'Rei: Energy Consumption on-field buff',
           description:
             "While Salvation is in the main slot, consume 5 special energy every 0.5 seconds. Increase Salvation's damage dealt by 30%.",
           cooldown: 0,
@@ -2602,6 +2602,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           endedBy: {
             notActiveWeapon: 'Rei',
+            buffEnd: 'rei-energy-consumption',
           },
           requirements: {
             activeWeapon: 'Rei',
@@ -2619,6 +2620,37 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             {
               resourceId: 'rei-special-energy',
               amountPerSecond: -10,
+              hasPriority: true,
+            },
+          ],
+        },
+        {
+          id: 'rei-energy-consumption-drain-off-field-buff',
+          displayName: 'Rei: Energy Consumption off-field buff',
+          description:
+            "While Salvation is in the off-hand slot, consume 3.3 special energy every 0.5 seconds. Increase Homing Arrow's damage by 50%",
+          cooldown: 0,
+          maxStacks: 1,
+          triggeredBy: {
+            buffStart: 'rei-energy-consumption',
+            notActiveWeapon: 'Rei',
+          },
+          endedBy: {
+            activeWeapon: 'Rei',
+            buffEnd: 'rei-energy-consumption',
+          },
+          requirements: {
+            notActiveWeapon: 'Rei',
+            activeBuff: 'rei-energy-consumption',
+          },
+          minStarRequirement: 0,
+          maxStarRequirement: 6,
+          miscBuff: {},
+          updatesResources: [
+            {
+              resourceId: 'rei-special-energy',
+              amountPerSecond: -6.6,
+              hasPriority: true,
             },
           ],
         },
@@ -2629,6 +2661,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           displayName: 'Rei - Special energy',
           maxAmount: 100,
           cooldown: 0,
+          startingAmount: 100,
         },
         {
           id: 'rei-homing-arrows-on-enemy',
