@@ -1,6 +1,7 @@
 import { tickDuration } from '../../../constants/tick';
 import type { Loadout } from '../../loadout';
 import type { Weapon } from '../../weapon';
+import { ActionRequirementsChecker } from '../action/action-requirements-checker';
 import { ActionResourceUpdater } from '../action/action-resource-updater';
 import type { AttackId } from '../attack/attack-definition';
 import { AttackRegistryFactory } from '../attack/attack-registry-factory';
@@ -37,6 +38,9 @@ export class CombatSimulator {
   private readonly combinedAttackRegistry: CombinedAttackRegistry;
   private readonly buffRegistry: BuffRegistry;
   private readonly resourceRegistry: ResourceRegistry;
+
+  private readonly actionRequirementsChecker: ActionRequirementsChecker;
+  private readonly actionResourceUpdater: ActionResourceUpdater;
 
   private readonly damageSummaryTimeline: DamageSummaryTimeline;
   private readonly damageTimelineCalculator: DamageTimelineCalculator;
@@ -84,6 +88,16 @@ export class CombatSimulator {
       team
     );
 
+    this.actionResourceUpdater = new ActionResourceUpdater(
+      this.resourceRegistry
+    );
+    this.actionRequirementsChecker = new ActionRequirementsChecker(
+      team,
+      this.weaponTracker,
+      this.buffRegistry,
+      this.resourceRegistry
+    );
+
     CombatEventConfigurator.configure(
       this.queuedEventManager,
       team,
@@ -92,6 +106,7 @@ export class CombatSimulator {
       this.combinedAttackRegistry,
       this.buffRegistry,
       this.resourceRegistry,
+      this.actionRequirementsChecker,
       this.combatEventNotifier
     );
 
@@ -105,19 +120,16 @@ export class CombatSimulator {
       this.buffRegistry
     );
 
-    const actionResourceUpdater = new ActionResourceUpdater(
-      this.resourceRegistry
-    );
     this.attackSimulator = new AttackSimulator(
       this.tickTracker,
       this.combinedAttackRegistry,
-      actionResourceUpdater,
+      this.actionResourceUpdater,
       this.combatEventNotifier
     );
     this.buffSimulator = new BuffSimulator(
       this.tickTracker,
       this.buffRegistry,
-      actionResourceUpdater,
+      this.actionResourceUpdater,
       this.combatEventNotifier
     );
     this.resourceSimulator = new ResourceSimulator(
@@ -137,9 +149,17 @@ export class CombatSimulator {
   }
 
   public get nextAvailableAttacks(): AttackId[] {
+    const attackTime = this.tickTracker.getNextClosestTickStart(
+      this.tickTracker.currentTickInterval.startTime
+    );
+
     return this.combinedAttackRegistry
-      .getAvailablePlayerInputAttacks(
-        this.tickTracker.currentTickInterval.startTime
+      .getAvailablePlayerInputAttacks(attackTime)
+      .filter((attack) =>
+        this.actionRequirementsChecker.hasRequirementsBeenMetAt(
+          attack.requirements,
+          attackTime
+        )
       )
       .map((item) => item.definition.id);
   }

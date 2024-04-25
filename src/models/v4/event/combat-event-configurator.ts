@@ -1,6 +1,7 @@
 import type { Team } from '../../team';
 import type { Weapon } from '../../weapon';
 import type { ActionEndedBy } from '../action/action-ended-by';
+import type { ActionRequirementsChecker } from '../action/action-requirements-checker';
 import type { ActionTriggeredBy } from '../action/action-triggered-by';
 import type { CombinedAttackRegistry } from '../attack/combined-attack-registry';
 import type { WeaponTracker } from '../attack/weapon-tracker';
@@ -22,6 +23,7 @@ export class CombatEventConfigurator {
     attackRegistry: CombinedAttackRegistry,
     buffRegistry: BuffRegistry,
     resourceRegistry: ResourceRegistry,
+    requirementsChecker: ActionRequirementsChecker,
     combatEventNotifier: CombatEventNotifier
   ) {
     for (const attack of attackRegistry.playerInputAttacks) {
@@ -32,11 +34,9 @@ export class CombatEventConfigurator {
         eventIdProvider.getAttackRequestEventId(id),
         EventHandlerFactory.createHandlerToTriggerAttack(
           attack,
-          team,
           tickTracker,
           weaponTracker,
-          buffRegistry,
-          resourceRegistry,
+          requirementsChecker,
           combatEventNotifier
         )
       );
@@ -54,11 +54,9 @@ export class CombatEventConfigurator {
       const triggerAttackHandler =
         EventHandlerFactory.createHandlerToTriggerAttack(
           attack,
-          team,
           tickTracker,
           weaponTracker,
-          buffRegistry,
-          resourceRegistry,
+          requirementsChecker,
           combatEventNotifier
         );
       for (const eventId of eventIdsToTriggerAttackOn) {
@@ -87,11 +85,8 @@ export class CombatEventConfigurator {
       );
       const triggerBuffHandler = EventHandlerFactory.createHandlerToTriggerBuff(
         buff,
-        team,
         tickTracker,
-        weaponTracker,
-        buffRegistry,
-        resourceRegistry
+        requirementsChecker
       );
       for (const eventId of eventIdsToTriggerBuffOn) {
         eventManager.subscribe(eventId, triggerBuffHandler);

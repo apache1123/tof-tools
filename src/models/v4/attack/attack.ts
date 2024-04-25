@@ -41,6 +41,10 @@ export class Attack {
     return this.definition.updatesResources;
   }
 
+  public get requirements() {
+    return this.definition.requirements;
+  }
+
   public trigger(time: number): AttackAction {
     const attackAction = this.createNewAttackAction(time);
     this.timeline.addAttackAction(attackAction);
