@@ -14,6 +14,16 @@ export class TickTracker {
     return this._currentTickInterval;
   }
 
+  /** The start time of the current tick interval that is being simulated */
+  public get currentTickStart() {
+    return this._currentTickInterval.startTime;
+  }
+
+  /** The end time of the current tick interval that is being simulated */
+  public get currentTickEnd() {
+    return this._currentTickInterval.endTime;
+  }
+
   /** The next tick interval after the current tick interval */
   public getNextTickInterval() {
     const { endTime } = this._currentTickInterval;

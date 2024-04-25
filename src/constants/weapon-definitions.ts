@@ -2279,7 +2279,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           type: 'normal',
           damageModifiers: {
             damageDealtIsPerSecond: false,
-            attackMultiplier: 272,
+            attackMultiplier: 2.72,
             attackFlat: 1632,
           },
           hitCount: {
@@ -2289,7 +2289,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             playerInput: true,
           },
-          endedBy: { duration: 200 }, // TODO: placeholder
+          endedBy: { duration: 1000 }, // TODO: placeholder
           requirements: {},
           updatesResources: [
             {
@@ -2297,6 +2297,29 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 500,
             },
           ],
+        },
+        {
+          id: 'rei-normal-dodging-rapidfire',
+          displayName: 'Rei - Dodging Rapidfire',
+          elementalType: { defaultElementalType: 'Volt' },
+          type: 'normal',
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 3000,
+            attackFlat: 0,
+          },
+          hitCount: {
+            numberOfHitsFixed: 5,
+          },
+          cooldown: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
+          endedBy: { duration: 3170 },
+          requirements: {
+            activeBuff: 'rei-energy-consumption',
+          },
+          updatesResources: [],
         },
       ],
       dodgeAttacks: [],

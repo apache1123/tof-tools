@@ -1,4 +1,3 @@
-import type { EventData } from './event-data';
 import type { EventSubscriber } from './event-subscriber';
 
 export abstract class EventHandler implements EventSubscriber {
@@ -14,12 +13,10 @@ export abstract class EventHandler implements EventSubscriber {
     return first;
   }
 
-  /** Processes an event. Passes the event data for the next handler, if there is one, to handle
-   * @returns true the event has been fully consumed, false if the event cannot be consumed
-   */
-  public handle(data: EventData): void {
+  /** Processes an event. Passes the event data for the next handler, if there is one, to handle */
+  public handle(): void {
     if (this.nextHandler) {
-      return this.nextHandler.handle(data);
+      return this.nextHandler.handle();
     }
 
     return;

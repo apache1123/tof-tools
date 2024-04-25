@@ -1,4 +1,4 @@
-import type { EventData } from '../event/event-data';
+import { minActionDuration } from '../../../constants/tick';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
 import type { Buff } from './buff';
@@ -11,9 +11,9 @@ export class BuffEnder extends EventHandler {
     super();
   }
 
-  public handle(data: EventData): void {
-    const tickEnd = this.tickTracker.getNextClosestTickEnd(data.time);
-    this.buff.endActiveBuffsAt(tickEnd);
-    return super.handle(data);
+  public handle(): void {
+    const buffEndTime = this.tickTracker.currentTickStart + minActionDuration;
+    this.buff.endActiveBuffsAt(buffEndTime);
+    return super.handle();
   }
 }

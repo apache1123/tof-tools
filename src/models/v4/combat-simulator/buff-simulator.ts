@@ -36,6 +36,8 @@ export class BuffSimulator {
       );
     }
 
+    // TODO: Buffs may need to be checked tick by tick to see if they need to be cut short (e.g. when requirements switch from met to unmet in the middle of the action)
+
     if (tickInterval.includes(buffAction.endTimeInclusive)) {
       this.combatEventNotifier.notifyBuffEnd(buffAction);
     }

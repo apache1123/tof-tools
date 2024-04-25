@@ -1,5 +1,4 @@
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
-import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
 import type { Attack } from './attack';
@@ -15,28 +14,27 @@ export class AttackTrigger extends EventHandler {
     super();
   }
 
-  public handle(eventData: EventData) {
-    this.triggerAttack(eventData);
-    return super.handle(eventData);
+  public handle() {
+    this.triggerAttack();
+    return super.handle();
   }
 
-  private triggerAttack(eventData: EventData) {
-    const tickStart = this.tickTracker.getNextClosestTickStart(eventData.time);
+  private triggerAttack() {
+    const tickStart = this.tickTracker.currentTickStart;
 
     // TODO: this possibly needs to be in a different tick than the attack
-    this.switchWeaponsIfNeeded(tickStart);
-
+    this.switchWeaponsIfNeeded();
     this.attack.trigger(tickStart);
   }
 
   // Hmm perhaps WeaponTracker should have some kind of time awareness
-  private switchWeaponsIfNeeded(time: number) {
+  private switchWeaponsIfNeeded() {
     if (
       this.attack.isActiveWeaponAttack &&
       this.weaponTracker.activeWeapon !== this.attack.weapon
     ) {
       this.weaponTracker.setActiveWeapon(this.attack.weapon);
-      this.combatEventNotifier.notifyWeaponSwitch(time, this.attack.weapon);
+      this.combatEventNotifier.notifyWeaponSwitch(this.attack.weapon);
     }
   }
 }

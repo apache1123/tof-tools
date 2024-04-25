@@ -146,12 +146,17 @@ export class CombatSimulator {
       this.resourceSimulator,
       this.damageTimelineCalculator
     );
+
+    // Pre-combat preparations
+    for (const resource of this.resourceRegistry.resources) {
+      resource.addStartingAmount();
+    }
+    this.combatEventNotifier.notifyCombatStart();
+    this.tickSimulator.simulateTickCombatStart();
   }
 
   public get nextAvailableAttacks(): AttackId[] {
-    const attackTime = this.tickTracker.getNextClosestTickStart(
-      this.tickTracker.currentTickInterval.startTime
-    );
+    const attackTime = this.tickTracker.currentTickStart;
 
     return this.combinedAttackRegistry
       .getAvailablePlayerInputAttacks(attackTime)
@@ -171,12 +176,8 @@ export class CombatSimulator {
       );
     }
 
-    const tickStart = this.tickTracker.currentTickInterval.startTime;
-    if (tickStart <= 0) this.preCombat(tickStart);
-
-    this.combatEventNotifier.notifyAttackRequest(tickStart, attackId);
-
-    this.tickSimulator.simulateTicksForLastAttack();
+    this.combatEventNotifier.notifyAttackRequest(attackId);
+    this.tickSimulator.simulateTicksAfterAttackRequest();
   }
 
   public snapshot(): CombatSimulatorSnapshot {
@@ -323,13 +324,5 @@ export class CombatSimulator {
       damageTimeline,
       damageSummary: damageSummarySnapshot,
     };
-  }
-
-  private preCombat(time: number) {
-    for (const resource of this.resourceRegistry.resources) {
-      resource.addStartingAmount();
-    }
-
-    this.combatEventNotifier.notifyCombatStart(time);
   }
 }

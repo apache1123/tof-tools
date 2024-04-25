@@ -1,19 +1,23 @@
-import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
+import type { TickTracker } from '../tick-tracker';
 import type { ActionTimeline } from './action-timeline';
 
 export class ActionCooldownHandler extends EventHandler {
-  public constructor(private readonly actionTimeline: ActionTimeline) {
+  public constructor(
+    private readonly actionTimeline: ActionTimeline,
+    private readonly tickTracker: TickTracker
+  ) {
     super();
   }
 
-  public handle(eventData: EventData) {
-    if (this.isActionOnCooldown(eventData.time)) return;
+  public handle() {
+    if (
+      this.actionTimeline.isActionOnCooldownAt(
+        this.tickTracker.currentTickStart
+      )
+    )
+      return;
 
-    return super.handle(eventData);
-  }
-
-  private isActionOnCooldown(time: number) {
-    return this.actionTimeline.isActionOnCooldownAt(time);
+    return super.handle();
   }
 }

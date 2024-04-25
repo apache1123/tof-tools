@@ -3,122 +3,85 @@ import type { AttackAction } from '../attack/attack-action';
 import type { AttackId } from '../attack/attack-definition';
 import type { BuffAction } from '../buff/buff-action';
 import type { ResourceAction } from '../resource/resource-action';
-import type { EventData } from './event-data';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
 
 export class CombatEventNotifier {
   public constructor(private readonly eventManager: EventManager) {}
 
-  public notifyCombatStart(time: number) {
-    this.eventManager.notify(eventIdProvider.getCombatStartEventId(), { time });
+  public notifyCombatStart() {
+    this.eventManager.notify(eventIdProvider.getCombatStartEventId());
   }
 
-  public notifyAttackRequest(time: number, attackId: AttackId) {
-    this.eventManager.notify(
-      eventIdProvider.getAttackRequestEventId(attackId),
-      {
-        time,
-      }
-    );
+  public notifyAttackRequest(attackId: AttackId) {
+    this.eventManager.notify(eventIdProvider.getAttackRequestEventId(attackId));
   }
 
   public notifyAttackStart(attackAction: AttackAction) {
-    const { startTime, attackId } = attackAction;
-    this.eventManager.notify(eventIdProvider.getAttackStartEventId(attackId), {
-      time: startTime,
-    });
+    const { attackId } = attackAction;
+    this.eventManager.notify(eventIdProvider.getAttackStartEventId(attackId));
   }
 
-  public notifyAttackHit(time: number) {
-    this.eventManager.notify(eventIdProvider.getAnyAttackHitEventId(), {
-      time,
-    });
+  public notifyAttackHit() {
+    this.eventManager.notify(eventIdProvider.getAnyAttackHitEventId());
   }
 
   public notifyAttackEnd(attackAction: AttackAction) {
-    const { endTimeInclusive, attackId, elementalType, type, weapon } =
-      attackAction;
+    const { attackId, elementalType, type, weapon } = attackAction;
 
-    const eventData: EventData = { time: endTimeInclusive };
-
-    this.eventManager.notify(
-      eventIdProvider.getAttackEndEventId(attackId),
-      eventData
-    );
+    this.eventManager.notify(eventIdProvider.getAttackEndEventId(attackId));
 
     if (type === 'skill') {
+      this.eventManager.notify(eventIdProvider.getSkillAttackEventId());
       this.eventManager.notify(
-        eventIdProvider.getSkillAttackEventId(),
-        eventData
+        eventIdProvider.getSkillOfWeaponTypeEventId(weapon.type)
       );
       this.eventManager.notify(
-        eventIdProvider.getSkillOfWeaponTypeEventId(weapon.type),
-        eventData
-      );
-      this.eventManager.notify(
-        eventIdProvider.getSkillOfElementalTypeEventId(elementalType),
-        eventData
+        eventIdProvider.getSkillOfElementalTypeEventId(elementalType)
       );
     } else if (type === 'discharge') {
+      this.eventManager.notify(eventIdProvider.getDischargeAttackEventId());
       this.eventManager.notify(
-        eventIdProvider.getDischargeAttackEventId(),
-        eventData
+        eventIdProvider.getDischargeOfWeaponTypeEventId(weapon.type)
       );
       this.eventManager.notify(
-        eventIdProvider.getDischargeOfWeaponTypeEventId(weapon.type),
-        eventData
-      );
-      this.eventManager.notify(
-        eventIdProvider.getDischargeOfElementalTypeEventId(elementalType),
-        eventData
+        eventIdProvider.getDischargeOfElementalTypeEventId(elementalType)
       );
     }
   }
 
-  public notifyWeaponSwitch(time: number, weapon: Weapon) {
-    this.eventManager.notify(
-      eventIdProvider.getActiveWeaponEventId(weapon.id),
-      {
-        time,
-      }
-    );
+  public notifyWeaponSwitch(weapon: Weapon) {
+    this.eventManager.notify(eventIdProvider.getActiveWeaponEventId(weapon.id));
   }
 
-  public notifyWeaponFullCharge(time: number, weapon: Weapon) {
+  // TODO: not called anywhere
+  public notifyWeaponFullCharge(weapon: Weapon) {
     this.eventManager.notify(
-      eventIdProvider.getWeaponFullChargeEventId(weapon.id),
-      { time }
+      eventIdProvider.getWeaponFullChargeEventId(weapon.id)
     );
   }
 
   public notifyBuffStart(buffAction: BuffAction) {
     this.eventManager.notify(
-      eventIdProvider.getBuffStartEventId(buffAction.buffId),
-      { time: buffAction.startTime }
+      eventIdProvider.getBuffStartEventId(buffAction.buffId)
     );
   }
 
   public notifyBuffEnd(buffAction: BuffAction) {
     this.eventManager.notify(
-      eventIdProvider.getBuffEndEventId(buffAction.buffId),
-      {
-        time: buffAction.endTimeInclusive,
-      }
+      eventIdProvider.getBuffEndEventId(buffAction.buffId)
     );
   }
 
   public notifyResourceUpdate(resourceAction: ResourceAction) {
     this.eventManager.notify(
-      eventIdProvider.getResourceUpdateEventId(resourceAction.resourceId),
-      { time: resourceAction.endTimeInclusive }
+      eventIdProvider.getResourceUpdateEventId(resourceAction.resourceId)
     );
   }
 
   public notifyResourceDepleted(resourceAction: ResourceAction) {
     this.eventManager.notify(
-      eventIdProvider.getResourceDepletedEventId(resourceAction.resourceId),
-      { time: resourceAction.endTimeInclusive }
+      eventIdProvider.getResourceDepletedEventId(resourceAction.resourceId)
     );
   }
 }

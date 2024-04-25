@@ -1,4 +1,3 @@
-import type { EventData } from './event-data';
 import type { EventSubscriber } from './event-subscriber';
 
 export class EventManager {
@@ -11,9 +10,9 @@ export class EventManager {
     ]);
   }
 
-  public notify(eventId: string, data: EventData) {
+  public notify(eventId: string) {
     for (const subscriber of this.subscribers.get(eventId) ?? []) {
-      subscriber.handle(data);
+      subscriber.handle();
     }
   }
 }

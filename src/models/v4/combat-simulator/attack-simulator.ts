@@ -27,11 +27,11 @@ export class AttackSimulator {
       this.combatEventNotifier.notifyAttackStart(attackAction);
     }
 
-    for (const timeOfHit of attackAction.timeOfHits.filter((time) =>
-      tickInterval.includes(time)
-    )) {
-      this.combatEventNotifier.notifyAttackHit(timeOfHit);
-    }
+    attackAction.timeOfHits
+      .filter((time) => tickInterval.includes(time))
+      .forEach(() => {
+        this.combatEventNotifier.notifyAttackHit();
+      });
 
     const { updatesResources } = attackAction;
     if (updatesResources) {
@@ -41,6 +41,8 @@ export class AttackSimulator {
         attackAction.timeInterval
       );
     }
+
+    // TODO: Attacks may need to be checked tick by tick to see if they need to be cut short (e.g. when requirements switch from met to unmet in the middle of the action)
 
     if (tickInterval.includes(attackAction.endTimeInclusive)) {
       this.combatEventNotifier.notifyAttackEnd(attackAction);

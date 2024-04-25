@@ -5,6 +5,7 @@ import type {
   TimelineRow,
 } from '@xzdarcy/react-timeline-editor';
 import { Timeline } from '@xzdarcy/react-timeline-editor';
+import { useEffect, useState } from 'react';
 
 import { DamageSummaryBreakdown } from '../../components/DamageSummaryBreakdown/DamageSummaryBreakdown';
 import { simulacrumTraits } from '../../constants/simulacrum-traits';
@@ -13,6 +14,7 @@ import { GearSet } from '../../models/gear-set';
 import { Loadout } from '../../models/loadout';
 import { Team } from '../../models/team';
 import { CombatSimulator } from '../../models/v4/combat-simulator/combat-simulator';
+import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator-snapshot/combat-simulator-snapshot';
 import { Relics } from '../../models/v4/relics/relics';
 import { Weapon } from '../../models/weapon';
 import { repeat } from '../../utils/test-utils';
@@ -20,56 +22,6 @@ import { AttackBuffEventRenderer } from './AttackBuffEventRenderer';
 import { AttackEventRenderer } from './AttackEventRenderer';
 import { CombatSimulatorTimelineScaleRenderer } from './CombatSimulatorTimelineScaleRenderer';
 import styles from './styles.module.css';
-
-const weapon1 = new Weapon(weaponDefinitions.byId['Brevey']);
-const weapon2 = new Weapon(weaponDefinitions.byId['Rei']);
-weapon2.stars = 6;
-const weapon3 = new Weapon(weaponDefinitions.byId['Nan Yin']);
-
-const team = new Team();
-team.weapon1 = weapon1;
-team.weapon2 = weapon2;
-team.weapon3 = weapon3;
-
-const loadout = new Loadout('loadout', 'Volt', team, new GearSet(), {
-  characterLevel: 100,
-});
-loadout.loadoutStats.voltAttack.baseAttack = 30000;
-loadout.loadoutStats.frostAttack.baseAttack = 30000;
-loadout.loadoutStats.critFlat = 18000;
-loadout.simulacrumTrait = simulacrumTraits.byId['Rei'];
-
-const relics = new Relics();
-relics.setRelicStars('Cybernetic Arm', 4); // Frost +1.5%
-relics.setRelicStars('Alternate Destiny', 5); // Frost +2%
-relics.setRelicStars('Thalassic Heart', 4); // Volt +2%
-
-const combatDuration = 150000;
-
-const combatSimulator = new CombatSimulator(combatDuration, loadout, relics);
-
-combatSimulator.performAttack(weapon2.definition.skills[0].id);
-combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
-combatSimulator.performAttack(weapon1.definition.normalAttacks[0].id);
-combatSimulator.performAttack(weapon1.definition.dodgeAttacks[0].id);
-combatSimulator.performAttack(weapon1.definition.dodgeAttacks[0].id);
-combatSimulator.performAttack(weapon2.definition.discharge.id);
-repeat(() => {
-  combatSimulator.performAttack(weapon1.definition.normalAttacks[1].id);
-}, 10);
-combatSimulator.performAttack(weapon2.definition.discharge.id);
-combatSimulator.performAttack('rei-normal-backjump-arrow');
-repeat(() => {
-  combatSimulator.performAttack(weapon2.definition.normalAttacks[0].id);
-}, 80);
-repeat(() => {
-  combatSimulator.performAttack(weapon1.definition.normalAttacks[1].id);
-}, 50);
-repeat(() => {
-  combatSimulator.performAttack(weapon2.definition.normalAttacks[0].id);
-}, 50);
-
-const combatSimulatorSnapshot = combatSimulator.snapshot();
 
 export interface CombatSimulatorTimelineRow extends TimelineRow {
   displayName: string;
@@ -98,25 +50,71 @@ const effects: Record<
 };
 
 export function CombatSimulatorTimeline() {
-  const editorData: CombatSimulatorTimelineRow[] =
-    combatSimulatorSnapshot.playerInputAttackTimelines
-      .concat(combatSimulatorSnapshot.triggeredAttackTimelines)
-      .concat(combatSimulatorSnapshot.buffTimelines)
-      .concat(combatSimulatorSnapshot.resourceTimelines)
-      .map((timeline) => ({
-        id: timeline.id,
-        displayName: timeline.displayName,
-        actions: timeline.actions.map<CombatSimulatorTimelineAction>(
-          (event, index) => ({
-            id: `${timeline.id}-${index}`,
-            displayName: event.displayName,
-            start: event.startTime,
-            end: event.endTime,
-            effectId: 'attack-event',
-          })
-        ),
-        classNames: [styles.timelineRow],
-      }));
+  const [combatSimulatorSnapshot, setCombatSimulatorSnapshot] = useState<
+    CombatSimulatorSnapshot | undefined
+  >(undefined);
+
+  useEffect(() => {
+    const weapon1 = new Weapon(weaponDefinitions.byId['Brevey']);
+    const weapon2 = new Weapon(weaponDefinitions.byId['Rei']);
+    weapon2.stars = 6;
+    const weapon3 = new Weapon(weaponDefinitions.byId['Nan Yin']);
+
+    const team = new Team();
+    team.weapon1 = weapon1;
+    team.weapon2 = weapon2;
+    team.weapon3 = weapon3;
+
+    const loadout = new Loadout('loadout', 'Volt', team, new GearSet(), {
+      characterLevel: 100,
+    });
+    loadout.loadoutStats.voltAttack.baseAttack = 30000;
+    loadout.loadoutStats.frostAttack.baseAttack = 30000;
+    loadout.loadoutStats.critFlat = 18000;
+    loadout.simulacrumTrait = simulacrumTraits.byId['Rei'];
+
+    const relics = new Relics();
+    relics.setRelicStars('Cybernetic Arm', 4); // Frost +1.5%
+    relics.setRelicStars('Alternate Destiny', 5); // Frost +2%
+    relics.setRelicStars('Thalassic Heart', 4); // Volt +2%
+
+    const combatDuration = 150000;
+
+    const combatSimulator = new CombatSimulator(
+      combatDuration,
+      loadout,
+      relics
+    );
+
+    combatSimulator.performAttack('rei-normal-backjump-arrow');
+    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
+    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
+    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
+    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
+
+    setCombatSimulatorSnapshot(combatSimulator.snapshot());
+  }, []);
+
+  const editorData: CombatSimulatorTimelineRow[] = combatSimulatorSnapshot
+    ? combatSimulatorSnapshot.playerInputAttackTimelines
+        .concat(combatSimulatorSnapshot.triggeredAttackTimelines)
+        .concat(combatSimulatorSnapshot.buffTimelines)
+        .concat(combatSimulatorSnapshot.resourceTimelines)
+        .map((timeline) => ({
+          id: timeline.id,
+          displayName: timeline.displayName,
+          actions: timeline.actions.map<CombatSimulatorTimelineAction>(
+            (event, index) => ({
+              id: `${timeline.id}-${index}`,
+              displayName: event.displayName,
+              start: event.startTime,
+              end: event.endTime,
+              effectId: 'attack-event',
+            })
+          ),
+          classNames: [styles.timelineRow],
+        }))
+    : [];
 
   return (
     <Stack spacing={2}>
@@ -139,13 +137,13 @@ export function CombatSimulatorTimeline() {
         )}
         style={{ width: '100%', height: 900 }}
       />
-      {combatSimulatorSnapshot.damageSummary && (
+      {combatSimulatorSnapshot?.damageSummary && (
         <DamageSummaryBreakdown
           damageSummary={combatSimulatorSnapshot.damageSummary}
         />
       )}
       Damage timeline events:
-      {JSON.stringify(combatSimulatorSnapshot.damageTimeline.actions)}
+      {JSON.stringify(combatSimulatorSnapshot?.damageTimeline.actions)}
     </Stack>
   );
 }

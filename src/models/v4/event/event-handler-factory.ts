@@ -21,8 +21,12 @@ export class EventHandlerFactory {
     combatEventNotifier: CombatEventNotifier
   ): EventHandler {
     return EventHandler.link(
-      new ActionCooldownHandler(attack.timeline),
-      new ActionRequirementsHandler(attack.requirements, requirementsChecker),
+      new ActionCooldownHandler(attack.timeline, tickTracker),
+      new ActionRequirementsHandler(
+        attack.requirements,
+        tickTracker,
+        requirementsChecker
+      ),
       new AttackTrigger(attack, tickTracker, weaponTracker, combatEventNotifier)
     );
   }
@@ -40,9 +44,10 @@ export class EventHandlerFactory {
     requirementsChecker: ActionRequirementsChecker
   ): EventHandler {
     return EventHandler.link(
-      new ActionCooldownHandler(buff.timeline),
+      new ActionCooldownHandler(buff.timeline, tickTracker),
       new ActionRequirementsHandler(
         buff.definition.requirements,
+        tickTracker,
         requirementsChecker
       ),
       new BuffTrigger(buff, tickTracker)
