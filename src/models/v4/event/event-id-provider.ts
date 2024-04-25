@@ -5,6 +5,7 @@ import type {
 } from '../../../constants/weapon-definitions';
 import type { AttackId } from '../attack/attack-definition';
 import type { BuffId } from '../buff/buff-definition';
+import type { ResourceId } from '../resource/resource-definition';
 
 export const eventIdProvider = {
   // General combat events
@@ -15,6 +16,7 @@ export const eventIdProvider = {
     `full-charge-${weaponName}`,
 
   // Attack events
+  getAnyAttackHitEventId: () => `attack-hit`,
   getAnyAttackEndEventId: () => `attack-end`,
   getAttackStartEventId: (attackId: AttackId) => `attack-start-${attackId}`,
   getAttackEndEventId: (attackId: AttackId) => `attack-end-${attackId}`,
@@ -37,4 +39,10 @@ export const eventIdProvider = {
   // Buff events
   getBuffStartEventId: (buffId: BuffId) => `buff-start-${buffId}`,
   getBuffEndEventId: (buffId: BuffId) => `buff-end-${buffId}`,
+
+  // Resource events
+  getResourceUpdateEventId: (resourceId: ResourceId) =>
+    `resource-update-${resourceId}`,
+  getResourceDepletedEventId: (resourceId: ResourceId) =>
+    `resource-depleted-${resourceId}`,
 };

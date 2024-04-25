@@ -1,57 +1,40 @@
-import type { Charge } from '../charge/charge';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
-import type { EventData } from '../event/event-data';
 import { EventHandler } from '../event/event-handler';
-import type { TimeTracker } from '../time-tracker';
+import type { TickTracker } from '../tick-tracker';
 import type { Attack } from './attack';
 import type { WeaponTracker } from './weapon-tracker';
 
 export class AttackTrigger extends EventHandler {
   public constructor(
     private readonly attack: Attack,
+    private readonly tickTracker: TickTracker,
     private readonly weaponTracker: WeaponTracker,
-    private readonly timeTracker: TimeTracker,
-    private readonly charge: Charge,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {
     super();
   }
 
-  public handle(eventData: EventData) {
-    this.triggerAttack(eventData);
-    return super.handle(eventData);
+  public handle() {
+    this.triggerAttack();
+    return super.handle();
   }
 
-  private triggerAttack(eventData: EventData) {
-    this.switchWeaponsIfNeeded(eventData);
+  private triggerAttack() {
+    const tickStart = this.tickTracker.currentTickStart;
 
-    const { time } = eventData;
-    const attackAction = this.attack.trigger(time);
-
-    if (this.attack.isPlayerInputAttack) {
-      this.timeTracker.nextPlayerInputAttackTime = attackAction.endTime;
-    }
-    this.combatEventNotifier.notifyAttackStart(attackAction);
-
-    const fullChargeGained = this.charge.adjustCharge(attackAction);
-    if (fullChargeGained) {
-      this.combatEventNotifier.notifyWeaponFullCharge(
-        attackAction.endTime,
-        attackAction.weapon
-      );
-    }
+    // TODO: this possibly needs to be in a different tick than the attack
+    this.switchWeaponsIfNeeded();
+    this.attack.trigger(tickStart);
   }
 
-  private switchWeaponsIfNeeded(eventData: EventData) {
+  // Hmm perhaps WeaponTracker should have some kind of time awareness
+  private switchWeaponsIfNeeded() {
     if (
       this.attack.isActiveWeaponAttack &&
       this.weaponTracker.activeWeapon !== this.attack.weapon
     ) {
-      this.weaponTracker.activeWeapon = this.attack.weapon;
-      this.combatEventNotifier.notifyWeaponSwitch(
-        eventData.time,
-        this.attack.weapon
-      );
+      this.weaponTracker.setActiveWeapon(this.attack.weapon);
+      this.combatEventNotifier.notifyWeaponSwitch(this.attack.weapon);
     }
   }
 }

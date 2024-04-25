@@ -1,11 +1,13 @@
 import type { Team } from '../../team';
 import type { Weapon } from '../../weapon';
+import type { ActionEndedBy } from '../action/action-ended-by';
+import type { ActionRequirementsChecker } from '../action/action-requirements-checker';
 import type { ActionTriggeredBy } from '../action/action-triggered-by';
 import type { CombinedAttackRegistry } from '../attack/combined-attack-registry';
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
-import type { Charge } from '../charge/charge';
-import type { TimeTracker } from '../time-tracker';
+import type { ResourceRegistry } from '../resource/resource-registry';
+import type { TickTracker } from '../tick-tracker';
 import type { CombatEventNotifier } from './combat-event-notifier';
 import { EventHandlerFactory } from './event-handler-factory';
 import { eventIdProvider } from './event-id-provider';
@@ -15,13 +17,14 @@ import type { EventManager } from './event-manager';
 export class CombatEventConfigurator {
   public static configure(
     eventManager: EventManager,
-    combatEventNotifier: CombatEventNotifier,
     team: Team,
+    tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
-    timeTracker: TimeTracker,
-    charge: Charge,
     attackRegistry: CombinedAttackRegistry,
-    buffRegistry: BuffRegistry
+    buffRegistry: BuffRegistry,
+    resourceRegistry: ResourceRegistry,
+    requirementsChecker: ActionRequirementsChecker,
+    combatEventNotifier: CombatEventNotifier
   ) {
     for (const attack of attackRegistry.playerInputAttacks) {
       const {
@@ -31,11 +34,9 @@ export class CombatEventConfigurator {
         eventIdProvider.getAttackRequestEventId(id),
         EventHandlerFactory.createHandlerToTriggerAttack(
           attack,
-          team,
+          tickTracker,
           weaponTracker,
-          timeTracker,
-          charge,
-          buffRegistry,
+          requirementsChecker,
           combatEventNotifier
         )
       );
@@ -45,32 +46,30 @@ export class CombatEventConfigurator {
 
     for (const attack of attackRegistry.triggeredAttacks) {
       const { definition } = attack;
+
       const eventIdsToTriggerAttackOn = this.getEventIdsToTriggerActionOn(
         definition.triggeredBy,
         weapons
       );
-      const eventIdsToEndAttackOn = this.getEventIdsToEndActionOn(
-        definition.triggeredBy,
-        weapons
-      );
-
       const triggerAttackHandler =
         EventHandlerFactory.createHandlerToTriggerAttack(
           attack,
-          team,
+          tickTracker,
           weaponTracker,
-          timeTracker,
-          charge,
-          buffRegistry,
+          requirementsChecker,
           combatEventNotifier
         );
       for (const eventId of eventIdsToTriggerAttackOn) {
         eventManager.subscribe(eventId, triggerAttackHandler);
       }
 
+      const eventIdsToEndAttackOn = this.getEventIdsToEndActionOn(
+        definition.endedBy,
+        weapons
+      );
       const endAttackHandler = EventHandlerFactory.createHandlerToEndAttack(
         attack,
-        combatEventNotifier
+        tickTracker
       );
       for (const eventId of eventIdsToEndAttackOn) {
         eventManager.subscribe(eventId, endAttackHandler);
@@ -79,30 +78,27 @@ export class CombatEventConfigurator {
 
     for (const buff of buffRegistry.buffs) {
       const { definition } = buff;
+
       const eventIdsToTriggerBuffOn = this.getEventIdsToTriggerActionOn(
         definition.triggeredBy,
         weapons
       );
-      const eventIdsToEndBuffOn = this.getEventIdsToEndActionOn(
-        definition.triggeredBy,
-        weapons
-      );
-
       const triggerBuffHandler = EventHandlerFactory.createHandlerToTriggerBuff(
         buff,
-        team,
-        weaponTracker,
-        charge,
-        buffRegistry,
-        combatEventNotifier
+        tickTracker,
+        requirementsChecker
       );
       for (const eventId of eventIdsToTriggerBuffOn) {
         eventManager.subscribe(eventId, triggerBuffHandler);
       }
 
+      const eventIdsToEndBuffOn = this.getEventIdsToEndActionOn(
+        definition.endedBy,
+        weapons
+      );
       const endBuffHandler = EventHandlerFactory.createHandlerToEndBuff(
         buff,
-        combatEventNotifier
+        tickTracker
       );
       for (const eventId of eventIdsToEndBuffOn) {
         eventManager.subscribe(eventId, endBuffHandler);
@@ -114,19 +110,17 @@ export class CombatEventConfigurator {
     actionTriggeredBy: ActionTriggeredBy,
     weapons: Weapon[]
   ) {
-    const eventIdsToTriggerActionOn: string[] = [];
+    const eventIds: string[] = [];
 
     if (actionTriggeredBy.combatStart) {
-      eventIdsToTriggerActionOn.push(eventIdProvider.getCombatStartEventId());
+      eventIds.push(eventIdProvider.getCombatStartEventId());
     }
 
     if (actionTriggeredBy.notActiveWeapon) {
       weapons
         .filter((weapon) => weapon.id !== actionTriggeredBy.notActiveWeapon)
         .forEach((weapon) => {
-          eventIdsToTriggerActionOn.push(
-            eventIdProvider.getActiveWeaponEventId(weapon.id)
-          );
+          eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
@@ -134,9 +128,7 @@ export class CombatEventConfigurator {
       weapons
         .filter((weapon) => weapon.id === actionTriggeredBy.activeWeapon)
         .forEach((weapon) => {
-          eventIdsToTriggerActionOn.push(
-            eventIdProvider.getActiveWeaponEventId(weapon.id)
-          );
+          eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
@@ -146,24 +138,24 @@ export class CombatEventConfigurator {
           actionTriggeredBy.fullChargeOfWeapons?.includes(weapon.id)
         )
         .forEach((weapon) => {
-          eventIdsToTriggerActionOn.push(
-            eventIdProvider.getWeaponFullChargeEventId(weapon.id)
-          );
+          eventIds.push(eventIdProvider.getWeaponFullChargeEventId(weapon.id));
         });
     }
 
+    if (actionTriggeredBy.hitOfAnyWeapon) {
+      eventIds.push(eventIdProvider.getAnyAttackHitEventId());
+    }
+
     if (actionTriggeredBy.skillOfAnyWeapon) {
-      eventIdsToTriggerActionOn.push(eventIdProvider.getSkillAttackEventId());
+      eventIds.push(eventIdProvider.getSkillAttackEventId());
     }
 
     if (actionTriggeredBy.dischargeOfAnyWeapon) {
-      eventIdsToTriggerActionOn.push(
-        eventIdProvider.getDischargeAttackEventId()
-      );
+      eventIds.push(eventIdProvider.getDischargeAttackEventId());
     }
 
     if (actionTriggeredBy.skillOfWeaponType) {
-      eventIdsToTriggerActionOn.push(
+      eventIds.push(
         eventIdProvider.getSkillOfWeaponTypeEventId(
           actionTriggeredBy.skillOfWeaponType
         )
@@ -171,7 +163,7 @@ export class CombatEventConfigurator {
     }
 
     if (actionTriggeredBy.dischargeOfWeaponType) {
-      eventIdsToTriggerActionOn.push(
+      eventIds.push(
         eventIdProvider.getDischargeOfWeaponTypeEventId(
           actionTriggeredBy.dischargeOfWeaponType
         )
@@ -179,7 +171,7 @@ export class CombatEventConfigurator {
     }
 
     if (actionTriggeredBy.skillOfElementalType) {
-      eventIdsToTriggerActionOn.push(
+      eventIds.push(
         eventIdProvider.getSkillOfElementalTypeEventId(
           actionTriggeredBy.skillOfElementalType
         )
@@ -187,50 +179,70 @@ export class CombatEventConfigurator {
     }
 
     if (actionTriggeredBy.dischargeOfElementalType) {
-      eventIdsToTriggerActionOn.push(
+      eventIds.push(
         eventIdProvider.getDischargeOfElementalTypeEventId(
           actionTriggeredBy.dischargeOfElementalType
         )
       );
     }
 
+    if (actionTriggeredBy.buffStart) {
+      eventIds.push(
+        eventIdProvider.getBuffStartEventId(actionTriggeredBy.buffStart)
+      );
+    }
+
     if (actionTriggeredBy.weaponAttacks) {
       actionTriggeredBy.weaponAttacks.forEach((attackId) => {
-        eventIdsToTriggerActionOn.push(
-          eventIdProvider.getAttackEndEventId(attackId)
-        );
+        eventIds.push(eventIdProvider.getAttackEndEventId(attackId));
       });
     }
 
-    return eventIdsToTriggerActionOn;
+    if (actionTriggeredBy.resourceUpdate) {
+      eventIds.push(
+        eventIdProvider.getResourceUpdateEventId(
+          actionTriggeredBy.resourceUpdate
+        )
+      );
+    }
+
+    return eventIds;
   }
 
   private static getEventIdsToEndActionOn(
-    actionTriggeredBy: ActionTriggeredBy,
+    actionEndedBy: ActionEndedBy,
     weapons: Weapon[]
   ) {
-    const eventIdsToEndActionOn: string[] = [];
+    const eventIds: string[] = [];
 
-    if (actionTriggeredBy.notActiveWeapon) {
+    if (actionEndedBy.buffEnd) {
+      eventIds.push(eventIdProvider.getBuffEndEventId(actionEndedBy.buffEnd));
+    }
+
+    if (actionEndedBy.notActiveWeapon) {
       weapons
-        .filter((weapon) => weapon.id === actionTriggeredBy.notActiveWeapon)
+        .filter((weapon) => weapon.id !== actionEndedBy.notActiveWeapon)
         .forEach((weapon) => {
-          eventIdsToEndActionOn.push(
-            eventIdProvider.getActiveWeaponEventId(weapon.id)
-          );
+          eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
-    if (actionTriggeredBy.activeWeapon) {
+    if (actionEndedBy.activeWeapon) {
       weapons
-        .filter((weapon) => weapon.id !== actionTriggeredBy.activeWeapon)
+        .filter((weapon) => weapon.id === actionEndedBy.activeWeapon)
         .forEach((weapon) => {
-          eventIdsToEndActionOn.push(
-            eventIdProvider.getActiveWeaponEventId(weapon.id)
-          );
+          eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
-    return eventIdsToEndActionOn;
+    if (actionEndedBy.resourceDepleted) {
+      eventIds.push(
+        eventIdProvider.getResourceDepletedEventId(
+          actionEndedBy.resourceDepleted
+        )
+      );
+    }
+
+    return eventIds;
   }
 }

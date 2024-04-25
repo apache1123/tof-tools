@@ -1,5 +1,5 @@
 import type { DamageSummary } from '../damage-summary/damage-summary';
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 import { Timeline } from '../timeline/timeline';
 import { DamageSummaryEvent } from './damage-summary-event';
 
@@ -33,10 +33,10 @@ export class DamageSummaryTimeline {
       throw new Error('DamageSummaries must be added chronologically');
     }
 
-    const timePeriod = new TimePeriod(startTime, startTime + duration);
+    const timeInterval = new TimeInterval(startTime, startTime + duration);
     this.timeline.addAction(
       new DamageSummaryEvent(
-        timePeriod,
+        timeInterval,
         damageSummary,
         this.cumulatedDamageSummary?.add(damageSummary) ?? damageSummary
       )

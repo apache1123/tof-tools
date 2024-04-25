@@ -42,6 +42,15 @@ export class Weapon implements Persistable<WeaponDto> {
     return this.definition.triggeredAttacks;
   }
 
+  /** Buffs that can be activated for this weapon */
+  public get buffs() {
+    return this.definition.buffs.filter(
+      (buffDefinition) =>
+        this.stars >= buffDefinition.minStarRequirement &&
+        this.stars <= buffDefinition.maxStarRequirement
+    );
+  }
+
   public get calculationElements() {
     return this.definition.calculationElements;
   }

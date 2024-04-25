@@ -5,15 +5,16 @@ describe('Timeline', () => {
   it('returns correct events overlapping with the specified start and end time', () => {
     const sut = new Timeline(100);
 
-    // Test against the period of 6 to 11.
+    // Test against the interval of 6 to 11.
     const event1 = new TimelineAction(0, 5); // out
-    const event2 = new TimelineAction(2, 9); // in
-    const event3 = new TimelineAction(5, 25); // in
-    const event4 = new TimelineAction(6, 6); // in
-    const event5 = new TimelineAction(7, 18); // in
-    const event6 = new TimelineAction(9, 23); // in
-    const event7 = new TimelineAction(11, 11); // out
-    const event8 = new TimelineAction(12, 29); // out
+    const event2 = new TimelineAction(1, 6); // out
+    const event3 = new TimelineAction(2, 7); // in
+    const event4 = new TimelineAction(5, 25); // in
+    const event5 = new TimelineAction(6, 7); // in
+    const event6 = new TimelineAction(7, 18); // in
+    const event7 = new TimelineAction(9, 23); // in
+    const event8 = new TimelineAction(11, 12); // out
+    const event9 = new TimelineAction(12, 29); // out
 
     sut.addAction(event1);
     sut.addAction(event2);
@@ -23,21 +24,22 @@ describe('Timeline', () => {
     sut.addAction(event6);
     sut.addAction(event7);
     sut.addAction(event8);
+    sut.addAction(event9);
 
-    const overlappingEvents = sut.getActionsOverlappingPeriod(6, 11);
+    const overlappingEvents = sut.getActionsOverlappingInterval(6, 11);
 
     expect(overlappingEvents).not.toContain(event1);
-    expect(overlappingEvents).toContain(event2);
+    expect(overlappingEvents).not.toContain(event2);
     expect(overlappingEvents).toContain(event3);
     expect(overlappingEvents).toContain(event4);
     expect(overlappingEvents).toContain(event5);
-    expect(overlappingEvents).toContain(event5);
     expect(overlappingEvents).toContain(event6);
-    expect(overlappingEvents).not.toContain(event7);
+    expect(overlappingEvents).toContain(event7);
     expect(overlappingEvents).not.toContain(event8);
+    expect(overlappingEvents).not.toContain(event9);
   });
 
-  it('returns correct events overlapping with the specified start and end time', () => {
+  it('returns correct events overlapping with the specified time', () => {
     const sut = new Timeline(100);
 
     const event1 = new TimelineAction(0, 5);
@@ -52,9 +54,9 @@ describe('Timeline', () => {
     expect(sut.getActionsOverlappingTime(0)).not.toContain(event2);
     expect(sut.getActionsOverlappingTime(0)).not.toContain(event3);
 
-    expect(sut.getActionsOverlappingTime(3)).toContain(event1);
-    expect(sut.getActionsOverlappingTime(3)).toContain(event2);
-    expect(sut.getActionsOverlappingTime(2)).not.toContain(event3);
+    expect(sut.getActionsOverlappingTime(4)).toContain(event1);
+    expect(sut.getActionsOverlappingTime(4)).toContain(event2);
+    expect(sut.getActionsOverlappingTime(4)).not.toContain(event3);
 
     expect(sut.getActionsOverlappingTime(5)).not.toContain(event1);
     expect(sut.getActionsOverlappingTime(5)).toContain(event2);

@@ -130,17 +130,20 @@ describe('DamageCalculator', () => {
         loadout.loadoutStats,
         [
           {
-            attackBuff: { elementalTypes: ['Frost'], value: 0.2 },
+            attackBuffs: [
+              { elementalTypes: ['Frost'], value: 0.2 },
+              { elementalTypes: ['Frost'], value: 0.35 },
+            ],
             stacks: 2,
           },
           {
-            attackBuff: { elementalTypes: ['Frost'], value: 0.3 },
+            attackBuffs: [{ elementalTypes: ['Frost'], value: 0.3 }],
             stacks: 1,
           },
         ] as BuffAction[]
       );
 
-      expect(sut.getTotalAttackPercent()).toBe(1.2);
+      expect(sut.getTotalAttackPercent()).toBe(1.9);
     });
 
     it("calculates total atk% value correctly, ignoring atk buffs that are not of the attack's element type", () => {
@@ -151,11 +154,11 @@ describe('DamageCalculator', () => {
         loadout.loadoutStats,
         [
           {
-            attackBuff: { elementalTypes: ['Frost'], value: 0.2 },
+            attackBuffs: [{ elementalTypes: ['Frost'], value: 0.2 }],
             stacks: 2,
           },
           {
-            attackBuff: { elementalTypes: ['Volt'], value: 0.3 },
+            attackBuffs: [{ elementalTypes: ['Volt'], value: 0.3 }],
             stacks: 1,
           },
         ] as BuffAction[]
@@ -174,33 +177,44 @@ describe('DamageCalculator', () => {
         loadout.loadoutStats,
         [
           {
-            damageBuff: {
-              elementalTypes: ['Frost'],
-              value: 0.2,
-              damageCategory: 'DMG buff category 1',
-            },
+            damageBuffs: [
+              {
+                elementalTypes: ['Frost'],
+                value: 0.2,
+                damageCategory: 'DMG buff category 1',
+              },
+              {
+                elementalTypes: ['Frost'],
+                value: 0.35,
+                damageCategory: 'DMG buff category 1',
+              },
+            ],
             stacks: 2,
           },
           {
-            damageBuff: {
-              elementalTypes: ['Frost'],
-              value: 0.3,
-              damageCategory: 'DMG buff category 1',
-            },
+            damageBuffs: [
+              {
+                elementalTypes: ['Frost'],
+                value: 0.3,
+                damageCategory: 'DMG buff category 1',
+              },
+            ],
             stacks: 1,
           },
           {
-            damageBuff: {
-              elementalTypes: ['Frost'],
-              value: 0.15,
-              damageCategory: 'DMG buff category 2',
-            },
+            damageBuffs: [
+              {
+                elementalTypes: ['Frost'],
+                value: 0.15,
+                damageCategory: 'DMG buff category 2',
+              },
+            ],
             stacks: 1,
           },
         ] as BuffAction[]
       );
 
-      expect(sut.getTotalDamagePercent()).toBe(1.9325);
+      expect(sut.getTotalDamagePercent()).toBe(3.14);
     });
   });
 });

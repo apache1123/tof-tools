@@ -3,6 +3,7 @@ import groupBy from 'lodash.groupby';
 
 import { calculateTotalAttack } from '../../../utils/damage-calculation-utils';
 import { product, sum } from '../../../utils/math-utils';
+import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Weapon } from '../../weapon';
@@ -26,7 +27,7 @@ export class DamageCalculator {
 
     // Work out the total attack damage modifiers over the attack's duration if they are defined to be per second. If they are not defined to be per second, the attack damage modifiers are already assumed to be over the attack's duration
     const calculatePerSecondValueToTotal = (value: number) =>
-      BigNumber(value).times(duration).dividedBy(1000).toNumber();
+      BigNumber(value).times(duration).dividedBy(oneSecondDuration).toNumber();
 
     let totalDamageModifiers: Omit<
       AttackDamageModifiers,
@@ -102,31 +103,31 @@ export class DamageCalculator {
 
   public getTotalAttackPercent(): number {
     const attackBuffValues = this.activeBuffActions
-      .filter(
-        (buff) =>
-          buff.attackBuff &&
-          buff.attackBuff.elementalTypes.includes(
-            this.attackAction.elementalType
+      .flatMap((buffAction) =>
+        buffAction.attackBuffs
+          .filter((attackBuff) =>
+            attackBuff.elementalTypes.includes(this.attackAction.elementalType)
           )
+          .map((attackBuff) => ({ attackBuff, stacks: buffAction.stacks }))
       )
-      .map((buff) =>
-        product(buff.attackBuff?.value ?? 0, buff.stacks).toNumber()
-      );
+      .map((buff) => product(buff.attackBuff.value, buff.stacks).toNumber());
 
     return sum(this.getGearAttackPercent(), ...attackBuffValues).toNumber();
   }
 
   public getTotalDamagePercent(): number {
     // TODO: cannotBeDamageBuffedExceptByTitans
-    const damageBuffs = this.activeBuffActions.filter(
-      (buff) =>
-        buff.damageBuff &&
-        buff.damageBuff.elementalTypes.includes(this.attackAction.elementalType)
+    const damageBuffs = this.activeBuffActions.flatMap((buffAction) =>
+      buffAction.damageBuffs
+        .filter((damageBuff) =>
+          damageBuff.elementalTypes.includes(this.attackAction.elementalType)
+        )
+        .map((damageBuff) => ({ damageBuff, stacks: buffAction.stacks }))
     );
 
     const damageBuffsByDamageCategory = groupBy(
       damageBuffs,
-      (buff) => buff.damageBuff?.damageCategory
+      (buff) => buff.damageBuff.damageCategory
     );
 
     return product(
@@ -134,7 +135,7 @@ export class DamageCalculator {
       ...Object.values(damageBuffsByDamageCategory).map((buffs) =>
         sum(
           ...buffs.map((buff) =>
-            product(buff.damageBuff?.value ?? 0, buff.stacks).toNumber()
+            product(buff.damageBuff.value ?? 0, buff.stacks).toNumber()
           ),
           1
         ).toNumber()

@@ -1,4 +1,4 @@
-import { TimePeriod } from '../time-period';
+import { TimeInterval } from '../time-interval';
 import type { ActionEndedBy } from './action-ended-by';
 import type { ActionTimeline } from './action-timeline';
 
@@ -11,20 +11,32 @@ export class ActionTimeCalculator {
     this.timeline = timeline;
   }
 
-  public calculateActionTimePeriod(time: number): TimePeriod {
+  public calculateActionTimeInterval(time: number): TimeInterval {
     let endTime!: number;
 
-    const { duration, combatEnd, activeWeapon, notActiveWeapon } =
-      this.actionEndedBy;
+    const {
+      duration,
+      combatEnd,
+      buffEnd,
+      activeWeapon,
+      notActiveWeapon,
+      resourceDepleted,
+    } = this.actionEndedBy;
     if (duration) {
       endTime = time + duration;
-    } else if (combatEnd || activeWeapon || notActiveWeapon) {
+    } else if (
+      combatEnd ||
+      buffEnd ||
+      activeWeapon ||
+      notActiveWeapon ||
+      resourceDepleted
+    ) {
       // For actions that are ended by a certain condition, set the end time to be the total duration. The action will be ended by an event related to that condition
       endTime = this.timeline.totalDuration;
     } else {
-      throw new Error('Cannot determine buff end time');
+      throw new Error('Cannot determine action end time');
     }
 
-    return new TimePeriod(time, endTime);
+    return new TimeInterval(time, endTime);
   }
 }

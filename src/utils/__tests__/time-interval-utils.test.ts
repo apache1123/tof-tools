@@ -1,7 +1,7 @@
-import { calculateOverlapDuration } from '../time-period-utils';
+import { calculateOverlapDuration } from '../time-interval-utils';
 
 describe('calculateOverlapDuration', () => {
-  it("returns 0 if the two periods don't overlap", () => {
+  it("returns 0 if the two intervals don't overlap", () => {
     expect(
       calculateOverlapDuration(
         { startTime: 10, endTime: 20 },

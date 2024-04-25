@@ -111,11 +111,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Alternative Destiny passive damage buff',
         displayName: 'Alternative Destiny passive damage buff',
         description: 'Increase frost damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Frost'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Frost'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -140,11 +142,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Bubble Gun passive damage buff',
         displayName: 'Bubble Gun passive damage buff',
         description: 'Increase flame damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Flame'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Flame'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -162,11 +166,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Bubble Gun Happy Time damage buff',
         description:
           'Increases the damage dealt by 9% for 60 seconds (assuming max stacks at all times)',
-        damageBuff: {
-          value: 0.09,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 1',
-        },
+        damageBuffs: [
+          {
+            value: 0.09,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 1',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -186,11 +192,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Bubble Gun Happy Time damage buff',
         description:
           'Increases the damage dealt by 12% for 60 seconds (assuming max stacks at all times)',
-        damageBuff: {
-          value: 0.12,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 1',
-        },
+        damageBuffs: [
+          {
+            value: 0.12,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 1',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -225,11 +233,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Confinement passive damage buff',
         displayName: 'Confinement passive damage buff',
         description: 'Increase physical damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Physical'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Physical'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -257,11 +267,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Couant damage buff',
         description:
           'After shield breaks, increase final damage by 20% for 10 seconds.',
-        damageBuff: {
-          value: 0.2,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 2',
-        },
+        damageBuffs: [
+          {
+            value: 0.2,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 2',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -285,11 +297,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Cybernetic arm passive damage buff',
         displayName: 'Cybernetic arm passive damage buff',
         description: 'Increase frost damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Frost'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Frost'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -315,11 +329,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Drone inspiration damage buff',
         description:
           'Every 5 seconds, additionally grant Wanderers one stack of inspiration, increasing damage dealt by 5% per stack.',
-        damageBuff: {
-          value: 0.15,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 2',
-        },
+        damageBuffs: [
+          {
+            value: 0.15,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 2',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -343,11 +359,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Hologram Projector passive damage buff',
         displayName: 'Hologram Projector passive damage buff',
         description: 'Increase volt damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Volt'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Volt'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -374,11 +392,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Hoverboard passive damage buff',
         displayName: 'Hoverboard passive damage buff',
         description: 'Increase flame damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Flame'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Flame'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -403,11 +423,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Hovering Cannon passive damage buff',
         displayName: 'Hovering Cannon passive damage buff',
         description: 'Increase frost damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Frost'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Frost'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -448,11 +470,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Lava Bomb passive damage buff',
         displayName: 'Lava Bomb passive damage buff',
         description: 'Increase flame damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Flame'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Flame'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -488,11 +512,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Magnetic Storm passive damage buff',
         displayName: 'Magnetic Storm passive damage buff',
         description: 'Increase volt damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Volt'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Volt'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -558,11 +584,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Mini Pelican passive damage buff',
         displayName: 'Mini Pelican passive damage buff',
         description: 'Increase volt damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Volt'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Volt'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -587,11 +615,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Missile Barrage passive damage buff',
         displayName: 'Missile Barrage passive damage buff',
         description: 'Increase physical damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Physical'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Physical'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -617,11 +647,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Omnium Handcannon passive damage buff',
         displayName: 'Omnium Handcannon passive damage buff',
         description: 'Increase flame damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Flame'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Flame'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -647,11 +679,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Omnium Shield damage buff',
         description:
           'When Wanderers or allies pass through the Omnium Shield, damage dealt increases by 25% for 7 seconds.',
-        damageBuff: {
-          value: 0.25,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 2',
-        },
+        damageBuffs: [
+          {
+            value: 0.25,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 2',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -676,11 +710,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Overdrive Shot passive damage buff',
         displayName: 'Overdrive Shot passive damage buff',
         description: 'Increase physical damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Physical'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Physical'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -705,11 +741,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Quantum Cloak passive damage buff',
         displayName: 'Quantum Cloak passive damage buff',
         description: 'Increase volt damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Volt'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Volt'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -734,11 +772,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Spacetime Rift damage buff',
         displayName: 'Spacetime Rift damage buff',
         description: 'Increase damage dealt to targets in the area by 20%.',
-        damageBuff: {
-          value: 0.2,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'Enemy debuff',
-        },
+        damageBuffs: [
+          {
+            value: 0.2,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'Enemy debuff',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -788,11 +828,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Strange Cube passive damage buff',
         displayName: 'Strange Cube passive damage buff',
         description: 'Increase volt damage by 1.5%, even if not deployed.',
-        damageBuff: {
-          value: 0.015,
-          elementalTypes: ['Volt'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.015,
+            elementalTypes: ['Volt'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -819,11 +861,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Thalassic Heart passive damage buff',
         displayName: 'Thalassic Heart passive damage buff',
         description: 'Increase volt damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Volt'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Volt'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -841,11 +885,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Thalassic Heart damage buff',
         description:
           'Damage received by targets hit by Thalassic Heart is increased by 4%',
-        damageBuff: {
-          value: 0.04,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'Enemy debuff',
-        },
+        damageBuffs: [
+          {
+            value: 0.04,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'Enemy debuff',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -862,11 +908,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Thalassic Heart damage buff',
         description:
           'Damage received by targets hit by Thalassic Heart is increased by 4%',
-        damageBuff: {
-          value: 0.04,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'Enemy debuff',
-        },
+        damageBuffs: [
+          {
+            value: 0.04,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'Enemy debuff',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -885,11 +933,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Thalassic Heart damage buff',
         description:
           'Damage received by targets hit by Thalassic Heart is increased by 9.5%',
-        damageBuff: {
-          value: 0.095,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'Enemy debuff',
-        },
+        damageBuffs: [
+          {
+            value: 0.095,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'Enemy debuff',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -916,11 +966,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Triple Mask passive damage buff',
         displayName: 'Triple Mask passive damage buff',
         description: 'Increase frost damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Frost'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Frost'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -938,11 +990,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Triple Mask damage buff',
         description:
           'While Triple Mask is deployed, elemental damage is increased by 6%.',
-        damageBuff: {
-          value: 0.06,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 1',
-        },
+        damageBuffs: [
+          {
+            value: 0.06,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 1',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -960,11 +1014,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Triple Mask damage buff',
         description:
           'While Triple Mask is deployed, elemental damage is increased by 12%.',
-        damageBuff: {
-          value: 0.12,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 1',
-        },
+        damageBuffs: [
+          {
+            value: 0.12,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 1',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -989,11 +1045,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Type II Couant passive damage buff',
         displayName: 'Type II Couant passive damage buff',
         description: 'Increase flame damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Flame'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Flame'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,
@@ -1011,11 +1069,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Type II Couant damage buff',
         description:
           'After the shield is broken, increase damage by 20% for 10 seconds',
-        damageBuff: {
-          value: 0.2,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 2',
-        },
+        damageBuffs: [
+          {
+            value: 0.2,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 2',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -1030,11 +1090,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Type II Couant damage buff',
         description:
           'After the shield is broken, increase damage by 20% for 12 seconds',
-        damageBuff: {
-          value: 0.2,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 2',
-        },
+        damageBuffs: [
+          {
+            value: 0.2,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 2',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -1049,11 +1111,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Type II Couant damage buff',
         description:
           'After the shield is broken, increase damage by 20% for 12 seconds. Ever stack of blessing additionally increases final damage by 1%',
-        damageBuff: {
-          value: 0.25,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 2',
-        },
+        damageBuffs: [
+          {
+            value: 0.25,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 2',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -1069,11 +1133,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         displayName: 'Type II Couant damage buff',
         description:
           'After the shield is broken, increase damage by 20% for 12 seconds. Ever stack of blessing additionally increases final damage by 1%. When there are full 5 stacks of blessing, additionally increase final damage by 2.5%',
-        damageBuff: {
-          value: 0.275,
-          elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'DMG buff category 2',
-        },
+        damageBuffs: [
+          {
+            value: 0.275,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: 'DMG buff category 2',
+          },
+        ],
         maxStacks: 1,
         // TODO: trigger
         triggeredBy: {},
@@ -1096,11 +1162,13 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         id: 'Type V Armor passive damage buff',
         displayName: 'Type V Armor passive damage buff',
         description: 'Increase flame damage by 2%, even if not deployed.',
-        damageBuff: {
-          value: 0.02,
-          elementalTypes: ['Flame'],
-          damageCategory: 'Relic passive',
-        },
+        damageBuffs: [
+          {
+            value: 0.02,
+            elementalTypes: ['Flame'],
+            damageCategory: 'Relic passive',
+          },
+        ],
         maxStacks: 1,
         triggeredBy: {
           combatStart: true,

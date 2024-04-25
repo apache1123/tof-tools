@@ -2,6 +2,7 @@ import type { ActionDefinition, ActionId } from '../action/action-definition';
 import type { ActionEndedBy } from '../action/action-ended-by';
 import type { ActionRequirements } from '../action/action-requirements';
 import type { ActionTriggeredBy } from '../action/action-triggered-by';
+import type { ActionUpdatesResource } from '../action/action-updates-resource';
 import type { AttackBuff } from './attack-buff';
 import type { DamageBuff } from './damage-buff';
 import type { MiscellaneousBuff } from './miscellaneous-buff';
@@ -17,12 +18,14 @@ export interface BuffDefinition extends ActionDefinition {
     };
   };
 
-  attackBuff?: AttackBuff;
-  damageBuff?: DamageBuff;
+  attackBuffs?: AttackBuff[];
+  damageBuffs?: DamageBuff[];
   miscBuff?: MiscellaneousBuff;
 
   triggeredBy: ActionTriggeredBy;
   endedBy: ActionEndedBy;
 
   requirements: ActionRequirements;
+
+  updatesResources?: ActionUpdatesResource[];
 }

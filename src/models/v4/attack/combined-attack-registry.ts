@@ -1,4 +1,3 @@
-import type { TimeTracker } from '../time-tracker';
 import type { AttackAction } from './attack-action';
 import { AttackRegistry } from './attack-registry';
 
@@ -27,10 +26,8 @@ export class CombinedAttackRegistry extends AttackRegistry {
     return this.triggeredAttackRegistry.attacks;
   }
 
-  public getNextPlayerInputAttacksOffCooldown(timeTracker: TimeTracker) {
-    return this.playerInputAttackRegistry.getNextAttacksOffCooldown(
-      timeTracker
-    );
+  public getAvailablePlayerInputAttacks(time: number) {
+    return this.playerInputAttackRegistry.getAvailableAttacks(time);
   }
 
   public get lastPlayerInputAttackAction(): AttackAction | undefined {

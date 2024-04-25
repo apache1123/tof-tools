@@ -57,11 +57,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Alyss trait',
           description:
             'Increase final damage by 18% for 18 seconds after successfully using a weapon skill.',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             skillOfAnyWeapon: true,
@@ -89,11 +91,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'asuka-trait',
           displayName: 'Asuka trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -114,11 +118,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'brevey-trait',
           displayName: 'Brevey trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -134,11 +140,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Brevey trait additional',
           description:
             'When Pactcrest ☆ Metz is equipped, increase final damage by an additional 6%.',
-          damageBuff: {
-            value: 0.06,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.06,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -173,10 +181,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Cocoritter trait',
           description:
             "Using a support-type weapon's discharge skill or weapon skill, increase nearby allies' (including self) ATK by 15% for 5 seconds.",
-          attackBuff: {
-            value: 0.15,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          },
+          attackBuffs: [
+            {
+              value: 0.15,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             skillOfWeaponType: 'Support',
@@ -198,11 +208,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'crow-trait',
           displayName: 'Crow trait',
           description: 'Increase damage dealt by 10% when not in team play',
-          damageBuff: {
-            value: 0.1,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.1,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -219,11 +231,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Crow trait - entering combat',
           description:
             'Increase damage dealt by 12% for 12 seconds when entering combat',
-          damageBuff: {
-            value: 0.12,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.12,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -245,11 +259,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Fei Se trait',
           description:
             'After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.',
-          damageBuff: {
-            value: 0.09,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.09,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             weaponAttacks: ['feise-skill-whirling'],
@@ -272,11 +288,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Fei Se trait',
           description:
             'After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             weaponAttacks: ['feise-skill-whirling'],
@@ -299,11 +317,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Fei Se trait',
           description:
             'After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.',
-          damageBuff: {
-            value: 0.27,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.27,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             weaponAttacks: ['feise-skill-whirling'],
@@ -332,11 +352,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Fenrir trait',
           description:
             'Increase final damage by 18% when equipping 2 weapons of different elements',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -354,11 +376,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Fenrir trait',
           description:
             'Increase final damage by 23% when equipping 3 weapons of different elements',
-          damageBuff: {
-            value: 0.23,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.23,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -382,11 +406,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'fiona-trait',
           displayName: 'Fiona trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -408,10 +434,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Frigg trait',
           description:
             'Upon entering battle, gain 2.4% frost ATK for 5 seconds every 3 seconds, with up to 10 stacks. Assume max stacks at the start for simplicity',
-          attackBuff: {
-            value: 0.24,
-            elementalTypes: ['Frost'],
-          },
+          attackBuffs: [
+            {
+              value: 0.24,
+              elementalTypes: ['Frost'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -441,11 +469,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'mimi-trait',
           displayName: 'Mimi trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -461,11 +491,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Mimi trait - Triple volt',
           description:
             'When equipped with 3 volt weapons, increase volt damage by 6%',
-          damageBuff: {
-            value: 0.06,
-            elementalTypes: ['Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.06,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -499,11 +531,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Icarus trait',
           description:
             'After equipping Precious One, increase final damage by 15%',
-          damageBuff: {
-            value: 0.15,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.15,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -532,11 +566,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Lan trait',
           description:
             'During Fortitude resonance, final damage is increased by 8%',
-          damageBuff: {
-            value: 0.08,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.08,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -566,11 +602,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'linghan-trait',
           displayName: 'Ling Han trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -586,11 +624,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ling Han trait - 1 frost weapon',
           description:
             'For every frost weapon equipped, increase frost damage by 2.5%',
-          damageBuff: {
-            value: 0.025,
-            elementalTypes: ['Frost'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.025,
+              elementalTypes: ['Frost'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -613,11 +653,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ling Han trait - 2 frost weapons',
           description:
             'For every frost weapon equipped, increase frost damage by 2.5%',
-          damageBuff: {
-            value: 0.05,
-            elementalTypes: ['Frost'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.05,
+              elementalTypes: ['Frost'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -640,11 +682,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ling Han trait - 3 frost weapons',
           description:
             'For every frost weapon equipped, increase frost damage by 2.5%',
-          damageBuff: {
-            value: 0.075,
-            elementalTypes: ['Frost'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.075,
+              elementalTypes: ['Frost'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -673,11 +717,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'liuhuo-trait',
           displayName: 'Liu Huo trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -708,11 +754,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'mingjing-trait',
           displayName: 'Ming Jing trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -772,11 +820,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'nanyin-trait',
           displayName: 'Nan Yin trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -792,11 +842,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Nan Yin trait - 1 non-altered weapon',
           description:
             'When Purple Bamboo is in the main slot, for every 1 non-altered weapon equipped, increase all elemental damage by 8%',
-          damageBuff: {
-            value: 0.08,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.08,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Nan Yin',
@@ -817,11 +869,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Nan Yin trait - 2 non-altered weapons',
           description:
             'When Purple Bamboo is in the main slot, for every 1 non-altered weapon equipped, increase all elemental damage by 8%',
-          damageBuff: {
-            value: 0.16,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.16,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Nan Yin',
@@ -853,11 +907,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'plotti-trait',
           displayName: 'Plotti trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -899,11 +955,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'rei-trait',
           displayName: 'Rei trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -919,11 +977,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Rei trait - Attack resonance',
           description:
             'Increase volt damage by 8% when Attack Resonance is activated',
-          damageBuff: {
-            value: 0.08,
-            elementalTypes: ['Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.08,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -947,11 +1007,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Rubilia trait - 1 volt weapon',
           description:
             'Increase volt damage by 8% for every 1 volt weapon equipped',
-          damageBuff: {
-            value: 0.08,
-            elementalTypes: ['Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.08,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -974,11 +1036,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Rubilia trait - 2 volt weapons',
           description:
             'Increase volt damage by 8% for every 1 volt weapon equipped',
-          damageBuff: {
-            value: 0.16,
-            elementalTypes: ['Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.16,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1001,11 +1065,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Rubilia trait - 3 volt weapons',
           description:
             'Increase volt damage by 8% for every 1 volt weapon equipped',
-          damageBuff: {
-            value: 0.24,
-            elementalTypes: ['Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.24,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1034,10 +1100,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ruby trait - Dolly ATK increase',
           description:
             'Increases flame ATK after throwing Dolly by 12% for 10 seconds',
-          attackBuff: {
-            value: 0.12,
-            elementalTypes: ['Flame'],
-          },
+          attackBuffs: [
+            {
+              value: 0.12,
+              elementalTypes: ['Flame'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             weaponAttacks: ['ruby-dodge-go-dolly'],
@@ -1053,11 +1121,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ruby trait - Dolly DMG increase',
           description:
             'Increases the flame damage received by all enemies within 5 meters of Dolly by 8%',
-          damageBuff: {
-            value: 0.08,
-            elementalTypes: ['Flame'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.08,
+              elementalTypes: ['Flame'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             weaponAttacks: ['ruby-dodge-go-dolly'],
@@ -1085,11 +1155,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Samir trait',
           description:
             'Grant 1 stack of Concentration every 4 seconds when Samir receives no damage. Each stack increases damage dealt by 4%, and can stack up to 5 times.',
-          damageBuff: {
-            value: 0.2,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.2,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1109,34 +1181,20 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       displayName: 'Shiro',
       buffs: [
         {
-          id: 'shiro-trait-all-atk',
-          displayName: 'Shiro trait - all ATK increase',
+          id: 'shiro-trait',
+          displayName: 'Shiro trait',
           description:
             'After using a weapon skill/discharge skill, increase all kinds of ATK by 16% and physical ATK by an additional 10% for 8 seconds. Cooldown: 16 seconds.',
-          attackBuff: {
-            value: 0.16,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          },
-          maxStacks: 1,
-          triggeredBy: {
-            skillOfAnyWeapon: true,
-            dischargeOfAnyWeapon: true,
-          },
-          endedBy: {
-            duration: 8000,
-          },
-          cooldown: 16000,
-          requirements: {},
-        },
-        {
-          id: 'shiro-trait-phys-atk',
-          displayName: 'Shiro trait - physical ATK increase',
-          description:
-            'After using a weapon skill/discharge skill, increase all kinds of ATK by 16% and physical ATK by an additional 10% for 8 seconds. Cooldown: 16 seconds.',
-          attackBuff: {
-            value: 0.1,
-            elementalTypes: ['Physical'],
-          },
+          attackBuffs: [
+            {
+              value: 0.16,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            },
+            {
+              value: 0.1,
+              elementalTypes: ['Physical'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             skillOfAnyWeapon: true,
@@ -1159,11 +1217,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Tian Lang trait',
           description:
             'When volt weapon skill and discharge skill are released simultaneously, increase volt damage by 18% for 8 seconds.',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           // TODO: need to check if dual element weapons trigger this
           triggeredBy: {
@@ -1189,10 +1249,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Tsubasa trait',
           description:
             'Each time Tsubasa deals damage, gain 1 stack of Fierce Strike, up to 1 stack per 1 second. Each stack adds 0.6% ATK, up to 30 stacks. Refreshes effect duration upon gaining the effect again. The effect lasts for 30 seconds.',
-          attackBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          },
+          attackBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1215,11 +1277,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Umi trait',
           description:
             "Increases final damage by 18% for 30 seconds whenever Umi uses It's Magic Time",
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             weaponAttacks: ["umi-skill-it's-magic-time"],
@@ -1240,11 +1304,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'yanmiao-trait',
           displayName: 'Yan Miao trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1261,11 +1327,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           // TODO:
           description:
             'When Equilibrium is equipped, increase physical damage dealt to targets with less than 80% of HP by 10%',
-          damageBuff: {
-            value: 0.1,
-            elementalTypes: ['Physical'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.1,
+              elementalTypes: ['Physical'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1371,11 +1439,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'yanuo-trait',
           displayName: 'Yanuo trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1391,11 +1461,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Yanuo trait - additional',
           description:
             'When equipped with Wicked, increase final damage by an additional 6%',
-          damageBuff: {
-            value: 0.06,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.06,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -1419,11 +1491,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           id: 'yulan-trait',
           displayName: 'Yu Lan trait',
           description: 'Increase final damage by 18%',
-          damageBuff: {
-            value: 0.18,
-            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: '[TEMP_TRAIT]',
-          },
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,

@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { tickDuration } from '../../../constants/tick';
-import { calculateOverlapDuration } from '../../../utils/time-period-utils';
+import { calculateOverlapDuration } from '../../../utils/time-interval-utils';
 import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Team } from '../../team';
@@ -10,7 +9,7 @@ import type { BuffRegistry } from '../buff/buff-registry';
 import { Damage } from '../damage-summary/damage';
 import { DamageSummary } from '../damage-summary/damage-summary';
 import type { DamageSummaryTimeline } from '../damage-summary-timeline/damage-summary-timeline';
-import { TimePeriod } from '../time-period';
+import type { TimeInterval } from '../time-interval';
 import { DamageCalculator } from './damage-calculator';
 
 export class DamageTimelineCalculator {
@@ -23,11 +22,14 @@ export class DamageTimelineCalculator {
     private readonly buffRegistry: BuffRegistry
   ) {}
 
-  public calculateDamage(timePeriod: TimePeriod) {
-    const damageSummary = new DamageSummary(tickDuration, ...this.team.weapons);
+  public calculateDamage(timeInterval: TimeInterval) {
+    const damageSummary = new DamageSummary(
+      timeInterval.duration,
+      ...this.team.weapons
+    );
 
-    const attackActions = this.attackRegistry.getAttackActions(timePeriod);
-    const buffActions = this.buffRegistry.getActiveBuffActions(timePeriod);
+    const attackActions = this.attackRegistry.getAttackActions(timeInterval);
+    const buffActions = this.buffRegistry.getBuffActions(timeInterval);
 
     for (const attackAction of attackActions) {
       const { type, elementalType, weapon } = attackAction;
@@ -39,18 +41,14 @@ export class DamageTimelineCalculator {
         buffActions
       );
 
-      // This is the base damage + final damage of the whole attack. Since the attack time period is likely not the same as the tick period, we need to take a portion of the damage that's equal to the overlapping duration of the attack period and the tick period.
+      // This is the base damage + final damage of the whole attack. Since the attack time interval is likely not the same as the tick interval, we need to take a portion of the damage that's equal to the overlapping duration of the attack interval and the tick interval.
       // NOTE: A compromise is made averaging out the attack's damage over its duration, for simplicity
       const baseDamageOfEntireAttack = attackCalculator.getBaseDamage();
       const finalDamageOfEntireAttack = attackCalculator.getFinalDamage();
 
-      const attackPeriod = new TimePeriod(
-        attackAction.startTime,
-        attackAction.endTime
-      );
       const overlappingDuration = calculateOverlapDuration(
-        attackPeriod,
-        timePeriod
+        attackAction.timeInterval,
+        timeInterval
       );
 
       const baseDamage = BigNumber(baseDamageOfEntireAttack)
@@ -80,8 +78,8 @@ export class DamageTimelineCalculator {
 
     this.damageSummaryTimeline.addDamageSummary(
       damageSummary,
-      timePeriod.startTime,
-      timePeriod.duration
+      timeInterval.startTime,
+      timeInterval.duration
     );
   }
 }

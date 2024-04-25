@@ -1,13 +1,14 @@
-import { chargeDefinition } from '../../../constants/resources';
+import { tickDuration } from '../../../constants/tick';
 import type { Loadout } from '../../loadout';
 import type { Weapon } from '../../weapon';
+import { ActionRequirementsChecker } from '../action/action-requirements-checker';
+import { ActionResourceUpdater } from '../action/action-resource-updater';
 import type { AttackId } from '../attack/attack-definition';
 import { AttackRegistryFactory } from '../attack/attack-registry-factory';
 import { CombinedAttackRegistry } from '../attack/combined-attack-registry';
 import { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffRegistryFactory } from '../buff/buff-registry-factory';
-import { Charge } from '../charge/charge';
 import type { CombatSimulatorSnapshot } from '../combat-simulator-snapshot/combat-simulator-snapshot';
 import type { DamageSummarySnapshot } from '../combat-simulator-snapshot/damage-summary-snapshot';
 import type { TimelineSnapshot } from '../combat-simulator-snapshot/timeline-snapshot';
@@ -15,27 +16,39 @@ import { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-
 import { DamageSummaryTimeline } from '../damage-summary-timeline/damage-summary-timeline';
 import { CombatEventConfigurator } from '../event/combat-event-configurator';
 import { CombatEventNotifier } from '../event/combat-event-notifier';
-import { EventManager } from '../event/event-manager';
+import { QueuedEventManager } from '../event/queued-event-manager';
 import type { Relics } from '../relics/relics';
-import { TimeTracker } from '../time-tracker';
-import { Timeline } from '../timeline/timeline';
-import { TickProcessor } from './tick-processor';
+import type { ResourceRegistry } from '../resource/resource-registry';
+import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
+import { TickTracker } from '../tick-tracker';
+import { TimeInterval } from '../time-interval';
+import { AttackSimulator } from './attack-simulator';
+import { BuffSimulator } from './buff-simulator';
+import { ResourceSimulator } from './resource-simulator';
+import { TickSimulator } from './tick-simulator';
 
 export class CombatSimulator {
-  private readonly weaponTracker: WeaponTracker;
-  private readonly timeTracker: TimeTracker;
-  private readonly charge: Charge;
+  private readonly tickTracker: TickTracker;
 
-  private readonly attackRegistry: CombinedAttackRegistry;
-  private readonly buffRegistry: BuffRegistry;
-
-  private readonly eventManager: EventManager;
+  private readonly queuedEventManager: QueuedEventManager;
   private readonly combatEventNotifier: CombatEventNotifier;
+
+  private readonly weaponTracker: WeaponTracker;
+
+  private readonly combinedAttackRegistry: CombinedAttackRegistry;
+  private readonly buffRegistry: BuffRegistry;
+  private readonly resourceRegistry: ResourceRegistry;
+
+  private readonly actionRequirementsChecker: ActionRequirementsChecker;
+  private readonly actionResourceUpdater: ActionResourceUpdater;
 
   private readonly damageSummaryTimeline: DamageSummaryTimeline;
   private readonly damageTimelineCalculator: DamageTimelineCalculator;
 
-  private readonly tickProcessor: TickProcessor;
+  private readonly attackSimulator: AttackSimulator;
+  private readonly buffSimulator: BuffSimulator;
+  private readonly resourceSimulator: ResourceSimulator;
+  private readonly tickSimulator: TickSimulator;
 
   public constructor(
     public readonly combatDuration: number,
@@ -44,9 +57,13 @@ export class CombatSimulator {
   ) {
     const { team } = loadout;
 
+    const startingTickInterval = new TimeInterval(-tickDuration, 0);
+    this.tickTracker = new TickTracker(startingTickInterval, tickDuration);
+
+    this.queuedEventManager = new QueuedEventManager();
+    this.combatEventNotifier = new CombatEventNotifier(this.queuedEventManager);
+
     this.weaponTracker = new WeaponTracker();
-    this.timeTracker = new TimeTracker();
-    this.charge = new Charge(chargeDefinition, new Timeline(combatDuration));
 
     const playerInputAttackRegistry =
       AttackRegistryFactory.createPlayerInputAttackRegistry(
@@ -55,7 +72,7 @@ export class CombatSimulator {
       );
     const triggeredAttackRegistry =
       AttackRegistryFactory.createTriggeredAttackRegistry(combatDuration, team);
-    this.attackRegistry = new CombinedAttackRegistry(
+    this.combinedAttackRegistry = new CombinedAttackRegistry(
       playerInputAttackRegistry,
       triggeredAttackRegistry
     );
@@ -66,18 +83,31 @@ export class CombatSimulator {
       relics
     );
 
-    this.eventManager = new EventManager();
-    this.combatEventNotifier = new CombatEventNotifier(this.eventManager);
+    this.resourceRegistry = ResourceRegistryFactory.create(
+      combatDuration,
+      team
+    );
 
-    CombatEventConfigurator.configure(
-      this.eventManager,
-      this.combatEventNotifier,
+    this.actionResourceUpdater = new ActionResourceUpdater(
+      this.resourceRegistry
+    );
+    this.actionRequirementsChecker = new ActionRequirementsChecker(
       team,
       this.weaponTracker,
-      this.timeTracker,
-      this.charge,
-      this.attackRegistry,
-      this.buffRegistry
+      this.buffRegistry,
+      this.resourceRegistry
+    );
+
+    CombatEventConfigurator.configure(
+      this.queuedEventManager,
+      team,
+      this.tickTracker,
+      this.weaponTracker,
+      this.combinedAttackRegistry,
+      this.buffRegistry,
+      this.resourceRegistry,
+      this.actionRequirementsChecker,
+      this.combatEventNotifier
     );
 
     this.damageSummaryTimeline = new DamageSummaryTimeline(combatDuration);
@@ -86,37 +116,68 @@ export class CombatSimulator {
       loadout,
       loadout.loadoutStats,
       team,
-      this.attackRegistry,
+      this.combinedAttackRegistry,
       this.buffRegistry
     );
 
-    this.tickProcessor = new TickProcessor(
-      this.attackRegistry,
-      this.buffRegistry,
-      this.damageTimelineCalculator,
+    this.attackSimulator = new AttackSimulator(
+      this.tickTracker,
+      this.combinedAttackRegistry,
+      this.actionResourceUpdater,
       this.combatEventNotifier
     );
+    this.buffSimulator = new BuffSimulator(
+      this.tickTracker,
+      this.buffRegistry,
+      this.actionResourceUpdater,
+      this.combatEventNotifier
+    );
+    this.resourceSimulator = new ResourceSimulator(
+      this.tickTracker,
+      this.resourceRegistry,
+      this.combatEventNotifier
+    );
+    this.tickSimulator = new TickSimulator(
+      this.tickTracker,
+      this.queuedEventManager,
+      this.combinedAttackRegistry,
+      this.attackSimulator,
+      this.buffSimulator,
+      this.resourceSimulator,
+      this.damageTimelineCalculator
+    );
+
+    // Pre-combat preparations
+    for (const resource of this.resourceRegistry.resources) {
+      resource.addStartingAmount();
+    }
+    this.combatEventNotifier.notifyCombatStart();
+    this.tickSimulator.simulateTickCombatStart();
   }
 
   public get nextAvailableAttacks(): AttackId[] {
-    return this.attackRegistry
-      .getNextPlayerInputAttacksOffCooldown(this.timeTracker)
+    const attackTime = this.tickTracker.currentTickStart;
+
+    return this.combinedAttackRegistry
+      .getAvailablePlayerInputAttacks(attackTime)
+      .filter((attack) =>
+        this.actionRequirementsChecker.hasRequirementsBeenMetAt(
+          attack.requirements,
+          attackTime
+        )
+      )
       .map((item) => item.definition.id);
   }
 
-  public performAttack(attackId: AttackId, time?: number) {
+  public performAttack(attackId: AttackId) {
     if (!this.nextAvailableAttacks.includes(attackId)) {
       throw new Error(
         `Player input attack ${attackId} is not available to be performed`
       );
     }
 
-    this.combatEventNotifier.notifyAttackRequest(
-      time ?? this.timeTracker.nextPlayerInputAttackTime,
-      attackId
-    );
-
-    this.tickProcessor.processTicksForLastAttack();
+    this.combatEventNotifier.notifyAttackRequest(attackId);
+    this.tickSimulator.simulateTicksAfterAttackRequest();
   }
 
   public snapshot(): CombatSimulatorSnapshot {
@@ -124,7 +185,7 @@ export class CombatSimulator {
 
     const weaponTimelineMap = new Map<Weapon, TimelineSnapshot>();
     // Combine all player input attack timelines into one, for each weapon
-    for (const { weapon, definition, timeline } of this.attackRegistry
+    for (const { weapon, definition, timeline } of this.combinedAttackRegistry
       .playerInputAttacks) {
       if (!weaponTimelineMap.has(weapon)) {
         weaponTimelineMap.set(weapon, {
@@ -154,7 +215,7 @@ export class CombatSimulator {
     }
 
     const triggeredAttackTimelines = [];
-    for (const { definition, timeline } of this.attackRegistry
+    for (const { definition, timeline } of this.combinedAttackRegistry
       .triggeredAttacks) {
       if (!timeline.actions.length) continue;
 
@@ -219,6 +280,8 @@ export class CombatSimulator {
               weaponDamageSummary.attackTypeDamageSummaries.discharge.totalDamage.toDto(),
             passiveAttackDamage:
               weaponDamageSummary.attackTypeDamageSummaries.passive.totalDamage.toDto(),
+            otherAttackDamage:
+              weaponDamageSummary.attackTypeDamageSummaries.other.totalDamage.toDto(),
           })
         ),
         duration: damageSummary.duration,
@@ -235,23 +298,31 @@ export class CombatSimulator {
       };
     }
 
-    const chargeTimeline: TimelineSnapshot = {
-      id: 'charge',
-      displayName: 'Charge',
-      actions: this.charge.actions.map((chargeAction) => ({
-        displayName: `Charge: ${chargeAction.amount}`,
-        startTime: chargeAction.startTime,
-        endTime: chargeAction.endTime,
-      })),
-    };
+    const resourceTimelines = [];
+    for (const resource of this.resourceRegistry.resources) {
+      const { definition, timeline } = resource;
+      if (!timeline.actions.length) continue;
+
+      resourceTimelines.push({
+        id: definition.id,
+        displayName: definition.displayName,
+        actions: timeline.actions.map((resourceAction) => ({
+          displayName: `${definition.displayName} - Amount: ${
+            resourceAction.amount
+          }. Cumulated: ${resource.getCumulatedAmount(resourceAction.endTime)}`,
+          startTime: resourceAction.startTime,
+          endTime: resourceAction.endTime,
+        })),
+      });
+    }
 
     return {
       playerInputAttackTimelines,
       triggeredAttackTimelines,
       buffTimelines,
+      resourceTimelines,
       damageTimeline,
       damageSummary: damageSummarySnapshot,
-      chargeTimeline,
     };
   }
 }

@@ -1,5 +1,4 @@
-import type { TimePeriod } from '../time-period';
-import type { TimeTracker } from '../time-tracker';
+import type { TimeInterval } from '../time-interval';
 import type { Attack } from './attack';
 import type { AttackAction } from './attack-action';
 import type { AttackDefinition } from './attack-definition';
@@ -11,12 +10,9 @@ export class AttackRegistry {
     this.attacks = attacks;
   }
 
-  public getNextAttacksOffCooldown(timeTracker: TimeTracker) {
+  public getAvailableAttacks(time: number) {
     return this.attacks.filter(
-      (attack) =>
-        !attack.timeline.isActionOnCooldownAt(
-          timeTracker.nextPlayerInputAttackTime
-        )
+      (attack) => !attack.timeline.isActionOnCooldownAt(time)
     );
   }
 
@@ -26,10 +22,10 @@ export class AttackRegistry {
     );
   }
 
-  public getAttackActions(timePeriod: TimePeriod): AttackAction[] {
-    const { startTime, endTime } = timePeriod;
+  public getAttackActions(timeInterval: TimeInterval): AttackAction[] {
+    const { startTime, endTime } = timeInterval;
     return this.attacks.flatMap((attack) =>
-      attack.timeline.getActionsOverlappingPeriod(startTime, endTime)
+      attack.timeline.getActionsOverlappingInterval(startTime, endTime)
     );
   }
 
@@ -50,9 +46,11 @@ export class AttackRegistry {
     return result;
   }
 
-  public getAttackActionsEndingBetween(timePeriod: TimePeriod): AttackAction[] {
+  public getAttackActionsEndingBetween(
+    timeInterval: TimeInterval
+  ): AttackAction[] {
     return this.attacks.flatMap((attack) =>
-      attack.getAttackActionsEndingBetween(timePeriod)
+      attack.getAttackActionsEndingBetween(timeInterval)
     );
   }
 }
