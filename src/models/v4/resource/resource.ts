@@ -61,30 +61,37 @@ export class Resource {
   ) {
     if (!amount) return;
 
-    const cumulatedAmountPreceding = this.getCumulatedAmount(
-      timeInterval.endTime
-    );
+    /** Calculate amount of resources to add so the result doesn't go over the max amount or under the min amount the resource can hold */
+    const calculateAmountToAdd = () => {
+      const cumulatedAmountPreceding = this.getCumulatedAmount(
+        timeInterval.endTime
+      );
 
-    if (
-      cumulatedAmountPreceding > this.maxAmount ||
-      cumulatedAmountPreceding < this.minAmount
-    )
-      return;
+      if (
+        cumulatedAmountPreceding > this.maxAmount ||
+        cumulatedAmountPreceding < this.minAmount
+      )
+        throw new Error(
+          `Resource in an invalid state. Resource: ${this.id}; CumulatedAmount: ${cumulatedAmountPreceding}`
+        );
 
-    let amountToAdd: number;
-    if (amount > 0) {
-      amountToAdd =
-        cumulatedAmountPreceding + amount > this.maxAmount
-          ? this.maxAmount - cumulatedAmountPreceding
-          : amount;
-    } else {
-      // Negative amount
-      amountToAdd =
-        cumulatedAmountPreceding + amount < this.minAmount
-          ? cumulatedAmountPreceding - this.minAmount
-          : amount;
-    }
+      let amountToAdd: number;
+      if (amount > 0) {
+        amountToAdd =
+          cumulatedAmountPreceding + amount > this.maxAmount
+            ? this.maxAmount - cumulatedAmountPreceding
+            : amount;
+      } else {
+        // Negative amount
+        amountToAdd =
+          cumulatedAmountPreceding + amount < this.minAmount
+            ? cumulatedAmountPreceding - this.minAmount
+            : amount;
+      }
+      return amountToAdd;
+    };
 
+    let amountToAdd = calculateAmountToAdd();
     if (!amountToAdd) return;
 
     const existingActions =
@@ -104,6 +111,10 @@ export class Resource {
           this.timeline.removeAction(existingAction);
         }
       }
+
+      // Re-calculate the amount to add after existing actions potentially being removed
+      amountToAdd = calculateAmountToAdd();
+      if (!amountToAdd) return;
     } else if (
       existingActions.some((existingAction) => existingAction.hasPriority)
     ) {
