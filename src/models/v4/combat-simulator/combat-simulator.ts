@@ -172,7 +172,7 @@ export class CombatSimulator {
     }
 
     const tickStart = this.tickTracker.currentTickInterval.startTime;
-    if (tickStart <= 0) this.preCombat();
+    if (tickStart <= 0) this.preCombat(tickStart);
 
     this.combatEventNotifier.notifyAttackRequest(tickStart, attackId);
 
@@ -325,9 +325,11 @@ export class CombatSimulator {
     };
   }
 
-  private preCombat() {
+  private preCombat(time: number) {
     for (const resource of this.resourceRegistry.resources) {
       resource.addStartingAmount();
     }
+
+    this.combatEventNotifier.notifyCombatStart(time);
   }
 }

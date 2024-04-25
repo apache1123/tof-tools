@@ -10,6 +10,10 @@ import type { EventManager } from './event-manager';
 export class CombatEventNotifier {
   public constructor(private readonly eventManager: EventManager) {}
 
+  public notifyCombatStart(time: number) {
+    this.eventManager.notify(eventIdProvider.getCombatStartEventId(), { time });
+  }
+
   public notifyAttackRequest(time: number, attackId: AttackId) {
     this.eventManager.notify(
       eventIdProvider.getAttackRequestEventId(attackId),
@@ -21,19 +25,9 @@ export class CombatEventNotifier {
 
   public notifyAttackStart(attackAction: AttackAction) {
     const { startTime, attackId } = attackAction;
-
-    const eventData: EventData = { time: startTime };
-
-    if (startTime === 0) {
-      this.eventManager.notify(
-        eventIdProvider.getCombatStartEventId(),
-        eventData
-      );
-    }
-    this.eventManager.notify(
-      eventIdProvider.getAttackStartEventId(attackId),
-      eventData
-    );
+    this.eventManager.notify(eventIdProvider.getAttackStartEventId(attackId), {
+      time: startTime,
+    });
   }
 
   public notifyAttackHit(time: number) {
