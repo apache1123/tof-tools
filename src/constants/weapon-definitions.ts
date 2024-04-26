@@ -5,6 +5,7 @@ import {
   dodgeResourceId,
   enduranceResourceId,
   fullCharge,
+  maxSwiftCutAmount,
 } from './resources';
 import { minActionDuration } from './tick';
 
@@ -508,7 +509,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           description: '',
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['brevey-skill-million-metz-shockwave'],
+            endOfAttacks: ['brevey-skill-million-metz-shockwave'],
           },
           endedBy: {
             duration: 30000,
@@ -528,7 +529,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             },
           },
           triggeredBy: {
-            weaponAttacks: ['brevey-skill-million-metz-shockwave'],
+            endOfAttacks: ['brevey-skill-million-metz-shockwave'],
           },
           endedBy: {
             duration: 30000,
@@ -588,8 +589,50 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
-      triggeredAttacks: [],
-      resources: [],
+      triggeredAttacks: [
+        {
+          id: 'swift-cut',
+          displayName: 'Brevey - Thunderbolt: Swift Cut',
+          description:
+            "Weapon discharge skills deal initial damage equal to 46.87% of volt ATK plus 0.62% of the Wanderer's Max HP plus 23.43% of the sum of all the Wanderer's resistance types plus 85.93% of crit to nearby targets. While in the combat state, after every 0.5 seconds, the next Swift Cut damage will be increased by an additional 1 time, up to a maximum of 30 times.",
+          type: 'discharge',
+          elementalType: { defaultElementalType: 'Volt' },
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 0.4687,
+            attackFlat: 0,
+            hpMultiplier: 0.0062,
+            sumOfResistancesMultiplier: 0.2343,
+            critFlatMultiplier: 0.8593,
+            resourceAmountMultiplier: {
+              resourceId: 'swift-cut',
+              multiplier: 1,
+            },
+            canOnlyBeBuffedByTitans: true,
+          },
+          hitCount: { numberOfHitsFixed: 0 },
+          triggeredBy: { endOfAnyDischargeAttack: true },
+          endedBy: { duration: minActionDuration },
+          cooldown: 0,
+          requirements: {},
+          updatesResources: [
+            {
+              resourceId: 'swift-cut',
+              amount: -maxSwiftCutAmount,
+            },
+          ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+        },
+      ],
+      resources: [
+        {
+          id: 'swift-cut',
+          displayName: 'Swift cut',
+          cooldown: 0,
+          maxAmount: maxSwiftCutAmount,
+          regenerateAmountPerSecond: 2,
+        },
+      ],
     },
     Claudia: {
       id: 'Claudia',
@@ -2487,7 +2530,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             numberOfHitsFixed: 0,
           },
           triggeredBy: {
-            weaponAttacks: ['rei-skill-mecha-strike'],
+            endOfAttacks: ['rei-skill-mecha-strike'],
           },
           endedBy: { duration: 30000 },
           cooldown: 30000,
@@ -2520,7 +2563,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             numberOfHitsFixed: 0,
           },
           triggeredBy: {
-            weaponAttacks: ['rei-skill-mecha-strike'],
+            endOfAttacks: ['rei-skill-mecha-strike'],
           },
           endedBy: { duration: 30000 },
           cooldown: 30000,
@@ -2568,7 +2611,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             numberOfHitsFixed: 0,
           },
           triggeredBy: {
-            hitOfAnyWeapon: true,
+            hitOfAnyAttack: true,
           },
           endedBy: {
             duration: minActionDuration,
@@ -2627,7 +2670,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['rei-homing-arrow'],
+            endOfAttacks: ['rei-homing-arrow'],
           },
           endedBy: {
             duration: 30000,
@@ -2650,7 +2693,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['rei-normal-backjump-arrow'],
+            endOfAttacks: ['rei-normal-backjump-arrow'],
           },
           endedBy: {
             resourceDepleted: 'rei-special-energy',
@@ -2680,7 +2723,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['rei-normal-backjump-arrow'],
+            endOfAttacks: ['rei-normal-backjump-arrow'],
           },
           endedBy: {
             resourceDepleted: 'rei-special-energy',
@@ -2713,7 +2756,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           maxStacks: 1,
           triggeredBy: {
-            buffStart: 'rei-energy-consumption',
+            startOfBuff: 'rei-energy-consumption',
             activeWeapon: 'Rei',
           },
           endedBy: {
@@ -2751,7 +2794,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           maxStacks: 1,
           triggeredBy: {
-            buffStart: 'rei-energy-consumption',
+            startOfBuff: 'rei-energy-consumption',
             notActiveWeapon: 'Rei',
           },
           endedBy: {

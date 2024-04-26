@@ -108,13 +108,13 @@ export const commonBuffs: BuffDefinition[] = [
       {
         value: 0.1,
         elementalTypes: ['Frost', 'Volt'],
-        damageCategory: '[TEMP_UNKNOWN]',
+        damageCategory: 'Enemy debuff', // TODO: unsure
       },
     ],
     maxStacks: 1,
     triggeredBy: {
       fullChargeOfWeapons: ['Brevey', 'Rei'],
-      weaponAttacks: ['brevey-skill-million-metz-shockwave'],
+      endOfAttacks: ['brevey-skill-million-metz-shockwave'],
     },
     endedBy: {
       duration: 45000,

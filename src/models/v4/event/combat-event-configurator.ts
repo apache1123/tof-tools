@@ -138,64 +138,116 @@ export class CombatEventConfigurator {
           actionTriggeredBy.fullChargeOfWeapons?.includes(weapon.id)
         )
         .forEach((weapon) => {
-          eventIds.push(eventIdProvider.getWeaponFullChargeEventId(weapon.id));
+          eventIds.push(
+            eventIdProvider.getFullChargeOfWeaponEventId(weapon.id)
+          );
         });
     }
 
-    if (actionTriggeredBy.hitOfAnyWeapon) {
-      eventIds.push(eventIdProvider.getAnyAttackHitEventId());
+    if (actionTriggeredBy.hitOfAnyAttack) {
+      eventIds.push(eventIdProvider.getHitOfAnyAttackEventId());
+    }
+    if (actionTriggeredBy.startOfAnyAttack) {
+      eventIds.push(eventIdProvider.getStartOfAnyAttackEventId());
+    }
+    if (actionTriggeredBy.endOfAnyAttack) {
+      eventIds.push(eventIdProvider.getEndOfAnyAttackEventId());
     }
 
-    if (actionTriggeredBy.skillOfAnyWeapon) {
-      eventIds.push(eventIdProvider.getSkillAttackEventId());
-    }
-
-    if (actionTriggeredBy.dischargeOfAnyWeapon) {
-      eventIds.push(eventIdProvider.getDischargeAttackEventId());
-    }
-
-    if (actionTriggeredBy.skillOfWeaponType) {
-      eventIds.push(
-        eventIdProvider.getSkillOfWeaponTypeEventId(
-          actionTriggeredBy.skillOfWeaponType
-        )
-      );
-    }
-
-    if (actionTriggeredBy.dischargeOfWeaponType) {
-      eventIds.push(
-        eventIdProvider.getDischargeOfWeaponTypeEventId(
-          actionTriggeredBy.dischargeOfWeaponType
-        )
-      );
-    }
-
-    if (actionTriggeredBy.skillOfElementalType) {
-      eventIds.push(
-        eventIdProvider.getSkillOfElementalTypeEventId(
-          actionTriggeredBy.skillOfElementalType
-        )
-      );
-    }
-
-    if (actionTriggeredBy.dischargeOfElementalType) {
-      eventIds.push(
-        eventIdProvider.getDischargeOfElementalTypeEventId(
-          actionTriggeredBy.dischargeOfElementalType
-        )
-      );
-    }
-
-    if (actionTriggeredBy.buffStart) {
-      eventIds.push(
-        eventIdProvider.getBuffStartEventId(actionTriggeredBy.buffStart)
-      );
-    }
-
-    if (actionTriggeredBy.weaponAttacks) {
-      actionTriggeredBy.weaponAttacks.forEach((attackId) => {
-        eventIds.push(eventIdProvider.getAttackEndEventId(attackId));
+    if (actionTriggeredBy.startOfAttacks) {
+      actionTriggeredBy.startOfAttacks.forEach((attackId) => {
+        eventIds.push(eventIdProvider.getStartOfAttackEventId(attackId));
       });
+    }
+    if (actionTriggeredBy.endOfAttacks) {
+      actionTriggeredBy.endOfAttacks.forEach((attackId) => {
+        eventIds.push(eventIdProvider.getEndOfAttackEventId(attackId));
+      });
+    }
+
+    if (actionTriggeredBy.startOfAnySkillAttack) {
+      eventIds.push(eventIdProvider.getStartOfAnySkillAttackEventId());
+    }
+    if (actionTriggeredBy.endOfAnySkillAttack) {
+      eventIds.push(eventIdProvider.getEndOfAnySkillAttackEventId());
+    }
+
+    if (actionTriggeredBy.startOfAnyDischargeAttack) {
+      eventIds.push(eventIdProvider.getStartOfAnyDischargeAttackEventId());
+    }
+    if (actionTriggeredBy.endOfAnyDischargeAttack) {
+      eventIds.push(eventIdProvider.getEndOfAnyDischargeAttackEventId());
+    }
+
+    if (actionTriggeredBy.startOfSkillOfWeaponType) {
+      eventIds.push(
+        eventIdProvider.getStartOfSkillOfWeaponTypeEventId(
+          actionTriggeredBy.startOfSkillOfWeaponType
+        )
+      );
+    }
+    if (actionTriggeredBy.endOfSkillOfWeaponType) {
+      eventIds.push(
+        eventIdProvider.getEndOfSkillOfWeaponTypeEventId(
+          actionTriggeredBy.endOfSkillOfWeaponType
+        )
+      );
+    }
+
+    if (actionTriggeredBy.startOfDischargeOfWeaponType) {
+      eventIds.push(
+        eventIdProvider.getStartOfDischargeOfWeaponTypeEventId(
+          actionTriggeredBy.startOfDischargeOfWeaponType
+        )
+      );
+    }
+    if (actionTriggeredBy.endOfDischargeOfWeaponType) {
+      eventIds.push(
+        eventIdProvider.getEndOfDischargeOfWeaponTypeEventId(
+          actionTriggeredBy.endOfDischargeOfWeaponType
+        )
+      );
+    }
+
+    if (actionTriggeredBy.startOfSkillOfElementalType) {
+      eventIds.push(
+        eventIdProvider.getStartOfSkillOfElementalTypeEventId(
+          actionTriggeredBy.startOfSkillOfElementalType
+        )
+      );
+    }
+    if (actionTriggeredBy.endOfSkillOfElementalType) {
+      eventIds.push(
+        eventIdProvider.getEndOfSkillOfElementalTypeEventId(
+          actionTriggeredBy.endOfSkillOfElementalType
+        )
+      );
+    }
+
+    if (actionTriggeredBy.startOfDischargeOfElementalType) {
+      eventIds.push(
+        eventIdProvider.getStartOfDischargeOfElementalTypeEventId(
+          actionTriggeredBy.startOfDischargeOfElementalType
+        )
+      );
+    }
+    if (actionTriggeredBy.endOfDischargeOfElementalType) {
+      eventIds.push(
+        eventIdProvider.getEndOfDischargeOfElementalTypeEventId(
+          actionTriggeredBy.endOfDischargeOfElementalType
+        )
+      );
+    }
+
+    if (actionTriggeredBy.startOfBuff) {
+      eventIds.push(
+        eventIdProvider.getStartOfBuffEventId(actionTriggeredBy.startOfBuff)
+      );
+    }
+    if (actionTriggeredBy.endOfBuff) {
+      eventIds.push(
+        eventIdProvider.getEndOfBuffEventId(actionTriggeredBy.endOfBuff)
+      );
     }
 
     if (actionTriggeredBy.resourceUpdate) {
@@ -216,7 +268,7 @@ export class CombatEventConfigurator {
     const eventIds: string[] = [];
 
     if (actionEndedBy.buffEnd) {
-      eventIds.push(eventIdProvider.getBuffEndEventId(actionEndedBy.buffEnd));
+      eventIds.push(eventIdProvider.getEndOfBuffEventId(actionEndedBy.buffEnd));
     }
 
     if (actionEndedBy.notActiveWeapon) {

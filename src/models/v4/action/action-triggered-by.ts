@@ -13,22 +13,55 @@ export interface ActionTriggeredBy {
   combatStart?: boolean;
   // TODO: applyToEndSegmentOfCombat
 
-  hitOfAnyWeapon?: boolean;
-  skillOfAnyWeapon?: boolean;
-  dischargeOfAnyWeapon?: boolean;
-  skillOfWeaponType?: WeaponType;
-  dischargeOfWeaponType?: WeaponType;
-  skillOfElementalType?: WeaponElementalType;
-  dischargeOfElementalType?: WeaponElementalType;
-  fullChargeOfWeapons?: WeaponName[];
-
-  weaponAttacks?: string[];
-
-  buffStart?: BuffId;
-
   /** e.g. If [weapon] is in off-hand slot, ... */
   notActiveWeapon?: WeaponName;
   activeWeapon?: WeaponName;
+
+  fullChargeOfWeapons?: WeaponName[];
+
+  hitOfAnyAttack?: boolean;
+  startOfAnyAttack?: boolean;
+  endOfAnyAttack?: boolean;
+
+  /** Triggered upon start of the defined attacks */
+  startOfAttacks?: string[];
+  /** Triggered upon end of the defined attacks */
+  endOfAttacks?: string[];
+
+  /** Triggered upon start of any skill attack */
+  startOfAnySkillAttack?: boolean;
+  /** Triggered upon end of any skill attack */
+  endOfAnySkillAttack?: boolean;
+
+  /** Trigger upon start of any discharge attack */
+  startOfAnyDischargeAttack?: boolean;
+  /** Trigger upon end of any discharge attack */
+  endOfAnyDischargeAttack?: boolean;
+
+  /** Trigger upon start of any skill of a weapon type */
+  startOfSkillOfWeaponType?: WeaponType;
+  /** Trigger upon end of any skill of a weapon type */
+  endOfSkillOfWeaponType?: WeaponType;
+
+  /** Trigger upon start of any discharge of a weapon type */
+  startOfDischargeOfWeaponType?: WeaponType;
+  /** Trigger upon end of any discharge of a weapon type */
+  endOfDischargeOfWeaponType?: WeaponType;
+
+  /** Trigger upon start of any skill of an elemental type */
+  startOfSkillOfElementalType?: WeaponElementalType;
+  /** Trigger upon end of any skill of an elemental type */
+  endOfSkillOfElementalType?: WeaponElementalType;
+
+  /** Trigger upon start of any discharge of an elemental type */
+  startOfDischargeOfElementalType?: WeaponElementalType;
+  /** Trigger upon end of any discharge of an elemental type */
+  endOfDischargeOfElementalType?: WeaponElementalType;
+
+  /** Trigger upon start of the defined buff */
+  startOfBuff?: BuffId;
+  /** Trigger upon end of the defined buff */
+  endOfBuff?: BuffId;
 
   resourceUpdate?: ResourceId;
 }
