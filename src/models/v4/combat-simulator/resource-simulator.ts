@@ -47,11 +47,11 @@ export class ResourceSimulator {
 
     for (const resource of this.resourceRegistry.resources) {
       const { regenerateAmountPerSecond } = resource.definition;
-      if (!regenerateAmountPerSecond) return;
+      if (!regenerateAmountPerSecond) continue;
 
       const existingActions =
         resource.getResourceActionsOverlappingInterval(tickInterval);
-      if (existingActions.length) return;
+      if (existingActions.length) continue;
 
       const regenerateAmount = BigNumber(regenerateAmountPerSecond)
         .times(tickInterval.duration)

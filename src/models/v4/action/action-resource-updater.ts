@@ -19,7 +19,7 @@ export class ActionResourceUpdater {
       const { resourceId, amount, amountPerSecond, hasPriority } =
         updatesResource;
 
-      if (!amount && !amountPerSecond) return;
+      if (!amount && !amountPerSecond) continue;
 
       const resource = this.resourceRegistry.getResource(resourceId);
       if (!resource) {
