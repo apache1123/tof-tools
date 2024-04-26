@@ -20,6 +20,10 @@ export class Buff {
     this.actionTimeCalculator = actionTimeCalculator;
   }
 
+  public get id() {
+    return this.definition.id;
+  }
+
   public trigger(time: number): BuffAction {
     const timeInterval =
       this.actionTimeCalculator.calculateActionTimeInterval(time);

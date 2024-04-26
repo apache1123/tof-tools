@@ -4,14 +4,20 @@ import type { ResourceAction } from './resource-action';
 import type { ResourceId } from './resource-definition';
 
 export class ResourceRegistry {
-  public readonly resources: Resource[];
+  private readonly _resources = new Map<ResourceId, Resource>();
 
   public constructor(resources: Resource[]) {
-    this.resources = resources;
+    for (const resource of resources) {
+      this._resources.set(resource.id, resource);
+    }
+  }
+
+  public get resources(): Resource[] {
+    return [...this._resources.values()];
   }
 
   public getResource(id: ResourceId) {
-    return this.resources.find((resource) => resource.id === id);
+    return this._resources.get(id);
   }
 
   /** Has the minimum amount of resource at a point of time */

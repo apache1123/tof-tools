@@ -1,13 +1,20 @@
 import type { TimeInterval } from '../time-interval';
 import type { Attack } from './attack';
 import type { AttackAction } from './attack-action';
-import type { AttackDefinition } from './attack-definition';
+import type { AttackId } from './attack-definition';
+import { type AttackDefinition } from './attack-definition';
 
 export class AttackRegistry {
-  public readonly attacks: Attack[];
+  private readonly _attacks = new Map<AttackId, Attack>();
 
   public constructor(attacks: Attack[]) {
-    this.attacks = attacks;
+    for (const attack of attacks) {
+      this._attacks.set(attack.id, attack);
+    }
+  }
+
+  public get attacks(): Attack[] {
+    return [...this._attacks.values()];
   }
 
   public getAvailableAttacks(time: number) {
@@ -17,9 +24,7 @@ export class AttackRegistry {
   }
 
   public getAttack(attackDefinition: AttackDefinition) {
-    return this.attacks.find(
-      (attack) => attack.definition === attackDefinition
-    );
+    return this._attacks.get(attackDefinition.id);
   }
 
   public getAttackActions(timeInterval: TimeInterval): AttackAction[] {
