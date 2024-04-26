@@ -119,6 +119,8 @@ export class DamageCalculator {
   public getTotalDamagePercent(): number {
     const {
       damageModifiers: { canOnlyBeBuffedByTitans },
+      weapon,
+      type,
     } = this.attackAction;
 
     const damageBuffs = this.activeBuffActions.flatMap((buffAction) =>
@@ -128,8 +130,17 @@ export class DamageCalculator {
             damageBuff.elementalTypes.includes(
               this.attackAction.elementalType
             ) &&
+            // TODO: these below should be refactored
             (!canOnlyBeBuffedByTitans ||
-              titanRareStatDamageCategories.includes(damageBuff.damageCategory))
+              titanRareStatDamageCategories.includes(
+                damageBuff.damageCategory
+              )) &&
+            (!damageBuff.appliesTo ||
+              !damageBuff.appliesTo.weapon ||
+              damageBuff.appliesTo.weapon === weapon.id) &&
+            (!damageBuff.appliesTo ||
+              !damageBuff.appliesTo.attackType ||
+              damageBuff.appliesTo.attackType === type)
         )
         .map((damageBuff) => ({ damageBuff, stacks: buffAction.stacks }))
     );

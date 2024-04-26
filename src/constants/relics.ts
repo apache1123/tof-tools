@@ -999,7 +999,8 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
         ],
         maxStacks: 1,
         triggeredBy: {
-          combatStart: true,
+          // TODO: this clashes with passive relic buffs
+          // combatStart: true,
         },
         endedBy: {
           combatEnd: true,

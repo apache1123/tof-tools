@@ -2353,7 +2353,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           type: 'normal',
           damageModifiers: {
             damageDealtIsPerSecond: false,
-            attackMultiplier: 3000,
+            attackMultiplier: 30,
             attackFlat: 17999,
           },
           hitCount: {
@@ -2573,7 +2573,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           endedBy: {
             duration: minActionDuration,
           },
-          cooldown: 500,
+          cooldown: 700, // This is hard to simulate accurately. This value seems to work ok to approximate the effect
           requirements: {},
           updatesResources: [
             {
@@ -2725,12 +2725,16 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             activeBuff: 'rei-energy-consumption',
           },
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-          miscBuff: {
-            allAttackBuff: {
-              forWeapon: 'Rei',
+          damageBuffs: [
+            {
               value: 0.3,
+              elementalTypes: ['Volt'],
+              damageCategory: 'Weapon damage increase',
+              appliesTo: {
+                weapon: 'Rei',
+              },
             },
-          },
+          ],
           updatesResources: [
             {
               resourceId: 'rei-special-energy',
@@ -2759,7 +2763,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             activeBuff: 'rei-energy-consumption',
           },
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-          miscBuff: {},
+          miscBuff: {}, // TODO:
           updatesResources: [
             {
               resourceId: 'rei-special-energy',

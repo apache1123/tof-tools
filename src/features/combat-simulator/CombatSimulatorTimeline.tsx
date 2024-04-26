@@ -55,10 +55,10 @@ export function CombatSimulatorTimeline() {
   >(undefined);
 
   useEffect(() => {
-    const weapon1 = new Weapon(weaponDefinitions.byId['Brevey']);
+    const weapon1 = new Weapon(weaponDefinitions.byId['Claudia']);
     const weapon2 = new Weapon(weaponDefinitions.byId['Rei']);
-    weapon2.stars = 6;
-    const weapon3 = new Weapon(weaponDefinitions.byId['Nan Yin']);
+    weapon2.stars = 0;
+    const weapon3 = new Weapon(weaponDefinitions.byId['Umi']);
 
     const team = new Team();
     team.weapon1 = weapon1;
@@ -68,15 +68,22 @@ export function CombatSimulatorTimeline() {
     const loadout = new Loadout('loadout', 'Volt', team, new GearSet(), {
       characterLevel: 100,
     });
-    loadout.loadoutStats.voltAttack.baseAttack = 30000;
-    loadout.loadoutStats.frostAttack.baseAttack = 30000;
-    loadout.loadoutStats.critFlat = 18000;
-    loadout.simulacrumTrait = simulacrumTraits.byId['Rei'];
+    loadout.loadoutStats.frostAttack.baseAttack = 15872;
+    loadout.loadoutStats.voltAttack.baseAttack = 15312;
+    loadout.loadoutStats.critFlat = 6857;
+    loadout.loadoutStats.critPercent = 0.0581;
+    loadout.simulacrumTrait = simulacrumTraits.byId['Cocoritter'];
 
     const relics = new Relics();
     relics.setRelicStars('Cybernetic Arm', 4); // Frost +1.5%
+    relics.setRelicStars('Hovering Cannon', 5); // Frost +1.5%
     relics.setRelicStars('Alternate Destiny', 5); // Frost +2%
-    relics.setRelicStars('Thalassic Heart', 4); // Volt +2%
+    relics.setRelicStars('Triple Mask', 5); // Frost +2%
+    relics.setRelicStars('Magnetic Storm', 5); // Volt +1.5%
+    relics.setRelicStars('Quantum Cloak', 5); // Volt +1.5%
+    relics.setRelicStars('Strange Cube', 5); // Volt +1.5%
+    relics.setRelicStars('Hologram Projector', 5); // Volt +2%
+    relics.setRelicStars('Mini Pelican', 5); // Volt +2%
 
     const combatDuration = 150000;
 
@@ -86,11 +93,14 @@ export function CombatSimulatorTimeline() {
       relics
     );
 
+    // repeat(() => {
+    //   combatSimulator.performAttack('rei-normal-auto-chain');
+    // }, 5);
+
     combatSimulator.performAttack('rei-normal-backjump-arrow');
-    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
-    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
-    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
-    combatSimulator.performAttack('rei-normal-dodging-rapidfire');
+    repeat(() => {
+      combatSimulator.performAttack('rei-normal-dodging-rapidfire');
+    }, 4);
 
     setCombatSimulatorSnapshot(combatSimulator.snapshot());
   }, []);
