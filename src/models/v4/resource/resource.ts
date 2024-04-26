@@ -85,7 +85,7 @@ export class Resource {
         // Negative amount
         amountToAdd =
           cumulatedAmountPreceding + amount < this.minAmount
-            ? cumulatedAmountPreceding - this.minAmount
+            ? this.minAmount - cumulatedAmountPreceding
             : amount;
       }
       return amountToAdd;
