@@ -611,8 +611,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             canOnlyBeBuffedByTitans: true,
           },
           hitCount: { numberOfHitsFixed: 0 },
-          triggeredBy: { endOfAnyDischargeAttack: true },
+          triggeredBy: { startOfAnyDischargeAttack: true },
           endedBy: { duration: minActionDuration },
+          doesNotTriggerEvents: true,
           cooldown: 0,
           requirements: {},
           updatesResources: [
@@ -2515,7 +2516,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           displayName: 'Rei - Flash: Detachment',
           description:
             'After using Mecha Strike, deal damage equal to a % of ATK plus a % of Max HP plus a % of the sum of all resistance types plus a % of crit to target every second for 30 seconds',
-          type: 'other',
+          type: 'other', // TODO: this calculates as skill damage but appears as other damage in damage summary
           elementalType: { defaultElementalType: 'Volt' },
           damageModifiers: {
             damageDealtIsPerSecond: true,
@@ -2548,7 +2549,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           displayName: 'Rei - Flash: Detachment - physical/flame equipped',
           description:
             'After using Mecha Strike, deal damage equal to a % of ATK plus a % of Max HP plus a % of the sum of all resistance types plus a % of crit to target every second for 30 seconds. If any 1 physical or flame weapon is equipped, Flash damage is increased to 1.3 times.',
-          type: 'skill',
+          type: 'other', // TODO: this calculates as skill damage but appears as other damage in damage summary
           elementalType: { defaultElementalType: 'Volt' },
           damageModifiers: {
             damageDealtIsPerSecond: true,

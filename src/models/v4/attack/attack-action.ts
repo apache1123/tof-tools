@@ -17,6 +17,8 @@ export class AttackAction extends Action {
   public type: AttackType;
   public hitCount: AttackHitCount;
   public updatesResources: ActionUpdatesResource[];
+  public doesNotTriggerEvents: boolean;
+
   /** The weapon this attack derived from, for convenience */
   public readonly weapon: Weapon;
 
@@ -33,6 +35,7 @@ export class AttackAction extends Action {
       type,
       hitCount,
       updatesResources,
+      doesNotTriggerEvents,
     } = definition;
 
     super(timeInterval, cooldown);
@@ -43,6 +46,8 @@ export class AttackAction extends Action {
     this.type = type;
     this.hitCount = { ...hitCount };
     this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
+    this.doesNotTriggerEvents = doesNotTriggerEvents ?? false;
+
     this.weapon = weapon;
   }
 

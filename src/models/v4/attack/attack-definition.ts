@@ -19,6 +19,8 @@ export interface AttackDefinition extends ActionDefinition {
 
   triggeredBy: ActionTriggeredBy;
   endedBy: ActionEndedBy;
+  /** Needed for some attacks to stop them from triggering further events e.g. swift cut is a discharge that is also triggered by a discharge */
+  doesNotTriggerEvents?: boolean;
 
   requirements: ActionRequirements;
 

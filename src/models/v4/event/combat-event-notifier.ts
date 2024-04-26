@@ -18,7 +18,10 @@ export class CombatEventNotifier {
   }
 
   public notifyAttackStart(attackAction: AttackAction) {
-    const { attackId, elementalType, type, weapon } = attackAction;
+    const { attackId, elementalType, type, weapon, doesNotTriggerEvents } =
+      attackAction;
+
+    if (doesNotTriggerEvents) return;
 
     const eventIds = [];
 
@@ -51,7 +54,10 @@ export class CombatEventNotifier {
   }
 
   public notifyAttackEnd(attackAction: AttackAction) {
-    const { attackId, elementalType, type, weapon } = attackAction;
+    const { attackId, elementalType, type, weapon, doesNotTriggerEvents } =
+      attackAction;
+
+    if (doesNotTriggerEvents) return;
 
     const eventIds = [];
 

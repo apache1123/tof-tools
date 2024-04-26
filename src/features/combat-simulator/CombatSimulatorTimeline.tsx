@@ -55,7 +55,7 @@ export function CombatSimulatorTimeline() {
   >(undefined);
 
   useEffect(() => {
-    const weapon1 = new Weapon(weaponDefinitions.byId['Claudia']);
+    const weapon1 = new Weapon(weaponDefinitions.byId['Brevey']);
     const weapon2 = new Weapon(weaponDefinitions.byId['Rei']);
     weapon2.stars = 0;
     const weapon3 = new Weapon(weaponDefinitions.byId['Umi']);
@@ -93,14 +93,11 @@ export function CombatSimulatorTimeline() {
       relics
     );
 
-    // repeat(() => {
-    //   combatSimulator.performAttack('rei-normal-auto-chain');
-    // }, 5);
-
-    combatSimulator.performAttack('rei-normal-backjump-arrow');
     repeat(() => {
-      combatSimulator.performAttack('rei-normal-dodging-rapidfire');
-    }, 4);
+      combatSimulator.performAttack('brevey-normal-hold');
+    }, 20);
+    combatSimulator.performAttack('rei-discharge');
+    combatSimulator.performAttack('brevey-normal-hold');
 
     setCombatSimulatorSnapshot(combatSimulator.snapshot());
   }, []);
@@ -152,8 +149,6 @@ export function CombatSimulatorTimeline() {
           damageSummary={combatSimulatorSnapshot.damageSummary}
         />
       )}
-      Damage timeline events:
-      {JSON.stringify(combatSimulatorSnapshot?.damageTimeline.actions)}
     </Stack>
   );
 }

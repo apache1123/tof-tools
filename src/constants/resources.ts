@@ -10,6 +10,7 @@ export const chargeDefinition: ResourceDefinition = {
   displayName: 'Weapon charge',
   cooldown: 0,
   maxAmount: maxCharge,
+  startingAmount: maxCharge, // TODO: move this later as an option passed to combat simulator
 };
 
 export const enduranceResourceId = 'endurance';
@@ -33,3 +34,5 @@ export const dodgeResourceDefinition: ResourceDefinition = {
   startingAmount: maxDodges,
   regenerateAmountPerSecond: 0.25,
 };
+
+export const maxSwiftCutAmount = 30;

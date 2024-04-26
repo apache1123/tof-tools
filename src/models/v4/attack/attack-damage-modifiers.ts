@@ -1,3 +1,6 @@
+import type { ResourceId } from '../resource/resource-definition';
+
+/** Base damage = ((totalAttack * attackMultiplier) + attackFlat + (hp * hpMultiplier) + (sumOfResistances * sumOfResistancesMultiplier) + (critFlat * critFlatMultiplier)) * resourceStackMultiplier */
 export interface AttackDamageModifiers {
   /** The attack deals damage per second according to the damage modifiers.
    * If not, the damage is assumed to be over the duration of the attack */
@@ -10,6 +13,13 @@ export interface AttackDamageModifiers {
   hpMultiplier?: number;
   sumOfResistancesMultiplier?: number;
   critFlatMultiplier?: number;
+
+  /** Multiply damage by the number of stacks of the resource times the multiplier */
+  resourceAmountMultiplier?: {
+    resourceId: ResourceId;
+    multiplier: number;
+  };
+
   /** This attack is unaffected by any damage buffs except for titan rare stats */
   canOnlyBeBuffedByTitans?: boolean;
 }

@@ -117,7 +117,8 @@ export class CombatSimulator {
       loadout.loadoutStats,
       team,
       this.combinedAttackRegistry,
-      this.buffRegistry
+      this.buffRegistry,
+      this.resourceRegistry
     );
 
     this.attackSimulator = new AttackSimulator(

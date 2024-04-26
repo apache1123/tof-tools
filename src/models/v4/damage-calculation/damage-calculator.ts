@@ -11,29 +11,38 @@ import type { Weapon } from '../../weapon';
 import type { AttackAction } from '../attack/attack-action';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
 import type { BuffAction } from '../buff/buff-action';
+import type { ResourceRegistry } from '../resource/resource-registry';
 
-/** Based on an attack, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */
+/** Based on an attack and its time interval, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */
 export class DamageCalculator {
   public constructor(
     private readonly attackAction: AttackAction,
     private readonly weapon: Weapon,
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
-    private readonly activeBuffActions: BuffAction[]
+    /** Buff actions during the attackAction's duration */
+    private readonly buffActions: BuffAction[],
+    private readonly resourceRegistry: ResourceRegistry
   ) {}
 
   public getBaseDamage(): number {
-    const { duration, damageModifiers } = this.attackAction;
-    const { damageDealtIsPerSecond } = damageModifiers;
+    const { startTime, duration, damageModifiers } = this.attackAction;
+    const {
+      damageDealtIsPerSecond,
+      resourceAmountMultiplier: resourceAmountMultiplierDefinition,
+    } = damageModifiers;
 
-    // Work out the total attack damage modifiers over the attack's duration if they are defined to be per second. If they are not defined to be per second, the attack damage modifiers are already assumed to be over the attack's duration
+    // Work out the total attack damage modifiers over the attack's duration if they are defined to be per second. If they are not defined to be per second, the attack damage modifiers are already assumed to be over the attack's duration. This only needs to be done for values that are to be the addend, or a multiplier of an addend. For factors, this does not need to be done.
+    // e.g. Base damage = ((totalAttack * attackMultiplier) + attackFlat + (hp * hpMultiplier)) * resourceAmountMultiplier
+    // Here: attackMultiplier, attackFlat, hpMultiplier need to be adjusted, but resourceAmountMultiplier will not change
     const calculatePerSecondValueToTotal = (value: number) =>
       BigNumber(value).times(duration).dividedBy(oneSecondDuration).toNumber();
 
     let totalDamageModifiers: Omit<
       AttackDamageModifiers,
       'damageDealtIsPerSecond'
-    > = this.attackAction.damageModifiers;
+    > = damageModifiers;
+
     if (damageDealtIsPerSecond) {
       totalDamageModifiers = {
         attackMultiplier: calculatePerSecondValueToTotal(
@@ -65,12 +74,30 @@ export class DamageCalculator {
     const hp = this.loadoutStats.hp;
     const sumOfAllResistances = this.loadoutStats.sumOfAllResistances;
 
+    let resourceAmountMultiplier = 1;
+    if (resourceAmountMultiplierDefinition) {
+      const { resourceId } = resourceAmountMultiplierDefinition;
+      const resource = this.resourceRegistry.getResource(resourceId);
+      if (!resource) throw new Error(`Cannot find resource: ${resourceId}`);
+
+      const resourceAmount = resource.getCumulatedAmount(startTime);
+
+      if (resourceAmount) {
+        resourceAmountMultiplier = BigNumber(
+          resourceAmountMultiplierDefinition.multiplier
+        )
+          .times(resourceAmount)
+          .toNumber();
+      }
+    }
+
     return BigNumber(totalAttack)
       .times(attackMultiplier)
       .plus(attackFlat)
       .plus(product(critFlat, critFlatMultiplier ?? 0))
       .plus(product(hp, hpMultiplier ?? 0))
       .plus(product(sumOfAllResistances, sumOfResistancesMultiplier ?? 0))
+      .times(resourceAmountMultiplier)
       .toNumber();
   }
 
@@ -103,7 +130,7 @@ export class DamageCalculator {
   }
 
   public getTotalAttackPercent(): number {
-    const attackBuffValues = this.activeBuffActions
+    const attackBuffValues = this.buffActions
       .flatMap((buffAction) =>
         buffAction.attackBuffs
           .filter((attackBuff) =>
@@ -123,7 +150,7 @@ export class DamageCalculator {
       type,
     } = this.attackAction;
 
-    const damageBuffs = this.activeBuffActions.flatMap((buffAction) =>
+    const damageBuffs = this.buffActions.flatMap((buffAction) =>
       buffAction.damageBuffs
         .filter(
           (damageBuff) =>
