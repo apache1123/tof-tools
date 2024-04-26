@@ -1,14 +1,14 @@
 import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapon-definitions';
+import type { ResourceDefinition } from './v4/resource/resource-definition';
 import type {
-  AttackDefinition,
   DischargeAttackDefinition,
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
-} from './v4/attack/attack-definition';
-import type { ResourceDefinition } from './v4/resource/resource-definition';
+  WeaponAttackDefinition,
+} from './v4/weapon/weapon-attack-definition';
 import type { WeaponBuffDefinition } from './v4/weapon/weapon-buff-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
@@ -36,7 +36,7 @@ export interface WeaponDefinition {
   dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
-  triggeredAttacks: AttackDefinition[];
+  triggeredAttacks: WeaponAttackDefinition[];
 
   buffs: WeaponBuffDefinition[];
 

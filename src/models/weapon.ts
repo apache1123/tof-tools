@@ -1,10 +1,9 @@
 import type { WeaponName } from '../constants/weapon-definitions';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
-import type {
-  AttackDefinition,
-  PlayerInputAttackDefinition,
-} from './v4/attack/attack-definition';
+import type { AttackDefinition } from './v4/attack/attack-definition';
+import type { PlayerInputAttackDefinition } from './v4/weapon/weapon-attack-definition';
+import type { WeaponStarRequirement } from './v4/weapon/weapon-star-requirement';
 import {
   getWeaponDefinition,
   type WeaponDefinition,
@@ -33,21 +32,23 @@ export class Weapon implements Persistable<WeaponDto> {
   }
 
   public get allPlayerInputAttackDefinitions(): PlayerInputAttackDefinition[] {
-    // TODO: filter by star requirements
     const { normalAttacks, dodgeAttacks, skills, discharge } = this.definition;
-    return [...normalAttacks, ...dodgeAttacks, ...skills, discharge];
+    return [...normalAttacks, ...dodgeAttacks, ...skills, discharge].filter(
+      (attackDefinition) =>
+        this.hasMetStarRequirement(attackDefinition.starRequirement)
+    );
   }
 
   public get allTriggeredAttackDefinitions(): AttackDefinition[] {
-    return this.definition.triggeredAttacks;
+    return this.definition.triggeredAttacks.filter((attackDefinition) =>
+      this.hasMetStarRequirement(attackDefinition.starRequirement)
+    );
   }
 
   /** Buffs that can be activated for this weapon */
   public get buffs() {
-    return this.definition.buffs.filter(
-      (buffDefinition) =>
-        this.stars >= buffDefinition.minStarRequirement &&
-        this.stars <= buffDefinition.maxStarRequirement
+    return this.definition.buffs.filter((buffDefinition) =>
+      this.hasMetStarRequirement(buffDefinition.starRequirement)
     );
   }
 
@@ -79,6 +80,13 @@ export class Weapon implements Persistable<WeaponDto> {
       matrixSets: matrixSets.toDto(),
       version: 1,
     };
+  }
+
+  private hasMetStarRequirement(requirement: WeaponStarRequirement) {
+    return (
+      this.stars >= requirement.minStarRequirement &&
+      this.stars <= requirement.maxStarRequirement
+    );
   }
 }
 

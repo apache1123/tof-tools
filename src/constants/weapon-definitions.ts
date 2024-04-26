@@ -147,6 +147,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -228,6 +229,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -299,6 +301,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -365,6 +368,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 500,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'brevey-normal-hold',
@@ -397,6 +401,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amountPerSecond: -21,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       dodgeAttacks: [
@@ -434,6 +439,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: -1,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       skills: [
@@ -462,6 +468,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 100,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       discharge: {
@@ -492,6 +499,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [
         {
@@ -507,8 +515,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           cooldown: 30000,
           requirements: {},
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'brevey-buff-metz-energy-wave-charges',
@@ -528,8 +535,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           cooldown: 10000,
           requirements: {},
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'brevey-damage-buff-pact-amplification-volt',
@@ -554,8 +560,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {
             activeBuff: 'brevey-buff-pact-amplification',
           },
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'brevey-damage-buff-pact-amplification-frost',
@@ -580,8 +585,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {
             activeBuff: 'brevey-buff-pact-amplification',
           },
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       triggeredAttacks: [],
@@ -641,6 +645,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -699,6 +704,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -770,6 +776,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -815,6 +822,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -870,6 +878,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       discharge: {
@@ -900,6 +909,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -982,6 +992,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1052,6 +1063,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1132,6 +1144,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1191,6 +1204,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1245,6 +1259,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       dodgeAttacks: [],
@@ -1277,6 +1292,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1322,6 +1338,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1380,6 +1397,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1425,6 +1443,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1483,6 +1502,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1576,6 +1596,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1645,6 +1666,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1703,6 +1725,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1775,6 +1798,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1820,6 +1844,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1886,6 +1911,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       dodgeAttacks: [],
@@ -1918,6 +1944,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -1981,6 +2008,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       dodgeAttacks: [],
@@ -2016,6 +2044,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [
         {
@@ -2044,8 +2073,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               },
             ],
           },
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       triggeredAttacks: [],
@@ -2139,6 +2167,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2210,6 +2239,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2273,6 +2303,23 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       critRateBuffs: [],
       normalAttacks: [
         {
+          id: 'rei-normal-auto-chain',
+          displayName: 'Rei - Normal auto chain',
+          elementalType: { defaultElementalType: 'Volt' },
+          type: 'normal',
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 7.36,
+            attackFlat: 4416,
+          },
+          hitCount: { numberOfHitsFixed: 5 },
+          cooldown: 0,
+          triggeredBy: { playerInput: true },
+          endedBy: { duration: 2650 },
+          requirements: {},
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+        },
+        {
           id: 'rei-normal-backjump-arrow',
           displayName: 'Rei - Backjump Arrow',
           elementalType: { defaultElementalType: 'Volt' },
@@ -2289,7 +2336,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             playerInput: true,
           },
-          endedBy: { duration: 1000 }, // TODO: placeholder
+          endedBy: { duration: 630 },
           requirements: {},
           updatesResources: [
             {
@@ -2297,6 +2344,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 500,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'rei-normal-dodging-rapidfire',
@@ -2306,7 +2354,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageModifiers: {
             damageDealtIsPerSecond: false,
             attackMultiplier: 3000,
-            attackFlat: 0,
+            attackFlat: 17999,
           },
           hitCount: {
             numberOfHitsFixed: 5,
@@ -2320,6 +2368,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             activeBuff: 'rei-energy-consumption',
           },
           updatesResources: [],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       dodgeAttacks: [],
@@ -2332,12 +2381,12 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           damageModifiers: {
             damageDealtIsPerSecond: false,
             attackMultiplier: 10.08,
-            attackFlat: 308,
+            attackFlat: 6048,
           },
           hitCount: {
             numberOfHitsFixed: 1,
           },
-          endedBy: { duration: 5000 },
+          endedBy: { duration: 1050 },
           cooldown: 20000,
           triggeredBy: {
             playerInput: true,
@@ -2353,6 +2402,38 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 35,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 4 },
+        },
+        {
+          id: 'rei-skill-mecha-strike-5-star',
+          displayName: 'Rei - Mecha Strike',
+          elementalType: { defaultElementalType: 'Volt' },
+          type: 'skill',
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 10.08,
+            attackFlat: 6048,
+          },
+          hitCount: {
+            numberOfHitsFixed: 1,
+          },
+          endedBy: { duration: 1050 },
+          cooldown: 20000,
+          triggeredBy: {
+            playerInput: true,
+          },
+          requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 500,
+            },
+            {
+              resourceId: 'rei-special-energy',
+              amount: 60,
+            },
+          ],
+          starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
         },
       ],
       discharge: {
@@ -2362,13 +2443,13 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         type: 'discharge',
         damageModifiers: {
           damageDealtIsPerSecond: false,
-          attackMultiplier: 0,
-          attackFlat: 0,
+          attackMultiplier: 13.37,
+          attackFlat: 8021,
         },
         hitCount: {
           numberOfHitsFixed: 1,
         },
-        endedBy: { duration: 5000 },
+        endedBy: { duration: 1667 },
         cooldown: 0,
         requirements: {
           hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
@@ -2383,6 +2464,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       triggeredAttacks: [
         {
@@ -2416,6 +2498,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'detachment',
@@ -2467,6 +2550,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'rei-homing-arrow',
@@ -2501,6 +2585,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 4,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
           id: 'rei-homing-arrow-explosion',
@@ -2514,15 +2599,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 3.6,
             attackFlat: 0,
           },
-          hitCount: {
-            numberOfHitsFixed: 0,
-          },
-          triggeredBy: {
-            resourceUpdate: 'rei-homing-arrows-on-enemy',
-          },
-          endedBy: {
-            duration: minActionDuration,
-          },
+          hitCount: { numberOfHitsFixed: 0 },
+          triggeredBy: { resourceUpdate: 'rei-homing-arrows-on-enemy' },
+          endedBy: { duration: minActionDuration },
           cooldown: 0,
           requirements: {
             hasResource: {
@@ -2536,6 +2615,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: -3,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       buffs: [
@@ -2553,8 +2633,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             duration: 30000,
           },
           requirements: {},
-          minStarRequirement: 6,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 3, maxStarRequirement: 6 },
           damageBuffs: [
             {
               value: 0.1,
@@ -2582,8 +2661,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               minAmount: 70,
             },
           },
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
           attackBuffs: [
             {
               value: 0.15,
@@ -2592,6 +2670,38 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             {
               value: 0.05,
               elementalTypes: ['Frost'],
+            },
+          ],
+        },
+        {
+          id: 'rei-energy-consumption-6-star',
+          displayName: 'Rei: Energy Consumption 6 star DMG buff',
+          description: 'Increase volt DMG by 16% and frost DMG by 10%.',
+          cooldown: 0,
+          maxStacks: 1,
+          triggeredBy: {
+            weaponAttacks: ['rei-normal-backjump-arrow'],
+          },
+          endedBy: {
+            resourceDepleted: 'rei-special-energy',
+          },
+          requirements: {
+            hasResource: {
+              resourceId: 'rei-special-energy',
+              minAmount: 70,
+            },
+          },
+          starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+          damageBuffs: [
+            {
+              value: 0.16,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_UNKNOWN]',
+            },
+            {
+              value: 0.1,
+              elementalTypes: ['Frost'],
+              damageCategory: '[TEMP_UNKNOWN]',
             },
           ],
         },
@@ -2614,8 +2724,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             activeWeapon: 'Rei',
             activeBuff: 'rei-energy-consumption',
           },
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
           miscBuff: {
             allAttackBuff: {
               forWeapon: 'Rei',
@@ -2649,8 +2758,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             notActiveWeapon: 'Rei',
             activeBuff: 'rei-energy-consumption',
           },
-          minStarRequirement: 0,
-          maxStarRequirement: 6,
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
           miscBuff: {},
           updatesResources: [
             {
@@ -2730,6 +2838,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2804,6 +2913,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: -1,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       skills: [],
@@ -2835,6 +2945,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2893,6 +3004,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2938,6 +3050,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -2983,6 +3096,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3054,6 +3168,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3099,6 +3214,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3155,6 +3271,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       discharge: {
@@ -3185,6 +3302,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3251,6 +3369,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       dodgeAttacks: [],
@@ -3283,6 +3402,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3349,6 +3469,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 250,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       dodgeAttacks: [],
@@ -3378,6 +3499,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: 0,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
       discharge: {
@@ -3408,6 +3530,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3466,6 +3589,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             amount: -fullCharge,
           },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
@@ -3534,6 +3658,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         updatesResources: [
           { resourceId: chargeResourceId, amount: -fullCharge },
         ],
+        starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       },
       buffs: [],
       triggeredAttacks: [],
