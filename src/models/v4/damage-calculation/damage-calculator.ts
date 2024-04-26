@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import groupBy from 'lodash.groupby';
 
+import { titanRareStatDamageCategories } from '../../../constants/damage-category';
 import { calculateTotalAttack } from '../../../utils/damage-calculation-utils';
 import { product, sum } from '../../../utils/math-utils';
 import { oneSecondDuration } from '../../../utils/time-utils';
@@ -116,11 +117,19 @@ export class DamageCalculator {
   }
 
   public getTotalDamagePercent(): number {
-    // TODO: cannotBeDamageBuffedExceptByTitans
+    const {
+      damageModifiers: { canOnlyBeBuffedByTitans },
+    } = this.attackAction;
+
     const damageBuffs = this.activeBuffActions.flatMap((buffAction) =>
       buffAction.damageBuffs
-        .filter((damageBuff) =>
-          damageBuff.elementalTypes.includes(this.attackAction.elementalType)
+        .filter(
+          (damageBuff) =>
+            damageBuff.elementalTypes.includes(
+              this.attackAction.elementalType
+            ) &&
+            (!canOnlyBeBuffedByTitans ||
+              titanRareStatDamageCategories.includes(damageBuff.damageCategory))
         )
         .map((damageBuff) => ({ damageBuff, stacks: buffAction.stacks }))
     );

@@ -33,7 +33,7 @@ export class DamageTimelineCalculator {
 
     for (const attackAction of attackActions) {
       const { type, elementalType, weapon } = attackAction;
-      const attackCalculator = new DamageCalculator(
+      const damageCalculator = new DamageCalculator(
         attackAction,
         weapon,
         this.loadout,
@@ -43,8 +43,8 @@ export class DamageTimelineCalculator {
 
       // This is the base damage + final damage of the whole attack. Since the attack time interval is likely not the same as the tick interval, we need to take a portion of the damage that's equal to the overlapping duration of the attack interval and the tick interval.
       // NOTE: A compromise is made averaging out the attack's damage over its duration, for simplicity
-      const baseDamageOfEntireAttack = attackCalculator.getBaseDamage();
-      const finalDamageOfEntireAttack = attackCalculator.getFinalDamage();
+      const baseDamageOfEntireAttack = damageCalculator.getBaseDamage();
+      const finalDamageOfEntireAttack = damageCalculator.getFinalDamage();
 
       const overlappingDuration = calculateOverlapDuration(
         attackAction.timeInterval,

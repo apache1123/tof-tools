@@ -11,5 +11,5 @@ export interface AttackDamageModifiers {
   sumOfResistancesMultiplier?: number;
   critFlatMultiplier?: number;
   /** This attack is unaffected by any damage buffs except for titan rare stats */
-  cannotBeDamageBuffedExceptByTitans?: boolean;
+  canOnlyBeBuffedByTitans?: boolean;
 }

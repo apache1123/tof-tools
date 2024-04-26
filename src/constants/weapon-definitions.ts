@@ -2399,7 +2399,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             hpMultiplier: 0.156,
             sumOfResistancesMultiplier: 0.563,
             critFlatMultiplier: 2.109,
-            cannotBeDamageBuffedExceptByTitans: true,
+            canOnlyBeBuffedByTitans: true,
           },
           hitCount: {
             numberOfHitsFixed: 0,
@@ -2431,7 +2431,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             hpMultiplier: 0.2028,
             sumOfResistancesMultiplier: 0.7319,
             critFlatMultiplier: 2.7417,
-            cannotBeDamageBuffedExceptByTitans: true,
+            canOnlyBeBuffedByTitans: true,
           },
           hitCount: {
             numberOfHitsFixed: 0,
