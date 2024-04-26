@@ -37,6 +37,10 @@ export class Attack {
     return !!this.definition.triggeredBy.playerInput;
   }
 
+  public get elementalType() {
+    return this.definition.elementalType;
+  }
+
   public get updatesResources() {
     return this.definition.updatesResources;
   }

@@ -52,6 +52,10 @@ export class Weapon implements Persistable<WeaponDto> {
     );
   }
 
+  public get damageElement() {
+    return this.definition.damageElement;
+  }
+
   public get calculationElements() {
     return this.definition.calculationElements;
   }

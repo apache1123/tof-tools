@@ -381,13 +381,9 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             attackMultiplier: 2.58,
             attackFlat: 0,
           },
-          hitCount: {
-            numberOfHitsFixed: 6, // TODO: this assumes duration is 1s
-          },
+          hitCount: { numberOfHitsPerSecond: 6 },
           cooldown: 0,
-          triggeredBy: {
-            playerInput: true,
-          },
+          triggeredBy: { playerInput: true },
           endedBy: {
             duration: 1000, // TODO: what to do about hold attacks with no duration?
           },
@@ -622,6 +618,28 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               amount: -maxSwiftCutAmount,
             },
           ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+        },
+        {
+          id: 'brevey-metz-off-field-attack',
+          displayName: 'Brevey - Metz off-hand coordinated attack',
+          description:
+            'While in the combat state, when Pactcrest ☆ Metz is in the off-hand slot, Metz remains on the battlefield for coordinated attacks. Metz is considered a summon, and each attack deals damage equal to 20% of ATK to nearby targets. The type of elemental damage dealt will be that of the current weapon.',
+          type: 'passive',
+          elementalType: {
+            defaultElementalType: 'Volt',
+            followCurrentWeaponElementalType: true,
+          },
+          damageModifiers: {
+            damageDealtIsPerSecond: true,
+            attackMultiplier: 0.91, // 194 attacks/60s // 0.65
+            attackFlat: 0,
+          },
+          hitCount: { numberOfHitsPerSecond: 3 },
+          triggeredBy: { notActiveWeapon: 'Brevey' },
+          endedBy: { activeWeapon: 'Brevey' },
+          cooldown: 0,
+          requirements: {},
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
       ],
@@ -3231,7 +3249,35 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       type: 'DPS',
       attackPercentBuffs: [],
       critRateBuffs: [],
-      normalAttacks: [],
+      normalAttacks: [
+        {
+          id: 'tsubasa-auto-chain',
+          displayName: 'Tsubasa - auto chain [placeholder]',
+          elementalType: { defaultElementalType: 'Frost' },
+          type: 'normal',
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 0,
+            attackFlat: 0,
+          },
+          hitCount: {
+            numberOfHitsFixed: 6,
+          },
+          endedBy: { duration: 5000 },
+          cooldown: 0,
+          triggeredBy: {
+            playerInput: true,
+          },
+          requirements: {},
+          updatesResources: [
+            {
+              resourceId: chargeResourceId,
+              amount: 0,
+            },
+          ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+        },
+      ],
       dodgeAttacks: [],
       skills: [],
       discharge: {
