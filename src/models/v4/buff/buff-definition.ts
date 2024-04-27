@@ -11,12 +11,6 @@ export type BuffId = ActionId;
 
 export interface BuffDefinition extends ActionDefinition {
   maxStacks: number;
-  additionallyGainStacksBy?: {
-    accumulatedDamageThreshold?: {
-      /** e.g. dealing accumulated damage equal to 100 times of ATK */
-      timesOfAttack?: number;
-    };
-  };
 
   attackBuffs?: AttackBuff[];
   damageBuffs?: DamageBuff[];

@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import { minActionDuration } from '../../../constants/tick';
 import { sum } from '../../../utils/math-utils';
 import { TimeInterval } from '../time-interval';
@@ -82,14 +84,20 @@ export class Resource {
       let amountToAdd: number;
       if (amount > 0) {
         amountToAdd =
-          cumulatedAmountPreceding + amount > this.maxAmount
-            ? this.maxAmount - cumulatedAmountPreceding
+          BigNumber(cumulatedAmountPreceding).plus(amount).toNumber() >
+          this.maxAmount
+            ? BigNumber(this.maxAmount)
+                .minus(cumulatedAmountPreceding)
+                .toNumber()
             : amount;
       } else {
         // Negative amount
         amountToAdd =
-          cumulatedAmountPreceding + amount < this.minAmount
-            ? this.minAmount - cumulatedAmountPreceding
+          BigNumber(cumulatedAmountPreceding).plus(amount).toNumber() <
+          this.minAmount
+            ? BigNumber(this.minAmount)
+                .minus(cumulatedAmountPreceding)
+                .toNumber()
             : amount;
       }
       return amountToAdd;

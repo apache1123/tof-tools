@@ -93,14 +93,13 @@ export function CombatSimulatorTimeline() {
       relics
     );
 
+    combatSimulator.performAttack('brevey-normal-hold');
+    combatSimulator.performAttack('brevey-skill-million-metz-shockwave');
     repeat(() => {
       combatSimulator.performAttack('brevey-normal-hold');
     }, 20);
-    combatSimulator.performAttack('rei-discharge');
-    combatSimulator.performAttack('brevey-normal-hold');
-    // combatSimulator.performAttack(
-    //   weaponDefinitions.byId['Brevey'].skills[0].id
-    // );
+    // combatSimulator.performAttack('rei-discharge');
+    // combatSimulator.performAttack('brevey-normal-hold');
 
     setCombatSimulatorSnapshot(combatSimulator.snapshot());
   }, []);
@@ -145,7 +144,7 @@ export function CombatSimulatorTimeline() {
         getScaleRender={(scale) => (
           <CombatSimulatorTimelineScaleRenderer scale={scale} />
         )}
-        style={{ width: '100%', height: 900 }}
+        style={{ width: '100%', height: 1200 }}
       />
       {combatSimulatorSnapshot?.damageSummary && (
         <DamageSummaryBreakdown

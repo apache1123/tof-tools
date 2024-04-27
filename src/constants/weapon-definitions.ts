@@ -463,6 +463,10 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               resourceId: chargeResourceId,
               amount: 100,
             },
+            {
+              resourceId: 'damage-accumulated-factor-of-total-attack',
+              depleteResource: true,
+            },
           ],
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
@@ -510,26 +514,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             duration: 30000,
           },
           cooldown: 30000,
-          requirements: {},
-          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-        },
-        {
-          id: 'brevey-buff-metz-energy-wave-charges',
-          displayName: 'Brevey - Metz Energy Wave charges',
-          description: '',
-          maxStacks: 3,
-          additionallyGainStacksBy: {
-            accumulatedDamageThreshold: {
-              timesOfAttack: 100,
-            },
-          },
-          triggeredBy: {
-            endOfAttacks: ['brevey-skill-million-metz-shockwave'],
-          },
-          endedBy: {
-            duration: 30000,
-          },
-          cooldown: 10000,
           requirements: {},
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
@@ -641,6 +625,64 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {},
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
+        {
+          id: 'brevey-metz-off-field-attack',
+          displayName: 'Brevey - Metz off-hand coordinated attack',
+          description:
+            'While in the combat state, when Pactcrest ☆ Metz is in the off-hand slot, Metz remains on the battlefield for coordinated attacks. Metz is considered a summon, and each attack deals damage equal to 20% of ATK to nearby targets. The type of elemental damage dealt will be that of the current weapon.',
+          type: 'passive',
+          elementalType: {
+            defaultElementalType: 'Volt',
+            followCurrentWeaponElementalType: true,
+          },
+          damageModifiers: {
+            damageDealtIsPerSecond: true,
+            attackMultiplier: 0.66, // about 200 hits/60s * 20% atk/hit
+            attackFlat: 0,
+          },
+          hitCount: { numberOfHitsPerSecond: 3 },
+          triggeredBy: { notActiveWeapon: 'Brevey' },
+          endedBy: { activeWeapon: 'Brevey' },
+          cooldown: 0,
+          requirements: {},
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+        },
+        {
+          id: 'metz-energy-wave',
+          displayName: 'Brevey - Metz Energy Wave',
+          description:
+            'When Million-Metz Shockwave is on cooldown, dealing accumulated damage equal to 100 times of ATK during Pact Amplification grants 1 use of Metz Energy Wave each time. Metz Energy Wave: Deal damage equal to 1,800% of ATK to nearby targets. Gain up to 1 use every 10 seconds.',
+          type: 'skill',
+          elementalType: { defaultElementalType: 'Volt' },
+          damageModifiers: {
+            damageDealtIsPerSecond: false,
+            attackMultiplier: 18,
+            attackFlat: 0,
+          },
+          hitCount: { numberOfHitsFixed: 1 },
+          triggeredBy: {
+            resourceUpdate: 'damage-accumulated-factor-of-total-attack',
+          },
+          endedBy: { duration: minActionDuration },
+          doesNotTriggerEvents: true,
+          cooldown: 10000,
+          requirements: {
+            activeBuff: 'brevey-buff-pact-amplification',
+            hasResource: {
+              resourceId: 'damage-accumulated-factor-of-total-attack',
+              minAmount: 100,
+            },
+          },
+          updatesResources: [
+            {
+              resourceId: 'damage-accumulated-factor-of-total-attack',
+              depleteResource: true,
+            },
+          ],
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+          remarks:
+            'For simplicity, Metz Energy Waves will always be used immediately',
+        },
       ],
       resources: [
         {
@@ -656,7 +698,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           id: 'damage-accumulated-factor-of-total-attack',
           displayName: 'Damage accumulated (as factor of attack)',
           cooldown: 0,
-          maxAmount: 100,
+          maxAmount: 300,
           regenerate: {
             amountFromAccumulatedDamageAsFactorOfTotalAttack: true,
           },
