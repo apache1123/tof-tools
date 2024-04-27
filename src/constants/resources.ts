@@ -34,5 +34,3 @@ export const dodgeResourceDefinition: ResourceDefinition = {
   startingAmount: maxDodges,
   regenerateAmountPerSecond: 0.25,
 };
-
-export const maxSwiftCutAmount = 30;

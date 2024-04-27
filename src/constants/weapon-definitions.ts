@@ -5,7 +5,6 @@ import {
   dodgeResourceId,
   enduranceResourceId,
   fullCharge,
-  maxSwiftCutAmount,
 } from './resources';
 import { minActionDuration } from './tick';
 
@@ -385,7 +384,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           cooldown: 0,
           triggeredBy: { playerInput: true },
           endedBy: {
-            duration: 1000, // TODO: what to do about hold attacks with no duration?
+            duration: 2620, // TODO: what to do about hold attacks with no duration?
           },
           requirements: {},
           updatesResources: [
@@ -615,7 +614,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           updatesResources: [
             {
               resourceId: 'swift-cut',
-              amount: -maxSwiftCutAmount,
+              depleteResource: true,
             },
           ],
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
@@ -648,7 +647,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           id: 'swift-cut',
           displayName: 'Swift cut',
           cooldown: 0,
-          maxAmount: maxSwiftCutAmount,
+          maxAmount: 30,
           regenerateAmountPerSecond: 2,
         },
       ],

@@ -68,9 +68,9 @@ export function CombatSimulatorTimeline() {
     const loadout = new Loadout('loadout', 'Volt', team, new GearSet(), {
       characterLevel: 100,
     });
-    loadout.loadoutStats.frostAttack.baseAttack = 15872;
-    loadout.loadoutStats.voltAttack.baseAttack = 15312;
-    loadout.loadoutStats.critFlat = 6857;
+    loadout.loadoutStats.frostAttack.baseAttack = 15762;
+    loadout.loadoutStats.voltAttack.baseAttack = 15201;
+    loadout.loadoutStats.critFlat = 6610;
     loadout.loadoutStats.critPercent = 0.0581;
     loadout.simulacrumTrait = simulacrumTraits.byId['Cocoritter'];
 
@@ -98,6 +98,9 @@ export function CombatSimulatorTimeline() {
     }, 20);
     combatSimulator.performAttack('rei-discharge');
     combatSimulator.performAttack('brevey-normal-hold');
+    // combatSimulator.performAttack(
+    //   weaponDefinitions.byId['Brevey'].skills[0].id
+    // );
 
     setCombatSimulatorSnapshot(combatSimulator.snapshot());
   }, []);

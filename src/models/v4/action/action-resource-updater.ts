@@ -16,10 +16,13 @@ export class ActionResourceUpdater {
     actionInterval: TimeInterval
   ) {
     for (const updatesResource of updatesResources) {
-      const { resourceId, amount, amountPerSecond, hasPriority } =
-        updatesResource;
-
-      if (!amount && !amountPerSecond) continue;
+      const {
+        resourceId,
+        amount,
+        amountPerSecond,
+        depleteResource,
+        hasPriority,
+      } = updatesResource;
 
       const resource = this.resourceRegistry.getResource(resourceId);
       if (!resource) {
@@ -28,6 +31,12 @@ export class ActionResourceUpdater {
         );
       }
 
+      if (depleteResource) {
+        resource.deplete(timeInterval, hasPriority);
+        continue;
+      }
+
+      if (!amount && !amountPerSecond) continue;
       let resolvedAmount!: number;
       // Assume for a flat amount of resources to add, linearly distribute it over the duration of the action
       if (amount) {

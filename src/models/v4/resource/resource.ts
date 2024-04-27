@@ -132,6 +132,13 @@ export class Resource {
     return resourceAction;
   }
 
+  public deplete(timeInterval: TimeInterval, hasPriority = false) {
+    const amount = this.getCumulatedAmount(timeInterval.startTime);
+    if (amount) {
+      this.addResourceAction(timeInterval, -amount, hasPriority);
+    }
+  }
+
   /** Adds the defined starting amount of resource, e.g. before combat start */
   public addStartingAmount() {
     const { startingAmount } = this.definition;
