@@ -33,8 +33,10 @@ export class DamageTimelineCalculator {
     const attackActions = this.attackRegistry.getAttackActions(timeInterval);
     const buffActions = this.buffRegistry.getBuffActions(timeInterval);
 
+    let activeWeaponTotalAttack: number | undefined;
     for (const attackAction of attackActions) {
-      const { type, elementalType, weapon } = attackAction;
+      const { type, elementalType, isActiveWeaponAttack, weapon } =
+        attackAction;
 
       const damageCalculator = new DamageCalculator(
         attackAction,
@@ -78,12 +80,26 @@ export class DamageTimelineCalculator {
       ].elementalTypeDamages[elementalType].add(
         new Damage(baseDamage.toNumber(), finalDamage.toNumber())
       );
+
+      if (isActiveWeaponAttack)
+        activeWeaponTotalAttack = damageCalculator.getTotalAttack();
+    }
+
+    // If there is no active weapon attack in this time period (it's possible to only have triggered attacks), use the previous one. There should always be at least one as combat is started with an active weapon attack
+    if (activeWeaponTotalAttack === undefined) {
+      const previousDamageSummary =
+        this.damageSummaryTimeline.lastDamageSummaryAction;
+
+      if (!previousDamageSummary)
+        throw new Error('The active weapon total attack cannot be determined');
+
+      activeWeaponTotalAttack = previousDamageSummary.activeWeaponTotalAttack;
     }
 
     this.damageSummaryTimeline.addDamageSummary(
+      timeInterval,
       damageSummary,
-      timeInterval.startTime,
-      timeInterval.duration
+      activeWeaponTotalAttack
     );
   }
 }

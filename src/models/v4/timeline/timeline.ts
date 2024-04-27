@@ -1,3 +1,4 @@
+import { getLatestTimeInterval } from '../../../utils/time-interval-utils';
 import type { TimeInterval } from '../time-interval';
 import type { TimelineAction } from './timeline-action';
 
@@ -65,6 +66,16 @@ export class Timeline<TAction extends TimelineAction> {
         action.endTime > timeInterval.startTime &&
         action.endTime <= timeInterval.endTime
     );
+  }
+
+  /** Gets the latest action that ends before the specified time */
+  public getLatestActionBefore(time: number): TAction | undefined {
+    const actionsBefore = this._actions.filter(
+      (action) => action.endTime <= time
+    );
+    if (!actionsBefore.length) return undefined;
+
+    return getLatestTimeInterval(actionsBefore);
   }
 
   public removeAction(action: TAction) {

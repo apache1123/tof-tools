@@ -7,8 +7,9 @@ import type { Weapon } from '../../weapon';
 import { Action } from '../action/action';
 import type { ActionUpdatesResource } from '../action/action-updates-resource';
 import type { TimeInterval } from '../time-interval';
+import type { Attack } from './attack';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
-import type { AttackDefinition, AttackId } from './attack-definition';
+import type { AttackId } from './attack-definition';
 import type { AttackHitCount } from './attack-hit-count';
 
 export class AttackAction extends Action {
@@ -19,13 +20,15 @@ export class AttackAction extends Action {
   public hitCount: AttackHitCount;
   public updatesResources: ActionUpdatesResource[];
   public doesNotTriggerEvents: boolean;
+  /** Attack action that was initiated by the active weapon */
+  public isActiveWeaponAttack: boolean;
 
   /** The weapon this attack derived from, for convenience */
   public readonly weapon: Weapon;
 
   public constructor(
     timeInterval: TimeInterval,
-    definition: AttackDefinition,
+    attack: Attack,
     weapon: Weapon
   ) {
     const {
@@ -37,7 +40,8 @@ export class AttackAction extends Action {
       hitCount,
       updatesResources,
       doesNotTriggerEvents,
-    } = definition;
+      isActiveWeaponAttack,
+    } = attack;
 
     super(timeInterval, cooldown);
 
@@ -48,6 +52,7 @@ export class AttackAction extends Action {
     this.hitCount = { ...hitCount };
     this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
     this.doesNotTriggerEvents = doesNotTriggerEvents ?? false;
+    this.isActiveWeaponAttack = isActiveWeaponAttack;
 
     this.weapon = weapon;
   }

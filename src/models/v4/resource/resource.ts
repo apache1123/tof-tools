@@ -49,6 +49,10 @@ export class Resource {
     return this.timeline.lastAction;
   }
 
+  public get resourceRegenerationDefinition() {
+    return this.definition.regenerate;
+  }
+
   /** Adds a resource action at a point of time. The amount of resource cannot be added past the max amount or cannot be subtracted past 0.
    * @param amount The amount of resource to add; can be negative
    * @param hasPriority If true, this resource action will overwrite existing ones in the time interval. If false, this resource action will not be added (or be cut short) if there is an existing resource action with priority.

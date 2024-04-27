@@ -1,44 +1,49 @@
 import type { DamageSummary } from '../damage-summary/damage-summary';
-import { TimeInterval } from '../time-interval';
+import type { TimeInterval } from '../time-interval';
 import { Timeline } from '../timeline/timeline';
-import { DamageSummaryEvent } from './damage-summary-event';
+import { DamageSummaryAction } from './damage-summary-action';
 
 /** Timeline to track how much damage has been cumulated at a point of time */
 export class DamageSummaryTimeline {
-  private readonly timeline: Timeline<DamageSummaryEvent>;
+  private readonly timeline: Timeline<DamageSummaryAction>;
 
   public constructor(public readonly totalDuration: number) {
     this.timeline = new Timeline(totalDuration);
   }
 
-  public get damageSummaryEvents() {
+  public get damageSummaryActions() {
     return this.timeline.actions;
   }
 
-  public get lastDamageSummaryEvent() {
+  public get lastDamageSummaryAction() {
     return this.timeline.lastAction;
   }
 
-  public get cumulatedDamageSummary() {
+  public get lastCumulatedDamageSummary() {
     return this.timeline.lastAction?.cumulatedDamageSummary;
   }
 
+  /** Gets the latest damage summary event before the specified time */
+  public getDamageSummaryAction(time: number) {
+    return this.timeline.getLatestActionBefore(time);
+  }
+
   public addDamageSummary(
+    timeInterval: TimeInterval,
     damageSummary: DamageSummary,
-    startTime: number,
-    duration: number
+    activeWeaponTotalAttack: number
   ) {
     const { lastAction: lastEvent } = this.timeline;
-    if (lastEvent && startTime < lastEvent.endTime) {
+    if (lastEvent && timeInterval.startTime < lastEvent.endTime) {
       throw new Error('DamageSummaries must be added chronologically');
     }
 
-    const timeInterval = new TimeInterval(startTime, startTime + duration);
     this.timeline.addAction(
-      new DamageSummaryEvent(
+      new DamageSummaryAction(
         timeInterval,
         damageSummary,
-        this.cumulatedDamageSummary?.add(damageSummary) ?? damageSummary
+        this.lastCumulatedDamageSummary?.add(damageSummary) ?? damageSummary,
+        activeWeaponTotalAttack
       )
     );
   }

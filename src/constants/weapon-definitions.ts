@@ -631,7 +631,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           damageModifiers: {
             damageDealtIsPerSecond: true,
-            attackMultiplier: 0.91, // 194 attacks/60s // 0.65
+            attackMultiplier: 0.66, // about 200 hits/60s * 20% atk/hit
             attackFlat: 0,
           },
           hitCount: { numberOfHitsPerSecond: 3 },
@@ -648,7 +648,20 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           displayName: 'Swift cut',
           cooldown: 0,
           maxAmount: 30,
-          regenerateAmountPerSecond: 2,
+          regenerate: {
+            amountPerSecond: 2,
+          },
+        },
+        {
+          id: 'damage-accumulated-factor-of-total-attack',
+          displayName: 'Damage accumulated (as factor of attack)',
+          cooldown: 0,
+          maxAmount: 100,
+          regenerate: {
+            amountFromAccumulatedDamageAsFactorOfTotalAttack: true,
+          },
+          remarks:
+            'Used to track the amount of damage accumulated, one unit is 1 times the total ATK',
         },
       ],
     },

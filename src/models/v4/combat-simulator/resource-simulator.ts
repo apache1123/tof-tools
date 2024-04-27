@@ -1,9 +1,7 @@
-import BigNumber from 'bignumber.js';
-
-import { oneSecondDuration } from '../../../utils/time-utils';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { Resource } from '../resource/resource';
 import type { ResourceAction } from '../resource/resource-action';
+import type { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TickTracker } from '../tick-tracker';
 
@@ -11,6 +9,7 @@ export class ResourceSimulator {
   public constructor(
     private readonly tickTracker: TickTracker,
     private readonly resourceRegistry: ResourceRegistry,
+    private readonly resourceRegenerator: ResourceRegenerator,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {}
 
@@ -46,25 +45,7 @@ export class ResourceSimulator {
     const tickInterval = this.tickTracker.currentTickInterval;
 
     for (const resource of this.resourceRegistry.resources) {
-      const { regenerateAmountPerSecond } = resource.definition;
-      if (!regenerateAmountPerSecond) continue;
-
-      const existingActions =
-        resource.getResourceActionsOverlappingInterval(tickInterval);
-      if (existingActions.length) continue;
-
-      const regenerateAmount = BigNumber(regenerateAmountPerSecond)
-        .times(tickInterval.duration)
-        .div(oneSecondDuration)
-        .toNumber();
-      const regenerateAction = resource.addResourceAction(
-        tickInterval,
-        regenerateAmount
-      );
-
-      if (regenerateAction) {
-        this.combatEventNotifier.notifyResourceUpdate(regenerateAction);
-      }
+      this.resourceRegenerator.regenerateResource(resource, tickInterval);
     }
   }
 }

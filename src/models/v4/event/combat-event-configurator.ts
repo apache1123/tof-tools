@@ -27,11 +27,8 @@ export class CombatEventConfigurator {
     combatEventNotifier: CombatEventNotifier
   ) {
     for (const attack of attackRegistry.playerInputAttacks) {
-      const {
-        definition: { id },
-      } = attack;
       eventManager.subscribe(
-        eventIdProvider.getAttackRequestEventId(id),
+        eventIdProvider.getAttackRequestEventId(attack.id),
         EventHandlerFactory.createHandlerToTriggerAttack(
           attack,
           tickTracker,
@@ -45,10 +42,10 @@ export class CombatEventConfigurator {
     const { weapons } = team;
 
     for (const attack of attackRegistry.triggeredAttacks) {
-      const { definition } = attack;
+      const { triggeredBy, endedBy } = attack;
 
       const eventIdsToTriggerAttackOn = this.getEventIdsToTriggerActionOn(
-        definition.triggeredBy,
+        triggeredBy,
         weapons
       );
       const triggerAttackHandler =
@@ -64,7 +61,7 @@ export class CombatEventConfigurator {
       }
 
       const eventIdsToEndAttackOn = this.getEventIdsToEndActionOn(
-        definition.endedBy,
+        endedBy,
         weapons
       );
       const endAttackHandler = EventHandlerFactory.createHandlerToEndAttack(
