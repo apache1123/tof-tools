@@ -11,6 +11,11 @@ export class EventManager {
   }
 
   public notify(eventId: string) {
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(`Event notify: ${eventId}`);
+    }
+
     for (const subscriber of this.subscribers.get(eventId) ?? []) {
       subscriber.handle();
     }

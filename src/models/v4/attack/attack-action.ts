@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import type { AttackType } from '../../../constants/attack-type';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
+import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Weapon } from '../../weapon';
 import { Action } from '../action/action';
 import type { ActionUpdatesResource } from '../action/action-updates-resource';
@@ -53,12 +54,12 @@ export class AttackAction extends Action {
 
   /** The time of each attack hit within this action */
   public get timeOfHits(): number[] {
-    const { hitCount, startTime, duration } = this;
+    const { hitCount, startTime, endTime, duration } = this;
 
     const result = [];
 
-    // Distribute the number of hits evenly across the attack action's duration
     if (hitCount.numberOfHitsFixed) {
+      // Distribute the number of hits evenly across the attack action's duration
       const durationBetweenHits = BigNumber(duration).div(
         hitCount.numberOfHitsFixed
       );
@@ -71,6 +72,21 @@ export class AttackAction extends Action {
           .plus(durationBetweenHits.times(hitIndex))
           .toNumber();
         result.push(timeOfHit);
+      }
+    } else if (hitCount.numberOfHitsPerSecond) {
+      const durationBetweenHits = BigNumber(oneSecondDuration).div(
+        hitCount.numberOfHitsPerSecond
+      );
+
+      let hitIndex = 0;
+      let timeOfHit;
+      while (
+        (timeOfHit = BigNumber(startTime)
+          .plus(durationBetweenHits.times(hitIndex))
+          .toNumber()) < endTime
+      ) {
+        result.push(timeOfHit);
+        hitIndex++;
       }
     }
 

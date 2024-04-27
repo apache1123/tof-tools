@@ -33,6 +33,13 @@ export class TickSimulator {
       lastAttack &&
       this.tickTracker.currentTickStart < lastAttack.endTime
     ) {
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          `Simulate tick: ${this.tickTracker.currentTickStart} - ${this.tickTracker.currentTickEnd}`
+        );
+      }
+
       // Simulate everything in the tick
       this.attackSimulator.simulate();
       this.buffSimulator.simulate();
