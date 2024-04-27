@@ -145,6 +145,7 @@ export class DamageCalculator {
 
   public getTotalDamagePercent(): number {
     const {
+      attackId,
       damageModifiers: { canOnlyBeBuffedByTitans },
       weapon,
       type,
@@ -162,12 +163,12 @@ export class DamageCalculator {
               titanRareStatDamageCategories.includes(
                 damageBuff.damageCategory
               )) &&
-            (!damageBuff.appliesTo ||
-              !damageBuff.appliesTo.weapon ||
+            (!damageBuff.appliesTo?.weapon ||
               damageBuff.appliesTo.weapon === weapon.id) &&
-            (!damageBuff.appliesTo ||
-              !damageBuff.appliesTo.attackType ||
-              damageBuff.appliesTo.attackType === type)
+            (!damageBuff.appliesTo?.attackType ||
+              damageBuff.appliesTo.attackType === type) &&
+            (!damageBuff.appliesTo?.attacks ||
+              damageBuff.appliesTo.attacks.includes(attackId))
         )
         .map((damageBuff) => ({ damageBuff, stacks: buffAction.stacks }))
     );

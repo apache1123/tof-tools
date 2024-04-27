@@ -2,6 +2,7 @@ import type { AttackType } from '../../../constants/attack-type';
 import type { DamageCategory } from '../../../constants/damage-category';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { AttackId } from '../attack/attack-definition';
 
 export interface DamageBuff {
   value: number;
@@ -16,5 +17,7 @@ export interface DamageBuff {
     weapon?: WeaponName;
     /** Damage buff only applies to attacks of this attack type */
     attackType?: AttackType;
+    /** Damage buff only applies to these attacks */
+    attacks?: AttackId[];
   };
 }

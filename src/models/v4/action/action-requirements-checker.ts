@@ -66,6 +66,12 @@ export class ActionRequirementsChecker {
       return false;
 
     if (
+      requirements.notWeaponResonance &&
+      weaponResonance === requirements.notWeaponResonance
+    )
+      return false;
+
+    if (
       requirements?.elementalTypeWeaponsInTeam &&
       requirements.elementalTypeWeaponsInTeam.every((requirement) => {
         const numOfWeaponsOfElementalType = weaponElementalTypes.filter(

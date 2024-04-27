@@ -56,6 +56,7 @@ export function CombatSimulatorTimeline() {
 
   useEffect(() => {
     const weapon1 = new Weapon(weaponDefinitions.byId['Brevey']);
+    weapon1.stars = 6;
     const weapon2 = new Weapon(weaponDefinitions.byId['Rei']);
     weapon2.stars = 0;
     const weapon3 = new Weapon(weaponDefinitions.byId['Umi']);

@@ -17,6 +17,7 @@ export interface ActionRequirements {
   notActiveWeapon?: WeaponName;
   anyWeaponInTeam?: WeaponName[];
   weaponResonance?: WeaponResonance;
+  notWeaponResonance?: WeaponResonance;
   /** If multiple are defined, it will be an "OR" check between them */
   elementalTypeWeaponsInTeam?: {
     elementalType: WeaponElementalType;

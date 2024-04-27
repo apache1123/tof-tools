@@ -473,26 +473,22 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
       ],
       discharge: {
         id: 'brevey-discharge',
-        displayName: 'Brevey discharge [placeholder]',
+        displayName: 'Brevey discharge',
         elementalType: { defaultElementalType: 'Volt' },
         type: 'discharge',
         damageModifiers: {
           damageDealtIsPerSecond: false,
-          attackMultiplier: 0,
-          attackFlat: 0,
+          attackMultiplier: 8.11,
+          attackFlat: 4866,
         },
-        hitCount: {
-          numberOfHitsFixed: 1,
-        },
-        endedBy: { duration: 5000 },
+        hitCount: { numberOfHitsFixed: 1 },
+        endedBy: { duration: 3070 },
         cooldown: 0,
         requirements: {
           hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
           notActiveWeapon: 'Brevey',
         },
-        triggeredBy: {
-          playerInput: true,
-        },
+        triggeredBy: { playerInput: true },
         updatesResources: [
           {
             resourceId: chargeResourceId,
@@ -505,7 +501,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         {
           id: 'brevey-buff-pact-amplification',
           displayName: 'Brevey - Pact Amplification',
-          description: '',
           maxStacks: 1,
           triggeredBy: {
             endOfAttacks: ['brevey-skill-million-metz-shockwave'],
@@ -540,7 +535,32 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {
             activeBuff: 'brevey-buff-pact-amplification',
           },
-          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 5 },
+        },
+        {
+          id: 'brevey-damage-buff-pact-amplification-volt-6-star',
+          displayName: 'Brevey - Pact Amplification Volt Buff 6*',
+          description:
+            "During Pact Amplification, when Pactcrest ☆ Metz is in the main slot, increase the Wanderer's volt damage by 25%. While Pact Amplification is active, increase volt and frost damage boost effects by 10% and 4% respectively.",
+          damageBuffs: [
+            {
+              value: 0.35,
+              elementalTypes: ['Volt'],
+              damageCategory: '[TEMP_UNKNOWN]',
+            },
+          ],
+          maxStacks: 1,
+          triggeredBy: {
+            activeWeapon: 'Brevey',
+          },
+          endedBy: {
+            notActiveWeapon: 'Brevey',
+          },
+          cooldown: 0,
+          requirements: {
+            activeBuff: 'brevey-buff-pact-amplification',
+          },
+          starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
         },
         {
           id: 'brevey-damage-buff-pact-amplification-frost',
@@ -565,7 +585,73 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           requirements: {
             activeBuff: 'brevey-buff-pact-amplification',
           },
-          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+          starRequirement: { minStarRequirement: 0, maxStarRequirement: 5 },
+        },
+        {
+          id: 'brevey-damage-buff-pact-amplification-frost',
+          displayName: 'Brevey - Pact Amplification Frost Buff',
+          description:
+            "During Pact Amplification, when Pactcrest ☆ Metz is in the off-hand slot, increase the Wanderer's frost damage by 10%.",
+          damageBuffs: [
+            {
+              value: 0.14,
+              elementalTypes: ['Frost'],
+              damageCategory: '[TEMP_UNKNOWN]',
+            },
+          ],
+          maxStacks: 1,
+          triggeredBy: {
+            notActiveWeapon: 'Brevey',
+          },
+          endedBy: {
+            activeWeapon: 'Brevey',
+          },
+          cooldown: 0,
+          requirements: {
+            activeBuff: 'brevey-buff-pact-amplification',
+          },
+          starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+        },
+        {
+          id: 'brevey-buff-3-star',
+          displayName: 'Brevey - 3 star DMG buff',
+          description:
+            'When non-Benediction Resonances are active, gain 2 additional uses of Metz Energy Wave, and increase volt damage and frost damage to bosses by 10%.',
+          maxStacks: 1,
+          cooldown: 0,
+          triggeredBy: { combatStart: true },
+          endedBy: { combatEnd: true },
+          requirements: { notWeaponResonance: 'Benediction' },
+          starRequirement: { minStarRequirement: 3, maxStarRequirement: 6 },
+          damageBuffs: [
+            {
+              value: 0.1,
+              elementalTypes: ['Volt', 'Frost'],
+              damageCategory: '[TEMP_UNKNOWN]',
+            },
+          ],
+        },
+        {
+          id: 'brevey-buff-5-star',
+          displayName: 'Brevey - 5 star DMG buff',
+          description:
+            'Increase damage dealt by Metz off-hand coordinated attack and Metz Energy Wave by 30%.',
+          maxStacks: 1,
+          cooldown: 0,
+          triggeredBy: { combatStart: true },
+          endedBy: { combatEnd: true },
+          requirements: {},
+          starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+          damageBuffs: [
+            {
+              value: 0.3,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: 'Weapon damage increase',
+              appliesTo: {
+                attacks: ['brevey-metz-off-field-attack', 'metz-energy-wave'],
+              },
+            },
+          ],
         },
       ],
       triggeredAttacks: [
@@ -601,28 +687,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
               depleteResource: true,
             },
           ],
-          starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-        },
-        {
-          id: 'brevey-metz-off-field-attack',
-          displayName: 'Brevey - Metz off-hand coordinated attack',
-          description:
-            'While in the combat state, when Pactcrest ☆ Metz is in the off-hand slot, Metz remains on the battlefield for coordinated attacks. Metz is considered a summon, and each attack deals damage equal to 20% of ATK to nearby targets. The type of elemental damage dealt will be that of the current weapon.',
-          type: 'passive',
-          elementalType: {
-            defaultElementalType: 'Volt',
-            followCurrentWeaponElementalType: true,
-          },
-          damageModifiers: {
-            damageDealtIsPerSecond: true,
-            attackMultiplier: 0.66, // about 200 hits/60s * 20% atk/hit
-            attackFlat: 0,
-          },
-          hitCount: { numberOfHitsPerSecond: 3 },
-          triggeredBy: { notActiveWeapon: 'Brevey' },
-          endedBy: { activeWeapon: 'Brevey' },
-          cooldown: 0,
-          requirements: {},
           starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
         },
         {
