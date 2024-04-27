@@ -85,7 +85,7 @@ export class CombatEventNotifier {
     }
   }
 
-  public notifyWeaponSwitch(weapon: Weapon) {
+  public notifyActiveWeapon(weapon: Weapon) {
     this.eventManager.notify(eventIdProvider.getActiveWeaponEventId(weapon.id));
   }
 

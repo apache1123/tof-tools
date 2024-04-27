@@ -25,6 +25,7 @@ export class AttackTrigger extends EventHandler {
 
     // TODO: this possibly needs to be in a different tick than the attack
     this.switchWeaponsIfNeeded();
+    this.notifyActiveWeapon();
 
     const attackAction = this.attack.trigger(tickStart);
 
@@ -38,8 +39,14 @@ export class AttackTrigger extends EventHandler {
       this.weaponTracker.activeWeapon !== this.attack.weapon
     ) {
       this.weaponTracker.setActiveWeapon(this.attack.weapon);
-      this.combatEventNotifier.notifyWeaponSwitch(this.attack.weapon);
     }
+  }
+
+  private notifyActiveWeapon() {
+    if (this.attack.isActiveWeaponAttack && this.weaponTracker.activeWeapon)
+      this.combatEventNotifier.notifyActiveWeapon(
+        this.weaponTracker.activeWeapon
+      );
   }
 
   private overwriteElementalType(attackAction: AttackAction) {
