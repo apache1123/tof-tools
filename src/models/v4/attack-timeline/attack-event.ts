@@ -5,27 +5,27 @@ import type { WeaponElementalType } from '../../../constants/elemental-type';
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
-import type { ActionUpdatesResource } from '../action/action-updates-resource';
-import { Action } from '../action-timeline/action';
+import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
+import { AbilityEvent } from '../ability-timeline/ability-event';
 import type { Attack } from '../attack/attack';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
 import type { AttackId } from '../attack/attack-definition';
 import type { AttackHitCount } from '../attack/attack-hit-count';
 import type { TimeInterval } from '../time-interval/time-interval';
-import type { AttackActionDto } from './dtos/attack-action-dto';
+import type { AttackEventDto } from './dtos/attack-event-dto';
 
-export class AttackAction
-  extends Action
-  implements Serializable<AttackActionDto>
+export class AttackEvent
+  extends AbilityEvent
+  implements Serializable<AttackEventDto>
 {
   public attackId: AttackId;
   public elementalType: WeaponElementalType;
   public damageModifiers: AttackDamageModifiers;
   public type: AttackType;
   public hitCount: AttackHitCount;
-  public updatesResources: ActionUpdatesResource[];
+  public updatesResources: AbilityUpdatesResource[];
   public doesNotTriggerEvents: boolean;
-  /** Attack action that was initiated by the active weapon */
+  /** Attack event that was initiated by the active weapon */
   public isActiveWeaponAttack: boolean;
 
   /** The weapon this attack derived from, for convenience */
@@ -62,14 +62,14 @@ export class AttackAction
     this.weapon = weapon;
   }
 
-  /** The time of each attack hit within this action */
+  /** The time of each attack hit within this event */
   public get timeOfHits(): number[] {
     const { hitCount, startTime, endTime, duration } = this;
 
     const result = [];
 
     if (hitCount.numberOfHitsFixed) {
-      // Distribute the number of hits evenly across the attack action's duration
+      // Distribute the number of hits evenly across the attack event's duration
       const durationBetweenHits = BigNumber(duration).div(
         hitCount.numberOfHitsFixed
       );

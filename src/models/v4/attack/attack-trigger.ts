@@ -1,4 +1,4 @@
-import type { AttackAction } from '../attack-timeline/attack-action';
+import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
@@ -27,9 +27,9 @@ export class AttackTrigger extends EventHandler {
     this.switchWeaponsIfNeeded();
     this.notifyActiveWeapon();
 
-    const attackAction = this.attack.trigger(tickStart);
+    const attackEvent = this.attack.trigger(tickStart);
 
-    this.overwriteElementalType(attackAction);
+    this.overwriteElementalType(attackEvent);
   }
 
   // Hmm perhaps WeaponTracker should have some kind of time awareness
@@ -49,12 +49,12 @@ export class AttackTrigger extends EventHandler {
       );
   }
 
-  private overwriteElementalType(attackAction: AttackAction) {
+  private overwriteElementalType(attackEvent: AttackEvent) {
     if (
       this.attack.elementalType.followLastWeaponElementalType &&
       this.weaponTracker.previousWeapon
     ) {
-      attackAction.elementalType =
+      attackEvent.elementalType =
         this.weaponTracker.previousWeapon.damageElement;
     }
 
@@ -62,8 +62,7 @@ export class AttackTrigger extends EventHandler {
       this.attack.elementalType.followCurrentWeaponElementalType &&
       this.weaponTracker.activeWeapon
     ) {
-      attackAction.elementalType =
-        this.weaponTracker.activeWeapon.damageElement;
+      attackEvent.elementalType = this.weaponTracker.activeWeapon.damageElement;
     }
   }
 }

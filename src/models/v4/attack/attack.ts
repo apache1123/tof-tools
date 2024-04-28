@@ -1,12 +1,12 @@
 import type { AttackType } from '../../../constants/attack-type';
 import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
-import type { ActionEndedBy } from '../action/action-ended-by';
-import type { ActionRequirements } from '../action/action-requirements';
-import type { ActionTimeCalculator } from '../action/action-time-calculator';
-import type { ActionTriggeredBy } from '../action/action-triggered-by';
-import type { ActionUpdatesResource } from '../action/action-updates-resource';
-import { AttackAction } from '../attack-timeline/attack-action';
+import type { AbilityEndedBy } from '../ability/ability-ended-by';
+import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
+import type { AbilityRequirements } from '../ability/ability-requirements';
+import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
+import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
+import { AttackEvent } from '../attack-timeline/attack-event';
 import type { AttackTimeline } from '../attack-timeline/attack-timeline';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
@@ -23,22 +23,22 @@ export class Attack implements Serializable<AttackDto> {
   public readonly damageModifiers: AttackDamageModifiers;
   public readonly cooldown: number;
   public readonly hitCount: AttackHitCount;
-  public readonly triggeredBy: ActionTriggeredBy;
-  public readonly endedBy: ActionEndedBy;
-  public readonly requirements: ActionRequirements;
-  public readonly updatesResources: ActionUpdatesResource[];
+  public readonly triggeredBy: AbilityTriggeredBy;
+  public readonly endedBy: AbilityEndedBy;
+  public readonly requirements: AbilityRequirements;
+  public readonly updatesResources: AbilityUpdatesResource[];
   public readonly doesNotTriggerEvents: boolean;
 
   public readonly weapon: Weapon;
   public readonly timeline: AttackTimeline;
 
-  private readonly actionTimeCalculator: ActionTimeCalculator;
+  private readonly abilityEventTimeCalculator: AbilityEventTimeCalculator;
 
   public constructor(
     weapon: Weapon,
     definition: AttackDefinition,
     timeline: AttackTimeline,
-    actionTimeCalculator: ActionTimeCalculator
+    abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
     const {
       id,
@@ -69,7 +69,7 @@ export class Attack implements Serializable<AttackDto> {
 
     this.weapon = weapon;
     this.timeline = timeline;
-    this.actionTimeCalculator = actionTimeCalculator;
+    this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
   /** Is an attack that requires the weapon to be the active weapon to perform e.g. any sort of player input attack */
@@ -81,32 +81,32 @@ export class Attack implements Serializable<AttackDto> {
     return !!this.triggeredBy.playerInput;
   }
 
-  public trigger(time: number): AttackAction {
-    const attackAction = this.createNewAttackAction(time);
-    this.timeline.addAttackAction(attackAction);
-    return attackAction;
+  public trigger(time: number): AttackEvent {
+    const attackEvent = this.createNewAttackEvent(time);
+    this.timeline.addAttackEvent(attackEvent);
+    return attackEvent;
   }
 
   public endActiveAttacksAt(time: number) {
-    return this.timeline.endAnyActionsAt(time);
+    return this.timeline.endAnyEventsAt(time);
   }
 
-  public getAttackActionsOverlappingInterval(timeInterval: TimeInterval) {
-    return this.timeline.getActionsOverlappingInterval(
+  public getAttackEventsOverlappingInterval(timeInterval: TimeInterval) {
+    return this.timeline.getEventsOverlappingInterval(
       timeInterval.startTime,
       timeInterval.endTime
     );
   }
 
-  public getAttackActionsEndingBetween(timeInterval: TimeInterval) {
-    return this.timeline.getActionsEndingBetween(timeInterval);
+  public getAttackEventsEndingBetween(timeInterval: TimeInterval) {
+    return this.timeline.getEventsEndingBetween(timeInterval);
   }
 
-  private createNewAttackAction(time: number) {
+  private createNewAttackEvent(time: number) {
     const timeInterval =
-      this.actionTimeCalculator.calculateActionTimeInterval(time);
-    const attackAction = new AttackAction(timeInterval, this, this.weapon);
-    return attackAction;
+      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(time);
+    const attackEvent = new AttackEvent(timeInterval, this, this.weapon);
+    return attackEvent;
   }
 
   public toDto(): AttackDto {

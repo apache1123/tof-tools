@@ -3,17 +3,17 @@ import BigNumber from 'bignumber.js';
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { TimeInterval } from '../time-interval/time-interval';
-import type { ActionUpdatesResource } from './action-updates-resource';
+import type { AbilityUpdatesResource } from './ability-updates-resource';
 
-/** Updates resource(s) based on an action update resource definition */
-export class ActionResourceUpdater {
+/** Updates resource(s) based on an ability update resource definition */
+export class AbilityResourceUpdater {
   public constructor(private readonly resourceRegistry: ResourceRegistry) {}
 
-  /** If an action is defined to update resources, adjust the amount of resources based on that given a time interval. If the action adds a flat amount of resources over its entire duration, distribute that over the time interval. */
+  /** If an ability is defined to update resources, adjust the amount of resources based on that given a time interval. If the ability adds a flat amount of resources over its entire duration, distribute that over the time interval. */
   public adjustResources(
-    updatesResources: ActionUpdatesResource[],
+    updatesResources: AbilityUpdatesResource[],
     timeInterval: TimeInterval,
-    actionInterval: TimeInterval
+    eventInterval: TimeInterval
   ) {
     for (const updatesResource of updatesResources) {
       const {
@@ -38,11 +38,11 @@ export class ActionResourceUpdater {
 
       if (!amount && !amountPerSecond) continue;
       let resolvedAmount!: number;
-      // Assume for a flat amount of resources to add, linearly distribute it over the duration of the action
+      // Assume for a flat amount of resources to add, linearly distribute it over the duration of the event
       if (amount) {
         resolvedAmount = BigNumber(amount)
           .times(timeInterval.duration)
-          .div(actionInterval.duration)
+          .div(eventInterval.duration)
           .toNumber();
       }
       if (amountPerSecond) {
@@ -52,7 +52,7 @@ export class ActionResourceUpdater {
           .toNumber();
       }
 
-      resource.addResourceAction(timeInterval, resolvedAmount, hasPriority);
+      resource.addResourceEvent(timeInterval, resolvedAmount, hasPriority);
     }
   }
 }

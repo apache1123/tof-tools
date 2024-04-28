@@ -1,12 +1,12 @@
 import type { Serializable } from '../../persistable';
 import type { DamageSummary } from '../damage-summary/damage-summary';
 import type { TimeInterval } from '../time-interval/time-interval';
-import { TimelineAction } from '../timeline/timeline-action';
-import type { DamageSummaryActionDto } from './dtos/damage-summary-action-dto';
+import { TimelineEvent } from '../timeline/timeline-event';
+import type { DamageSummaryEventDto } from './dtos/damage-summary-event-dto';
 
-export class DamageSummaryAction
-  extends TimelineAction
-  implements Serializable<DamageSummaryActionDto>
+export class DamageSummaryEvent
+  extends TimelineEvent
+  implements Serializable<DamageSummaryEventDto>
 {
   public constructor(
     timeInterval: TimeInterval,
@@ -15,11 +15,10 @@ export class DamageSummaryAction
     /** The total attack recorded at this time interval  */
     public activeWeaponTotalAttack: number
   ) {
-    const { startTime, endTime } = timeInterval;
-    super(startTime, endTime);
+    super(timeInterval);
   }
 
-  public toDto(): DamageSummaryActionDto {
+  public toDto(): DamageSummaryEventDto {
     const { cumulatedDamageSummary } = this;
     return {
       ...super.toDto(),

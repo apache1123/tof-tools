@@ -126,7 +126,7 @@ export function CombatSimulatorTimeline() {
           combatSimulatorSnapshot.triggeredAttacks.map((attack) => ({
             id: attack.id,
             displayName: attack.displayName,
-            actions: attack.timeline.actions.map((event, index) => ({
+            actions: attack.timeline.events.map((event, index) => ({
               id: `${attack.id}-${index}`,
               displayName: attack.displayName,
               start: event.startTime,
@@ -140,7 +140,7 @@ export function CombatSimulatorTimeline() {
           combatSimulatorSnapshot.buffs.map((buff) => ({
             id: buff.id,
             displayName: buff.displayName,
-            actions: buff.timeline.actions.map((event, index) => ({
+            actions: buff.timeline.events.map((event, index) => ({
               id: `${buff.id}-${index}`,
               displayName: `${buff.displayName} - Stacks: ${event.stacks}`,
               start: event.startTime,
@@ -154,7 +154,7 @@ export function CombatSimulatorTimeline() {
           combatSimulatorSnapshot.resources.map((resource) => ({
             id: resource.id,
             displayName: resource.displayName,
-            actions: resource.timeline.actions.map((event, index) => ({
+            actions: resource.timeline.events.map((event, index) => ({
               id: `${resource.id}-${index}`,
               displayName: `${resource.displayName} - Amount: ${event.amount}. Cumulated: ${event.cumulatedAmount}`,
               start: event.startTime,

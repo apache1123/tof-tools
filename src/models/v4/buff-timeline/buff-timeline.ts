@@ -1,17 +1,17 @@
 import type { Serializable } from '../../persistable';
-import { ActionTimeline } from '../action-timeline/action-timeline';
-import type { BuffAction } from './buff-action';
+import { AbilityTimeline } from '../ability-timeline/ability-timeline';
+import type { BuffEvent } from './buff-event';
 import type { BuffTimelineDto } from './dtos/buff-timeline-dto';
 
 export class BuffTimeline
-  extends ActionTimeline<BuffAction>
+  extends AbilityTimeline<BuffEvent>
   implements Serializable<BuffTimelineDto>
 {
   public toDto(): BuffTimelineDto {
-    const { actions } = this;
+    const { events } = this;
     return {
       ...super.toDto(),
-      actions: actions.map((action) => action.toDto()),
+      events: events.map((event) => event.toDto()),
     };
   }
 }

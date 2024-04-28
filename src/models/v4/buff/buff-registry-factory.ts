@@ -1,6 +1,6 @@
 import { commonBuffs } from '../../../constants/common-buffs';
 import type { Loadout } from '../../loadout';
-import { ActionTimeCalculator } from '../action/action-time-calculator';
+import { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
 import { BuffTimeline } from '../buff-timeline/buff-timeline';
 import type { Relics } from '../relics/relics';
 import { Buff } from './buff';
@@ -28,7 +28,7 @@ export class BuffRegistryFactory {
       return new Buff(
         definition,
         timeline,
-        new ActionTimeCalculator(definition.endedBy, timeline)
+        new AbilityEventTimeCalculator(definition.endedBy, timeline)
       );
     });
 

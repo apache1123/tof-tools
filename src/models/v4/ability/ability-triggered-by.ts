@@ -6,7 +6,7 @@ import type {
 import type { BuffId } from '../buff/buff-definition';
 import type { ResourceId } from '../resource/resource-definition';
 
-export interface ActionTriggeredBy {
+export interface AbilityTriggeredBy {
   /** Triggered manually by player as part of gameplay */
   playerInput?: boolean;
 

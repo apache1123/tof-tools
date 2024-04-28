@@ -1,5 +1,5 @@
 import type { Serializable } from '../../persistable';
-import type { AttackAction } from '../attack-timeline/attack-action';
+import type { AttackEvent } from '../attack-timeline/attack-event';
 import { AttackRegistry } from './attack-registry';
 import type { CombinedAttackRegistryDto } from './dtos/combined-attack-registry-dto';
 
@@ -35,8 +35,8 @@ export class CombinedAttackRegistry
     return this.playerInputAttackRegistry.getAvailableAttacks(time);
   }
 
-  public get lastPlayerInputAttackAction(): AttackAction | undefined {
-    return this.playerInputAttackRegistry.lastAttackAction;
+  public get lastPlayerInputAttackEvent(): AttackEvent | undefined {
+    return this.playerInputAttackRegistry.lastAttackEvent;
   }
 
   public toDto(): CombinedAttackRegistryDto {

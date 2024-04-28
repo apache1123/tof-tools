@@ -9,24 +9,24 @@ import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Weapon } from '../../weapon';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
-import type { AttackAction } from '../attack-timeline/attack-action';
-import type { BuffAction } from '../buff-timeline/buff-action';
+import type { AttackEvent } from '../attack-timeline/attack-event';
+import type { BuffEvent } from '../buff-timeline/buff-event';
 import type { ResourceRegistry } from '../resource/resource-registry';
 
 /** Based on an attack and its time interval, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */
 export class DamageCalculator {
   public constructor(
-    private readonly attackAction: AttackAction,
+    private readonly attackEvent: AttackEvent,
     private readonly weapon: Weapon,
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
-    /** Buff actions during the attackAction's duration */
-    private readonly buffActions: BuffAction[],
+    /** Buff events during the attackEvent's duration */
+    private readonly buffEvents: BuffEvent[],
     private readonly resourceRegistry: ResourceRegistry
   ) {}
 
   public getBaseDamage(): number {
-    const { startTime, duration, damageModifiers } = this.attackAction;
+    const { startTime, duration, damageModifiers } = this.attackEvent;
     const {
       damageDealtIsPerSecond,
       resourceAmountMultiplier: resourceAmountMultiplierDefinition,
@@ -130,13 +130,13 @@ export class DamageCalculator {
   }
 
   public getTotalAttackPercent(): number {
-    const attackBuffValues = this.buffActions
-      .flatMap((buffAction) =>
-        buffAction.attackBuffs
+    const attackBuffValues = this.buffEvents
+      .flatMap((buffEvent) =>
+        buffEvent.attackBuffs
           .filter((attackBuff) =>
-            attackBuff.elementalTypes.includes(this.attackAction.elementalType)
+            attackBuff.elementalTypes.includes(this.attackEvent.elementalType)
           )
-          .map((attackBuff) => ({ attackBuff, stacks: buffAction.stacks }))
+          .map((attackBuff) => ({ attackBuff, stacks: buffEvent.stacks }))
       )
       .map((buff) => product(buff.attackBuff.value, buff.stacks).toNumber());
 
@@ -149,14 +149,14 @@ export class DamageCalculator {
       damageModifiers: { canOnlyBeBuffedByTitans },
       weapon,
       type,
-    } = this.attackAction;
+    } = this.attackEvent;
 
-    const damageBuffs = this.buffActions.flatMap((buffAction) =>
-      buffAction.damageBuffs
+    const damageBuffs = this.buffEvents.flatMap((buffEvent) =>
+      buffEvent.damageBuffs
         .filter(
           (damageBuff) =>
             damageBuff.elementalTypes.includes(
-              this.attackAction.elementalType
+              this.attackEvent.elementalType
             ) &&
             // TODO: these below should be refactored
             (!canOnlyBeBuffedByTitans ||
@@ -170,7 +170,7 @@ export class DamageCalculator {
             (!damageBuff.appliesTo?.attacks ||
               damageBuff.appliesTo.attacks.includes(attackId))
         )
-        .map((damageBuff) => ({ damageBuff, stacks: buffAction.stacks }))
+        .map((damageBuff) => ({ damageBuff, stacks: buffEvent.stacks }))
     );
 
     const damageBuffsByDamageCategory = groupBy(

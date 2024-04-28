@@ -1,6 +1,6 @@
 import type { Team } from '../../team';
 import type { Weapon } from '../../weapon';
-import { ActionTimeCalculator } from '../action/action-time-calculator';
+import { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
 import { AttackTimeline } from '../attack-timeline/attack-timeline';
 import { Attack } from './attack';
 import type { AttackDefinition } from './attack-definition';
@@ -42,7 +42,7 @@ export class AttackRegistryFactory {
       weapon,
       definition,
       timeline,
-      new ActionTimeCalculator(definition.endedBy, timeline)
+      new AbilityEventTimeCalculator(definition.endedBy, timeline)
     );
   }
 }

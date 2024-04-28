@@ -3,8 +3,8 @@ import type { WeaponName } from '../../../constants/weapon-definitions';
 import type { WeaponResonance } from '../../../constants/weapon-resonance';
 import type { ResourceId } from '../resource/resource-definition';
 
-/** Requirements are treated as a "AND" check i.e. the action can be triggered when all defined requirements pass check */
-export interface ActionRequirements {
+/** Requirements are treated as a "AND" check i.e. the ability can be triggered when all defined requirements pass check */
+export interface AbilityRequirements {
   // Order requirements from most specific to least specific. Check in this order for efficiency
 
   hasResource?: {

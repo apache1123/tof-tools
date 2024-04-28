@@ -1,10 +1,10 @@
-import type { ActionTimeline } from '../action-timeline/action-timeline';
+import type { AbilityTimeline } from '../ability-timeline/ability-timeline';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
 
-export class ActionCooldownHandler extends EventHandler {
+export class AbilityCooldownHandler extends EventHandler {
   public constructor(
-    private readonly actionTimeline: ActionTimeline,
+    private readonly abilityTimeline: AbilityTimeline,
     private readonly tickTracker: TickTracker
   ) {
     super();
@@ -12,7 +12,7 @@ export class ActionCooldownHandler extends EventHandler {
 
   public handle() {
     if (
-      this.actionTimeline.isActionOnCooldownAt(
+      this.abilityTimeline.isAbilityOnCooldownAt(
         this.tickTracker.currentTickStart
       )
     )

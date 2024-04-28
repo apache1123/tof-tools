@@ -13,25 +13,25 @@ export class ResourceRegenerator {
     private readonly combatEventNotifier: CombatEventNotifier
   ) {}
 
-  /** Regenerate the resource amount for a time interval, if there are no other actions in that interval  */
+  /** Regenerate the resource amount for a time interval, if there are no other events in that interval  */
   public regenerateResource(resource: Resource, timeInterval: TimeInterval) {
     if (!resource.regenerationDefinition) return;
 
-    const existingActions =
-      resource.getResourceActionsOverlappingInterval(timeInterval);
-    if (existingActions.length) return;
+    const existingEvents =
+      resource.getResourceEventsOverlappingInterval(timeInterval);
+    if (existingEvents.length) return;
 
     const regenerateAmount = this.calculateRegenerateAmount(
       resource.regenerationDefinition,
       timeInterval
     );
-    const regenerateAction = resource.addResourceAction(
+    const regenerateEvent = resource.addResourceEvent(
       timeInterval,
       regenerateAmount
     );
 
-    if (regenerateAction) {
-      this.combatEventNotifier.notifyResourceUpdate(regenerateAction);
+    if (regenerateEvent) {
+      this.combatEventNotifier.notifyResourceUpdate(regenerateEvent);
     }
   }
 
@@ -51,14 +51,13 @@ export class ResourceRegenerator {
         .toNumber();
 
     if (amountFromAccumulatedDamageAsFactorOfTotalAttack) {
-      const damageSummaryAction =
-        this.combatDamageSummary.getDamageSummaryAction(timeInterval.startTime);
-      if (!damageSummaryAction) return 0;
+      const damageSummaryEvent = this.combatDamageSummary.getDamageSummaryEvent(
+        timeInterval.startTime
+      );
+      if (!damageSummaryEvent) return 0;
 
-      return BigNumber(
-        damageSummaryAction.damageSummary.totalDamage.finalDamage
-      )
-        .div(damageSummaryAction.activeWeaponTotalAttack)
+      return BigNumber(damageSummaryEvent.damageSummary.totalDamage.finalDamage)
+        .div(damageSummaryEvent.activeWeaponTotalAttack)
         .toNumber();
     }
 

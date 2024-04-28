@@ -4,9 +4,9 @@ import type { Team } from '../../team';
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
-import type { ActionRequirements } from './action-requirements';
+import type { AbilityRequirements } from './ability-requirements';
 
-export class ActionRequirementsChecker {
+export class AbilityRequirementsChecker {
   public constructor(
     private readonly team: Team,
     private readonly weaponTracker: WeaponTracker,
@@ -15,7 +15,7 @@ export class ActionRequirementsChecker {
   ) {}
 
   public hasRequirementsBeenMetAt(
-    requirements: ActionRequirements,
+    requirements: AbilityRequirements,
     time: number
   ) {
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =

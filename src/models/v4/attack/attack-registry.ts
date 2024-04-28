@@ -1,5 +1,5 @@
 import type { Serializable } from '../../persistable';
-import type { AttackAction } from '../attack-timeline/attack-action';
+import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { Attack } from './attack';
 import type { AttackId } from './attack-definition';
@@ -21,7 +21,7 @@ export class AttackRegistry implements Serializable<AttackRegistryDto> {
 
   public getAvailableAttacks(time: number) {
     return this.attacks.filter(
-      (attack) => !attack.timeline.isActionOnCooldownAt(time)
+      (attack) => !attack.timeline.isAbilityOnCooldownAt(time)
     );
   }
 
@@ -29,35 +29,35 @@ export class AttackRegistry implements Serializable<AttackRegistryDto> {
     return this._attacks.get(attackDefinition.id);
   }
 
-  public getAttackActions(timeInterval: TimeInterval): AttackAction[] {
+  public getAttackEvents(timeInterval: TimeInterval): AttackEvent[] {
     const { startTime, endTime } = timeInterval;
     return this.attacks.flatMap((attack) =>
-      attack.timeline.getActionsOverlappingInterval(startTime, endTime)
+      attack.timeline.getEventsOverlappingInterval(startTime, endTime)
     );
   }
 
-  public get lastAttackAction(): AttackAction | undefined {
-    let result: AttackAction | undefined;
+  public get lastAttackEvent(): AttackEvent | undefined {
+    let result: AttackEvent | undefined;
 
     for (const attack of this.attacks) {
-      const lastAttackAction = attack.timeline.lastAction;
+      const lastAttackEvent = attack.timeline.lastEvent;
       // Assuming attacks are always chronological and will not overlap
       if (
-        lastAttackAction &&
-        (!result || (result && lastAttackAction.startTime > result.startTime))
+        lastAttackEvent &&
+        (!result || (result && lastAttackEvent.startTime > result.startTime))
       ) {
-        result = lastAttackAction;
+        result = lastAttackEvent;
       }
     }
 
     return result;
   }
 
-  public getAttackActionsEndingBetween(
+  public getAttackEventsEndingBetween(
     timeInterval: TimeInterval
-  ): AttackAction[] {
+  ): AttackEvent[] {
     return this.attacks.flatMap((attack) =>
-      attack.getAttackActionsEndingBetween(timeInterval)
+      attack.getAttackEventsEndingBetween(timeInterval)
     );
   }
 

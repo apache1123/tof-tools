@@ -30,20 +30,19 @@ export class DamageTimelineCalculator {
       ...this.team.weapons
     );
 
-    const attackActions = this.attackRegistry.getAttackActions(timeInterval);
-    const buffActions = this.buffRegistry.getBuffActions(timeInterval);
+    const attackEvents = this.attackRegistry.getAttackEvents(timeInterval);
+    const buffEvents = this.buffRegistry.getBuffEvents(timeInterval);
 
     let activeWeaponTotalAttack: number | undefined;
-    for (const attackAction of attackActions) {
-      const { type, elementalType, isActiveWeaponAttack, weapon } =
-        attackAction;
+    for (const attackEvent of attackEvents) {
+      const { type, elementalType, isActiveWeaponAttack, weapon } = attackEvent;
 
       const damageCalculator = new DamageCalculator(
-        attackAction,
+        attackEvent,
         weapon,
         this.loadout,
         this.loadoutStats,
-        buffActions,
+        buffEvents,
         this.resourceRegistry
       );
 
@@ -53,16 +52,16 @@ export class DamageTimelineCalculator {
       const finalDamageOfEntireAttack = damageCalculator.getFinalDamage();
 
       const overlappingDuration = calculateOverlapDuration(
-        attackAction.timeInterval,
+        attackEvent.timeInterval,
         timeInterval
       );
 
       const baseDamage = BigNumber(baseDamageOfEntireAttack)
         .times(overlappingDuration)
-        .dividedBy(attackAction.duration);
+        .dividedBy(attackEvent.duration);
       const finalDamage = BigNumber(finalDamageOfEntireAttack)
         .times(overlappingDuration)
-        .dividedBy(attackAction.duration);
+        .dividedBy(attackEvent.duration);
 
       const weaponDamageSummary = damageSummary.weaponDamageSummaries.get(
         weapon.id
@@ -88,7 +87,7 @@ export class DamageTimelineCalculator {
     // If there is no active weapon attack in this time period (it's possible to only have triggered attacks), use the previous one. There should always be at least one as combat is started with an active weapon attack
     if (activeWeaponTotalAttack === undefined) {
       const previousDamageSummary =
-        this.combatDamageSummary.lastDamageSummaryAction;
+        this.combatDamageSummary.lastDamageSummaryEvent;
 
       if (!previousDamageSummary)
         throw new Error('The active weapon total attack cannot be determined');

@@ -1,6 +1,6 @@
 import type { Serializable } from '../../persistable';
 import type { DamageSummary } from '../damage-summary/damage-summary';
-import { DamageSummaryAction } from '../damage-summary-timeline/damage-summary-action';
+import { DamageSummaryEvent } from '../damage-summary-timeline/damage-summary-event';
 import { DamageSummaryTimeline } from '../damage-summary-timeline/damage-summary-timeline';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { CombatDamageSummaryDto } from './dtos/combat-damage-summary-dto';
@@ -15,21 +15,21 @@ export class CombatDamageSummary
     this.timeline = new DamageSummaryTimeline(totalDuration);
   }
 
-  public get damageSummaryActions() {
-    return this.timeline.actions;
+  public get damageSummaryEvents() {
+    return this.timeline.events;
   }
 
-  public get lastDamageSummaryAction() {
-    return this.timeline.lastAction;
+  public get lastDamageSummaryEvent() {
+    return this.timeline.lastEvent;
   }
 
   public get cumulatedDamageSummary() {
-    return this.lastDamageSummaryAction?.cumulatedDamageSummary;
+    return this.lastDamageSummaryEvent?.cumulatedDamageSummary;
   }
 
   /** Gets the latest damage summary event before the specified time */
-  public getDamageSummaryAction(time: number) {
-    return this.timeline.getLatestActionBefore(time);
+  public getDamageSummaryEvent(time: number) {
+    return this.timeline.getLatestEventBefore(time);
   }
 
   public addDamageSummary(
@@ -37,13 +37,13 @@ export class CombatDamageSummary
     damageSummary: DamageSummary,
     activeWeaponTotalAttack: number
   ) {
-    const { lastAction: lastEvent } = this.timeline;
+    const { lastEvent: lastEvent } = this.timeline;
     if (lastEvent && timeInterval.startTime < lastEvent.endTime) {
       throw new Error('DamageSummaries must be added chronologically');
     }
 
-    this.timeline.addAction(
-      new DamageSummaryAction(
+    this.timeline.addEvent(
+      new DamageSummaryEvent(
         timeInterval,
         damageSummary,
         this.cumulatedDamageSummary?.add(damageSummary) ?? damageSummary,

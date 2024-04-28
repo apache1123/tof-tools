@@ -2,8 +2,8 @@ import { tickDuration } from '../../../constants/tick';
 import type { Loadout } from '../../loadout';
 import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
-import { ActionRequirementsChecker } from '../action/action-requirements-checker';
-import { ActionResourceUpdater } from '../action/action-resource-updater';
+import { AbilityRequirementsChecker } from '../ability/ability-requirements-checker';
+import { AbilityResourceUpdater } from '../ability/ability-resource-updater';
 import type { AttackId } from '../attack/attack-definition';
 import { AttackRegistryFactory } from '../attack/attack-registry-factory';
 import { CombinedAttackRegistry } from '../attack/combined-attack-registry';
@@ -46,8 +46,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   private readonly combatDamageSummary: CombatDamageSummary;
   private readonly damageTimelineCalculator: DamageTimelineCalculator;
 
-  private readonly actionRequirementsChecker: ActionRequirementsChecker;
-  private readonly actionResourceUpdater: ActionResourceUpdater;
+  private readonly abilityRequirementsChecker: AbilityRequirementsChecker;
+  private readonly abilityResourceUpdater: AbilityResourceUpdater;
 
   private readonly resourceRegenerator: ResourceRegenerator;
 
@@ -105,10 +105,10 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       this.resourceRegistry
     );
 
-    this.actionResourceUpdater = new ActionResourceUpdater(
+    this.abilityResourceUpdater = new AbilityResourceUpdater(
       this.resourceRegistry
     );
-    this.actionRequirementsChecker = new ActionRequirementsChecker(
+    this.abilityRequirementsChecker = new AbilityRequirementsChecker(
       team,
       this.weaponTracker,
       this.buffRegistry,
@@ -128,20 +128,20 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       this.combinedAttackRegistry,
       this.buffRegistry,
       this.resourceRegistry,
-      this.actionRequirementsChecker,
+      this.abilityRequirementsChecker,
       this.combatEventNotifier
     );
 
     this.attackSimulator = new AttackSimulator(
       this.tickTracker,
       this.combinedAttackRegistry,
-      this.actionResourceUpdater,
+      this.abilityResourceUpdater,
       this.combatEventNotifier
     );
     this.buffSimulator = new BuffSimulator(
       this.tickTracker,
       this.buffRegistry,
-      this.actionResourceUpdater,
+      this.abilityResourceUpdater,
       this.combatEventNotifier
     );
     this.resourceSimulator = new ResourceSimulator(
@@ -174,7 +174,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     return this.combinedAttackRegistry
       .getAvailablePlayerInputAttacks(attackTime)
       .filter((attack) =>
-        this.actionRequirementsChecker.hasRequirementsBeenMetAt(
+        this.abilityRequirementsChecker.hasRequirementsBeenMetAt(
           attack.requirements,
           attackTime
         )
@@ -193,7 +193,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     this.tickSimulator.simulateTicksAfterAttackRequest();
   }
 
-  /** Similar to `toDto()`, but cleaned up and aggregated for display purposes. The intention is for the output of this to be for display purposes only and not able to be deserialized with all the correct states later. e.g. Actions with empty timelines removed, Player input attacks are combined into one, for each weapon */
+  /** Similar to `toDto()`, but cleaned up and aggregated for display purposes. The intention is for the output of this to be for display purposes only and not able to be deserialized with all the correct states later. e.g. Abilities with empty timelines removed, Player input attacks are combined into one, for each weapon */
   public snapshot(): CombatSimulatorSnapshot {
     const playerInputAttackTimelines = [];
 
@@ -216,11 +216,11 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
         continue;
       }
 
-      for (const attackAction of timeline.actions) {
+      for (const attackEvent of timeline.events) {
         weaponTimeline.events.push({
           attackDisplayName: displayName,
-          startTime: attackAction.startTime,
-          endTime: attackAction.endTime,
+          startTime: attackEvent.startTime,
+          endTime: attackEvent.endTime,
         });
       }
     }
@@ -236,11 +236,11 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     return {
       weaponAttacks: [...weaponAttacksMap.values()],
       triggeredAttacks: triggeredAttacks.filter(
-        (attack) => attack.timeline.actions.length
+        (attack) => attack.timeline.events.length
       ),
-      buffs: buffs.filter((buff) => buff.timeline.actions.length),
+      buffs: buffs.filter((buff) => buff.timeline.events.length),
       resources: resources.filter(
-        (resource) => resource.timeline.actions.length
+        (resource) => resource.timeline.events.length
       ),
       combatDamageSummary,
     };

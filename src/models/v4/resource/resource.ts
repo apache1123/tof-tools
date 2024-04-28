@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { minActionDuration } from '../../../constants/tick';
+import { minEventDuration } from '../../../constants/tick';
 import type { Serializable } from '../../persistable';
-import { ResourceAction } from '../resource-timeline/resource-action';
+import { ResourceEvent } from '../resource-timeline/resource-event';
 import type { ResourceTimeline } from '../resource-timeline/resource-timeline';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { ResourceDto } from './dtos/resource-dto';
@@ -14,7 +14,6 @@ export class Resource implements Serializable<ResourceDto> {
   public readonly displayName: string;
   public readonly maxAmount: number;
   public readonly startingAmount: number;
-  public readonly cooldown: number;
   public readonly regenerationDefinition: ResourceRegenerationDefinition;
 
   public readonly timeline: ResourceTimeline;
@@ -23,12 +22,12 @@ export class Resource implements Serializable<ResourceDto> {
     definition: ResourceDefinition,
     timeline: ResourceTimeline
   ) {
-    const { id, displayName, maxAmount, startingAmount, cooldown, regenerate } =
+    const { id, displayName, maxAmount, startingAmount, regenerate } =
       definition;
     this.id = id;
     this.displayName = displayName;
     this.maxAmount = maxAmount;
-    (this.startingAmount = startingAmount ?? 0), (this.cooldown = cooldown);
+    this.startingAmount = startingAmount ?? 0;
     this.regenerationDefinition = { ...regenerate };
 
     this.timeline = timeline;
@@ -48,20 +47,20 @@ export class Resource implements Serializable<ResourceDto> {
     return 0;
   }
 
-  public get actions() {
-    return this.timeline.actions;
+  public get events() {
+    return this.timeline.events;
   }
 
-  public get lastAction() {
-    return this.timeline.lastAction;
+  public get lastEvent() {
+    return this.timeline.lastEvent;
   }
 
-  /** Adds a resource action at a point of time. The amount of resource cannot be added past the max amount or cannot be subtracted past 0.
+  /** Adds a resource event at a point of time. The amount of resource cannot be added past the max amount or cannot be subtracted past 0.
    * @param amount The amount of resource to add; can be negative
-   * @param hasPriority If true, this resource action will overwrite existing ones in the time interval. If false, this resource action will not be added (or be cut short) if there is an existing resource action with priority.
-   * @returns a resource action if one has been added
+   * @param hasPriority If true, this resource event will overwrite existing ones in the time interval. If false, this resource event will not be added (or be cut short) if there is an existing resource event with priority.
+   * @returns a resource event if one has been added
    */
-  public addResourceAction(
+  public addResourceEvent(
     timeInterval: TimeInterval,
     amount: number,
     hasPriority = false
@@ -107,48 +106,48 @@ export class Resource implements Serializable<ResourceDto> {
     let amountToAdd = calculateAmountToAdd();
     if (!amountToAdd) return;
 
-    const existingActions =
-      this.getResourceActionsOverlappingInterval(timeInterval);
+    const existingEvents =
+      this.getResourceEventsOverlappingInterval(timeInterval);
     if (hasPriority) {
-      // Assuming existing actions are always before the action being added
-      // Cut short existing actions, removing when needed
-      for (const existingAction of existingActions) {
-        if (existingAction.startTime < timeInterval.startTime) {
-          existingAction.endTime = timeInterval.startTime;
+      // Assuming existing events are always before the event being added
+      // Cut short existing events, removing when needed
+      for (const existingEvent of existingEvents) {
+        if (existingEvent.startTime < timeInterval.startTime) {
+          existingEvent.endTime = timeInterval.startTime;
 
-          if (existingAction.startTime === existingAction.endTime) {
-            this.timeline.removeAction(existingAction);
+          if (existingEvent.startTime === existingEvent.endTime) {
+            this.timeline.removeEvent(existingEvent);
           }
         } else {
-          // Existing action has same start time as action being added
-          this.timeline.removeAction(existingAction);
+          // Existing event has same start time as event being added
+          this.timeline.removeEvent(existingEvent);
         }
       }
 
-      // Re-calculate the amount to add after existing actions potentially being removed
+      // Re-calculate the amount to add after existing events potentially being removed
       amountToAdd = calculateAmountToAdd();
       if (!amountToAdd) return;
     } else if (
-      existingActions.some((existingAction) => existingAction.hasPriority)
+      existingEvents.some((existingEvent) => existingEvent.hasPriority)
     ) {
-      // Action being added doesn't have priority, but an existing one does, don't add
+      // event being added doesn't have priority, but an existing one does, don't add
       return;
     }
 
-    const resourceAction = new ResourceAction(
+    const resourceEvent = new ResourceEvent(
       timeInterval,
       this,
       amountToAdd,
       hasPriority
     );
-    this.timeline.addAction(resourceAction);
-    return resourceAction;
+    this.timeline.addEvent(resourceEvent);
+    return resourceEvent;
   }
 
   public deplete(timeInterval: TimeInterval, hasPriority = false) {
     const amount = this.getCumulatedAmount(timeInterval.startTime);
     if (amount) {
-      this.addResourceAction(timeInterval, -amount, hasPriority);
+      this.addResourceEvent(timeInterval, -amount, hasPriority);
     }
   }
 
@@ -156,14 +155,14 @@ export class Resource implements Serializable<ResourceDto> {
   public addStartingAmount() {
     const { startingAmount } = this;
     if (!startingAmount) return;
-    this.addResourceAction(
-      new TimeInterval(-minActionDuration, 0),
+    this.addResourceEvent(
+      new TimeInterval(-minEventDuration, 0),
       startingAmount
     );
   }
 
-  public getResourceActionsOverlappingInterval(timeInterval: TimeInterval) {
-    return this.timeline.getActionsOverlappingInterval(
+  public getResourceEventsOverlappingInterval(timeInterval: TimeInterval) {
+    return this.timeline.getEventsOverlappingInterval(
       timeInterval.startTime,
       timeInterval.endTime
     );

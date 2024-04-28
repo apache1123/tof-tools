@@ -6,7 +6,7 @@ import {
   enduranceResourceId,
   fullCharge,
 } from './resources';
-import { minActionDuration } from './tick';
+import { minEventDuration } from './tick';
 
 export type WeaponName =
   | 'Alyss'
@@ -677,7 +677,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           hitCount: { numberOfHitsFixed: 0 },
           triggeredBy: { startOfAnyDischargeAttack: true },
-          endedBy: { duration: minActionDuration },
+          endedBy: { duration: minEventDuration },
           doesNotTriggerEvents: true,
           cooldown: 0,
           requirements: {},
@@ -727,7 +727,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           triggeredBy: {
             resourceUpdate: 'damage-accumulated-factor-of-total-attack',
           },
-          endedBy: { duration: minActionDuration },
+          endedBy: { duration: minEventDuration },
           doesNotTriggerEvents: true,
           cooldown: 10000,
           requirements: {
@@ -752,7 +752,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         {
           id: 'swift-cut',
           displayName: 'Swift cut',
-          cooldown: 0,
           maxAmount: 30,
           regenerate: {
             amountPerSecond: 2,
@@ -761,7 +760,6 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
         {
           id: 'damage-accumulated-factor-of-total-attack',
           displayName: 'Damage accumulated (as factor of attack)',
-          cooldown: 0,
           maxAmount: 300,
           regenerate: {
             amountFromAccumulatedDamageAsFactorOfTotalAttack: true,
@@ -2751,7 +2749,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
             hitOfAnyAttack: true,
           },
           endedBy: {
-            duration: minActionDuration,
+            duration: minEventDuration,
           },
           cooldown: 700, // This is hard to simulate accurately. This value seems to work ok to approximate the effect
           requirements: {},
@@ -2781,7 +2779,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           },
           hitCount: { numberOfHitsFixed: 0 },
           triggeredBy: { resourceUpdate: 'rei-homing-arrows-on-enemy' },
-          endedBy: { duration: minActionDuration },
+          endedBy: { duration: minEventDuration },
           cooldown: 0,
           requirements: {
             hasResource: {
@@ -2958,14 +2956,12 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
           id: 'rei-special-energy',
           displayName: 'Rei - Special energy',
           maxAmount: 100,
-          cooldown: 0,
           startingAmount: 100,
         },
         {
           id: 'rei-homing-arrows-on-enemy',
           displayName: 'Rei - Number of homing arrows on enemy',
           maxAmount: 3,
-          cooldown: 0,
         },
       ],
     },

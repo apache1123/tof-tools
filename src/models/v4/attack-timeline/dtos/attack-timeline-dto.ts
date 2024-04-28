@@ -1,3 +1,3 @@
-import type { ActionTimelineDto } from '../../action-timeline/dtos/action-timeline-dto';
+import type { AbilityTimelineDto } from '../../ability-timeline/dtos/ability-timeline-dto';
 
-export type AttackTimelineDto = ActionTimelineDto;
+export type AttackTimelineDto = AbilityTimelineDto;

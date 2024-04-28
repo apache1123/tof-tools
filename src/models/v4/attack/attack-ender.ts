@@ -1,4 +1,4 @@
-import { minActionDuration } from '../../../constants/tick';
+import { minEventDuration } from '../../../constants/tick';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
 import type { Attack } from './attack';
@@ -12,7 +12,7 @@ export class AttackEnder extends EventHandler {
   }
 
   public handle(): void {
-    const attackEndTime = this.tickTracker.currentTickStart + minActionDuration;
+    const attackEndTime = this.tickTracker.currentTickStart + minEventDuration;
     this.attack.endActiveAttacksAt(attackEndTime);
     return super.handle();
   }

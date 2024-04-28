@@ -1,8 +1,8 @@
 import type { Weapon } from '../../weapon';
 import type { AttackId } from '../attack/attack-definition';
-import type { AttackAction } from '../attack-timeline/attack-action';
-import type { BuffAction } from '../buff-timeline/buff-action';
-import type { ResourceAction } from '../resource-timeline/resource-action';
+import type { AttackEvent } from '../attack-timeline/attack-event';
+import type { BuffEvent } from '../buff-timeline/buff-event';
+import type { ResourceEvent } from '../resource-timeline/resource-event';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
 
@@ -17,9 +17,9 @@ export class CombatEventNotifier {
     this.eventManager.notify(eventIdProvider.getAttackRequestEventId(attackId));
   }
 
-  public notifyAttackStart(attackAction: AttackAction) {
+  public notifyAttackStart(attackEvent: AttackEvent) {
     const { attackId, elementalType, type, weapon, doesNotTriggerEvents } =
-      attackAction;
+      attackEvent;
 
     if (doesNotTriggerEvents) return;
 
@@ -53,9 +53,9 @@ export class CombatEventNotifier {
     this.eventManager.notify(eventIdProvider.getHitOfAnyAttackEventId());
   }
 
-  public notifyAttackEnd(attackAction: AttackAction) {
+  public notifyAttackEnd(attackEvent: AttackEvent) {
     const { attackId, elementalType, type, weapon, doesNotTriggerEvents } =
-      attackAction;
+      attackEvent;
 
     if (doesNotTriggerEvents) return;
 
@@ -96,27 +96,27 @@ export class CombatEventNotifier {
     );
   }
 
-  public notifyBuffStart(buffAction: BuffAction) {
+  public notifyBuffStart(buffEvent: BuffEvent) {
     this.eventManager.notify(
-      eventIdProvider.getStartOfBuffEventId(buffAction.buffId)
+      eventIdProvider.getStartOfBuffEventId(buffEvent.buffId)
     );
   }
 
-  public notifyBuffEnd(buffAction: BuffAction) {
+  public notifyBuffEnd(buffEvent: BuffEvent) {
     this.eventManager.notify(
-      eventIdProvider.getEndOfBuffEventId(buffAction.buffId)
+      eventIdProvider.getEndOfBuffEventId(buffEvent.buffId)
     );
   }
 
-  public notifyResourceUpdate(resourceAction: ResourceAction) {
+  public notifyResourceUpdate(resourceEvent: ResourceEvent) {
     this.eventManager.notify(
-      eventIdProvider.getResourceUpdateEventId(resourceAction.resourceId)
+      eventIdProvider.getResourceUpdateEventId(resourceEvent.resourceId)
     );
   }
 
-  public notifyResourceDepleted(resourceAction: ResourceAction) {
+  public notifyResourceDepleted(resourceEvent: ResourceEvent) {
     this.eventManager.notify(
-      eventIdProvider.getResourceDepletedEventId(resourceAction.resourceId)
+      eventIdProvider.getResourceDepletedEventId(resourceEvent.resourceId)
     );
   }
 }

@@ -11,7 +11,7 @@ export interface DamageBuff {
   /** Damage buffs in the same category are additive. If they are not, they are multiplicative */
   damageCategory: DamageCategory;
 
-  /** Damage buff only applies to certain actions */
+  /** Damage buff only applies to certain abilities */
   appliesTo?: {
     /** Damage buff only applies to attacks of this weapon */
     weapon?: WeaponName;

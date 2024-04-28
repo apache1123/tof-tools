@@ -1,8 +1,8 @@
 import type { Team } from '../../team';
 import type { Weapon } from '../../weapon';
-import type { ActionEndedBy } from '../action/action-ended-by';
-import type { ActionRequirementsChecker } from '../action/action-requirements-checker';
-import type { ActionTriggeredBy } from '../action/action-triggered-by';
+import type { AbilityEndedBy } from '../ability/ability-ended-by';
+import type { AbilityRequirementsChecker } from '../ability/ability-requirements-checker';
+import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
 import type { CombinedAttackRegistry } from '../attack/combined-attack-registry';
 import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
@@ -23,7 +23,7 @@ export class CombatEventConfigurator {
     attackRegistry: CombinedAttackRegistry,
     buffRegistry: BuffRegistry,
     resourceRegistry: ResourceRegistry,
-    requirementsChecker: ActionRequirementsChecker,
+    requirementsChecker: AbilityRequirementsChecker,
     combatEventNotifier: CombatEventNotifier
   ) {
     for (const attack of attackRegistry.playerInputAttacks) {
@@ -44,7 +44,7 @@ export class CombatEventConfigurator {
     for (const attack of attackRegistry.triggeredAttacks) {
       const { triggeredBy, endedBy } = attack;
 
-      const eventIdsToTriggerAttackOn = this.getEventIdsToTriggerActionOn(
+      const eventIdsToTriggerAttackOn = this.getEventIdsToTriggerAbilityOn(
         triggeredBy,
         weapons
       );
@@ -60,7 +60,7 @@ export class CombatEventConfigurator {
         eventManager.subscribe(eventId, triggerAttackHandler);
       }
 
-      const eventIdsToEndAttackOn = this.getEventIdsToEndActionOn(
+      const eventIdsToEndAttackOn = this.getEventIdsToEndAbilityOn(
         endedBy,
         weapons
       );
@@ -76,7 +76,7 @@ export class CombatEventConfigurator {
     for (const buff of buffRegistry.buffs) {
       const { triggeredBy, endedBy } = buff;
 
-      const eventIdsToTriggerBuffOn = this.getEventIdsToTriggerActionOn(
+      const eventIdsToTriggerBuffOn = this.getEventIdsToTriggerAbilityOn(
         triggeredBy,
         weapons
       );
@@ -89,7 +89,7 @@ export class CombatEventConfigurator {
         eventManager.subscribe(eventId, triggerBuffHandler);
       }
 
-      const eventIdsToEndBuffOn = this.getEventIdsToEndActionOn(
+      const eventIdsToEndBuffOn = this.getEventIdsToEndAbilityOn(
         endedBy,
         weapons
       );
@@ -103,36 +103,36 @@ export class CombatEventConfigurator {
     }
   }
 
-  private static getEventIdsToTriggerActionOn(
-    actionTriggeredBy: ActionTriggeredBy,
+  private static getEventIdsToTriggerAbilityOn(
+    abilityTriggeredBy: AbilityTriggeredBy,
     weapons: Weapon[]
   ) {
     const eventIds: string[] = [];
 
-    if (actionTriggeredBy.combatStart) {
+    if (abilityTriggeredBy.combatStart) {
       eventIds.push(eventIdProvider.getCombatStartEventId());
     }
 
-    if (actionTriggeredBy.notActiveWeapon) {
+    if (abilityTriggeredBy.notActiveWeapon) {
       weapons
-        .filter((weapon) => weapon.id !== actionTriggeredBy.notActiveWeapon)
+        .filter((weapon) => weapon.id !== abilityTriggeredBy.notActiveWeapon)
         .forEach((weapon) => {
           eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
-    if (actionTriggeredBy.activeWeapon) {
+    if (abilityTriggeredBy.activeWeapon) {
       weapons
-        .filter((weapon) => weapon.id === actionTriggeredBy.activeWeapon)
+        .filter((weapon) => weapon.id === abilityTriggeredBy.activeWeapon)
         .forEach((weapon) => {
           eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
-    if (actionTriggeredBy.fullChargeOfWeapons) {
+    if (abilityTriggeredBy.fullChargeOfWeapons) {
       weapons
         .filter((weapon) =>
-          actionTriggeredBy.fullChargeOfWeapons?.includes(weapon.id)
+          abilityTriggeredBy.fullChargeOfWeapons?.includes(weapon.id)
         )
         .forEach((weapon) => {
           eventIds.push(
@@ -141,116 +141,116 @@ export class CombatEventConfigurator {
         });
     }
 
-    if (actionTriggeredBy.hitOfAnyAttack) {
+    if (abilityTriggeredBy.hitOfAnyAttack) {
       eventIds.push(eventIdProvider.getHitOfAnyAttackEventId());
     }
-    if (actionTriggeredBy.startOfAnyAttack) {
+    if (abilityTriggeredBy.startOfAnyAttack) {
       eventIds.push(eventIdProvider.getStartOfAnyAttackEventId());
     }
-    if (actionTriggeredBy.endOfAnyAttack) {
+    if (abilityTriggeredBy.endOfAnyAttack) {
       eventIds.push(eventIdProvider.getEndOfAnyAttackEventId());
     }
 
-    if (actionTriggeredBy.startOfAttacks) {
-      actionTriggeredBy.startOfAttacks.forEach((attackId) => {
+    if (abilityTriggeredBy.startOfAttacks) {
+      abilityTriggeredBy.startOfAttacks.forEach((attackId) => {
         eventIds.push(eventIdProvider.getStartOfAttackEventId(attackId));
       });
     }
-    if (actionTriggeredBy.endOfAttacks) {
-      actionTriggeredBy.endOfAttacks.forEach((attackId) => {
+    if (abilityTriggeredBy.endOfAttacks) {
+      abilityTriggeredBy.endOfAttacks.forEach((attackId) => {
         eventIds.push(eventIdProvider.getEndOfAttackEventId(attackId));
       });
     }
 
-    if (actionTriggeredBy.startOfAnySkillAttack) {
+    if (abilityTriggeredBy.startOfAnySkillAttack) {
       eventIds.push(eventIdProvider.getStartOfAnySkillAttackEventId());
     }
-    if (actionTriggeredBy.endOfAnySkillAttack) {
+    if (abilityTriggeredBy.endOfAnySkillAttack) {
       eventIds.push(eventIdProvider.getEndOfAnySkillAttackEventId());
     }
 
-    if (actionTriggeredBy.startOfAnyDischargeAttack) {
+    if (abilityTriggeredBy.startOfAnyDischargeAttack) {
       eventIds.push(eventIdProvider.getStartOfAnyDischargeAttackEventId());
     }
-    if (actionTriggeredBy.endOfAnyDischargeAttack) {
+    if (abilityTriggeredBy.endOfAnyDischargeAttack) {
       eventIds.push(eventIdProvider.getEndOfAnyDischargeAttackEventId());
     }
 
-    if (actionTriggeredBy.startOfSkillOfWeaponType) {
+    if (abilityTriggeredBy.startOfSkillOfWeaponType) {
       eventIds.push(
         eventIdProvider.getStartOfSkillOfWeaponTypeEventId(
-          actionTriggeredBy.startOfSkillOfWeaponType
+          abilityTriggeredBy.startOfSkillOfWeaponType
         )
       );
     }
-    if (actionTriggeredBy.endOfSkillOfWeaponType) {
+    if (abilityTriggeredBy.endOfSkillOfWeaponType) {
       eventIds.push(
         eventIdProvider.getEndOfSkillOfWeaponTypeEventId(
-          actionTriggeredBy.endOfSkillOfWeaponType
+          abilityTriggeredBy.endOfSkillOfWeaponType
         )
       );
     }
 
-    if (actionTriggeredBy.startOfDischargeOfWeaponType) {
+    if (abilityTriggeredBy.startOfDischargeOfWeaponType) {
       eventIds.push(
         eventIdProvider.getStartOfDischargeOfWeaponTypeEventId(
-          actionTriggeredBy.startOfDischargeOfWeaponType
+          abilityTriggeredBy.startOfDischargeOfWeaponType
         )
       );
     }
-    if (actionTriggeredBy.endOfDischargeOfWeaponType) {
+    if (abilityTriggeredBy.endOfDischargeOfWeaponType) {
       eventIds.push(
         eventIdProvider.getEndOfDischargeOfWeaponTypeEventId(
-          actionTriggeredBy.endOfDischargeOfWeaponType
+          abilityTriggeredBy.endOfDischargeOfWeaponType
         )
       );
     }
 
-    if (actionTriggeredBy.startOfSkillOfElementalType) {
+    if (abilityTriggeredBy.startOfSkillOfElementalType) {
       eventIds.push(
         eventIdProvider.getStartOfSkillOfElementalTypeEventId(
-          actionTriggeredBy.startOfSkillOfElementalType
+          abilityTriggeredBy.startOfSkillOfElementalType
         )
       );
     }
-    if (actionTriggeredBy.endOfSkillOfElementalType) {
+    if (abilityTriggeredBy.endOfSkillOfElementalType) {
       eventIds.push(
         eventIdProvider.getEndOfSkillOfElementalTypeEventId(
-          actionTriggeredBy.endOfSkillOfElementalType
+          abilityTriggeredBy.endOfSkillOfElementalType
         )
       );
     }
 
-    if (actionTriggeredBy.startOfDischargeOfElementalType) {
+    if (abilityTriggeredBy.startOfDischargeOfElementalType) {
       eventIds.push(
         eventIdProvider.getStartOfDischargeOfElementalTypeEventId(
-          actionTriggeredBy.startOfDischargeOfElementalType
+          abilityTriggeredBy.startOfDischargeOfElementalType
         )
       );
     }
-    if (actionTriggeredBy.endOfDischargeOfElementalType) {
+    if (abilityTriggeredBy.endOfDischargeOfElementalType) {
       eventIds.push(
         eventIdProvider.getEndOfDischargeOfElementalTypeEventId(
-          actionTriggeredBy.endOfDischargeOfElementalType
+          abilityTriggeredBy.endOfDischargeOfElementalType
         )
       );
     }
 
-    if (actionTriggeredBy.startOfBuff) {
+    if (abilityTriggeredBy.startOfBuff) {
       eventIds.push(
-        eventIdProvider.getStartOfBuffEventId(actionTriggeredBy.startOfBuff)
+        eventIdProvider.getStartOfBuffEventId(abilityTriggeredBy.startOfBuff)
       );
     }
-    if (actionTriggeredBy.endOfBuff) {
+    if (abilityTriggeredBy.endOfBuff) {
       eventIds.push(
-        eventIdProvider.getEndOfBuffEventId(actionTriggeredBy.endOfBuff)
+        eventIdProvider.getEndOfBuffEventId(abilityTriggeredBy.endOfBuff)
       );
     }
 
-    if (actionTriggeredBy.resourceUpdate) {
+    if (abilityTriggeredBy.resourceUpdate) {
       eventIds.push(
         eventIdProvider.getResourceUpdateEventId(
-          actionTriggeredBy.resourceUpdate
+          abilityTriggeredBy.resourceUpdate
         )
       );
     }
@@ -258,36 +258,38 @@ export class CombatEventConfigurator {
     return eventIds;
   }
 
-  private static getEventIdsToEndActionOn(
-    actionEndedBy: ActionEndedBy,
+  private static getEventIdsToEndAbilityOn(
+    abilityEndedBy: AbilityEndedBy,
     weapons: Weapon[]
   ) {
     const eventIds: string[] = [];
 
-    if (actionEndedBy.buffEnd) {
-      eventIds.push(eventIdProvider.getEndOfBuffEventId(actionEndedBy.buffEnd));
+    if (abilityEndedBy.buffEnd) {
+      eventIds.push(
+        eventIdProvider.getEndOfBuffEventId(abilityEndedBy.buffEnd)
+      );
     }
 
-    if (actionEndedBy.notActiveWeapon) {
+    if (abilityEndedBy.notActiveWeapon) {
       weapons
-        .filter((weapon) => weapon.id !== actionEndedBy.notActiveWeapon)
+        .filter((weapon) => weapon.id !== abilityEndedBy.notActiveWeapon)
         .forEach((weapon) => {
           eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
-    if (actionEndedBy.activeWeapon) {
+    if (abilityEndedBy.activeWeapon) {
       weapons
-        .filter((weapon) => weapon.id === actionEndedBy.activeWeapon)
+        .filter((weapon) => weapon.id === abilityEndedBy.activeWeapon)
         .forEach((weapon) => {
           eventIds.push(eventIdProvider.getActiveWeaponEventId(weapon.id));
         });
     }
 
-    if (actionEndedBy.resourceDepleted) {
+    if (abilityEndedBy.resourceDepleted) {
       eventIds.push(
         eventIdProvider.getResourceDepletedEventId(
-          actionEndedBy.resourceDepleted
+          abilityEndedBy.resourceDepleted
         )
       );
     }

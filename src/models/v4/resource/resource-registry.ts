@@ -1,5 +1,5 @@
 import type { Serializable } from '../../persistable';
-import type { ResourceAction } from '../resource-timeline/resource-action';
+import type { ResourceEvent } from '../resource-timeline/resource-event';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { ResourceRegistryDto } from './dtos/resource-registry-dto';
 import type { Resource } from './resource';
@@ -30,9 +30,9 @@ export class ResourceRegistry implements Serializable<ResourceRegistryDto> {
     return resource.getCumulatedAmount(time) >= minAmount;
   }
 
-  public getResourceActions(timeInterval: TimeInterval): ResourceAction[] {
+  public getResourceEvents(timeInterval: TimeInterval): ResourceEvent[] {
     return this.resources.flatMap((resource) =>
-      resource.getResourceActionsOverlappingInterval(timeInterval)
+      resource.getResourceEventsOverlappingInterval(timeInterval)
     );
   }
 

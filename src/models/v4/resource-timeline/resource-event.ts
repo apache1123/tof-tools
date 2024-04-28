@@ -1,18 +1,18 @@
 import type { Serializable } from '../../persistable';
-import { Action } from '../action-timeline/action';
 import type { Resource } from '../resource/resource';
 import type { ResourceId } from '../resource/resource-definition';
 import type { TimeInterval } from '../time-interval/time-interval';
-import type { ResourceActionDto } from './dtos/resource-action-dto';
+import { TimelineEvent } from '../timeline/timeline-event';
+import type { ResourceEventDto } from './dtos/resource-event-dto';
 
-export class ResourceAction
-  extends Action
-  implements Serializable<ResourceActionDto>
+export class ResourceEvent
+  extends TimelineEvent
+  implements Serializable<ResourceEventDto>
 {
   public resourceId: ResourceId;
   /** Amount of resource added or subtracted */
   public amount: number;
-  /** If true, this action has priority over others */
+  /** If true, this event has priority over others */
   public hasPriority: boolean;
 
   public constructor(
@@ -21,13 +21,13 @@ export class ResourceAction
     amount: number,
     hasPriority = false
   ) {
-    super(timeInterval, resource.cooldown);
+    super(timeInterval);
     this.resourceId = resource.id;
     this.amount = amount;
     this.hasPriority = hasPriority;
   }
 
-  public toDto(): ResourceActionDto {
+  public toDto(): ResourceEventDto {
     const { amount } = this;
     return {
       ...super.toDto(),

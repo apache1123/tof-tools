@@ -1,5 +1,5 @@
 import type { Serializable } from '../../persistable';
-import type { BuffAction } from '../buff-timeline/buff-action';
+import type { BuffEvent } from '../buff-timeline/buff-event';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { Buff } from './buff';
 import type { BuffId } from './buff-definition';
@@ -20,18 +20,18 @@ export class BuffRegistry implements Serializable<BuffRegistryDto> {
 
   public isBuffActiveAt(buffId: BuffId, time: number) {
     const timeline = this._buffs.get(buffId)?.timeline;
-    return timeline && timeline.isActionActiveAt(time);
+    return timeline && timeline.isAbilityActiveAt(time);
   }
 
-  public getBuffActions(timeInterval: TimeInterval): BuffAction[] {
+  public getBuffEvents(timeInterval: TimeInterval): BuffEvent[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffActionsOverlappingInterval(timeInterval)
+      buff.getBuffEventsOverlappingInterval(timeInterval)
     );
   }
 
-  public getBuffActionsEndingBetween(timeInterval: TimeInterval): BuffAction[] {
+  public getBuffEventsEndingBetween(timeInterval: TimeInterval): BuffEvent[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffActionsEndingBetween(timeInterval)
+      buff.getBuffEventsEndingBetween(timeInterval)
     );
   }
 

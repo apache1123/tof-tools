@@ -1,13 +1,13 @@
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
-import type { ActionRequirements } from './action-requirements';
-import type { ActionRequirementsChecker } from './action-requirements-checker';
+import type { AbilityRequirements } from './ability-requirements';
+import type { AbilityRequirementsChecker } from './ability-requirements-checker';
 
-export class ActionRequirementsHandler extends EventHandler {
+export class AbilityRequirementsHandler extends EventHandler {
   public constructor(
-    private readonly requirements: ActionRequirements,
+    private readonly requirements: AbilityRequirements,
     private readonly tickTracker: TickTracker,
-    private readonly requirementsChecker: ActionRequirementsChecker
+    private readonly requirementsChecker: AbilityRequirementsChecker
   ) {
     super();
   }

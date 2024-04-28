@@ -4,8 +4,8 @@ import type { Loadout } from '../../../loadout';
 import type { LoadoutStats } from '../../../loadout-stats';
 import { Team } from '../../../team';
 import { Weapon } from '../../../weapon';
-import type { AttackAction } from '../../attack-timeline/attack-action';
-import type { BuffAction } from '../../buff-timeline/buff-action';
+import type { AttackEvent } from '../../attack-timeline/attack-event';
+import type { BuffEvent } from '../../buff-timeline/buff-event';
 import { DamageCalculator } from '../damage-calculator';
 
 describe('DamageCalculator', () => {
@@ -46,7 +46,7 @@ describe('DamageCalculator', () => {
   describe('Base attack', () => {
     it('uses the highest base attack for a dual-element weapon', () => {
       const sut = new DamageCalculator(
-        {} as AttackAction,
+        {} as AttackEvent,
         weapon2,
         loadout,
         loadout.loadoutStats,
@@ -58,7 +58,7 @@ describe('DamageCalculator', () => {
 
     it('uses the highest base attack for an altered weapon', () => {
       const sut = new DamageCalculator(
-        {} as AttackAction,
+        {} as AttackEvent,
         weapon3,
         loadout,
         loadout.loadoutStats,
@@ -72,7 +72,7 @@ describe('DamageCalculator', () => {
   describe('Gear attack buff value', () => {
     it('uses the highest gear atk% for a dual-element weapon', () => {
       const sut = new DamageCalculator(
-        {} as AttackAction,
+        {} as AttackEvent,
         weapon2,
         loadout,
         loadout.loadoutStats,
@@ -84,7 +84,7 @@ describe('DamageCalculator', () => {
 
     it('uses the highest gear atk% for an altered weapon', () => {
       const sut = new DamageCalculator(
-        {} as AttackAction,
+        {} as AttackEvent,
         weapon3,
         loadout,
         loadout.loadoutStats,
@@ -98,7 +98,7 @@ describe('DamageCalculator', () => {
   describe('Gear damage buff value', () => {
     it('uses the highest gear dmg% for a dual-element weapon', () => {
       const sut = new DamageCalculator(
-        {} as AttackAction,
+        {} as AttackEvent,
         weapon2,
         loadout,
         loadout.loadoutStats,
@@ -110,7 +110,7 @@ describe('DamageCalculator', () => {
 
     it('uses the highest gear dmg% for an altered weapon', () => {
       const sut = new DamageCalculator(
-        {} as AttackAction,
+        {} as AttackEvent,
         weapon3,
         loadout,
         loadout.loadoutStats,
@@ -124,7 +124,7 @@ describe('DamageCalculator', () => {
   describe('Total attack buff value', () => {
     it('calculates total atk% value correctly', () => {
       const sut = new DamageCalculator(
-        { elementalType: 'Frost' } as AttackAction,
+        { elementalType: 'Frost' } as AttackEvent,
         weapon2,
         loadout,
         loadout.loadoutStats,
@@ -140,7 +140,7 @@ describe('DamageCalculator', () => {
             attackBuffs: [{ elementalTypes: ['Frost'], value: 0.3 }],
             stacks: 1,
           },
-        ] as BuffAction[]
+        ] as BuffEvent[]
       );
 
       expect(sut.getTotalAttackPercent()).toBe(1.9);
@@ -148,7 +148,7 @@ describe('DamageCalculator', () => {
 
     it("calculates total atk% value correctly, ignoring atk buffs that are not of the attack's element type", () => {
       const sut = new DamageCalculator(
-        { elementalType: 'Frost' } as AttackAction,
+        { elementalType: 'Frost' } as AttackEvent,
         weapon2,
         loadout,
         loadout.loadoutStats,
@@ -161,7 +161,7 @@ describe('DamageCalculator', () => {
             attackBuffs: [{ elementalTypes: ['Volt'], value: 0.3 }],
             stacks: 1,
           },
-        ] as BuffAction[]
+        ] as BuffEvent[]
       );
 
       expect(sut.getTotalAttackPercent()).toBe(0.9);
@@ -171,7 +171,7 @@ describe('DamageCalculator', () => {
   describe('Total damage buff value', () => {
     it('calculates total dmg% value correctly, taking into account different damage categories', () => {
       const sut = new DamageCalculator(
-        { elementalType: 'Frost', damageModifiers: {} } as AttackAction,
+        { elementalType: 'Frost', damageModifiers: {} } as AttackEvent,
         weapon2,
         loadout,
         loadout.loadoutStats,
@@ -211,7 +211,7 @@ describe('DamageCalculator', () => {
             ],
             stacks: 1,
           },
-        ] as BuffAction[]
+        ] as BuffEvent[]
       );
 
       expect(sut.getTotalDamagePercent()).toBe(3.14);

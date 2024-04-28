@@ -1,10 +1,10 @@
 import type { TimelineDto } from '../../timeline/dtos/timeline-dto';
-import type { ResourceActionDto } from './resource-action-dto';
+import type { ResourceEventDto } from './resource-event-dto';
 
 export interface ResourceTimelineDto extends TimelineDto {
-  actions: ResourceTimelineActionDto[];
+  events: ResourceTimelineEventDto[];
 }
 
-export interface ResourceTimelineActionDto extends ResourceActionDto {
+export interface ResourceTimelineEventDto extends ResourceEventDto {
   cumulatedAmount: number;
 }

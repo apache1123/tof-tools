@@ -28,7 +28,7 @@ export class TickSimulator {
     // Consume queue first to process the attack request
     this.queuedEventNotifier.consumeQueue();
 
-    const lastAttack = this.combinedAttackRegistry.lastPlayerInputAttackAction;
+    const lastAttack = this.combinedAttackRegistry.lastPlayerInputAttackEvent;
     while (
       lastAttack &&
       this.tickTracker.currentTickStart < lastAttack.endTime
