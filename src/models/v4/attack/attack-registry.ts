@@ -1,10 +1,12 @@
-import type { TimeInterval } from '../time-interval';
+import type { Serializable } from '../../persistable';
+import type { AttackAction } from '../attack-timeline/attack-action';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { Attack } from './attack';
-import type { AttackAction } from './attack-action';
 import type { AttackId } from './attack-definition';
 import { type AttackDefinition } from './attack-definition';
+import type { AttackRegistryDto } from './dtos/attack-registry-dto';
 
-export class AttackRegistry {
+export class AttackRegistry implements Serializable<AttackRegistryDto> {
   private readonly _attacks = new Map<AttackId, Attack>();
 
   public constructor(attacks: Attack[]) {
@@ -57,5 +59,10 @@ export class AttackRegistry {
     return this.attacks.flatMap((attack) =>
       attack.getAttackActionsEndingBetween(timeInterval)
     );
+  }
+
+  public toDto(): AttackRegistryDto {
+    const { attacks } = this;
+    return { attacks: attacks.map((attack) => attack.toDto()), version: 1 };
   }
 }

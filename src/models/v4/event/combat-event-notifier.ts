@@ -1,8 +1,8 @@
 import type { Weapon } from '../../weapon';
-import type { AttackAction } from '../attack/attack-action';
 import type { AttackId } from '../attack/attack-definition';
-import type { BuffAction } from '../buff/buff-action';
-import type { ResourceAction } from '../resource/resource-action';
+import type { AttackAction } from '../attack-timeline/attack-action';
+import type { BuffAction } from '../buff-timeline/buff-action';
+import type { ResourceAction } from '../resource-timeline/resource-action';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
 

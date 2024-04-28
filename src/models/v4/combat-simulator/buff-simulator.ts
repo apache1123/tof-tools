@@ -1,6 +1,6 @@
 import type { ActionResourceUpdater } from '../action/action-resource-updater';
-import type { BuffAction } from '../buff/buff-action';
 import type { BuffRegistry } from '../buff/buff-registry';
+import type { BuffAction } from '../buff-timeline/buff-action';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { TickTracker } from '../tick-tracker';
 

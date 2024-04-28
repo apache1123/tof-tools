@@ -14,7 +14,7 @@ import { GearSet } from '../../models/gear-set';
 import { Loadout } from '../../models/loadout';
 import { Team } from '../../models/team';
 import { CombatSimulator } from '../../models/v4/combat-simulator/combat-simulator';
-import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator-snapshot/combat-simulator-snapshot';
+import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator/combat-simulator-snapshot';
 import { Relics } from '../../models/v4/relics/relics';
 import { Weapon } from '../../models/weapon';
 import { repeat } from '../../utils/test-utils';
@@ -106,24 +106,64 @@ export function CombatSimulatorTimeline() {
   }, []);
 
   const editorData: CombatSimulatorTimelineRow[] = combatSimulatorSnapshot
-    ? combatSimulatorSnapshot.playerInputAttackTimelines
-        .concat(combatSimulatorSnapshot.triggeredAttackTimelines)
-        .concat(combatSimulatorSnapshot.buffTimelines)
-        .concat(combatSimulatorSnapshot.resourceTimelines)
-        .map((timeline) => ({
-          id: timeline.id,
-          displayName: timeline.displayName,
-          actions: timeline.actions.map<CombatSimulatorTimelineAction>(
-            (event, index) => ({
-              id: `${timeline.id}-${index}`,
-              displayName: event.displayName,
+    ? combatSimulatorSnapshot.weaponAttacks
+        .map<CombatSimulatorTimelineRow>((weaponAttack) => ({
+          id: weaponAttack.weaponId,
+          displayName: weaponAttack.weaponDisplayName,
+          actions:
+            weaponAttack.attackTimeline.events.map<CombatSimulatorTimelineAction>(
+              (event, index) => ({
+                id: `${weaponAttack.weaponId}-${index}`,
+                displayName: event.attackDisplayName,
+                start: event.startTime,
+                end: event.endTime,
+                effectId: 'attack-event',
+              })
+            ),
+          classNames: [styles.timelineRow],
+        }))
+        .concat(
+          combatSimulatorSnapshot.triggeredAttacks.map((attack) => ({
+            id: attack.id,
+            displayName: attack.displayName,
+            actions: attack.timeline.actions.map((event, index) => ({
+              id: `${attack.id}-${index}`,
+              displayName: attack.displayName,
               start: event.startTime,
               end: event.endTime,
               effectId: 'attack-event',
-            })
-          ),
-          classNames: [styles.timelineRow],
-        }))
+            })),
+            classNames: [styles.timelineRow],
+          }))
+        )
+        .concat(
+          combatSimulatorSnapshot.buffs.map((buff) => ({
+            id: buff.id,
+            displayName: buff.displayName,
+            actions: buff.timeline.actions.map((event, index) => ({
+              id: `${buff.id}-${index}`,
+              displayName: `${buff.displayName} - Stacks: ${event.stacks}`,
+              start: event.startTime,
+              end: event.endTime,
+              effectId: 'buff-event',
+            })),
+            classNames: [styles.timelineRow],
+          }))
+        )
+        .concat(
+          combatSimulatorSnapshot.resources.map((resource) => ({
+            id: resource.id,
+            displayName: resource.displayName,
+            actions: resource.timeline.actions.map((event, index) => ({
+              id: `${resource.id}-${index}`,
+              displayName: `${resource.displayName} - Amount: ${event.amount}. Cumulated: ${event.cumulatedAmount}`,
+              start: event.startTime,
+              end: event.endTime,
+              effectId: 'buff-event',
+            })),
+            classNames: [styles.timelineRow],
+          }))
+        )
     : [];
 
   return (
@@ -147,9 +187,11 @@ export function CombatSimulatorTimeline() {
         )}
         style={{ width: '100%', height: 1200 }}
       />
-      {combatSimulatorSnapshot?.damageSummary && (
+      {combatSimulatorSnapshot?.combatDamageSummary.cumulatedDamageSummary && (
         <DamageSummaryBreakdown
-          damageSummary={combatSimulatorSnapshot.damageSummary}
+          damageSummary={
+            combatSimulatorSnapshot.combatDamageSummary.cumulatedDamageSummary
+          }
         />
       )}
     </Stack>

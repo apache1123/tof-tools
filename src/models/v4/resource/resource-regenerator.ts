@@ -1,28 +1,28 @@
 import { BigNumber } from 'bignumber.js';
 
 import { oneSecondDuration } from '../../../utils/time-utils';
-import type { DamageSummaryTimeline } from '../damage-summary-timeline/damage-summary-timeline';
+import type { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
-import type { TimeInterval } from '../time-interval';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { Resource } from './resource';
 import type { ResourceRegenerationDefinition } from './resource-regeneration-definition';
 
 export class ResourceRegenerator {
   public constructor(
-    private readonly damageSummaryTimeline: DamageSummaryTimeline,
+    private readonly combatDamageSummary: CombatDamageSummary,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {}
 
   /** Regenerate the resource amount for a time interval, if there are no other actions in that interval  */
   public regenerateResource(resource: Resource, timeInterval: TimeInterval) {
-    if (!resource.resourceRegenerationDefinition) return;
+    if (!resource.regenerationDefinition) return;
 
     const existingActions =
       resource.getResourceActionsOverlappingInterval(timeInterval);
     if (existingActions.length) return;
 
     const regenerateAmount = this.calculateRegenerateAmount(
-      resource.resourceRegenerationDefinition,
+      resource.regenerationDefinition,
       timeInterval
     );
     const regenerateAction = resource.addResourceAction(
@@ -52,9 +52,7 @@ export class ResourceRegenerator {
 
     if (amountFromAccumulatedDamageAsFactorOfTotalAttack) {
       const damageSummaryAction =
-        this.damageSummaryTimeline.getDamageSummaryAction(
-          timeInterval.startTime
-        );
+        this.combatDamageSummary.getDamageSummaryAction(timeInterval.startTime);
       if (!damageSummaryAction) return 0;
 
       return BigNumber(

@@ -1,11 +1,33 @@
+import type { Serializable } from '../../persistable';
+import type { ActionEndedBy } from '../action/action-ended-by';
+import type { ActionRequirements } from '../action/action-requirements';
 import type { ActionTimeCalculator } from '../action/action-time-calculator';
-import { TimeInterval } from '../time-interval';
-import { BuffAction } from './buff-action';
-import type { BuffDefinition } from './buff-definition';
-import type { BuffTimeline } from './buff-timeline';
+import type { ActionTriggeredBy } from '../action/action-triggered-by';
+import type { ActionUpdatesResource } from '../action/action-updates-resource';
+import { BuffAction } from '../buff-timeline/buff-action';
+import type { BuffTimeline } from '../buff-timeline/buff-timeline';
+import { TimeInterval } from '../time-interval/time-interval';
+import type { AttackBuff } from './attack-buff';
+import type { BuffDefinition, BuffId } from './buff-definition';
+import type { DamageBuff } from './damage-buff';
+import type { BuffDto } from './dtos/buff-dto';
+import type { MiscellaneousBuff } from './miscellaneous-buff';
 
-export class Buff {
-  public readonly definition: BuffDefinition;
+export class Buff implements Serializable<BuffDto> {
+  public readonly id: BuffId;
+  public readonly displayName: string;
+  public readonly maxStacks: number;
+  public readonly cooldown: number;
+
+  public readonly attackBuffs: AttackBuff[];
+  public readonly damageBuffs: DamageBuff[];
+  public readonly miscBuff?: MiscellaneousBuff;
+
+  public readonly triggeredBy: ActionTriggeredBy;
+  public readonly endedBy: ActionEndedBy;
+  public readonly requirements: ActionRequirements;
+  public readonly updatesResources: ActionUpdatesResource[];
+
   public readonly timeline: BuffTimeline;
 
   private readonly actionTimeCalculator: ActionTimeCalculator;
@@ -15,19 +37,39 @@ export class Buff {
     timeline: BuffTimeline,
     actionTimeCalculator: ActionTimeCalculator
   ) {
-    this.definition = definition;
+    const {
+      id,
+      displayName,
+      maxStacks,
+      cooldown,
+      attackBuffs,
+      damageBuffs,
+      miscBuff,
+      triggeredBy,
+      endedBy,
+      requirements,
+      updatesResources,
+    } = definition;
+    this.id = id;
+    this.displayName = displayName;
+    this.maxStacks = maxStacks;
+    this.cooldown = cooldown;
+    this.attackBuffs = attackBuffs ?? [];
+    this.damageBuffs = damageBuffs ?? [];
+    this.miscBuff = miscBuff;
+    this.triggeredBy = triggeredBy;
+    this.endedBy = endedBy;
+    this.requirements = requirements;
+    this.updatesResources = updatesResources ?? [];
+
     this.timeline = timeline;
     this.actionTimeCalculator = actionTimeCalculator;
-  }
-
-  public get id() {
-    return this.definition.id;
   }
 
   public trigger(time: number): BuffAction {
     const timeInterval =
       this.actionTimeCalculator.calculateActionTimeInterval(time);
-    return this.addNewBuffAction(new BuffAction(this.definition, timeInterval));
+    return this.addNewBuffAction(new BuffAction(this, timeInterval));
   }
 
   public endActiveBuffsAt(time: number) {
@@ -45,14 +87,10 @@ export class Buff {
     );
   }
 
-  public get updatesResources() {
-    return this.definition.updatesResources;
-  }
-
   /** Adds a new buff action to the timeline. Merging with the latest buff in the timeline if overlaps occur. */
   private addNewBuffAction(buffAction: BuffAction): BuffAction {
     const { lastAction } = this.timeline;
-    const { maxStacks } = this.definition;
+    const { maxStacks } = this;
 
     // Buff action does not overlap with an existing one whatsoever, add new buff as usual
     if (!lastAction || buffAction.startTime > lastAction.endTime) {
@@ -100,7 +138,7 @@ export class Buff {
 
     if (newStacksOfOverlappingInterval === lastAction.stacks) {
       const newBuffAction = new BuffAction(
-        this.definition,
+        this,
         new TimeInterval(
           lastAction.endTime,
           lastAction.endTime + buffAction.duration
@@ -116,14 +154,14 @@ export class Buff {
     lastAction.endTime = buffAction.startTime;
 
     const newBuffOfOverlappingInterval = new BuffAction(
-      this.definition,
+      this,
       new TimeInterval(buffAction.startTime, oldLastBuffEndTime),
       newStacksOfOverlappingInterval
     );
     this.timeline.addAction(newBuffOfOverlappingInterval);
 
     const newBuffAction = new BuffAction(
-      this.definition,
+      this,
       new TimeInterval(
         newBuffOfOverlappingInterval.endTime,
         buffAction.endTime
@@ -132,5 +170,10 @@ export class Buff {
     );
     this.timeline.addAction(newBuffAction);
     return newBuffAction;
+  }
+
+  public toDto(): BuffDto {
+    const { id, displayName, timeline } = this;
+    return { id, displayName, timeline: timeline.toDto(), version: 1 };
   }
 }

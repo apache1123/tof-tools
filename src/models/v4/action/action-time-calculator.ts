@@ -1,6 +1,6 @@
-import { TimeInterval } from '../time-interval';
+import type { ActionTimeline } from '../action-timeline/action-timeline';
+import { TimeInterval } from '../time-interval/time-interval';
 import type { ActionEndedBy } from './action-ended-by';
-import type { ActionTimeline } from './action-timeline';
 
 export class ActionTimeCalculator {
   private readonly actionEndedBy: ActionEndedBy;

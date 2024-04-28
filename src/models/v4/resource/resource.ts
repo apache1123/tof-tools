@@ -1,42 +1,47 @@
 import BigNumber from 'bignumber.js';
 
 import { minActionDuration } from '../../../constants/tick';
-import { sum } from '../../../utils/math-utils';
-import { TimeInterval } from '../time-interval';
-import type { Timeline } from '../timeline/timeline';
-import { ResourceAction } from './resource-action';
-import type { ResourceDefinition } from './resource-definition';
+import type { Serializable } from '../../persistable';
+import { ResourceAction } from '../resource-timeline/resource-action';
+import type { ResourceTimeline } from '../resource-timeline/resource-timeline';
+import { TimeInterval } from '../time-interval/time-interval';
+import type { ResourceDto } from './dtos/resource-dto';
+import type { ResourceDefinition, ResourceId } from './resource-definition';
+import type { ResourceRegenerationDefinition } from './resource-regeneration-definition';
 
-export class Resource {
-  public readonly definition: ResourceDefinition;
-  public readonly timeline: Timeline<ResourceAction>;
+export class Resource implements Serializable<ResourceDto> {
+  public readonly id: ResourceId;
+  public readonly displayName: string;
+  public readonly maxAmount: number;
+  public readonly startingAmount: number;
+  public readonly cooldown: number;
+  public readonly regenerationDefinition: ResourceRegenerationDefinition;
+
+  public readonly timeline: ResourceTimeline;
 
   public constructor(
     definition: ResourceDefinition,
-    timeline: Timeline<ResourceAction>
+    timeline: ResourceTimeline
   ) {
-    this.definition = definition;
+    const { id, displayName, maxAmount, startingAmount, cooldown, regenerate } =
+      definition;
+    this.id = id;
+    this.displayName = displayName;
+    this.maxAmount = maxAmount;
+    (this.startingAmount = startingAmount ?? 0), (this.cooldown = cooldown);
+    this.regenerationDefinition = { ...regenerate };
+
     this.timeline = timeline;
   }
 
   /** Cumulated amount of resource up to (but not including) a point of time */
   public getCumulatedAmount(time: number) {
-    const timeInterval = new TimeInterval(-minActionDuration, time); // start time is negative because there could be an action that adds the starting amount of a resource before the combat start time of time=0
-    const resourceActions = this.timeline.getActionsEndingBetween(timeInterval);
-    return sum(...resourceActions.map((action) => action.amount)).toNumber();
+    return this.timeline.getCumulatedAmount(time);
   }
 
   /** Is the resource depleted at a point of time (but not including that point of time) */
   public isDepleted(time: number) {
     return this.getCumulatedAmount(time) === 0;
-  }
-
-  public get id() {
-    return this.definition.id;
-  }
-
-  public get maxAmount() {
-    return this.definition.maxAmount;
   }
 
   public get minAmount() {
@@ -49,10 +54,6 @@ export class Resource {
 
   public get lastAction() {
     return this.timeline.lastAction;
-  }
-
-  public get resourceRegenerationDefinition() {
-    return this.definition.regenerate;
   }
 
   /** Adds a resource action at a point of time. The amount of resource cannot be added past the max amount or cannot be subtracted past 0.
@@ -136,7 +137,7 @@ export class Resource {
 
     const resourceAction = new ResourceAction(
       timeInterval,
-      this.definition,
+      this,
       amountToAdd,
       hasPriority
     );
@@ -153,7 +154,7 @@ export class Resource {
 
   /** Adds the defined starting amount of resource, e.g. before combat start */
   public addStartingAmount() {
-    const { startingAmount } = this.definition;
+    const { startingAmount } = this;
     if (!startingAmount) return;
     this.addResourceAction(
       new TimeInterval(-minActionDuration, 0),
@@ -166,5 +167,15 @@ export class Resource {
       timeInterval.startTime,
       timeInterval.endTime
     );
+  }
+
+  public toDto(): ResourceDto {
+    const { id, displayName, timeline } = this;
+    return {
+      id,
+      displayName,
+      timeline: timeline.toDto(),
+      version: 1,
+    };
   }
 }

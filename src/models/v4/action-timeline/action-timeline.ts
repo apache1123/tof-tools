@@ -1,7 +1,12 @@
+import type { Serializable } from '../../persistable';
 import { Timeline } from '../timeline/timeline';
 import type { Action } from './action';
+import type { ActionTimelineDto } from './dtos/action-timeline-dto';
 
-export class ActionTimeline<T extends Action = Action> extends Timeline<T> {
+export class ActionTimeline<T extends Action = Action>
+  extends Timeline<T>
+  implements Serializable<ActionTimelineDto>
+{
   public isActionActiveAt(time: number) {
     return this.getActionsOverlappingTime(time).length !== 0;
   }

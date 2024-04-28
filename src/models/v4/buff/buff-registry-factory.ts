@@ -1,11 +1,11 @@
 import { commonBuffs } from '../../../constants/common-buffs';
 import type { Loadout } from '../../loadout';
 import { ActionTimeCalculator } from '../action/action-time-calculator';
+import { BuffTimeline } from '../buff-timeline/buff-timeline';
 import type { Relics } from '../relics/relics';
 import { Buff } from './buff';
 import type { BuffDefinition } from './buff-definition';
 import { BuffRegistry } from './buff-registry';
-import { BuffTimeline } from './buff-timeline';
 
 export class BuffRegistryFactory {
   public static create(

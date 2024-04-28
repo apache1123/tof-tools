@@ -1,4 +1,4 @@
-import { TimeInterval } from './time-interval';
+import { TimeInterval } from './time-interval/time-interval';
 
 export class TickTracker {
   private _currentTickInterval: TimeInterval;

@@ -1,9 +1,11 @@
-import type { TimeInterval } from '../time-interval';
+import type { Serializable } from '../../persistable';
+import type { BuffAction } from '../buff-timeline/buff-action';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { Buff } from './buff';
-import type { BuffAction } from './buff-action';
 import type { BuffId } from './buff-definition';
+import type { BuffRegistryDto } from './dtos/buff-registry-dto';
 
-export class BuffRegistry {
+export class BuffRegistry implements Serializable<BuffRegistryDto> {
   private readonly _buffs = new Map<BuffId, Buff>();
 
   public constructor(buffs: Buff[]) {
@@ -31,5 +33,10 @@ export class BuffRegistry {
     return this.buffs.flatMap((buff) =>
       buff.getBuffActionsEndingBetween(timeInterval)
     );
+  }
+
+  public toDto(): BuffRegistryDto {
+    const { buffs } = this;
+    return { buffs: buffs.map((buff) => buff.toDto()), version: 1 };
   }
 }

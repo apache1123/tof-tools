@@ -1,5 +1,5 @@
-import type { Action } from '../action';
-import { ActionTimeline } from '../action-timeline';
+import type { Action } from '../../action-timeline/action';
+import { ActionTimeline } from '../../action-timeline/action-timeline';
 
 describe('Action timeline', () => {
   const timelineDuration = 100;

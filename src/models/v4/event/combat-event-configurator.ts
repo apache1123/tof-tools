@@ -74,10 +74,10 @@ export class CombatEventConfigurator {
     }
 
     for (const buff of buffRegistry.buffs) {
-      const { definition } = buff;
+      const { triggeredBy, endedBy } = buff;
 
       const eventIdsToTriggerBuffOn = this.getEventIdsToTriggerActionOn(
-        definition.triggeredBy,
+        triggeredBy,
         weapons
       );
       const triggerBuffHandler = EventHandlerFactory.createHandlerToTriggerBuff(
@@ -90,7 +90,7 @@ export class CombatEventConfigurator {
       }
 
       const eventIdsToEndBuffOn = this.getEventIdsToEndActionOn(
-        definition.endedBy,
+        endedBy,
         weapons
       );
       const endBuffHandler = EventHandlerFactory.createHandlerToEndBuff(

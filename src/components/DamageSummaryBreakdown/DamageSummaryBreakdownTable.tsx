@@ -1,14 +1,12 @@
 import type { GridColDef } from '@mui/x-data-grid';
 import { DataGrid } from '@mui/x-data-grid';
 
-import type {
-  DamageSnapshot,
-  DamageSummarySnapshot,
-} from '../../models/v4/combat-simulator-snapshot/damage-summary-snapshot';
+import type { DamageDto } from '../../models/v4/damage-summary/dtos/damage-dto';
+import type { DamageSummaryDto } from '../../models/v4/damage-summary/dtos/damage-summary-dto';
 import { toShortNumberFormat } from '../../utils/locale-utils';
 
 export interface DamageSummaryBreakdownTableProps {
-  weaponDamageSummary: DamageSummarySnapshot['damageByWeapon'][number];
+  weaponDamageSummary: DamageSummaryDto['damageByWeapon'][number];
 }
 
 interface Row {
@@ -46,7 +44,7 @@ export function DamageSummaryBreakdownTable({
 
   const attackTypeDamageSummaryToRow = (
     attackTypeLabel: string,
-    damage: DamageSnapshot
+    damage: DamageDto
   ): Row => ({
     id: attackTypeLabel,
     attackTypeLabel: attackTypeLabel,

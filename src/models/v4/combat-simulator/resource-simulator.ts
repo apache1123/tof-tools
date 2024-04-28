@@ -1,8 +1,8 @@
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { Resource } from '../resource/resource';
-import type { ResourceAction } from '../resource/resource-action';
 import type { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { ResourceAction } from '../resource-timeline/resource-action';
 import type { TickTracker } from '../tick-tracker';
 
 export class ResourceSimulator {

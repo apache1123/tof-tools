@@ -1,8 +1,12 @@
 import { getLatestTimeInterval } from '../../../utils/time-interval-utils';
-import type { TimeInterval } from '../time-interval';
+import type { Serializable } from '../../persistable';
+import type { TimeInterval } from '../time-interval/time-interval';
+import type { TimelineDto } from './dtos/timeline-dto';
 import type { TimelineAction } from './timeline-action';
 
-export class Timeline<TAction extends TimelineAction> {
+export class Timeline<TAction extends TimelineAction>
+  implements Serializable<TimelineDto>
+{
   private readonly _actions: TAction[] = [];
 
   public constructor(public readonly totalDuration: number) {}
@@ -83,5 +87,10 @@ export class Timeline<TAction extends TimelineAction> {
     if (index !== -1) {
       this._actions.splice(index, 1);
     }
+  }
+
+  public toDto(): TimelineDto {
+    const { actions } = this;
+    return { actions: actions.map((action) => action.toDto()), version: 1 };
   }
 }

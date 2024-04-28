@@ -3,16 +3,21 @@ import BigNumber from 'bignumber.js';
 import type { AttackType } from '../../../constants/attack-type';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import { oneSecondDuration } from '../../../utils/time-utils';
+import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
-import { Action } from '../action/action';
 import type { ActionUpdatesResource } from '../action/action-updates-resource';
-import type { TimeInterval } from '../time-interval';
-import type { Attack } from './attack';
-import type { AttackDamageModifiers } from './attack-damage-modifiers';
-import type { AttackId } from './attack-definition';
-import type { AttackHitCount } from './attack-hit-count';
+import { Action } from '../action-timeline/action';
+import type { Attack } from '../attack/attack';
+import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
+import type { AttackId } from '../attack/attack-definition';
+import type { AttackHitCount } from '../attack/attack-hit-count';
+import type { TimeInterval } from '../time-interval/time-interval';
+import type { AttackActionDto } from './dtos/attack-action-dto';
 
-export class AttackAction extends Action {
+export class AttackAction
+  extends Action
+  implements Serializable<AttackActionDto>
+{
   public attackId: AttackId;
   public elementalType: WeaponElementalType;
   public damageModifiers: AttackDamageModifiers;

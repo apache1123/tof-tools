@@ -1,9 +1,11 @@
-import type { TimeInterval } from '../time-interval';
+import type { Serializable } from '../../persistable';
+import type { ResourceAction } from '../resource-timeline/resource-action';
+import type { TimeInterval } from '../time-interval/time-interval';
+import type { ResourceRegistryDto } from './dtos/resource-registry-dto';
 import type { Resource } from './resource';
-import type { ResourceAction } from './resource-action';
 import type { ResourceId } from './resource-definition';
 
-export class ResourceRegistry {
+export class ResourceRegistry implements Serializable<ResourceRegistryDto> {
   private readonly _resources = new Map<ResourceId, Resource>();
 
   public constructor(resources: Resource[]) {
@@ -32,5 +34,13 @@ export class ResourceRegistry {
     return this.resources.flatMap((resource) =>
       resource.getResourceActionsOverlappingInterval(timeInterval)
     );
+  }
+
+  public toDto(): ResourceRegistryDto {
+    const { resources } = this;
+    return {
+      resources: resources.map((resource) => resource.toDto()),
+      version: 1,
+    };
   }
 }

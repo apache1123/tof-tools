@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { ResourceRegistry } from '../resource/resource-registry';
-import type { TimeInterval } from '../time-interval';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { ActionUpdatesResource } from './action-updates-resource';
 
 /** Updates resource(s) based on an action update resource definition */

@@ -1,8 +1,8 @@
+import type { AttackAction } from '../attack-timeline/attack-action';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
 import type { Attack } from './attack';
-import type { AttackAction } from './attack-action';
 import type { WeaponTracker } from './weapon-tracker';
 
 export class AttackTrigger extends EventHandler {

@@ -1,7 +1,10 @@
+import type { Serializable } from '../../persistable';
+import type { TimeIntervalDto } from './dtos/time-interval-dto';
+
 /** A time interval defined by two instant points of time.
  *
  * The start time instant is inclusive and the end time instant is exclusive. i.e. [startTime, exclusive) */
-export class TimeInterval {
+export class TimeInterval implements Serializable<TimeIntervalDto> {
   private _startTime: number;
   private _endTime: number;
 
@@ -55,5 +58,10 @@ export class TimeInterval {
   /** Determines whether a time lies in this time interval */
   public includes(time: number) {
     return time >= this._startTime && time < this._endTime;
+  }
+
+  public toDto(): TimeIntervalDto {
+    const { startTime, endTime, duration } = this;
+    return { startTime, endTime, duration, version: 1 };
   }
 }

@@ -1,6 +1,6 @@
+import type { ActionTimeline } from '../action-timeline/action-timeline';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
-import type { ActionTimeline } from './action-timeline';
 
 export class ActionCooldownHandler extends EventHandler {
   public constructor(

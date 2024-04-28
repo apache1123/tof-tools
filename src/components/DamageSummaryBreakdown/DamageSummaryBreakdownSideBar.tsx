@@ -3,12 +3,12 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
 
 import type { WeaponName } from '../../constants/weapon-definitions';
-import type { DamageSummarySnapshot } from '../../models/v4/combat-simulator-snapshot/damage-summary-snapshot';
+import type { DamageSummaryDto } from '../../models/v4/damage-summary/dtos/damage-summary-dto';
 import { toPercentageString } from '../../utils/number-utils';
 
 export interface DamageSummaryBreakdownSideBarProps {
   damagePercentageByWeapon: Pick<
-    DamageSummarySnapshot['damageByWeapon'][number],
+    DamageSummaryDto['damageByWeapon'][number],
     'weaponName' | 'percentageOfTotalDamage'
   >[];
   selectedWeaponName: WeaponName | undefined;

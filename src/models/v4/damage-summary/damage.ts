@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import type { Dto } from '../../dto';
-import type { Persistable } from '../../persistable';
+import type { Serializable } from '../../persistable';
+import type { DamageDto } from './dtos/damage-dto';
 
-export class Damage implements Persistable<DamageDto> {
+export class Damage implements Serializable<DamageDto> {
   private _baseDamage: number;
   private _finalDamage: number;
 
@@ -38,10 +38,6 @@ export class Damage implements Persistable<DamageDto> {
     return new Damage(baseDamageSum, finalDamageSum);
   }
 
-  public copyFromDto(dto: DamageDto): void {
-    throw new Error('Method not implemented.');
-  }
-
   public toDto(): DamageDto {
     const { baseDamage, finalDamage, damageMultiplier } = this;
     return {
@@ -51,10 +47,4 @@ export class Damage implements Persistable<DamageDto> {
       version: 1,
     };
   }
-}
-
-export interface DamageDto extends Dto {
-  baseDamage: number;
-  finalDamage: number;
-  damageMultiplier: number;
 }

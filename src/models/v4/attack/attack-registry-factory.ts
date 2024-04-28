@@ -1,10 +1,10 @@
 import type { Team } from '../../team';
 import type { Weapon } from '../../weapon';
 import { ActionTimeCalculator } from '../action/action-time-calculator';
+import { AttackTimeline } from '../attack-timeline/attack-timeline';
 import { Attack } from './attack';
 import type { AttackDefinition } from './attack-definition';
 import { AttackRegistry } from './attack-registry';
-import { AttackTimeline } from './attack-timeline';
 
 export class AttackRegistryFactory {
   public static createPlayerInputAttackRegistry(

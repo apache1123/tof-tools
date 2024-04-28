@@ -8,9 +8,9 @@ import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Weapon } from '../../weapon';
-import type { AttackAction } from '../attack/attack-action';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
-import type { BuffAction } from '../buff/buff-action';
+import type { AttackAction } from '../attack-timeline/attack-action';
+import type { BuffAction } from '../buff-timeline/buff-action';
 import type { ResourceRegistry } from '../resource/resource-registry';
 
 /** Based on an attack and its time interval, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */

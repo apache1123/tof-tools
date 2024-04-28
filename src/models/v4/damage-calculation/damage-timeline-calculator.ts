@@ -6,16 +6,16 @@ import type { LoadoutStats } from '../../loadout-stats';
 import type { Team } from '../../team';
 import type { AttackRegistry } from '../attack/attack-registry';
 import type { BuffRegistry } from '../buff/buff-registry';
+import type { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
 import { Damage } from '../damage-summary/damage';
 import { DamageSummary } from '../damage-summary/damage-summary';
-import type { DamageSummaryTimeline } from '../damage-summary-timeline/damage-summary-timeline';
 import type { ResourceRegistry } from '../resource/resource-registry';
-import type { TimeInterval } from '../time-interval';
+import type { TimeInterval } from '../time-interval/time-interval';
 import { DamageCalculator } from './damage-calculator';
 
 export class DamageTimelineCalculator {
   public constructor(
-    private readonly damageSummaryTimeline: DamageSummaryTimeline,
+    private readonly combatDamageSummary: CombatDamageSummary,
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
     private readonly team: Team,
@@ -88,7 +88,7 @@ export class DamageTimelineCalculator {
     // If there is no active weapon attack in this time period (it's possible to only have triggered attacks), use the previous one. There should always be at least one as combat is started with an active weapon attack
     if (activeWeaponTotalAttack === undefined) {
       const previousDamageSummary =
-        this.damageSummaryTimeline.lastDamageSummaryAction;
+        this.combatDamageSummary.lastDamageSummaryAction;
 
       if (!previousDamageSummary)
         throw new Error('The active weapon total attack cannot be determined');
@@ -96,7 +96,7 @@ export class DamageTimelineCalculator {
       activeWeaponTotalAttack = previousDamageSummary.activeWeaponTotalAttack;
     }
 
-    this.damageSummaryTimeline.addDamageSummary(
+    this.combatDamageSummary.addDamageSummary(
       timeInterval,
       damageSummary,
       activeWeaponTotalAttack

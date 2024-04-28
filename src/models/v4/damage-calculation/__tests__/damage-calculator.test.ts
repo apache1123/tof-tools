@@ -4,8 +4,8 @@ import type { Loadout } from '../../../loadout';
 import type { LoadoutStats } from '../../../loadout-stats';
 import { Team } from '../../../team';
 import { Weapon } from '../../../weapon';
-import type { AttackAction } from '../../attack/attack-action';
-import type { BuffAction } from '../../buff/buff-action';
+import type { AttackAction } from '../../attack-timeline/attack-action';
+import type { BuffAction } from '../../buff-timeline/buff-action';
 import { DamageCalculator } from '../damage-calculator';
 
 describe('DamageCalculator', () => {
@@ -171,7 +171,7 @@ describe('DamageCalculator', () => {
   describe('Total damage buff value', () => {
     it('calculates total dmg% value correctly, taking into account different damage categories', () => {
       const sut = new DamageCalculator(
-        { elementalType: 'Frost' } as AttackAction,
+        { elementalType: 'Frost', damageModifiers: {} } as AttackAction,
         weapon2,
         loadout,
         loadout.loadoutStats,

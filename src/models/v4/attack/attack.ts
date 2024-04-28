@@ -1,19 +1,21 @@
 import type { AttackType } from '../../../constants/attack-type';
+import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import type { ActionEndedBy } from '../action/action-ended-by';
 import type { ActionRequirements } from '../action/action-requirements';
 import type { ActionTimeCalculator } from '../action/action-time-calculator';
 import type { ActionTriggeredBy } from '../action/action-triggered-by';
 import type { ActionUpdatesResource } from '../action/action-updates-resource';
-import type { TimeInterval } from '../time-interval';
-import { AttackAction } from './attack-action';
+import { AttackAction } from '../attack-timeline/attack-action';
+import type { AttackTimeline } from '../attack-timeline/attack-timeline';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackDefinition, AttackId } from './attack-definition';
 import type { AttackElementalType } from './attack-elemental-type';
 import type { AttackHitCount } from './attack-hit-count';
-import type { AttackTimeline } from './attack-timeline';
+import type { AttackDto } from './dtos/attack-dto';
 
-export class Attack {
+export class Attack implements Serializable<AttackDto> {
   public readonly id: AttackId;
   public readonly displayName: string;
   public readonly elementalType: AttackElementalType;
@@ -105,5 +107,10 @@ export class Attack {
       this.actionTimeCalculator.calculateActionTimeInterval(time);
     const attackAction = new AttackAction(timeInterval, this, this.weapon);
     return attackAction;
+  }
+
+  public toDto(): AttackDto {
+    const { id, displayName, timeline } = this;
+    return { id, displayName, timeline: timeline.toDto(), version: 1 };
   }
 }

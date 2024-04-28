@@ -1,6 +1,6 @@
 import type { ActionResourceUpdater } from '../action/action-resource-updater';
-import type { AttackAction } from '../attack/attack-action';
 import type { AttackRegistry } from '../attack/attack-registry';
+import type { AttackAction } from '../attack-timeline/attack-action';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { TickTracker } from '../tick-tracker';
 

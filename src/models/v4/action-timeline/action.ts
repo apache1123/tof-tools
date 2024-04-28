@@ -1,13 +1,17 @@
-import { TimeInterval } from '../time-interval';
+import type { Serializable } from '../../persistable';
+import { TimeInterval } from '../time-interval/time-interval';
+import type { ActionDto } from './dtos/action-dto';
 
 /** An action is anything a character does, spanning over a time interval and has a cooldown. Attacks and buffs are all considered actions. */
-export class Action extends TimeInterval {
+export class Action extends TimeInterval implements Serializable<ActionDto> {
+  public cooldown: number;
   private _timeInterval: TimeInterval;
 
-  public constructor(timeInterval: TimeInterval, public cooldown: number) {
+  public constructor(timeInterval: TimeInterval, cooldown: number) {
     const { startTime, endTime } = timeInterval;
     super(startTime, endTime);
 
+    this.cooldown = cooldown;
     this._timeInterval = timeInterval;
   }
 

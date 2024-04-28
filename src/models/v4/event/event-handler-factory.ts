@@ -46,7 +46,7 @@ export class EventHandlerFactory {
     return EventHandler.link(
       new ActionCooldownHandler(buff.timeline, tickTracker),
       new ActionRequirementsHandler(
-        buff.definition.requirements,
+        buff.requirements,
         tickTracker,
         requirementsChecker
       ),
