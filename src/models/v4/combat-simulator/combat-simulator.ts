@@ -32,6 +32,10 @@ import { ResourceSimulator } from './resource-simulator';
 import { TickSimulator } from './tick-simulator';
 
 export class CombatSimulator implements Serializable<CombatSimulatorDto> {
+  public readonly combatDuration: number;
+
+  private readonly loadout: Loadout;
+
   private readonly tickTracker: TickTracker;
 
   private readonly queuedEventManager: QueuedEventManager;
@@ -56,12 +60,10 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   private readonly resourceSimulator: ResourceSimulator;
   private readonly tickSimulator: TickSimulator;
 
-  public constructor(
-    public readonly combatDuration: number,
-    loadout: Loadout,
-    relics: Relics
-  ) {
-    const { team } = loadout;
+  public constructor(combatDuration: number, loadout: Loadout, relics: Relics) {
+    this.combatDuration = combatDuration;
+    this.loadout = loadout;
+    const { team } = this.loadout;
 
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
     this.tickTracker = new TickTracker(startingTickInterval, tickDuration);
@@ -230,10 +232,11 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       playerInputAttackTimelines.push(timeline);
     }
 
-    const { triggeredAttacks, buffs, resources, combatDamageSummary } =
+    const { loadout, triggeredAttacks, buffs, resources, combatDamageSummary } =
       this.toDto();
 
     return {
+      loadout,
       weaponAttacks: [...weaponAttacksMap.values()],
       triggeredAttacks: triggeredAttacks.filter(
         (attack) => attack.timeline.events.length
@@ -242,13 +245,14 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       resources: resources.filter(
         (resource) => resource.timeline.events.length
       ),
-      combatDamageSummary,
+      damageSummary: combatDamageSummary.cumulatedDamageSummary,
     };
   }
 
   /** Raw serialized DTO of all properties. */
   public toDto(): CombatSimulatorDto {
     const {
+      loadout,
       combinedAttackRegistry,
       buffRegistry,
       resourceRegistry,
@@ -259,6 +263,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       combinedAttackRegistry.toDto();
 
     return {
+      loadout: loadout.toDto(),
       playerInputAttacks,
       triggeredAttacks,
       buffs: buffRegistry.toDto().buffs,

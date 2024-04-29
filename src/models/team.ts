@@ -89,12 +89,13 @@ export class Team implements Persistable<TeamDto> {
   }
 
   public toDto(): TeamDto {
-    const { weapon1, weapon2, weapon3 } = this;
+    const { weapon1, weapon2, weapon3, weapons } = this;
 
     return {
       weapon1: weapon1?.toDto(),
       weapon2: weapon2?.toDto(),
       weapon3: weapon3?.toDto(),
+      weapons: weapons.map((weapon) => weapon.toDto()),
       version: 1,
     };
   }
@@ -104,6 +105,7 @@ export interface TeamDto extends Dto {
   weapon1: WeaponSlotDto;
   weapon2: WeaponSlotDto;
   weapon3: WeaponSlotDto;
+  weapons: WeaponDto[];
   version: 1;
 }
 
