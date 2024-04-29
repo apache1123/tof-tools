@@ -12,6 +12,7 @@ import type { MatrixSetDto } from '../../../models/matrix-set';
 import type { RandomStatDto } from '../../../models/random-stat';
 import type { TeamDto } from '../../../models/team';
 import type { WeaponDto } from '../../../models/weapon';
+import { filterOutUndefined } from '../../../utils/array-utils';
 import type { GearComparerGearsStateDto } from '../../deprecated/gear-comparer-gear';
 import type { GearComparerOptionsStateDto } from '../../deprecated/gear-comparer-options';
 import type { GearSetsStateDto } from '../../deprecated/gear-sets';
@@ -204,6 +205,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
         weapon1: undefined,
         weapon2: undefined,
         weapon3: undefined,
+        weapons: [],
         version: 1,
       },
       gearSet: newGearSet(),
@@ -329,10 +331,23 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   }
 
   function newTeamFromOld(oldTeam: TeamDto): TeamDto {
+    const weapon1 = oldTeam.weapon1
+      ? newWeaponFromOld(oldTeam.weapon1)
+      : undefined;
+    const weapon2 = oldTeam.weapon2
+      ? newWeaponFromOld(oldTeam.weapon2)
+      : undefined;
+    const weapon3 = oldTeam.weapon3
+      ? newWeaponFromOld(oldTeam.weapon3)
+      : undefined;
+
+    const weapons = filterOutUndefined([weapon1, weapon2, weapon3]);
+
     return {
-      weapon1: oldTeam.weapon1 ? newWeaponFromOld(oldTeam.weapon1) : undefined,
-      weapon2: oldTeam.weapon2 ? newWeaponFromOld(oldTeam.weapon2) : undefined,
-      weapon3: oldTeam.weapon3 ? newWeaponFromOld(oldTeam.weapon3) : undefined,
+      weapon1: weapon1,
+      weapon2: weapon2,
+      weapon3: weapon3,
+      weapons,
       version: 1,
     };
   }
