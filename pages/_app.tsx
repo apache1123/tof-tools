@@ -45,7 +45,7 @@ export default function MyApp(props: MyAppProps) {
   useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
   useLocalStoragePersistence(relicsState, relicsStateKey);
 
-  BigNumber.config({ DECIMAL_PLACES: 2 });
+  BigNumber.config({ DECIMAL_PLACES: 4 });
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
