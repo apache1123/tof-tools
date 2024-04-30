@@ -50,7 +50,7 @@ jobs:
         id: waitForDeploy
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 180
+          max_timeout: 360 # There is a bug with this unit being 0.5s instead of 1s https://github.com/patrickedqvist/wait-for-vercel-preview/issues/58
 
       - name: Checkout
         uses: actions/checkout@v3
