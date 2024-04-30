@@ -1,18 +1,25 @@
 import { BarChart, cheerfulFiestaPalette } from '@mui/x-charts';
+import { useRouter } from 'next/router';
 
+import { routes } from '../../../routes/routes';
 import type { WeaponBreakpointStars } from '../../constants/weapon';
 import type { WeaponName } from '../../constants/weapon-definitions';
 import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator/combat-simulator-snapshot';
 import type { WeaponDto } from '../../models/weapon';
 import { toShortNumberFormat } from '../../utils/locale-utils';
 
-export type BreakpointComparison = {
+export interface SimulatorResult {
+  snapshotPath: string;
+  snapshot: CombatSimulatorSnapshot;
+}
+
+export interface BreakpointComparisonGroup {
   weaponBeingCompared: WeaponName;
-  snapshots: Record<WeaponBreakpointStars, CombatSimulatorSnapshot>;
-};
+  resultsByStars: Record<WeaponBreakpointStars, SimulatorResult>;
+}
 
 export interface CombatSimulatorResultComparisonProps {
-  breakpointComparisons: BreakpointComparison[];
+  breakpointComparisonGroup: BreakpointComparisonGroup[];
 }
 
 function starsToString(stars: number) {
@@ -26,29 +33,32 @@ function weaponsToString(weapons: WeaponDto[]) {
 }
 
 export function CombatSimulatorResultBreakpointComparison({
-  breakpointComparisons,
+  breakpointComparisonGroup,
 }: CombatSimulatorResultComparisonProps) {
+  const router = useRouter();
+
   // Sort snapshots within each comparison by stars ascending, mapping to an array
-  const breakpointComparisonsSorted = breakpointComparisons.map(
+  const breakpointComparisonGroupsSorted = breakpointComparisonGroup.map(
     (breakpointComparison) => {
-      const { weaponBeingCompared, snapshots } = breakpointComparison;
-      const sortedSnapshots = Object.keys(snapshots)
+      const { weaponBeingCompared, resultsByStars } = breakpointComparison;
+      const sortedResults = Object.keys(resultsByStars)
         .map(Number)
         .map((stars) => ({
           stars,
-          snapshot: snapshots[stars as WeaponBreakpointStars],
+          result: resultsByStars[stars as WeaponBreakpointStars],
         }))
         .sort(({ stars: starsA }, { stars: starsB }) => starsA - starsB);
 
-      const xLabels = sortedSnapshots.map(({ stars }) => stars);
+      const xLabels = sortedResults.map(({ stars }) => stars);
 
-      const finalDamages = sortedSnapshots.map(
-        ({ snapshot }) => snapshot.damageSummary?.totalDamage.finalDamage ?? 0
+      const finalDamages = sortedResults.map(
+        ({ result }) =>
+          result.snapshot.damageSummary?.totalDamage.finalDamage ?? 0
       );
 
       return {
         weaponBeingCompared,
-        snapshots: sortedSnapshots,
+        results: sortedResults,
         xLabels,
         finalDamages,
       };
@@ -58,24 +68,27 @@ export function CombatSimulatorResultBreakpointComparison({
   return (
     <>
       <BarChart
-        series={breakpointComparisonsSorted.map((breakpointComparison) => {
-          const { weaponBeingCompared, finalDamages, snapshots } =
-            breakpointComparison;
-          return {
-            label: weaponBeingCompared,
-            data: finalDamages,
-            valueFormatter: (value, { dataIndex }) => {
-              return `${toShortNumberFormat(value ?? 0)} (${weaponsToString(
-                snapshots[dataIndex].snapshot.loadout.team.weapons ?? []
-              )})`;
-            },
-            highlightScope: {
-              highlighted: 'series',
-              faded: 'global',
-            },
-          };
-        })}
-        xAxis={breakpointComparisonsSorted.map(({ xLabels }) => ({
+        series={breakpointComparisonGroupsSorted.map(
+          (breakpointComparisonGroup, index) => {
+            const { weaponBeingCompared, finalDamages, results } =
+              breakpointComparisonGroup;
+            return {
+              id: index,
+              label: weaponBeingCompared,
+              data: finalDamages,
+              valueFormatter: (value, { dataIndex }) => {
+                return `${toShortNumberFormat(value ?? 0)} (${weaponsToString(
+                  results[dataIndex].result.snapshot.loadout.team.weapons ?? []
+                )})`;
+              },
+              highlightScope: {
+                highlighted: 'series',
+                faded: 'global',
+              },
+            };
+          }
+        )}
+        xAxis={breakpointComparisonGroupsSorted.map(({ xLabels }) => ({
           data: xLabels,
           scaleType: 'band',
           valueFormatter: (star) => starsToString(star),
@@ -83,6 +96,13 @@ export function CombatSimulatorResultBreakpointComparison({
         yAxis={[
           { valueFormatter: (finalDamage) => toShortNumberFormat(finalDamage) },
         ]}
+        onItemClick={(_, { seriesId, dataIndex }) => {
+          const path =
+            breakpointComparisonGroupsSorted[seriesId as number].results[
+              dataIndex
+            ].result.snapshotPath;
+          router.push(`${routes.simulatorResults.path}/${path}`);
+        }}
         width={400}
         height={400}
         colors={cheerfulFiestaPalette}

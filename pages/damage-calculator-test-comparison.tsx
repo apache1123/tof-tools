@@ -7,25 +7,46 @@ import rei1Snapshot from '../simulator-results/rei/rei1-brevey6-nanyin0.json';
 import rei3Snapshot from '../simulator-results/rei/rei3-brevey6-nanyin0.json';
 import rei5Snapshot from '../simulator-results/rei/rei5-brevey6-nanyin0.json';
 import rei6Snapshot from '../simulator-results/rei/rei6-brevey6-nanyin0.json';
-import type { WeaponBreakpointStars } from '../src/constants/weapon';
+import type { BreakpointComparisonGroup } from '../src/features/combat-simulator/CombatSimulatorResultBreakpointComparison';
 import { CombatSimulatorResultBreakpointComparison } from '../src/features/combat-simulator/CombatSimulatorResultBreakpointComparison';
 import type { CombatSimulatorSnapshot } from '../src/models/v4/combat-simulator/combat-simulator-snapshot';
 
+const breakpointComparisonGroups: BreakpointComparisonGroup[] = [
+  {
+    weaponBeingCompared: 'Rei',
+    resultsByStars: {
+      0: {
+        snapshotPath: 'rei/rei0-brevey6-nanyin0',
+        snapshot: rei0Snapshot as unknown as CombatSimulatorSnapshot,
+      },
+      1: {
+        snapshotPath: 'rei/rei1-brevey6-nanyin0',
+        snapshot: rei1Snapshot as unknown as CombatSimulatorSnapshot,
+      },
+      3: {
+        snapshotPath: 'rei/rei3-brevey6-nanyin0',
+        snapshot: rei3Snapshot as unknown as CombatSimulatorSnapshot,
+      },
+      5: {
+        snapshotPath: 'rei/rei5-brevey6-nanyin0',
+        snapshot: rei5Snapshot as unknown as CombatSimulatorSnapshot,
+      },
+      6: {
+        snapshotPath: 'rei/rei6-brevey6-nanyin0',
+        snapshot: rei6Snapshot as unknown as CombatSimulatorSnapshot,
+      },
+    },
+  },
+];
+
 export const getStaticProps = (() => {
-  const snapshots: Record<WeaponBreakpointStars, CombatSimulatorSnapshot> = {
-    0: rei0Snapshot as unknown as CombatSimulatorSnapshot,
-    1: rei1Snapshot as unknown as CombatSimulatorSnapshot,
-    3: rei3Snapshot as unknown as CombatSimulatorSnapshot,
-    5: rei5Snapshot as unknown as CombatSimulatorSnapshot,
-    6: rei6Snapshot as unknown as CombatSimulatorSnapshot,
-  };
-  return { props: { snapshots } };
+  return { props: { breakpointComparisonGroups } };
 }) satisfies GetStaticProps<{
-  snapshots: Record<WeaponBreakpointStars, CombatSimulatorSnapshot>;
+  breakpointComparisonGroups: BreakpointComparisonGroup[];
 }>;
 
 export default function DamageCalculatorTestComparisonPage({
-  snapshots,
+  breakpointComparisonGroups,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -35,10 +56,7 @@ export default function DamageCalculatorTestComparisonPage({
 
       <Container maxWidth="lg" sx={{ p: 3 }}>
         <CombatSimulatorResultBreakpointComparison
-          breakpointComparisons={[
-            { weaponBeingCompared: 'Rei', snapshots },
-            { weaponBeingCompared: 'Rei', snapshots },
-          ]}
+          breakpointComparisonGroup={breakpointComparisonGroups}
         />
       </Container>
     </>
