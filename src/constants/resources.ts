@@ -8,8 +8,8 @@ export const fullCharge = 1000;
 export const chargeDefinition: ResourceDefinition = {
   id: chargeResourceId,
   displayName: 'Weapon charge',
-  cooldown: 0,
   maxAmount: maxCharge,
+  startingAmount: maxCharge, // TODO: move this later as an option passed to combat simulator
 };
 
 export const enduranceResourceId = 'endurance';
@@ -17,10 +17,11 @@ const maxEndurance = 1300; // TODO: should this be dynamic
 export const enduranceDefinition: ResourceDefinition = {
   id: enduranceResourceId,
   displayName: 'Endurance',
-  cooldown: 0,
   maxAmount: maxEndurance,
   startingAmount: maxEndurance,
-  regenerateAmountPerSecond: 105,
+  regenerate: {
+    amountPerSecond: 105,
+  },
 };
 
 export const dodgeResourceId = 'dodge';
@@ -28,8 +29,9 @@ const maxDodges = 3;
 export const dodgeResourceDefinition: ResourceDefinition = {
   id: dodgeResourceId,
   displayName: 'Dodges',
-  cooldown: 0,
   maxAmount: maxDodges,
   startingAmount: maxDodges,
-  regenerateAmountPerSecond: 0.25,
+  regenerate: {
+    amountPerSecond: 0.25,
+  },
 };

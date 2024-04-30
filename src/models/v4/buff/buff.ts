@@ -1,132 +1,176 @@
-import type { ActionTimeCalculator } from '../action/action-time-calculator';
-import { TimeInterval } from '../time-interval';
-import { BuffAction } from './buff-action';
-import type { BuffDefinition } from './buff-definition';
-import type { BuffTimeline } from './buff-timeline';
+import type { Serializable } from '../../persistable';
+import type { AbilityEndedBy } from '../ability/ability-ended-by';
+import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
+import type { AbilityRequirements } from '../ability/ability-requirements';
+import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
+import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
+import { BuffEvent } from '../buff-timeline/buff-event';
+import type { BuffTimeline } from '../buff-timeline/buff-timeline';
+import { TimeInterval } from '../time-interval/time-interval';
+import type { AttackBuff } from './attack-buff';
+import type { BuffDefinition, BuffId } from './buff-definition';
+import type { DamageBuff } from './damage-buff';
+import type { BuffDto } from './dtos/buff-dto';
+import type { MiscellaneousBuff } from './miscellaneous-buff';
 
-export class Buff {
-  public readonly definition: BuffDefinition;
+export class Buff implements Serializable<BuffDto> {
+  public readonly id: BuffId;
+  public readonly displayName: string;
+  public readonly maxStacks: number;
+  public readonly cooldown: number;
+
+  public readonly attackBuffs: AttackBuff[];
+  public readonly damageBuffs: DamageBuff[];
+  public readonly miscBuff?: MiscellaneousBuff;
+
+  public readonly triggeredBy: AbilityTriggeredBy;
+  public readonly endedBy: AbilityEndedBy;
+  public readonly requirements: AbilityRequirements;
+  public readonly updatesResources: AbilityUpdatesResource[];
+
   public readonly timeline: BuffTimeline;
 
-  private readonly actionTimeCalculator: ActionTimeCalculator;
+  private readonly abilityEventTimeCalculator: AbilityEventTimeCalculator;
 
   public constructor(
     definition: BuffDefinition,
     timeline: BuffTimeline,
-    actionTimeCalculator: ActionTimeCalculator
+    abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
-    this.definition = definition;
+    const {
+      id,
+      displayName,
+      maxStacks,
+      cooldown,
+      attackBuffs,
+      damageBuffs,
+      miscBuff,
+      triggeredBy,
+      endedBy,
+      requirements,
+      updatesResources,
+    } = definition;
+    this.id = id;
+    this.displayName = displayName;
+    this.maxStacks = maxStacks;
+    this.cooldown = cooldown;
+    this.attackBuffs = attackBuffs ?? [];
+    this.damageBuffs = damageBuffs ?? [];
+    this.miscBuff = miscBuff;
+    this.triggeredBy = triggeredBy;
+    this.endedBy = endedBy;
+    this.requirements = requirements;
+    this.updatesResources = updatesResources ?? [];
+
     this.timeline = timeline;
-    this.actionTimeCalculator = actionTimeCalculator;
+    this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
-  public trigger(time: number): BuffAction {
+  public trigger(time: number): BuffEvent {
     const timeInterval =
-      this.actionTimeCalculator.calculateActionTimeInterval(time);
-    return this.addNewBuffAction(new BuffAction(this.definition, timeInterval));
+      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(time);
+    return this.addNewBuffEvent(new BuffEvent(this, timeInterval));
   }
 
   public endActiveBuffsAt(time: number) {
-    return this.timeline.endAnyActionsAt(time);
+    return this.timeline.endAnyEventsAt(time);
   }
 
-  public getBuffActionsEndingBetween(timeInterval: TimeInterval) {
-    return this.timeline.getActionsEndingBetween(timeInterval);
+  public getBuffEventsEndingBetween(timeInterval: TimeInterval) {
+    return this.timeline.getEventsEndingBetween(timeInterval);
   }
 
-  public getBuffActionsOverlappingInterval(timeInterval: TimeInterval) {
-    return this.timeline.getActionsOverlappingInterval(
+  public getBuffEventsOverlappingInterval(timeInterval: TimeInterval) {
+    return this.timeline.getEventsOverlappingInterval(
       timeInterval.startTime,
       timeInterval.endTime
     );
   }
 
-  public get updatesResources() {
-    return this.definition.updatesResources;
-  }
+  /** Adds a new buff event to the timeline. Merging with the latest buff event in the timeline if overlaps occur. */
+  private addNewBuffEvent(buffEvent: BuffEvent): BuffEvent {
+    const { lastEvent } = this.timeline;
+    const { maxStacks } = this;
 
-  /** Adds a new buff action to the timeline. Merging with the latest buff in the timeline if overlaps occur. */
-  private addNewBuffAction(buffAction: BuffAction): BuffAction {
-    const { lastAction } = this.timeline;
-    const { maxStacks } = this.definition;
-
-    // Buff action does not overlap with an existing one whatsoever, add new buff as usual
-    if (!lastAction || buffAction.startTime > lastAction.endTime) {
-      this.timeline.addAction(buffAction);
-      return buffAction;
+    // Buff event does not overlap with an existing one whatsoever, add new buff as usual
+    if (!lastEvent || buffEvent.startTime > lastEvent.endTime) {
+      this.timeline.addEvent(buffEvent);
+      return buffEvent;
     }
 
-    // Buff action starts when the previous one ends - Merge the two of they have the same number of stacks, or add a new one if not
-    if (buffAction.startTime === lastAction.endTime) {
-      if (buffAction.stacks === lastAction.stacks) {
-        lastAction.endTime = buffAction.endTime;
+    // Buff event starts when the previous one ends - Merge the two of they have the same number of stacks, or add a new one if not
+    if (buffEvent.startTime === lastEvent.endTime) {
+      if (buffEvent.stacks === lastEvent.stacks) {
+        lastEvent.endTime = buffEvent.endTime;
       } else {
-        this.timeline.addAction(buffAction);
+        this.timeline.addEvent(buffEvent);
       }
-      return buffAction;
+      return buffEvent;
     }
 
     // Same time interval, increase stack count if applicable
     if (
-      buffAction.startTime === lastAction.startTime &&
-      buffAction.endTime === lastAction.endTime
+      buffEvent.startTime === lastEvent.startTime &&
+      buffEvent.endTime === lastEvent.endTime
     ) {
       const newStacksCount = Math.min(
-        lastAction.stacks + buffAction.stacks,
+        lastEvent.stacks + buffEvent.stacks,
         maxStacks
       );
 
-      if (newStacksCount !== lastAction.stacks) {
-        lastAction.stacks = newStacksCount;
+      if (newStacksCount !== lastEvent.stacks) {
+        lastEvent.stacks = newStacksCount;
       }
 
-      return buffAction;
+      return buffEvent;
     }
 
     // Time intervals overlap, but are not the same
     const newStacksOfOverlappingInterval = Math.min(
-      lastAction.stacks + buffAction.stacks,
+      lastEvent.stacks + buffEvent.stacks,
       maxStacks
     );
 
-    if (newStacksOfOverlappingInterval === buffAction.stacks) {
-      lastAction.endTime = buffAction.endTime;
-      return buffAction;
+    if (newStacksOfOverlappingInterval === buffEvent.stacks) {
+      lastEvent.endTime = buffEvent.endTime;
+      return buffEvent;
     }
 
-    if (newStacksOfOverlappingInterval === lastAction.stacks) {
-      const newBuffAction = new BuffAction(
-        this.definition,
+    if (newStacksOfOverlappingInterval === lastEvent.stacks) {
+      const newBuffEvent = new BuffEvent(
+        this,
         new TimeInterval(
-          lastAction.endTime,
-          lastAction.endTime + buffAction.duration
+          lastEvent.endTime,
+          lastEvent.endTime + buffEvent.duration
         ),
-        buffAction.stacks
+        buffEvent.stacks
       );
-      this.timeline.addAction(newBuffAction);
-      return newBuffAction;
+      this.timeline.addEvent(newBuffEvent);
+      return newBuffEvent;
     }
 
-    const oldLastBuffEndTime = lastAction.endTime;
+    const oldLastBuffEndTime = lastEvent.endTime;
 
-    lastAction.endTime = buffAction.startTime;
+    lastEvent.endTime = buffEvent.startTime;
 
-    const newBuffOfOverlappingInterval = new BuffAction(
-      this.definition,
-      new TimeInterval(buffAction.startTime, oldLastBuffEndTime),
+    const newBuffOfOverlappingInterval = new BuffEvent(
+      this,
+      new TimeInterval(buffEvent.startTime, oldLastBuffEndTime),
       newStacksOfOverlappingInterval
     );
-    this.timeline.addAction(newBuffOfOverlappingInterval);
+    this.timeline.addEvent(newBuffOfOverlappingInterval);
 
-    const newBuffAction = new BuffAction(
-      this.definition,
-      new TimeInterval(
-        newBuffOfOverlappingInterval.endTime,
-        buffAction.endTime
-      ),
-      buffAction.stacks
+    const newBuffEvent = new BuffEvent(
+      this,
+      new TimeInterval(newBuffOfOverlappingInterval.endTime, buffEvent.endTime),
+      buffEvent.stacks
     );
-    this.timeline.addAction(newBuffAction);
-    return newBuffAction;
+    this.timeline.addEvent(newBuffEvent);
+    return newBuffEvent;
+  }
+
+  public toDto(): BuffDto {
+    const { id, displayName, timeline } = this;
+    return { id, displayName, timeline: timeline.toDto(), version: 1 };
   }
 }

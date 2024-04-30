@@ -2,7 +2,7 @@ import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
 
 import type { WeaponName } from '../../constants/weapon-definitions';
-import type { DamageSummarySnapshot } from '../../models/v4/combat-simulator-snapshot/damage-summary-snapshot';
+import type { DamageSummaryDto } from '../../models/v4/damage-summary/dtos/damage-summary-dto';
 import { DamageSummaryBreakdownSideBar } from './DamageSummaryBreakdownSideBar';
 import { DamageSummaryBreakdownTable } from './DamageSummaryBreakdownTable';
 import { DamageSummaryBreakdownTopBar } from './DamageSummaryBreakdownTopBar';
@@ -10,7 +10,7 @@ import { DamageSummaryBreakdownTopBar } from './DamageSummaryBreakdownTopBar';
 export function DamageSummaryBreakdown({
   damageSummary,
 }: {
-  damageSummary: DamageSummarySnapshot;
+  damageSummary: DamageSummaryDto;
 }) {
   const [selectedWeaponName, setSelectedWeaponName] = useState<
     WeaponName | undefined

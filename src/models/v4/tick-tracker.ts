@@ -1,4 +1,4 @@
-import { TimeInterval } from './time-interval';
+import { TimeInterval } from './time-interval/time-interval';
 
 export class TickTracker {
   private _currentTickInterval: TimeInterval;
@@ -35,19 +35,19 @@ export class TickTracker {
     this._currentTickInterval = this.getNextTickInterval();
   }
 
-  /** Returns the next available tick interval given a time. The assumption is that any sort of action should be executed in the next tick, so given a time an action wishes to be executed, this gives the next closest tick interval */
+  /** Returns the next available tick interval given a time. The assumption is that any sort of event should be executed in the next tick, so given a time an event wishes to be executed, this gives the next closest tick interval */
   public getNextClosestTickInterval(time: number) {
     return time < this.currentTickInterval.startTime
       ? this.currentTickInterval
       : this.getNextTickInterval();
   }
 
-  /** Returns the next available tick start time given a time. The assumption is that any sort of action should be executed in the next tick, so given a time an action wishes to be executed, this gives the next closest tick start time */
+  /** Returns the next available tick start time given a time. The assumption is that any sort of event should be executed in the next tick, so given a time an event wishes to be executed, this gives the next closest tick start time */
   public getNextClosestTickStart(time: number) {
     return this.getNextClosestTickInterval(time).startTime;
   }
 
-  /** Returns the next available tick end time given a time. The assumption is that any sort of action should be executed at the start of the next tick, so given a time an action wishes to be executed, this gives the next closest tick end time */
+  /** Returns the next available tick end time given a time. The assumption is that any sort of event should be executed at the start of the next tick, so given a time an event wishes to be executed, this gives the next closest tick end time */
   public getNextClosestTickEnd(time: number) {
     return this.getNextClosestTickInterval(time).endTime;
   }

@@ -1,8 +1,8 @@
 import type { Weapon } from '../../weapon';
-import type { AttackAction } from '../attack/attack-action';
 import type { AttackId } from '../attack/attack-definition';
-import type { BuffAction } from '../buff/buff-action';
-import type { ResourceAction } from '../resource/resource-action';
+import type { AttackEvent } from '../attack-timeline/attack-event';
+import type { BuffEvent } from '../buff-timeline/buff-event';
+import type { ResourceEvent } from '../resource-timeline/resource-event';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
 
@@ -17,71 +17,106 @@ export class CombatEventNotifier {
     this.eventManager.notify(eventIdProvider.getAttackRequestEventId(attackId));
   }
 
-  public notifyAttackStart(attackAction: AttackAction) {
-    const { attackId } = attackAction;
-    this.eventManager.notify(eventIdProvider.getAttackStartEventId(attackId));
-  }
+  public notifyAttackStart(attackEvent: AttackEvent) {
+    const { attackId, elementalType, type, weapon, doesNotTriggerEvents } =
+      attackEvent;
 
-  public notifyAttackHit() {
-    this.eventManager.notify(eventIdProvider.getAnyAttackHitEventId());
-  }
+    if (doesNotTriggerEvents) return;
 
-  public notifyAttackEnd(attackAction: AttackAction) {
-    const { attackId, elementalType, type, weapon } = attackAction;
-
-    this.eventManager.notify(eventIdProvider.getAttackEndEventId(attackId));
+    const eventIds = [];
 
     if (type === 'skill') {
-      this.eventManager.notify(eventIdProvider.getSkillAttackEventId());
-      this.eventManager.notify(
-        eventIdProvider.getSkillOfWeaponTypeEventId(weapon.type)
-      );
-      this.eventManager.notify(
-        eventIdProvider.getSkillOfElementalTypeEventId(elementalType)
+      eventIds.push(
+        eventIdProvider.getStartOfAnySkillAttackEventId(),
+        eventIdProvider.getStartOfSkillOfWeaponTypeEventId(weapon.type),
+        eventIdProvider.getStartOfSkillOfElementalTypeEventId(elementalType)
       );
     } else if (type === 'discharge') {
-      this.eventManager.notify(eventIdProvider.getDischargeAttackEventId());
-      this.eventManager.notify(
-        eventIdProvider.getDischargeOfWeaponTypeEventId(weapon.type)
+      eventIds.push(
+        eventIdProvider.getStartOfAnyDischargeAttackEventId(),
+        eventIdProvider.getStartOfDischargeOfWeaponTypeEventId(weapon.type),
+        eventIdProvider.getStartOfDischargeOfElementalTypeEventId(elementalType)
       );
-      this.eventManager.notify(
-        eventIdProvider.getDischargeOfElementalTypeEventId(elementalType)
-      );
+    }
+
+    eventIds.push(
+      eventIdProvider.getStartOfAnyAttackEventId(),
+      eventIdProvider.getStartOfAttackEventId(attackId)
+    );
+
+    for (const eventId of eventIds) {
+      this.eventManager.notify(eventId);
     }
   }
 
-  public notifyWeaponSwitch(weapon: Weapon) {
+  public notifyAttackHit() {
+    this.eventManager.notify(eventIdProvider.getHitOfAnyAttackEventId());
+  }
+
+  public notifyAttackEnd(attackEvent: AttackEvent) {
+    const { attackId, elementalType, type, weapon, doesNotTriggerEvents } =
+      attackEvent;
+
+    if (doesNotTriggerEvents) return;
+
+    const eventIds = [];
+
+    eventIds.push(
+      eventIdProvider.getEndOfAnyAttackEventId(),
+      eventIdProvider.getEndOfAttackEventId(attackId)
+    );
+
+    if (type === 'skill') {
+      eventIds.push(
+        eventIdProvider.getEndOfAnySkillAttackEventId(),
+        eventIdProvider.getEndOfSkillOfWeaponTypeEventId(weapon.type),
+        eventIdProvider.getEndOfSkillOfElementalTypeEventId(elementalType)
+      );
+    } else if (type === 'discharge') {
+      eventIds.push(
+        eventIdProvider.getEndOfAnyDischargeAttackEventId(),
+        eventIdProvider.getEndOfDischargeOfWeaponTypeEventId(weapon.type),
+        eventIdProvider.getEndOfDischargeOfElementalTypeEventId(elementalType)
+      );
+    }
+
+    for (const eventId of eventIds) {
+      this.eventManager.notify(eventId);
+    }
+  }
+
+  public notifyActiveWeapon(weapon: Weapon) {
     this.eventManager.notify(eventIdProvider.getActiveWeaponEventId(weapon.id));
   }
 
   // TODO: not called anywhere
   public notifyWeaponFullCharge(weapon: Weapon) {
     this.eventManager.notify(
-      eventIdProvider.getWeaponFullChargeEventId(weapon.id)
+      eventIdProvider.getFullChargeOfWeaponEventId(weapon.id)
     );
   }
 
-  public notifyBuffStart(buffAction: BuffAction) {
+  public notifyBuffStart(buffEvent: BuffEvent) {
     this.eventManager.notify(
-      eventIdProvider.getBuffStartEventId(buffAction.buffId)
+      eventIdProvider.getStartOfBuffEventId(buffEvent.buffId)
     );
   }
 
-  public notifyBuffEnd(buffAction: BuffAction) {
+  public notifyBuffEnd(buffEvent: BuffEvent) {
     this.eventManager.notify(
-      eventIdProvider.getBuffEndEventId(buffAction.buffId)
+      eventIdProvider.getEndOfBuffEventId(buffEvent.buffId)
     );
   }
 
-  public notifyResourceUpdate(resourceAction: ResourceAction) {
+  public notifyResourceUpdate(resourceEvent: ResourceEvent) {
     this.eventManager.notify(
-      eventIdProvider.getResourceUpdateEventId(resourceAction.resourceId)
+      eventIdProvider.getResourceUpdateEventId(resourceEvent.resourceId)
     );
   }
 
-  public notifyResourceDepleted(resourceAction: ResourceAction) {
+  public notifyResourceDepleted(resourceEvent: ResourceEvent) {
     this.eventManager.notify(
-      eventIdProvider.getResourceDepletedEventId(resourceAction.resourceId)
+      eventIdProvider.getResourceDepletedEventId(resourceEvent.resourceId)
     );
   }
 }

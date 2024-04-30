@@ -1,0 +1,7228 @@
+{
+  "loadout": {
+    "id": "54CI4Wrk_e2RCQLrI-EZE",
+    "name": "loadout",
+    "elementalType": "Volt",
+    "team": {
+      "weapon1": {
+        "definitionId": "Brevey",
+        "stars": 6,
+        "matrixSets": { "version": 1 },
+        "version": 1
+      },
+      "weapon2": {
+        "definitionId": "Rei",
+        "stars": 6,
+        "matrixSets": { "version": 1 },
+        "version": 1
+      },
+      "weapon3": {
+        "definitionId": "Nan Yin",
+        "stars": 0,
+        "matrixSets": { "version": 1 },
+        "version": 1
+      },
+      "weapons": [
+        {
+          "definitionId": "Brevey",
+          "stars": 6,
+          "matrixSets": { "version": 1 },
+          "version": 1
+        },
+        {
+          "definitionId": "Rei",
+          "stars": 6,
+          "matrixSets": { "version": 1 },
+          "version": 1
+        },
+        {
+          "definitionId": "Nan Yin",
+          "stars": 0,
+          "matrixSets": { "version": 1 },
+          "version": 1
+        }
+      ],
+      "version": 1
+    },
+    "gearSet": {
+      "id": "4oAC_Epo6cItRUhp3ZzKs",
+      "gearsByTypeId": {
+        "Helmet": {
+          "id": "xvMFrlsAdzXRWQEO1oEnW",
+          "typeId": "Helmet",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Eyepiece": {
+          "id": "-5ErBOWQVqEEnCCL8WqdS",
+          "typeId": "Eyepiece",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Spaulders": {
+          "id": "YT2Ry1tG3rPps2WuiONhi",
+          "typeId": "Spaulders",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Gloves": {
+          "id": "OC_zee8heSjrIEgbBb1gt",
+          "typeId": "Gloves",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Bracers": {
+          "id": "-9xFIgE5Fce0nH6mN8pEs",
+          "typeId": "Bracers",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Armor": {
+          "id": "OCQuEpEtaUCxDBakAzQib",
+          "typeId": "Armor",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Combat Engine": {
+          "id": "DIIcxEXPLomNRmxOEATFo",
+          "typeId": "Combat Engine",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Belt": {
+          "id": "UFhBPzKA8zUe3fGFeh7V0",
+          "typeId": "Belt",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Legguards": {
+          "id": "Osx0_hgiHXYU9Ya_kLloL",
+          "typeId": "Legguards",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Boots": {
+          "id": "E3QfxqEGEsbxuLgnuMzxM",
+          "typeId": "Boots",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Exoskeleton": {
+          "id": "4g-U5jCd7CwcjYHytWMmE",
+          "typeId": "Exoskeleton",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        },
+        "Microreactor": {
+          "id": "tGCQtc2uPgUnPp6PlktqJ",
+          "typeId": "Microreactor",
+          "stars": 0,
+          "randomStats": [null, null, null, null],
+          "augmentStats": [],
+          "isAugmented": false,
+          "version": 1
+        }
+      },
+      "version": 2
+    },
+    "loadoutStats": {
+      "flameAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+      "frostAttack": { "baseAttack": 15762, "totalAttack": 0, "version": 1 },
+      "physicalAttack": { "baseAttack": 0, "totalAttack": 0, "version": 1 },
+      "voltAttack": { "baseAttack": 15201, "totalAttack": 0, "version": 1 },
+      "critFlat": 6610,
+      "critPercent": 0.0581,
+      "critDamage": 0.5,
+      "version": 1
+    },
+    "simulacrumTraitId": "Cocoritter",
+    "version": 1
+  },
+  "weaponAttacks": [
+    {
+      "weaponId": "Brevey",
+      "weaponDisplayName": "Brevey",
+      "attackTimeline": {
+        "events": [
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 0,
+            "endTime": 2620
+          },
+          {
+            "attackDisplayName": "Brevey skill - Million-Metz Shockwave",
+            "startTime": 2800,
+            "endTime": 5050
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 5200,
+            "endTime": 7820
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 8000,
+            "endTime": 10620
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 10800,
+            "endTime": 13420
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 13600,
+            "endTime": 16220
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 16400,
+            "endTime": 19020
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 19200,
+            "endTime": 21820
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 22000,
+            "endTime": 24620
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 24800,
+            "endTime": 27420
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 27600,
+            "endTime": 30220
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 30400,
+            "endTime": 33020
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 33200,
+            "endTime": 35820
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 36000,
+            "endTime": 38620
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 38800,
+            "endTime": 41420
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 41600,
+            "endTime": 44220
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 44400,
+            "endTime": 47020
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 47200,
+            "endTime": 49820
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 50000,
+            "endTime": 52620
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 52800,
+            "endTime": 55420
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 55600,
+            "endTime": 58220
+          },
+          {
+            "attackDisplayName": "Brevey - Auto hold",
+            "startTime": 58400,
+            "endTime": 61020
+          }
+        ]
+      }
+    },
+    {
+      "weaponId": "Rei",
+      "weaponDisplayName": "Rei",
+      "attackTimeline": { "events": [] }
+    },
+    {
+      "weaponId": "Nan Yin",
+      "weaponDisplayName": "Nan Yin",
+      "attackTimeline": { "events": [] }
+    }
+  ],
+  "triggeredAttacks": [
+    {
+      "id": "metz-energy-wave",
+      "displayName": "Brevey - Metz Energy Wave",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 12600,
+            "endTime": 12800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 22600,
+            "endTime": 22800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 32600,
+            "endTime": 32800,
+            "duration": 200,
+            "version": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "rei-homing-arrow",
+      "displayName": "Rei - Homing Arrow",
+      "timeline": {
+        "events": [
+          { "startTime": 200, "endTime": 400, "duration": 200, "version": 1 },
+          { "startTime": 1000, "endTime": 1200, "duration": 200, "version": 1 },
+          { "startTime": 1800, "endTime": 2000, "duration": 200, "version": 1 },
+          { "startTime": 2600, "endTime": 2800, "duration": 200, "version": 1 },
+          { "startTime": 5400, "endTime": 5600, "duration": 200, "version": 1 },
+          { "startTime": 6200, "endTime": 6400, "duration": 200, "version": 1 },
+          { "startTime": 7000, "endTime": 7200, "duration": 200, "version": 1 },
+          { "startTime": 7800, "endTime": 8000, "duration": 200, "version": 1 },
+          { "startTime": 8600, "endTime": 8800, "duration": 200, "version": 1 },
+          { "startTime": 9400, "endTime": 9600, "duration": 200, "version": 1 },
+          {
+            "startTime": 10200,
+            "endTime": 10400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 11000,
+            "endTime": 11200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 11800,
+            "endTime": 12000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 12600,
+            "endTime": 12800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 13400,
+            "endTime": 13600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 14200,
+            "endTime": 14400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 15000,
+            "endTime": 15200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 15800,
+            "endTime": 16000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 16600,
+            "endTime": 16800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 17400,
+            "endTime": 17600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 18200,
+            "endTime": 18400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 19000,
+            "endTime": 19200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 19800,
+            "endTime": 20000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 20600,
+            "endTime": 20800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 21400,
+            "endTime": 21600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 22200,
+            "endTime": 22400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 23000,
+            "endTime": 23200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 23800,
+            "endTime": 24000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 24600,
+            "endTime": 24800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 25400,
+            "endTime": 25600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 26200,
+            "endTime": 26400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 27000,
+            "endTime": 27200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 27800,
+            "endTime": 28000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 28600,
+            "endTime": 28800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 29400,
+            "endTime": 29600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 30200,
+            "endTime": 30400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 31000,
+            "endTime": 31200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 31800,
+            "endTime": 32000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 32600,
+            "endTime": 32800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 33400,
+            "endTime": 33600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 34200,
+            "endTime": 34400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 35000,
+            "endTime": 35200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 35800,
+            "endTime": 36000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 36600,
+            "endTime": 36800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 37400,
+            "endTime": 37600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 38200,
+            "endTime": 38400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 39000,
+            "endTime": 39200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 39800,
+            "endTime": 40000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 40600,
+            "endTime": 40800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 41400,
+            "endTime": 41600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 42200,
+            "endTime": 42400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 43000,
+            "endTime": 43200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 43800,
+            "endTime": 44000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 44600,
+            "endTime": 44800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 45400,
+            "endTime": 45600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 46200,
+            "endTime": 46400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 47000,
+            "endTime": 47200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 47800,
+            "endTime": 48000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 48600,
+            "endTime": 48800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 49400,
+            "endTime": 49600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 50200,
+            "endTime": 50400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 51000,
+            "endTime": 51200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 51800,
+            "endTime": 52000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 52600,
+            "endTime": 52800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 53400,
+            "endTime": 53600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 54200,
+            "endTime": 54400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 55000,
+            "endTime": 55200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 55800,
+            "endTime": 56000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 56600,
+            "endTime": 56800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 57400,
+            "endTime": 57600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 58200,
+            "endTime": 58400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 59000,
+            "endTime": 59200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 59800,
+            "endTime": 60000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 60600,
+            "endTime": 60800,
+            "duration": 200,
+            "version": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "rei-homing-arrow-explosion",
+      "displayName": "Rei - Homing Arrow explosion",
+      "timeline": {
+        "events": [
+          { "startTime": 2000, "endTime": 2200, "duration": 200, "version": 1 },
+          { "startTime": 6400, "endTime": 6600, "duration": 200, "version": 1 },
+          { "startTime": 8800, "endTime": 9000, "duration": 200, "version": 1 },
+          {
+            "startTime": 11200,
+            "endTime": 11400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 13600,
+            "endTime": 13800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 16000,
+            "endTime": 16200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 18400,
+            "endTime": 18600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 20800,
+            "endTime": 21000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 23200,
+            "endTime": 23400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 25600,
+            "endTime": 25800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 28000,
+            "endTime": 28200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 30400,
+            "endTime": 30600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 32800,
+            "endTime": 33000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 35200,
+            "endTime": 35400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 37600,
+            "endTime": 37800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 40000,
+            "endTime": 40200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 42400,
+            "endTime": 42600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 44800,
+            "endTime": 45000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 47200,
+            "endTime": 47400,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 49600,
+            "endTime": 49800,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 52000,
+            "endTime": 52200,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 54400,
+            "endTime": 54600,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 56800,
+            "endTime": 57000,
+            "duration": 200,
+            "version": 1
+          },
+          {
+            "startTime": 59200,
+            "endTime": 59400,
+            "duration": 200,
+            "version": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    }
+  ],
+  "buffs": [
+    {
+      "id": "brevey-buff-pact-amplification",
+      "displayName": "Brevey - Pact Amplification",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 5200,
+            "endTime": 35200,
+            "duration": 30000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "brevey-damage-buff-pact-amplification-volt-6-star",
+      "displayName": "Brevey - Pact Amplification Volt Buff 6*",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 5200,
+            "endTime": 150000,
+            "duration": 144800,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "brevey-buff-3-star",
+      "displayName": "Brevey - 3 star DMG buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "brevey-buff-5-star",
+      "displayName": "Brevey - 5 star DMG buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "rei-overloaded",
+      "displayName": "Rei: Overloaded",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 400,
+            "endTime": 90800,
+            "duration": 90400,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "volt-resonance",
+      "displayName": "Volt Resonance",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "frost-resonance",
+      "displayName": "Frost Resonance",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "attack-weapon-resonance",
+      "displayName": "Attack Resonance",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "force-impact",
+      "displayName": "Force Impact",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 5200,
+            "endTime": 50200,
+            "duration": 45000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "cocoritter-trait",
+      "displayName": "Cocoritter trait",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 5200,
+            "endTime": 10200,
+            "duration": 5000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Alternative Destiny passive damage buff",
+      "displayName": "Alternative Destiny passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Cybernetic arm passive damage buff",
+      "displayName": "Cybernetic arm passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Hologram Projector passive damage buff",
+      "displayName": "Hologram Projector passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Hovering Cannon passive damage buff",
+      "displayName": "Hovering Cannon passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Magnetic Storm passive damage buff",
+      "displayName": "Magnetic Storm passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Mini Pelican passive damage buff",
+      "displayName": "Mini Pelican passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Quantum Cloak passive damage buff",
+      "displayName": "Quantum Cloak passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Strange Cube passive damage buff",
+      "displayName": "Strange Cube passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Triple Mask passive damage buff",
+      "displayName": "Triple Mask passive damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "Triple Mask damage buff",
+      "displayName": "Triple Mask damage buff",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 150000,
+            "duration": 150000,
+            "version": 1,
+            "stacks": 1
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    }
+  ],
+  "resources": [
+    {
+      "id": "weapon-charge",
+      "displayName": "Weapon charge",
+      "timeline": {
+        "events": [
+          {
+            "startTime": -200,
+            "endTime": 0,
+            "duration": 200,
+            "version": 1,
+            "amount": 2000,
+            "cumulatedAmount": 2000
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "dodge",
+      "displayName": "Dodges",
+      "timeline": {
+        "events": [
+          {
+            "startTime": -200,
+            "endTime": 0,
+            "duration": 200,
+            "version": 1,
+            "amount": 3,
+            "cumulatedAmount": 3
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "endurance",
+      "displayName": "Endurance",
+      "timeline": {
+        "events": [
+          {
+            "startTime": -200,
+            "endTime": 0,
+            "duration": 200,
+            "version": 1,
+            "amount": 1300,
+            "cumulatedAmount": 1300
+          },
+          {
+            "startTime": 0,
+            "endTime": 200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1295.8
+          },
+          {
+            "startTime": 200,
+            "endTime": 400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1291.6
+          },
+          {
+            "startTime": 400,
+            "endTime": 600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1287.4
+          },
+          {
+            "startTime": 600,
+            "endTime": 800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1283.2
+          },
+          {
+            "startTime": 800,
+            "endTime": 1000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1279
+          },
+          {
+            "startTime": 1000,
+            "endTime": 1200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1274.8
+          },
+          {
+            "startTime": 1200,
+            "endTime": 1400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1270.6
+          },
+          {
+            "startTime": 1400,
+            "endTime": 1600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1266.4
+          },
+          {
+            "startTime": 1600,
+            "endTime": 1800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1262.2
+          },
+          {
+            "startTime": 1800,
+            "endTime": 2000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1258
+          },
+          {
+            "startTime": 2000,
+            "endTime": 2200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1253.8
+          },
+          {
+            "startTime": 2200,
+            "endTime": 2400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1249.6
+          },
+          {
+            "startTime": 2400,
+            "endTime": 2600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1245.4
+          },
+          {
+            "startTime": 2600,
+            "endTime": 2800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1241.2
+          },
+          {
+            "startTime": 2800,
+            "endTime": 3000,
+            "duration": 200,
+            "version": 1,
+            "amount": 21,
+            "cumulatedAmount": 1262.2
+          },
+          {
+            "startTime": 3000,
+            "endTime": 3200,
+            "duration": 200,
+            "version": 1,
+            "amount": 21,
+            "cumulatedAmount": 1283.2
+          },
+          {
+            "startTime": 3200,
+            "endTime": 3400,
+            "duration": 200,
+            "version": 1,
+            "amount": 16.8,
+            "cumulatedAmount": 1300
+          },
+          {
+            "startTime": 5200,
+            "endTime": 5400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1295.8
+          },
+          {
+            "startTime": 5400,
+            "endTime": 5600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1291.6
+          },
+          {
+            "startTime": 5600,
+            "endTime": 5800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1287.4
+          },
+          {
+            "startTime": 5800,
+            "endTime": 6000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1283.2
+          },
+          {
+            "startTime": 6000,
+            "endTime": 6200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1279
+          },
+          {
+            "startTime": 6200,
+            "endTime": 6400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1274.8
+          },
+          {
+            "startTime": 6400,
+            "endTime": 6600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1270.6
+          },
+          {
+            "startTime": 6600,
+            "endTime": 6800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1266.4
+          },
+          {
+            "startTime": 6800,
+            "endTime": 7000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1262.2
+          },
+          {
+            "startTime": 7000,
+            "endTime": 7200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1258
+          },
+          {
+            "startTime": 7200,
+            "endTime": 7400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1253.8
+          },
+          {
+            "startTime": 7400,
+            "endTime": 7600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1249.6
+          },
+          {
+            "startTime": 7600,
+            "endTime": 7800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1245.4
+          },
+          {
+            "startTime": 7800,
+            "endTime": 8000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1241.2
+          },
+          {
+            "startTime": 8000,
+            "endTime": 8200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1237
+          },
+          {
+            "startTime": 8200,
+            "endTime": 8400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1232.8
+          },
+          {
+            "startTime": 8400,
+            "endTime": 8600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1228.6
+          },
+          {
+            "startTime": 8600,
+            "endTime": 8800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1224.4
+          },
+          {
+            "startTime": 8800,
+            "endTime": 9000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1220.2
+          },
+          {
+            "startTime": 9000,
+            "endTime": 9200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1216
+          },
+          {
+            "startTime": 9200,
+            "endTime": 9400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1211.8
+          },
+          {
+            "startTime": 9400,
+            "endTime": 9600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1207.6
+          },
+          {
+            "startTime": 9600,
+            "endTime": 9800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1203.4
+          },
+          {
+            "startTime": 9800,
+            "endTime": 10000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1199.2
+          },
+          {
+            "startTime": 10000,
+            "endTime": 10200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1195
+          },
+          {
+            "startTime": 10200,
+            "endTime": 10400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1190.8
+          },
+          {
+            "startTime": 10400,
+            "endTime": 10600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1186.6
+          },
+          {
+            "startTime": 10600,
+            "endTime": 10800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1182.4
+          },
+          {
+            "startTime": 10800,
+            "endTime": 11000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1178.2
+          },
+          {
+            "startTime": 11000,
+            "endTime": 11200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1174
+          },
+          {
+            "startTime": 11200,
+            "endTime": 11400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1169.8
+          },
+          {
+            "startTime": 11400,
+            "endTime": 11600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1165.6
+          },
+          {
+            "startTime": 11600,
+            "endTime": 11800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1161.4
+          },
+          {
+            "startTime": 11800,
+            "endTime": 12000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1157.2
+          },
+          {
+            "startTime": 12000,
+            "endTime": 12200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1153
+          },
+          {
+            "startTime": 12200,
+            "endTime": 12400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1148.8
+          },
+          {
+            "startTime": 12400,
+            "endTime": 12600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1144.6
+          },
+          {
+            "startTime": 12600,
+            "endTime": 12800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1140.4
+          },
+          {
+            "startTime": 12800,
+            "endTime": 13000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1136.2
+          },
+          {
+            "startTime": 13000,
+            "endTime": 13200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1132
+          },
+          {
+            "startTime": 13200,
+            "endTime": 13400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1127.8
+          },
+          {
+            "startTime": 13400,
+            "endTime": 13600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1123.6
+          },
+          {
+            "startTime": 13600,
+            "endTime": 13800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1119.4
+          },
+          {
+            "startTime": 13800,
+            "endTime": 14000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1115.2
+          },
+          {
+            "startTime": 14000,
+            "endTime": 14200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1111
+          },
+          {
+            "startTime": 14200,
+            "endTime": 14400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1106.8
+          },
+          {
+            "startTime": 14400,
+            "endTime": 14600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1102.6
+          },
+          {
+            "startTime": 14600,
+            "endTime": 14800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1098.4
+          },
+          {
+            "startTime": 14800,
+            "endTime": 15000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1094.2
+          },
+          {
+            "startTime": 15000,
+            "endTime": 15200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1090
+          },
+          {
+            "startTime": 15200,
+            "endTime": 15400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1085.8
+          },
+          {
+            "startTime": 15400,
+            "endTime": 15600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1081.6
+          },
+          {
+            "startTime": 15600,
+            "endTime": 15800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1077.4
+          },
+          {
+            "startTime": 15800,
+            "endTime": 16000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1073.2
+          },
+          {
+            "startTime": 16000,
+            "endTime": 16200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1069
+          },
+          {
+            "startTime": 16200,
+            "endTime": 16400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1064.8
+          },
+          {
+            "startTime": 16400,
+            "endTime": 16600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1060.6
+          },
+          {
+            "startTime": 16600,
+            "endTime": 16800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1056.4
+          },
+          {
+            "startTime": 16800,
+            "endTime": 17000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1052.2
+          },
+          {
+            "startTime": 17000,
+            "endTime": 17200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1048
+          },
+          {
+            "startTime": 17200,
+            "endTime": 17400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1043.8
+          },
+          {
+            "startTime": 17400,
+            "endTime": 17600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1039.6
+          },
+          {
+            "startTime": 17600,
+            "endTime": 17800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1035.4
+          },
+          {
+            "startTime": 17800,
+            "endTime": 18000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1031.2
+          },
+          {
+            "startTime": 18000,
+            "endTime": 18200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1027
+          },
+          {
+            "startTime": 18200,
+            "endTime": 18400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1022.8
+          },
+          {
+            "startTime": 18400,
+            "endTime": 18600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1018.6
+          },
+          {
+            "startTime": 18600,
+            "endTime": 18800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1014.4
+          },
+          {
+            "startTime": 18800,
+            "endTime": 19000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1010.2
+          },
+          {
+            "startTime": 19000,
+            "endTime": 19200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1006
+          },
+          {
+            "startTime": 19200,
+            "endTime": 19400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 1001.8
+          },
+          {
+            "startTime": 19400,
+            "endTime": 19600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 997.6
+          },
+          {
+            "startTime": 19600,
+            "endTime": 19800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 993.4
+          },
+          {
+            "startTime": 19800,
+            "endTime": 20000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 989.2
+          },
+          {
+            "startTime": 20000,
+            "endTime": 20200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 985
+          },
+          {
+            "startTime": 20200,
+            "endTime": 20400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 980.8
+          },
+          {
+            "startTime": 20400,
+            "endTime": 20600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 976.6
+          },
+          {
+            "startTime": 20600,
+            "endTime": 20800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 972.4
+          },
+          {
+            "startTime": 20800,
+            "endTime": 21000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 968.2
+          },
+          {
+            "startTime": 21000,
+            "endTime": 21200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 964
+          },
+          {
+            "startTime": 21200,
+            "endTime": 21400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 959.8
+          },
+          {
+            "startTime": 21400,
+            "endTime": 21600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 955.6
+          },
+          {
+            "startTime": 21600,
+            "endTime": 21800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 951.4
+          },
+          {
+            "startTime": 21800,
+            "endTime": 22000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 947.2
+          },
+          {
+            "startTime": 22000,
+            "endTime": 22200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 943
+          },
+          {
+            "startTime": 22200,
+            "endTime": 22400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 938.8
+          },
+          {
+            "startTime": 22400,
+            "endTime": 22600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 934.6
+          },
+          {
+            "startTime": 22600,
+            "endTime": 22800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 930.4
+          },
+          {
+            "startTime": 22800,
+            "endTime": 23000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 926.2
+          },
+          {
+            "startTime": 23000,
+            "endTime": 23200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 922
+          },
+          {
+            "startTime": 23200,
+            "endTime": 23400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 917.8
+          },
+          {
+            "startTime": 23400,
+            "endTime": 23600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 913.6
+          },
+          {
+            "startTime": 23600,
+            "endTime": 23800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 909.4
+          },
+          {
+            "startTime": 23800,
+            "endTime": 24000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 905.2
+          },
+          {
+            "startTime": 24000,
+            "endTime": 24200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 901
+          },
+          {
+            "startTime": 24200,
+            "endTime": 24400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 896.8
+          },
+          {
+            "startTime": 24400,
+            "endTime": 24600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 892.6
+          },
+          {
+            "startTime": 24600,
+            "endTime": 24800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 888.4
+          },
+          {
+            "startTime": 24800,
+            "endTime": 25000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 884.2
+          },
+          {
+            "startTime": 25000,
+            "endTime": 25200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 880
+          },
+          {
+            "startTime": 25200,
+            "endTime": 25400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 875.8
+          },
+          {
+            "startTime": 25400,
+            "endTime": 25600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 871.6
+          },
+          {
+            "startTime": 25600,
+            "endTime": 25800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 867.4
+          },
+          {
+            "startTime": 25800,
+            "endTime": 26000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 863.2
+          },
+          {
+            "startTime": 26000,
+            "endTime": 26200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 859
+          },
+          {
+            "startTime": 26200,
+            "endTime": 26400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 854.8
+          },
+          {
+            "startTime": 26400,
+            "endTime": 26600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 850.6
+          },
+          {
+            "startTime": 26600,
+            "endTime": 26800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 846.4
+          },
+          {
+            "startTime": 26800,
+            "endTime": 27000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 842.2
+          },
+          {
+            "startTime": 27000,
+            "endTime": 27200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 838
+          },
+          {
+            "startTime": 27200,
+            "endTime": 27400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 833.8
+          },
+          {
+            "startTime": 27400,
+            "endTime": 27600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 829.6
+          },
+          {
+            "startTime": 27600,
+            "endTime": 27800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 825.4
+          },
+          {
+            "startTime": 27800,
+            "endTime": 28000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 821.2
+          },
+          {
+            "startTime": 28000,
+            "endTime": 28200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 817
+          },
+          {
+            "startTime": 28200,
+            "endTime": 28400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 812.8
+          },
+          {
+            "startTime": 28400,
+            "endTime": 28600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 808.6
+          },
+          {
+            "startTime": 28600,
+            "endTime": 28800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 804.4
+          },
+          {
+            "startTime": 28800,
+            "endTime": 29000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 800.2
+          },
+          {
+            "startTime": 29000,
+            "endTime": 29200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 796
+          },
+          {
+            "startTime": 29200,
+            "endTime": 29400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 791.8
+          },
+          {
+            "startTime": 29400,
+            "endTime": 29600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 787.6
+          },
+          {
+            "startTime": 29600,
+            "endTime": 29800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 783.4
+          },
+          {
+            "startTime": 29800,
+            "endTime": 30000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 779.2
+          },
+          {
+            "startTime": 30000,
+            "endTime": 30200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 775
+          },
+          {
+            "startTime": 30200,
+            "endTime": 30400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 770.8
+          },
+          {
+            "startTime": 30400,
+            "endTime": 30600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 766.6
+          },
+          {
+            "startTime": 30600,
+            "endTime": 30800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 762.4
+          },
+          {
+            "startTime": 30800,
+            "endTime": 31000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 758.2
+          },
+          {
+            "startTime": 31000,
+            "endTime": 31200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 754
+          },
+          {
+            "startTime": 31200,
+            "endTime": 31400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 749.8
+          },
+          {
+            "startTime": 31400,
+            "endTime": 31600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 745.6
+          },
+          {
+            "startTime": 31600,
+            "endTime": 31800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 741.4
+          },
+          {
+            "startTime": 31800,
+            "endTime": 32000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 737.2
+          },
+          {
+            "startTime": 32000,
+            "endTime": 32200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 733
+          },
+          {
+            "startTime": 32200,
+            "endTime": 32400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 728.8
+          },
+          {
+            "startTime": 32400,
+            "endTime": 32600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 724.6
+          },
+          {
+            "startTime": 32600,
+            "endTime": 32800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 720.4
+          },
+          {
+            "startTime": 32800,
+            "endTime": 33000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 716.2
+          },
+          {
+            "startTime": 33000,
+            "endTime": 33200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 712
+          },
+          {
+            "startTime": 33200,
+            "endTime": 33400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 707.8
+          },
+          {
+            "startTime": 33400,
+            "endTime": 33600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 703.6
+          },
+          {
+            "startTime": 33600,
+            "endTime": 33800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 699.4
+          },
+          {
+            "startTime": 33800,
+            "endTime": 34000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 695.2
+          },
+          {
+            "startTime": 34000,
+            "endTime": 34200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 691
+          },
+          {
+            "startTime": 34200,
+            "endTime": 34400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 686.8
+          },
+          {
+            "startTime": 34400,
+            "endTime": 34600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 682.6
+          },
+          {
+            "startTime": 34600,
+            "endTime": 34800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 678.4
+          },
+          {
+            "startTime": 34800,
+            "endTime": 35000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 674.2
+          },
+          {
+            "startTime": 35000,
+            "endTime": 35200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 670
+          },
+          {
+            "startTime": 35200,
+            "endTime": 35400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 665.8
+          },
+          {
+            "startTime": 35400,
+            "endTime": 35600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 661.6
+          },
+          {
+            "startTime": 35600,
+            "endTime": 35800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 657.4
+          },
+          {
+            "startTime": 35800,
+            "endTime": 36000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 653.2
+          },
+          {
+            "startTime": 36000,
+            "endTime": 36200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 649
+          },
+          {
+            "startTime": 36200,
+            "endTime": 36400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 644.8
+          },
+          {
+            "startTime": 36400,
+            "endTime": 36600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 640.6
+          },
+          {
+            "startTime": 36600,
+            "endTime": 36800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 636.4
+          },
+          {
+            "startTime": 36800,
+            "endTime": 37000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 632.2
+          },
+          {
+            "startTime": 37000,
+            "endTime": 37200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 628
+          },
+          {
+            "startTime": 37200,
+            "endTime": 37400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 623.8
+          },
+          {
+            "startTime": 37400,
+            "endTime": 37600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 619.6
+          },
+          {
+            "startTime": 37600,
+            "endTime": 37800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 615.4
+          },
+          {
+            "startTime": 37800,
+            "endTime": 38000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 611.2
+          },
+          {
+            "startTime": 38000,
+            "endTime": 38200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 607
+          },
+          {
+            "startTime": 38200,
+            "endTime": 38400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 602.8
+          },
+          {
+            "startTime": 38400,
+            "endTime": 38600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 598.6
+          },
+          {
+            "startTime": 38600,
+            "endTime": 38800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 594.4
+          },
+          {
+            "startTime": 38800,
+            "endTime": 39000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 590.2
+          },
+          {
+            "startTime": 39000,
+            "endTime": 39200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 586
+          },
+          {
+            "startTime": 39200,
+            "endTime": 39400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 581.8
+          },
+          {
+            "startTime": 39400,
+            "endTime": 39600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 577.6
+          },
+          {
+            "startTime": 39600,
+            "endTime": 39800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 573.4
+          },
+          {
+            "startTime": 39800,
+            "endTime": 40000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 569.2
+          },
+          {
+            "startTime": 40000,
+            "endTime": 40200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 565
+          },
+          {
+            "startTime": 40200,
+            "endTime": 40400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 560.8
+          },
+          {
+            "startTime": 40400,
+            "endTime": 40600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 556.6
+          },
+          {
+            "startTime": 40600,
+            "endTime": 40800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 552.4
+          },
+          {
+            "startTime": 40800,
+            "endTime": 41000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 548.2
+          },
+          {
+            "startTime": 41000,
+            "endTime": 41200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 544
+          },
+          {
+            "startTime": 41200,
+            "endTime": 41400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 539.8
+          },
+          {
+            "startTime": 41400,
+            "endTime": 41600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 535.6
+          },
+          {
+            "startTime": 41600,
+            "endTime": 41800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 531.4
+          },
+          {
+            "startTime": 41800,
+            "endTime": 42000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 527.2
+          },
+          {
+            "startTime": 42000,
+            "endTime": 42200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 523
+          },
+          {
+            "startTime": 42200,
+            "endTime": 42400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 518.8
+          },
+          {
+            "startTime": 42400,
+            "endTime": 42600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 514.6
+          },
+          {
+            "startTime": 42600,
+            "endTime": 42800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 510.4
+          },
+          {
+            "startTime": 42800,
+            "endTime": 43000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 506.2
+          },
+          {
+            "startTime": 43000,
+            "endTime": 43200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 502
+          },
+          {
+            "startTime": 43200,
+            "endTime": 43400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 497.8
+          },
+          {
+            "startTime": 43400,
+            "endTime": 43600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 493.6
+          },
+          {
+            "startTime": 43600,
+            "endTime": 43800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 489.4
+          },
+          {
+            "startTime": 43800,
+            "endTime": 44000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 485.2
+          },
+          {
+            "startTime": 44000,
+            "endTime": 44200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 481
+          },
+          {
+            "startTime": 44200,
+            "endTime": 44400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 476.8
+          },
+          {
+            "startTime": 44400,
+            "endTime": 44600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 472.6
+          },
+          {
+            "startTime": 44600,
+            "endTime": 44800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 468.4
+          },
+          {
+            "startTime": 44800,
+            "endTime": 45000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 464.2
+          },
+          {
+            "startTime": 45000,
+            "endTime": 45200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 460
+          },
+          {
+            "startTime": 45200,
+            "endTime": 45400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 455.8
+          },
+          {
+            "startTime": 45400,
+            "endTime": 45600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 451.6
+          },
+          {
+            "startTime": 45600,
+            "endTime": 45800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 447.4
+          },
+          {
+            "startTime": 45800,
+            "endTime": 46000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 443.2
+          },
+          {
+            "startTime": 46000,
+            "endTime": 46200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 439
+          },
+          {
+            "startTime": 46200,
+            "endTime": 46400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 434.8
+          },
+          {
+            "startTime": 46400,
+            "endTime": 46600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 430.6
+          },
+          {
+            "startTime": 46600,
+            "endTime": 46800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 426.4
+          },
+          {
+            "startTime": 46800,
+            "endTime": 47000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 422.2
+          },
+          {
+            "startTime": 47000,
+            "endTime": 47200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 418
+          },
+          {
+            "startTime": 47200,
+            "endTime": 47400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 413.8
+          },
+          {
+            "startTime": 47400,
+            "endTime": 47600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 409.6
+          },
+          {
+            "startTime": 47600,
+            "endTime": 47800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 405.4
+          },
+          {
+            "startTime": 47800,
+            "endTime": 48000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 401.2
+          },
+          {
+            "startTime": 48000,
+            "endTime": 48200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 397
+          },
+          {
+            "startTime": 48200,
+            "endTime": 48400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 392.8
+          },
+          {
+            "startTime": 48400,
+            "endTime": 48600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 388.6
+          },
+          {
+            "startTime": 48600,
+            "endTime": 48800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 384.4
+          },
+          {
+            "startTime": 48800,
+            "endTime": 49000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 380.2
+          },
+          {
+            "startTime": 49000,
+            "endTime": 49200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 376
+          },
+          {
+            "startTime": 49200,
+            "endTime": 49400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 371.8
+          },
+          {
+            "startTime": 49400,
+            "endTime": 49600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 367.6
+          },
+          {
+            "startTime": 49600,
+            "endTime": 49800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 363.4
+          },
+          {
+            "startTime": 49800,
+            "endTime": 50000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 359.2
+          },
+          {
+            "startTime": 50000,
+            "endTime": 50200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 355
+          },
+          {
+            "startTime": 50200,
+            "endTime": 50400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 350.8
+          },
+          {
+            "startTime": 50400,
+            "endTime": 50600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 346.6
+          },
+          {
+            "startTime": 50600,
+            "endTime": 50800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 342.4
+          },
+          {
+            "startTime": 50800,
+            "endTime": 51000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 338.2
+          },
+          {
+            "startTime": 51000,
+            "endTime": 51200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 334
+          },
+          {
+            "startTime": 51200,
+            "endTime": 51400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 329.8
+          },
+          {
+            "startTime": 51400,
+            "endTime": 51600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 325.6
+          },
+          {
+            "startTime": 51600,
+            "endTime": 51800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 321.4
+          },
+          {
+            "startTime": 51800,
+            "endTime": 52000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 317.2
+          },
+          {
+            "startTime": 52000,
+            "endTime": 52200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 313
+          },
+          {
+            "startTime": 52200,
+            "endTime": 52400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 308.8
+          },
+          {
+            "startTime": 52400,
+            "endTime": 52600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 304.6
+          },
+          {
+            "startTime": 52600,
+            "endTime": 52800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 300.4
+          },
+          {
+            "startTime": 52800,
+            "endTime": 53000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 296.2
+          },
+          {
+            "startTime": 53000,
+            "endTime": 53200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 292
+          },
+          {
+            "startTime": 53200,
+            "endTime": 53400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 287.8
+          },
+          {
+            "startTime": 53400,
+            "endTime": 53600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 283.6
+          },
+          {
+            "startTime": 53600,
+            "endTime": 53800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 279.4
+          },
+          {
+            "startTime": 53800,
+            "endTime": 54000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 275.2
+          },
+          {
+            "startTime": 54000,
+            "endTime": 54200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 271
+          },
+          {
+            "startTime": 54200,
+            "endTime": 54400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 266.8
+          },
+          {
+            "startTime": 54400,
+            "endTime": 54600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 262.6
+          },
+          {
+            "startTime": 54600,
+            "endTime": 54800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 258.4
+          },
+          {
+            "startTime": 54800,
+            "endTime": 55000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 254.2
+          },
+          {
+            "startTime": 55000,
+            "endTime": 55200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 250
+          },
+          {
+            "startTime": 55200,
+            "endTime": 55400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 245.8
+          },
+          {
+            "startTime": 55400,
+            "endTime": 55600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 241.6
+          },
+          {
+            "startTime": 55600,
+            "endTime": 55800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 237.4
+          },
+          {
+            "startTime": 55800,
+            "endTime": 56000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 233.2
+          },
+          {
+            "startTime": 56000,
+            "endTime": 56200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 229
+          },
+          {
+            "startTime": 56200,
+            "endTime": 56400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 224.8
+          },
+          {
+            "startTime": 56400,
+            "endTime": 56600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 220.6
+          },
+          {
+            "startTime": 56600,
+            "endTime": 56800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 216.4
+          },
+          {
+            "startTime": 56800,
+            "endTime": 57000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 212.2
+          },
+          {
+            "startTime": 57000,
+            "endTime": 57200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 208
+          },
+          {
+            "startTime": 57200,
+            "endTime": 57400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 203.8
+          },
+          {
+            "startTime": 57400,
+            "endTime": 57600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 199.6
+          },
+          {
+            "startTime": 57600,
+            "endTime": 57800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 195.4
+          },
+          {
+            "startTime": 57800,
+            "endTime": 58000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 191.2
+          },
+          {
+            "startTime": 58000,
+            "endTime": 58200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 187
+          },
+          {
+            "startTime": 58200,
+            "endTime": 58400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 182.8
+          },
+          {
+            "startTime": 58400,
+            "endTime": 58600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 178.6
+          },
+          {
+            "startTime": 58600,
+            "endTime": 58800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 174.4
+          },
+          {
+            "startTime": 58800,
+            "endTime": 59000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 170.2
+          },
+          {
+            "startTime": 59000,
+            "endTime": 59200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 166
+          },
+          {
+            "startTime": 59200,
+            "endTime": 59400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 161.8
+          },
+          {
+            "startTime": 59400,
+            "endTime": 59600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 157.6
+          },
+          {
+            "startTime": 59600,
+            "endTime": 59800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 153.4
+          },
+          {
+            "startTime": 59800,
+            "endTime": 60000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 149.2
+          },
+          {
+            "startTime": 60000,
+            "endTime": 60200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 145
+          },
+          {
+            "startTime": 60200,
+            "endTime": 60400,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 140.8
+          },
+          {
+            "startTime": 60400,
+            "endTime": 60600,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 136.6
+          },
+          {
+            "startTime": 60600,
+            "endTime": 60800,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 132.4
+          },
+          {
+            "startTime": 60800,
+            "endTime": 61000,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 128.2
+          },
+          {
+            "startTime": 61000,
+            "endTime": 61200,
+            "duration": 200,
+            "version": 1,
+            "amount": -4.2,
+            "cumulatedAmount": 124
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "swift-cut",
+      "displayName": "Swift cut",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 0,
+            "endTime": 200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 0.4
+          },
+          {
+            "startTime": 200,
+            "endTime": 400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 0.8
+          },
+          {
+            "startTime": 400,
+            "endTime": 600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 1.2
+          },
+          {
+            "startTime": 600,
+            "endTime": 800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 1.6
+          },
+          {
+            "startTime": 800,
+            "endTime": 1000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 1000,
+            "endTime": 1200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 2.4
+          },
+          {
+            "startTime": 1200,
+            "endTime": 1400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 2.8
+          },
+          {
+            "startTime": 1400,
+            "endTime": 1600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 3.2
+          },
+          {
+            "startTime": 1600,
+            "endTime": 1800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 3.6
+          },
+          {
+            "startTime": 1800,
+            "endTime": 2000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 4
+          },
+          {
+            "startTime": 2000,
+            "endTime": 2200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 4.4
+          },
+          {
+            "startTime": 2200,
+            "endTime": 2400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 4.8
+          },
+          {
+            "startTime": 2400,
+            "endTime": 2600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 5.2
+          },
+          {
+            "startTime": 2600,
+            "endTime": 2800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 5.6
+          },
+          {
+            "startTime": 2800,
+            "endTime": 3000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 6
+          },
+          {
+            "startTime": 3000,
+            "endTime": 3200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 6.4
+          },
+          {
+            "startTime": 3200,
+            "endTime": 3400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 6.8
+          },
+          {
+            "startTime": 3400,
+            "endTime": 3600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 7.2
+          },
+          {
+            "startTime": 3600,
+            "endTime": 3800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 7.6
+          },
+          {
+            "startTime": 3800,
+            "endTime": 4000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 8
+          },
+          {
+            "startTime": 4000,
+            "endTime": 4200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 8.4
+          },
+          {
+            "startTime": 4200,
+            "endTime": 4400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 8.8
+          },
+          {
+            "startTime": 4400,
+            "endTime": 4600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 9.2
+          },
+          {
+            "startTime": 4600,
+            "endTime": 4800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 9.6
+          },
+          {
+            "startTime": 4800,
+            "endTime": 5000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 10
+          },
+          {
+            "startTime": 5000,
+            "endTime": 5200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 10.4
+          },
+          {
+            "startTime": 5200,
+            "endTime": 5400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 10.8
+          },
+          {
+            "startTime": 5400,
+            "endTime": 5600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 11.2
+          },
+          {
+            "startTime": 5600,
+            "endTime": 5800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 11.6
+          },
+          {
+            "startTime": 5800,
+            "endTime": 6000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 12
+          },
+          {
+            "startTime": 6000,
+            "endTime": 6200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 12.4
+          },
+          {
+            "startTime": 6200,
+            "endTime": 6400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 12.8
+          },
+          {
+            "startTime": 6400,
+            "endTime": 6600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 13.2
+          },
+          {
+            "startTime": 6600,
+            "endTime": 6800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 13.6
+          },
+          {
+            "startTime": 6800,
+            "endTime": 7000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 14
+          },
+          {
+            "startTime": 7000,
+            "endTime": 7200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 14.4
+          },
+          {
+            "startTime": 7200,
+            "endTime": 7400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 14.8
+          },
+          {
+            "startTime": 7400,
+            "endTime": 7600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 15.2
+          },
+          {
+            "startTime": 7600,
+            "endTime": 7800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 15.6
+          },
+          {
+            "startTime": 7800,
+            "endTime": 8000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 16
+          },
+          {
+            "startTime": 8000,
+            "endTime": 8200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 16.4
+          },
+          {
+            "startTime": 8200,
+            "endTime": 8400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 16.8
+          },
+          {
+            "startTime": 8400,
+            "endTime": 8600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 17.2
+          },
+          {
+            "startTime": 8600,
+            "endTime": 8800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 17.6
+          },
+          {
+            "startTime": 8800,
+            "endTime": 9000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 18
+          },
+          {
+            "startTime": 9000,
+            "endTime": 9200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 18.4
+          },
+          {
+            "startTime": 9200,
+            "endTime": 9400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 18.8
+          },
+          {
+            "startTime": 9400,
+            "endTime": 9600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 19.2
+          },
+          {
+            "startTime": 9600,
+            "endTime": 9800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 19.6
+          },
+          {
+            "startTime": 9800,
+            "endTime": 10000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 20
+          },
+          {
+            "startTime": 10000,
+            "endTime": 10200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 20.4
+          },
+          {
+            "startTime": 10200,
+            "endTime": 10400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 20.8
+          },
+          {
+            "startTime": 10400,
+            "endTime": 10600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 21.2
+          },
+          {
+            "startTime": 10600,
+            "endTime": 10800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 21.6
+          },
+          {
+            "startTime": 10800,
+            "endTime": 11000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 22
+          },
+          {
+            "startTime": 11000,
+            "endTime": 11200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 22.4
+          },
+          {
+            "startTime": 11200,
+            "endTime": 11400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 22.8
+          },
+          {
+            "startTime": 11400,
+            "endTime": 11600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 23.2
+          },
+          {
+            "startTime": 11600,
+            "endTime": 11800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 23.6
+          },
+          {
+            "startTime": 11800,
+            "endTime": 12000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 24
+          },
+          {
+            "startTime": 12000,
+            "endTime": 12200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 24.4
+          },
+          {
+            "startTime": 12200,
+            "endTime": 12400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 24.8
+          },
+          {
+            "startTime": 12400,
+            "endTime": 12600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 25.2
+          },
+          {
+            "startTime": 12600,
+            "endTime": 12800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 25.6
+          },
+          {
+            "startTime": 12800,
+            "endTime": 13000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 26
+          },
+          {
+            "startTime": 13000,
+            "endTime": 13200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 26.4
+          },
+          {
+            "startTime": 13200,
+            "endTime": 13400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 26.8
+          },
+          {
+            "startTime": 13400,
+            "endTime": 13600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 27.2
+          },
+          {
+            "startTime": 13600,
+            "endTime": 13800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 27.6
+          },
+          {
+            "startTime": 13800,
+            "endTime": 14000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 28
+          },
+          {
+            "startTime": 14000,
+            "endTime": 14200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 28.4
+          },
+          {
+            "startTime": 14200,
+            "endTime": 14400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 28.8
+          },
+          {
+            "startTime": 14400,
+            "endTime": 14600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 29.2
+          },
+          {
+            "startTime": 14600,
+            "endTime": 14800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 29.6
+          },
+          {
+            "startTime": 14800,
+            "endTime": 15000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.4,
+            "cumulatedAmount": 30
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "damage-accumulated-factor-of-total-attack",
+      "displayName": "Damage accumulated (as factor of attack)",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 200,
+            "endTime": 400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.85,
+            "cumulatedAmount": 0.85
+          },
+          {
+            "startTime": 400,
+            "endTime": 600,
+            "duration": 200,
+            "version": 1,
+            "amount": 2.81,
+            "cumulatedAmount": 3.66
+          },
+          {
+            "startTime": 600,
+            "endTime": 800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 4.58
+          },
+          {
+            "startTime": 800,
+            "endTime": 1000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 5.5
+          },
+          {
+            "startTime": 1000,
+            "endTime": 1200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 6.42
+          },
+          {
+            "startTime": 1200,
+            "endTime": 1400,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.07,
+            "cumulatedAmount": 9.49
+          },
+          {
+            "startTime": 1400,
+            "endTime": 1600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 10.41
+          },
+          {
+            "startTime": 1600,
+            "endTime": 1800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 11.33
+          },
+          {
+            "startTime": 1800,
+            "endTime": 2000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 12.25
+          },
+          {
+            "startTime": 2000,
+            "endTime": 2200,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.07,
+            "cumulatedAmount": 15.32
+          },
+          {
+            "startTime": 2200,
+            "endTime": 2400,
+            "duration": 200,
+            "version": 1,
+            "amount": 7.36,
+            "cumulatedAmount": 22.68
+          },
+          {
+            "startTime": 2400,
+            "endTime": 2600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 23.6
+          },
+          {
+            "startTime": 2600,
+            "endTime": 2800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.92,
+            "cumulatedAmount": 24.52
+          },
+          {
+            "startTime": 2800,
+            "endTime": 3000,
+            "duration": 200,
+            "version": 1,
+            "amount": -24.52,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 3000,
+            "endTime": 3200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.93,
+            "cumulatedAmount": 0.93
+          },
+          {
+            "startTime": 3200,
+            "endTime": 3400,
+            "duration": 200,
+            "version": 1,
+            "amount": -0.93,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 3400,
+            "endTime": 3600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.93,
+            "cumulatedAmount": 0.93
+          },
+          {
+            "startTime": 3600,
+            "endTime": 3800,
+            "duration": 200,
+            "version": 1,
+            "amount": -0.93,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 3800,
+            "endTime": 4000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.93,
+            "cumulatedAmount": 0.93
+          },
+          {
+            "startTime": 4000,
+            "endTime": 4200,
+            "duration": 200,
+            "version": 1,
+            "amount": -0.93,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 4200,
+            "endTime": 4400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.93,
+            "cumulatedAmount": 0.93
+          },
+          {
+            "startTime": 4400,
+            "endTime": 4600,
+            "duration": 200,
+            "version": 1,
+            "amount": -0.93,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 4600,
+            "endTime": 4800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.93,
+            "cumulatedAmount": 0.93
+          },
+          {
+            "startTime": 4800,
+            "endTime": 5000,
+            "duration": 200,
+            "version": 1,
+            "amount": -0.93,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 5000,
+            "endTime": 5200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.93,
+            "cumulatedAmount": 0.93
+          },
+          {
+            "startTime": 5200,
+            "endTime": 5400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.23,
+            "cumulatedAmount": 1.16
+          },
+          {
+            "startTime": 5400,
+            "endTime": 5600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 2.47
+          },
+          {
+            "startTime": 5600,
+            "endTime": 5800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 6.83
+          },
+          {
+            "startTime": 5800,
+            "endTime": 6000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 8.14
+          },
+          {
+            "startTime": 6000,
+            "endTime": 6200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 9.45
+          },
+          {
+            "startTime": 6200,
+            "endTime": 6400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 10.76
+          },
+          {
+            "startTime": 6400,
+            "endTime": 6600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 15.12
+          },
+          {
+            "startTime": 6600,
+            "endTime": 6800,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 25.58
+          },
+          {
+            "startTime": 6800,
+            "endTime": 7000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 26.89
+          },
+          {
+            "startTime": 7000,
+            "endTime": 7200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 28.2
+          },
+          {
+            "startTime": 7200,
+            "endTime": 7400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 32.56
+          },
+          {
+            "startTime": 7400,
+            "endTime": 7600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 33.87
+          },
+          {
+            "startTime": 7600,
+            "endTime": 7800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 35.18
+          },
+          {
+            "startTime": 7800,
+            "endTime": 8000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 36.49
+          },
+          {
+            "startTime": 8000,
+            "endTime": 8200,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 39.67
+          },
+          {
+            "startTime": 8200,
+            "endTime": 8400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 40.98
+          },
+          {
+            "startTime": 8400,
+            "endTime": 8600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 42.29
+          },
+          {
+            "startTime": 8600,
+            "endTime": 8800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 43.6
+          },
+          {
+            "startTime": 8800,
+            "endTime": 9000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 47.96
+          },
+          {
+            "startTime": 9000,
+            "endTime": 9200,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 58.42
+          },
+          {
+            "startTime": 9200,
+            "endTime": 9400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 59.73
+          },
+          {
+            "startTime": 9400,
+            "endTime": 9600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 61.04
+          },
+          {
+            "startTime": 9600,
+            "endTime": 9800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 65.4
+          },
+          {
+            "startTime": 9800,
+            "endTime": 10000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 66.71
+          },
+          {
+            "startTime": 10000,
+            "endTime": 10200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 68.02
+          },
+          {
+            "startTime": 10200,
+            "endTime": 10400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 69.33
+          },
+          {
+            "startTime": 10400,
+            "endTime": 10600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 73.69
+          },
+          {
+            "startTime": 10600,
+            "endTime": 10800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 75
+          },
+          {
+            "startTime": 10800,
+            "endTime": 11000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.13,
+            "cumulatedAmount": 75.13
+          },
+          {
+            "startTime": 11000,
+            "endTime": 11200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 76.44
+          },
+          {
+            "startTime": 11200,
+            "endTime": 11400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 80.8
+          },
+          {
+            "startTime": 11400,
+            "endTime": 11600,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 91.26
+          },
+          {
+            "startTime": 11600,
+            "endTime": 11800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 92.57
+          },
+          {
+            "startTime": 11800,
+            "endTime": 12000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 93.88
+          },
+          {
+            "startTime": 12000,
+            "endTime": 12200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 98.24
+          },
+          {
+            "startTime": 12200,
+            "endTime": 12400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 99.55
+          },
+          {
+            "startTime": 12400,
+            "endTime": 12600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 100.86
+          },
+          {
+            "startTime": 12600,
+            "endTime": 12800,
+            "duration": 200,
+            "version": 1,
+            "amount": -100.86,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 12800,
+            "endTime": 13000,
+            "duration": 200,
+            "version": 1,
+            "amount": 63.82,
+            "cumulatedAmount": 63.82
+          },
+          {
+            "startTime": 13000,
+            "endTime": 13200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 65.13
+          },
+          {
+            "startTime": 13200,
+            "endTime": 13400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 66.44
+          },
+          {
+            "startTime": 13400,
+            "endTime": 13600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 67.75
+          },
+          {
+            "startTime": 13600,
+            "endTime": 13800,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 70.93
+          },
+          {
+            "startTime": 13800,
+            "endTime": 14000,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 81.39
+          },
+          {
+            "startTime": 14000,
+            "endTime": 14200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 82.7
+          },
+          {
+            "startTime": 14200,
+            "endTime": 14400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 84.01
+          },
+          {
+            "startTime": 14400,
+            "endTime": 14600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 88.37
+          },
+          {
+            "startTime": 14600,
+            "endTime": 14800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 89.68
+          },
+          {
+            "startTime": 14800,
+            "endTime": 15000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 90.99
+          },
+          {
+            "startTime": 15000,
+            "endTime": 15200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 92.3
+          },
+          {
+            "startTime": 15200,
+            "endTime": 15400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 96.66
+          },
+          {
+            "startTime": 15400,
+            "endTime": 15600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 97.97
+          },
+          {
+            "startTime": 15600,
+            "endTime": 15800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 99.28
+          },
+          {
+            "startTime": 15800,
+            "endTime": 16000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 100.59
+          },
+          {
+            "startTime": 16000,
+            "endTime": 16200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 104.95
+          },
+          {
+            "startTime": 16200,
+            "endTime": 16400,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 115.41
+          },
+          {
+            "startTime": 16400,
+            "endTime": 16600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.13,
+            "cumulatedAmount": 115.54
+          },
+          {
+            "startTime": 16600,
+            "endTime": 16800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 116.85
+          },
+          {
+            "startTime": 16800,
+            "endTime": 17000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 121.21
+          },
+          {
+            "startTime": 17000,
+            "endTime": 17200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 122.52
+          },
+          {
+            "startTime": 17200,
+            "endTime": 17400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 123.83
+          },
+          {
+            "startTime": 17400,
+            "endTime": 17600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 125.14
+          },
+          {
+            "startTime": 17600,
+            "endTime": 17800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 129.5
+          },
+          {
+            "startTime": 17800,
+            "endTime": 18000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 130.81
+          },
+          {
+            "startTime": 18000,
+            "endTime": 18200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 132.12
+          },
+          {
+            "startTime": 18200,
+            "endTime": 18400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 133.43
+          },
+          {
+            "startTime": 18400,
+            "endTime": 18600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 137.79
+          },
+          {
+            "startTime": 18600,
+            "endTime": 18800,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 148.25
+          },
+          {
+            "startTime": 18800,
+            "endTime": 19000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 149.56
+          },
+          {
+            "startTime": 19000,
+            "endTime": 19200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 150.87
+          },
+          {
+            "startTime": 19200,
+            "endTime": 19400,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 154.05
+          },
+          {
+            "startTime": 19400,
+            "endTime": 19600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 155.36
+          },
+          {
+            "startTime": 19600,
+            "endTime": 19800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 156.67
+          },
+          {
+            "startTime": 19800,
+            "endTime": 20000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 157.98
+          },
+          {
+            "startTime": 20000,
+            "endTime": 20200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 162.34
+          },
+          {
+            "startTime": 20200,
+            "endTime": 20400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 163.65
+          },
+          {
+            "startTime": 20400,
+            "endTime": 20600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 164.96
+          },
+          {
+            "startTime": 20600,
+            "endTime": 20800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 166.27
+          },
+          {
+            "startTime": 20800,
+            "endTime": 21000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 170.63
+          },
+          {
+            "startTime": 21000,
+            "endTime": 21200,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 181.09
+          },
+          {
+            "startTime": 21200,
+            "endTime": 21400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 182.4
+          },
+          {
+            "startTime": 21400,
+            "endTime": 21600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 183.71
+          },
+          {
+            "startTime": 21600,
+            "endTime": 21800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 188.07
+          },
+          {
+            "startTime": 21800,
+            "endTime": 22000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 189.38
+          },
+          {
+            "startTime": 22000,
+            "endTime": 22200,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.13,
+            "cumulatedAmount": 189.51
+          },
+          {
+            "startTime": 22200,
+            "endTime": 22400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 190.82
+          },
+          {
+            "startTime": 22400,
+            "endTime": 22600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 195.18
+          },
+          {
+            "startTime": 22600,
+            "endTime": 22800,
+            "duration": 200,
+            "version": 1,
+            "amount": -195.18,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 22800,
+            "endTime": 23000,
+            "duration": 200,
+            "version": 1,
+            "amount": 60.78,
+            "cumulatedAmount": 60.78
+          },
+          {
+            "startTime": 23000,
+            "endTime": 23200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 62.09
+          },
+          {
+            "startTime": 23200,
+            "endTime": 23400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 66.45
+          },
+          {
+            "startTime": 23400,
+            "endTime": 23600,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 76.91
+          },
+          {
+            "startTime": 23600,
+            "endTime": 23800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 78.22
+          },
+          {
+            "startTime": 23800,
+            "endTime": 24000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 79.53
+          },
+          {
+            "startTime": 24000,
+            "endTime": 24200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 83.89
+          },
+          {
+            "startTime": 24200,
+            "endTime": 24400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 85.2
+          },
+          {
+            "startTime": 24400,
+            "endTime": 24600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 86.51
+          },
+          {
+            "startTime": 24600,
+            "endTime": 24800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 87.82
+          },
+          {
+            "startTime": 24800,
+            "endTime": 25000,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 91
+          },
+          {
+            "startTime": 25000,
+            "endTime": 25200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 92.31
+          },
+          {
+            "startTime": 25200,
+            "endTime": 25400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 93.62
+          },
+          {
+            "startTime": 25400,
+            "endTime": 25600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 94.93
+          },
+          {
+            "startTime": 25600,
+            "endTime": 25800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 99.29
+          },
+          {
+            "startTime": 25800,
+            "endTime": 26000,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 109.75
+          },
+          {
+            "startTime": 26000,
+            "endTime": 26200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 111.06
+          },
+          {
+            "startTime": 26200,
+            "endTime": 26400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 112.37
+          },
+          {
+            "startTime": 26400,
+            "endTime": 26600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 116.73
+          },
+          {
+            "startTime": 26600,
+            "endTime": 26800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 118.04
+          },
+          {
+            "startTime": 26800,
+            "endTime": 27000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 119.35
+          },
+          {
+            "startTime": 27000,
+            "endTime": 27200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 120.66
+          },
+          {
+            "startTime": 27200,
+            "endTime": 27400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 125.02
+          },
+          {
+            "startTime": 27400,
+            "endTime": 27600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 126.33
+          },
+          {
+            "startTime": 27600,
+            "endTime": 27800,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.13,
+            "cumulatedAmount": 126.46
+          },
+          {
+            "startTime": 27800,
+            "endTime": 28000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 127.77
+          },
+          {
+            "startTime": 28000,
+            "endTime": 28200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 132.13
+          },
+          {
+            "startTime": 28200,
+            "endTime": 28400,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 142.59
+          },
+          {
+            "startTime": 28400,
+            "endTime": 28600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 143.9
+          },
+          {
+            "startTime": 28600,
+            "endTime": 28800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 145.21
+          },
+          {
+            "startTime": 28800,
+            "endTime": 29000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 149.57
+          },
+          {
+            "startTime": 29000,
+            "endTime": 29200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 150.88
+          },
+          {
+            "startTime": 29200,
+            "endTime": 29400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 152.19
+          },
+          {
+            "startTime": 29400,
+            "endTime": 29600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 153.5
+          },
+          {
+            "startTime": 29600,
+            "endTime": 29800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 157.86
+          },
+          {
+            "startTime": 29800,
+            "endTime": 30000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 159.17
+          },
+          {
+            "startTime": 30000,
+            "endTime": 30200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 160.48
+          },
+          {
+            "startTime": 30200,
+            "endTime": 30400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 161.79
+          },
+          {
+            "startTime": 30400,
+            "endTime": 30600,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 164.97
+          },
+          {
+            "startTime": 30600,
+            "endTime": 30800,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 175.43
+          },
+          {
+            "startTime": 30800,
+            "endTime": 31000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 176.74
+          },
+          {
+            "startTime": 31000,
+            "endTime": 31200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 178.05
+          },
+          {
+            "startTime": 31200,
+            "endTime": 31400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 182.41
+          },
+          {
+            "startTime": 31400,
+            "endTime": 31600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 183.72
+          },
+          {
+            "startTime": 31600,
+            "endTime": 31800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 185.03
+          },
+          {
+            "startTime": 31800,
+            "endTime": 32000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 186.34
+          },
+          {
+            "startTime": 32000,
+            "endTime": 32200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 190.7
+          },
+          {
+            "startTime": 32200,
+            "endTime": 32400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 192.01
+          },
+          {
+            "startTime": 32400,
+            "endTime": 32600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 193.32
+          },
+          {
+            "startTime": 32600,
+            "endTime": 32800,
+            "duration": 200,
+            "version": 1,
+            "amount": -193.32,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 32800,
+            "endTime": 33000,
+            "duration": 200,
+            "version": 1,
+            "amount": 63.82,
+            "cumulatedAmount": 63.82
+          },
+          {
+            "startTime": 33000,
+            "endTime": 33200,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 74.28
+          },
+          {
+            "startTime": 33200,
+            "endTime": 33400,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.13,
+            "cumulatedAmount": 74.41
+          },
+          {
+            "startTime": 33400,
+            "endTime": 33600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 75.72
+          },
+          {
+            "startTime": 33600,
+            "endTime": 33800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 80.08
+          },
+          {
+            "startTime": 33800,
+            "endTime": 34000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 81.39
+          },
+          {
+            "startTime": 34000,
+            "endTime": 34200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 82.7
+          },
+          {
+            "startTime": 34200,
+            "endTime": 34400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 84.01
+          },
+          {
+            "startTime": 34400,
+            "endTime": 34600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 88.37
+          },
+          {
+            "startTime": 34600,
+            "endTime": 34800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 89.68
+          },
+          {
+            "startTime": 34800,
+            "endTime": 35000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 90.99
+          },
+          {
+            "startTime": 35000,
+            "endTime": 35200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 92.3
+          },
+          {
+            "startTime": 35200,
+            "endTime": 35400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 96.66
+          },
+          {
+            "startTime": 35400,
+            "endTime": 35600,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 107.12
+          },
+          {
+            "startTime": 35600,
+            "endTime": 35800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 108.43
+          },
+          {
+            "startTime": 35800,
+            "endTime": 36000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 109.74
+          },
+          {
+            "startTime": 36000,
+            "endTime": 36200,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 112.92
+          },
+          {
+            "startTime": 36200,
+            "endTime": 36400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 114.23
+          },
+          {
+            "startTime": 36400,
+            "endTime": 36600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 115.54
+          },
+          {
+            "startTime": 36600,
+            "endTime": 36800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 116.85
+          },
+          {
+            "startTime": 36800,
+            "endTime": 37000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 121.21
+          },
+          {
+            "startTime": 37000,
+            "endTime": 37200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 122.52
+          },
+          {
+            "startTime": 37200,
+            "endTime": 37400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 123.83
+          },
+          {
+            "startTime": 37400,
+            "endTime": 37600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 125.14
+          },
+          {
+            "startTime": 37600,
+            "endTime": 37800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 129.5
+          },
+          {
+            "startTime": 37800,
+            "endTime": 38000,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 139.96
+          },
+          {
+            "startTime": 38000,
+            "endTime": 38200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 141.27
+          },
+          {
+            "startTime": 38200,
+            "endTime": 38400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 142.58
+          },
+          {
+            "startTime": 38400,
+            "endTime": 38600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 146.94
+          },
+          {
+            "startTime": 38600,
+            "endTime": 38800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 148.25
+          },
+          {
+            "startTime": 38800,
+            "endTime": 39000,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.13,
+            "cumulatedAmount": 148.38
+          },
+          {
+            "startTime": 39000,
+            "endTime": 39200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 149.69
+          },
+          {
+            "startTime": 39200,
+            "endTime": 39400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 154.05
+          },
+          {
+            "startTime": 39400,
+            "endTime": 39600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 155.36
+          },
+          {
+            "startTime": 39600,
+            "endTime": 39800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 156.67
+          },
+          {
+            "startTime": 39800,
+            "endTime": 40000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 157.98
+          },
+          {
+            "startTime": 40000,
+            "endTime": 40200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 162.34
+          },
+          {
+            "startTime": 40200,
+            "endTime": 40400,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 172.8
+          },
+          {
+            "startTime": 40400,
+            "endTime": 40600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 174.11
+          },
+          {
+            "startTime": 40600,
+            "endTime": 40800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 175.42
+          },
+          {
+            "startTime": 40800,
+            "endTime": 41000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 179.78
+          },
+          {
+            "startTime": 41000,
+            "endTime": 41200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 181.09
+          },
+          {
+            "startTime": 41200,
+            "endTime": 41400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 182.4
+          },
+          {
+            "startTime": 41400,
+            "endTime": 41600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 183.71
+          },
+          {
+            "startTime": 41600,
+            "endTime": 41800,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 186.89
+          },
+          {
+            "startTime": 41800,
+            "endTime": 42000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 188.2
+          },
+          {
+            "startTime": 42000,
+            "endTime": 42200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 189.51
+          },
+          {
+            "startTime": 42200,
+            "endTime": 42400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 190.82
+          },
+          {
+            "startTime": 42400,
+            "endTime": 42600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 195.18
+          },
+          {
+            "startTime": 42600,
+            "endTime": 42800,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 205.64
+          },
+          {
+            "startTime": 42800,
+            "endTime": 43000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 206.95
+          },
+          {
+            "startTime": 43000,
+            "endTime": 43200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 208.26
+          },
+          {
+            "startTime": 43200,
+            "endTime": 43400,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 212.62
+          },
+          {
+            "startTime": 43400,
+            "endTime": 43600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 213.93
+          },
+          {
+            "startTime": 43600,
+            "endTime": 43800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 215.24
+          },
+          {
+            "startTime": 43800,
+            "endTime": 44000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 216.55
+          },
+          {
+            "startTime": 44000,
+            "endTime": 44200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 220.91
+          },
+          {
+            "startTime": 44200,
+            "endTime": 44400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 222.22
+          },
+          {
+            "startTime": 44400,
+            "endTime": 44600,
+            "duration": 200,
+            "version": 1,
+            "amount": 0.13,
+            "cumulatedAmount": 222.35
+          },
+          {
+            "startTime": 44600,
+            "endTime": 44800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 223.66
+          },
+          {
+            "startTime": 44800,
+            "endTime": 45000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 228.02
+          },
+          {
+            "startTime": 45000,
+            "endTime": 45200,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 238.48
+          },
+          {
+            "startTime": 45200,
+            "endTime": 45400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 239.79
+          },
+          {
+            "startTime": 45400,
+            "endTime": 45600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 241.1
+          },
+          {
+            "startTime": 45600,
+            "endTime": 45800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 245.46
+          },
+          {
+            "startTime": 45800,
+            "endTime": 46000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 246.77
+          },
+          {
+            "startTime": 46000,
+            "endTime": 46200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 248.08
+          },
+          {
+            "startTime": 46200,
+            "endTime": 46400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 249.39
+          },
+          {
+            "startTime": 46400,
+            "endTime": 46600,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 253.75
+          },
+          {
+            "startTime": 46600,
+            "endTime": 46800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 255.06
+          },
+          {
+            "startTime": 46800,
+            "endTime": 47000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 256.37
+          },
+          {
+            "startTime": 47000,
+            "endTime": 47200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 257.68
+          },
+          {
+            "startTime": 47200,
+            "endTime": 47400,
+            "duration": 200,
+            "version": 1,
+            "amount": 3.18,
+            "cumulatedAmount": 260.86
+          },
+          {
+            "startTime": 47400,
+            "endTime": 47600,
+            "duration": 200,
+            "version": 1,
+            "amount": 10.46,
+            "cumulatedAmount": 271.32
+          },
+          {
+            "startTime": 47600,
+            "endTime": 47800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 272.63
+          },
+          {
+            "startTime": 47800,
+            "endTime": 48000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 273.94
+          },
+          {
+            "startTime": 48000,
+            "endTime": 48200,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 278.3
+          },
+          {
+            "startTime": 48200,
+            "endTime": 48400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 279.61
+          },
+          {
+            "startTime": 48400,
+            "endTime": 48600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 280.92
+          },
+          {
+            "startTime": 48600,
+            "endTime": 48800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 282.23
+          },
+          {
+            "startTime": 48800,
+            "endTime": 49000,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 286.59
+          },
+          {
+            "startTime": 49000,
+            "endTime": 49200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 287.9
+          },
+          {
+            "startTime": 49200,
+            "endTime": 49400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 289.21
+          },
+          {
+            "startTime": 49400,
+            "endTime": 49600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1.31,
+            "cumulatedAmount": 290.52
+          },
+          {
+            "startTime": 49600,
+            "endTime": 49800,
+            "duration": 200,
+            "version": 1,
+            "amount": 4.36,
+            "cumulatedAmount": 294.88
+          },
+          {
+            "startTime": 49800,
+            "endTime": 50000,
+            "duration": 200,
+            "version": 1,
+            "amount": 5.12,
+            "cumulatedAmount": 300
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "rei-special-energy",
+      "displayName": "Rei - Special energy",
+      "timeline": {
+        "events": [
+          {
+            "startTime": -200,
+            "endTime": 0,
+            "duration": 200,
+            "version": 1,
+            "amount": 100,
+            "cumulatedAmount": 100
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    },
+    {
+      "id": "rei-homing-arrows-on-enemy",
+      "displayName": "Rei - Number of homing arrows on enemy",
+      "timeline": {
+        "events": [
+          {
+            "startTime": 200,
+            "endTime": 400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 1000,
+            "endTime": 1200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 1800,
+            "endTime": 2000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 2000,
+            "endTime": 2200,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 2600,
+            "endTime": 2800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 5400,
+            "endTime": 5600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 6200,
+            "endTime": 6400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 6400,
+            "endTime": 6600,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 7000,
+            "endTime": 7200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 7800,
+            "endTime": 8000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 8600,
+            "endTime": 8800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 8800,
+            "endTime": 9000,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 9400,
+            "endTime": 9600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 10200,
+            "endTime": 10400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 11000,
+            "endTime": 11200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 11200,
+            "endTime": 11400,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 11800,
+            "endTime": 12000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 12600,
+            "endTime": 12800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 13400,
+            "endTime": 13600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 13600,
+            "endTime": 13800,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 14200,
+            "endTime": 14400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 15000,
+            "endTime": 15200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 15800,
+            "endTime": 16000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 16000,
+            "endTime": 16200,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 16600,
+            "endTime": 16800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 17400,
+            "endTime": 17600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 18200,
+            "endTime": 18400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 18400,
+            "endTime": 18600,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 19000,
+            "endTime": 19200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 19800,
+            "endTime": 20000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 20600,
+            "endTime": 20800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 20800,
+            "endTime": 21000,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 21400,
+            "endTime": 21600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 22200,
+            "endTime": 22400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 23000,
+            "endTime": 23200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 23200,
+            "endTime": 23400,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 23800,
+            "endTime": 24000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 24600,
+            "endTime": 24800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 25400,
+            "endTime": 25600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 25600,
+            "endTime": 25800,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 26200,
+            "endTime": 26400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 27000,
+            "endTime": 27200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 27800,
+            "endTime": 28000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 28000,
+            "endTime": 28200,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 28600,
+            "endTime": 28800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 29400,
+            "endTime": 29600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 30200,
+            "endTime": 30400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 30400,
+            "endTime": 30600,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 31000,
+            "endTime": 31200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 31800,
+            "endTime": 32000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 32600,
+            "endTime": 32800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 32800,
+            "endTime": 33000,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 33400,
+            "endTime": 33600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 34200,
+            "endTime": 34400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 35000,
+            "endTime": 35200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 35200,
+            "endTime": 35400,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 35800,
+            "endTime": 36000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 36600,
+            "endTime": 36800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 37400,
+            "endTime": 37600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 37600,
+            "endTime": 37800,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 38200,
+            "endTime": 38400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 39000,
+            "endTime": 39200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 39800,
+            "endTime": 40000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 40000,
+            "endTime": 40200,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 40600,
+            "endTime": 40800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 41400,
+            "endTime": 41600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 42200,
+            "endTime": 42400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 42400,
+            "endTime": 42600,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 43000,
+            "endTime": 43200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 43800,
+            "endTime": 44000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 44600,
+            "endTime": 44800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 44800,
+            "endTime": 45000,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 45400,
+            "endTime": 45600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 46200,
+            "endTime": 46400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 47000,
+            "endTime": 47200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 47200,
+            "endTime": 47400,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 47800,
+            "endTime": 48000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 48600,
+            "endTime": 48800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 49400,
+            "endTime": 49600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 49600,
+            "endTime": 49800,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 50200,
+            "endTime": 50400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 51000,
+            "endTime": 51200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 51800,
+            "endTime": 52000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 52000,
+            "endTime": 52200,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 52600,
+            "endTime": 52800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 53400,
+            "endTime": 53600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 54200,
+            "endTime": 54400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 54400,
+            "endTime": 54600,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 55000,
+            "endTime": 55200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 55800,
+            "endTime": 56000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 56600,
+            "endTime": 56800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 56800,
+            "endTime": 57000,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 57400,
+            "endTime": 57600,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 58200,
+            "endTime": 58400,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          },
+          {
+            "startTime": 59000,
+            "endTime": 59200,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 3
+          },
+          {
+            "startTime": 59200,
+            "endTime": 59400,
+            "duration": 200,
+            "version": 1,
+            "amount": -3,
+            "cumulatedAmount": 0
+          },
+          {
+            "startTime": 59800,
+            "endTime": 60000,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 1
+          },
+          {
+            "startTime": 60600,
+            "endTime": 60800,
+            "duration": 200,
+            "version": 1,
+            "amount": 1,
+            "cumulatedAmount": 2
+          }
+        ],
+        "version": 1
+      },
+      "version": 1
+    }
+  ],
+  "damageSummary": {
+    "totalDamage": {
+      "baseDamage": 6897275.5,
+      "finalDamage": 17739191.47,
+      "damageMultiplier": 2.57,
+      "version": 1
+    },
+    "damageByWeapon": [
+      {
+        "totalDamage": {
+          "baseDamage": 3687501.82,
+          "finalDamage": 9830993.78,
+          "damageMultiplier": 2.67,
+          "version": 1
+        },
+        "normalAttackDamage": {
+          "baseDamage": 2602611.78,
+          "finalDamage": 6407686.89,
+          "damageMultiplier": 2.46,
+          "version": 1
+        },
+        "dodgeAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "skillAttackDamage": {
+          "baseDamage": 1084890.04,
+          "finalDamage": 3423306.89,
+          "damageMultiplier": 3.16,
+          "version": 1
+        },
+        "dischargeAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "passiveAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "otherAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "version": 1,
+        "weaponName": "Brevey",
+        "percentageOfTotalDamage": 0.5541962719454203
+      },
+      {
+        "totalDamage": {
+          "baseDamage": 3209773.68,
+          "finalDamage": 7908197.69,
+          "damageMultiplier": 2.46,
+          "version": 1
+        },
+        "normalAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "dodgeAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "skillAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "dischargeAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "passiveAttackDamage": {
+          "baseDamage": 3209773.68,
+          "finalDamage": 7908197.69,
+          "damageMultiplier": 2.46,
+          "version": 1
+        },
+        "otherAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "version": 1,
+        "weaponName": "Rei",
+        "percentageOfTotalDamage": 0.44580372805457974
+      },
+      {
+        "totalDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "normalAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "dodgeAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "skillAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "dischargeAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "passiveAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "otherAttackDamage": {
+          "baseDamage": 0,
+          "finalDamage": 0,
+          "damageMultiplier": 0,
+          "version": 1
+        },
+        "version": 1,
+        "weaponName": "Nan Yin",
+        "percentageOfTotalDamage": 0
+      }
+    ],
+    "duration": 61200,
+    "version": 1
+  }
+}

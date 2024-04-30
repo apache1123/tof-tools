@@ -18,18 +18,29 @@ export class TickSimulator {
   ) {}
 
   public simulateTickCombatStart() {
+    // Tick is originally before time=0 to do pre-combat prep
     this.tickTracker.advanceTickInterval();
+    // Consume any pre-combat events published
     this.queuedEventNotifier.consumeQueue();
   }
 
   public simulateTicksAfterAttackRequest() {
+    // Consume queue first to process the attack request
     this.queuedEventNotifier.consumeQueue();
 
-    const lastAttack = this.combinedAttackRegistry.lastPlayerInputAttackAction;
+    const lastAttack = this.combinedAttackRegistry.lastPlayerInputAttackEvent;
     while (
       lastAttack &&
       this.tickTracker.currentTickStart < lastAttack.endTime
     ) {
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          `Simulate tick: ${this.tickTracker.currentTickStart} - ${this.tickTracker.currentTickEnd}`
+        );
+      }
+
+      // Simulate everything in the tick
       this.attackSimulator.simulate();
       this.buffSimulator.simulate();
       this.resourceSimulator.simulate();
@@ -38,6 +49,8 @@ export class TickSimulator {
         this.tickTracker.currentTickInterval
       );
 
+      // Advance to next tick and consume events made in this tick in order to prepare for the next attack
+      // This is done to make things easier because the next attack could depend on events published in this tick
       this.tickTracker.advanceTickInterval();
       this.queuedEventNotifier.consumeQueue();
     }

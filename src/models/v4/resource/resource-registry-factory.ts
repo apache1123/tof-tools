@@ -4,7 +4,7 @@ import {
   enduranceDefinition,
 } from '../../../constants/resources';
 import type { Team } from '../../team';
-import { Timeline } from '../timeline/timeline';
+import { ResourceTimeline } from '../resource-timeline/resource-timeline';
 import { Resource } from './resource';
 import { ResourceRegistry } from './resource-registry';
 
@@ -16,13 +16,13 @@ export class ResourceRegistryFactory {
       enduranceDefinition,
     ].map(
       (resourceDefinition) =>
-        new Resource(resourceDefinition, new Timeline(combatDuration))
+        new Resource(resourceDefinition, new ResourceTimeline(combatDuration))
     );
 
     const customResources = team.weapons.flatMap((weapon) =>
       weapon.definition.resources.map(
         (resourceDefinition) =>
-          new Resource(resourceDefinition, new Timeline(combatDuration))
+          new Resource(resourceDefinition, new ResourceTimeline(combatDuration))
       )
     );
 

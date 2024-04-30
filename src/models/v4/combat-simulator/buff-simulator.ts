@@ -1,6 +1,6 @@
-import type { ActionResourceUpdater } from '../action/action-resource-updater';
-import type { BuffAction } from '../buff/buff-action';
+import type { AbilityResourceUpdater } from '../ability/ability-resource-updater';
 import type { BuffRegistry } from '../buff/buff-registry';
+import type { BuffEvent } from '../buff-timeline/buff-event';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { TickTracker } from '../tick-tracker';
 
@@ -8,38 +8,38 @@ export class BuffSimulator {
   public constructor(
     private readonly tickTracker: TickTracker,
     private readonly buffRegistry: BuffRegistry,
-    private readonly actionResourceUpdater: ActionResourceUpdater,
+    private readonly abilityResourceUpdater: AbilityResourceUpdater,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {}
 
   public simulate() {
-    for (const buffAction of this.buffRegistry.getBuffActions(
+    for (const buffEvent of this.buffRegistry.getBuffEvents(
       this.tickTracker.currentTickInterval
     )) {
-      this.simulateAction(buffAction);
+      this.simulateEvent(buffEvent);
     }
   }
 
-  private simulateAction(buffAction: BuffAction) {
+  private simulateEvent(buffEvent: BuffEvent) {
     const tickInterval = this.tickTracker.currentTickInterval;
 
-    if (tickInterval.includes(buffAction.startTime)) {
-      this.combatEventNotifier.notifyBuffStart(buffAction);
+    if (tickInterval.includes(buffEvent.startTime)) {
+      this.combatEventNotifier.notifyBuffStart(buffEvent);
     }
 
-    const { updatesResources } = buffAction;
+    const { updatesResources } = buffEvent;
     if (updatesResources) {
-      this.actionResourceUpdater.adjustResources(
+      this.abilityResourceUpdater.adjustResources(
         updatesResources,
         tickInterval,
-        buffAction.timeInterval
+        buffEvent.timeInterval
       );
     }
 
-    // TODO: Buffs may need to be checked tick by tick to see if they need to be cut short (e.g. when requirements switch from met to unmet in the middle of the action)
+    // TODO: Buffs may need to be checked tick by tick to see if they need to be cut short (e.g. when requirements switch from met to unmet in the middle of the event)
 
-    if (tickInterval.includes(buffAction.endTimeInclusive)) {
-      this.combatEventNotifier.notifyBuffEnd(buffAction);
+    if (tickInterval.includes(buffEvent.endTimeInclusive)) {
+      this.combatEventNotifier.notifyBuffEnd(buffEvent);
     }
   }
 }

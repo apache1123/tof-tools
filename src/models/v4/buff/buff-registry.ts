@@ -1,32 +1,42 @@
-import type { TimeInterval } from '../time-interval';
+import type { Serializable } from '../../persistable';
+import type { BuffEvent } from '../buff-timeline/buff-event';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { Buff } from './buff';
-import type { BuffAction } from './buff-action';
 import type { BuffId } from './buff-definition';
+import type { BuffRegistryDto } from './dtos/buff-registry-dto';
 
-export class BuffRegistry {
-  public readonly buffs: Buff[];
+export class BuffRegistry implements Serializable<BuffRegistryDto> {
+  private readonly _buffs = new Map<BuffId, Buff>();
 
   public constructor(buffs: Buff[]) {
-    this.buffs = buffs;
+    for (const buff of buffs) {
+      this._buffs.set(buff.id, buff);
+    }
+  }
+
+  public get buffs(): Buff[] {
+    return [...this._buffs.values()];
   }
 
   public isBuffActiveAt(buffId: BuffId, time: number) {
-    const timeline = this.buffs.find(
-      ({ definition }) => definition.id === buffId
-    )?.timeline;
-
-    return timeline && timeline.isActionActiveAt(time);
+    const timeline = this._buffs.get(buffId)?.timeline;
+    return timeline && timeline.isAbilityActiveAt(time);
   }
 
-  public getBuffActions(timeInterval: TimeInterval): BuffAction[] {
+  public getBuffEvents(timeInterval: TimeInterval): BuffEvent[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffActionsOverlappingInterval(timeInterval)
+      buff.getBuffEventsOverlappingInterval(timeInterval)
     );
   }
 
-  public getBuffActionsEndingBetween(timeInterval: TimeInterval): BuffAction[] {
+  public getBuffEventsEndingBetween(timeInterval: TimeInterval): BuffEvent[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffActionsEndingBetween(timeInterval)
+      buff.getBuffEventsEndingBetween(timeInterval)
     );
+  }
+
+  public toDto(): BuffRegistryDto {
+    const { buffs } = this;
+    return { buffs: buffs.map((buff) => buff.toDto()), version: 1 };
   }
 }

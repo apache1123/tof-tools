@@ -1,38 +1,48 @@
 import BigNumber from 'bignumber.js';
 import groupBy from 'lodash.groupby';
 
+import { titanRareStatDamageCategories } from '../../../constants/damage-category';
 import { calculateTotalAttack } from '../../../utils/damage-calculation-utils';
 import { product, sum } from '../../../utils/math-utils';
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Weapon } from '../../weapon';
-import type { AttackAction } from '../attack/attack-action';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
-import type { BuffAction } from '../buff/buff-action';
+import type { AttackEvent } from '../attack-timeline/attack-event';
+import type { BuffEvent } from '../buff-timeline/buff-event';
+import type { ResourceRegistry } from '../resource/resource-registry';
 
-/** Based on an attack, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */
+/** Based on an attack and its time interval, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */
 export class DamageCalculator {
   public constructor(
-    private readonly attackAction: AttackAction,
+    private readonly attackEvent: AttackEvent,
     private readonly weapon: Weapon,
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
-    private readonly activeBuffActions: BuffAction[]
+    /** Buff events during the attackEvent's duration */
+    private readonly buffEvents: BuffEvent[],
+    private readonly resourceRegistry: ResourceRegistry
   ) {}
 
   public getBaseDamage(): number {
-    const { duration, damageModifiers } = this.attackAction;
-    const { damageDealtIsPerSecond } = damageModifiers;
+    const { startTime, duration, damageModifiers } = this.attackEvent;
+    const {
+      damageDealtIsPerSecond,
+      resourceAmountMultiplier: resourceAmountMultiplierDefinition,
+    } = damageModifiers;
 
-    // Work out the total attack damage modifiers over the attack's duration if they are defined to be per second. If they are not defined to be per second, the attack damage modifiers are already assumed to be over the attack's duration
+    // Work out the total attack damage modifiers over the attack's duration if they are defined to be per second. If they are not defined to be per second, the attack damage modifiers are already assumed to be over the attack's duration. This only needs to be done for values that are to be the addend, or a multiplier of an addend. For factors, this does not need to be done.
+    // e.g. Base damage = ((totalAttack * attackMultiplier) + attackFlat + (hp * hpMultiplier)) * resourceAmountMultiplier
+    // Here: attackMultiplier, attackFlat, hpMultiplier need to be adjusted, but resourceAmountMultiplier will not change
     const calculatePerSecondValueToTotal = (value: number) =>
       BigNumber(value).times(duration).dividedBy(oneSecondDuration).toNumber();
 
     let totalDamageModifiers: Omit<
       AttackDamageModifiers,
       'damageDealtIsPerSecond'
-    > = this.attackAction.damageModifiers;
+    > = damageModifiers;
+
     if (damageDealtIsPerSecond) {
       totalDamageModifiers = {
         attackMultiplier: calculatePerSecondValueToTotal(
@@ -64,12 +74,30 @@ export class DamageCalculator {
     const hp = this.loadoutStats.hp;
     const sumOfAllResistances = this.loadoutStats.sumOfAllResistances;
 
+    let resourceAmountMultiplier = 1;
+    if (resourceAmountMultiplierDefinition) {
+      const { resourceId } = resourceAmountMultiplierDefinition;
+      const resource = this.resourceRegistry.getResource(resourceId);
+      if (!resource) throw new Error(`Cannot find resource: ${resourceId}`);
+
+      const resourceAmount = resource.getCumulatedAmount(startTime);
+
+      if (resourceAmount) {
+        resourceAmountMultiplier = BigNumber(
+          resourceAmountMultiplierDefinition.multiplier
+        )
+          .times(resourceAmount)
+          .toNumber();
+      }
+    }
+
     return BigNumber(totalAttack)
       .times(attackMultiplier)
       .plus(attackFlat)
       .plus(product(critFlat, critFlatMultiplier ?? 0))
       .plus(product(hp, hpMultiplier ?? 0))
       .plus(product(sumOfAllResistances, sumOfResistancesMultiplier ?? 0))
+      .times(resourceAmountMultiplier)
       .toNumber();
   }
 
@@ -102,13 +130,13 @@ export class DamageCalculator {
   }
 
   public getTotalAttackPercent(): number {
-    const attackBuffValues = this.activeBuffActions
-      .flatMap((buffAction) =>
-        buffAction.attackBuffs
+    const attackBuffValues = this.buffEvents
+      .flatMap((buffEvent) =>
+        buffEvent.attackBuffs
           .filter((attackBuff) =>
-            attackBuff.elementalTypes.includes(this.attackAction.elementalType)
+            attackBuff.elementalTypes.includes(this.attackEvent.elementalType)
           )
-          .map((attackBuff) => ({ attackBuff, stacks: buffAction.stacks }))
+          .map((attackBuff) => ({ attackBuff, stacks: buffEvent.stacks }))
       )
       .map((buff) => product(buff.attackBuff.value, buff.stacks).toNumber());
 
@@ -116,13 +144,33 @@ export class DamageCalculator {
   }
 
   public getTotalDamagePercent(): number {
-    // TODO: cannotBeDamageBuffedExceptByTitans
-    const damageBuffs = this.activeBuffActions.flatMap((buffAction) =>
-      buffAction.damageBuffs
-        .filter((damageBuff) =>
-          damageBuff.elementalTypes.includes(this.attackAction.elementalType)
+    const {
+      attackId,
+      damageModifiers: { canOnlyBeBuffedByTitans },
+      weapon,
+      type,
+    } = this.attackEvent;
+
+    const damageBuffs = this.buffEvents.flatMap((buffEvent) =>
+      buffEvent.damageBuffs
+        .filter(
+          (damageBuff) =>
+            damageBuff.elementalTypes.includes(
+              this.attackEvent.elementalType
+            ) &&
+            // TODO: these below should be refactored
+            (!canOnlyBeBuffedByTitans ||
+              titanRareStatDamageCategories.includes(
+                damageBuff.damageCategory
+              )) &&
+            (!damageBuff.appliesTo?.weapon ||
+              damageBuff.appliesTo.weapon === weapon.id) &&
+            (!damageBuff.appliesTo?.attackType ||
+              damageBuff.appliesTo.attackType === type) &&
+            (!damageBuff.appliesTo?.attacks ||
+              damageBuff.appliesTo.attacks.includes(attackId))
         )
-        .map((damageBuff) => ({ damageBuff, stacks: buffAction.stacks }))
+        .map((damageBuff) => ({ damageBuff, stacks: buffEvent.stacks }))
     );
 
     const damageBuffsByDamageCategory = groupBy(

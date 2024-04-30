@@ -1,16 +1,23 @@
+import type { AttackType } from '../../../constants/attack-type';
+import type { DamageCategory } from '../../../constants/damage-category';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
+import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { AttackId } from '../attack/attack-definition';
 
 export interface DamageBuff {
   value: number;
   /** The elemental types the damage buff applies to */
   elementalTypes: WeaponElementalType[];
   /** Damage buffs in the same category are additive. If they are not, they are multiplicative */
-  damageCategory:
-    | 'Weapon resonance'
-    | 'Relic passive'
-    | 'Enemy debuff'
-    | 'DMG buff category 1'
-    | 'DMG buff category 2'
-    | '[TEMP_TRAIT]'
-    | '[TEMP_UNKNOWN]';
+  damageCategory: DamageCategory;
+
+  /** Damage buff only applies to certain abilities */
+  appliesTo?: {
+    /** Damage buff only applies to attacks of this weapon */
+    weapon?: WeaponName;
+    /** Damage buff only applies to attacks of this attack type */
+    attackType?: AttackType;
+    /** Damage buff only applies to these attacks */
+    attacks?: AttackId[];
+  };
 }

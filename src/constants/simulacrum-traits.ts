@@ -66,7 +66,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            skillOfAnyWeapon: true,
+            endOfAnySkillAttack: true,
           },
           endedBy: {
             duration: 18000,
@@ -189,8 +189,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            skillOfWeaponType: 'Support',
-            dischargeOfWeaponType: 'Support',
+            endOfSkillOfWeaponType: 'Support',
+            endOfDischargeOfWeaponType: 'Support',
           },
           endedBy: {
             duration: 5000,
@@ -268,7 +268,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['feise-skill-whirling'],
+            endOfAttacks: ['feise-skill-whirling'],
           },
           endedBy: {
             duration: 30000,
@@ -297,7 +297,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['feise-skill-whirling'],
+            endOfAttacks: ['feise-skill-whirling'],
           },
           endedBy: {
             duration: 30000,
@@ -326,7 +326,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['feise-skill-whirling'],
+            endOfAttacks: ['feise-skill-whirling'],
           },
           endedBy: {
             duration: 30000,
@@ -794,12 +794,6 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ming Jing trait - normal attack increase',
           description:
             'When the main slot weapon is Onyx Tortoise, normal attack damage is increased by 50%.',
-          miscBuff: {
-            normalAttackBuff: {
-              forWeapon: 'Ming Jing',
-              value: 0.5,
-            },
-          },
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Ming Jing',
@@ -809,6 +803,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           },
           cooldown: 0,
           requirements: {},
+          // TODO: buff
         },
       ],
     },
@@ -929,12 +924,6 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Plotti trait - plotti weapon buff',
           description:
             "Increase EP-7000 Skyfire EP-7000 Skyfire's flame damage by 30%",
-          miscBuff: {
-            allAttackBuff: {
-              forWeapon: 'Plotti',
-              value: 0.3,
-            },
-          },
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
@@ -944,6 +933,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           },
           cooldown: 0,
           requirements: {},
+          // TODO: buff
         },
       ],
     },
@@ -1108,7 +1098,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['ruby-dodge-go-dolly'],
+            endOfAttacks: ['ruby-dodge-go-dolly'],
           },
           endedBy: {
             duration: 10000,
@@ -1130,7 +1120,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ['ruby-dodge-go-dolly'],
+            endOfAttacks: ['ruby-dodge-go-dolly'],
           },
           endedBy: {
             duration: 10000,
@@ -1197,8 +1187,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            skillOfAnyWeapon: true,
-            dischargeOfAnyWeapon: true,
+            endOfAnySkillAttack: true,
+            endOfAnyDischargeAttack: true,
           },
           endedBy: {
             duration: 8000,
@@ -1227,8 +1217,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           // TODO: need to check if dual element weapons trigger this
           triggeredBy: {
-            skillOfElementalType: 'Volt',
-            dischargeOfElementalType: 'Volt',
+            endOfSkillOfElementalType: 'Volt',
+            endOfDischargeOfElementalType: 'Volt',
           },
           endedBy: {
             duration: 8000,
@@ -1286,7 +1276,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           ],
           maxStacks: 1,
           triggeredBy: {
-            weaponAttacks: ["umi-skill-it's-magic-time"],
+            endOfAttacks: ["umi-skill-it's-magic-time"],
           },
           endedBy: {
             duration: 30000,
@@ -1350,12 +1340,6 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Yan Miao trait - 1 physical weapon',
           description:
             'For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.',
-          miscBuff: {
-            normalAttackBuff: {
-              forWeapon: 'Yan Miao',
-              value: 0.2,
-            },
-          },
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Yan Miao',
@@ -1372,18 +1356,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
               },
             ],
           },
+          // TODO: buff
         },
         {
           id: 'yanmiao-trait-normal-atk-buff-2-phys',
           displayName: 'Yan Miao trait - 2 physical weapons',
           description:
             'For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.',
-          miscBuff: {
-            normalAttackBuff: {
-              forWeapon: 'Yan Miao',
-              value: 0.4,
-            },
-          },
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Yan Miao',
@@ -1400,18 +1379,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
               },
             ],
           },
+          // TODO: buff
         },
         {
           id: 'yanmiao-trait-normal-atk-buff-3-phys',
           displayName: 'Yan Miao trait - 3 physical weapons',
           description:
             'For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.',
-          miscBuff: {
-            normalAttackBuff: {
-              forWeapon: 'Yan Miao',
-              value: 0.4,
-            },
-          },
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Yan Miao',
@@ -1428,6 +1402,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
               },
             ],
           },
+          // TODO: buff
         },
       ],
     },

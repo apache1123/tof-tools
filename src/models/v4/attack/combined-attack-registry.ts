@@ -1,7 +1,12 @@
-import type { AttackAction } from './attack-action';
+import type { Serializable } from '../../persistable';
+import type { AttackEvent } from '../attack-timeline/attack-event';
 import { AttackRegistry } from './attack-registry';
+import type { CombinedAttackRegistryDto } from './dtos/combined-attack-registry-dto';
 
-export class CombinedAttackRegistry extends AttackRegistry {
+export class CombinedAttackRegistry
+  extends AttackRegistry
+  implements Serializable<CombinedAttackRegistryDto>
+{
   private readonly playerInputAttackRegistry: AttackRegistry;
   private readonly triggeredAttackRegistry: AttackRegistry;
 
@@ -30,7 +35,16 @@ export class CombinedAttackRegistry extends AttackRegistry {
     return this.playerInputAttackRegistry.getAvailableAttacks(time);
   }
 
-  public get lastPlayerInputAttackAction(): AttackAction | undefined {
-    return this.playerInputAttackRegistry.lastAttackAction;
+  public get lastPlayerInputAttackEvent(): AttackEvent | undefined {
+    return this.playerInputAttackRegistry.lastAttackEvent;
+  }
+
+  public toDto(): CombinedAttackRegistryDto {
+    const { playerInputAttacks, triggeredAttacks } = this;
+    return {
+      ...super.toDto(),
+      playerInputAttacks: playerInputAttacks.map((attack) => attack.toDto()),
+      triggeredAttacks: triggeredAttacks.map((attack) => attack.toDto()),
+    };
   }
 }

@@ -1,6 +1,6 @@
-import { ActionCooldownHandler } from '../action/action-cooldown-handler';
-import type { ActionRequirementsChecker } from '../action/action-requirements-checker';
-import { ActionRequirementsHandler } from '../action/action-requirements-handler';
+import { AbilityCooldownHandler } from '../ability/ability-cooldown-handler';
+import type { AbilityRequirementsChecker } from '../ability/ability-requirements-checker';
+import { AbilityRequirementsHandler } from '../ability/ability-requirements-handler';
 import type { Attack } from '../attack/attack';
 import { AttackEnder } from '../attack/attack-ender';
 import { AttackTrigger } from '../attack/attack-trigger';
@@ -17,12 +17,12 @@ export class EventHandlerFactory {
     attack: Attack,
     tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
-    requirementsChecker: ActionRequirementsChecker,
+    requirementsChecker: AbilityRequirementsChecker,
     combatEventNotifier: CombatEventNotifier
   ): EventHandler {
     return EventHandler.link(
-      new ActionCooldownHandler(attack.timeline, tickTracker),
-      new ActionRequirementsHandler(
+      new AbilityCooldownHandler(attack.timeline, tickTracker),
+      new AbilityRequirementsHandler(
         attack.requirements,
         tickTracker,
         requirementsChecker
@@ -41,12 +41,12 @@ export class EventHandlerFactory {
   public static createHandlerToTriggerBuff(
     buff: Buff,
     tickTracker: TickTracker,
-    requirementsChecker: ActionRequirementsChecker
+    requirementsChecker: AbilityRequirementsChecker
   ): EventHandler {
     return EventHandler.link(
-      new ActionCooldownHandler(buff.timeline, tickTracker),
-      new ActionRequirementsHandler(
-        buff.definition.requirements,
+      new AbilityCooldownHandler(buff.timeline, tickTracker),
+      new AbilityRequirementsHandler(
+        buff.requirements,
         tickTracker,
         requirementsChecker
       ),

@@ -12,33 +12,16 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
+import { routes } from '../../../routes/routes';
 import { RandomSticker } from '../RandomSticker/RandomSticker';
 
 const pages: { label: string; path: string }[] = [
-  {
-    label: 'Damage Calculator',
-    path: '/damage-calculator',
-  },
-  {
-    label: 'Loadouts',
-    path: '/loadouts',
-  },
-  {
-    label: 'Compare Gear',
-    path: '/gear-comparer',
-  },
-  {
-    label: 'Stats stuff',
-    path: '/stats',
-  },
-  {
-    label: 'Settings',
-    path: '/settings',
-  },
-  {
-    label: 'Useful Links',
-    path: '/links',
-  },
+  routes.damageCalculator,
+  routes.loadouts,
+  routes.gearComparer,
+  routes.stats,
+  routes.settings,
+  routes.links,
 ];
 
 export function Navbar() {

@@ -1,76 +1,91 @@
-import type { TimeInterval } from '../time-interval';
-import type { TimelineAction } from './timeline-action';
+import { getLatestTimeInterval } from '../../../utils/time-interval-utils';
+import type { Serializable } from '../../persistable';
+import type { TimeInterval } from '../time-interval/time-interval';
+import type { TimelineDto } from './dtos/timeline-dto';
+import type { TimelineEvent } from './timeline-event';
 
-export class Timeline<TAction extends TimelineAction> {
-  private readonly _actions: TAction[] = [];
+export class Timeline<T extends TimelineEvent>
+  implements Serializable<TimelineDto>
+{
+  private readonly _events: T[] = [];
 
   public constructor(public readonly totalDuration: number) {}
 
-  public get actions(): ReadonlyArray<TAction> {
-    return this._actions;
+  public get events(): ReadonlyArray<T> {
+    return this._events;
   }
 
-  public get lastAction(): TAction | undefined {
-    return this.actions[this.actions.length - 1];
+  public get lastEvent(): T | undefined {
+    return this.events[this.events.length - 1];
   }
 
-  public addAction(action: TAction) {
-    if (action.startTime >= this.totalDuration) {
+  public addEvent(event: T) {
+    if (event.startTime >= this.totalDuration) {
       throw new Error(
-        "Cannot add action that starts after the timeline's duration"
+        "Cannot add event that starts after the timeline's duration"
       );
     }
 
-    if (this.lastAction && action.startTime < this.lastAction.startTime) {
+    if (this.lastEvent && event.startTime < this.lastEvent.startTime) {
       throw new Error(
-        'Cannot add an action that is earlier than the latest action'
+        'Cannot add an event that is earlier than the latest event'
       );
     }
 
-    // Cut off action if it goes past the timeline duration
-    if (action.endTime > this.totalDuration) {
-      action.endTime = this.totalDuration;
+    // Cut off event if it goes past the timeline duration
+    if (event.endTime > this.totalDuration) {
+      event.endTime = this.totalDuration;
     }
 
-    this._actions.push(action);
+    this._events.push(event);
   }
 
-  /** Returns actions that have any sort of overlap with the interval of start time to end time. */
-  public getActionsOverlappingInterval(
-    startTime: number,
-    endTime: number
-  ): TAction[] {
+  /** Returns events that have any sort of overlap with the interval of start time to end time. */
+  public getEventsOverlappingInterval(startTime: number, endTime: number): T[] {
     if (startTime === endTime) {
-      return this.getActionsOverlappingTime(startTime);
+      return this.getEventsOverlappingTime(startTime);
     }
 
-    return this._actions.filter(
-      (action) =>
-        (action.startTime < endTime && action.endTime > startTime) ||
-        (action.startTime === action.endTime &&
-          action.startTime >= startTime &&
-          action.startTime < endTime)
+    return this._events.filter(
+      (event) =>
+        (event.startTime < endTime && event.endTime > startTime) ||
+        (event.startTime === event.endTime &&
+          event.startTime >= startTime &&
+          event.startTime < endTime)
     );
   }
 
-  public getActionsOverlappingTime(time: number) {
-    return this._actions.filter(
-      (action) => action.startTime <= time && action.endTime > time
+  public getEventsOverlappingTime(time: number) {
+    return this._events.filter(
+      (event) => event.startTime <= time && event.endTime > time
     );
   }
 
-  public getActionsEndingBetween(timeInterval: TimeInterval) {
-    return this._actions.filter(
-      (action) =>
-        action.endTime > timeInterval.startTime &&
-        action.endTime <= timeInterval.endTime
+  public getEventsEndingBetween(timeInterval: TimeInterval) {
+    return this._events.filter(
+      (event) =>
+        event.endTime > timeInterval.startTime &&
+        event.endTime <= timeInterval.endTime
     );
   }
 
-  public removeAction(action: TAction) {
-    const index = this._actions.indexOf(action);
+  /** Gets the latest event that ends before the specified time */
+  public getLatestEventBefore(time: number): T | undefined {
+    const eventsBefore = this._events.filter((event) => event.endTime <= time);
+    if (!eventsBefore.length) return undefined;
+
+    return getLatestTimeInterval(eventsBefore);
+  }
+
+  public removeEvent(event: T) {
+    const index = this._events.indexOf(event);
     if (index !== -1) {
-      this._actions.splice(index, 1);
+      this._events.splice(index, 1);
     }
+  }
+
+  public toDto(): TimelineDto {
+    const { events } = this;
+    return { events: events.map((event) => event.toDto()), version: 1 };
   }
 }

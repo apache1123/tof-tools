@@ -1,9 +1,11 @@
 import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import { Damage } from './damage';
+import type { DamageSummaryDto } from './dtos/damage-summary-dto';
 import { WeaponDamageSummary } from './weapon-damage-summary';
 
-export class DamageSummary {
+export class DamageSummary implements Serializable<DamageSummaryDto> {
   public readonly weaponDamageSummaries = new Map<
     WeaponName,
     WeaponDamageSummary
@@ -65,5 +67,25 @@ export class DamageSummary {
     }
 
     return result;
+  }
+
+  public toDto(): DamageSummaryDto {
+    const { totalDamage, weaponDamageSummaries, duration } = this;
+    return {
+      totalDamage: totalDamage.toDto(),
+      damageByWeapon: [...weaponDamageSummaries.entries()].map(
+        ([weaponName, weaponDamageSummary]) => ({
+          ...weaponDamageSummary.toDto(),
+          weaponName,
+          percentageOfTotalDamage:
+            this.damagePercentageByWeapon.find(
+              (damagePercentageItem) =>
+                damagePercentageItem.weaponName === weaponName
+            )?.percentage ?? 0,
+        })
+      ),
+      duration,
+      version: 1,
+    };
   }
 }

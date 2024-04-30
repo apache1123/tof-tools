@@ -1,70 +1,51 @@
-import BigNumber from 'bignumber.js';
-
-import { oneSecondDuration } from '../../../utils/time-utils';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { Resource } from '../resource/resource';
-import type { ResourceAction } from '../resource/resource-action';
+import type { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { ResourceEvent } from '../resource-timeline/resource-event';
 import type { TickTracker } from '../tick-tracker';
 
 export class ResourceSimulator {
   public constructor(
     private readonly tickTracker: TickTracker,
     private readonly resourceRegistry: ResourceRegistry,
+    private readonly resourceRegenerator: ResourceRegenerator,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {}
 
   public simulate() {
-    for (const resourceAction of this.resourceRegistry.getResourceActions(
+    for (const resourceEvent of this.resourceRegistry.getResourceEvents(
       this.tickTracker.currentTickInterval
     )) {
       const resource = this.resourceRegistry.getResource(
-        resourceAction.resourceId
+        resourceEvent.resourceId
       );
       if (!resource) {
-        throw new Error(`Cannot find resource: ${resourceAction.resourceId}`);
+        throw new Error(`Cannot find resource: ${resourceEvent.resourceId}`);
       }
 
-      this.simulateAction(resourceAction, resource);
+      this.simulateEvent(resourceEvent, resource);
     }
 
     this.regenerateResources();
   }
 
-  private simulateAction(resourceAction: ResourceAction, resource: Resource) {
+  private simulateEvent(resourceEvent: ResourceEvent, resource: Resource) {
     const tickInterval = this.tickTracker.currentTickInterval;
 
-    this.combatEventNotifier.notifyResourceUpdate(resourceAction);
+    this.combatEventNotifier.notifyResourceUpdate(resourceEvent);
 
     const isDepleted = resource.isDepleted(tickInterval.endTime);
     if (isDepleted)
-      this.combatEventNotifier.notifyResourceDepleted(resourceAction);
+      this.combatEventNotifier.notifyResourceDepleted(resourceEvent);
   }
 
-  /** For resources, regenerate the resource amount for a tick interval, if there are no other actions in that tick interval */
+  /** For resources, regenerate the resource amount for a tick interval, if there are no other events in that tick interval */
   private regenerateResources() {
     const tickInterval = this.tickTracker.currentTickInterval;
 
     for (const resource of this.resourceRegistry.resources) {
-      const { regenerateAmountPerSecond } = resource.definition;
-      if (!regenerateAmountPerSecond) return;
-
-      const existingActions =
-        resource.getResourceActionsOverlappingInterval(tickInterval);
-      if (existingActions.length) return;
-
-      const regenerateAmount = BigNumber(regenerateAmountPerSecond)
-        .times(tickInterval.duration)
-        .div(oneSecondDuration)
-        .toNumber();
-      const regenerateAction = resource.addResourceAction(
-        tickInterval,
-        regenerateAmount
-      );
-
-      if (regenerateAction) {
-        this.combatEventNotifier.notifyResourceUpdate(regenerateAction);
-      }
+      this.resourceRegenerator.regenerateResource(resource, tickInterval);
     }
   }
 }
