@@ -2,14 +2,14 @@ import { Container } from '@mui/material';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 
+import rei0Snapshot from '../simulator-results/rei/rei0-brevey6-nanyin0.json';
+import rei1Snapshot from '../simulator-results/rei/rei1-brevey6-nanyin0.json';
+import rei3Snapshot from '../simulator-results/rei/rei3-brevey6-nanyin0.json';
+import rei5Snapshot from '../simulator-results/rei/rei5-brevey6-nanyin0.json';
+import rei6Snapshot from '../simulator-results/rei/rei6-brevey6-nanyin0.json';
 import type { WeaponBreakpointStars } from '../src/constants/weapon';
 import { CombatSimulatorResultBreakpointComparison } from '../src/features/combat-simulator/CombatSimulatorResultBreakpointComparison';
 import type { CombatSimulatorSnapshot } from '../src/models/v4/combat-simulator/combat-simulator-snapshot';
-import rei0Snapshot from '../src/simulator-results/rei/brevey6-nanyin0-rei0-nomatrix.json';
-import rei1Snapshot from '../src/simulator-results/rei/brevey6-nanyin0-rei1-nomatrix.json';
-import rei3Snapshot from '../src/simulator-results/rei/brevey6-nanyin0-rei3-nomatrix.json';
-import rei5Snapshot from '../src/simulator-results/rei/brevey6-nanyin0-rei5-nomatrix.json';
-import rei6Snapshot from '../src/simulator-results/rei/brevey6-nanyin0-rei6-nomatrix.json';
 
 export const getStaticProps = (() => {
   const snapshots: Record<WeaponBreakpointStars, CombatSimulatorSnapshot> = {
