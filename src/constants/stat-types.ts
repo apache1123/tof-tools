@@ -157,8 +157,8 @@ export const statTypesLookup: Data<StatName, StatType> = {
       randomStatDefaultValue: 0.0105,
       randomStatMinRollValue: 0.0119,
       randomStatMaxRollValue: 0.0119,
-      maxAugmentIncreaseMultiplier: 0,
-      maxAugmentIncreaseFlat: 0,
+      maxAugmentIncreaseMultiplier: 0.05,
+      maxAugmentIncreaseFlat: 0.014,
     },
     ['Flame Attack']: {
       id: 'Flame Attack',
