@@ -2,7 +2,7 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 
-import type { WeaponName } from '../../constants/weapon-definitions';
+import type { WeaponName } from '../../constants/weapons/weapon-definitions';
 
 export interface WeaponIconProps {
   weaponName: WeaponName | undefined;

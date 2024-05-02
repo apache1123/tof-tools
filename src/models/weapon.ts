@@ -1,4 +1,4 @@
-import type { WeaponName } from '../constants/weapon-definitions';
+import type { WeaponName } from '../constants/weapons/weapon-definitions';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 import type { AttackDefinition } from './v4/attack/attack-definition';

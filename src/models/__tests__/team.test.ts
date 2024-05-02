@@ -1,6 +1,6 @@
 import type { ElementalResonance } from '../../constants/elemental-resonance';
-import { weaponDefinitions } from '../../constants/weapon-definitions';
-import type { WeaponResonance } from '../../constants/weapon-resonance';
+import { weaponDefinitions } from '../../constants/weapons/weapon-definitions';
+import type { WeaponResonance } from '../../constants/weapons/weapon-resonance';
 import { Team } from '../team';
 import { Weapon } from '../weapon';
 

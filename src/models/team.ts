@@ -2,8 +2,8 @@ import groupBy from 'lodash.groupby';
 
 import type { ElementalResonance } from '../constants/elemental-resonance';
 import type { WeaponElementalType } from '../constants/elemental-type';
-import type { WeaponName } from '../constants/weapon-definitions';
-import type { WeaponResonance } from '../constants/weapon-resonance';
+import type { WeaponName } from '../constants/weapons/weapon-definitions';
+import type { WeaponResonance } from '../constants/weapons/weapon-resonance';
 import { filterOutUndefined } from '../utils/array-utils';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';

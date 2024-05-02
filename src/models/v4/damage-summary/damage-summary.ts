@@ -1,4 +1,4 @@
-import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
 import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import { Damage } from './damage';

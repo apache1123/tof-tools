@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { weaponDefinitions } from '../../constants/weapon-definitions';
+import { weaponDefinitions } from '../../constants/weapons/weapon-definitions';
 import { WeaponDefinitionSelector } from './WeaponDefinitionSelector';
 
 const meta: Meta<typeof WeaponDefinitionSelector> = {

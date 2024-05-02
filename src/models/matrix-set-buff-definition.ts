@@ -1,6 +1,6 @@
 import type { WeaponElementalType } from '../constants/elemental-type';
-import type { WeaponName } from '../constants/weapon-definitions';
-import type { WeaponResonance } from '../constants/weapon-resonance';
+import type { WeaponName } from '../constants/weapons/weapon-definitions';
+import type { WeaponResonance } from '../constants/weapons/weapon-resonance';
 
 export interface MatrixSetBuffDefinition {
   description: string;

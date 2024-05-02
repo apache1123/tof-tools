@@ -1,6 +1,6 @@
 import { Rating } from '@mui/material';
 
-import { maxNumOfWeaponStars } from '../../constants/weapon';
+import { maxNumOfWeaponStars } from '../../constants/weapons/weapon-stars';
 
 export interface WeaponStarsSelectorProps {
   stars: number;

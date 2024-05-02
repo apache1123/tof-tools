@@ -2,8 +2,8 @@ import { BarChart, cheerfulFiestaPalette } from '@mui/x-charts';
 import { useRouter } from 'next/router';
 
 import { routes } from '../../../routes/routes';
-import type { WeaponBreakpointStars } from '../../constants/weapon';
-import type { WeaponName } from '../../constants/weapon-definitions';
+import type { WeaponName } from '../../constants/weapons/weapon-definitions';
+import type { WeaponBreakpointStars } from '../../constants/weapons/weapon-stars';
 import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator/combat-simulator-snapshot';
 import type { WeaponDto } from '../../models/weapon';
 import { toShortNumberFormat } from '../../utils/locale-utils';

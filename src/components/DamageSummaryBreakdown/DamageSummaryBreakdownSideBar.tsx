@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
 
-import type { WeaponName } from '../../constants/weapon-definitions';
+import type { WeaponName } from '../../constants/weapons/weapon-definitions';
 import type { DamageSummaryDto } from '../../models/v4/damage-summary/dtos/damage-summary-dto';
 import { toPercentageString } from '../../utils/number-utils';
 

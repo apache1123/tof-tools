@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 import { simulacrumTraits } from '../src/constants/simulacrum-traits';
-import { weaponDefinitions } from '../src/constants/weapon-definitions';
+import { weaponDefinitions } from '../src/constants/weapons/weapon-definitions';
 import { CombatSimulatorResult } from '../src/features/combat-simulator/CombatSimulatorResult';
 import { GearSet } from '../src/models/gear-set';
 import { Loadout } from '../src/models/loadout';
