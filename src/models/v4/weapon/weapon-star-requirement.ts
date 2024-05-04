@@ -1,4 +1,3 @@
-export interface WeaponStarRequirement {
-  minStarRequirement: number;
-  maxStarRequirement: number;
-}
+import type { StarRequirement } from '../star-requirement';
+
+export type WeaponStarRequirement = StarRequirement;

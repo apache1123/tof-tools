@@ -156,6 +156,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Annabella 2pc': {
     id: 'Annabella 2pc',
@@ -176,6 +177,7 @@ export const matrixSetDefinitionsLookup: DataById<
       },
     ],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Asuka 2pc': {
     id: 'Asuka 2pc',
@@ -197,6 +199,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Brevey 2pc': {
     id: 'Brevey 2pc',
@@ -205,6 +208,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Claudia 2pc': {
     id: 'Claudia 2pc',
@@ -213,6 +217,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Cobalt-B 2pc': {
     id: 'Cobalt-B 2pc',
@@ -221,6 +226,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Cocoritter 2pc': {
     id: 'Cocoritter 2pc',
@@ -229,6 +235,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Crow 2pc': {
     id: 'Crow 2pc',
@@ -249,6 +256,7 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: false,
       },
     ],
+    buffs: [],
   },
   'Fei Se 2pc': {
     id: 'Fei Se 2pc',
@@ -277,6 +285,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Fenrir 2pc': {
     id: 'Fenrir 2pc',
@@ -297,6 +306,7 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: true,
       },
     ],
+    buffs: [],
   },
   'Fiona 2pc': {
     id: 'Fiona 2pc',
@@ -318,6 +328,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Frigg 2pc': {
     id: 'Frigg 2pc',
@@ -342,6 +353,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Gnonno 2pc': {
     id: 'Gnonno 2pc',
@@ -350,6 +362,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Haboela 2pc': {
     id: 'Haboela 2pc',
@@ -358,6 +371,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Huang (Mimi) 2pc': {
     id: 'Huang (Mimi) 2pc',
@@ -366,6 +380,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Huma 2pc': {
     id: 'Huma 2pc',
@@ -374,6 +389,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Icarus 2pc': {
     id: 'Icarus 2pc',
@@ -382,6 +398,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ji Yu 2pc': {
     id: 'Ji Yu 2pc',
@@ -403,6 +420,44 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [
+      {
+        id: 'jiyu-2pc-atk-buff',
+        displayName: 'Ji Yu 2pc - Flame atk buff',
+        description: 'Increase flame ATK by 20% / 22% / 24% / 26%',
+        triggeredBy: { combatStart: true },
+        endedBy: { combatEnd: true },
+        maxStacks: 1,
+        cooldown: 0,
+        requirements: {},
+        attackBuffsWithStarRequirement: [
+          {
+            value: 0.2,
+            elementalTypes: ['Flame'],
+            minStarRequirement: 0,
+            maxStarRequirement: 0,
+          },
+          {
+            value: 0.22,
+            elementalTypes: ['Flame'],
+            minStarRequirement: 1,
+            maxStarRequirement: 1,
+          },
+          {
+            value: 0.24,
+            elementalTypes: ['Flame'],
+            minStarRequirement: 2,
+            maxStarRequirement: 2,
+          },
+          {
+            value: 0.26,
+            elementalTypes: ['Flame'],
+            minStarRequirement: 3,
+            maxStarRequirement: 3,
+          },
+        ],
+      },
+    ],
   },
   'King 2pc': {
     id: 'King 2pc',
@@ -411,6 +466,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Lan 2pc': {
     id: 'Lan 2pc',
@@ -436,6 +492,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Lin 2pc': {
     id: 'Lin 2pc',
@@ -457,6 +514,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ling Han 2pc': {
     id: 'Ling Han 2pc',
@@ -465,6 +523,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Liu Huo 2pc': {
     id: 'Liu Huo 2pc',
@@ -473,6 +532,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Lyra 2pc': {
     id: 'Lyra 2pc',
@@ -494,6 +554,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Meryl 2pc': {
     id: 'Meryl 2pc',
@@ -502,6 +563,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ming Jing 2pc': {
     id: 'Ming Jing 2pc',
@@ -528,6 +590,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Nan Yin 2pc': {
     id: 'Nan Yin 2pc',
@@ -549,6 +612,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Nemesis 2pc': {
     id: 'Nemesis 2pc',
@@ -571,6 +635,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Plotti 2pc': {
     id: 'Plotti 2pc',
@@ -592,6 +657,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Rei 2pc': {
     id: 'Rei 2pc',
@@ -600,6 +666,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Rubilia 2pc': {
     id: 'Rubilia 2pc',
@@ -621,6 +688,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ruby 2pc': {
     id: 'Ruby 2pc',
@@ -642,6 +710,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Saki Fuwa 2pc': {
     id: 'Saki Fuwa 2pc',
@@ -650,6 +719,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Samir 2pc': {
     id: 'Samir 2pc',
@@ -658,6 +728,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Scylla 2pc': {
     id: 'Scylla 2pc',
@@ -678,6 +749,7 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: true,
       },
     ],
+    buffs: [],
   },
   'Shiro 2pc': {
     id: 'Shiro 2pc',
@@ -686,6 +758,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Tian Lang 2pc': {
     id: 'Tian Lang 2pc',
@@ -694,6 +767,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Tsubasa 2pc': {
     id: 'Tsubasa 2pc',
@@ -702,6 +776,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Umi 2pc': {
     id: 'Umi 2pc',
@@ -710,6 +785,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Yan Miao 2pc': {
     id: 'Yan Miao 2pc',
@@ -731,6 +807,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Yanuo 2pc': {
     id: 'Yanuo 2pc',
@@ -752,6 +829,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Yu Lan 2pc': {
     id: 'Yu Lan 2pc',
@@ -760,6 +838,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Zero 2pc': {
     id: 'Zero 2pc',
@@ -768,6 +847,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Alyss 4pc': {
     id: 'Alyss 4pc',
@@ -776,6 +856,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Annabella 4pc': {
     id: 'Annabella 4pc',
@@ -800,6 +881,7 @@ export const matrixSetDefinitionsLookup: DataById<
         ],
       },
     ],
+    buffs: [],
   },
   'Asuka 4pc': {
     id: 'Asuka 4pc',
@@ -808,6 +890,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Brevey 4pc': {
     id: 'Brevey 4pc',
@@ -844,6 +927,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Claudia 4pc': {
     id: 'Claudia 4pc',
@@ -852,6 +936,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Cobalt-B 4pc': {
     id: 'Cobalt-B 4pc',
@@ -860,6 +945,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Cocoritter 4pc': {
     id: 'Cocoritter 4pc',
@@ -882,6 +968,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Crow 4pc': {
     id: 'Crow 4pc',
@@ -890,6 +977,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Fei Se 4pc': {
     id: 'Fei Se 4pc',
@@ -898,6 +986,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Fenrir 4pc': {
     id: 'Fenrir 4pc',
@@ -906,6 +995,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Fiona 4pc': {
     id: 'Fiona 4pc',
@@ -914,6 +1004,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Frigg 4pc': {
     id: 'Frigg 4pc',
@@ -922,6 +1013,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Gnonno 4pc': {
     id: 'Gnonno 4pc',
@@ -930,6 +1022,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Haboela 4pc': {
     id: 'Haboela 4pc',
@@ -938,6 +1031,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Huang (Mimi) 4pc': {
     id: 'Huang (Mimi) 4pc',
@@ -959,6 +1053,7 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: false,
       },
     ],
+    buffs: [],
   },
   'Huma 4pc': {
     id: 'Huma 4pc',
@@ -967,6 +1062,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Icarus 4pc': {
     id: 'Icarus 4pc',
@@ -975,6 +1071,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ji Yu 4pc': {
     id: 'Ji Yu 4pc',
@@ -997,6 +1094,48 @@ export const matrixSetDefinitionsLookup: DataById<
         weaponRequirement: 'Ji Yu',
       },
     ],
+    buffs: [
+      {
+        id: 'jiyu-4pc-dmg-buff',
+        displayName: 'Ji Yu 4pc - DMG buff',
+        description: 'Increase final damage by 22% / 24% / 26% / 28%',
+        triggeredBy: { combatStart: true },
+        endedBy: { combatEnd: true },
+        maxStacks: 1,
+        cooldown: 0,
+        requirements: {},
+        damageBuffsWithStarRequirement: [
+          {
+            value: 0.22,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: '[TEMP_UNKNOWN]',
+            minStarRequirement: 0,
+            maxStarRequirement: 0,
+          },
+          {
+            value: 0.24,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: '[TEMP_UNKNOWN]',
+            minStarRequirement: 1,
+            maxStarRequirement: 1,
+          },
+          {
+            value: 0.26,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: '[TEMP_UNKNOWN]',
+            minStarRequirement: 2,
+            maxStarRequirement: 2,
+          },
+          {
+            value: 0.28,
+            elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+            damageCategory: '[TEMP_UNKNOWN]',
+            minStarRequirement: 3,
+            maxStarRequirement: 3,
+          },
+        ],
+      },
+    ],
   },
   'King 4pc': {
     id: 'King 4pc',
@@ -1005,6 +1144,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Lan 4pc': {
     id: 'Lan 4pc',
@@ -1013,6 +1153,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Lin 4pc': {
     id: 'Lin 4pc',
@@ -1021,6 +1162,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ling Han 4pc': {
     id: 'Ling Han 4pc',
@@ -1044,6 +1186,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Liu Huo 4pc': {
     id: 'Liu Huo 4pc',
@@ -1052,6 +1195,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Lyra 4pc': {
     id: 'Lyra 4pc',
@@ -1060,6 +1204,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Meryl 4pc': {
     id: 'Meryl 4pc',
@@ -1068,6 +1213,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ming Jing 4pc': {
     id: 'Ming Jing 4pc',
@@ -1090,6 +1236,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Nan Yin 4pc': {
     id: 'Nan Yin 4pc',
@@ -1112,6 +1259,7 @@ export const matrixSetDefinitionsLookup: DataById<
         weaponRequirement: 'Nan Yin',
       },
     ],
+    buffs: [],
   },
   'Nemesis 4pc': {
     id: 'Nemesis 4pc',
@@ -1120,6 +1268,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Plotti 4pc': {
     id: 'Plotti 4pc',
@@ -1128,6 +1277,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Rei 4pc': {
     id: 'Rei 4pc',
@@ -1151,6 +1301,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Rubilia 4pc': {
     id: 'Rubilia 4pc',
@@ -1159,6 +1310,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Ruby 4pc': {
     id: 'Ruby 4pc',
@@ -1167,6 +1319,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Saki Fuwa 4pc': {
     id: 'Saki Fuwa 4pc',
@@ -1175,6 +1328,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Samir 4pc': {
     id: 'Samir 4pc',
@@ -1183,6 +1337,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Scylla 4pc': {
     id: 'Scylla 4pc',
@@ -1191,6 +1346,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Shiro 4pc': {
     id: 'Shiro 4pc',
@@ -1199,6 +1355,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Tian Lang 4pc': {
     id: 'Tian Lang 4pc',
@@ -1207,6 +1364,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Tsubasa 4pc': {
     id: 'Tsubasa 4pc',
@@ -1229,6 +1387,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Umi 4pc': {
     id: 'Umi 4pc',
@@ -1237,6 +1396,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Yan Miao 4pc': {
     id: 'Yan Miao 4pc',
@@ -1245,6 +1405,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Yanuo 4pc': {
     id: 'Yanuo 4pc',
@@ -1253,6 +1414,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Yu Lan 4pc': {
     id: 'Yu Lan 4pc',
@@ -1261,6 +1423,7 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
   'Zero 4pc': {
     id: 'Zero 4pc',
@@ -1269,5 +1432,6 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
   },
 };

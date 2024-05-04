@@ -5,6 +5,8 @@ import {
   type MatrixSetDefinition,
 } from './matrix-set-definition';
 import type { Persistable } from './persistable';
+import type { BuffDefinition } from './v4/buff/buff-definition';
+import { hasMetStarRequirement } from './v4/star-requirement';
 
 export class MatrixSet implements Persistable<MatrixSetDto> {
   public definition: MatrixSetDefinition;
@@ -13,6 +15,27 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
   public constructor(definition: MatrixSetDefinition) {
     this.definition = definition;
     this.stars = 0;
+  }
+
+  /** Buffs that can be activated for this matrix set, after filtering out buffs that do not meet the star requirement */
+  public get buffs(): BuffDefinition[] {
+    return this.definition.buffs.map<BuffDefinition>((buffDefinition) => ({
+      ...buffDefinition,
+      attackBuffs: [
+        ...(buffDefinition?.attackBuffs ?? []),
+        ...(buffDefinition.attackBuffsWithStarRequirement?.filter(
+          (attackBuffWithStarRequirement) =>
+            hasMetStarRequirement(attackBuffWithStarRequirement, this.stars)
+        ) ?? []),
+      ],
+      damageBuffs: [
+        ...(buffDefinition?.damageBuffs ?? []),
+        ...(buffDefinition.damageBuffsWithStarRequirement?.filter(
+          (damageBuffWithStarRequirement) =>
+            hasMetStarRequirement(damageBuffWithStarRequirement, this.stars)
+        ) ?? []),
+      ],
+    }));
   }
 
   public copyFromDto(dto: MatrixSetDto): void {

@@ -7,6 +7,7 @@ import type {
   MatrixSetCritDamageBuffDefinition,
   MatrixSetCritRateBuffDefinition,
 } from './matrix-set-buff-definition';
+import type { MatrixBuffDefinition } from './v4/matrix/matrix-buff-definition';
 
 export type MatrixSetPieces = 2 | 4;
 
@@ -21,6 +22,9 @@ export interface MatrixSetDefinition {
   attackPercentBuffs: MatrixSetAttackPercentBuffDefinition[];
   critRateBuffs: MatrixSetCritRateBuffDefinition[];
   critDamageBuffs: MatrixSetCritDamageBuffDefinition[];
+
+  // v4 below
+  buffs: MatrixBuffDefinition[];
 }
 
 export function getMatrixSetDefinition(

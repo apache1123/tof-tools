@@ -2,11 +2,13 @@ import { Container, TextareaAutosize } from '@mui/material';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
+import { matrixSetDefinitionsLookup } from '../src/constants/matrix-set-definitions';
 import { simulacrumTraits } from '../src/constants/simulacrum-traits';
 import { weaponDefinitions } from '../src/constants/weapons/weapon-definitions';
 import { CombatSimulatorResult } from '../src/features/combat-simulator/CombatSimulatorResult';
 import { GearSet } from '../src/models/gear-set';
 import { Loadout } from '../src/models/loadout';
+import { MatrixSet } from '../src/models/matrix-set';
 import { Team } from '../src/models/team';
 import { CombatSimulator } from '../src/models/v4/combat-simulator/combat-simulator';
 import type { CombatSimulatorSnapshot } from '../src/models/v4/combat-simulator/combat-simulator-snapshot';
@@ -30,6 +32,10 @@ export default function DamageCalculatorTestPage() {
     team.weapon1 = weapon1;
     team.weapon2 = weapon2;
     team.weapon3 = weapon3;
+
+    const jiyu4pc = new MatrixSet(matrixSetDefinitionsLookup['Ji Yu 4pc']);
+    jiyu4pc.stars = 1;
+    weapon1.matrixSets.matrixSet4pc = jiyu4pc;
 
     const loadout = new Loadout('loadout', 'Volt', team, new GearSet(), {
       characterLevel: 100,

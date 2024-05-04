@@ -2,6 +2,7 @@ import type { WeaponName } from '../constants/weapons/weapon-definitions';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 import type { AttackDefinition } from './v4/attack/attack-definition';
+import { hasMetStarRequirement } from './v4/star-requirement';
 import type { PlayerInputAttackDefinition } from './v4/weapon/weapon-attack-definition';
 import type { WeaponStarRequirement } from './v4/weapon/weapon-star-requirement';
 import {
@@ -87,10 +88,7 @@ export class Weapon implements Persistable<WeaponDto> {
   }
 
   private hasMetStarRequirement(requirement: WeaponStarRequirement) {
-    return (
-      this.stars >= requirement.minStarRequirement &&
-      this.stars <= requirement.maxStarRequirement
-    );
+    return hasMetStarRequirement(requirement, this.stars);
   }
 }
 
