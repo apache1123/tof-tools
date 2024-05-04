@@ -277,10 +277,14 @@ export class Gear implements Persistable<GearDto> {
       );
 
       // Seems only ele atk & ele atk % values get 'pulled up'
+      // For random stats when augmenting, when there are multiple stats of the same stat type but of different elemental types, the stat with the highest value is used as a base, and the rest are "pulled-up" to be a factor of that value. The second highest value is pulled up to be 95% of the highest value, the third highest value is pulled up to be 90%, and the fourth highest value is pulled up to be 85% (unconfirmed, this is too rare).
+      // TODO: the logic here kind of breaks down for atk% and dmg%. Because each roll is a fixed increase value, there may be two stats that are both the second highest value, but the below is not checking for equal values and just assumes every value when sorted descending will be lower than the previous.
+
       Object.keys(randomStatsAndTypesByRole).forEach((role) => {
         if (
           (role as StatRole) === 'Attack' ||
-          (role as StatRole) === 'Attack %'
+          (role as StatRole) === 'Attack %' ||
+          (role as StatRole) === 'Damage %'
         ) {
           let highestValueWithAugment: number | undefined = undefined;
 
@@ -326,6 +330,7 @@ export class Gear implements Persistable<GearDto> {
         }
       });
 
+      // Similar "pull-up" happens with augment stats, but each augment stat will always be 95%.
       const valueWithAugmentOfHighestStat = maxTitanGear.randomStats.find(
         (randomStat) => randomStat?.type.id === highestStatName
       )?.totalValue;
@@ -333,7 +338,9 @@ export class Gear implements Persistable<GearDto> {
         const statType = augmentStat.type;
         if (
           valueWithAugmentOfHighestStat &&
-          (statType.role === 'Attack' || statType.role === 'Attack %') &&
+          (statType.role === 'Attack' ||
+            statType.role === 'Attack %' ||
+            statType.role === 'Damage %') &&
           // Filter out 'Attack'
           statType.elementalType !== 'All'
         ) {
