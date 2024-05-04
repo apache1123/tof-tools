@@ -552,6 +552,48 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
       ],
     },
+    'Ji Yu': {
+      id: 'Ji Yu',
+      displayName: 'Ji Yu',
+      buffs: [
+        {
+          id: 'jiyu-trait',
+          displayName: 'Ji Yu trait',
+          description: 'Increase final damage by 18%.',
+          maxStacks: 1,
+          triggeredBy: { combatStart: true },
+          endedBy: { combatEnd: true },
+          cooldown: 0,
+          requirements: {},
+          damageBuffs: [
+            {
+              value: 0.18,
+              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
+        },
+        {
+          id: 'jiyu-trait-flame',
+          displayName: 'Ji Yu trait - flame',
+          description:
+            'When Freeflow is equipped, if there is only 1 target in the zone, increase flame damage by 10%. If there are 2 or more targets, increase flame damage to 14%.',
+          maxStacks: 1,
+          triggeredBy: { combatStart: true },
+          endedBy: { combatEnd: true },
+          cooldown: 0,
+          requirements: { anyWeaponInTeam: ['Ji Yu'] },
+          damageBuffs: [
+            {
+              value: 0.1,
+              elementalTypes: ['Flame'],
+              damageCategory: '[TEMP_TRAIT]',
+            },
+          ],
+          remarks: 'Assume active at all times for simplicity',
+        },
+      ],
+    },
     King: {
       id: 'King',
       displayName: 'King',
