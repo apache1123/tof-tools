@@ -206,4 +206,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 2, 29)),
     title: 'Add Rei',
   },
+  {
+    semver: '3.14.0',
+    date: new Date(Date.UTC(2024, 4, 4)),
+    title: 'Add Ji Yu',
+  },
 ];

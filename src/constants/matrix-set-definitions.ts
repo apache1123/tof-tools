@@ -26,6 +26,7 @@ export type MatrixSetBaseName =
   | 'Huang (Mimi)'
   | 'Huma'
   | 'Icarus'
+  | 'Ji Yu'
   | 'King'
   | 'Lan'
   | 'Lin'
@@ -70,6 +71,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Huang (Mimi) 2pc',
   'Huma 2pc',
   'Icarus 2pc',
+  'Ji Yu 2pc',
   'King 2pc',
   'Lan 2pc',
   'Lin 2pc',
@@ -115,6 +117,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Huang (Mimi) 4pc',
   'Huma 4pc',
   'Icarus 4pc',
+  'Ji Yu 4pc',
   'King 4pc',
   'Lan 4pc',
   'Lin 4pc',
@@ -377,6 +380,27 @@ export const matrixSetDefinitionsLookup: DataById<
     displayName: 'Icarus 2pc',
     pieces: 2,
     attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+  },
+  'Ji Yu 2pc': {
+    id: 'Ji Yu 2pc',
+    displayName: 'Ji Yu 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description: 'Increase flame ATK, works off-hand',
+        starValues: [
+          { star: 0, value: 0.2 },
+          { star: 1, value: 0.22 },
+          { star: 2, value: 0.24 },
+          { star: 3, value: 0.26 },
+        ],
+        elementalTypes: ['Flame'],
+        canStack: false,
+        isActivePassively: true,
+      },
+    ],
     critRateBuffs: [],
     critDamageBuffs: [],
   },
@@ -951,6 +975,28 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+  },
+  'Ji Yu 4pc': {
+    id: 'Ji Yu 4pc',
+    displayName: 'Ji Yu 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [
+      {
+        description:
+          'When Freeflow is equipped, increase crit damage by 10%, works off-hand',
+        starValues: [
+          { star: 0, value: 0.1 },
+          { star: 1, value: 0.1 },
+          { star: 2, value: 0.1 },
+          { star: 3, value: 0.1 },
+        ],
+        canStack: false,
+        isActivePassively: true,
+        weaponRequirement: 'Ji Yu',
+      },
+    ],
   },
   'King 4pc': {
     id: 'King 4pc',

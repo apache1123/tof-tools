@@ -15,6 +15,7 @@ import { frigg } from './definitions/frigg';
 import { gnonno } from './definitions/gnonno';
 import { huma } from './definitions/huma';
 import { icarus } from './definitions/icarus';
+import { jiYu } from './definitions/ji-yu';
 import { king } from './definitions/king';
 import { lan } from './definitions/lan';
 import { lin } from './definitions/lin';
@@ -58,6 +59,7 @@ export type WeaponName =
   | 'Huang (Mimi)'
   | 'Huma'
   | 'Icarus'
+  | 'Ji Yu'
   | 'King'
   | 'Lan'
   | 'Lin'
@@ -101,6 +103,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Huang (Mimi)',
     'Huma',
     'Icarus',
+    'Ji Yu',
     'King',
     'Lan',
     'Lin',
@@ -143,6 +146,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Huang (Mimi)': mimi,
     Huma: huma,
     Icarus: icarus,
+    "Ji Yu": jiYu,
     King: king,
     Lan: lan,
     Lin: lin,
