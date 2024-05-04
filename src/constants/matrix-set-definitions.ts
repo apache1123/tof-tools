@@ -1097,7 +1097,7 @@ export const matrixSetDefinitionsLookup: DataById<
     buffs: [
       {
         id: 'jiyu-4pc-dmg-buff',
-        displayName: 'Ji Yu 4pc - DMG buff',
+        displayName: 'Ji Yu 4pc - buff',
         description: 'Increase final damage by 22% / 24% / 26% / 28%',
         triggeredBy: { combatStart: true },
         endedBy: { combatEnd: true },
@@ -1131,6 +1131,13 @@ export const matrixSetDefinitionsLookup: DataById<
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
             damageCategory: '[TEMP_UNKNOWN]',
             minStarRequirement: 3,
+            maxStarRequirement: 3,
+          },
+        ],
+        critDamageBuffsWithStarRequirement: [
+          {
+            value: 0.1,
+            minStarRequirement: 0,
             maxStarRequirement: 3,
           },
         ],

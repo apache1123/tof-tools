@@ -22,17 +22,24 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
     return this.definition.buffs.map<BuffDefinition>((buffDefinition) => ({
       ...buffDefinition,
       attackBuffs: [
-        ...(buffDefinition?.attackBuffs ?? []),
+        ...(buffDefinition.attackBuffs ?? []),
         ...(buffDefinition.attackBuffsWithStarRequirement?.filter(
           (attackBuffWithStarRequirement) =>
             hasMetStarRequirement(attackBuffWithStarRequirement, this.stars)
         ) ?? []),
       ],
       damageBuffs: [
-        ...(buffDefinition?.damageBuffs ?? []),
+        ...(buffDefinition.damageBuffs ?? []),
         ...(buffDefinition.damageBuffsWithStarRequirement?.filter(
           (damageBuffWithStarRequirement) =>
             hasMetStarRequirement(damageBuffWithStarRequirement, this.stars)
+        ) ?? []),
+      ],
+      critDamageBuffs: [
+        ...(buffDefinition.critDamageBuffs ?? []),
+        ...(buffDefinition.critDamageBuffsWithStarRequirement?.filter(
+          (critDamageBuffWithStarRequirement) =>
+            hasMetStarRequirement(critDamageBuffWithStarRequirement, this.stars)
         ) ?? []),
       ],
     }));

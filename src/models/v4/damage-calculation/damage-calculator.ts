@@ -198,7 +198,16 @@ export class DamageCalculator {
   }
 
   public getTotalCritDamagePercent(): number {
-    return this.loadout.critDamageUnbuffed;
+    const critDamageBuffValues = this.buffEvents.flatMap((buffEvent) =>
+      buffEvent.critDamageBuffs.map((critDamageBuff) =>
+        product(critDamageBuff.value, buffEvent.stacks).toNumber()
+      )
+    );
+
+    return sum(
+      this.loadout.critDamageUnbuffed,
+      ...critDamageBuffValues
+    ).toNumber();
   }
 
   public getGearAttackPercent(): number {

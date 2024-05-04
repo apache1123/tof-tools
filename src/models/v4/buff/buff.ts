@@ -9,6 +9,7 @@ import type { BuffTimeline } from '../buff-timeline/buff-timeline';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { AttackBuff } from './attack-buff';
 import type { BuffDefinition, BuffId } from './buff-definition';
+import type { CritDamageBuff } from './crit-damage-buff';
 import type { DamageBuff } from './damage-buff';
 import type { BuffDto } from './dtos/buff-dto';
 import type { MiscellaneousBuff } from './miscellaneous-buff';
@@ -21,6 +22,7 @@ export class Buff implements Serializable<BuffDto> {
 
   public readonly attackBuffs: AttackBuff[];
   public readonly damageBuffs: DamageBuff[];
+  public readonly critDamageBuffs: CritDamageBuff[];
   public readonly miscBuff?: MiscellaneousBuff;
 
   public readonly triggeredBy: AbilityTriggeredBy;
@@ -44,6 +46,7 @@ export class Buff implements Serializable<BuffDto> {
       cooldown,
       attackBuffs,
       damageBuffs,
+      critDamageBuffs,
       miscBuff,
       triggeredBy,
       endedBy,
@@ -56,6 +59,7 @@ export class Buff implements Serializable<BuffDto> {
     this.cooldown = cooldown;
     this.attackBuffs = attackBuffs ?? [];
     this.damageBuffs = damageBuffs ?? [];
+    this.critDamageBuffs = critDamageBuffs ?? [];
     this.miscBuff = miscBuff;
     this.triggeredBy = triggeredBy;
     this.endedBy = endedBy;
