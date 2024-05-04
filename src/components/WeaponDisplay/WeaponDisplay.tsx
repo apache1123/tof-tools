@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 
-import type { WeaponName } from '../../constants/weapon-definitions';
+import type { WeaponName } from '../../constants/weapons/weapon-definitions';
 import { WeaponIcon } from '../WeaponIcon/WeaponIcon';
 import { WeaponStarsSelector } from '../WeaponStarsSelector/WeaponStarsSelector';
 

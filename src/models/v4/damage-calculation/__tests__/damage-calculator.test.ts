@@ -1,4 +1,4 @@
-import { weaponDefinitions } from '../../../../constants/weapon-definitions';
+import { weaponDefinitions } from '../../../../constants/weapons/weapon-definitions';
 import type { ElementalAttack } from '../../../elemental-attack';
 import type { Loadout } from '../../../loadout';
 import type { LoadoutStats } from '../../../loadout-stats';

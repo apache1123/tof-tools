@@ -1,6 +1,7 @@
 import type { WeaponElementalType } from '../constants/elemental-type';
-import type { WeaponName, WeaponType } from '../constants/weapon-definitions';
-import { weaponDefinitions } from '../constants/weapon-definitions';
+import type { WeaponName } from '../constants/weapons/weapon-definitions';
+import { weaponDefinitions } from '../constants/weapons/weapon-definitions';
+import type { WeaponType } from '../constants/weapons/weapon-type';
 import type { ResourceDefinition } from './v4/resource/resource-definition';
 import type {
   DischargeAttackDefinition,

@@ -1,8 +1,6 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type {
-  WeaponName,
-  WeaponType,
-} from '../../../constants/weapon-definitions';
+import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
+import type { WeaponType } from '../../../constants/weapons/weapon-type';
 import type { AttackId } from '../attack/attack-definition';
 import type { BuffId } from '../buff/buff-definition';
 import type { ResourceId } from '../resource/resource-definition';

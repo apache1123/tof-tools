@@ -1,6 +1,6 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type { WeaponName } from '../../../constants/weapon-definitions';
-import type { WeaponResonance } from '../../../constants/weapon-resonance';
+import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
+import type { WeaponResonance } from '../../../constants/weapons/weapon-resonance';
 import type { ResourceId } from '../resource/resource-definition';
 
 /** Requirements are treated as a "AND" check i.e. the ability can be triggered when all defined requirements pass check */

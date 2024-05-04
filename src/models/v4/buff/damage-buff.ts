@@ -1,7 +1,7 @@
 import type { AttackType } from '../../../constants/attack-type';
 import type { DamageCategory } from '../../../constants/damage-category';
 import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
 import type { AttackId } from '../attack/attack-definition';
 
 export interface DamageBuff {

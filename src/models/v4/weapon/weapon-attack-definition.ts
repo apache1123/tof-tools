@@ -3,7 +3,7 @@ import type {
   dodgeResourceId,
   fullCharge,
 } from '../../../constants/resources';
-import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
 import type { AttackDefinition } from '../attack/attack-definition';
 import type { WeaponStarRequirement } from './weapon-star-requirement';
 

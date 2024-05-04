@@ -1,4 +1,4 @@
-import type { WeaponName } from '../../../constants/weapon-definitions';
+import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
 import type { BuffId } from '../buff/buff-definition';
 import type { ResourceId } from '../resource/resource-definition';
 
