@@ -17,6 +17,18 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
     this.stars = 0;
   }
 
+  public get definitionId() {
+    return this.definition.id;
+  }
+
+  public get displayName() {
+    return this.definition.displayName;
+  }
+
+  public get pieces() {
+    return this.definition.pieces;
+  }
+
   /** Buffs that can be activated for this matrix set, after filtering out buffs that do not meet the star requirement */
   public get buffs(): BuffDefinition[] {
     return this.definition.buffs.map<BuffDefinition>((buffDefinition) => ({
@@ -53,10 +65,10 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
   }
 
   public toDto(): MatrixSetDto {
-    const { definition, stars } = this;
+    const { definitionId, stars } = this;
 
     return {
-      definitionId: definition.id,
+      definitionId,
       stars,
       version: 1,
     };

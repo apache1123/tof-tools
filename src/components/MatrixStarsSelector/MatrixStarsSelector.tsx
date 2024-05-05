@@ -6,12 +6,14 @@ export interface MatrixStarsSelectorProps {
   stars: number;
   onStarsChange?(value: number): void;
   disabled?: boolean;
+  size?: 'small' | 'medium';
 }
 
 export function MatrixStarsSelector({
   stars,
   onStarsChange,
   disabled,
+  size,
 }: MatrixStarsSelectorProps) {
   return (
     <Rating
@@ -21,6 +23,7 @@ export function MatrixStarsSelector({
       }}
       max={maxNumOfMatrixStars}
       disabled={disabled}
+      size={size}
     />
   );
 }
