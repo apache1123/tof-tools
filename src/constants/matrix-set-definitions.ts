@@ -4,54 +4,12 @@ import type {
   MatrixSet4pcName,
   MatrixSetDefinition,
 } from '../models/matrix-set-definition';
+import type { WeaponName } from './weapons/weapon-definitions';
 
 export const matrixSet2pcLabel = '2pc';
 export const matrixSet4pcLabel = '4pc';
 
-export type MatrixSetBaseName =
-  | 'Alyss'
-  | 'Annabella'
-  | 'Asuka'
-  | 'Brevey'
-  | 'Claudia'
-  | 'Cobalt-B'
-  | 'Cocoritter'
-  | 'Crow'
-  | 'Fei Se'
-  | 'Fenrir'
-  | 'Fiona'
-  | 'Frigg'
-  | 'Gnonno'
-  | 'Haboela'
-  | 'Huang (Mimi)'
-  | 'Huma'
-  | 'Icarus'
-  | 'Ji Yu'
-  | 'King'
-  | 'Lan'
-  | 'Lin'
-  | 'Ling Han'
-  | 'Liu Huo'
-  | 'Lyra'
-  | 'Meryl'
-  | 'Ming Jing'
-  | 'Nan Yin'
-  | 'Nemesis'
-  | 'Plotti'
-  | 'Rei'
-  | 'Rubilia'
-  | 'Ruby'
-  | 'Saki Fuwa'
-  | 'Samir'
-  | 'Scylla'
-  | 'Shiro'
-  | 'Tian Lang'
-  | 'Tsubasa'
-  | 'Umi'
-  | 'Yan Miao'
-  | 'Yanuo'
-  | 'Yu Lan'
-  | 'Zero';
+export type MatrixSetBaseName = WeaponName | 'Haboela' | 'Scylla';
 
 export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Alyss 2pc',
