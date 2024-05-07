@@ -1,6 +1,6 @@
 import type { AttackBuff } from '../buff/attack-buff';
 import type { BuffDefinition } from '../buff/buff-definition';
-import { CritDamageBuff } from '../buff/crit-damage-buff';
+import type { CritDamageBuff } from '../buff/crit-damage-buff';
 import type { DamageBuff } from '../buff/damage-buff';
 import type { StarRequirement } from '../star-requirement';
 

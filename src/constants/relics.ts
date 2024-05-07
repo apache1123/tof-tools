@@ -115,7 +115,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Frost'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -146,7 +146,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Flame'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -170,7 +170,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.09,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 1',
+            damageCategory: 'Relic - Final damage',
           },
         ],
         maxStacks: 1,
@@ -196,7 +196,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.12,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 1',
+            damageCategory: 'Relic - Final damage',
           },
         ],
         maxStacks: 1,
@@ -237,7 +237,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Physical'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -271,7 +271,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.2,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 2',
+            damageCategory: 'Common - Final damage',
           },
         ],
         maxStacks: 1,
@@ -301,7 +301,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Frost'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -333,7 +333,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.15,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 2',
+            damageCategory: 'Common - Final damage',
           },
         ],
         maxStacks: 1,
@@ -363,7 +363,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Volt'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -396,7 +396,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Flame'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -427,7 +427,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Frost'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -474,7 +474,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Flame'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -516,7 +516,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Volt'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -588,7 +588,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Volt'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -619,7 +619,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Physical'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -651,7 +651,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Flame'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -683,7 +683,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.25,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 2',
+            damageCategory: 'Common - Final damage',
           },
         ],
         maxStacks: 1,
@@ -714,7 +714,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Physical'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -745,7 +745,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Volt'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -776,7 +776,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.2,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'Enemy debuff',
+            damageCategory: 'Common - Final damage taken',
           },
         ],
         maxStacks: 1,
@@ -832,7 +832,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.015,
             elementalTypes: ['Volt'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -865,7 +865,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Volt'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -889,7 +889,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.04,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'Enemy debuff',
+            damageCategory: 'Common - Final damage taken',
           },
         ],
         maxStacks: 1,
@@ -912,7 +912,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.04,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'Enemy debuff',
+            damageCategory: 'Common - Final damage taken',
           },
         ],
         maxStacks: 1,
@@ -937,7 +937,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.095,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'Enemy debuff',
+            damageCategory: 'Common - Final damage taken',
           },
         ],
         maxStacks: 1,
@@ -970,7 +970,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Frost'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -994,7 +994,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.06,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 1',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -1019,7 +1019,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.12,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 1',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -1050,7 +1050,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Flame'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,
@@ -1074,7 +1074,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.2,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 2',
+            damageCategory: 'Common - Final damage',
           },
         ],
         maxStacks: 1,
@@ -1095,7 +1095,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.2,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 2',
+            damageCategory: 'Common - Final damage',
           },
         ],
         maxStacks: 1,
@@ -1116,7 +1116,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.25,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 2',
+            damageCategory: 'Common - Final damage',
           },
         ],
         maxStacks: 1,
@@ -1138,7 +1138,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.275,
             elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-            damageCategory: 'DMG buff category 2',
+            damageCategory: 'Common - Final damage',
           },
         ],
         maxStacks: 1,
@@ -1167,7 +1167,7 @@ export const relicsLookup: Readonly<DataById<RelicName, Relic>> = {
           {
             value: 0.02,
             elementalTypes: ['Flame'],
-            damageCategory: 'Relic passive',
+            damageCategory: 'Relic - Elemental damage',
           },
         ],
         maxStacks: 1,

@@ -65,7 +65,7 @@ export const commonBuffs: BuffDefinition[] = [
     damageBuffs: [
       {
         value: 0.1,
-        damageCategory: 'Weapon resonance',
+        damageCategory: 'Resonance - Final damage',
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
       },
     ],
@@ -87,7 +87,7 @@ export const commonBuffs: BuffDefinition[] = [
     damageBuffs: [
       {
         value: 0.05,
-        damageCategory: 'Weapon resonance',
+        damageCategory: 'Resonance - Final damage',
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
       },
     ],
@@ -108,7 +108,7 @@ export const commonBuffs: BuffDefinition[] = [
       {
         value: 0.1,
         elementalTypes: ['Frost', 'Volt'],
-        damageCategory: 'Enemy debuff', // TODO: unsure
+        damageCategory: 'Common - Elemental damage taken',
       },
     ],
     maxStacks: 1,

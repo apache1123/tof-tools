@@ -1,6 +1,6 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
-import { minEventDuration } from "../../tick";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
+import { minEventDuration } from '../../tick';
 
 export const rei = {
   id: 'Rei',
@@ -395,7 +395,7 @@ export const rei = {
         {
           value: 0.1,
           elementalTypes: ['Volt', 'Frost'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Common - Elemental damage taken',
         },
       ],
     },
@@ -453,12 +453,12 @@ export const rei = {
         {
           value: 0.16,
           elementalTypes: ['Volt'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Weapon - Elemental damage',
         },
         {
           value: 0.1,
           elementalTypes: ['Frost'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Weapon - Elemental damage',
         },
       ],
     },
@@ -486,7 +486,7 @@ export const rei = {
         {
           value: 0.3,
           elementalTypes: ['Volt'],
-          damageCategory: 'Weapon damage increase',
+          damageCategory: 'Flat multiplier',
           appliesTo: {
             weapon: 'Rei',
           },
