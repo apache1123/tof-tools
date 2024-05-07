@@ -221,7 +221,7 @@ export const brevey = {
         {
           value: 0.25,
           elementalTypes: ['Volt'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Weapon - Elemental damage',
         },
       ],
       maxStacks: 1,
@@ -246,7 +246,7 @@ export const brevey = {
         {
           value: 0.35,
           elementalTypes: ['Volt'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Weapon - Elemental damage',
         },
       ],
       maxStacks: 1,
@@ -271,7 +271,7 @@ export const brevey = {
         {
           value: 0.1,
           elementalTypes: ['Frost'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Weapon - Elemental damage',
         },
       ],
       maxStacks: 1,
@@ -296,7 +296,7 @@ export const brevey = {
         {
           value: 0.14,
           elementalTypes: ['Frost'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Weapon - Elemental damage',
         },
       ],
       maxStacks: 1,
@@ -327,7 +327,7 @@ export const brevey = {
         {
           value: 0.1,
           elementalTypes: ['Volt', 'Frost'],
-          damageCategory: '[TEMP_UNKNOWN]',
+          damageCategory: 'Weapon - Elemental damage',
         },
       ],
     },
@@ -346,7 +346,7 @@ export const brevey = {
         {
           value: 0.3,
           elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-          damageCategory: 'Weapon damage increase',
+          damageCategory: 'Flat multiplier',
           appliesTo: {
             attacks: ['brevey-metz-off-field-attack', 'metz-energy-wave'],
           },

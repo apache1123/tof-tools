@@ -20,6 +20,11 @@ export class BuffRegistryFactory {
 
     const buffs = [
       ...weapons.flatMap<BuffDefinition>((weapon) => weapon.buffs),
+      ...weapons.flatMap((weapon) =>
+        weapon.matrixSets
+          .getMatrixSets()
+          .flatMap((matrixSet) => matrixSet.buffs)
+      ),
       ...commonBuffs,
       ...(simulacrumTrait?.buffs ?? []),
       ...relics.passiveRelicBuffs,

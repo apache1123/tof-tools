@@ -61,7 +61,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -95,7 +95,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -122,7 +122,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -144,7 +144,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.06,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -212,7 +212,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.1,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -235,7 +235,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.12,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -263,7 +263,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.09,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -292,7 +292,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -321,7 +321,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.27,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -356,7 +356,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -380,7 +380,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.23,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -410,7 +410,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -473,7 +473,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -495,7 +495,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.06,
               elementalTypes: ['Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -535,7 +535,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.15,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -569,7 +569,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
         },
@@ -587,7 +587,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.1,
               elementalTypes: ['Flame'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           remarks: 'Assume active at all times for simplicity',
@@ -612,7 +612,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.08,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -648,7 +648,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -670,7 +670,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.025,
               elementalTypes: ['Frost'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -699,7 +699,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.05,
               elementalTypes: ['Frost'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -728,7 +728,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.075,
               elementalTypes: ['Frost'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -763,7 +763,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -800,7 +800,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -861,7 +861,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -883,7 +883,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.08,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -910,7 +910,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.16,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -948,7 +948,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -991,7 +991,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -1013,7 +1013,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.08,
               elementalTypes: ['Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -1043,7 +1043,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.08,
               elementalTypes: ['Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -1072,7 +1072,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.16,
               elementalTypes: ['Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -1101,7 +1101,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.24,
               elementalTypes: ['Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -1157,7 +1157,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.08,
               elementalTypes: ['Flame'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Common - Elemental damage taken',
             },
           ],
           maxStacks: 1,
@@ -1191,7 +1191,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.2,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -1253,7 +1253,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -1313,7 +1313,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -1340,7 +1340,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -1363,7 +1363,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.1,
               elementalTypes: ['Physical'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Elemental damage',
             },
           ],
           maxStacks: 1,
@@ -1460,7 +1460,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -1482,7 +1482,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.06,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
@@ -1512,7 +1512,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             {
               value: 0.18,
               elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-              damageCategory: '[TEMP_TRAIT]',
+              damageCategory: 'Simulacra - Final damage',
             },
           ],
           maxStacks: 1,
