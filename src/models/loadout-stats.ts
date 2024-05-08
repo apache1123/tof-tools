@@ -3,6 +3,7 @@ import type {
   CoreElementalType,
   WeaponElementalType,
 } from '../constants/elemental-type';
+import { sum } from '../utils/math-utils';
 import { keysOf } from '../utils/object-utils';
 import type { Dto } from './dto';
 import type { ElementalAttackDto } from './elemental-attack';
@@ -20,7 +21,8 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public physicalAttack: ElementalAttack;
   public voltAttack: ElementalAttack;
 
-  private elementalAttackLookup: Record<CoreElementalType, ElementalAttack>;
+  public readonly elementalAttacks: Record<CoreElementalType, ElementalAttack>;
+  private _elementalResistances: Record<WeaponElementalType, number>;
 
   private _critFlat = 0;
 
@@ -30,11 +32,6 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   private _critDamage = defaultCritDamagePercent;
 
   public hp = 0;
-  public flameResistance = 0;
-  public frostResistance = 0;
-  public physicalResistance = 0;
-  public voltResistance = 0;
-  public alteredResistance = 0;
 
   // TODO: This doesn't need a Loadout
   public constructor(loadout: Loadout) {
@@ -45,11 +42,19 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
     this.physicalAttack = newElementalAttack();
     this.voltAttack = newElementalAttack();
 
-    this.elementalAttackLookup = {
+    this.elementalAttacks = {
       Flame: this.flameAttack,
       Frost: this.frostAttack,
       Physical: this.physicalAttack,
       Volt: this.voltAttack,
+    };
+
+    this._elementalResistances = {
+      Altered: 0,
+      Flame: 0,
+      Frost: 0,
+      Physical: 0,
+      Volt: 0,
     };
 
     function newElementalAttack(): ElementalAttack {
@@ -64,10 +69,10 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   }
 
   public get elementWithHighestAttack() {
-    return keysOf(this.elementalAttackLookup)
+    return keysOf(this.elementalAttacks)
       .map((element) => ({
         element,
-        elementalAttack: this.elementalAttackLookup[element],
+        elementalAttack: this.elementalAttacks[element],
       }))
       .reduce((prev, curr) =>
         curr.elementalAttack.totalAttack >= prev.elementalAttack.totalAttack
@@ -78,10 +83,10 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
 
   public getElementalAttack(elementalType: WeaponElementalType) {
     if (elementalType !== 'Altered') {
-      return this.elementalAttackLookup[elementalType];
+      return this.elementalAttacks[elementalType];
     }
 
-    return this.elementalAttackLookup[this.elementWithHighestAttack];
+    return this.elementalAttacks[this.elementWithHighestAttack];
   }
 
   public get critFlat(): number {
@@ -89,6 +94,10 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   }
   public set critFlat(value: number) {
     this._critFlat = value > 0 ? value : 0;
+  }
+
+  public get elementalResistances(): Record<WeaponElementalType, number> {
+    return this._elementalResistances;
   }
 
   /** Currently unused */
@@ -111,13 +120,7 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   }
 
   public get sumOfAllResistances(): number {
-    return (
-      this.flameResistance +
-      this.frostResistance +
-      this.physicalResistance +
-      this.voltResistance +
-      this.alteredResistance
-    );
+    return sum(...Object.values(this.elementalResistances)).toNumber();
   }
 
   public copyFromDto(dto: LoadoutStatsDto): void {
@@ -129,6 +132,8 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
       critFlat,
       critPercent,
       critDamage,
+      hp,
+      elementalResistances,
     } = dto;
 
     this.flameAttack.copyFromDto(flameAttack);
@@ -138,6 +143,8 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
     this.critFlat = critFlat;
     this.critPercent = critPercent;
     this.critDamage = critDamage;
+    this.hp = hp;
+    this._elementalResistances = elementalResistances;
   }
 
   public toDto(): LoadoutStatsDto {
@@ -149,6 +156,8 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
       critFlat,
       critPercent,
       critDamage,
+      hp,
+      elementalResistances,
     } = this;
 
     return {
@@ -159,6 +168,8 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
       critFlat,
       critPercent,
       critDamage,
+      hp,
+      elementalResistances,
       version: 1,
     };
   }
@@ -172,5 +183,7 @@ export interface LoadoutStatsDto extends Dto {
   critFlat: number;
   critPercent: number;
   critDamage: number;
+  hp: number;
+  elementalResistances: Record<WeaponElementalType, number>;
   version: 1;
 }

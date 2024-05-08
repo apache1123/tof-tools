@@ -53,6 +53,12 @@ export class Relics implements Persistable<RelicsDto> {
     });
   }
 
+  public setAllRelicsToMaxStars() {
+    keysOf(this.relicStars).forEach((relicName) => {
+      this.setRelicStars(relicName, maxRelicStars);
+    });
+  }
+
   public copyFromDto(dto: RelicsDto): void {
     const { relicStars } = dto;
     // Need to assign each relic individually as the relics in the user's data may not match what is available, e.g. as more relics are added (or removed, unlikely)
