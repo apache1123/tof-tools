@@ -20,7 +20,7 @@ export class ResourceRegistryFactory {
     );
 
     const customResources = team.weapons.flatMap((weapon) =>
-      weapon.definition.resources.map(
+      weapon.resources.map(
         (resourceDefinition) =>
           new Resource(resourceDefinition, new ResourceTimeline(combatDuration))
       )

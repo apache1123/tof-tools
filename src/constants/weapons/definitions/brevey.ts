@@ -456,6 +456,7 @@ export const brevey = {
       regenerate: {
         amountPerSecond: 2,
       },
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6}
     },
     {
       id: 'damage-accumulated-factor-of-total-attack',
@@ -464,6 +465,7 @@ export const brevey = {
       regenerate: {
         amountFromAccumulatedDamageAsFactorOfTotalAttack: true,
       },
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6},
       remarks:
         'Used to track the amount of damage accumulated, one unit is 1 times the total ATK',
     },

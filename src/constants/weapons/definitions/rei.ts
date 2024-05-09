@@ -536,11 +536,13 @@ export const rei = {
       displayName: 'Rei - Special energy',
       maxAmount: 100,
       startingAmount: 100,
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6},
     },
     {
       id: 'rei-homing-arrows-on-enemy',
       displayName: 'Rei - Number of homing arrows on enemy',
       maxAmount: 3,
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6},
     },
   ],
 } satisfies WeaponDefinition;

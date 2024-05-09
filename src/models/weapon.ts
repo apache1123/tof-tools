@@ -65,6 +65,13 @@ export class Weapon implements Persistable<WeaponDto> {
     return this.definition.type;
   }
 
+  /** Resources that can be activated for this weapon */
+  public get resources() {
+    return this.definition.resources.filter((resourceDefinition) =>
+      this.hasMetStarRequirement(resourceDefinition.starRequirement)
+    );
+  }
+
   public copyFromDto(dto: WeaponDto): void {
     const { definitionId, stars, matrixSets: matrixSetsDto } = dto;
 
