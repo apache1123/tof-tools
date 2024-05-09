@@ -141,9 +141,6 @@ export class CombatEventConfigurator {
         });
     }
 
-    if (abilityTriggeredBy.hitOfAnyAttack) {
-      eventIds.push(eventIdProvider.getHitOfAnyAttackEventId());
-    }
     if (abilityTriggeredBy.startOfAnyAttack) {
       eventIds.push(eventIdProvider.getStartOfAnyAttackEventId());
     }
@@ -233,6 +230,15 @@ export class CombatEventConfigurator {
         eventIdProvider.getEndOfDischargeOfElementalTypeEventId(
           abilityTriggeredBy.endOfDischargeOfElementalType
         )
+      );
+    }
+
+    if (abilityTriggeredBy.hitOfAnyAttack) {
+      eventIds.push(eventIdProvider.getHitOfAnyAttackEventId());
+    }
+    if (abilityTriggeredBy.hitOfWeapon) {
+      eventIds.push(
+        eventIdProvider.getHitOfWeaponEventId(abilityTriggeredBy.hitOfWeapon)
       );
     }
 

@@ -32,7 +32,7 @@ export class CombatEventNotifier {
         eventIdProvider.getStartOfSkillOfElementalTypeEventId(elementalType)
       );
     } else if (type === 'discharge') {
-      eventIds.push(
+      eventIds.push(  
         eventIdProvider.getStartOfAnyDischargeAttackEventId(),
         eventIdProvider.getStartOfDischargeOfWeaponTypeEventId(weapon.type),
         eventIdProvider.getStartOfDischargeOfElementalTypeEventId(elementalType)
@@ -49,8 +49,11 @@ export class CombatEventNotifier {
     }
   }
 
-  public notifyAttackHit() {
+  public notifyAttackHit(attackEvent: AttackEvent) {
     this.eventManager.notify(eventIdProvider.getHitOfAnyAttackEventId());
+    this.eventManager.notify(
+      eventIdProvider.getHitOfWeaponEventId(attackEvent.weapon.id)
+    );
   }
 
   public notifyAttackEnd(attackEvent: AttackEvent) {

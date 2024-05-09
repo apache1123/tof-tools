@@ -14,7 +14,6 @@ export const eventIdProvider = {
     `full-charge-${weaponName}`,
 
   // Attack events
-  getHitOfAnyAttackEventId: () => `attack-hit`,
   getStartOfAnyAttackEventId: () => `attack-start`,
   getEndOfAnyAttackEventId: () => `attack-end`,
 
@@ -50,6 +49,9 @@ export const eventIdProvider = {
   getEndOfDischargeOfElementalTypeEventId: (
     elementalType: WeaponElementalType
   ) => `discharge-elemental-type-end-${elementalType}`,
+
+  getHitOfAnyAttackEventId: () => `attack-hit`,
+  getHitOfWeaponEventId: (weaponName: WeaponName) => `weapon-hit-${weaponName}`,
 
   // Attack requests
   getAttackRequestEventId: (attackId: AttackId) => `attack-request-${attackId}`,

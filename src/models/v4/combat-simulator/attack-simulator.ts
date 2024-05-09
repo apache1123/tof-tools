@@ -30,7 +30,7 @@ export class AttackSimulator {
     attackEvent.timeOfHits
       .filter((time) => tickInterval.includes(time))
       .forEach(() => {
-        this.combatEventNotifier.notifyAttackHit();
+        this.combatEventNotifier.notifyAttackHit(attackEvent);
       });
 
     const { updatesResources } = attackEvent;
