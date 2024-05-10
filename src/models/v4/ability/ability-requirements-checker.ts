@@ -1,9 +1,9 @@
 import groupBy from 'lodash.groupby';
 
 import type { Team } from '../../team';
-import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { AbilityRequirements } from './ability-requirements';
 
 export class AbilityRequirementsChecker {
@@ -40,14 +40,15 @@ export class AbilityRequirementsChecker {
       return false;
 
     if (
-      requirements?.activeWeapon &&
-      requirements.activeWeapon !== this.weaponTracker.activeWeapon?.id
+      requirements.activeWeapon &&
+      requirements.activeWeapon !== this.weaponTracker.getActiveWeapon(time)?.id
     )
       return false;
 
     if (
-      requirements?.notActiveWeapon &&
-      requirements.notActiveWeapon === this.weaponTracker.activeWeapon?.id
+      requirements.notActiveWeapon &&
+      requirements.notActiveWeapon ===
+        this.weaponTracker.getActiveWeapon(time)?.id
     )
       return false;
 
@@ -72,7 +73,7 @@ export class AbilityRequirementsChecker {
       return false;
 
     if (
-      requirements?.elementalTypeWeaponsInTeam &&
+      requirements.elementalTypeWeaponsInTeam &&
       requirements.elementalTypeWeaponsInTeam.every((requirement) => {
         const numOfWeaponsOfElementalType = weaponElementalTypes.filter(
           (x) => x === requirement.elementalType

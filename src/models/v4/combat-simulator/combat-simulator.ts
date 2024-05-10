@@ -4,10 +4,10 @@ import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import { AbilityRequirementsChecker } from '../ability/ability-requirements-checker';
 import { AbilityResourceUpdater } from '../ability/ability-resource-updater';
+import { AttackAvailabilityChecker } from '../attack/attack-availability-checker';
 import type { AttackId } from '../attack/attack-definition';
 import { AttackRegistryFactory } from '../attack/attack-registry-factory';
 import { CombinedAttackRegistry } from '../attack/combined-attack-registry';
-import { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import { BuffRegistryFactory } from '../buff/buff-registry-factory';
 import { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
@@ -16,11 +16,14 @@ import { CombatEventConfigurator } from '../event/combat-event-configurator';
 import { CombatEventNotifier } from '../event/combat-event-notifier';
 import { QueuedEventManager } from '../event/queued-event-manager';
 import type { Relics } from '../relics/relics';
+import { DefaultResourceFactory } from '../resource/default-resource-factory';
 import { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
 import { TickTracker } from '../tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
+import { WeaponTracker } from '../weapon-tracker/weapon-tracker';
+import { WeaponTrackerTimeline } from '../weapon-tracker/weapon-tracker-timeline';
 import { AttackSimulator } from './attack-simulator';
 import { BuffSimulator } from './buff-simulator';
 import type {
@@ -53,6 +56,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   private readonly abilityRequirementsChecker: AbilityRequirementsChecker;
   private readonly abilityResourceUpdater: AbilityResourceUpdater;
 
+  private readonly attackAvailabilityChecker: AttackAvailabilityChecker;
+
   private readonly resourceRegenerator: ResourceRegenerator;
 
   private readonly attackSimulator: AttackSimulator;
@@ -71,7 +76,9 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     this.queuedEventManager = new QueuedEventManager();
     this.combatEventNotifier = new CombatEventNotifier(this.queuedEventManager);
 
-    this.weaponTracker = new WeaponTracker();
+    this.weaponTracker = new WeaponTracker(
+      new WeaponTrackerTimeline(combatDuration)
+    );
 
     const playerInputAttackRegistry =
       AttackRegistryFactory.createPlayerInputAttackRegistry(
@@ -91,9 +98,12 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       relics
     );
 
+    const defaultResources =
+      DefaultResourceFactory.createDefaultResources(combatDuration);
     this.resourceRegistry = ResourceRegistryFactory.create(
       combatDuration,
-      team
+      team,
+      [...Object.values(defaultResources)]
     );
 
     this.combatDamageSummary = new CombatDamageSummary(combatDuration);
@@ -115,6 +125,12 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       this.weaponTracker,
       this.buffRegistry,
       this.resourceRegistry
+    );
+
+    this.attackAvailabilityChecker = new AttackAvailabilityChecker(
+      this.weaponTracker,
+      defaultResources.charge,
+      this.abilityRequirementsChecker
     );
 
     this.resourceRegenerator = new ResourceRegenerator(
@@ -176,10 +192,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     return this.combinedAttackRegistry
       .getAvailablePlayerInputAttacks(attackTime)
       .filter((attack) =>
-        this.abilityRequirementsChecker.hasRequirementsBeenMetAt(
-          attack.requirements,
-          attackTime
-        )
+        this.attackAvailabilityChecker.isAttackAvailableAt(attack, attackTime)
       )
       .map((item) => item.id);
   }

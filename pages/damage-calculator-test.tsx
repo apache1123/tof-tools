@@ -49,12 +49,7 @@ export default function DamageCalculatorTestPage() {
     );
 
     combatSimulator.performAttack('brevey-normal-hold');
-    combatSimulator.performAttack('brevey-skill-million-metz-shockwave');
-    repeat(() => {
-      combatSimulator.performAttack('brevey-normal-hold');
-    }, 20);
-    // combatSimulator.performAttack('rei-discharge');
-    // combatSimulator.performAttack('brevey-normal-hold');
+    combatSimulator.performAttack('rei-discharge');
 
     setCombatSimulatorSnapshot(combatSimulator.snapshot());
   }, []);

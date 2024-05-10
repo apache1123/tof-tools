@@ -2,8 +2,8 @@ import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import { EventHandler } from '../event/event-handler';
 import type { TickTracker } from '../tick-tracker';
+import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { Attack } from './attack';
-import type { WeaponTracker } from './weapon-tracker';
 
 export class AttackTrigger extends EventHandler {
   public constructor(
@@ -23,8 +23,8 @@ export class AttackTrigger extends EventHandler {
   private triggerAttack() {
     const tickStart = this.tickTracker.currentTickStart;
 
-    // TODO: this possibly needs to be in a different tick than the attack
-    this.switchWeaponsIfNeeded();
+    // this possibly needs to be in a different tick than the attack
+    this.switchWeaponsIfNeeded(tickStart);
     this.notifyActiveWeapon();
 
     const attackEvent = this.attack.trigger(tickStart);
@@ -32,13 +32,12 @@ export class AttackTrigger extends EventHandler {
     this.overwriteElementalType(attackEvent);
   }
 
-  // Hmm perhaps WeaponTracker should have some kind of time awareness
-  private switchWeaponsIfNeeded() {
+  private switchWeaponsIfNeeded(time: number) {
     if (
       this.attack.isActiveWeaponAttack &&
-      this.weaponTracker.activeWeapon !== this.attack.weapon
+      this.weaponTracker.getActiveWeapon(time) !== this.attack.weapon
     ) {
-      this.weaponTracker.setActiveWeapon(this.attack.weapon);
+      this.weaponTracker.setActiveWeapon(this.attack.weapon, time);
     }
   }
 

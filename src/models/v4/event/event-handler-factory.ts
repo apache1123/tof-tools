@@ -4,11 +4,11 @@ import { AbilityRequirementsHandler } from '../ability/ability-requirements-hand
 import type { Attack } from '../attack/attack';
 import { AttackEnder } from '../attack/attack-ender';
 import { AttackTrigger } from '../attack/attack-trigger';
-import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { Buff } from '../buff/buff';
 import { BuffEnder } from '../buff/buff-ender';
 import { BuffTrigger } from '../buff/buff-trigger';
 import type { TickTracker } from '../tick-tracker';
+import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { CombatEventNotifier } from './combat-event-notifier';
 import { EventHandler } from './event-handler';
 
