@@ -9,7 +9,10 @@ const hp = 1700000;
 const sumOfAllResistances = 55000;
 
 const makeAllRelicsMaxStars = true;
+
 const combatDuration = 150000; // 2m30s
+
+const targetResistance = 0.5; // 50% enemy resistance
 
 export const damageCalculatorDefaults = {
   wandererLevel,
@@ -21,4 +24,5 @@ export const damageCalculatorDefaults = {
   sumOfAllResistances,
   makeAllRelicsMaxStars,
   combatDuration,
+  targetResistance,
 } as const;

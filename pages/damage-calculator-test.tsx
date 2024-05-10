@@ -9,11 +9,10 @@ import { CombatSimulatorResult } from '../src/features/combat-simulator/CombatSi
 import { MatrixSet } from '../src/models/matrix-set';
 import { CombatSimulator } from '../src/models/v4/combat-simulator/combat-simulator';
 import type { CombatSimulatorSnapshot } from '../src/models/v4/combat-simulator/combat-simulator-snapshot';
-import { getDefaultCombatDuration } from '../src/models/v4/combat-simulator-defaults/default-combat-duration';
+import { getDefaultCombatSimulatorOptions } from '../src/models/v4/combat-simulator-defaults/default-combat-simulator-options';
 import { getLoadoutWithDefaultStats } from '../src/models/v4/combat-simulator-defaults/default-loadout';
 import { getDefaultRelics } from '../src/models/v4/combat-simulator-defaults/default-relics';
 import { Weapon } from '../src/models/weapon';
-import { repeat } from '../src/utils/test-utils';
 
 export default function DamageCalculatorTestPage() {
   const [combatSimulatorSnapshot, setCombatSimulatorSnapshot] = useState<
@@ -40,13 +39,8 @@ export default function DamageCalculatorTestPage() {
     loadout.simulacrumTrait = simulacrumTraits.byId['Cocoritter'];
 
     const relics = getDefaultRelics();
-    const combatDuration = getDefaultCombatDuration();
-
-    const combatSimulator = new CombatSimulator(
-      combatDuration,
-      loadout,
-      relics
-    );
+    const options = getDefaultCombatSimulatorOptions();
+    const combatSimulator = new CombatSimulator(loadout, relics, options);
 
     combatSimulator.performAttack('brevey-normal-hold');
     combatSimulator.performAttack('rei-discharge');

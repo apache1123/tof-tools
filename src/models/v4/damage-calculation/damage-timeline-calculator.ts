@@ -10,6 +10,7 @@ import type { CombatDamageSummary } from '../combat-damage-summary/combat-damage
 import { Damage } from '../damage-summary/damage';
 import { DamageSummary } from '../damage-summary/damage-summary';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { Target } from '../target/target';
 import type { TimeInterval } from '../time-interval/time-interval';
 import { DamageCalculator } from './damage-calculator';
 
@@ -21,7 +22,8 @@ export class DamageTimelineCalculator {
     private readonly team: Team,
     private readonly attackRegistry: AttackRegistry,
     private readonly buffRegistry: BuffRegistry,
-    private readonly resourceRegistry: ResourceRegistry
+    private readonly resourceRegistry: ResourceRegistry,
+    private readonly target: Target
   ) {}
 
   public calculateDamage(timeInterval: TimeInterval) {
@@ -43,7 +45,8 @@ export class DamageTimelineCalculator {
         this.loadout,
         this.loadoutStats,
         buffEvents,
-        this.resourceRegistry
+        this.resourceRegistry,
+        this.target
       );
 
       // This is the base damage + final damage of the whole attack. Since the attack time interval is likely not the same as the tick interval, we need to take a portion of the damage that's equal to the overlapping duration of the attack interval and the tick interval.

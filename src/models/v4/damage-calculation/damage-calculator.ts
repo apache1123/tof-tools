@@ -12,6 +12,7 @@ import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
 import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { BuffEvent } from '../buff-timeline/buff-event';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { Target } from '../target/target';
 
 /** Based on an attack and its time interval, calculates all the necessary values to determine the attack's final damage value. e.g. the base attack, total attack, atk%, dmg%, crit% etc. based on an attack's elemental type and the weapon's calculation elemental types */
 export class DamageCalculator {
@@ -22,7 +23,8 @@ export class DamageCalculator {
     private readonly loadoutStats: LoadoutStats,
     /** Buff events during the attackEvent's duration */
     private readonly buffEvents: BuffEvent[],
-    private readonly resourceRegistry: ResourceRegistry
+    private readonly resourceRegistry: ResourceRegistry,
+    private readonly target: Target
   ) {}
 
   public getBaseDamage(): number {
@@ -109,6 +111,7 @@ export class DamageCalculator {
           .times(this.getTotalCritDamagePercent())
           .plus(1)
       )
+      .times(BigNumber(1).minus(this.getTotalResistance()))
       .toNumber();
   }
 
@@ -208,6 +211,10 @@ export class DamageCalculator {
       this.loadout.critDamageUnbuffed,
       ...critDamageBuffValues
     ).toNumber();
+  }
+
+  public getTotalResistance(): number {
+    return this.target.resistance;
   }
 
   public getGearAttackPercent(): number {

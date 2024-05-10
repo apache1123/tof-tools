@@ -20,12 +20,14 @@ import { DefaultResourceFactory } from '../resource/default-resource-factory';
 import { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
+import type { Target } from '../target/target';
 import { TickTracker } from '../tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
 import { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import { WeaponTrackerTimeline } from '../weapon-tracker/weapon-tracker-timeline';
 import { AttackSimulator } from './attack-simulator';
 import { BuffSimulator } from './buff-simulator';
+import type { CombatSimulatorOptions } from './combat-simulator-options';
 import type {
   CombatSimulatorSnapshot,
   WeaponAttackSnapshot,
@@ -39,12 +41,13 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
 
   private readonly loadout: Loadout;
 
+  private readonly target: Target;
+
   private readonly tickTracker: TickTracker;
+  private readonly weaponTracker: WeaponTracker;
 
   private readonly queuedEventManager: QueuedEventManager;
   private readonly combatEventNotifier: CombatEventNotifier;
-
-  private readonly weaponTracker: WeaponTracker;
 
   private readonly combinedAttackRegistry: CombinedAttackRegistry;
   private readonly buffRegistry: BuffRegistry;
@@ -65,20 +68,27 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   private readonly resourceSimulator: ResourceSimulator;
   private readonly tickSimulator: TickSimulator;
 
-  public constructor(combatDuration: number, loadout: Loadout, relics: Relics) {
+  public constructor(
+    loadout: Loadout,
+    relics: Relics,
+    options: CombatSimulatorOptions
+  ) {
+    const { combatDuration, targetResistance } = options;
+
     this.combatDuration = combatDuration;
     this.loadout = loadout;
     const { team } = this.loadout;
 
+    this.target = { resistance: targetResistance };
+
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
     this.tickTracker = new TickTracker(startingTickInterval, tickDuration);
-
-    this.queuedEventManager = new QueuedEventManager();
-    this.combatEventNotifier = new CombatEventNotifier(this.queuedEventManager);
-
     this.weaponTracker = new WeaponTracker(
       new WeaponTrackerTimeline(combatDuration)
     );
+
+    this.queuedEventManager = new QueuedEventManager();
+    this.combatEventNotifier = new CombatEventNotifier(this.queuedEventManager);
 
     const playerInputAttackRegistry =
       AttackRegistryFactory.createPlayerInputAttackRegistry(
@@ -114,7 +124,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       team,
       this.combinedAttackRegistry,
       this.buffRegistry,
-      this.resourceRegistry
+      this.resourceRegistry,
+      this.target
     );
 
     this.abilityResourceUpdater = new AbilityResourceUpdater(
