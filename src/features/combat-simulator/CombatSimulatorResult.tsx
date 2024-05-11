@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 
 import { DamageSummaryBreakdown } from '../../components/DamageSummaryBreakdown/DamageSummaryBreakdown';
+import { MatrixDisplay } from '../../components/MatrixDisplay/MatrixDisplay';
 import { WeaponDisplay } from '../../components/WeaponDisplay/WeaponDisplay';
 import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator/combat-simulator-snapshot';
 import { CombatSimulatorTimeline } from './CombatSimulatorTimeline';
@@ -14,15 +15,45 @@ export function CombatSimulatorResult({
 }: CombatSimulatorResultProps) {
   return (
     <Stack spacing={5}>
-      <Stack direction="row" spacing={5}>
+      <Stack direction="row" spacing={5} useFlexGap flexWrap="wrap">
         <Stack spacing={3} justifyContent="center">
-          {snapshot.loadout.team.weapons.map((weapon, index) => (
-            <WeaponDisplay
-              weaponName={weapon.definitionId}
-              stars={weapon.stars}
-              key={index}
-            />
-          ))}
+          {snapshot.loadout.team.weapons.map((weapon, index) => {
+            // TODO: fix replace matrix set dto with a proper "view model"
+            const { matrixSet4pc, matrixSet2pc1, matrixSet2pc2 } =
+              weapon.matrixSets;
+            return (
+              <Stack direction="row" alignItems="baseline" key={index}>
+                <WeaponDisplay
+                  weaponName={weapon.definitionId}
+                  stars={weapon.stars}
+                />
+                {matrixSet4pc && (
+                  <MatrixDisplay
+                    matrixName={matrixSet4pc.definitionId}
+                    displayName={matrixSet4pc.definitionId}
+                    pieces={4}
+                    stars={matrixSet4pc.stars}
+                  />
+                )}
+                {matrixSet2pc1 && (
+                  <MatrixDisplay
+                    matrixName={matrixSet2pc1.definitionId}
+                    displayName={matrixSet2pc1.definitionId}
+                    pieces={2}
+                    stars={matrixSet2pc1.stars}
+                  />
+                )}
+                {matrixSet2pc2 && (
+                  <MatrixDisplay
+                    matrixName={matrixSet2pc2.definitionId}
+                    displayName={matrixSet2pc2.definitionId}
+                    pieces={2}
+                    stars={matrixSet2pc2.stars}
+                  />
+                )}
+              </Stack>
+            );
+          })}
         </Stack>
         {snapshot.damageSummary && (
           <DamageSummaryBreakdown damageSummary={snapshot.damageSummary} />

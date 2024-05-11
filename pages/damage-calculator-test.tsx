@@ -36,6 +36,11 @@ export default function DamageCalculatorTestPage() {
     jiyu4pc.stars = 1;
     weapon1.matrixSets.matrixSet4pc = jiyu4pc;
 
+    const coco2pc = new MatrixSet(matrixSetDefinitionsLookup['Cocoritter 2pc']);
+    weapon2.matrixSets.matrixSet2pc1 = coco2pc;
+    const shiro2pc = new MatrixSet(matrixSetDefinitionsLookup['Shiro 2pc']);
+    weapon2.matrixSets.matrixSet2pc2 = shiro2pc;
+
     loadout.simulacrumTrait = simulacrumTraits.byId['Cocoritter'];
 
     const relics = getDefaultRelics();
