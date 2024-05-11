@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const sakiFuwa = {
   id: 'Saki Fuwa',
@@ -41,12 +41,12 @@ export const sakiFuwa = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Saki Fuwa',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Saki Fuwa',
+      },
     },
     updatesResources: [
       {

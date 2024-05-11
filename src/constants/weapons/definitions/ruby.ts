@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, dodgeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, dodgeResourceId, fullCharge } from '../../resources';
 
 export const ruby = {
   id: 'Ruby',
@@ -53,11 +53,11 @@ export const ruby = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
-      },
-      requirements: {
-        hasResource: {
-          resourceId: 'dodge',
-          minAmount: 1,
+        requirements: {
+          hasResource: {
+            resourceId: 'dodge',
+            minAmount: 1,
+          },
         },
       },
       updatesResources: [
@@ -89,12 +89,12 @@ export const ruby = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Ruby',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Ruby',
+      },
     },
     updatesResources: [
       {

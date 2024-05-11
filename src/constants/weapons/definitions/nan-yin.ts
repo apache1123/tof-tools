@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const nanYin = {
   id: 'Nan Yin',
@@ -12,8 +12,7 @@ export const nanYin = {
     {
       id: 'The Final Tune',
       displayName: 'The Final Tune',
-      description:
-        '+30% ATK when equipping 3 altered weapons, works off-hand',
+      description: '+30% ATK when equipping 3 altered weapons, works off-hand',
       value: 0.3,
       elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
       canStack: false,
@@ -48,10 +47,7 @@ export const nanYin = {
       },
       endedBy: { duration: 6000 },
       cooldown: 0,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -82,12 +78,12 @@ export const nanYin = {
     },
     endedBy: { duration: 5000 },
     cooldown: 30000,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Nan Yin',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Nan Yin',
+      },
     },
     updatesResources: [
       {
@@ -111,19 +107,19 @@ export const nanYin = {
       maxStacks: 1,
       triggeredBy: {
         combatStart: true,
+        requirements: {
+          elementalTypeWeaponsInTeam: [
+            {
+              elementalType: 'Altered',
+              numOfWeapons: 3,
+            },
+          ],
+        },
       },
       endedBy: {
         combatEnd: true,
       },
       cooldown: 0,
-      requirements: {
-        elementalTypeWeaponsInTeam: [
-          {
-            elementalType: 'Altered',
-            numOfWeapons: 3,
-          },
-        ],
-      },
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],

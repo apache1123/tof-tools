@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const umi = {
   id: 'Umi',
@@ -44,8 +44,8 @@ export const umi = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
+        requirements: {},
       },
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -70,12 +70,12 @@ export const umi = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Umi',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Umi',
+      },
     },
     updatesResources: [
       {

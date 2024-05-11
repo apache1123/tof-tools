@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const liuHuo = {
   id: 'Liu Huo',
@@ -41,12 +41,12 @@ export const liuHuo = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Liu Huo',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Liu Huo',
+      },
     },
     updatesResources: [
       {

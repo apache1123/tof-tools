@@ -41,12 +41,12 @@ export const alyss = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Alyss',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Alyss',
+      },
     },
     updatesResources: [
       {

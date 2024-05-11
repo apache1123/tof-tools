@@ -52,11 +52,13 @@ export const jiYu = {
     hitCount: { numberOfHitsFixed: 1 },
     endedBy: { duration: 1000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Ji Yu',
+    triggeredBy: {
+      playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Ji Yu',
+      },
     },
-    triggeredBy: { playerInput: true },
     updatesResources: [
       {
         resourceId: chargeResourceId,

@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const mingJing = {
   id: 'Ming Jing',
@@ -52,10 +52,7 @@ export const mingJing = {
       },
       endedBy: { duration: 5000 },
       cooldown: 0,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -82,12 +79,12 @@ export const mingJing = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Ming Jing',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Ming Jing',
+      },
     },
     updatesResources: [
       {

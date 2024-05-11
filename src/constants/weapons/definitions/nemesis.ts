@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const nemesis = {
   id: 'Nemesis',
@@ -76,12 +76,12 @@ export const nemesis = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Nemesis',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Nemesis',
+      },
     },
     updatesResources: [
       {
@@ -94,4 +94,4 @@ export const nemesis = {
   buffs: [],
   triggeredAttacks: [],
   resources: [],
-} satisfies WeaponDefinition; 
+} satisfies WeaponDefinition;

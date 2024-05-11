@@ -14,6 +14,7 @@ import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';
 
 // TODO: refactor this class
+// This class connects all attacks, buffs, resources, etc. to the event manager. Using their defined triggeredBy, endedBy, etc., each attack/buff/resource is subscribed to certain events (which will also be emitted from attacks/buffs/resources)
 export class CombatEventConfigurator {
   public static configure(
     eventManager: EventManager,

@@ -59,8 +59,8 @@ export const brevey = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
+        requirements: {},
       },
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -82,11 +82,10 @@ export const brevey = {
       },
       hitCount: { numberOfHitsPerSecond: 6 },
       cooldown: 0,
-      triggeredBy: { playerInput: true },
+      triggeredBy: { playerInput: true, requirements: {} },
       endedBy: {
         duration: 2620, // TODO: what to do about hold attacks with no duration?
       },
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -118,11 +117,11 @@ export const brevey = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
-      },
-      requirements: {
-        hasResource: {
-          resourceId: 'dodge',
-          minAmount: 1,
+        requirements: {
+          hasResource: {
+            resourceId: 'dodge',
+            minAmount: 1,
+          },
         },
       },
       updatesResources: [
@@ -154,10 +153,7 @@ export const brevey = {
       },
       endedBy: { duration: 2250 },
       cooldown: 30000,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -184,11 +180,13 @@ export const brevey = {
     hitCount: { numberOfHitsFixed: 1 },
     endedBy: { duration: 3070 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Brevey',
+    triggeredBy: {
+      playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Brevey',
+      },
     },
-    triggeredBy: { playerInput: true },
     updatesResources: [
       {
         resourceId: chargeResourceId,
@@ -204,12 +202,12 @@ export const brevey = {
       maxStacks: 1,
       triggeredBy: {
         endOfAttacks: ['brevey-skill-million-metz-shockwave'],
+        requirements: {},
       },
       endedBy: {
         duration: 30000,
       },
       cooldown: 30000,
-      requirements: {},
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
     {
@@ -227,14 +225,12 @@ export const brevey = {
       maxStacks: 1,
       triggeredBy: {
         activeWeapon: 'Brevey',
+        requirements: { activeBuff: 'brevey-buff-pact-amplification' },
       },
       endedBy: {
         notActiveWeapon: 'Brevey',
       },
       cooldown: 0,
-      requirements: {
-        activeBuff: 'brevey-buff-pact-amplification',
-      },
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 5 },
     },
     {
@@ -252,14 +248,12 @@ export const brevey = {
       maxStacks: 1,
       triggeredBy: {
         activeWeapon: 'Brevey',
+        requirements: { activeBuff: 'brevey-buff-pact-amplification' },
       },
       endedBy: {
         notActiveWeapon: 'Brevey',
       },
       cooldown: 0,
-      requirements: {
-        activeBuff: 'brevey-buff-pact-amplification',
-      },
       starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
     },
     {
@@ -277,14 +271,14 @@ export const brevey = {
       maxStacks: 1,
       triggeredBy: {
         notActiveWeapon: 'Brevey',
+        requirements: {
+          activeBuff: 'brevey-buff-pact-amplification',
+        },
       },
       endedBy: {
         activeWeapon: 'Brevey',
       },
       cooldown: 0,
-      requirements: {
-        activeBuff: 'brevey-buff-pact-amplification',
-      },
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 5 },
     },
     {
@@ -302,14 +296,14 @@ export const brevey = {
       maxStacks: 1,
       triggeredBy: {
         notActiveWeapon: 'Brevey',
+        requirements: {
+          activeBuff: 'brevey-buff-pact-amplification',
+        },
       },
       endedBy: {
         activeWeapon: 'Brevey',
       },
       cooldown: 0,
-      requirements: {
-        activeBuff: 'brevey-buff-pact-amplification',
-      },
       starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
     },
     {
@@ -319,9 +313,11 @@ export const brevey = {
         'When non-Benediction Resonances are active, gain 2 additional uses of Metz Energy Wave, and increase volt damage and frost damage to bosses by 10%.',
       maxStacks: 1,
       cooldown: 0,
-      triggeredBy: { combatStart: true },
+      triggeredBy: {
+        combatStart: true,
+        requirements: { notWeaponResonance: 'Benediction' },
+      },
       endedBy: { combatEnd: true },
-      requirements: { notWeaponResonance: 'Benediction' },
       starRequirement: { minStarRequirement: 3, maxStarRequirement: 6 },
       damageBuffs: [
         {
@@ -338,9 +334,8 @@ export const brevey = {
         'Increase damage dealt by Metz off-hand coordinated attack and Metz Energy Wave by 30%.',
       maxStacks: 1,
       cooldown: 0,
-      triggeredBy: { combatStart: true },
+      triggeredBy: { combatStart: true, requirements: {} },
       endedBy: { combatEnd: true },
-      requirements: {},
       starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
       damageBuffs: [
         {
@@ -376,11 +371,10 @@ export const brevey = {
         canOnlyBeBuffedByTitans: true,
       },
       hitCount: { numberOfHitsFixed: 0 },
-      triggeredBy: { startOfAnyDischargeAttack: true },
+      triggeredBy: { startOfAnyDischargeAttack: true, requirements: {} },
       endedBy: { duration: minEventDuration },
       doesNotTriggerEvents: true,
       cooldown: 0,
-      requirements: {},
       updatesResources: [
         {
           resourceId: 'swift-cut',
@@ -405,10 +399,9 @@ export const brevey = {
         attackFlat: 0,
       },
       hitCount: { numberOfHitsPerSecond: 3 },
-      triggeredBy: { notActiveWeapon: 'Brevey' },
+      triggeredBy: { notActiveWeapon: 'Brevey', requirements: {} },
       endedBy: { activeWeapon: 'Brevey' },
       cooldown: 0,
-      requirements: {},
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
     {
@@ -426,17 +419,17 @@ export const brevey = {
       hitCount: { numberOfHitsFixed: 1 },
       triggeredBy: {
         resourceUpdate: 'damage-accumulated-factor-of-total-attack',
+        requirements: {
+          activeBuff: 'brevey-buff-pact-amplification',
+          hasResource: {
+            resourceId: 'damage-accumulated-factor-of-total-attack',
+            minAmount: 100,
+          },
+        },
       },
       endedBy: { duration: minEventDuration },
       doesNotTriggerEvents: true,
       cooldown: 10000,
-      requirements: {
-        activeBuff: 'brevey-buff-pact-amplification',
-        hasResource: {
-          resourceId: 'damage-accumulated-factor-of-total-attack',
-          minAmount: 100,
-        },
-      },
       updatesResources: [
         {
           resourceId: 'damage-accumulated-factor-of-total-attack',
@@ -456,7 +449,7 @@ export const brevey = {
       regenerate: {
         amountPerSecond: 2,
       },
-      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6}
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
     {
       id: 'damage-accumulated-factor-of-total-attack',
@@ -465,7 +458,7 @@ export const brevey = {
       regenerate: {
         amountFromAccumulatedDamageAsFactorOfTotalAttack: true,
       },
-      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6},
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       remarks:
         'Used to track the amount of damage accumulated, one unit is 1 times the total ATK',
     },

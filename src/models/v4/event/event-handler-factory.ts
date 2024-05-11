@@ -23,7 +23,7 @@ export class EventHandlerFactory {
     return EventHandler.link(
       new AbilityCooldownHandler(attack.timeline, tickTracker),
       new AbilityRequirementsHandler(
-        attack.requirements,
+        attack.triggeredBy.requirements,
         tickTracker,
         requirementsChecker
       ),
@@ -46,7 +46,7 @@ export class EventHandlerFactory {
     return EventHandler.link(
       new AbilityCooldownHandler(buff.timeline, tickTracker),
       new AbilityRequirementsHandler(
-        buff.requirements,
+        buff.triggeredBy.requirements,
         tickTracker,
         requirementsChecker
       ),

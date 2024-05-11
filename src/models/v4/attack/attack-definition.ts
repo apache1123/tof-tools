@@ -4,7 +4,6 @@ import type {
   AbilityId,
 } from '../ability/ability-definition';
 import type { AbilityEndedBy } from '../ability/ability-ended-by';
-import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
@@ -24,8 +23,6 @@ export interface AttackDefinition extends AbilityDefinition {
   endedBy: AbilityEndedBy;
   /** Needed for some attacks to stop them from triggering further events e.g. swift cut is a discharge that is also triggered by a discharge */
   doesNotTriggerEvents?: boolean;
-
-  requirements: AbilityRequirements;
 
   updatesResources?: AbilityUpdatesResource[];
 }

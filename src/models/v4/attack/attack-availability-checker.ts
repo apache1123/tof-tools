@@ -13,7 +13,7 @@ export class AttackAvailabilityChecker {
   public isAttackAvailableAt(attack: Attack, time: number): boolean {
     if (
       !this.abilityRequirementsChecker.hasRequirementsBeenMetAt(
-        attack.requirements,
+        attack.triggeredBy.requirements,
         time
       )
     )

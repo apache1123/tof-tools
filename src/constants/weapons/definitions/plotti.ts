@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const plotti = {
   id: 'Plotti',
@@ -54,12 +54,12 @@ export const plotti = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Plotti',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Plotti',
+      },
     },
     updatesResources: [
       {
@@ -72,4 +72,4 @@ export const plotti = {
   buffs: [],
   triggeredAttacks: [],
   resources: [],
-} satisfies WeaponDefinition; 
+} satisfies WeaponDefinition;

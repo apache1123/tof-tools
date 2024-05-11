@@ -71,9 +71,8 @@ export const rei = {
       },
       hitCount: { numberOfHitsFixed: 5 },
       cooldown: 0,
-      triggeredBy: { playerInput: true },
+      triggeredBy: { playerInput: true, requirements: {} },
       endedBy: { duration: 2650 },
-      requirements: {},
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
     {
@@ -90,11 +89,8 @@ export const rei = {
         numberOfHitsFixed: 1,
       },
       cooldown: 0,
-      triggeredBy: {
-        playerInput: true,
-      },
+      triggeredBy: { playerInput: true, requirements: {} },
       endedBy: { duration: 630 },
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -119,11 +115,11 @@ export const rei = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
+        requirements: {
+          activeBuff: 'rei-energy-consumption',
+        },
       },
       endedBy: { duration: 3170 },
-      requirements: {
-        activeBuff: 'rei-energy-consumption',
-      },
       updatesResources: [],
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
@@ -145,10 +141,7 @@ export const rei = {
       },
       endedBy: { duration: 1050 },
       cooldown: 20000,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -176,10 +169,7 @@ export const rei = {
       },
       endedBy: { duration: 1050 },
       cooldown: 20000,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -208,12 +198,12 @@ export const rei = {
     },
     endedBy: { duration: 1667 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Rei',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Rei',
+      },
     },
     updatesResources: [
       {
@@ -245,10 +235,10 @@ export const rei = {
       },
       triggeredBy: {
         endOfAttacks: ['rei-skill-mecha-strike'],
+        requirements: {},
       },
       endedBy: { duration: 30000 },
       cooldown: 30000,
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -278,29 +268,29 @@ export const rei = {
       },
       triggeredBy: {
         endOfAttacks: ['rei-skill-mecha-strike'],
+        requirements: {
+          elementalTypeWeaponsInTeam: [
+            {
+              elementalType: 'Physical',
+              numOfWeapons: 1,
+            },
+            {
+              elementalType: 'Physical',
+              numOfWeapons: 2,
+            },
+            {
+              elementalType: 'Flame',
+              numOfWeapons: 1,
+            },
+            {
+              elementalType: 'Flame',
+              numOfWeapons: 2,
+            },
+          ],
+        },
       },
       endedBy: { duration: 30000 },
       cooldown: 30000,
-      requirements: {
-        elementalTypeWeaponsInTeam: [
-          {
-            elementalType: 'Physical',
-            numOfWeapons: 1,
-          },
-          {
-            elementalType: 'Physical',
-            numOfWeapons: 2,
-          },
-          {
-            elementalType: 'Flame',
-            numOfWeapons: 1,
-          },
-          {
-            elementalType: 'Flame',
-            numOfWeapons: 2,
-          },
-        ],
-      },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -324,14 +314,11 @@ export const rei = {
       hitCount: {
         numberOfHitsFixed: 0,
       },
-      triggeredBy: {
-        hitOfAnyAttack: true,
-      },
+      triggeredBy: { hitOfAnyAttack: true, requirements: {} },
       endedBy: {
         duration: minEventDuration,
       },
       cooldown: 700, // This is hard to simulate accurately. This value seems to work ok to approximate the effect
-      requirements: {},
       updatesResources: [
         {
           resourceId: 'rei-homing-arrows-on-enemy',
@@ -357,15 +344,17 @@ export const rei = {
         attackFlat: 0,
       },
       hitCount: { numberOfHitsFixed: 0 },
-      triggeredBy: { resourceUpdate: 'rei-homing-arrows-on-enemy' },
-      endedBy: { duration: minEventDuration },
-      cooldown: 0,
-      requirements: {
-        hasResource: {
-          resourceId: 'rei-homing-arrows-on-enemy',
-          minAmount: 3,
+      triggeredBy: {
+        resourceUpdate: 'rei-homing-arrows-on-enemy',
+        requirements: {
+          hasResource: {
+            resourceId: 'rei-homing-arrows-on-enemy',
+            minAmount: 3,
+          },
         },
       },
+      endedBy: { duration: minEventDuration },
+      cooldown: 0,
       updatesResources: [
         {
           resourceId: 'rei-homing-arrows-on-enemy',
@@ -383,13 +372,10 @@ export const rei = {
         'Homing arrow applies Overload for 30 seconds. Increase the volt damage dealt to targets with Homing Arrow: Overloaded by 10% and frost damage by 10%',
       cooldown: 0,
       maxStacks: 1,
-      triggeredBy: {
-        endOfAttacks: ['rei-homing-arrow'],
-      },
+      triggeredBy: { endOfAttacks: ['rei-homing-arrow'], requirements: {} },
       endedBy: {
         duration: 30000,
       },
-      requirements: {},
       starRequirement: { minStarRequirement: 3, maxStarRequirement: 6 },
       damageBuffs: [
         {
@@ -408,15 +394,15 @@ export const rei = {
       maxStacks: 1,
       triggeredBy: {
         endOfAttacks: ['rei-normal-backjump-arrow'],
+        requirements: {
+          hasResource: {
+            resourceId: 'rei-special-energy',
+            minAmount: 70,
+          },
+        },
       },
       endedBy: {
         resourceDepleted: 'rei-special-energy',
-      },
-      requirements: {
-        hasResource: {
-          resourceId: 'rei-special-energy',
-          minAmount: 70,
-        },
       },
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       attackBuffs: [
@@ -438,15 +424,15 @@ export const rei = {
       maxStacks: 1,
       triggeredBy: {
         endOfAttacks: ['rei-normal-backjump-arrow'],
+        requirements: {
+          hasResource: {
+            resourceId: 'rei-special-energy',
+            minAmount: 70,
+          },
+        },
       },
       endedBy: {
         resourceDepleted: 'rei-special-energy',
-      },
-      requirements: {
-        hasResource: {
-          resourceId: 'rei-special-energy',
-          minAmount: 70,
-        },
       },
       starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
       damageBuffs: [
@@ -472,14 +458,14 @@ export const rei = {
       triggeredBy: {
         startOfBuff: 'rei-energy-consumption',
         activeWeapon: 'Rei',
+        requirements: {
+          activeWeapon: 'Rei',
+          activeBuff: 'rei-energy-consumption',
+        },
       },
       endedBy: {
         notActiveWeapon: 'Rei',
         buffEnd: 'rei-energy-consumption',
-      },
-      requirements: {
-        activeWeapon: 'Rei',
-        activeBuff: 'rei-energy-consumption',
       },
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       damageBuffs: [
@@ -510,14 +496,14 @@ export const rei = {
       triggeredBy: {
         startOfBuff: 'rei-energy-consumption',
         notActiveWeapon: 'Rei',
+        requirements: {
+          notActiveWeapon: 'Rei',
+          activeBuff: 'rei-energy-consumption',
+        },
       },
       endedBy: {
         activeWeapon: 'Rei',
         buffEnd: 'rei-energy-consumption',
-      },
-      requirements: {
-        notActiveWeapon: 'Rei',
-        activeBuff: 'rei-energy-consumption',
       },
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
       miscBuff: {}, // TODO:
@@ -536,13 +522,13 @@ export const rei = {
       displayName: 'Rei - Special energy',
       maxAmount: 100,
       startingAmount: 100,
-      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6},
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
     {
       id: 'rei-homing-arrows-on-enemy',
       displayName: 'Rei - Number of homing arrows on enemy',
       maxAmount: 3,
-      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6},
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],
 } satisfies WeaponDefinition;

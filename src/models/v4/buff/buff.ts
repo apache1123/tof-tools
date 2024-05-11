@@ -1,7 +1,6 @@
 import type { Serializable } from '../../persistable';
 import type { AbilityEndedBy } from '../ability/ability-ended-by';
 import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
-import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import { BuffEvent } from '../buff-timeline/buff-event';
@@ -27,7 +26,6 @@ export class Buff implements Serializable<BuffDto> {
 
   public readonly triggeredBy: AbilityTriggeredBy;
   public readonly endedBy: AbilityEndedBy;
-  public readonly requirements: AbilityRequirements;
   public readonly updatesResources: AbilityUpdatesResource[];
 
   public readonly timeline: BuffTimeline;
@@ -50,7 +48,6 @@ export class Buff implements Serializable<BuffDto> {
       miscBuff,
       triggeredBy,
       endedBy,
-      requirements,
       updatesResources,
     } = definition;
     this.id = id;
@@ -63,7 +60,6 @@ export class Buff implements Serializable<BuffDto> {
     this.miscBuff = miscBuff;
     this.triggeredBy = triggeredBy;
     this.endedBy = endedBy;
-    this.requirements = requirements;
     this.updatesResources = updatesResources ?? [];
 
     this.timeline = timeline;

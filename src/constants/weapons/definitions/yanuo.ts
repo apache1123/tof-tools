@@ -1,7 +1,7 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
-export const  yanuo = {
+export const yanuo = {
   id: 'Yanuo',
   displayName: 'Yanuo',
   resonanceElements: ['Frost', 'Volt'],
@@ -53,8 +53,8 @@ export const  yanuo = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
+        requirements: {},
       },
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -82,10 +82,7 @@ export const  yanuo = {
       },
       endedBy: { duration: 5000 },
       cooldown: 30000,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -110,12 +107,12 @@ export const  yanuo = {
     },
     endedBy: { duration: 5000 },
     cooldown: 30000,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Yanuo',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Yanuo',
+      },
     },
     updatesResources: [
       {

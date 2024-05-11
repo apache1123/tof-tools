@@ -383,11 +383,10 @@ export const matrixSetDefinitionsLookup: DataById<
         id: 'jiyu-2pc-atk-buff',
         displayName: 'Ji Yu 2pc - Flame atk buff',
         description: 'Increase flame ATK by 20% / 22% / 24% / 26%',
-        triggeredBy: { combatStart: true },
+        triggeredBy: { combatStart: true, requirements: {} },
         endedBy: { combatEnd: true },
         maxStacks: 1,
         cooldown: 0,
-        requirements: {},
         attackBuffsWithStarRequirement: [
           {
             value: 0.2,
@@ -1057,11 +1056,10 @@ export const matrixSetDefinitionsLookup: DataById<
         id: 'jiyu-4pc-dmg-buff',
         displayName: 'Ji Yu 4pc - buff',
         description: 'Increase final damage by 22% / 24% / 26% / 28%',
-        triggeredBy: { combatStart: true },
+        triggeredBy: { combatStart: true, requirements: {} },
         endedBy: { combatEnd: true },
         maxStacks: 1,
         cooldown: 0,
-        requirements: {},
         damageBuffsWithStarRequirement: [
           {
             value: 0.22,

@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const fenrir = {
   id: 'Fenrir',
@@ -24,8 +24,7 @@ export const fenrir = {
     {
       id: 'Elemental Balancing',
       displayName: 'Elemental Balancing',
-      description:
-        '+15% all ATK by equipping 3 weapons of different elements',
+      description: '+15% all ATK by equipping 3 weapons of different elements',
       value: 0.15,
       elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
       canStack: false,
@@ -65,12 +64,12 @@ export const fenrir = {
     },
     endedBy: { duration: 5000 },
     cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Fenrir',
-    },
     triggeredBy: {
       playerInput: true,
+      requirements: {
+        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+        notActiveWeapon: 'Fenrir',
+      },
     },
     updatesResources: [
       {

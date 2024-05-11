@@ -3,7 +3,6 @@ import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import type { AbilityEndedBy } from '../ability/ability-ended-by';
 import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
-import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import { AttackEvent } from '../attack-timeline/attack-event';
@@ -25,7 +24,6 @@ export class Attack implements Serializable<AttackDto> {
   public readonly hitCount: AttackHitCount;
   public readonly triggeredBy: AbilityTriggeredBy;
   public readonly endedBy: AbilityEndedBy;
-  public readonly requirements: AbilityRequirements;
   public readonly updatesResources: AbilityUpdatesResource[];
   public readonly doesNotTriggerEvents: boolean;
 
@@ -50,7 +48,6 @@ export class Attack implements Serializable<AttackDto> {
       hitCount,
       triggeredBy,
       endedBy,
-      requirements,
       updatesResources,
       doesNotTriggerEvents,
     } = definition;
@@ -63,7 +60,6 @@ export class Attack implements Serializable<AttackDto> {
     this.hitCount = { ...hitCount };
     this.triggeredBy = { ...triggeredBy };
     this.endedBy = { ...endedBy };
-    this.requirements = { ...requirements };
     this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
     this.doesNotTriggerEvents = !!doesNotTriggerEvents;
 
