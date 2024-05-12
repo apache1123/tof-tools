@@ -1,11 +1,12 @@
+import type { Ability } from '../ability/ability';
 import { AbilityCooldownHandler } from '../ability/ability-cooldown-handler';
+import { AbilityEnder } from '../ability/ability-ender';
 import type { AbilityRequirementsChecker } from '../ability/ability-requirements-checker';
 import { AbilityRequirementsHandler } from '../ability/ability-requirements-handler';
+import type { AbilityEvent } from '../ability-timeline/ability-event';
 import type { Attack } from '../attack/attack';
-import { AttackEnder } from '../attack/attack-ender';
 import { AttackTrigger } from '../attack/attack-trigger';
 import type { Buff } from '../buff/buff';
-import { BuffEnder } from '../buff/buff-ender';
 import { BuffTrigger } from '../buff/buff-trigger';
 import type { TickTracker } from '../tick-tracker';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
@@ -31,13 +32,6 @@ export class EventHandlerFactory {
     );
   }
 
-  public static createHandlerToEndAttack(
-    attack: Attack,
-    tickTracker: TickTracker
-  ): EventHandler {
-    return EventHandler.link(new AttackEnder(attack, tickTracker));
-  }
-
   public static createHandlerToTriggerBuff(
     buff: Buff,
     tickTracker: TickTracker,
@@ -54,10 +48,10 @@ export class EventHandlerFactory {
     );
   }
 
-  public static createHandlerToEndBuff(
-    buff: Buff,
+  public static createHandlerToEndAbility(
+    ability: Ability<AbilityEvent>,
     tickTracker: TickTracker
   ): EventHandler {
-    return EventHandler.link(new BuffEnder(buff, tickTracker));
+    return EventHandler.link(new AbilityEnder(ability, tickTracker));
   }
 }

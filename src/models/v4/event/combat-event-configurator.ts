@@ -65,7 +65,7 @@ export class CombatEventConfigurator {
         endedBy,
         weapons
       );
-      const endAttackHandler = EventHandlerFactory.createHandlerToEndAttack(
+      const endAttackHandler = EventHandlerFactory.createHandlerToEndAbility(
         attack,
         tickTracker
       );
@@ -94,7 +94,7 @@ export class CombatEventConfigurator {
         endedBy,
         weapons
       );
-      const endBuffHandler = EventHandlerFactory.createHandlerToEndBuff(
+      const endBuffHandler = EventHandlerFactory.createHandlerToEndAbility(
         buff,
         tickTracker
       );

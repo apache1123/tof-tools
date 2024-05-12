@@ -25,13 +25,13 @@ export class BuffRegistry implements Serializable<BuffRegistryDto> {
 
   public getBuffEvents(timeInterval: TimeInterval): BuffEvent[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffEventsOverlappingInterval(timeInterval)
+      buff.getEventsOverlappingInterval(timeInterval)
     );
   }
 
   public getBuffEventsEndingBetween(timeInterval: TimeInterval): BuffEvent[] {
     return this.buffs.flatMap((buff) =>
-      buff.getBuffEventsEndingBetween(timeInterval)
+      buff.getEventsEndingBetween(timeInterval)
     );
   }
 

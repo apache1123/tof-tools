@@ -12,7 +12,7 @@ export class AbilityCooldownHandler extends EventHandler {
 
   public handle() {
     if (
-      this.abilityTimeline.isAbilityOnCooldownAt(
+      this.abilityTimeline.hasEventOnCooldownAt(
         this.tickTracker.currentTickStart
       )
     )

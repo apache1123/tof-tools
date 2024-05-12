@@ -57,7 +57,7 @@ export class AttackRegistry implements Serializable<AttackRegistryDto> {
     timeInterval: TimeInterval
   ): AttackEvent[] {
     return this.attacks.flatMap((attack) =>
-      attack.getAttackEventsEndingBetween(timeInterval)
+      attack.getEventsEndingBetween(timeInterval)
     );
   }
 
