@@ -74,7 +74,7 @@ export class CombatEventConfigurator {
       }
     }
 
-    for (const buff of buffRegistry.buffs) {
+    for (const buff of buffRegistry.items) {
       const { triggeredBy, endedBy } = buff;
 
       const eventIdsToTriggerBuffOn = this.getEventIdsToTriggerAbilityOn(

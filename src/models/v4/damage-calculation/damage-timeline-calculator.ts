@@ -32,8 +32,8 @@ export class DamageTimelineCalculator {
       ...this.team.weapons
     );
 
-    const attackEvents = this.attackRegistry.getAttackEvents(timeInterval);
-    const buffEvents = this.buffRegistry.getBuffEvents(timeInterval);
+    const attackEvents = this.attackRegistry.getEvents(timeInterval);
+    const buffEvents = this.buffRegistry.getEvents(timeInterval);
 
     let activeWeaponTotalAttack: number | undefined;
     for (const attackEvent of attackEvents) {

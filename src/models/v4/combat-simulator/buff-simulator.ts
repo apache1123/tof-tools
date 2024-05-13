@@ -13,7 +13,7 @@ export class BuffSimulator {
   ) {}
 
   public simulate() {
-    for (const buffEvent of this.buffRegistry.getBuffEvents(
+    for (const buffEvent of this.buffRegistry.getEvents(
       this.tickTracker.currentTickInterval
     )) {
       this.simulateEvent(buffEvent);

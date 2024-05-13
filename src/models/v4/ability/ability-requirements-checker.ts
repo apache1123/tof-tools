@@ -35,7 +35,7 @@ export class AbilityRequirementsChecker {
 
     if (
       requirements.activeBuff &&
-      !this.buffRegistry.isBuffActiveAt(requirements.activeBuff, time)
+      !this.buffRegistry.isActiveAt(requirements.activeBuff, time)
     )
       return false;
 

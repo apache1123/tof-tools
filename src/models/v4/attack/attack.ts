@@ -60,10 +60,6 @@ export class Attack
     return !!this.triggeredBy.playerInput;
   }
 
-  public get isPlayerInputAttack() {
-    return !!this.triggeredBy.playerInput;
-  }
-
   public trigger(time: number): AttackEvent {
     const timeInterval =
       this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(time);

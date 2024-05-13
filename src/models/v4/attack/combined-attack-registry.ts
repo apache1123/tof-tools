@@ -15,8 +15,8 @@ export class CombinedAttackRegistry
     triggeredAttackRegistry: AttackRegistry
   ) {
     super([
-      ...playerInputAttackRegistry.attacks,
-      ...triggeredAttackRegistry.attacks,
+      ...playerInputAttackRegistry.items,
+      ...triggeredAttackRegistry.items,
     ]);
 
     this.playerInputAttackRegistry = playerInputAttackRegistry;
@@ -24,19 +24,19 @@ export class CombinedAttackRegistry
   }
 
   public get playerInputAttacks() {
-    return this.playerInputAttackRegistry.attacks;
+    return this.playerInputAttackRegistry.items;
   }
 
   public get triggeredAttacks() {
-    return this.triggeredAttackRegistry.attacks;
+    return this.triggeredAttackRegistry.items;
   }
 
   public getAvailablePlayerInputAttacks(time: number) {
-    return this.playerInputAttackRegistry.getAvailableAttacks(time);
+    return this.playerInputAttackRegistry.getItemsNotOnCooldown(time);
   }
 
   public get lastPlayerInputAttackEvent(): AttackEvent | undefined {
-    return this.playerInputAttackRegistry.lastAttackEvent;
+    return this.playerInputAttackRegistry.lastEvent;
   }
 
   public toDto(): CombinedAttackRegistryDto {

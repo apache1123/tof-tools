@@ -44,6 +44,10 @@ export abstract class Ability<T extends AbilityEvent>
     this.timeline = timeline;
   }
 
+  public get lastEvent() {
+    return this.timeline.lastEvent;
+  }
+
   public abstract trigger(time: number): T;
 
   public endActiveEventsAt(time: number) {

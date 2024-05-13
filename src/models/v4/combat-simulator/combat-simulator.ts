@@ -290,7 +290,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       loadout: loadout.toDto(),
       playerInputAttacks,
       triggeredAttacks,
-      buffs: buffRegistry.toDto().buffs,
+      buffs: buffRegistry.toDto().items,
       resources: resourceRegistry.toDto().resources,
       combatDamageSummary: combatDamageSummary.toDto(),
       version: 1,
