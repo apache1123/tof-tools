@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId, fullCharge } from '../../resources';
 
 export const zero = {
   id: 'Zero',
@@ -61,12 +61,10 @@ export const zero = {
         notActiveWeapon: 'Zero',
       },
     },
-    updatesResources: [
-      { resourceId: chargeResourceId, amount: -fullCharge },
-    ],
+    updatesResources: [{ resourceId: chargeResourceId, amount: -fullCharge }],
     starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
   },
   buffs: [],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;

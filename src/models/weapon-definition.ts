@@ -37,7 +37,7 @@ export interface WeaponDefinition {
   dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
   discharge: DischargeAttackDefinition;
-  triggeredAttacks: WeaponAttackDefinition[];
+  passiveAttacks: WeaponAttackDefinition[];
 
   buffs: WeaponBuffDefinition[];
 

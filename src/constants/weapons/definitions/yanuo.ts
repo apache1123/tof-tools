@@ -123,6 +123,6 @@ export const yanuo = {
     starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
   },
   buffs: [],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;

@@ -123,6 +123,6 @@ export const nanYin = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;

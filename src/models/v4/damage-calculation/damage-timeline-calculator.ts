@@ -87,7 +87,7 @@ export class DamageTimelineCalculator {
         activeWeaponTotalAttack = damageCalculator.getTotalAttack();
     }
 
-    // If there is no active weapon attack in this time period (it's possible to only have triggered attacks), use the previous one. There should always be at least one as combat is started with an active weapon attack
+    // If there is no active weapon attack in this time period (it's possible to only have passive attacks), use the previous one. There should always be at least one as combat is started with an active weapon attack
     if (activeWeaponTotalAttack === undefined) {
       const previousDamageSummary =
         this.combatDamageSummary.lastDamageSummaryEvent;

@@ -349,7 +349,7 @@ export const brevey = {
       ],
     },
   ],
-  triggeredAttacks: [
+  passiveAttacks: [
     {
       id: 'swift-cut',
       displayName: 'Brevey - Thunderbolt: Swift Cut',

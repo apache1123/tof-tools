@@ -213,7 +213,7 @@ export const rei = {
     ],
     starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
   },
-  triggeredAttacks: [
+  passiveAttacks: [
     {
       id: 'detachment',
       displayName: 'Rei - Flash: Detachment',

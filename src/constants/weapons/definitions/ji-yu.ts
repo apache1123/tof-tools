@@ -67,7 +67,7 @@ export const jiYu = {
     ],
     starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
   },
-  triggeredAttacks: [],
+  passiveAttacks: [],
   buffs: [],
   resources: [],
 } satisfies WeaponDefinition;

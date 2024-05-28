@@ -8,7 +8,7 @@ import type { ResourceDto } from '../resource/dtos/resource-dto';
 export interface CombatSimulatorSnapshot {
   loadout: LoadoutDto;
   weaponAttacks: WeaponAttackSnapshot[];
-  triggeredAttacks: AttackDto[];
+  passiveAttacks: AttackDto[];
   buffs: BuffDto[];
   resources: ResourceDto[];
   damageSummary: DamageSummaryDto | undefined;

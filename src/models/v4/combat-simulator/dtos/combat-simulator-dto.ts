@@ -8,7 +8,7 @@ import type { ResourceDto } from '../../resource/dtos/resource-dto';
 export interface CombatSimulatorDto extends Dto {
   loadout: LoadoutDto;
   playerInputAttacks: AttackDto[];
-  triggeredAttacks: AttackDto[];
+  passiveAttacks: AttackDto[];
   buffs: BuffDto[];
   resources: ResourceDto[];
   combatDamageSummary: CombatDamageSummaryDto;
