@@ -47,8 +47,8 @@ export default function DamageCalculatorTestPage() {
     const options = getDefaultCombatSimulatorOptions();
     const combatSimulator = new CombatSimulator(loadout, relics, options);
 
-    combatSimulator.performAttack('brevey-normal-hold');
-    combatSimulator.performAttack('rei-discharge');
+    combatSimulator.performAbility('brevey-normal-hold');
+    combatSimulator.performAbility('rei-discharge');
 
     setCombatSimulatorSnapshot(combatSimulator.snapshot());
   }, []);

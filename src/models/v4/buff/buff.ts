@@ -3,6 +3,7 @@ import { Ability } from '../ability/ability';
 import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
 import { BuffEvent } from '../buff-timeline/buff-event';
 import type { BuffTimeline } from '../buff-timeline/buff-timeline';
+import type { TickTracker } from '../tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { AttackBuff } from './attack-buff';
 import type { BuffDefinition, BuffId } from './buff-definition';
@@ -27,9 +28,10 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
   public constructor(
     definition: BuffDefinition,
     timeline: BuffTimeline,
+    tickTracker: TickTracker,
     abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
-    super(definition, timeline);
+    super(definition, timeline, tickTracker);
 
     const {
       id,
@@ -50,14 +52,15 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
     this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
-  public trigger(time: number): BuffEvent {
-    const timeInterval =
-      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(time);
-    return this.addNewBuffEvent(new BuffEvent(this, timeInterval));
-  }
 
   /** Adds a new buff event to the timeline. Merging with the latest buff event in the timeline if overlaps occur. */
-  private addNewBuffEvent(buffEvent: BuffEvent): BuffEvent {
+  protected override addEvent(): BuffEvent {
+    const timeInterval =
+      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(
+        this.getTriggerTime()
+      );
+    const buffEvent = new BuffEvent(this, timeInterval);
+
     const { lastEvent } = this.timeline;
     const { maxStacks } = this;
 

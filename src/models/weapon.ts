@@ -32,6 +32,20 @@ export class Weapon implements Persistable<WeaponDto> {
     return this.definition.displayName;
   }
 
+  public get attackDefinitions(): AttackDefinition[] {
+    const { normalAttacks, dodgeAttacks, skills, discharge, passiveAttacks } =
+      this.definition;
+    return [
+      ...normalAttacks,
+      ...dodgeAttacks,
+      ...skills,
+      discharge,
+      ...passiveAttacks,
+    ].filter((attackDefinition) =>
+      this.hasMetStarRequirement(attackDefinition.starRequirement)
+    );
+  }
+
   public get allPlayerInputAttackDefinitions(): PlayerInputAttackDefinition[] {
     const { normalAttacks, dodgeAttacks, skills, discharge } = this.definition;
     return [...normalAttacks, ...dodgeAttacks, ...skills, discharge].filter(
@@ -40,8 +54,8 @@ export class Weapon implements Persistable<WeaponDto> {
     );
   }
 
-  public get allTriggeredAttackDefinitions(): AttackDefinition[] {
-    return this.definition.triggeredAttacks.filter((attackDefinition) =>
+  public get allPassiveAttackDefinitions(): AttackDefinition[] {
+    return this.definition.passiveAttacks.filter((attackDefinition) =>
       this.hasMetStarRequirement(attackDefinition.starRequirement)
     );
   }

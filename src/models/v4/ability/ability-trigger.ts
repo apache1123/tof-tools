@@ -4,20 +4,40 @@ import type { Team } from '../../team';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
+import type { Ability } from './ability';
 import type { AbilityRequirements } from './ability-requirements';
 
-export class AbilityRequirementsChecker {
+/** An ability trigger is a defined way of triggering an ability, e.g. through player input or triggered by the end of anther ability etc.. Often comes with a condition that must be met before an ability can be triggered */
+export class AbilityTrigger {
   public constructor(
-    private readonly team: Team,
+    public readonly eventId: string,
+    public readonly isPlayerInputTrigger: boolean,
+    private readonly requirements: AbilityRequirements,
+    private readonly ability: Ability,
+  private readonly team: Team,
     private readonly weaponTracker: WeaponTracker,
     private readonly buffRegistry: BuffRegistry,
     private readonly resourceRegistry: ResourceRegistry
   ) {}
 
-  public hasRequirementsBeenMetAt(
-    requirements: AbilityRequirements,
-    time: number
-  ) {
+  public get abilityId() {
+    return this.ability.id;
+  }
+
+  public canTrigger() {
+    return (
+      this.ability.canTrigger() &&
+      this.hasRequirementsBeenMet(this.ability.getTriggerTime())
+    );
+  }
+
+  public trigger() {
+    if (!this.canTrigger()) return;
+    return this.ability.trigger();
+  }
+
+  private hasRequirementsBeenMet(time: number) {
+    const { requirements } = this;
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
       this.team;
 

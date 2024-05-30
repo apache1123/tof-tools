@@ -1,25 +1,20 @@
 import type { Serializable } from '../../persistable';
 import type { AbilityEvent } from '../ability-timeline/ability-event';
+import { Registry } from '../registry/registry';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { Ability } from './ability';
 import type { AbilityId } from './ability-definition';
 import type { AbilityRegistryDto } from './dtos/ability-registry-dto';
 
 export class AbilityRegistry<
-  TAbility extends Ability<TAbilityEvent>,
-  TAbilityEvent extends AbilityEvent
-> implements Serializable<AbilityRegistryDto>
+    TAbility extends Ability<TAbilityEvent>,
+    TAbilityEvent extends AbilityEvent = AbilityEvent
+  >
+  extends Registry<TAbility>
+  implements Serializable<AbilityRegistryDto>
 {
-  private readonly _items = new Map<AbilityId, TAbility>();
-
   public constructor(items: TAbility[]) {
-    for (const item of items) {
-      this._items.set(item.id, item);
-    }
-  }
-
-  public get items() {
-    return [...this._items.values()];
+    super(items);
   }
 
   public get lastEvent() {
@@ -46,7 +41,7 @@ export class AbilityRegistry<
   }
 
   public isActiveAt(id: AbilityId, time: number): boolean {
-    const item = this._items.get(id);
+    const item = this.getItem(id);
     return !!item?.isActiveAt(time);
   }
 

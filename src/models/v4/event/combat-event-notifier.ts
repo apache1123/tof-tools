@@ -1,5 +1,5 @@
 import type { Weapon } from '../../weapon';
-import type { AttackId } from '../attack/attack-definition';
+import type { AbilityId } from '../ability/ability-definition';
 import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { BuffEvent } from '../buff-timeline/buff-event';
 import type { ResourceEvent } from '../resource-timeline/resource-event';
@@ -13,8 +13,10 @@ export class CombatEventNotifier {
     this.eventManager.notify(eventIdProvider.getCombatStartEventId());
   }
 
-  public notifyAttackRequest(attackId: AttackId) {
-    this.eventManager.notify(eventIdProvider.getAttackRequestEventId(attackId));
+  public notifyAbilityRequest(abilityId: AbilityId) {
+    this.eventManager.notify(
+      eventIdProvider.getAbilityRequestEventId(abilityId)
+    );
   }
 
   public notifyAttackStart(attackEvent: AttackEvent) {
@@ -32,7 +34,7 @@ export class CombatEventNotifier {
         eventIdProvider.getStartOfSkillOfElementalTypeEventId(elementalType)
       );
     } else if (type === 'discharge') {
-      eventIds.push(  
+      eventIds.push(
         eventIdProvider.getStartOfAnyDischargeAttackEventId(),
         eventIdProvider.getStartOfDischargeOfWeaponTypeEventId(weapon.type),
         eventIdProvider.getStartOfDischargeOfElementalTypeEventId(elementalType)

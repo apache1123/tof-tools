@@ -79,7 +79,7 @@ export class DamageCalculator {
     let resourceAmountMultiplier = 1;
     if (resourceAmountMultiplierDefinition) {
       const { resourceId } = resourceAmountMultiplierDefinition;
-      const resource = this.resourceRegistry.getResource(resourceId);
+      const resource = this.resourceRegistry.getItem(resourceId);
       if (!resource) throw new Error(`Cannot find resource: ${resourceId}`);
 
       const resourceAmount = resource.getCumulatedAmount(startTime);

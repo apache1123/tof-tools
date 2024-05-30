@@ -12,7 +12,7 @@ export class DamageSummaryEvent
     timeInterval: TimeInterval,
     public damageSummary: DamageSummary,
     public cumulatedDamageSummary: DamageSummary,
-    /** The total attack recorded at this time interval  */
+    /** The total attack of the active weapon recorded at this time interval  */
     public activeWeaponTotalAttack: number
   ) {
     super(timeInterval);

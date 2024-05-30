@@ -1,16 +1,18 @@
-import type { CombinedAttackRegistry } from '../attack/combined-attack-registry';
+import type { AttackRegistry } from '../attack/attack-registry';
 import type { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-calculator';
 import type { QueuedEventManager } from '../event/queued-event-manager';
 import type { TickTracker } from '../tick-tracker';
 import type { AttackSimulator } from './attack-simulator';
 import type { BuffSimulator } from './buff-simulator';
 import type { ResourceSimulator } from './resource-simulator';
+import type { WeaponSimulator } from './weapon-simulator';
 
 export class TickSimulator {
   public constructor(
     private readonly tickTracker: TickTracker,
     private readonly queuedEventNotifier: QueuedEventManager,
-    private readonly combinedAttackRegistry: CombinedAttackRegistry,
+    private readonly attackRegistry: AttackRegistry,
+    private readonly weaponSimulator: WeaponSimulator,
     private readonly attackSimulator: AttackSimulator,
     private readonly buffSimulator: BuffSimulator,
     private readonly resourceSimulator: ResourceSimulator,
@@ -24,11 +26,11 @@ export class TickSimulator {
     this.queuedEventNotifier.consumeQueue();
   }
 
-  public simulateTicksAfterAttackRequest() {
-    // Consume queue first to process the attack request
+  public simulateTicksAfterAbilityRequest() {
+    // Consume queue first to process the ability request
     this.queuedEventNotifier.consumeQueue();
 
-    const lastAttack = this.combinedAttackRegistry.lastPlayerInputAttackEvent;
+    const lastAttack = this.attackRegistry.lastActiveAttackEvent;
     while (
       lastAttack &&
       this.tickTracker.currentTickStart < lastAttack.endTime
@@ -41,6 +43,7 @@ export class TickSimulator {
       }
 
       // Simulate everything in the tick
+      this.weaponSimulator.simulate();
       this.attackSimulator.simulate();
       this.buffSimulator.simulate();
       this.resourceSimulator.simulate();

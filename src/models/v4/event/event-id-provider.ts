@@ -1,6 +1,7 @@
 import type { WeaponElementalType } from '../../../constants/elemental-type';
 import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
 import type { WeaponType } from '../../../constants/weapons/weapon-type';
+import type { AbilityId } from '../ability/ability-definition';
 import type { AttackId } from '../attack/attack-definition';
 import type { BuffId } from '../buff/buff-definition';
 import type { ResourceId } from '../resource/resource-definition';
@@ -12,6 +13,10 @@ export const eventIdProvider = {
     `active-weapon-${weaponName}`,
   getFullChargeOfWeaponEventId: (weaponName: WeaponName) =>
     `full-charge-${weaponName}`,
+
+  // Ability request
+  getAbilityRequestEventId: (abilityId: AbilityId) =>
+    `ability-request-${abilityId}`,
 
   // Attack events
   getStartOfAnyAttackEventId: () => `attack-start`,
