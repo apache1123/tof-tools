@@ -79,7 +79,7 @@ export class Attack
 
     const timeInterval =
       this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(
-        this.getTriggerTime()
+        this.triggerTime
       );
 
     const attackEvent = new AttackEvent(timeInterval, this, this.weapon);
@@ -96,7 +96,7 @@ export class Attack
     if (!this.isActiveAttack) return true;
 
     const activeWeapon = this.weaponTracker.activeWeapon;
-    const hasFullCharge = this.charge.hasFullCharge(this.getTriggerTime());
+    const hasFullCharge = this.charge.hasFullCharge(this.triggerTime);
     if (!activeWeapon || !hasFullCharge) return true;
 
     if (this.weapon !== this.weaponTracker.activeWeapon) {

@@ -1,7 +1,6 @@
 import type { Serializable } from '../../persistable';
 import type { AbilityEvent } from '../ability-timeline/ability-event';
 import { Registry } from '../registry/registry';
-import type { TimeInterval } from '../time-interval/time-interval';
 import type { Ability } from './ability';
 import type { AbilityId } from './ability-definition';
 import type { AbilityRegistryDto } from './dtos/ability-registry-dto';
@@ -34,19 +33,13 @@ export class AbilityRegistry<
     return result;
   }
 
-  public getEvents(timeInterval: TimeInterval) {
-    return this.items.flatMap((ability) =>
-      ability.getEventsOverlappingInterval(timeInterval)
-    );
+  public getActiveEvents() {
+    return this.items.flatMap((ability) => ability.getActiveEvents());
   }
 
-  public isActiveAt(id: AbilityId, time: number): boolean {
+  public isActive(id: AbilityId): boolean {
     const item = this.getItem(id);
-    return !!item?.isActiveAt(time);
-  }
-
-  public getItemsNotOnCooldown(time: number) {
-    return this.items.filter((ability) => !ability.isOnCooldownAt(time));
+    return !!item?.isActive();
   }
 
   public toDto(): AbilityRegistryDto {

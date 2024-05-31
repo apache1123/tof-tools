@@ -13,9 +13,7 @@ export class AttackSimulator {
   ) {}
 
   public simulate() {
-    for (const attackEvent of this.attackRegistry.getEvents(
-      this.tickTracker.currentTickInterval
-    )) {
+    for (const attackEvent of this.attackRegistry.getActiveEvents()) {
       this.simulateEvent(attackEvent);
     }
   }

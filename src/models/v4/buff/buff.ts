@@ -52,12 +52,11 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
     this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
-
   /** Adds a new buff event to the timeline. Merging with the latest buff event in the timeline if overlaps occur. */
   protected override addEvent(): BuffEvent {
     const timeInterval =
       this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(
-        this.getTriggerTime()
+        this.triggerTime
       );
     const buffEvent = new BuffEvent(this, timeInterval);
 

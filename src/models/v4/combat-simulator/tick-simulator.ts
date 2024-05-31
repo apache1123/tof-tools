@@ -48,9 +48,7 @@ export class TickSimulator {
       this.buffSimulator.simulate();
       this.resourceSimulator.simulate();
 
-      this.damageTimelineCalculator.calculateDamage(
-        this.tickTracker.currentTickInterval
-      );
+      this.damageTimelineCalculator.calculateDamage();
 
       // Advance to next tick and consume events made in this tick in order to prepare for the next attack
       // This is done to make things easier because the next attack could depend on events published in this tick

@@ -141,6 +141,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       loadout,
       loadout.loadoutStats,
       team,
+      this.tickTracker,
       this.attackRegistry,
       this.buffRegistry,
       this.resourceRegistry,

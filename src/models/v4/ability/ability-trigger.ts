@@ -55,7 +55,7 @@ export class AbilityTrigger {
 
     if (
       requirements.activeBuff &&
-      !this.buffRegistry.isActiveAt(requirements.activeBuff, time)
+      !this.buffRegistry.isActive(requirements.activeBuff)
     )
       return false;
 

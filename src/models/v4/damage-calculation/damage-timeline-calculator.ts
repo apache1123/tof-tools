@@ -11,7 +11,7 @@ import { Damage } from '../damage-summary/damage';
 import { DamageSummary } from '../damage-summary/damage-summary';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { Target } from '../target/target';
-import type { TimeInterval } from '../time-interval/time-interval';
+import type { TickTracker } from '../tick-tracker';
 import { DamageCalculator } from './damage-calculator';
 
 export class DamageTimelineCalculator {
@@ -20,20 +20,23 @@ export class DamageTimelineCalculator {
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
     private readonly team: Team,
+    private readonly tickTracker: TickTracker,
     private readonly attackRegistry: AttackRegistry,
     private readonly buffRegistry: BuffRegistry,
     private readonly resourceRegistry: ResourceRegistry,
     private readonly target: Target
   ) {}
 
-  public calculateDamage(timeInterval: TimeInterval) {
+  public calculateDamage() {
+    const timeInterval = this.tickTracker.currentTickInterval;
+
     const damageSummary = new DamageSummary(
       timeInterval.duration,
       ...this.team.weapons
     );
 
-    const attackEvents = this.attackRegistry.getEvents(timeInterval);
-    const buffEvents = this.buffRegistry.getEvents(timeInterval);
+    const attackEvents = this.attackRegistry.getActiveEvents();
+    const buffEvents = this.buffRegistry.getActiveEvents();
 
     let activeWeaponTotalAttack: number | undefined;
     for (const attackEvent of attackEvents) {
