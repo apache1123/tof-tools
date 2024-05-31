@@ -3,6 +3,7 @@ import groupBy from 'lodash.groupby';
 import type { Team } from '../../team';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { TickTracker } from '../tick-tracker';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { Ability } from './ability';
 import type { AbilityRequirements } from './ability-requirements';
@@ -14,7 +15,8 @@ export class AbilityTrigger {
     public readonly isPlayerInputTrigger: boolean,
     private readonly requirements: AbilityRequirements,
     private readonly ability: Ability,
-  private readonly team: Team,
+    private readonly team: Team,
+    private readonly tickTracker: TickTracker,
     private readonly weaponTracker: WeaponTracker,
     private readonly buffRegistry: BuffRegistry,
     private readonly resourceRegistry: ResourceRegistry
@@ -25,10 +27,7 @@ export class AbilityTrigger {
   }
 
   public canTrigger() {
-    return (
-      this.ability.canTrigger() &&
-      this.hasRequirementsBeenMet(this.ability.getTriggerTime())
-    );
+    return this.ability.canTrigger() && this.hasRequirementsBeenMet();
   }
 
   public trigger() {
@@ -36,10 +35,11 @@ export class AbilityTrigger {
     return this.ability.trigger();
   }
 
-  private hasRequirementsBeenMet(time: number) {
+  private hasRequirementsBeenMet() {
     const { requirements } = this;
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
       this.team;
+    const time = this.tickTracker.currentTickStart;
 
     // Check requirements from most specific to least specific for efficiency
 
@@ -61,14 +61,13 @@ export class AbilityTrigger {
 
     if (
       requirements.activeWeapon &&
-      requirements.activeWeapon !== this.weaponTracker.getActiveWeapon(time)?.id
+      requirements.activeWeapon !== this.weaponTracker.activeWeapon?.id
     )
       return false;
 
     if (
       requirements.notActiveWeapon &&
-      requirements.notActiveWeapon ===
-        this.weaponTracker.getActiveWeapon(time)?.id
+      requirements.notActiveWeapon === this.weaponTracker.activeWeapon?.id
     )
       return false;
 

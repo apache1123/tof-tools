@@ -95,12 +95,11 @@ export class Attack
   private canTriggerGivenWeaponAndCharge(): boolean {
     if (!this.isActiveAttack) return true;
 
-    const time = this.getTriggerTime();
-    const activeWeapon = this.weaponTracker.getActiveWeapon(time);
-    const hasFullCharge = this.charge.hasFullCharge(time);
+    const activeWeapon = this.weaponTracker.activeWeapon;
+    const hasFullCharge = this.charge.hasFullCharge(this.getTriggerTime());
     if (!activeWeapon || !hasFullCharge) return true;
 
-    if (this.weapon !== this.weaponTracker.getActiveWeapon(time)) {
+    if (this.weapon !== this.weaponTracker.activeWeapon) {
       return this.type === 'discharge';
     }
 
@@ -109,13 +108,11 @@ export class Attack
 
   // TODO: This being here is extremely awkward
   private switchWeaponsIfNeeded() {
-    // this possibly needs to be in a different tick than the attack
-    const time = this.getTriggerTime();
     if (
       this.isActiveAttack &&
-      this.weaponTracker.getActiveWeapon(time) !== this.weapon
+      this.weaponTracker.activeWeapon !== this.weapon
     ) {
-      this.weaponTracker.setActiveWeapon(this.weapon, time);
+      this.weaponTracker.setActiveWeapon(this.weapon);
     }
   }
 

@@ -87,7 +87,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
     this.tickTracker = new TickTracker(startingTickInterval, tickDuration);
     this.weaponTracker = new WeaponTracker(
-      new WeaponTrackerTimeline(combatDuration)
+      new WeaponTrackerTimeline(combatDuration),
+      this.tickTracker
     );
 
     this.queuedEventManager = new QueuedEventManager();
@@ -126,6 +127,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     const abilityTriggers = AbilityTriggerFactory.createAbilityTriggers(
       loadout,
       relics,
+      this.tickTracker,
       this.weaponTracker,
       this.resourceRegistry,
       this.buffRegistry,
@@ -163,7 +165,6 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     );
 
     this.weaponSimulator = new WeaponSimulator(
-      this.tickTracker,
       this.weaponTracker,
       this.combatEventNotifier
     );

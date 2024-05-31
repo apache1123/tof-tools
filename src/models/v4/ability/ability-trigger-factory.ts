@@ -6,6 +6,7 @@ import type { BuffRegistry } from '../buff/buff-registry';
 import { eventIdProvider } from '../event/event-id-provider';
 import type { Relics } from '../relics/relics';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { TickTracker } from '../tick-tracker';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { Ability } from './ability';
 import type { AbilityDefinition } from './ability-definition';
@@ -16,6 +17,7 @@ export class AbilityTriggerFactory {
   public static createAbilityTriggers(
     loadout: Loadout,
     relics: Relics,
+    tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
     resourceRegistry: ResourceRegistry,
     buffRegistry: BuffRegistry,
@@ -37,6 +39,7 @@ export class AbilityTriggerFactory {
             triggeredBy.requirements,
             ability,
             loadout.team,
+            tickTracker,
             weaponTracker,
             buffRegistry,
             resourceRegistry
