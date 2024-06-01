@@ -1,5 +1,4 @@
 import type { WeaponDefinition } from '../../../models/weapon-definition';
-import { chargeResourceId, fullCharge } from '../../resources';
 
 export const nemesis = {
   id: 'Nemesis',
@@ -61,36 +60,7 @@ export const nemesis = {
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
-  discharge: {
-    id: 'nemesis-discharge',
-    displayName: 'Nemesis discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Volt' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 0,
-      attackFlat: 0,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 0,
-    triggeredBy: {
-      playerInput: true,
-      requirements: {
-        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-        notActiveWeapon: 'Nemesis',
-      },
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [],
   passiveAttacks: [],
   resources: [],

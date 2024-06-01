@@ -167,34 +167,36 @@ export const brevey = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],
-  discharge: {
-    id: 'brevey-discharge',
-    displayName: 'Brevey discharge',
-    elementalType: { defaultElementalType: 'Volt' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 8.11,
-      attackFlat: 4866,
-    },
-    hitCount: { numberOfHitsFixed: 1 },
-    endedBy: { duration: 3070 },
-    cooldown: 0,
-    triggeredBy: {
-      playerInput: true,
-      requirements: {
-        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-        notActiveWeapon: 'Brevey',
+  discharges: [
+    {
+      id: 'brevey-discharge',
+      displayName: 'Brevey discharge',
+      elementalType: { defaultElementalType: 'Volt' },
+      type: 'discharge',
+      damageModifiers: {
+        damageDealtIsPerSecond: false,
+        attackMultiplier: 8.11,
+        attackFlat: 4866,
       },
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
+      hitCount: { numberOfHitsFixed: 1 },
+      endedBy: { duration: 3070 },
+      cooldown: 0,
+      triggeredBy: {
+        playerInput: true,
+        requirements: {
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+          notActiveWeapon: 'Brevey',
+        },
       },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+      updatesResources: [
+        {
+          resourceId: chargeResourceId,
+          amount: -fullCharge,
+        },
+      ],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+    },
+  ],
   buffs: [
     {
       id: 'brevey-buff-pact-amplification',

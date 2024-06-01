@@ -33,13 +33,13 @@ export class Weapon implements Persistable<WeaponDto> {
   }
 
   public get attackDefinitions(): AttackDefinition[] {
-    const { normalAttacks, dodgeAttacks, skills, discharge, passiveAttacks } =
+    const { normalAttacks, dodgeAttacks, skills, discharges, passiveAttacks } =
       this.definition;
     return [
       ...normalAttacks,
       ...dodgeAttacks,
       ...skills,
-      discharge,
+      ...discharges,
       ...passiveAttacks,
     ].filter((attackDefinition) =>
       this.hasMetStarRequirement(attackDefinition.starRequirement)
@@ -47,8 +47,8 @@ export class Weapon implements Persistable<WeaponDto> {
   }
 
   public get allPlayerInputAttackDefinitions(): PlayerInputAttackDefinition[] {
-    const { normalAttacks, dodgeAttacks, skills, discharge } = this.definition;
-    return [...normalAttacks, ...dodgeAttacks, ...skills, discharge].filter(
+    const { normalAttacks, dodgeAttacks, skills, discharges } = this.definition;
+    return [...normalAttacks, ...dodgeAttacks, ...skills, ...discharges].filter(
       (attackDefinition) =>
         this.hasMetStarRequirement(attackDefinition.starRequirement)
     );

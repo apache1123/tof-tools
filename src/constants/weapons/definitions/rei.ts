@@ -183,36 +183,38 @@ export const rei = {
       starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
     },
   ],
-  discharge: {
-    id: 'rei-discharge',
-    displayName: 'Rei discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Volt' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 13.37,
-      attackFlat: 8021,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 1667 },
-    cooldown: 0,
-    triggeredBy: {
-      playerInput: true,
-      requirements: {
-        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-        notActiveWeapon: 'Rei',
+  discharges: [
+    {
+      id: 'rei-discharge',
+      displayName: 'Rei discharge [placeholder]',
+      elementalType: { defaultElementalType: 'Volt' },
+      type: 'discharge',
+      damageModifiers: {
+        damageDealtIsPerSecond: false,
+        attackMultiplier: 13.37,
+        attackFlat: 8021,
       },
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
+      hitCount: {
+        numberOfHitsFixed: 1,
       },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+      endedBy: { duration: 1667 },
+      cooldown: 0,
+      triggeredBy: {
+        playerInput: true,
+        requirements: {
+          hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
+          notActiveWeapon: 'Rei',
+        },
+      },
+      updatesResources: [
+        {
+          resourceId: chargeResourceId,
+          amount: -fullCharge,
+        },
+      ],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+    },
+  ],
   passiveAttacks: [
     {
       id: 'detachment',

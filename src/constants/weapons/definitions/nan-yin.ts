@@ -1,5 +1,5 @@
 import type { WeaponDefinition } from '../../../models/weapon-definition';
-import { chargeResourceId, fullCharge } from '../../resources';
+import { chargeResourceId } from '../../resources';
 
 export const nanYin = {
   id: 'Nan Yin',
@@ -60,39 +60,7 @@ export const nanYin = {
   ],
   dodgeAttacks: [],
   skills: [],
-  discharge: {
-    id: 'nanyin-discharge',
-    displayName: 'Nan Yin - discharge',
-    elementalType: {
-      defaultElementalType: 'Altered',
-      followLastWeaponElementalType: true,
-    },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 0,
-      attackFlat: 0,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 30000,
-    triggeredBy: {
-      playerInput: true,
-      requirements: {
-        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-        notActiveWeapon: 'Nan Yin',
-      },
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [
     {
       id: 'nanyin-atk-buff-the-final-tune',

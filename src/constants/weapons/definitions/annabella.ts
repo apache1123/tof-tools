@@ -1,5 +1,4 @@
 import type { WeaponDefinition } from '../../../models/weapon-definition';
-import { chargeResourceId, fullCharge } from '../../resources';
 
 export const annabella = {
   id: 'Annabella',
@@ -49,36 +48,7 @@ export const annabella = {
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
-  discharge: {
-    id: 'annabella-discharge',
-    displayName: 'Annabella discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Flame' },
-    type: 'discharge',
-    damageModifiers: {
-      attackMultiplier: 0,
-      attackFlat: 0,
-      damageDealtIsPerSecond: false,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 0,
-    triggeredBy: {
-      playerInput: true,
-      requirements: {
-        hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-        notActiveWeapon: 'Annabella',
-      },
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [],
   passiveAttacks: [],
   resources: [],
