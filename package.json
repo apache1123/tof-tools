@@ -37,7 +37,7 @@
     "indefinite": "^2.5.1",
     "lodash.groupby": "^4.6.0",
     "nanoid": "^4.0.2",
-    "next": "13.4.7",
+    "next": "14.2.3",
     "pluralize": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
