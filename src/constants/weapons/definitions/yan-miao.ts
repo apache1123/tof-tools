@@ -36,6 +36,7 @@ export const yanMiao = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'yanmiao-auto-chain',

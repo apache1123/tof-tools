@@ -58,6 +58,7 @@ export const rei = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'rei-normal-auto-chain',

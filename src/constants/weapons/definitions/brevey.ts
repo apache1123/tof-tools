@@ -41,6 +41,7 @@ export const brevey = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'brevey-normal-auto-chain',

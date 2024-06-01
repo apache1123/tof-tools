@@ -97,6 +97,14 @@ export function BuffSummary() {
             </Typography>
           </Divider>
           <Stack>
+            {weaponBuffs.critDamageBuffs.map((buff, i) => (
+              <Typography key={i}>
+                {buff.weaponDisplayName} - {buff.displayName} :{' '}
+                <ElementalStyledText elementalType={elementalType}>
+                  <NumericStringPercentage2dp value={buff.value} />
+                </ElementalStyledText>
+              </Typography>
+            ))}
             {matrixSetBuffs.critDamageBuffs.map((buff, i) => (
               <Typography key={i}>
                 {buff.matrixSetDisplayName} {buff.stars}*:{' '}

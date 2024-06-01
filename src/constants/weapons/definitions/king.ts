@@ -9,6 +9,7 @@ export const king = {
   type: 'DPS',
   attackPercentBuffs: [],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

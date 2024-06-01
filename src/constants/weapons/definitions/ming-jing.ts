@@ -36,6 +36,7 @@ export const mingJing = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'mingjing-auto-chain',

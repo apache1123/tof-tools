@@ -9,6 +9,7 @@ export const meryl = {
   type: 'Defense',
   attackPercentBuffs: [],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

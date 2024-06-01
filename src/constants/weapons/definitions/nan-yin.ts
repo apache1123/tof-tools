@@ -28,6 +28,7 @@ export const nanYin = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'nanyin-normal-auto-chain',
