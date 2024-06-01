@@ -35,6 +35,7 @@ export const cocoritter = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

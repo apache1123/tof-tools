@@ -57,6 +57,7 @@ export const lin = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

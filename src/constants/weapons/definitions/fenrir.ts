@@ -45,6 +45,7 @@ export const fenrir = {
       maxStarRequirement: 6,
     },
   ],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

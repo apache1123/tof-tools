@@ -29,3 +29,4 @@ export interface WeaponAttackPercentBuffDefinition
 }
 
 export type WeaponCritRateBuffDefinition = WeaponBuffDefinition;
+export type WeaponCritDamageBuffDefinition = WeaponBuffDefinition;

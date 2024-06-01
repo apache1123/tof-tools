@@ -35,6 +35,7 @@ export const yanuo = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'Yanuo - [Placeholder auto attack]',

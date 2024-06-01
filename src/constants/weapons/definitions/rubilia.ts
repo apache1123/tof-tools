@@ -22,6 +22,7 @@ export const rubilia = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

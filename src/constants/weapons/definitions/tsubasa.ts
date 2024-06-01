@@ -10,6 +10,7 @@ export const tsubasa = {
   type: 'DPS',
   attackPercentBuffs: [],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'tsubasa-auto-chain',

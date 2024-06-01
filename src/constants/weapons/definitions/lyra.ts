@@ -36,6 +36,7 @@ export const lyra = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

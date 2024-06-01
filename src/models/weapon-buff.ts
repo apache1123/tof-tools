@@ -18,3 +18,4 @@ export interface WeaponAttackPercentBuff
     Pick<WeaponAttackPercentBuffDefinition, 'elementalTypes'> {}
 
 export type WeaponCritRateBuff = WeaponBuff;
+export type WeaponCritDamageBuff = WeaponBuff;

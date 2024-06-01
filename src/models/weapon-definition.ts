@@ -13,6 +13,7 @@ import type { WeaponBuffDefinition } from './v4/weapon/weapon-buff-definition';
 import type { WeaponResourceDefinition } from './v4/weapon/weapon-resource-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
+  WeaponCritDamageBuffDefinition,
   WeaponCritRateBuffDefinition,
 } from './weapon-buff-definition';
 
@@ -30,6 +31,7 @@ export interface WeaponDefinition {
   type: WeaponType;
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
   critRateBuffs: WeaponCritRateBuffDefinition[];
+  critDamageBuffs: WeaponCritDamageBuffDefinition[];
 
   /** v4 below */
 

@@ -29,6 +29,7 @@ import { nanYin } from './definitions/nan-yin';
 import { nemesis } from './definitions/nemesis';
 import { plotti } from './definitions/plotti';
 import { rei } from './definitions/rei';
+import { roslyn } from './definitions/roslyn';
 import { rubilia } from './definitions/rubilia';
 import { ruby } from './definitions/ruby';
 import { sakiFuwa } from './definitions/saki-fuwa';
@@ -72,6 +73,7 @@ export type WeaponName =
   | 'Nemesis'
   | 'Plotti'
   | 'Rei'
+  | 'Roslyn'
   | 'Rubilia'
   | 'Ruby'
   | 'Saki Fuwa'
@@ -116,6 +118,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Nemesis',
     'Plotti',
     'Rei',
+    'Roslyn',
     'Rubilia',
     'Ruby',
     'Saki Fuwa',
@@ -146,7 +149,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Huang (Mimi)': mimi,
     Huma: huma,
     Icarus: icarus,
-    "Ji Yu": jiYu,
+    'Ji Yu': jiYu,
     King: king,
     Lan: lan,
     Lin: lin,
@@ -159,6 +162,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     Nemesis: nemesis,
     Plotti: plotti,
     Rei: rei,
+    Roslyn: roslyn,
     Rubilia: rubilia,
     Ruby: ruby,
     'Saki Fuwa': sakiFuwa,

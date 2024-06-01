@@ -45,6 +45,7 @@ export const annabella = {
       maxStarRequirement: 6,
     },
   ],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

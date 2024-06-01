@@ -9,6 +9,7 @@ export const samir = {
   type: 'DPS',
   attackPercentBuffs: [],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

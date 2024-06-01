@@ -3,9 +3,11 @@ import type { Weapon } from './weapon';
 import type {
   WeaponAttackPercentBuff,
   WeaponBuff,
+  WeaponCritDamageBuff,
   WeaponCritRateBuff,
 } from './weapon-buff';
 import type { WeaponBuffDefinition } from './weapon-buff-definition';
+import type { WeaponDefinition } from './weapon-definition';
 
 export class LoadoutWeaponBuffs {
   private _loadout: Loadout;
@@ -27,25 +29,12 @@ export class LoadoutWeaponBuffs {
         if (!this.hasMetBuffRequirements(buffDefinition, weapon)) return;
         if (!buffDefinition.elementalTypes.includes(elementalType)) return;
 
-        const {
-          id,
-          description,
-          displayName,
-          value,
-          elementalTypes,
-          isActivePassively,
-          canStack,
-        } = buffDefinition;
+        const { elementalTypes, canStack } = buffDefinition;
         const buff: WeaponAttackPercentBuff = {
-          id,
-          description,
-          displayName,
-          value,
+          ...this.mapBuffDefinitionToBuff(buffDefinition, weaponDefinition),
           elementalTypes,
-          isActivePassively,
-          weaponId: weaponDefinition.id,
-          weaponDisplayName: weaponDefinition.displayName,
         };
+
         this.addBuff(buff, buffs, canStack);
       });
     });
@@ -63,23 +52,33 @@ export class LoadoutWeaponBuffs {
       weaponDefinition.critRateBuffs.forEach((buffDefinition) => {
         if (!this.hasMetBuffRequirements(buffDefinition, weapon)) return;
 
-        const {
-          id,
-          description,
-          displayName,
-          value,
-          canStack,
-          isActivePassively,
-        } = buffDefinition;
-        const buff: WeaponCritRateBuff = {
-          id,
-          description,
-          displayName,
-          value,
-          isActivePassively,
-          weaponId: weaponDefinition.id,
-          weaponDisplayName: weaponDefinition.displayName,
-        };
+        const { canStack } = buffDefinition;
+        const buff: WeaponCritRateBuff = this.mapBuffDefinitionToBuff(
+          buffDefinition,
+          weaponDefinition
+        );
+        this.addBuff(buff, buffs, canStack);
+      });
+    });
+
+    return buffs;
+  }
+
+  /** Weapon crit damage% buffs that have met the requirements to be enabled.
+   * They could be active when idle (passive buff), or inactive when idle (conditional buff), but are ready to be activated in combat.
+   */
+  public get critDamageBuffs(): WeaponCritDamageBuff[] {
+    const buffs: WeaponCritDamageBuff[] = [];
+    this._loadout.team.weapons.forEach((weapon) => {
+      const weaponDefinition = weapon.definition;
+      weaponDefinition.critDamageBuffs.forEach((buffDefinition) => {
+        if (!this.hasMetBuffRequirements(buffDefinition, weapon)) return;
+
+        const { canStack } = buffDefinition;
+        const buff: WeaponCritDamageBuff = this.mapBuffDefinitionToBuff(
+          buffDefinition,
+          weaponDefinition
+        );
         this.addBuff(buff, buffs, canStack);
       });
     });
@@ -154,5 +153,22 @@ export class LoadoutWeaponBuffs {
         collection.push(buff);
       }
     }
+  }
+
+  private mapBuffDefinitionToBuff(
+    buffDefinition: WeaponBuffDefinition,
+    weaponDefinition: WeaponDefinition
+  ): WeaponBuff {
+    const { id, description, displayName, value, isActivePassively } =
+      buffDefinition;
+    return {
+      id,
+      description,
+      displayName,
+      value,
+      isActivePassively,
+      weaponId: weaponDefinition.id,
+      weaponDisplayName: weaponDefinition.displayName,
+    };
   }
 }

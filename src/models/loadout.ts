@@ -306,11 +306,17 @@ export class Loadout implements Persistable<LoadoutDto> {
 
   /** Total crit damage% buff that will be active in combat */
   public get critDamageBuffTotal(): number {
+    const weaponCritDamageBuffValues = this.weaponBuffs.critDamageBuffs.map(
+      (buff) => buff.value
+    );
     const matrixCritDamageBuffValues = this.matrixSetBuffs.critDamageBuffs.map(
       (buff) => buff.value
     );
 
-    return sum(...matrixCritDamageBuffValues).toNumber();
+    return sum(
+      ...weaponCritDamageBuffValues,
+      ...matrixCritDamageBuffValues
+    ).toNumber();
   }
 
   public copyFromDto(dto: LoadoutDto): void {

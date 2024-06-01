@@ -34,6 +34,7 @@ export const ruby = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [
     {

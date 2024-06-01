@@ -23,6 +23,7 @@ export const mimi = {
     },
   ],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [
     {
       id: 'mimi-normal-auto-chain',

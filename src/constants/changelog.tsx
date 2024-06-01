@@ -211,4 +211,11 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 4, 4)),
     title: 'Add Ji Yu',
   },
+  {
+    semver: '3.15.0',
+    date: new Date(Date.UTC(2024, 5, 1)),
+    title: 'Add Roslyn',
+    description:
+      "Since simulacra trait selection has not been added to the gear comparer yet, the calculator assumes you will also equip her trait when using Roslyn's weapon. (Roslyn trait buffs crit damage)",
+  },
 ];

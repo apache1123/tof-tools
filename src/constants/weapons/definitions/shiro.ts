@@ -9,6 +9,7 @@ export const shiro = {
   type: 'DPS',
   attackPercentBuffs: [],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],

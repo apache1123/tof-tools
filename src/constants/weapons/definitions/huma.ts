@@ -9,6 +9,7 @@ export const huma = {
   type: 'Defense',
   attackPercentBuffs: [],
   critRateBuffs: [],
+  critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
