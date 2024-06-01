@@ -34,6 +34,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     'Nemesis',
     'Plotti',
     'Rei',
+    'Roslyn',
     'Rubilia',
     'Ruby',
     'Saki Fuwa',
@@ -966,6 +967,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
       ],
+    },
+    Roslyn: {
+      id: 'Roslyn',
+      displayName: 'Roslyn',
+      // TODO:
+      buffs: [],
     },
     Rubilia: {
       id: 'Rubilia',
