@@ -67,12 +67,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             endOfAnySkillAttack: true,
+            requirements: {},
           },
           endedBy: {
             duration: 18000,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },
@@ -99,14 +99,9 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
-          endedBy: {
-            combatEnd: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
+          endedBy: { combatEnd: true },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },
@@ -126,14 +121,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'brevey-trait-additional',
@@ -150,14 +142,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              anyWeaponInTeam: ['Brevey'],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            anyWeaponInTeam: ['Brevey'],
-          },
         },
       ],
     },
@@ -191,12 +183,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             endOfSkillOfWeaponType: 'Support',
             endOfDischargeOfWeaponType: 'Support',
+            requirements: {},
           },
           endedBy: {
             duration: 5000,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },
@@ -216,14 +208,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         // TODO: verify if this is 10+12% or 10+2%
         {
@@ -239,14 +228,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             duration: 12000,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },
@@ -269,19 +255,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             endOfAttacks: ['feise-skill-whirling'],
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Flame',
+                  numOfWeapons: 1,
+                },
+              ],
+            },
           },
           endedBy: {
             duration: 30000,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Flame',
-                numOfWeapons: 1,
-              },
-            ],
-          },
         },
         {
           id: 'feise-trait-2-flame',
@@ -298,19 +284,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             endOfAttacks: ['feise-skill-whirling'],
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Flame',
+                  numOfWeapons: 2,
+                },
+              ],
+            },
           },
           endedBy: {
             duration: 30000,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Flame',
-                numOfWeapons: 2,
-              },
-            ],
-          },
         },
         {
           id: 'feise-trait-3-flame',
@@ -327,19 +313,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             endOfAttacks: ['feise-skill-whirling'],
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Flame',
+                  numOfWeapons: 3,
+                },
+              ],
+            },
           },
           endedBy: {
             duration: 30000,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Flame',
-                numOfWeapons: 3,
-              },
-            ],
-          },
         },
       ],
     },
@@ -362,14 +348,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: { numOfDifferentElementalTypesInTeam: 2 },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            numOfDifferentElementalTypesInTeam: 2,
-          },
         },
         {
           id: 'fenrir-trait-3-elemental-types',
@@ -386,14 +370,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: { numOfDifferentElementalTypesInTeam: 3 },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            numOfDifferentElementalTypesInTeam: 3,
-          },
         },
       ],
     },
@@ -414,14 +396,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },
@@ -441,14 +420,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
       remarks:
@@ -477,14 +453,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'mimi-trait-triple-volt',
@@ -501,19 +474,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Volt',
+                  numOfWeapons: 3,
+                },
+              ],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Volt',
-                numOfWeapons: 3,
-              },
-            ],
-          },
         },
       ],
     },
@@ -541,14 +514,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: { anyWeaponInTeam: ['Icarus'] },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            anyWeaponInTeam: ['Icarus'],
-          },
         },
       ],
     },
@@ -561,10 +532,9 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           displayName: 'Ji Yu trait',
           description: 'Increase final damage by 18%.',
           maxStacks: 1,
-          triggeredBy: { combatStart: true },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: { combatEnd: true },
           cooldown: 0,
-          requirements: {},
           damageBuffs: [
             {
               value: 0.18,
@@ -579,10 +549,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           description:
             'When Freeflow is equipped, if there is only 1 target in the zone, increase flame damage by 10%. If there are 2 or more targets, increase flame damage to 14%.',
           maxStacks: 1,
-          triggeredBy: { combatStart: true },
+          triggeredBy: {
+            combatStart: true,
+            requirements: { anyWeaponInTeam: ['Ji Yu'] },
+          },
           endedBy: { combatEnd: true },
           cooldown: 0,
-          requirements: { anyWeaponInTeam: ['Ji Yu'] },
           damageBuffs: [
             {
               value: 0.1,
@@ -618,14 +590,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: { weaponResonance: 'Fortitude' },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            weaponResonance: 'Fortitude',
-          },
         },
       ],
     },
@@ -652,14 +622,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'linghan-trait-1-frost',
@@ -676,19 +643,16 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                { elementalType: 'Frost', numOfWeapons: 1 },
+              ],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Frost',
-                numOfWeapons: 1,
-              },
-            ],
-          },
         },
         {
           id: 'linghan-trait-2-frost',
@@ -705,19 +669,16 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                { elementalType: 'Frost', numOfWeapons: 2 },
+              ],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Frost',
-                numOfWeapons: 2,
-              },
-            ],
-          },
         },
         {
           id: 'linghan-trait-3-frost',
@@ -734,19 +695,16 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                { elementalType: 'Frost', numOfWeapons: 3 },
+              ],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Frost',
-                numOfWeapons: 3,
-              },
-            ],
-          },
         },
       ],
     },
@@ -767,14 +725,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },
@@ -804,14 +759,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'mingjing-trait-physical-increase',
@@ -822,14 +774,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             increaseElementalBaseAttackToMatchHighest: 'Physical',
           },
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'mingjing-trait-normal-attack',
@@ -839,12 +788,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Ming Jing',
+            requirements: {},
           },
           endedBy: {
             notActiveWeapon: 'Ming Jing',
           },
           cooldown: 0,
-          requirements: {},
           // TODO: buff
         },
       ],
@@ -865,14 +814,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'nanyin-trait-active-weapon-1-non-altered',
@@ -889,17 +835,17 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Nan Yin',
+            requirements: {
+              notElementalTypeWeaponsInTeam: {
+                notElementalType: 'Altered',
+                numOfWeapons: 1,
+              },
+            },
           },
           endedBy: {
             notActiveWeapon: 'Nan Yin',
           },
           cooldown: 0,
-          requirements: {
-            notElementalTypeWeaponsInTeam: {
-              notElementalType: 'Altered',
-              numOfWeapons: 1,
-            },
-          },
         },
         {
           id: 'nanyin-trait-active-weapon-2-non-altered',
@@ -916,17 +862,17 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Nan Yin',
+            requirements: {
+              notElementalTypeWeaponsInTeam: {
+                notElementalType: 'Altered',
+                numOfWeapons: 2,
+              },
+            },
           },
           endedBy: {
             notActiveWeapon: 'Nan Yin',
           },
           cooldown: 0,
-          requirements: {
-            notElementalTypeWeaponsInTeam: {
-              notElementalType: 'Altered',
-              numOfWeapons: 2,
-            },
-          },
         },
       ],
     },
@@ -952,14 +898,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'plotti-trait-weapon-damage-buff',
@@ -967,14 +910,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           description:
             "Increase EP-7000 Skyfire EP-7000 Skyfire's flame damage by 30%",
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
           // TODO: buff
         },
       ],
@@ -995,14 +935,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'rei-trait-attack-resonance',
@@ -1019,14 +956,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              weaponResonance: 'Attack',
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            weaponResonance: 'Attack',
-          },
         },
       ],
     },
@@ -1049,19 +986,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Volt',
+                  numOfWeapons: 1,
+                },
+              ],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Volt',
-                numOfWeapons: 1,
-              },
-            ],
-          },
         },
         {
           id: 'rubilia-trait-2-volt',
@@ -1078,19 +1015,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Volt',
+                  numOfWeapons: 2,
+                },
+              ],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Volt',
-                numOfWeapons: 2,
-              },
-            ],
-          },
         },
         {
           id: 'rubilia-trait-3-volt',
@@ -1107,19 +1044,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Volt',
+                  numOfWeapons: 3,
+                },
+              ],
+            },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Volt',
-                numOfWeapons: 3,
-              },
-            ],
-          },
         },
       ],
     },
@@ -1141,12 +1078,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             endOfAttacks: ['ruby-dodge-go-dolly'],
+            requirements: {},
           },
           endedBy: {
             duration: 10000,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'ruby-trait-dolly-dmg',
@@ -1163,13 +1100,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             endOfAttacks: ['ruby-dodge-go-dolly'],
+            requirements: {},
           },
           endedBy: {
             duration: 10000,
           },
           cooldown: 0,
           remarks: 'Assumes Dolly remains for 10 seconds and enemy is near it',
-          requirements: {},
         },
       ],
     },
@@ -1195,16 +1132,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
           remarks:
             'For simplicity, assume max stacks at all times (+20% damage at all times)',
-          requirements: {},
         },
       ],
     },
@@ -1231,12 +1165,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             endOfAnySkillAttack: true,
             endOfAnyDischargeAttack: true,
+            requirements: {},
           },
           endedBy: {
             duration: 8000,
           },
           cooldown: 16000,
-          requirements: {},
         },
       ],
     },
@@ -1261,6 +1195,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           triggeredBy: {
             endOfSkillOfElementalType: 'Volt',
             endOfDischargeOfElementalType: 'Volt',
+            requirements: {},
           },
           endedBy: {
             duration: 8000,
@@ -1268,7 +1203,6 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
           remarks:
             'Assuming the effect activates every volt weapon skill or discharge, ignoring the "simultaneously" requirement',
-          requirements: {},
         },
       ],
     },
@@ -1288,15 +1222,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
           remarks: 'For simplicity, assume max stacks at all times (+18% ATK)',
-          requirements: {},
         },
       ],
     },
@@ -1319,12 +1250,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             endOfAttacks: ["umi-skill-it's-magic-time"],
+            requirements: {},
           },
           endedBy: {
             duration: 30000,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },
@@ -1344,14 +1275,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'yanmiao-trait-weapon-buff',
@@ -1367,15 +1295,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
           remarks: 'This is assumed to be active 80% of the battle duration',
-          requirements: {},
         },
         {
           id: 'yanmiao-trait-normal-atk-buff-1-phys',
@@ -1385,19 +1310,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Yan Miao',
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Physical',
+                  numOfWeapons: 1,
+                },
+              ],
+            },
           },
           endedBy: {
             notActiveWeapon: 'Yan Miao',
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Physical',
-                numOfWeapons: 1,
-              },
-            ],
-          },
           // TODO: buff
         },
         {
@@ -1408,19 +1333,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Yan Miao',
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Physical',
+                  numOfWeapons: 2,
+                },
+              ],
+            },
           },
           endedBy: {
             notActiveWeapon: 'Yan Miao',
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Physical',
-                numOfWeapons: 2,
-              },
-            ],
-          },
           // TODO: buff
         },
         {
@@ -1431,19 +1356,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             activeWeapon: 'Yan Miao',
+            requirements: {
+              elementalTypeWeaponsInTeam: [
+                {
+                  elementalType: 'Physical',
+                  numOfWeapons: 3,
+                },
+              ],
+            },
           },
           endedBy: {
             notActiveWeapon: 'Yan Miao',
           },
           cooldown: 0,
-          requirements: {
-            elementalTypeWeaponsInTeam: [
-              {
-                elementalType: 'Physical',
-                numOfWeapons: 3,
-              },
-            ],
-          },
           // TODO: buff
         },
       ],
@@ -1464,14 +1389,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
         {
           id: 'yanuo-trait-additional',
@@ -1488,14 +1410,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           maxStacks: 1,
           triggeredBy: {
             combatStart: true,
+            requirements: { anyWeaponInTeam: ['Yanuo'] },
           },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {
-            anyWeaponInTeam: ['Yanuo'],
-          },
         },
       ],
     },
@@ -1516,14 +1436,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
             },
           ],
           maxStacks: 1,
-          triggeredBy: {
-            combatStart: true,
-          },
+          triggeredBy: { combatStart: true, requirements: {} },
           endedBy: {
             combatEnd: true,
           },
           cooldown: 0,
-          requirements: {},
         },
       ],
     },

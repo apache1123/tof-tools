@@ -24,7 +24,7 @@ export class AbilityResourceUpdater {
         hasPriority,
       } = updatesResource;
 
-      const resource = this.resourceRegistry.getResource(resourceId);
+      const resource = this.resourceRegistry.getItem(resourceId);
       if (!resource) {
         throw new Error(
           `Cannot find Resource to add to. ResourceId:${resourceId}`

@@ -1,11 +1,9 @@
 import type { Serializable } from '../../persistable';
-import type { AbilityEndedBy } from '../ability/ability-ended-by';
+import { Ability } from '../ability/ability';
 import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
-import type { AbilityRequirements } from '../ability/ability-requirements';
-import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
-import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import { BuffEvent } from '../buff-timeline/buff-event';
 import type { BuffTimeline } from '../buff-timeline/buff-timeline';
+import type { TickTracker } from '../tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { AttackBuff } from './attack-buff';
 import type { BuffDefinition, BuffId } from './buff-definition';
@@ -14,21 +12,14 @@ import type { DamageBuff } from './damage-buff';
 import type { BuffDto } from './dtos/buff-dto';
 import type { MiscellaneousBuff } from './miscellaneous-buff';
 
-export class Buff implements Serializable<BuffDto> {
+export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
   public readonly id: BuffId;
-  public readonly displayName: string;
   public readonly maxStacks: number;
-  public readonly cooldown: number;
 
   public readonly attackBuffs: AttackBuff[];
   public readonly damageBuffs: DamageBuff[];
   public readonly critDamageBuffs: CritDamageBuff[];
   public readonly miscBuff?: MiscellaneousBuff;
-
-  public readonly triggeredBy: AbilityTriggeredBy;
-  public readonly endedBy: AbilityEndedBy;
-  public readonly requirements: AbilityRequirements;
-  public readonly updatesResources: AbilityUpdatesResource[];
 
   public readonly timeline: BuffTimeline;
 
@@ -37,62 +28,38 @@ export class Buff implements Serializable<BuffDto> {
   public constructor(
     definition: BuffDefinition,
     timeline: BuffTimeline,
+    tickTracker: TickTracker,
     abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
+    super(definition, timeline, tickTracker);
+
     const {
       id,
-      displayName,
       maxStacks,
-      cooldown,
       attackBuffs,
       damageBuffs,
       critDamageBuffs,
       miscBuff,
-      triggeredBy,
-      endedBy,
-      requirements,
-      updatesResources,
     } = definition;
     this.id = id;
-    this.displayName = displayName;
     this.maxStacks = maxStacks;
-    this.cooldown = cooldown;
     this.attackBuffs = attackBuffs ?? [];
     this.damageBuffs = damageBuffs ?? [];
     this.critDamageBuffs = critDamageBuffs ?? [];
     this.miscBuff = miscBuff;
-    this.triggeredBy = triggeredBy;
-    this.endedBy = endedBy;
-    this.requirements = requirements;
-    this.updatesResources = updatesResources ?? [];
 
     this.timeline = timeline;
     this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
-  public trigger(time: number): BuffEvent {
-    const timeInterval =
-      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(time);
-    return this.addNewBuffEvent(new BuffEvent(this, timeInterval));
-  }
-
-  public endActiveBuffsAt(time: number) {
-    return this.timeline.endAnyEventsAt(time);
-  }
-
-  public getBuffEventsEndingBetween(timeInterval: TimeInterval) {
-    return this.timeline.getEventsEndingBetween(timeInterval);
-  }
-
-  public getBuffEventsOverlappingInterval(timeInterval: TimeInterval) {
-    return this.timeline.getEventsOverlappingInterval(
-      timeInterval.startTime,
-      timeInterval.endTime
-    );
-  }
-
   /** Adds a new buff event to the timeline. Merging with the latest buff event in the timeline if overlaps occur. */
-  private addNewBuffEvent(buffEvent: BuffEvent): BuffEvent {
+  protected override addEvent(): BuffEvent {
+    const timeInterval =
+      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(
+        this.triggerTime
+      );
+    const buffEvent = new BuffEvent(this, timeInterval);
+
     const { lastEvent } = this.timeline;
     const { maxStacks } = this;
 
@@ -174,7 +141,7 @@ export class Buff implements Serializable<BuffDto> {
   }
 
   public toDto(): BuffDto {
-    const { id, displayName, timeline } = this;
-    return { id, displayName, timeline: timeline.toDto(), version: 1 };
+    const { timeline } = this;
+    return { ...super.toDto(), timeline: timeline.toDto() };
   }
 }

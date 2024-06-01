@@ -45,7 +45,7 @@ export class AttackEvent
       hitCount,
       updatesResources,
       doesNotTriggerEvents,
-      isActiveWeaponAttack,
+      isActiveAttack,
     } = attack;
 
     super(timeInterval, cooldown);
@@ -57,7 +57,7 @@ export class AttackEvent
     this.hitCount = { ...hitCount };
     this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
     this.doesNotTriggerEvents = doesNotTriggerEvents ?? false;
-    this.isActiveWeaponAttack = isActiveWeaponAttack;
+    this.isActiveWeaponAttack = isActiveAttack;
 
     this.weapon = weapon;
   }

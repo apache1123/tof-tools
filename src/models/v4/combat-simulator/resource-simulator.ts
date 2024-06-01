@@ -17,9 +17,7 @@ export class ResourceSimulator {
     for (const resourceEvent of this.resourceRegistry.getResourceEvents(
       this.tickTracker.currentTickInterval
     )) {
-      const resource = this.resourceRegistry.getResource(
-        resourceEvent.resourceId
-      );
+      const resource = this.resourceRegistry.getItem(resourceEvent.resourceId);
       if (!resource) {
         throw new Error(`Cannot find resource: ${resourceEvent.resourceId}`);
       }
@@ -44,7 +42,7 @@ export class ResourceSimulator {
   private regenerateResources() {
     const tickInterval = this.tickTracker.currentTickInterval;
 
-    for (const resource of this.resourceRegistry.resources) {
+    for (const resource of this.resourceRegistry.items) {
       this.resourceRegenerator.regenerateResource(resource, tickInterval);
     }
   }

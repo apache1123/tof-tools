@@ -1,25 +1,45 @@
 import groupBy from 'lodash.groupby';
 
 import type { Team } from '../../team';
-import type { WeaponTracker } from '../attack/weapon-tracker';
 import type { BuffRegistry } from '../buff/buff-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
+import type { TickTracker } from '../tick-tracker';
+import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
+import type { Ability } from './ability';
 import type { AbilityRequirements } from './ability-requirements';
 
-export class AbilityRequirementsChecker {
+/** An ability trigger is a defined way of triggering an ability, e.g. through player input or triggered by the end of anther ability etc.. Often comes with a condition that must be met before an ability can be triggered */
+export class AbilityTrigger {
   public constructor(
+    public readonly eventId: string,
+    public readonly isPlayerInputTrigger: boolean,
+    private readonly requirements: AbilityRequirements,
+    private readonly ability: Ability,
     private readonly team: Team,
+    private readonly tickTracker: TickTracker,
     private readonly weaponTracker: WeaponTracker,
     private readonly buffRegistry: BuffRegistry,
     private readonly resourceRegistry: ResourceRegistry
   ) {}
 
-  public hasRequirementsBeenMetAt(
-    requirements: AbilityRequirements,
-    time: number
-  ) {
+  public get abilityId() {
+    return this.ability.id;
+  }
+
+  public canTrigger() {
+    return this.ability.canTrigger() && this.hasRequirementsBeenMet();
+  }
+
+  public trigger() {
+    if (!this.canTrigger()) return;
+    return this.ability.trigger();
+  }
+
+  private hasRequirementsBeenMet() {
+    const { requirements } = this;
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
       this.team;
+    const time = this.tickTracker.currentTickStart;
 
     // Check requirements from most specific to least specific for efficiency
 
@@ -35,18 +55,18 @@ export class AbilityRequirementsChecker {
 
     if (
       requirements.activeBuff &&
-      !this.buffRegistry.isBuffActiveAt(requirements.activeBuff, time)
+      !this.buffRegistry.isActive(requirements.activeBuff)
     )
       return false;
 
     if (
-      requirements?.activeWeapon &&
+      requirements.activeWeapon &&
       requirements.activeWeapon !== this.weaponTracker.activeWeapon?.id
     )
       return false;
 
     if (
-      requirements?.notActiveWeapon &&
+      requirements.notActiveWeapon &&
       requirements.notActiveWeapon === this.weaponTracker.activeWeapon?.id
     )
       return false;
@@ -72,7 +92,7 @@ export class AbilityRequirementsChecker {
       return false;
 
     if (
-      requirements?.elementalTypeWeaponsInTeam &&
+      requirements.elementalTypeWeaponsInTeam &&
       requirements.elementalTypeWeaponsInTeam.every((requirement) => {
         const numOfWeaponsOfElementalType = weaponElementalTypes.filter(
           (x) => x === requirement.elementalType

@@ -2,27 +2,34 @@ import { tickDuration } from '../../../constants/tick';
 import type { Loadout } from '../../loadout';
 import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
-import { AbilityRequirementsChecker } from '../ability/ability-requirements-checker';
+import type { Ability } from '../ability/ability';
+import type { AbilityId } from '../ability/ability-definition';
+import { AbilityRegistry } from '../ability/ability-registry';
 import { AbilityResourceUpdater } from '../ability/ability-resource-updater';
-import type { AttackId } from '../attack/attack-definition';
-import { AttackRegistryFactory } from '../attack/attack-registry-factory';
-import { CombinedAttackRegistry } from '../attack/combined-attack-registry';
-import { WeaponTracker } from '../attack/weapon-tracker';
-import type { BuffRegistry } from '../buff/buff-registry';
-import { BuffRegistryFactory } from '../buff/buff-registry-factory';
+import { AbilityTriggerFactory } from '../ability/ability-trigger-factory';
+import { AbilityTriggerRegistry } from '../ability/ability-trigger-registry';
+import { AttackFactory } from '../attack/attack-factory';
+import { AttackRegistry } from '../attack/attack-registry';
+import { BuffFactory } from '../buff/buff-factory';
+import { BuffRegistry } from '../buff/buff-registry';
 import { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
 import { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-calculator';
 import { CombatEventConfigurator } from '../event/combat-event-configurator';
 import { CombatEventNotifier } from '../event/combat-event-notifier';
 import { QueuedEventManager } from '../event/queued-event-manager';
 import type { Relics } from '../relics/relics';
+import { DefaultResourceFactory } from '../resource/default-resource-factory';
 import { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
+import type { Target } from '../target/target';
 import { TickTracker } from '../tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
+import { WeaponTracker } from '../weapon-tracker/weapon-tracker';
+import { WeaponTrackerTimeline } from '../weapon-tracker/weapon-tracker-timeline';
 import { AttackSimulator } from './attack-simulator';
 import { BuffSimulator } from './buff-simulator';
+import type { CombatSimulatorOptions } from './combat-simulator-options';
 import type {
   CombatSimulatorSnapshot,
   WeaponAttackSnapshot,
@@ -30,71 +37,103 @@ import type {
 import type { CombatSimulatorDto } from './dtos/combat-simulator-dto';
 import { ResourceSimulator } from './resource-simulator';
 import { TickSimulator } from './tick-simulator';
+import { WeaponSimulator } from './weapon-simulator';
 
 export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   public readonly combatDuration: number;
 
   private readonly loadout: Loadout;
 
+  private readonly target: Target;
+
   private readonly tickTracker: TickTracker;
+  private readonly weaponTracker: WeaponTracker;
 
   private readonly queuedEventManager: QueuedEventManager;
   private readonly combatEventNotifier: CombatEventNotifier;
 
-  private readonly weaponTracker: WeaponTracker;
-
-  private readonly combinedAttackRegistry: CombinedAttackRegistry;
-  private readonly buffRegistry: BuffRegistry;
   private readonly resourceRegistry: ResourceRegistry;
+  private readonly attackRegistry: AttackRegistry;
+  private readonly buffRegistry: BuffRegistry;
+  private readonly abilityRegistry: AbilityRegistry<Ability>;
+
+  private readonly abilityTriggerRegistry: AbilityTriggerRegistry;
 
   private readonly combatDamageSummary: CombatDamageSummary;
   private readonly damageTimelineCalculator: DamageTimelineCalculator;
 
-  private readonly abilityRequirementsChecker: AbilityRequirementsChecker;
   private readonly abilityResourceUpdater: AbilityResourceUpdater;
-
   private readonly resourceRegenerator: ResourceRegenerator;
 
+  private readonly weaponSimulator: WeaponSimulator;
   private readonly attackSimulator: AttackSimulator;
   private readonly buffSimulator: BuffSimulator;
   private readonly resourceSimulator: ResourceSimulator;
   private readonly tickSimulator: TickSimulator;
 
-  public constructor(combatDuration: number, loadout: Loadout, relics: Relics) {
+  public constructor(
+    loadout: Loadout,
+    relics: Relics,
+    options: CombatSimulatorOptions
+  ) {
+    const { combatDuration, targetResistance } = options;
+
     this.combatDuration = combatDuration;
     this.loadout = loadout;
     const { team } = this.loadout;
 
+    this.target = { resistance: targetResistance };
+
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
     this.tickTracker = new TickTracker(startingTickInterval, tickDuration);
+    this.weaponTracker = new WeaponTracker(
+      new WeaponTrackerTimeline(combatDuration),
+      this.tickTracker
+    );
 
     this.queuedEventManager = new QueuedEventManager();
     this.combatEventNotifier = new CombatEventNotifier(this.queuedEventManager);
 
-    this.weaponTracker = new WeaponTracker();
-
-    const playerInputAttackRegistry =
-      AttackRegistryFactory.createPlayerInputAttackRegistry(
-        combatDuration,
-        team
-      );
-    const triggeredAttackRegistry =
-      AttackRegistryFactory.createTriggeredAttackRegistry(combatDuration, team);
-    this.combinedAttackRegistry = new CombinedAttackRegistry(
-      playerInputAttackRegistry,
-      triggeredAttackRegistry
-    );
-
-    this.buffRegistry = BuffRegistryFactory.create(
-      combatDuration,
-      loadout,
-      relics
-    );
-
+    const defaultResources =
+      DefaultResourceFactory.createDefaultResources(combatDuration);
     this.resourceRegistry = ResourceRegistryFactory.create(
       combatDuration,
-      team
+      team,
+      [...Object.values(defaultResources)]
     );
+
+    const attacks = AttackFactory.createAttacks(
+      combatDuration,
+      team,
+      this.tickTracker,
+      this.weaponTracker,
+      defaultResources.charge
+    );
+    this.attackRegistry = new AttackRegistry(attacks);
+
+    const buffs = BuffFactory.createBuffs(
+      combatDuration,
+      loadout,
+      relics,
+      this.tickTracker
+    );
+    this.buffRegistry = new BuffRegistry(buffs);
+
+    this.abilityRegistry = new AbilityRegistry([
+      ...this.attackRegistry.items,
+      ...this.buffRegistry.items,
+    ]);
+
+    const abilityTriggers = AbilityTriggerFactory.createAbilityTriggers(
+      loadout,
+      relics,
+      this.tickTracker,
+      this.weaponTracker,
+      this.resourceRegistry,
+      this.buffRegistry,
+      this.abilityRegistry
+    );
+    this.abilityTriggerRegistry = new AbilityTriggerRegistry(abilityTriggers);
 
     this.combatDamageSummary = new CombatDamageSummary(combatDuration);
     this.damageTimelineCalculator = new DamageTimelineCalculator(
@@ -102,18 +141,14 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       loadout,
       loadout.loadoutStats,
       team,
-      this.combinedAttackRegistry,
+      this.tickTracker,
+      this.attackRegistry,
       this.buffRegistry,
-      this.resourceRegistry
+      this.resourceRegistry,
+      this.target
     );
 
     this.abilityResourceUpdater = new AbilityResourceUpdater(
-      this.resourceRegistry
-    );
-    this.abilityRequirementsChecker = new AbilityRequirementsChecker(
-      team,
-      this.weaponTracker,
-      this.buffRegistry,
       this.resourceRegistry
     );
 
@@ -125,18 +160,18 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     CombatEventConfigurator.configure(
       this.queuedEventManager,
       team,
-      this.tickTracker,
-      this.weaponTracker,
-      this.combinedAttackRegistry,
+      this.attackRegistry,
       this.buffRegistry,
-      this.resourceRegistry,
-      this.abilityRequirementsChecker,
-      this.combatEventNotifier
+      this.abilityTriggerRegistry
     );
 
+    this.weaponSimulator = new WeaponSimulator(
+      this.weaponTracker,
+      this.combatEventNotifier
+    );
     this.attackSimulator = new AttackSimulator(
       this.tickTracker,
-      this.combinedAttackRegistry,
+      this.attackRegistry,
       this.abilityResourceUpdater,
       this.combatEventNotifier
     );
@@ -155,7 +190,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     this.tickSimulator = new TickSimulator(
       this.tickTracker,
       this.queuedEventManager,
-      this.combinedAttackRegistry,
+      this.attackRegistry,
+      this.weaponSimulator,
       this.attackSimulator,
       this.buffSimulator,
       this.resourceSimulator,
@@ -163,36 +199,28 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     );
 
     // Pre-combat preparations
-    for (const resource of this.resourceRegistry.resources) {
+    for (const resource of this.resourceRegistry.items) {
       resource.addStartingAmount();
     }
     this.combatEventNotifier.notifyCombatStart();
     this.tickSimulator.simulateTickCombatStart();
   }
 
-  public get nextAvailableAttacks(): AttackId[] {
-    const attackTime = this.tickTracker.currentTickStart;
-
-    return this.combinedAttackRegistry
-      .getAvailablePlayerInputAttacks(attackTime)
-      .filter((attack) =>
-        this.abilityRequirementsChecker.hasRequirementsBeenMetAt(
-          attack.requirements,
-          attackTime
-        )
-      )
-      .map((item) => item.id);
+  public get nextAvailableAbilities(): AbilityId[] {
+    return this.abilityTriggerRegistry.availablePlayerInputTriggers.map(
+      (abilityTrigger) => abilityTrigger.abilityId
+    );
   }
 
-  public performAttack(attackId: AttackId) {
-    if (!this.nextAvailableAttacks.includes(attackId)) {
+  public performAbility(abilityId: AbilityId) {
+    if (!this.nextAvailableAbilities.includes(abilityId)) {
       throw new Error(
-        `Player input attack ${attackId} is not available to be performed`
+        `Player input ability ${abilityId} is not available to be performed`
       );
     }
 
-    this.combatEventNotifier.notifyAttackRequest(attackId);
-    this.tickSimulator.simulateTicksAfterAttackRequest();
+    this.combatEventNotifier.notifyAbilityRequest(abilityId);
+    this.tickSimulator.simulateTicksAfterAbilityRequest();
   }
 
   /** Similar to `toDto()`, but cleaned up and aggregated for display purposes. The intention is for the output of this to be for display purposes only and not able to be deserialized with all the correct states later. e.g. Abilities with empty timelines removed, Player input attacks are combined into one, for each weapon */
@@ -201,8 +229,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
 
     const weaponAttacksMap = new Map<Weapon, WeaponAttackSnapshot>();
     // Combine all player input attack timelines into one, for each weapon
-    for (const { displayName, weapon, timeline } of this.combinedAttackRegistry
-      .playerInputAttacks) {
+    for (const { displayName, weapon, timeline } of this.attackRegistry
+      .activeAttacks) {
       if (!weaponAttacksMap.has(weapon)) {
         weaponAttacksMap.set(weapon, {
           weaponId: weapon.id,
@@ -232,13 +260,13 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       playerInputAttackTimelines.push(timeline);
     }
 
-    const { loadout, triggeredAttacks, buffs, resources, combatDamageSummary } =
+    const { loadout, passiveAttacks, buffs, resources, combatDamageSummary } =
       this.toDto();
 
     return {
       loadout,
       weaponAttacks: [...weaponAttacksMap.values()],
-      triggeredAttacks: triggeredAttacks.filter(
+      passiveAttacks: passiveAttacks.filter(
         (attack) => attack.timeline.events.length
       ),
       buffs: buffs.filter((buff) => buff.timeline.events.length),
@@ -253,20 +281,19 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   public toDto(): CombatSimulatorDto {
     const {
       loadout,
-      combinedAttackRegistry,
+      attackRegistry,
       buffRegistry,
       resourceRegistry,
       combatDamageSummary,
     } = this;
 
-    const { playerInputAttacks, triggeredAttacks } =
-      combinedAttackRegistry.toDto();
+    const { activeAttacks, passiveAttacks } = attackRegistry.toDto();
 
     return {
       loadout: loadout.toDto(),
-      playerInputAttacks,
-      triggeredAttacks,
-      buffs: buffRegistry.toDto().buffs,
+      activeAttacks,
+      passiveAttacks,
+      buffs: buffRegistry.toDto().items,
       resources: resourceRegistry.toDto().resources,
       combatDamageSummary: combatDamageSummary.toDto(),
       version: 1,

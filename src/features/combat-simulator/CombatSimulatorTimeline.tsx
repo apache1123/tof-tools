@@ -62,7 +62,7 @@ export function CombatSimulatorTimeline({
         classNames: [styles.timelineRow],
       }))
       .concat(
-        combatSimulatorSnapshot.triggeredAttacks.map((attack) => ({
+        combatSimulatorSnapshot.passiveAttacks.map((attack) => ({
           id: attack.id,
           displayName: attack.displayName,
           actions: attack.timeline.events.map((event, index) => ({

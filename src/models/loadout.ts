@@ -35,7 +35,7 @@ export class Loadout implements Persistable<LoadoutDto> {
 
   public constructor(
     public name: string,
-    // TODO: A loadout having a main elemental type needs more thought now that the system has evolved
+    // TODO: Remove this. A loadout having a main elemental type needs more thought now that the system has evolved
     public elementalType: CoreElementalType,
     public readonly team: Team,
     public readonly gearSet: GearSet,

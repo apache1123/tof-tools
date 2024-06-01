@@ -55,6 +55,10 @@ export class Timeline<T extends TimelineEvent>
     );
   }
 
+  public hasEventAt(time: number) {
+    return this.getEventsOverlappingTime(time).length !== 0;
+  }
+
   public getEventsOverlappingTime(time: number) {
     return this._events.filter(
       (event) => event.startTime <= time && event.endTime > time

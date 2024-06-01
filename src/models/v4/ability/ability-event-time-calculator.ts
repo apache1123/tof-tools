@@ -14,7 +14,7 @@ export class AbilityEventTimeCalculator {
     this.timeline = timeline;
   }
 
-  public calculateAbilityEventTimeInterval(time: number): TimeInterval {
+  public calculateAbilityEventTimeInterval(startTime: number): TimeInterval {
     let endTime!: number;
 
     const {
@@ -26,7 +26,7 @@ export class AbilityEventTimeCalculator {
       resourceDepleted,
     } = this.abilityEndedBy;
     if (duration) {
-      endTime = time + duration;
+      endTime = startTime + duration;
     } else if (
       combatEnd ||
       buffEnd ||
@@ -40,6 +40,6 @@ export class AbilityEventTimeCalculator {
       throw new Error('Cannot determine ability event end time');
     }
 
-    return new TimeInterval(time, endTime);
+    return new TimeInterval(startTime, endTime);
   }
 }

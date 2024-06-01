@@ -1,116 +1,138 @@
 import type { AttackType } from '../../../constants/attack-type';
 import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
-import type { AbilityEndedBy } from '../ability/ability-ended-by';
+import { Ability } from '../ability/ability';
 import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
-import type { AbilityRequirements } from '../ability/ability-requirements';
-import type { AbilityTriggeredBy } from '../ability/ability-triggered-by';
-import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import { AttackEvent } from '../attack-timeline/attack-event';
 import type { AttackTimeline } from '../attack-timeline/attack-timeline';
-import type { TimeInterval } from '../time-interval/time-interval';
+import type { Charge } from '../charge/charge';
+import type { TickTracker } from '../tick-tracker';
+import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackDefinition, AttackId } from './attack-definition';
 import type { AttackElementalType } from './attack-elemental-type';
 import type { AttackHitCount } from './attack-hit-count';
 import type { AttackDto } from './dtos/attack-dto';
 
-export class Attack implements Serializable<AttackDto> {
+export class Attack
+  extends Ability<AttackEvent>
+  implements Serializable<AttackDto>
+{
   public readonly id: AttackId;
-  public readonly displayName: string;
   public readonly elementalType: AttackElementalType;
   public readonly type: AttackType;
   public readonly damageModifiers: AttackDamageModifiers;
-  public readonly cooldown: number;
   public readonly hitCount: AttackHitCount;
-  public readonly triggeredBy: AbilityTriggeredBy;
-  public readonly endedBy: AbilityEndedBy;
-  public readonly requirements: AbilityRequirements;
-  public readonly updatesResources: AbilityUpdatesResource[];
+  /** Is an attack that requires the player to initiate it, has an attack animation. If it is not an active attack, it is a passive attack */
+  public readonly isActiveAttack: boolean;
   public readonly doesNotTriggerEvents: boolean;
 
   public readonly weapon: Weapon;
   public readonly timeline: AttackTimeline;
 
+  private readonly weaponTracker: WeaponTracker;
+  private readonly charge: Charge;
   private readonly abilityEventTimeCalculator: AbilityEventTimeCalculator;
 
   public constructor(
     weapon: Weapon,
     definition: AttackDefinition,
     timeline: AttackTimeline,
+    tickTracker: TickTracker,
+    weaponTracker: WeaponTracker,
+    charge: Charge,
     abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
+    super(definition, timeline, tickTracker);
+
     const {
       id,
-      displayName,
       elementalType,
       type,
       damageModifiers,
-      cooldown,
       hitCount,
       triggeredBy,
-      endedBy,
-      requirements,
-      updatesResources,
       doesNotTriggerEvents,
     } = definition;
     this.id = id;
-    this.displayName = displayName;
     this.elementalType = { ...elementalType };
     this.type = type;
     this.damageModifiers = { ...damageModifiers };
-    this.cooldown = cooldown;
     this.hitCount = { ...hitCount };
-    this.triggeredBy = { ...triggeredBy };
-    this.endedBy = { ...endedBy };
-    this.requirements = { ...requirements };
-    this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
+    this.isActiveAttack = !!triggeredBy.playerInput;
     this.doesNotTriggerEvents = !!doesNotTriggerEvents;
 
     this.weapon = weapon;
     this.timeline = timeline;
+
+    this.weaponTracker = weaponTracker;
+    this.charge = charge;
     this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
-  /** Is an attack that requires the weapon to be the active weapon to perform e.g. any sort of player input attack */
-  public get isActiveWeaponAttack() {
-    return !!this.triggeredBy.playerInput;
+  public override canTrigger(): boolean {
+    return super.canTrigger() && this.canTriggerGivenWeaponAndCharge();
   }
 
-  public get isPlayerInputAttack() {
-    return !!this.triggeredBy.playerInput;
-  }
+  protected override addEvent(): AttackEvent {
+    this.switchWeaponsIfNeeded();
 
-  public trigger(time: number): AttackEvent {
-    const attackEvent = this.createNewAttackEvent(time);
+    const timeInterval =
+      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(
+        this.triggerTime
+      );
+
+    const attackEvent = new AttackEvent(timeInterval, this, this.weapon);
+    this.resolveElementalType(attackEvent);
+
     this.timeline.addAttackEvent(attackEvent);
     return attackEvent;
   }
 
-  public endActiveAttacksAt(time: number) {
-    return this.timeline.endAnyEventsAt(time);
+  /** Applies to active attacks only. If there is a full charge and an active weapon, only discharge attacks are available for the other weapons. If there is no active weapon ,e.g. at combat start, it doesn't matter.
+   * This is a special case that's not being checked by the ability requirements */
+  // Perhaps look to remove this muddy logic in the future, and check everything through ability requirements
+  private canTriggerGivenWeaponAndCharge(): boolean {
+    if (!this.isActiveAttack) return true;
+
+    const activeWeapon = this.weaponTracker.activeWeapon;
+    const hasFullCharge = this.charge.hasFullCharge(this.triggerTime);
+    if (!activeWeapon || !hasFullCharge) return true;
+
+    if (this.weapon !== this.weaponTracker.activeWeapon) {
+      return this.type === 'discharge';
+    }
+
+    return true;
   }
 
-  public getAttackEventsOverlappingInterval(timeInterval: TimeInterval) {
-    return this.timeline.getEventsOverlappingInterval(
-      timeInterval.startTime,
-      timeInterval.endTime
-    );
+  // TODO: This being here is extremely awkward
+  private switchWeaponsIfNeeded() {
+    if (
+      this.isActiveAttack &&
+      this.weaponTracker.activeWeapon !== this.weapon
+    ) {
+      this.weaponTracker.setActiveWeapon(this.weapon);
+    }
   }
 
-  public getAttackEventsEndingBetween(timeInterval: TimeInterval) {
-    return this.timeline.getEventsEndingBetween(timeInterval);
-  }
+  /** Resolves the elemental type of an attack. Most attacks will have a fixed elemental type, but some might have a dynamic elemental type, dependent on the previous weapon, or current weapon, etc. */
+  private resolveElementalType(attackEvent: AttackEvent) {
+    let elementalType;
+    if (
+      this.elementalType.followCurrentWeaponElementalType &&
+      this.weaponTracker.activeWeapon
+    ) {
+      elementalType = this.weaponTracker.activeWeapon.damageElement;
+    } else if (
+      this.elementalType.followLastWeaponElementalType &&
+      this.weaponTracker.previousWeapon
+    ) {
+      elementalType = this.weaponTracker.previousWeapon.damageElement;
+    } else {
+      elementalType = this.elementalType.defaultElementalType;
+    }
 
-  private createNewAttackEvent(time: number) {
-    const timeInterval =
-      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(time);
-    const attackEvent = new AttackEvent(timeInterval, this, this.weapon);
-    return attackEvent;
-  }
-
-  public toDto(): AttackDto {
-    const { id, displayName, timeline } = this;
-    return { id, displayName, timeline: timeline.toDto(), version: 1 };
+    attackEvent.elementalType = elementalType;
   }
 }

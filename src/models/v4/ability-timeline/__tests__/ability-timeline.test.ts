@@ -7,7 +7,7 @@ describe('Ability timeline', () => {
   describe('ability cooldowns', () => {
     it('should not be on cooldown if there are no events', () => {
       const sut = new AbilityTimeline(timelineDuration);
-      expect(sut.isAbilityOnCooldownAt(0)).toBe(false);
+      expect(sut.hasEventOnCooldownAt(0)).toBe(false);
     });
 
     it('should be on cooldown of there is an event with cooldown', () => {
@@ -15,10 +15,10 @@ describe('Ability timeline', () => {
       sut.addEvent(
         newFakeAbilityEvent({ startTime: 0, endTime: 10, cooldownEndsAt: 5 })
       );
-      expect(sut.isAbilityOnCooldownAt(0)).toBe(true);
-      expect(sut.isAbilityOnCooldownAt(2)).toBe(true);
-      expect(sut.isAbilityOnCooldownAt(5)).toBe(false);
-      expect(sut.isAbilityOnCooldownAt(10)).toBe(false);
+      expect(sut.hasEventOnCooldownAt(0)).toBe(true);
+      expect(sut.hasEventOnCooldownAt(2)).toBe(true);
+      expect(sut.hasEventOnCooldownAt(5)).toBe(false);
+      expect(sut.hasEventOnCooldownAt(10)).toBe(false);
     });
   });
 });

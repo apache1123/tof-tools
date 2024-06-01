@@ -1,7 +1,7 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId } from '../../resources';
 
-export const  yanuo = {
+export const yanuo = {
   id: 'Yanuo',
   displayName: 'Yanuo',
   resonanceElements: ['Frost', 'Volt'],
@@ -53,8 +53,8 @@ export const  yanuo = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
+        requirements: {},
       },
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -82,10 +82,7 @@ export const  yanuo = {
       },
       endedBy: { duration: 5000 },
       cooldown: 30000,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -95,37 +92,8 @@ export const  yanuo = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],
-  discharge: {
-    id: 'yanuo-discharge',
-    displayName: 'Yanuo discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Frost' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 0,
-      attackFlat: 0,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 30000,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Yanuo',
-    },
-    triggeredBy: {
-      playerInput: true,
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;

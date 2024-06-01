@@ -301,7 +301,7 @@
       "attackTimeline": { "events": [] }
     }
   ],
-  "triggeredAttacks": [
+  "passiveAttacks": [
     {
       "id": "metz-energy-wave",
       "displayName": "Brevey - Metz Energy Wave",

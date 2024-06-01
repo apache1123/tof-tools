@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId } from '../../resources';
 
 export const umi = {
   id: 'Umi',
@@ -44,8 +44,8 @@ export const umi = {
       cooldown: 0,
       triggeredBy: {
         playerInput: true,
+        requirements: {},
       },
-      requirements: {},
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -55,37 +55,8 @@ export const umi = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],
-  discharge: {
-    id: 'umi-discharge',
-    displayName: 'Umi discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Physical' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 0,
-      attackFlat: 0,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Umi',
-    },
-    triggeredBy: {
-      playerInput: true,
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;

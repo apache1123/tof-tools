@@ -1,6 +1,6 @@
-import type { Dto } from '../../../dto';
+import type { AbilityRegistryDto } from '../../ability/dtos/ability-registry-dto';
 import type { BuffDto } from './buff-dto';
 
-export interface BuffRegistryDto extends Dto {
-  buffs: BuffDto[];
+export interface BuffRegistryDto extends AbilityRegistryDto {
+  items: BuffDto[];
 }

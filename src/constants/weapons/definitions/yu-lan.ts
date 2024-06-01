@@ -1,5 +1,4 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
 
 export const yuLan = {
   id: 'Yu Lan',
@@ -26,37 +25,8 @@ export const yuLan = {
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
-  discharge: {
-    id: 'yulan-discharge',
-    displayName: 'Yu Lan discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Frost' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 0,
-      attackFlat: 0,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Yu Lan',
-    },
-    triggeredBy: {
-      playerInput: true,
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;

@@ -14,20 +14,20 @@ export const commonBuffs: BuffDefinition[] = [
     maxStacks: 1,
     triggeredBy: {
       combatStart: true,
+      requirements: {
+        anyWeaponInTeam: ['Brevey', 'Huang (Mimi)', 'Rei', 'Yanuo'],
+        elementalTypeWeaponsInTeam: [
+          {
+            elementalType: 'Volt',
+            numOfWeapons: 2,
+          },
+        ],
+      },
     },
     endedBy: {
       combatEnd: true,
     },
     cooldown: 0,
-    requirements: {
-      anyWeaponInTeam: ['Brevey', 'Huang (Mimi)', 'Rei', 'Yanuo'],
-      elementalTypeWeaponsInTeam: [
-        {
-          elementalType: 'Volt',
-          numOfWeapons: 2,
-        },
-      ],
-    },
   },
   {
     id: 'frost-resonance',
@@ -42,20 +42,20 @@ export const commonBuffs: BuffDefinition[] = [
     maxStacks: 1,
     triggeredBy: {
       combatStart: true,
+      requirements: {
+        anyWeaponInTeam: ['Brevey', 'Rei', 'Yanuo'],
+        elementalTypeWeaponsInTeam: [
+          {
+            elementalType: 'Frost',
+            numOfWeapons: 2,
+          },
+        ],
+      },
     },
     endedBy: {
       combatEnd: true,
     },
     cooldown: 0,
-    requirements: {
-      anyWeaponInTeam: ['Brevey', 'Rei', 'Yanuo'],
-      elementalTypeWeaponsInTeam: [
-        {
-          elementalType: 'Frost',
-          numOfWeapons: 2,
-        },
-      ],
-    },
   },
   {
     id: 'attack-weapon-resonance',
@@ -72,12 +72,12 @@ export const commonBuffs: BuffDefinition[] = [
     maxStacks: 1,
     triggeredBy: {
       combatStart: true,
+      requirements: { weaponResonance: 'Attack' },
     },
     endedBy: {
       combatEnd: true,
     },
     cooldown: 0,
-    requirements: { weaponResonance: 'Attack' },
   },
   {
     id: 'balance-weapon-resonance',
@@ -94,10 +94,10 @@ export const commonBuffs: BuffDefinition[] = [
     maxStacks: 1,
     triggeredBy: {
       combatStart: true,
+      requirements: { weaponResonance: 'Balance' },
     },
     endedBy: { combatEnd: true },
     cooldown: 0,
-    requirements: { weaponResonance: 'Balance' },
   },
   {
     id: 'force-impact',
@@ -115,13 +115,13 @@ export const commonBuffs: BuffDefinition[] = [
     triggeredBy: {
       fullChargeOfWeapons: ['Brevey', 'Rei'],
       endOfAttacks: ['brevey-skill-million-metz-shockwave'],
+      requirements: {
+        anyWeaponInTeam: ['Brevey', 'Rei'],
+      },
     },
     endedBy: {
       duration: 45000,
     },
     cooldown: 15000,
-    requirements: {
-      anyWeaponInTeam: ['Brevey', 'Rei'],
-    },
   },
 ];

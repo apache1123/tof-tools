@@ -7,11 +7,7 @@ export class AbilityTimeline<T extends AbilityEvent = AbilityEvent>
   extends Timeline<T>
   implements Serializable<AbilityTimelineDto>
 {
-  public isAbilityActiveAt(time: number) {
-    return this.getEventsOverlappingTime(time).length !== 0;
-  }
-
-  public isAbilityOnCooldownAt(time: number) {
+  public hasEventOnCooldownAt(time: number) {
     return this.events.some(
       (event) => event.startTime <= time && event.cooldownEndsAt > time
     );

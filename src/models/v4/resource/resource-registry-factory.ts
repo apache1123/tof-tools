@@ -1,26 +1,16 @@
-import {
-  chargeDefinition,
-  dodgeResourceDefinition,
-  enduranceDefinition,
-} from '../../../constants/resources';
 import type { Team } from '../../team';
 import { ResourceTimeline } from '../resource-timeline/resource-timeline';
 import { Resource } from './resource';
 import { ResourceRegistry } from './resource-registry';
 
 export class ResourceRegistryFactory {
-  public static create(combatDuration: number, team: Team) {
-    const defaultResources = [
-      chargeDefinition,
-      dodgeResourceDefinition,
-      enduranceDefinition,
-    ].map(
-      (resourceDefinition) =>
-        new Resource(resourceDefinition, new ResourceTimeline(combatDuration))
-    );
-
+  public static create(
+    combatDuration: number,
+    team: Team,
+    defaultResources: Resource[]
+  ) {
     const customResources = team.weapons.flatMap((weapon) =>
-      weapon.definition.resources.map(
+      weapon.resources.map(
         (resourceDefinition) =>
           new Resource(resourceDefinition, new ResourceTimeline(combatDuration))
       )

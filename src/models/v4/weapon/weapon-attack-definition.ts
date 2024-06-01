@@ -14,7 +14,7 @@ export interface WeaponAttackDefinition extends AttackDefinition {
 export interface PlayerInputAttackDefinition extends WeaponAttackDefinition {
   triggeredBy: {
     playerInput: true;
-  };
+  } & WeaponAttackDefinition['triggeredBy'];
 }
 
 export interface NormalAttackDefinition extends PlayerInputAttackDefinition {
@@ -24,12 +24,14 @@ export interface NormalAttackDefinition extends PlayerInputAttackDefinition {
 export interface DodgeAttackDefinition extends PlayerInputAttackDefinition {
   type: 'dodge';
 
-  requirements: {
-    hasResource: {
-      resourceId: typeof dodgeResourceId;
-      minAmount: 1;
+  triggeredBy: {
+    requirements: {
+      hasResource: {
+        resourceId: typeof dodgeResourceId;
+        minAmount: 1;
+      };
     };
-  };
+  } & PlayerInputAttackDefinition['triggeredBy'];
 }
 
 export interface SkillAttackDefinition extends PlayerInputAttackDefinition {
@@ -39,11 +41,13 @@ export interface SkillAttackDefinition extends PlayerInputAttackDefinition {
 export interface DischargeAttackDefinition extends PlayerInputAttackDefinition {
   type: 'discharge';
 
-  requirements: {
-    hasResource: {
-      resourceId: typeof chargeResourceId;
-      minAmount: typeof fullCharge;
+  triggeredBy: {
+    requirements: {
+      hasResource: {
+        resourceId: typeof chargeResourceId;
+        minAmount: typeof fullCharge;
+      };
+      notActiveWeapon: WeaponName;
     };
-    notActiveWeapon: WeaponName;
-  };
+  } & PlayerInputAttackDefinition['triggeredBy'];
 }

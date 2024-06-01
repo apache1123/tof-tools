@@ -1,5 +1,5 @@
 import type { Weapon } from '../../weapon';
-import type { AttackId } from '../attack/attack-definition';
+import type { AbilityId } from '../ability/ability-definition';
 import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { BuffEvent } from '../buff-timeline/buff-event';
 import type { ResourceEvent } from '../resource-timeline/resource-event';
@@ -13,8 +13,10 @@ export class CombatEventNotifier {
     this.eventManager.notify(eventIdProvider.getCombatStartEventId());
   }
 
-  public notifyAttackRequest(attackId: AttackId) {
-    this.eventManager.notify(eventIdProvider.getAttackRequestEventId(attackId));
+  public notifyAbilityRequest(abilityId: AbilityId) {
+    this.eventManager.notify(
+      eventIdProvider.getAbilityRequestEventId(abilityId)
+    );
   }
 
   public notifyAttackStart(attackEvent: AttackEvent) {
@@ -49,8 +51,11 @@ export class CombatEventNotifier {
     }
   }
 
-  public notifyAttackHit() {
+  public notifyAttackHit(attackEvent: AttackEvent) {
     this.eventManager.notify(eventIdProvider.getHitOfAnyAttackEventId());
+    this.eventManager.notify(
+      eventIdProvider.getHitOfWeaponEventId(attackEvent.weapon.id)
+    );
   }
 
   public notifyAttackEnd(attackEvent: AttackEvent) {

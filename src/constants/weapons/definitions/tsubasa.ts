@@ -1,5 +1,5 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+import { chargeResourceId } from '../../resources';
 
 export const tsubasa = {
   id: 'Tsubasa',
@@ -26,10 +26,7 @@ export const tsubasa = {
       },
       endedBy: { duration: 5000 },
       cooldown: 0,
-      triggeredBy: {
-        playerInput: true,
-      },
-      requirements: {},
+      triggeredBy: { playerInput: true, requirements: {} },
       updatesResources: [
         {
           resourceId: chargeResourceId,
@@ -41,37 +38,8 @@ export const tsubasa = {
   ],
   dodgeAttacks: [],
   skills: [],
-  discharge: {
-    id: 'tsubasa-discharge',
-    displayName: 'Tsubasa discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Frost' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 0,
-      attackFlat: 0,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Tsubasa',
-    },
-    triggeredBy: {
-      playerInput: true,
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;

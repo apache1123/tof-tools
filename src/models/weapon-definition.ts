@@ -2,7 +2,6 @@ import type { WeaponElementalType } from '../constants/elemental-type';
 import type { WeaponName } from '../constants/weapons/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapons/weapon-definitions';
 import type { WeaponType } from '../constants/weapons/weapon-type';
-import type { ResourceDefinition } from './v4/resource/resource-definition';
 import type {
   DischargeAttackDefinition,
   DodgeAttackDefinition,
@@ -11,6 +10,7 @@ import type {
   WeaponAttackDefinition,
 } from './v4/weapon/weapon-attack-definition';
 import type { WeaponBuffDefinition } from './v4/weapon/weapon-buff-definition';
+import type { WeaponResourceDefinition } from './v4/weapon/weapon-resource-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritRateBuffDefinition,
@@ -36,12 +36,12 @@ export interface WeaponDefinition {
   normalAttacks: NormalAttackDefinition[];
   dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
-  discharge: DischargeAttackDefinition;
-  triggeredAttacks: WeaponAttackDefinition[];
+  discharges: DischargeAttackDefinition[];
+  passiveAttacks: WeaponAttackDefinition[];
 
   buffs: WeaponBuffDefinition[];
 
-  resources: ResourceDefinition[];
+  resources: WeaponResourceDefinition[];
 }
 
 export function getWeaponDefinition(id: WeaponName): WeaponDefinition {

@@ -3,8 +3,12 @@ import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
 import type { WeaponType } from '../../../constants/weapons/weapon-type';
 import type { BuffId } from '../buff/buff-definition';
 import type { ResourceId } from '../resource/resource-definition';
+import type { AbilityRequirements } from './ability-requirements';
 
 export interface AbilityTriggeredBy {
+  /** These requirements must be met for the ability to be triggered */
+  requirements: AbilityRequirements;
+
   /** Triggered manually by player as part of gameplay */
   playerInput?: boolean;
 
@@ -17,7 +21,6 @@ export interface AbilityTriggeredBy {
 
   fullChargeOfWeapons?: WeaponName[];
 
-  hitOfAnyAttack?: boolean;
   startOfAnyAttack?: boolean;
   endOfAnyAttack?: boolean;
 
@@ -55,6 +58,9 @@ export interface AbilityTriggeredBy {
   startOfDischargeOfElementalType?: WeaponElementalType;
   /** Trigger upon end of any discharge of an elemental type */
   endOfDischargeOfElementalType?: WeaponElementalType;
+
+  hitOfAnyAttack?: boolean;
+  hitOfWeapon?: WeaponName;
 
   /** Trigger upon start of the defined buff */
   startOfBuff?: BuffId;

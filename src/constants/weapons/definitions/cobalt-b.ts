@@ -1,5 +1,4 @@
-import type { WeaponDefinition } from "../../../models/weapon-definition";
-import { chargeResourceId, fullCharge } from "../../resources";
+import type { WeaponDefinition } from '../../../models/weapon-definition';
 
 export const cobaltB = {
   id: 'Cobalt-B',
@@ -26,37 +25,8 @@ export const cobaltB = {
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
-  discharge: {
-    id: 'cobaltb-discharge',
-    displayName: 'Cobalt-B discharge [placeholder]',
-    elementalType: { defaultElementalType: 'Flame' },
-    type: 'discharge',
-    damageModifiers: {
-      damageDealtIsPerSecond: false,
-      attackMultiplier: 0,
-      attackFlat: 0,
-    },
-    hitCount: {
-      numberOfHitsFixed: 1,
-    },
-    endedBy: { duration: 5000 },
-    cooldown: 0,
-    requirements: {
-      hasResource: { resourceId: chargeResourceId, minAmount: fullCharge },
-      notActiveWeapon: 'Cobalt-B',
-    },
-    triggeredBy: {
-      playerInput: true,
-    },
-    updatesResources: [
-      {
-        resourceId: chargeResourceId,
-        amount: -fullCharge,
-      },
-    ],
-    starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-  },
+  discharges: [],
   buffs: [],
-  triggeredAttacks: [],
+  passiveAttacks: [],
   resources: [],
 } satisfies WeaponDefinition;
