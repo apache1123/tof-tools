@@ -34,7 +34,21 @@ export const roslyn = {
     },
   ],
   critRateBuffs: [],
-  critDamageBuffs: [],
+  critDamageBuffs: [
+    // TODO: this is temporary until trait selection is added to gear comparer
+    {
+      id: 'Roslyn trait - crit damage',
+      displayName:
+        'Roslyn trait (assumes you will also equip her trait when using her weapon)',
+      description:
+        'After using Bitter Strike, increase crit damage for 40 seconds',
+      value: 0.24,
+      canStack: false,
+      isActivePassively: false,
+      minStarRequirement: 0,
+      maxStarRequirement: 6,
+    },
+  ],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
