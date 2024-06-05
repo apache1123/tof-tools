@@ -133,20 +133,73 @@ export class DamageCalculator {
   }
 
   public getTotalAttackPercent(): number {
-    const attackBuffValues = this.buffEvents
-      .flatMap((buffEvent) =>
-        buffEvent.attackBuffs
-          .filter((attackBuff) =>
-            attackBuff.elementalTypes.includes(this.attackEvent.elementalType)
-          )
-          .map((attackBuff) => ({ attackBuff, stacks: buffEvent.stacks }))
-      )
-      .map((buff) => product(buff.attackBuff.value, buff.stacks).toNumber());
+    const attackBuffValues = this.getAttackBuffs().map(
+      ({ attackBuff, stacks }) => product(attackBuff.value, stacks).toNumber()
+    );
 
     return sum(this.getGearAttackPercent(), ...attackBuffValues).toNumber();
   }
 
   public getTotalDamagePercent(): number {
+    const damageBuffs = this.getDamageBuffs();
+
+    const damageBuffsByDamageCategory = groupBy(
+      damageBuffs,
+      ({ damageBuff }) => damageBuff.damageCategory
+    );
+
+    return product(
+      BigNumber(this.getGearDamagePercent()).plus(1).toNumber(),
+      ...Object.values(damageBuffsByDamageCategory).map((buffs) =>
+        sum(
+          ...buffs.map(({ damageBuff, stacks }) =>
+            product(damageBuff.value ?? 0, stacks).toNumber()
+          ),
+          1
+        ).toNumber()
+      )
+    )
+      .minus(1)
+      .toNumber();
+  }
+
+  public getTotalCritPercent(): number {
+    return this.loadout.critPercentUnbuffed;
+  }
+
+  public getTotalCritDamagePercent(): number {
+    const critDamageBuffValues = this.getCritDamageBuffs().map(
+      ({ critDamageBuff, stacks }) =>
+        product(critDamageBuff.value, stacks).toNumber()
+    );
+
+    return sum(
+      this.loadout.critDamageUnbuffed,
+      ...critDamageBuffValues
+    ).toNumber();
+  }
+
+  public getTotalResistance(): number {
+    return this.target.resistance;
+  }
+
+  /** Get attack buffs applicable to the attack event */
+  public getAttackBuffs() {
+    return this.buffEvents.flatMap((buffEvent) =>
+      buffEvent.attackBuffs
+        .filter((attackBuff) =>
+          attackBuff.elementalTypes.includes(this.attackEvent.elementalType)
+        )
+        .map((attackBuff) => ({
+          attackBuff,
+          stacks: buffEvent.stacks,
+          buffId: buffEvent.buffId,
+        }))
+    );
+  }
+
+  /** Get damage buffs applicable to the attack event */
+  public getDamageBuffs() {
     const {
       attackId,
       damageModifiers: { canOnlyBeBuffedByTitans },
@@ -154,7 +207,7 @@ export class DamageCalculator {
       type,
     } = this.attackEvent;
 
-    const damageBuffs = this.buffEvents.flatMap((buffEvent) =>
+    return this.buffEvents.flatMap((buffEvent) =>
       buffEvent.damageBuffs
         .filter(
           (damageBuff) =>
@@ -173,48 +226,32 @@ export class DamageCalculator {
             (!damageBuff.appliesTo?.attacks ||
               damageBuff.appliesTo.attacks.includes(attackId))
         )
-        .map((damageBuff) => ({ damageBuff, stacks: buffEvent.stacks }))
+        .map((damageBuff) => ({
+          damageBuff,
+          stacks: buffEvent.stacks,
+          buffId: buffEvent.buffId,
+        }))
     );
-
-    const damageBuffsByDamageCategory = groupBy(
-      damageBuffs,
-      (buff) => buff.damageBuff.damageCategory
-    );
-
-    return product(
-      BigNumber(this.getGearDamagePercent()).plus(1).toNumber(),
-      ...Object.values(damageBuffsByDamageCategory).map((buffs) =>
-        sum(
-          ...buffs.map((buff) =>
-            product(buff.damageBuff.value ?? 0, buff.stacks).toNumber()
-          ),
-          1
-        ).toNumber()
-      )
-    )
-      .minus(1)
-      .toNumber();
   }
 
-  public getTotalCritPercent(): number {
-    return this.loadout.critPercentUnbuffed;
-  }
-
-  public getTotalCritDamagePercent(): number {
-    const critDamageBuffValues = this.buffEvents.flatMap((buffEvent) =>
-      buffEvent.critDamageBuffs.map((critDamageBuff) =>
-        product(critDamageBuff.value, buffEvent.stacks).toNumber()
-      )
+  /** Get crit damage buffs applicable to the attack event */
+  public getCritDamageBuffs() {
+    return this.buffEvents.flatMap((buffEvent) =>
+      buffEvent.critDamageBuffs.map((critDamageBuff) => ({
+        critDamageBuff,
+        stacks: buffEvent.stacks,
+        buffId: buffEvent.buffId,
+      }))
     );
-
-    return sum(
-      this.loadout.critDamageUnbuffed,
-      ...critDamageBuffValues
-    ).toNumber();
   }
 
-  public getTotalResistance(): number {
-    return this.target.resistance;
+  /** Gets all buffs applicable to the attack event */
+  public getAllBuffs() {
+    return [
+      ...this.getAttackBuffs(),
+      ...this.getDamageBuffs(),
+      ...this.getCritDamageBuffs(),
+    ];
   }
 
   public getGearAttackPercent(): number {

@@ -6,6 +6,7 @@ import type { LoadoutStats } from '../../loadout-stats';
 import type { Team } from '../../team';
 import type { AttackRegistry } from '../attack/attack-registry';
 import type { BuffRegistry } from '../buff/buff-registry';
+import type { UtilizedBuffs } from '../buff/utilized-buffs';
 import type { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
 import { Damage } from '../damage-summary/damage';
 import { DamageSummary } from '../damage-summary/damage-summary';
@@ -20,11 +21,12 @@ export class DamageTimelineCalculator {
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
     private readonly team: Team,
+    private readonly target: Target,
     private readonly tickTracker: TickTracker,
     private readonly attackRegistry: AttackRegistry,
     private readonly buffRegistry: BuffRegistry,
     private readonly resourceRegistry: ResourceRegistry,
-    private readonly target: Target
+    private readonly utilizedBuffs: UtilizedBuffs
   ) {}
 
   public calculateDamage() {
@@ -88,6 +90,11 @@ export class DamageTimelineCalculator {
 
       if (isActiveWeaponAttack)
         activeWeaponTotalAttack = damageCalculator.getTotalAttack();
+
+      const utilizedBuffs = damageCalculator.getAllBuffs();
+      for (const buff of utilizedBuffs) {
+        this.utilizedBuffs.add(buff.buffId);
+      }
     }
 
     // If there is no active weapon attack in this time period (it's possible to only have passive attacks), use the previous one. There should always be at least one as combat is started with an active weapon attack
