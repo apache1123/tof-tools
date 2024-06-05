@@ -21,7 +21,13 @@ export const GearTypeIcon = ({
       : `/icons/gear/${imageName}.png`;
 
     return (
-      <Image src={imagePath} alt={gearName} width={size} height={size}></Image>
+      <Image
+        src={imagePath}
+        alt={gearName}
+        title={gearName}
+        width={size}
+        height={size}
+      ></Image>
     );
   }
   return <QuestionMarkIcon width={size} height={size} />;

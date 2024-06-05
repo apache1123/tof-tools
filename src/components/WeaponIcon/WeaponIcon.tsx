@@ -18,6 +18,7 @@ export const WeaponIcon = ({ weaponName, size = 100 }: WeaponIconProps) => {
       <Image
         src={imagePath}
         alt={weaponName}
+        title={weaponName}
         width={size}
         height={size}
       ></Image>

@@ -15,7 +15,13 @@ export const RelicIcon = ({ relicName, size = 100 }: RelicIconProps) => {
     const imagePath = `/icons/relics/${imageName}.webp`;
 
     return (
-      <Image src={imagePath} alt={relicName} width={size} height={size}></Image>
+      <Image
+        src={imagePath}
+        alt={relicName}
+        title={relicName}
+        width={size}
+        height={size}
+      ></Image>
     );
   }
   return (

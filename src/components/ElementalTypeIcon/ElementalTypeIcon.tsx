@@ -21,6 +21,7 @@ export function ElementalTypeIcon({
     <Image
       src={imagePath}
       alt={`${imageName}-icon`}
+      title={elementalType}
       width={width}
       height={height}
     />
