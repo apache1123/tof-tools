@@ -1,9 +1,12 @@
+import { List, ListItem, ListItemText, Stack } from '@mui/material';
 import type {
   TimelineAction,
   TimelineEffect,
   TimelineRow,
+  TimelineState,
 } from '@xzdarcy/react-timeline-editor';
 import { Timeline } from '@xzdarcy/react-timeline-editor';
+import { useRef } from 'react';
 
 import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator/combat-simulator-snapshot';
 import { AttackBuffEventRenderer } from './AttackBuffEventRenderer';
@@ -104,25 +107,56 @@ export function CombatSimulatorTimeline({
         }))
       );
 
+  const listRef = useRef<HTMLUListElement>(null);
+  const timelineRef = useRef<TimelineState>(null);
+
   return (
-    <Timeline
-      editorData={editorData}
-      effects={effects}
-      disableDrag
-      autoScroll={true}
-      getActionRender={(action) => {
-        const typedAction = action as CombatSimulatorTimelineAction;
-        if (typedAction.effectId === 'attack-event') {
-          return <AttackEventRenderer action={typedAction} />;
-        } else {
-          return <AttackBuffEventRenderer action={typedAction} />;
-        }
-      }}
-      scale={1000} // 10s
-      getScaleRender={(scale) => (
-        <CombatSimulatorTimelineScaleRenderer scale={scale} />
-      )}
-      style={{ width: '100%', height: 1200 }}
-    />
+    <Stack direction="row">
+      <List
+        ref={listRef}
+        onScroll={(e) => {
+          if (timelineRef.current) {
+            const target = e.target as HTMLUListElement;
+            timelineRef.current.setScrollTop(target.scrollTop);
+          }
+        }}
+        sx={{ mt: '34px', height: 1166, overflow: 'scroll' }}
+      >
+        {editorData.map((row, i) => (
+          <ListItem key={i} sx={{ height: 32 }} disablePadding>
+            <ListItemText
+              primary={row.displayName}
+              primaryTypographyProps={{ variant: 'body2' }}
+              sx={{ whiteSpace: 'nowrap' }}
+            />
+          </ListItem>
+        ))}
+      </List>
+      <Timeline
+        editorData={editorData}
+        effects={effects}
+        disableDrag
+        autoScroll={true}
+        getActionRender={(action) => {
+          const typedAction = action as CombatSimulatorTimelineAction;
+          if (typedAction.effectId === 'attack-event') {
+            return <AttackEventRenderer action={typedAction} />;
+          } else {
+            return <AttackBuffEventRenderer action={typedAction} />;
+          }
+        }}
+        scale={1000} // 10s
+        getScaleRender={(scale) => (
+          <CombatSimulatorTimelineScaleRenderer scale={scale} />
+        )}
+        style={{ width: '100%', height: 1200 }}
+        ref={timelineRef}
+        onScroll={({ scrollTop }) => {
+          if (listRef.current) {
+            listRef.current.scrollTop = scrollTop;
+          }
+        }}
+      />
+    </Stack>
   );
 }
