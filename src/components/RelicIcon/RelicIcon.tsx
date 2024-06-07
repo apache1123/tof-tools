@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import Image from 'next/image';
 
 import type { RelicName } from '../../constants/relics';
+import { normalCaseToKebabCase } from '../../utils/string-utils';
 
 export interface RelicIconProps {
   relicName: RelicName | undefined;
@@ -11,7 +12,7 @@ export interface RelicIconProps {
 
 export const RelicIcon = ({ relicName, size = 100 }: RelicIconProps) => {
   if (relicName) {
-    const imageName = relicName.toLowerCase().replaceAll(' ', '-');
+    const imageName = normalCaseToKebabCase(relicName);
     const imagePath = `/icons/relics/${imageName}.webp`;
 
     return (
