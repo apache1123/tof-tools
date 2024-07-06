@@ -12,6 +12,7 @@ import { AttackFactory } from '../attack/attack-factory';
 import { AttackRegistry } from '../attack/attack-registry';
 import { BuffFactory } from '../buff/buff-factory';
 import { BuffRegistry } from '../buff/buff-registry';
+import { UtilizedBuffs } from '../buff/utilized-buffs';
 import { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
 import { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-calculator';
 import { CombatEventConfigurator } from '../event/combat-event-configurator';
@@ -58,6 +59,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   private readonly abilityRegistry: AbilityRegistry<Ability>;
 
   private readonly abilityTriggerRegistry: AbilityTriggerRegistry;
+
+  private readonly utilizedBuffs: UtilizedBuffs;
 
   private readonly combatDamageSummary: CombatDamageSummary;
   private readonly damageTimelineCalculator: DamageTimelineCalculator;
@@ -135,17 +138,20 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     );
     this.abilityTriggerRegistry = new AbilityTriggerRegistry(abilityTriggers);
 
+    this.utilizedBuffs = new UtilizedBuffs();
+
     this.combatDamageSummary = new CombatDamageSummary(combatDuration);
     this.damageTimelineCalculator = new DamageTimelineCalculator(
       this.combatDamageSummary,
       loadout,
       loadout.loadoutStats,
       team,
+      this.target,
       this.tickTracker,
       this.attackRegistry,
       this.buffRegistry,
       this.resourceRegistry,
-      this.target
+      this.utilizedBuffs
     );
 
     this.abilityResourceUpdater = new AbilityResourceUpdater(
@@ -269,7 +275,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       passiveAttacks: passiveAttacks.filter(
         (attack) => attack.timeline.events.length
       ),
-      buffs: buffs.filter((buff) => buff.timeline.events.length),
+      buffs: buffs.filter((buff) => this.utilizedBuffs.has(buff.id)),
       resources: resources.filter(
         (resource) => resource.timeline.events.length
       ),

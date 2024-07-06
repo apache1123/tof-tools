@@ -13,3 +13,8 @@ export function splitIntoWords(text: string) {
 export function pascalCaseToCamelCase(text: string) {
   return `${text[0].toLowerCase()}${text.slice(1)}`;
 }
+
+/** e.g. 'Normal case' -> 'normal-case' */
+export function normalCaseToKebabCase(text: string) {
+  return text.toLowerCase().replaceAll(' ', '-')
+}

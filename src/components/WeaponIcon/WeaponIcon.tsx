@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import Image from 'next/image';
 
 import type { WeaponName } from '../../constants/weapons/weapon-definitions';
+import { normalCaseToKebabCase } from '../../utils/string-utils';
 
 export interface WeaponIconProps {
   weaponName: WeaponName | undefined;
@@ -11,13 +12,14 @@ export interface WeaponIconProps {
 
 export const WeaponIcon = ({ weaponName, size = 100 }: WeaponIconProps) => {
   if (weaponName) {
-    const imageName = weaponName.toLowerCase().replaceAll(' ', '-');
+    const imageName = normalCaseToKebabCase(weaponName);
     const imagePath = `/icons/weapons/${imageName}.png`;
 
     return (
       <Image
         src={imagePath}
         alt={weaponName}
+        title={weaponName}
         width={size}
         height={size}
       ></Image>
