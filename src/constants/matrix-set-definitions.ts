@@ -13,6 +13,7 @@ export type MatrixSetBaseName = WeaponName | 'Haboela' | 'Scylla';
 
 export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Alyss 2pc',
+  'Anka 2pc',
   'Annabella 2pc',
   'Asuka 2pc',
   'Brevey 2pc',
@@ -60,6 +61,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
 
 export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Alyss 4pc',
+  'Anka 4pc',
   'Annabella 4pc',
   'Asuka 4pc',
   'Brevey 4pc',
@@ -114,6 +116,28 @@ export const matrixSetDefinitionsLookup: DataById<
     displayName: 'Alyss 2pc',
     pieces: 2,
     attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+    buffs: [],
+  },
+  'Anka 2pc': {
+    id: 'Anka 2pc',
+    displayName: 'Anka 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description: 'Increase physical ATK, works off-hand',
+        starValues: [
+          { star: 0, value: 0.22 },
+          { star: 1, value: 0.24 },
+          { star: 2, value: 0.26 },
+          { star: 3, value: 0.28 },
+        ],
+        elementalTypes: ['Physical'],
+        canStack: false,
+        isActivePassively: true,
+      },
+    ],
     critRateBuffs: [],
     critDamageBuffs: [],
     buffs: [],
@@ -824,6 +848,29 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
+  },
+  'Anka 4pc': {
+    id: 'Anka 4pc',
+    displayName: 'Anka 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [
+      {
+        description:
+          "When Poppin' Stick is equipped, increase crit damage by 15%, works off-hand",
+        starValues: [
+          { star: 0, value: 0.15 },
+          { star: 1, value: 0.15 },
+          { star: 2, value: 0.15 },
+          { star: 3, value: 0.15 },
+        ],
+        canStack: false,
+        isActivePassively: true,
+        weaponRequirement: 'Anka',
+      },
+    ],
     buffs: [],
   },
   'Annabella 4pc': {

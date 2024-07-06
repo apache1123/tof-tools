@@ -7,6 +7,7 @@ export type SimulacrumName = WeaponName;
 export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
   allIds: [
     'Alyss',
+    'Anka',
     'Annabella',
     'Asuka',
     'Brevey',
@@ -76,6 +77,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
       ],
+    },
+    Anka: {
+      id: 'Anka',
+      displayName: 'Anka',
+      // TODO:
+      buffs: [],
     },
     Annabella: {
       id: 'Annabella',
