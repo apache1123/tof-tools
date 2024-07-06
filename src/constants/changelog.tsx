@@ -218,4 +218,9 @@ export const changelog: Changelog = [
     description:
       "Since simulacra trait selection has not been added to the gear comparer yet, the calculator assumes you will also equip her trait when using Roslyn's weapon. (Roslyn trait buffs crit damage)",
   },
+  {
+    semver: '3.16.0',
+    date: new Date(Date.UTC(2024, 6, 6)),
+    title: 'Add Anka',
+  },
 ];

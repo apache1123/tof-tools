@@ -1,6 +1,7 @@
 import type { Data } from '../../models/data';
 import type { WeaponDefinition } from '../../models/weapon-definition';
 import { alyss } from './definitions/alyss';
+import { anka } from './definitions/anka';
 import { annabella } from './definitions/annabella';
 import { asuka } from './definitions/asuka';
 import { brevey } from './definitions/brevey';
@@ -45,6 +46,7 @@ import { zero } from './definitions/zero';
 
 export type WeaponName =
   | 'Alyss'
+  | 'Anka'
   | 'Annabella'
   | 'Asuka'
   | 'Brevey'
@@ -90,6 +92,7 @@ export type WeaponName =
 export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   allIds: [
     'Alyss',
+    'Anka',
     'Annabella',
     'Asuka',
     'Brevey',
@@ -134,6 +137,7 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   ],
   byId: {
     Alyss: alyss,
+    Anka: anka,
     Annabella: annabella,
     Asuka: asuka,
     Brevey: brevey,
