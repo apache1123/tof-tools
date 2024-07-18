@@ -75,4 +75,46 @@ describe('Timeline', () => {
     expect(sut.getEventsOverlappingTime(16)).not.toContain(event2);
     expect(sut.getEventsOverlappingTime(16)).not.toContain(event3);
   });
+
+  it('returns correct events that end between the specified time interval', () => {
+    const sut = new Timeline(100);
+
+    const event1 = new TimelineEvent(new TimeInterval(0, 5));
+    const event2 = new TimelineEvent(new TimeInterval(3, 10));
+    const event3 = new TimelineEvent(new TimeInterval(10, 15));
+
+    sut.addEvent(event1);
+    sut.addEvent(event2);
+    sut.addEvent(event3);
+
+    expect(sut.getEventsEndingBetween(new TimeInterval(4, 10))).toEqual([
+      event1,
+      event2,
+    ]);
+    expect(sut.getEventsEndingBetween(new TimeInterval(5, 11))).toEqual([
+      event2,
+    ]);
+    expect(sut.getEventsEndingBetween(new TimeInterval(10, 12))).toEqual([]);
+    expect(sut.getEventsEndingBetween(new TimeInterval(5, 12))).toEqual([
+      event2,
+    ]);
+  });
+
+  it('returns the latest event that ends before the specified time', () => {
+    const sut = new Timeline(100);
+
+    const event1 = new TimelineEvent(new TimeInterval(0, 5));
+    const event2 = new TimelineEvent(new TimeInterval(3, 10));
+    const event3 = new TimelineEvent(new TimeInterval(10, 15));
+
+    sut.addEvent(event1);
+    sut.addEvent(event2);
+    sut.addEvent(event3);
+
+    expect(sut.getLatestEventBefore(4)).toBeUndefined();
+    expect(sut.getLatestEventBefore(5)).toEqual(event1);
+    expect(sut.getLatestEventBefore(9)).toEqual(event1);
+    expect(sut.getLatestEventBefore(15)).toEqual(event3);
+    expect(sut.getLatestEventBefore(16)).toEqual(event3);
+  });
 });
