@@ -82,11 +82,38 @@ export class Attack
         this.triggerTime
       );
 
-    const attackEvent = new AttackEvent(timeInterval, this, this.weapon);
-    this.resolveElementalType(attackEvent);
-
+    const attackEvent = new AttackEvent(
+      timeInterval,
+      this.cooldown,
+      this.id,
+      this.getElementalType(),
+      this.damageModifiers,
+      this.type,
+      this.hitCount,
+      this.updatesResources,
+      this.doesNotTriggerEvents,
+      this.isActiveAttack,
+      this.weapon
+    );
     this.timeline.addAttackEvent(attackEvent);
     return attackEvent;
+  }
+
+  /** Returns the elemental type of the attack at the current trigger time. Most attacks will have a fixed elemental type, but some might have a dynamic elemental type, dependent on the previous weapon, or current weapon, etc. */
+  public getElementalType() {
+    if (
+      this.elementalType.followCurrentWeaponElementalType &&
+      this.weaponTracker.activeWeapon
+    ) {
+      return this.weaponTracker.activeWeapon.damageElement;
+    } else if (
+      this.elementalType.followLastWeaponElementalType &&
+      this.weaponTracker.previousWeapon
+    ) {
+      return this.weaponTracker.previousWeapon.damageElement;
+    } else {
+      return this.elementalType.defaultElementalType;
+    }
   }
 
   /** Applies to active attacks only. If there is a full charge and an active weapon, only discharge attacks are available for the other weapons. If there is no active weapon ,e.g. at combat start, it doesn't matter.
@@ -114,25 +141,5 @@ export class Attack
     ) {
       this.weaponTracker.setActiveWeapon(this.weapon);
     }
-  }
-
-  /** Resolves the elemental type of an attack. Most attacks will have a fixed elemental type, but some might have a dynamic elemental type, dependent on the previous weapon, or current weapon, etc. */
-  private resolveElementalType(attackEvent: AttackEvent) {
-    let elementalType;
-    if (
-      this.elementalType.followCurrentWeaponElementalType &&
-      this.weaponTracker.activeWeapon
-    ) {
-      elementalType = this.weaponTracker.activeWeapon.damageElement;
-    } else if (
-      this.elementalType.followLastWeaponElementalType &&
-      this.weaponTracker.previousWeapon
-    ) {
-      elementalType = this.weaponTracker.previousWeapon.damageElement;
-    } else {
-      elementalType = this.elementalType.defaultElementalType;
-    }
-
-    attackEvent.elementalType = elementalType;
   }
 }

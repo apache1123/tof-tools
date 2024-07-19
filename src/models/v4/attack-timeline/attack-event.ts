@@ -7,7 +7,6 @@ import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import { AbilityEvent } from '../ability-timeline/ability-event';
-import type { Attack } from '../attack/attack';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
 import type { AttackId } from '../attack/attack-definition';
 import type { AttackHitCount } from '../attack/attack-hit-count';
@@ -18,48 +17,22 @@ export class AttackEvent
   extends AbilityEvent
   implements Serializable<AttackEventDto>
 {
-  public attackId: AttackId;
-  public elementalType: WeaponElementalType;
-  public damageModifiers: AttackDamageModifiers;
-  public type: AttackType;
-  public hitCount: AttackHitCount;
-  public updatesResources: AbilityUpdatesResource[];
-  public doesNotTriggerEvents: boolean;
-  /** Attack event that was initiated by the active weapon */
-  public isActiveWeaponAttack: boolean;
-
-  /** The weapon this attack derived from, for convenience */
-  public readonly weapon: Weapon;
-
   public constructor(
     timeInterval: TimeInterval,
-    attack: Attack,
-    weapon: Weapon
+    cooldown: number,
+    public readonly attackId: AttackId,
+    public readonly elementalType: WeaponElementalType,
+    public readonly damageModifiers: AttackDamageModifiers,
+    public readonly type: AttackType,
+    public readonly hitCount: AttackHitCount,
+    public readonly updatesResources: AbilityUpdatesResource[],
+    public readonly doesNotTriggerEvents: boolean,
+    /** Attack event that was initiated by the active weapon */
+    public readonly isActiveWeaponAttack: boolean,
+    /** The weapon this attack derived from, for convenience */
+    public readonly weapon: Weapon
   ) {
-    const {
-      id,
-      cooldown,
-      damageModifiers,
-      elementalType,
-      type,
-      hitCount,
-      updatesResources,
-      doesNotTriggerEvents,
-      isActiveAttack,
-    } = attack;
-
     super(timeInterval, cooldown);
-
-    this.attackId = id;
-    this.elementalType = elementalType.defaultElementalType;
-    this.damageModifiers = { ...damageModifiers };
-    this.type = type;
-    this.hitCount = { ...hitCount };
-    this.updatesResources = updatesResources?.map((x) => ({ ...x })) ?? [];
-    this.doesNotTriggerEvents = doesNotTriggerEvents ?? false;
-    this.isActiveWeaponAttack = isActiveAttack;
-
-    this.weapon = weapon;
   }
 
   /** The time of each attack hit within this event */
