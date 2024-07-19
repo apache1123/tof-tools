@@ -40,8 +40,10 @@ export class TimeInterval implements Serializable<TimeIntervalDto> {
     return this._endTime;
   }
   public set endTime(value: number) {
-    if (value < this._startTime) {
-      throw new Error('End time cannot be earlier than start time');
+    if (value <= this._startTime) {
+      throw new Error(
+        'End time cannot be earlier than, or the same as, the start time'
+      );
     }
     this._endTime = value;
   }
