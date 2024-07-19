@@ -13,14 +13,18 @@ export class AbilityTimeline<T extends AbilityEvent = AbilityEvent>
     );
   }
 
-  /** Ends any active events overlapping with the time at that time
-   * @returns events that have been ended
+  /** Ends any active events overlapping with the time at that time.
+   * Events will have have their end time set to the specified time, or removed if the specified time is equal to their start time.
    */
   public endAnyEventsAt(time: number) {
     const events = this.getEventsOverlappingTime(time);
     for (const event of events) {
-      event.endTime = time;
+      // Cut event short or remove it
+      if (time > event.startTime) {
+        event.endTime = time;
+      } else {
+        this.removeEvent(event);
+      }
     }
-    return events;
   }
 }

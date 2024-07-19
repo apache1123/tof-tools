@@ -68,9 +68,9 @@ export abstract class Ability<T extends AbilityEvent = AbilityEvent>
   }
 
   /** End any active ability events at the current start time */
-  public endActiveEvents(): T[] {
+  public endActiveEvents() {
     const endTime = this.triggerTime + minEventDuration;
-    return this.timeline.endAnyEventsAt(endTime);
+    this.timeline.endAnyEventsAt(endTime);
   }
 
   /** Check if the ability is active at the start of the current start time */
