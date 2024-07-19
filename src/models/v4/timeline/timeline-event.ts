@@ -1,42 +1,43 @@
 import type { Serializable } from '../../persistable';
-import { TimeInterval } from '../time-interval/time-interval';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { TimelineEventDto } from './dtos/timeline-event-dto';
 
-export class TimelineEvent
-  extends TimeInterval
-  implements Serializable<TimelineEventDto>
-{
-  private _timeInterval: TimeInterval;
+export class TimelineEvent implements Serializable<TimelineEventDto> {
+  private readonly _timeInterval: TimeInterval;
 
   public constructor(timeInterval: TimeInterval) {
-    const { startTime, endTime } = timeInterval;
-    super(startTime, endTime);
-
     this._timeInterval = timeInterval;
   }
 
   public get timeInterval(): TimeInterval {
     return this._timeInterval;
   }
-  public set timeInterval(value: TimeInterval) {
-    this._timeInterval = value;
-    this.startTime = value.startTime;
-    this.endTime = value.endTime;
-  }
 
   public get startTime(): number {
-    return super.startTime;
+    return this._timeInterval.startTime;
   }
   public set startTime(value: number) {
-    super.startTime = value;
     this._timeInterval.startTime = value;
   }
 
   public get endTime(): number {
-    return super.endTime;
+    return this._timeInterval.endTime;
   }
   public set endTime(value: number) {
-    super.endTime = value;
     this._timeInterval.endTime = value;
+  }
+
+  /** Ending instant of time (inclusive) */
+  public get endTimeInclusive(): number {
+    return this._timeInterval.endTimeInclusive;
+  }
+
+  public get duration(): number {
+    return this._timeInterval.duration;
+  }
+
+  public toDto(): TimelineEventDto {
+    const { startTime, endTime, duration } = this;
+    return { startTime, endTime, duration, version: 1 };
   }
 }

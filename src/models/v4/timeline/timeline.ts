@@ -78,7 +78,11 @@ export class Timeline<T extends TimelineEvent>
     const eventsBefore = this._events.filter((event) => event.endTime <= time);
     if (!eventsBefore.length) return undefined;
 
-    return getLatestTimeInterval(eventsBefore);
+    const eventTimeIntervals = eventsBefore.map((event) => event.timeInterval);
+    const latestTimeInterval = getLatestTimeInterval(eventTimeIntervals);
+    const latestEventIndex = eventTimeIntervals.indexOf(latestTimeInterval);
+
+    return eventsBefore[latestEventIndex];
   }
 
   public removeEvent(event: T) {
