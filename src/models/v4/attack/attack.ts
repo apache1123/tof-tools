@@ -100,7 +100,7 @@ export class Attack
   }
 
   /** Returns the elemental type of the attack at the current trigger time. Most attacks will have a fixed elemental type, but some might have a dynamic elemental type, dependent on the previous weapon, or current weapon, etc. */
-  public getElementalType() {
+  private getElementalType() {
     if (
       this.elementalType.followCurrentWeaponElementalType &&
       this.weaponTracker.activeWeapon
