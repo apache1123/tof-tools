@@ -9,7 +9,10 @@ export class Timeline<T extends TimelineEvent>
 {
   private readonly _events: T[] = [];
 
-  public constructor(public readonly totalDuration: number) {}
+  public constructor(
+    public readonly endTime: number,
+    public readonly startTime = 0
+  ) {}
 
   public get events(): ReadonlyArray<T> {
     return this._events;
@@ -20,9 +23,15 @@ export class Timeline<T extends TimelineEvent>
   }
 
   public addEvent(event: T) {
-    if (event.startTime >= this.totalDuration) {
+    if (event.startTime < this.startTime) {
       throw new Error(
-        "Cannot add event that starts after the timeline's duration"
+        'Cannot add an event that starts before the timeline starts'
+      );
+    }
+
+    if (event.startTime >= this.endTime) {
+      throw new Error(
+        "Cannot add event that starts after the timeline's end time"
       );
     }
 
@@ -32,9 +41,9 @@ export class Timeline<T extends TimelineEvent>
       );
     }
 
-    // Cut off event if it goes past the timeline duration
-    if (event.endTime > this.totalDuration) {
-      event.endTime = this.totalDuration;
+    // Cut off event if it goes past the timeline end time
+    if (event.endTime > this.endTime) {
+      event.endTime = this.endTime;
     }
 
     this._events.push(event);

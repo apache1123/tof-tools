@@ -69,7 +69,7 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
       return buffEvent;
     }
 
-    // Buff event starts when the previous one ends - Merge the two of they have the same number of stacks, or add a new one if not
+    // Buff event starts when the previous one ends - Merge the two if they have the same number of stacks, or add a new one if not
     if (buffEvent.startTime === lastEvent.endTime) {
       if (buffEvent.stacks === lastEvent.stacks) {
         lastEvent.endTime = buffEvent.endTime;

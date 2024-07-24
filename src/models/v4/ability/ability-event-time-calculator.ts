@@ -35,8 +35,8 @@ export class AbilityEventTimeCalculator {
       notActiveWeapon ||
       resourceDepleted
     ) {
-      // For abilities that are ended by a certain condition, set the end time to be the total duration. The ability event will be ended by an event related to that condition
-      endTime = this.timeline.totalDuration;
+      // For abilities that are ended by a certain condition, set the end time to be the timeline's end time. The ability event will be ended by an event related to that condition
+      endTime = this.timeline.endTime;
     } else {
       throw new Error('Cannot determine ability event end time');
     }
