@@ -9,8 +9,8 @@ import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Weapon } from '../../weapon';
 import type { AttackDamageModifiers } from '../attack/attack-damage-modifiers';
-import type { AttackEvent } from '../attack-timeline/attack-event';
-import type { BuffEvent } from '../buff-timeline/buff-event';
+import type { AttackEvent } from '../attack/attack-event';
+import type { BuffEvent } from '../buff/buff-event';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { Target } from '../target/target';
 

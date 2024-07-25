@@ -1,11 +1,12 @@
 import type { Team } from '../../team';
 import { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
-import { AttackTimeline } from '../attack-timeline/attack-timeline';
 import type { Charge } from '../charge/charge';
 import type { TickTracker } from '../tick-tracker';
+import { Timeline } from '../timeline/timeline';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import { Attack } from './attack';
 import type { AttackDefinition } from './attack-definition';
+import type { AttackEvent } from './attack-event';
 
 export class AttackFactory {
   public static createAttacks(
@@ -17,7 +18,7 @@ export class AttackFactory {
   ): Attack[] {
     return team.weapons.flatMap((weapon) =>
       weapon.attackDefinitions.map((definition) => {
-        const timeline = new AttackTimeline(combatDuration);
+        const timeline = new Timeline<AttackEvent>(combatDuration);
         return new Attack(
           weapon,
           definition,

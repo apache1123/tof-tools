@@ -1,8 +1,13 @@
 import type { AbilityDto } from '../../ability/dtos/ability-dto';
-import type { BuffTimelineDto } from '../../buff-timeline/dtos/buff-timeline-dto';
+import type { TimelineDto } from '../../timeline/dtos/timeline-dto';
 import type { BuffId } from '../buff-definition';
+import type { BuffEventDto } from './buff-event-dto';
 
 export interface BuffDto extends AbilityDto {
   id: BuffId;
   timeline: BuffTimelineDto;
+}
+
+interface BuffTimelineDto extends TimelineDto {
+  events: BuffEventDto[];
 }

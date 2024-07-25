@@ -1,13 +1,13 @@
 import type { Serializable } from '../../persistable';
-import type { AbilityEvent } from '../ability-timeline/ability-event';
 import { Registry } from '../registry/registry';
 import type { Ability } from './ability';
 import type { AbilityId } from './ability-definition';
+import type { AbilityEvent } from './ability-event';
 import type { AbilityRegistryDto } from './dtos/ability-registry-dto';
 
 export class AbilityRegistry<
     TAbility extends Ability<TAbilityEvent>,
-    TAbilityEvent extends AbilityEvent = AbilityEvent
+    TAbilityEvent extends AbilityEvent = AbilityEvent,
   >
   extends Registry<TAbility>
   implements Serializable<AbilityRegistryDto>

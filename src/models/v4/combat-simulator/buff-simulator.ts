@@ -1,6 +1,6 @@
 import type { AbilityResourceUpdater } from '../ability/ability-resource-updater';
+import type { BuffEvent } from '../buff/buff-event';
 import type { BuffRegistry } from '../buff/buff-registry';
-import type { BuffEvent } from '../buff-timeline/buff-event';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { TickTracker } from '../tick-tracker';
 

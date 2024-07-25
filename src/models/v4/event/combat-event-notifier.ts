@@ -1,7 +1,7 @@
 import type { Weapon } from '../../weapon';
 import type { AbilityId } from '../ability/ability-definition';
-import type { AttackEvent } from '../attack-timeline/attack-event';
-import type { BuffEvent } from '../buff-timeline/buff-event';
+import type { AttackEvent } from '../attack/attack-event';
+import type { BuffEvent } from '../buff/buff-event';
 import type { ResourceEvent } from '../resource-timeline/resource-event';
 import { eventIdProvider } from './event-id-provider';
 import type { EventManager } from './event-manager';

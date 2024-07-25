@@ -1,7 +1,7 @@
 import type { Serializable } from '../../persistable';
 import { AbilityRegistry } from '../ability/ability-registry';
-import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { Attack } from './attack';
+import type { AttackEvent } from './attack-event';
 import type { AttackRegistryDto } from './dtos/attack-registry-dto';
 
 export class AttackRegistry

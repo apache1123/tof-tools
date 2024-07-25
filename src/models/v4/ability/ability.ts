@@ -1,15 +1,15 @@
 import { minEventDuration } from '../../../constants/tick';
 import type { Serializable } from '../../persistable';
-import type { AbilityEvent } from '../ability-timeline/ability-event';
-import type { AbilityTimeline } from '../ability-timeline/ability-timeline';
 import type { TickTracker } from '../tick-tracker';
+import type { Timeline } from '../timeline/timeline';
 import type { AbilityDefinition, AbilityId } from './ability-definition';
 import type { AbilityEndedBy } from './ability-ended-by';
+import type { AbilityEvent } from './ability-event';
 import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityDto } from './dtos/ability-dto';
 
 /** An ability is anything a character does. Attacks, buffs etc. are all considered abilities. */
-export abstract class Ability<T extends AbilityEvent = AbilityEvent>
+export class Ability<T extends AbilityEvent = AbilityEvent>
   implements Serializable<AbilityDto>
 {
   public readonly id: AbilityId;
@@ -18,13 +18,13 @@ export abstract class Ability<T extends AbilityEvent = AbilityEvent>
   public readonly endedBy: AbilityEndedBy;
   public readonly updatesResources: AbilityUpdatesResource[];
 
-  public readonly timeline: AbilityTimeline<T>;
+  public readonly timeline: Timeline<T>;
 
   private readonly tickTracker: TickTracker;
 
   public constructor(
     definition: AbilityDefinition,
-    timeline: AbilityTimeline<T>,
+    timeline: Timeline<T>,
     tickTracker: TickTracker
   ) {
     const { id, displayName, cooldown, endedBy, updatesResources } = definition;
@@ -57,7 +57,9 @@ export abstract class Ability<T extends AbilityEvent = AbilityEvent>
     return this.addEvent();
   }
 
-  protected abstract addEvent(): T;
+  protected addEvent(): T {
+    throw new Error('Not implemented');
+  }
 
   /** Returns any ability events overlapping with the current tick */
   public getActiveEvents(): T[] {
@@ -80,7 +82,9 @@ export abstract class Ability<T extends AbilityEvent = AbilityEvent>
 
   /** Check if the ability is on cooldown at the start of the current start time */
   public isOnCooldown() {
-    return this.timeline.hasEventOnCooldownAt(this.triggerTime);
+    return this.timeline.events.some((event) =>
+      event.isOnCooldown(this.triggerTime)
+    );
   }
 
   public toDto(): AbilityDto {

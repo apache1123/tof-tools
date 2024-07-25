@@ -1,16 +1,13 @@
-import type { AbilityTimeline } from '../ability-timeline/ability-timeline';
 import { TimeInterval } from '../time-interval/time-interval';
+import type { Timeline } from '../timeline/timeline';
 import type { AbilityEndedBy } from './ability-ended-by';
 
 // TODO: This should be moved to a more appropriate place, perhaps into Ability
 export class AbilityEventTimeCalculator {
   private readonly abilityEndedBy: AbilityEndedBy;
-  private readonly timeline: AbilityTimeline;
+  private readonly timeline: Timeline;
 
-  public constructor(
-    abilityEndedBy: AbilityEndedBy,
-    timeline: AbilityTimeline
-  ) {
+  public constructor(abilityEndedBy: AbilityEndedBy, timeline: Timeline) {
     this.abilityEndedBy = abilityEndedBy;
     this.timeline = timeline;
   }

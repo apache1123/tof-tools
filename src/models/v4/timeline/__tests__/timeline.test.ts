@@ -5,6 +5,16 @@ import { TimelineEvent } from '../timeline-event';
 describe('Timeline', () => {
   const timelineDuration = 100;
 
+  describe('adding events', () => {
+    it('throws an error when trying to add a new event with a start time earlier than the start time of the latest event', () => {
+      const sut = new Timeline(timelineDuration);
+      sut.addEvent(new TimelineEvent(new TimeInterval(5, 7)));
+      expect(() => {
+        sut.addEvent(new TimelineEvent(new TimeInterval(3, 7)));
+      }).toThrow();
+    });
+  });
+
   it('returns correct events overlapping with the specified start and end time', () => {
     const sut = new Timeline(timelineDuration);
 

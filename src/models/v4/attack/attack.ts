@@ -3,14 +3,14 @@ import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import { Ability } from '../ability/ability';
 import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
-import { AttackEvent } from '../attack-timeline/attack-event';
-import type { AttackTimeline } from '../attack-timeline/attack-timeline';
 import type { Charge } from '../charge/charge';
 import type { TickTracker } from '../tick-tracker';
+import type { Timeline } from '../timeline/timeline';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackDefinition, AttackId } from './attack-definition';
 import type { AttackElementalType } from './attack-elemental-type';
+import { AttackEvent } from './attack-event';
 import type { AttackHitCount } from './attack-hit-count';
 import type { AttackDto } from './dtos/attack-dto';
 
@@ -28,7 +28,7 @@ export class Attack
   public readonly doesNotTriggerEvents: boolean;
 
   public readonly weapon: Weapon;
-  public readonly timeline: AttackTimeline;
+  public readonly timeline: Timeline<AttackEvent>;
 
   private readonly weaponTracker: WeaponTracker;
   private readonly charge: Charge;
@@ -37,7 +37,7 @@ export class Attack
   public constructor(
     weapon: Weapon,
     definition: AttackDefinition,
-    timeline: AttackTimeline,
+    timeline: Timeline<AttackEvent>,
     tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
     charge: Charge,
@@ -82,7 +82,7 @@ export class Attack
         this.triggerTime
       );
 
-    const attackEvent = new AttackEvent(
+    const newEvent = new AttackEvent(
       timeInterval,
       this.cooldown,
       this.id,
@@ -95,8 +95,18 @@ export class Attack
       this.isActiveAttack,
       this.weapon
     );
-    this.timeline.addAttackEvent(attackEvent);
-    return attackEvent;
+
+    // The new attack's start time cannot be earlier than the start time of the existing last attack. If the new attack overlaps with the previous, the previous one is cut short at the point where the new one is added.
+    const lastEvent = this.timeline.lastEvent;
+    if (lastEvent && newEvent.startTime < lastEvent.endTime) {
+      lastEvent.endTime = newEvent.startTime;
+      if (lastEvent.startTime === lastEvent.endTime) {
+        this.timeline.removeEvent(lastEvent);
+      }
+    }
+
+    this.timeline.addEvent(newEvent);
+    return newEvent;
   }
 
   /** Returns the elemental type of the attack at the current trigger time. Most attacks will have a fixed elemental type, but some might have a dynamic elemental type, dependent on the previous weapon, or current weapon, etc. */

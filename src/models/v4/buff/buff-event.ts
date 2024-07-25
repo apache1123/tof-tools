@@ -1,14 +1,14 @@
 import type { Serializable } from '../../persistable';
+import { AbilityEvent } from '../ability/ability-event';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import { AbilityEvent } from '../ability-timeline/ability-event';
-import type { AttackBuff } from '../buff/attack-buff';
-import type { Buff } from '../buff/buff';
-import type { BuffId } from '../buff/buff-definition';
-import type { CritDamageBuff } from '../buff/crit-damage-buff';
-import type { DamageBuff } from '../buff/damage-buff';
-import type { MiscellaneousBuff } from '../buff/miscellaneous-buff';
 import type { TimeInterval } from '../time-interval/time-interval';
+import type { AttackBuff } from './attack-buff';
+import type { Buff } from './buff';
+import type { BuffId } from './buff-definition';
+import type { CritDamageBuff } from './crit-damage-buff';
+import type { DamageBuff } from './damage-buff';
 import type { BuffEventDto } from './dtos/buff-event-dto';
+import type { MiscellaneousBuff } from './miscellaneous-buff';
 
 export class BuffEvent
   extends AbilityEvent

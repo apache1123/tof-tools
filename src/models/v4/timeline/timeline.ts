@@ -4,7 +4,7 @@ import type { TimeInterval } from '../time-interval/time-interval';
 import type { TimelineDto } from './dtos/timeline-dto';
 import type { TimelineEvent } from './timeline-event';
 
-export class Timeline<T extends TimelineEvent>
+export class Timeline<T extends TimelineEvent = TimelineEvent>
   implements Serializable<TimelineDto>
 {
   private readonly _events: T[] = [];

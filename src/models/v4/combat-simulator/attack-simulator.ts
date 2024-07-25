@@ -1,6 +1,6 @@
 import type { AbilityResourceUpdater } from '../ability/ability-resource-updater';
+import type { AttackEvent } from '../attack/attack-event';
 import type { AttackRegistry } from '../attack/attack-registry';
-import type { AttackEvent } from '../attack-timeline/attack-event';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
 import type { TickTracker } from '../tick-tracker';
 

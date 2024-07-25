@@ -1,12 +1,12 @@
 import type { Serializable } from '../../persistable';
 import { Ability } from '../ability/ability';
 import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
-import { BuffEvent } from '../buff-timeline/buff-event';
-import type { BuffTimeline } from '../buff-timeline/buff-timeline';
 import type { TickTracker } from '../tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
+import type { Timeline } from '../timeline/timeline';
 import type { AttackBuff } from './attack-buff';
 import type { BuffDefinition, BuffId } from './buff-definition';
+import { BuffEvent } from './buff-event';
 import type { CritDamageBuff } from './crit-damage-buff';
 import type { DamageBuff } from './damage-buff';
 import type { BuffDto } from './dtos/buff-dto';
@@ -21,13 +21,13 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
   public readonly critDamageBuffs: CritDamageBuff[];
   public readonly miscBuff?: MiscellaneousBuff;
 
-  public readonly timeline: BuffTimeline;
+  public readonly timeline: Timeline<BuffEvent>;
 
   private readonly abilityEventTimeCalculator: AbilityEventTimeCalculator;
 
   public constructor(
     definition: BuffDefinition,
-    timeline: BuffTimeline,
+    timeline: Timeline<BuffEvent>,
     tickTracker: TickTracker,
     abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
@@ -142,6 +142,12 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
 
   public toDto(): BuffDto {
     const { timeline } = this;
-    return { ...super.toDto(), timeline: timeline.toDto() };
+    return {
+      ...super.toDto(),
+      timeline: {
+        events: timeline.events.map((event) => event.toDto()),
+        version: 1,
+      },
+    };
   }
 }

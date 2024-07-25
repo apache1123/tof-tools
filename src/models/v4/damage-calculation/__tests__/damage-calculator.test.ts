@@ -5,7 +5,7 @@ import type { LoadoutStats } from '../../../loadout-stats';
 import { Team } from '../../../team';
 import { Weapon } from '../../../weapon';
 import type { AttackEvent } from '../../attack-timeline/attack-event';
-import type { BuffEvent } from '../../buff-timeline/buff-event';
+import type { BuffEvent } from '../../buff/buff-event';
 import { DamageCalculator } from '../damage-calculator';
 
 describe('DamageCalculator', () => {
