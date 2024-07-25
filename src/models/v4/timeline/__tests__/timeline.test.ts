@@ -3,8 +3,10 @@ import { Timeline } from '../timeline';
 import { TimelineEvent } from '../timeline-event';
 
 describe('Timeline', () => {
+  const timelineDuration = 100;
+
   it('returns correct events overlapping with the specified start and end time', () => {
-    const sut = new Timeline(100);
+    const sut = new Timeline(timelineDuration);
 
     // Test against the interval of 6 to 11.
     const event1 = new TimelineEvent(new TimeInterval(0, 5)); // out
@@ -41,7 +43,7 @@ describe('Timeline', () => {
   });
 
   it('returns correct events overlapping with the specified time', () => {
-    const sut = new Timeline(100);
+    const sut = new Timeline(timelineDuration);
 
     const event1 = new TimelineEvent(new TimeInterval(0, 5));
     const event2 = new TimelineEvent(new TimeInterval(3, 10));
@@ -77,7 +79,7 @@ describe('Timeline', () => {
   });
 
   it('returns correct events that end between the specified time interval', () => {
-    const sut = new Timeline(100);
+    const sut = new Timeline(timelineDuration);
 
     const event1 = new TimelineEvent(new TimeInterval(0, 5));
     const event2 = new TimelineEvent(new TimeInterval(3, 10));
@@ -101,7 +103,7 @@ describe('Timeline', () => {
   });
 
   it('returns the latest event that ends before the specified time', () => {
-    const sut = new Timeline(100);
+    const sut = new Timeline(timelineDuration);
 
     const event1 = new TimelineEvent(new TimeInterval(0, 5));
     const event2 = new TimelineEvent(new TimeInterval(3, 10));
@@ -116,5 +118,48 @@ describe('Timeline', () => {
     expect(sut.getLatestEventBefore(9)).toEqual(event1);
     expect(sut.getLatestEventBefore(15)).toEqual(event3);
     expect(sut.getLatestEventBefore(16)).toEqual(event3);
+  });
+
+  describe('ending events', () => {
+    it('should not end any events if there are no events', () => {
+      const sut = new Timeline(timelineDuration);
+      sut.endAnyEventsAt(0);
+      expect(sut.events).toHaveLength(0);
+    });
+
+    it('should end any events that overlap with the time', () => {
+      const sut = new Timeline(timelineDuration);
+      sut.addEvent(new TimelineEvent(new TimeInterval(0, 10)));
+
+      sut.endAnyEventsAt(5);
+
+      const events = sut.events;
+      expect(events[0].startTime).toBe(0);
+      expect(events[0].endTime).toBe(5);
+    });
+
+    it('should not end any events that do not overlap with the time', () => {
+      const sut = new Timeline(timelineDuration);
+      sut.addEvent(new TimelineEvent(new TimeInterval(0, 10)));
+      sut.addEvent(new TimelineEvent(new TimeInterval(20, 30)));
+
+      sut.endAnyEventsAt(15);
+
+      const events = sut.events;
+      expect(events[0].startTime).toBe(0);
+      expect(events[0].endTime).toBe(10);
+      expect(events[1].startTime).toBe(20);
+      expect(events[1].endTime).toBe(30);
+    });
+
+    it('should remove an event if ending that event at the specified time will cause it to have a zero duration', () => {
+      const sut = new Timeline(timelineDuration);
+      sut.addEvent(new TimelineEvent(new TimeInterval(10, 20)));
+
+      sut.endAnyEventsAt(10);
+
+      const events = sut.events;
+      expect(events).toHaveLength(0);
+    });
   });
 });

@@ -19,4 +19,8 @@ export class AbilityEvent
   public get cooldownEndsAt() {
     return this.startTime + this.cooldown;
   }
+
+  public isOnCooldown(time: number) {
+    return this.startTime <= time && time < this.cooldownEndsAt;
+  }
 }

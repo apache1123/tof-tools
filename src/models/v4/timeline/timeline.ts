@@ -101,6 +101,21 @@ export class Timeline<T extends TimelineEvent>
     }
   }
 
+  /** Ends any events overlapping with the time at that time.
+   * Events will have have their end time set to the specified time, or removed if the specified time is equal to their start time.
+   */
+  public endAnyEventsAt(time: number) {
+    const events = this.getEventsOverlappingTime(time);
+    for (const event of events) {
+      // Cut event short or remove it
+      if (time > event.startTime) {
+        event.endTime = time;
+      } else {
+        this.removeEvent(event);
+      }
+    }
+  }
+
   public toDto(): TimelineDto {
     const { events } = this;
     return { events: events.map((event) => event.toDto()), version: 1 };
