@@ -2,9 +2,9 @@ import type { AttackType } from '../../../constants/attack-type';
 import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import { Ability } from '../ability/ability';
-import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
 import type { Charge } from '../charge/charge';
 import type { TickTracker } from '../tick-tracker';
+import type { TimeInterval } from '../time-interval/time-interval';
 import type { Timeline } from '../timeline/timeline';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
@@ -32,7 +32,6 @@ export class Attack
 
   private readonly weaponTracker: WeaponTracker;
   private readonly charge: Charge;
-  private readonly abilityEventTimeCalculator: AbilityEventTimeCalculator;
 
   public constructor(
     weapon: Weapon,
@@ -41,7 +40,6 @@ export class Attack
     tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
     charge: Charge,
-    abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
     super(definition, timeline, tickTracker);
 
@@ -67,20 +65,14 @@ export class Attack
 
     this.weaponTracker = weaponTracker;
     this.charge = charge;
-    this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
   public override canTrigger(): boolean {
     return super.canTrigger() && this.canTriggerGivenWeaponAndCharge();
   }
 
-  protected override addEvent(): AttackEvent {
+  protected override addEvent(timeInterval: TimeInterval): AttackEvent {
     this.switchWeaponsIfNeeded();
-
-    const timeInterval =
-      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(
-        this.triggerTime
-      );
 
     const newEvent = new AttackEvent(
       timeInterval,

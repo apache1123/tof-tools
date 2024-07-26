@@ -1,5 +1,4 @@
 import type { Team } from '../../team';
-import { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
 import type { Charge } from '../charge/charge';
 import type { TickTracker } from '../tick-tracker';
 import { Timeline } from '../timeline/timeline';
@@ -25,8 +24,7 @@ export class AttackFactory {
           timeline,
           tickTracker,
           weaponTracker,
-          charge,
-          new AbilityEventTimeCalculator(definition.endedBy, timeline)
+          charge
         );
       })
     );

@@ -1,6 +1,5 @@
 import type { Serializable } from '../../persistable';
 import { Ability } from '../ability/ability';
-import type { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
 import type { TickTracker } from '../tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { Timeline } from '../timeline/timeline';
@@ -23,13 +22,10 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
 
   public readonly timeline: Timeline<BuffEvent>;
 
-  private readonly abilityEventTimeCalculator: AbilityEventTimeCalculator;
-
   public constructor(
     definition: BuffDefinition,
     timeline: Timeline<BuffEvent>,
     tickTracker: TickTracker,
-    abilityEventTimeCalculator: AbilityEventTimeCalculator
   ) {
     super(definition, timeline, tickTracker);
 
@@ -49,15 +45,10 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
     this.miscBuff = miscBuff;
 
     this.timeline = timeline;
-    this.abilityEventTimeCalculator = abilityEventTimeCalculator;
   }
 
   /** Adds a new buff event to the timeline. Merging with the latest buff event in the timeline if overlaps occur. */
-  protected override addEvent(): BuffEvent {
-    const timeInterval =
-      this.abilityEventTimeCalculator.calculateAbilityEventTimeInterval(
-        this.triggerTime
-      );
+  protected override addEvent(timeInterval: TimeInterval): BuffEvent {
     const buffEvent = new BuffEvent(this, timeInterval);
 
     const { lastEvent } = this.timeline;

@@ -1,6 +1,7 @@
 import { minEventDuration } from '../../../constants/tick';
 import type { Serializable } from '../../persistable';
 import type { TickTracker } from '../tick-tracker';
+import { TimeInterval } from '../time-interval/time-interval';
 import type { Timeline } from '../timeline/timeline';
 import type { AbilityDefinition, AbilityId } from './ability-definition';
 import type { AbilityEndedBy } from './ability-ended-by';
@@ -54,11 +55,41 @@ export class Ability<T extends AbilityEvent = AbilityEvent>
   /** Trigger the ability at the current start time */
   public trigger(): T | undefined {
     if (!this.canTrigger()) return;
-    return this.addEvent();
+    return this.addEvent(this.getNewEventTimeInterval());
   }
 
-  protected addEvent(): T {
+  protected addEvent(timeInterval: TimeInterval): T {
     throw new Error('Not implemented');
+  }
+
+  private getNewEventTimeInterval(): TimeInterval {
+    const startTime = this.triggerTime;
+    let endTime!: number;
+
+    const {
+      duration,
+      combatEnd,
+      buffEnd,
+      activeWeapon,
+      notActiveWeapon,
+      resourceDepleted,
+    } = this.endedBy;
+    if (duration) {
+      endTime = startTime + duration;
+    } else if (
+      combatEnd ||
+      buffEnd ||
+      activeWeapon ||
+      notActiveWeapon ||
+      resourceDepleted
+    ) {
+      // For abilities that are ended by a certain condition, set the end time to be the timeline's end time. The ability event will be ended by an event related to that condition
+      endTime = this.timeline.endTime;
+    } else {
+      throw new Error('Cannot determine ability event end time');
+    }
+
+    return new TimeInterval(startTime, endTime);
   }
 
   /** Returns any ability events overlapping with the current tick */

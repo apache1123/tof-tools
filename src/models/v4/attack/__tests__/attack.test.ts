@@ -1,7 +1,6 @@
 import { mock } from 'jest-mock-extended';
 
 import type { Weapon } from '../../../weapon';
-import { AbilityEventTimeCalculator } from '../../ability/ability-event-time-calculator';
 import type { Charge } from '../../charge/charge';
 import { TickTracker } from '../../tick-tracker';
 import { TimeInterval } from '../../time-interval/time-interval';
@@ -26,8 +25,7 @@ describe('Attack', () => {
         timeline,
         tickTracker,
         mock<WeaponTracker>(),
-        mock<Charge>(),
-        new AbilityEventTimeCalculator(definition.endedBy, timeline)
+        mock<Charge>()
       );
       sut.trigger();
       tickTracker.advanceTickInterval();
@@ -81,8 +79,7 @@ describe('Attack', () => {
           activeWeapon: { damageElement: 'Altered' },
           previousWeapon: { damageElement: 'Frost' },
         }),
-        mock<Attack['charge']>(),
-        new AbilityEventTimeCalculator(definition.endedBy, timeline)
+        mock<Attack['charge']>()
       );
     }
   });

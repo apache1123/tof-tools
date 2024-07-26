@@ -1,6 +1,5 @@
 import { commonBuffs } from '../../../constants/common-buffs';
 import type { Loadout } from '../../loadout';
-import { AbilityEventTimeCalculator } from '../ability/ability-event-time-calculator';
 import type { Relics } from '../relics/relics';
 import type { TickTracker } from '../tick-tracker';
 import { Timeline } from '../timeline/timeline';
@@ -17,12 +16,7 @@ export class BuffFactory {
   ): Buff[] {
     return this.getDefinitions(loadout, relics).map((definition) => {
       const timeline = new Timeline<BuffEvent>(combatDuration);
-      return new Buff(
-        definition,
-        timeline,
-        tickTracker,
-        new AbilityEventTimeCalculator(definition.endedBy, timeline)
-      );
+      return new Buff(definition, timeline, tickTracker);
     });
   }
 
