@@ -25,7 +25,7 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
   public constructor(
     definition: BuffDefinition,
     timeline: Timeline<BuffEvent>,
-    tickTracker: TickTracker,
+    tickTracker: TickTracker
   ) {
     super(definition, timeline, tickTracker);
 
@@ -49,7 +49,16 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
 
   /** Adds a new buff event to the timeline. Merging with the latest buff event in the timeline if overlaps occur. */
   protected override addEvent(timeInterval: TimeInterval): BuffEvent {
-    const buffEvent = new BuffEvent(this, timeInterval);
+    const buffEvent = new BuffEvent(
+      timeInterval,
+      this.cooldown,
+      this.id,
+      this.attackBuffs,
+      this.damageBuffs,
+      this.critDamageBuffs,
+      this.miscBuff,
+      this.updatesResources
+    );
 
     const { lastEvent } = this.timeline;
     const { maxStacks } = this;
@@ -100,11 +109,17 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
 
     if (newStacksOfOverlappingInterval === lastEvent.stacks) {
       const newBuffEvent = new BuffEvent(
-        this,
         new TimeInterval(
           lastEvent.endTime,
           lastEvent.endTime + buffEvent.duration
         ),
+        this.cooldown,
+        this.id,
+        this.attackBuffs,
+        this.damageBuffs,
+        this.critDamageBuffs,
+        this.miscBuff,
+        this.updatesResources,
         buffEvent.stacks
       );
       this.timeline.addEvent(newBuffEvent);
@@ -116,15 +131,27 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
     lastEvent.endTime = buffEvent.startTime;
 
     const newBuffOfOverlappingInterval = new BuffEvent(
-      this,
       new TimeInterval(buffEvent.startTime, oldLastBuffEndTime),
+      this.cooldown,
+      this.id,
+      this.attackBuffs,
+      this.damageBuffs,
+      this.critDamageBuffs,
+      this.miscBuff,
+      this.updatesResources,
       newStacksOfOverlappingInterval
     );
     this.timeline.addEvent(newBuffOfOverlappingInterval);
 
     const newBuffEvent = new BuffEvent(
-      this,
       new TimeInterval(newBuffOfOverlappingInterval.endTime, buffEvent.endTime),
+      this.cooldown,
+      this.id,
+      this.attackBuffs,
+      this.damageBuffs,
+      this.critDamageBuffs,
+      this.miscBuff,
+      this.updatesResources,
       buffEvent.stacks
     );
     this.timeline.addEvent(newBuffEvent);
