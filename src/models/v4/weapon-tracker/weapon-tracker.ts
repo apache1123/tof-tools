@@ -1,6 +1,6 @@
 import { minEventDuration } from '../../../constants/tick';
 import type { Weapon } from '../../weapon';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
 import { WeaponTrackerEvent } from './weapon-tracker-event';
 import type { WeaponTrackerTimeline } from './weapon-tracker-timeline';

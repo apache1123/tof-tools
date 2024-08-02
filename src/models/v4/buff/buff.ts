@@ -1,11 +1,11 @@
 import type { Serializable } from '../../persistable';
 import { Ability } from '../ability/ability';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
-import type { Timeline } from '../timeline/timeline';
 import type { AttackBuff } from './attack-buff';
 import type { BuffDefinition, BuffId } from './buff-definition';
 import { BuffEvent } from './buff-event';
+import type { BuffTimeline } from './buff-timeline';
 import type { CritDamageBuff } from './crit-damage-buff';
 import type { DamageBuff } from './damage-buff';
 import type { BuffDto } from './dtos/buff-dto';
@@ -20,11 +20,11 @@ export class Buff extends Ability<BuffEvent> implements Serializable<BuffDto> {
   public readonly critDamageBuffs: CritDamageBuff[];
   public readonly miscBuff?: MiscellaneousBuff;
 
-  public readonly timeline: Timeline<BuffEvent>;
+  public readonly timeline: BuffTimeline;
 
   public constructor(
     definition: BuffDefinition,
-    timeline: Timeline<BuffEvent>,
+    timeline: BuffTimeline,
     tickTracker: TickTracker
   ) {
     super(definition, timeline, tickTracker);

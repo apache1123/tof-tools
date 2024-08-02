@@ -2,11 +2,11 @@ import type { Loadout } from '../../loadout';
 import type { Team } from '../../team';
 import { AttackFactory } from '../attack/attack-factory';
 import { BuffFactory } from '../buff/buff-factory';
-import type { BuffRegistry } from '../buff/buff-registry';
+import type { BuffTimelineRegistry } from '../buff/buff-timeline-registry';
 import { eventIdProvider } from '../event/event-id-provider';
 import type { Relics } from '../relics/relics';
 import type { ResourceRegistry } from '../resource/resource-registry';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { Ability } from './ability';
 import type { AbilityDefinition } from './ability-definition';
@@ -20,7 +20,7 @@ export class AbilityTriggerFactory {
     tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
     resourceRegistry: ResourceRegistry,
-    buffRegistry: BuffRegistry,
+    buffTimelineRegistry: BuffTimelineRegistry,
     abilityRegistry: AbilityRegistry<Ability>
   ): AbilityTrigger[] {
     const attackDefinitions = AttackFactory.getDefinitions(loadout.team);
@@ -41,7 +41,7 @@ export class AbilityTriggerFactory {
             loadout.team,
             tickTracker,
             weaponTracker,
-            buffRegistry,
+            buffTimelineRegistry,
             resourceRegistry
           );
         }

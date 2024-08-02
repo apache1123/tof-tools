@@ -3,15 +3,15 @@ import type { Serializable } from '../../persistable';
 import type { Weapon } from '../../weapon';
 import { Ability } from '../ability/ability';
 import type { Charge } from '../charge/charge';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import type { TimeInterval } from '../time-interval/time-interval';
-import type { Timeline } from '../timeline/timeline';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { AttackDamageModifiers } from './attack-damage-modifiers';
 import type { AttackDefinition, AttackId } from './attack-definition';
 import type { AttackElementalType } from './attack-elemental-type';
 import { AttackEvent } from './attack-event';
 import type { AttackHitCount } from './attack-hit-count';
+import type { AttackTimeline } from './attack-timeline';
 import type { AttackDto } from './dtos/attack-dto';
 
 export class Attack
@@ -28,7 +28,7 @@ export class Attack
   public readonly doesNotTriggerEvents: boolean;
 
   public readonly weapon: Weapon;
-  public readonly timeline: Timeline<AttackEvent>;
+  public readonly timeline: AttackTimeline;
 
   private readonly weaponTracker: WeaponTracker;
   private readonly charge: Charge;
@@ -36,10 +36,10 @@ export class Attack
   public constructor(
     weapon: Weapon,
     definition: AttackDefinition,
-    timeline: Timeline<AttackEvent>,
+    timeline: AttackTimeline,
     tickTracker: TickTracker,
     weaponTracker: WeaponTracker,
-    charge: Charge,
+    charge: Charge
   ) {
     super(definition, timeline, tickTracker);
 

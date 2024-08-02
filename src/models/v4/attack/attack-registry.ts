@@ -20,15 +20,6 @@ export class AttackRegistry
     return this.activeAttacks.filter((attack) => attack.canTrigger());
   }
 
-  public get lastActiveAttackEvent(): AttackEvent | undefined {
-    return this.activeAttacks
-      .flatMap((attack) => attack.lastEvent ?? [])
-      .reduce<AttackEvent | undefined>((result, event) => {
-        if (!result) return event;
-        return event.startTime >= result.startTime ? event : result;
-      }, undefined);
-  }
-
   public toDto(): AttackRegistryDto {
     const { activeAttacks, passiveAttacks } = this;
     return {

@@ -1,11 +1,11 @@
 import { minEventDuration } from '../../../constants/tick';
 import type { Serializable } from '../../persistable';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
-import type { Timeline } from '../timeline/timeline';
 import type { AbilityDefinition, AbilityId } from './ability-definition';
 import type { AbilityEndedBy } from './ability-ended-by';
 import type { AbilityEvent } from './ability-event';
+import type { AbilityTimeline } from './ability-timeline';
 import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityDto } from './dtos/ability-dto';
 
@@ -19,13 +19,13 @@ export class Ability<T extends AbilityEvent = AbilityEvent>
   public readonly endedBy: AbilityEndedBy;
   public readonly updatesResources: AbilityUpdatesResource[];
 
-  public readonly timeline: Timeline<T>;
+  public readonly timeline: AbilityTimeline<T>;
 
   private readonly tickTracker: TickTracker;
 
   public constructor(
     definition: AbilityDefinition,
-    timeline: Timeline<T>,
+    timeline: AbilityTimeline<T>,
     tickTracker: TickTracker
   ) {
     const { id, displayName, cooldown, endedBy, updatesResources } = definition;
@@ -37,10 +37,6 @@ export class Ability<T extends AbilityEvent = AbilityEvent>
 
     this.timeline = timeline;
     this.tickTracker = tickTracker;
-  }
-
-  public get lastEvent() {
-    return this.timeline.lastEvent;
   }
 
   /** The time that any new actions to be performed by the ability will start */
@@ -92,23 +88,10 @@ export class Ability<T extends AbilityEvent = AbilityEvent>
     return new TimeInterval(startTime, endTime);
   }
 
-  /** Returns any ability events overlapping with the current tick */
-  public getActiveEvents(): T[] {
-    return this.timeline.getEventsOverlappingInterval(
-      this.tickTracker.currentTickStart,
-      this.tickTracker.currentTickEnd
-    );
-  }
-
   /** End any active ability events at the current start time */
   public endActiveEvents() {
     const endTime = this.triggerTime + minEventDuration;
     this.timeline.endAnyEventsAt(endTime);
-  }
-
-  /** Check if the ability is active at the start of the current start time */
-  public isActive() {
-    return this.timeline.hasEventAt(this.triggerTime);
   }
 
   /** Check if the ability is on cooldown at the start of the current start time */

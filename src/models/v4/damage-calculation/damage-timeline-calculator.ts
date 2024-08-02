@@ -4,15 +4,15 @@ import { calculateOverlapDuration } from '../../../utils/time-interval-utils';
 import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { Team } from '../../team';
-import type { AttackRegistry } from '../attack/attack-registry';
-import type { BuffRegistry } from '../buff/buff-registry';
+import type { AttackTimelineRegistry } from '../attack/attack-timeline-registry';
+import type { BuffTimelineRegistry } from '../buff/buff-timeline-registry';
 import type { UtilizedBuffs } from '../buff/utilized-buffs';
 import type { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
 import { Damage } from '../damage-summary/damage';
 import { DamageSummary } from '../damage-summary/damage-summary';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { Target } from '../target/target';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import { DamageCalculator } from './damage-calculator';
 
 export class DamageTimelineCalculator {
@@ -23,22 +23,26 @@ export class DamageTimelineCalculator {
     private readonly team: Team,
     private readonly target: Target,
     private readonly tickTracker: TickTracker,
-    private readonly attackRegistry: AttackRegistry,
-    private readonly buffRegistry: BuffRegistry,
+    private readonly attackTimelineRegistry: AttackTimelineRegistry,
+    private readonly buffTimelineRegistry: BuffTimelineRegistry,
     private readonly resourceRegistry: ResourceRegistry,
     private readonly utilizedBuffs: UtilizedBuffs
   ) {}
 
   public calculateDamage() {
-    const timeInterval = this.tickTracker.currentTickInterval;
+    const timeInterval = this.tickTracker.currentTick;
 
     const damageSummary = new DamageSummary(
       timeInterval.duration,
       ...this.team.weapons
     );
 
-    const attackEvents = this.attackRegistry.getActiveEvents();
-    const buffEvents = this.buffRegistry.getActiveEvents();
+    const attackEvents = this.attackTimelineRegistry.getCurrentEvents(
+      this.tickTracker.currentTick
+    );
+    const buffEvents = this.buffTimelineRegistry.getCurrentEvents(
+      this.tickTracker.currentTick
+    );
 
     let activeWeaponTotalAttack: number | undefined;
     for (const attackEvent of attackEvents) {

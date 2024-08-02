@@ -1,7 +1,7 @@
-import type { AttackRegistry } from '../attack/attack-registry';
+import type { AttackTimelineRegistry } from '../attack/attack-timeline-registry';
 import type { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-calculator';
 import type { QueuedEventManager } from '../event/queued-event-manager';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import type { AttackSimulator } from './attack-simulator';
 import type { BuffSimulator } from './buff-simulator';
 import type { ResourceSimulator } from './resource-simulator';
@@ -11,7 +11,7 @@ export class TickSimulator {
   public constructor(
     private readonly tickTracker: TickTracker,
     private readonly queuedEventNotifier: QueuedEventManager,
-    private readonly attackRegistry: AttackRegistry,
+    private readonly attackTimelineRegistry: AttackTimelineRegistry,
     private readonly weaponSimulator: WeaponSimulator,
     private readonly attackSimulator: AttackSimulator,
     private readonly buffSimulator: BuffSimulator,
@@ -30,7 +30,7 @@ export class TickSimulator {
     // Consume queue first to process the ability request
     this.queuedEventNotifier.consumeQueue();
 
-    const lastAttack = this.attackRegistry.lastActiveAttackEvent;
+    const lastAttack = this.attackTimelineRegistry.getLastActiveAttackEvent();
     while (
       lastAttack &&
       this.tickTracker.currentTickStart < lastAttack.endTime

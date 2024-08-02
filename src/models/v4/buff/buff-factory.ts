@@ -1,11 +1,10 @@
 import { commonBuffs } from '../../../constants/common-buffs';
 import type { Loadout } from '../../loadout';
 import type { Relics } from '../relics/relics';
-import type { TickTracker } from '../tick-tracker';
-import { Timeline } from '../timeline/timeline';
+import type { TickTracker } from '../tick/tick-tracker';
 import { Buff } from './buff';
 import type { BuffDefinition } from './buff-definition';
-import type { BuffEvent } from './buff-event';
+import { BuffTimeline } from './buff-timeline';
 
 export class BuffFactory {
   public static createBuffs(
@@ -13,10 +12,11 @@ export class BuffFactory {
     loadout: Loadout,
     relics: Relics,
     tickTracker: TickTracker
-  ): Buff[] {
+  ): { buff: Buff; timeline: BuffTimeline }[] {
     return this.getDefinitions(loadout, relics).map((definition) => {
-      const timeline = new Timeline<BuffEvent>(combatDuration);
-      return new Buff(definition, timeline, tickTracker);
+      const timeline = new BuffTimeline(definition, combatDuration);
+      const buff = new Buff(definition, timeline, tickTracker);
+      return { buff, timeline };
     });
   }
 

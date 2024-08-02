@@ -1,4 +1,5 @@
-import { TimeInterval } from './time-interval/time-interval';
+import { TimeInterval } from '../time-interval/time-interval';
+import type { CurrentTick } from './current-tick';
 
 export class TickTracker {
   private _currentTickInterval: TimeInterval;
@@ -10,7 +11,7 @@ export class TickTracker {
   }
 
   /** The current tick interval that is being simulated */
-  public get currentTickInterval() {
+  public get currentTick(): CurrentTick {
     return this._currentTickInterval;
   }
 
@@ -37,8 +38,8 @@ export class TickTracker {
 
   /** Returns the next available tick interval given a time. The assumption is that any sort of event should be executed in the next tick, so given a time an event wishes to be executed, this gives the next closest tick interval */
   public getNextClosestTickInterval(time: number) {
-    return time < this.currentTickInterval.startTime
-      ? this.currentTickInterval
+    return time < this.currentTick.startTime
+      ? this.currentTick
       : this.getNextTickInterval();
   }
 

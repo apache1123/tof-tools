@@ -1,25 +1,27 @@
 import type { AbilityResourceUpdater } from '../ability/ability-resource-updater';
 import type { BuffEvent } from '../buff/buff-event';
-import type { BuffRegistry } from '../buff/buff-registry';
+import type { BuffTimelineRegistry } from '../buff/buff-timeline-registry';
 import type { CombatEventNotifier } from '../event/combat-event-notifier';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 
 export class BuffSimulator {
   public constructor(
     private readonly tickTracker: TickTracker,
-    private readonly buffRegistry: BuffRegistry,
+    private readonly buffTimelineRegistry: BuffTimelineRegistry,
     private readonly abilityResourceUpdater: AbilityResourceUpdater,
     private readonly combatEventNotifier: CombatEventNotifier
   ) {}
 
   public simulate() {
-    for (const buffEvent of this.buffRegistry.getActiveEvents()) {
+    for (const buffEvent of this.buffTimelineRegistry.getCurrentEvents(
+      this.tickTracker.currentTick
+    )) {
       this.simulateEvent(buffEvent);
     }
   }
 
   private simulateEvent(buffEvent: BuffEvent) {
-    const tickInterval = this.tickTracker.currentTickInterval;
+    const tickInterval = this.tickTracker.currentTick;
 
     if (tickInterval.includes(buffEvent.startTime)) {
       this.combatEventNotifier.notifyBuffStart(buffEvent);

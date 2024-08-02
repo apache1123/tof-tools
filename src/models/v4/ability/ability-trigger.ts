@@ -1,9 +1,9 @@
 import groupBy from 'lodash.groupby';
 
 import type { Team } from '../../team';
-import type { BuffRegistry } from '../buff/buff-registry';
+import type { BuffTimelineRegistry } from '../buff/buff-timeline-registry';
 import type { ResourceRegistry } from '../resource/resource-registry';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { Ability } from './ability';
 import type { AbilityRequirements } from './ability-requirements';
@@ -18,7 +18,7 @@ export class AbilityTrigger {
     private readonly team: Team,
     private readonly tickTracker: TickTracker,
     private readonly weaponTracker: WeaponTracker,
-    private readonly buffRegistry: BuffRegistry,
+    private readonly buffTimelineRegistry: BuffTimelineRegistry,
     private readonly resourceRegistry: ResourceRegistry
   ) {}
 
@@ -39,7 +39,7 @@ export class AbilityTrigger {
     const { requirements } = this;
     const { weapons, weaponNames, weaponResonance, weaponElementalTypes } =
       this.team;
-    const time = this.tickTracker.currentTickStart;
+    const { currentTick, currentTickStart } = this.tickTracker;
 
     // Check requirements from most specific to least specific for efficiency
 
@@ -47,7 +47,7 @@ export class AbilityTrigger {
       requirements.hasResource &&
       !this.resourceRegistry.hasResource(
         requirements.hasResource.resourceId,
-        time,
+        currentTickStart,
         requirements.hasResource.minAmount
       )
     )
@@ -55,7 +55,10 @@ export class AbilityTrigger {
 
     if (
       requirements.activeBuff &&
-      !this.buffRegistry.isActive(requirements.activeBuff)
+      !this.buffTimelineRegistry.hasCurrentEvent(
+        requirements.activeBuff,
+        currentTick
+      )
     )
       return false;
 

@@ -1,23 +1,24 @@
 import mock from 'jest-mock-extended/lib/Mock';
 
-import { TickTracker } from '../../tick-tracker';
+import { TickTracker } from '../../tick/tick-tracker';
 import { TimeInterval } from '../../time-interval/time-interval';
-import { Timeline } from '../../timeline/timeline';
 import { Ability } from '../ability';
 import type { AbilityDefinition } from '../ability-definition';
 import { AbilityEvent } from '../ability-event';
+import { AbilityTimeline } from '../ability-timeline';
 
 describe('Ability', () => {
   describe('cooldown', () => {
-    let timeline: Timeline<AbilityEvent>;
+    let timeline: AbilityTimeline;
     let tickTracker: TickTracker;
     let sut: Ability;
 
     beforeEach(() => {
-      timeline = new Timeline<AbilityEvent>(100);
+      const definition = mock<AbilityDefinition>();
+      timeline = new AbilityTimeline(definition, 100);
       tickTracker = new TickTracker(new TimeInterval(0, 10), 10);
 
-      sut = new Ability(mock<AbilityDefinition>(), timeline, tickTracker);
+      sut = new Ability(definition, timeline, tickTracker);
     });
 
     it('should not be on cooldown if there are no events', () => {

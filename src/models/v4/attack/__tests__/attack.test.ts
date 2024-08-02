@@ -2,7 +2,7 @@ import { mock } from 'jest-mock-extended';
 
 import type { Weapon } from '../../../weapon';
 import type { Charge } from '../../charge/charge';
-import { TickTracker } from '../../tick-tracker';
+import { TickTracker } from '../../tick/tick-tracker';
 import { TimeInterval } from '../../time-interval/time-interval';
 import { Timeline } from '../../timeline/timeline';
 import type { WeaponTracker } from '../../weapon-tracker/weapon-tracker';

@@ -3,7 +3,7 @@ import type { Resource } from '../resource/resource';
 import type { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import type { ResourceEvent } from '../resource-timeline/resource-event';
-import type { TickTracker } from '../tick-tracker';
+import type { TickTracker } from '../tick/tick-tracker';
 
 export class ResourceSimulator {
   public constructor(
@@ -15,7 +15,7 @@ export class ResourceSimulator {
 
   public simulate() {
     for (const resourceEvent of this.resourceRegistry.getResourceEvents(
-      this.tickTracker.currentTickInterval
+      this.tickTracker.currentTick
     )) {
       const resource = this.resourceRegistry.getItem(resourceEvent.resourceId);
       if (!resource) {
@@ -29,7 +29,7 @@ export class ResourceSimulator {
   }
 
   private simulateEvent(resourceEvent: ResourceEvent, resource: Resource) {
-    const tickInterval = this.tickTracker.currentTickInterval;
+    const tickInterval = this.tickTracker.currentTick;
 
     this.combatEventNotifier.notifyResourceUpdate(resourceEvent);
 
@@ -40,7 +40,7 @@ export class ResourceSimulator {
 
   /** For resources, regenerate the resource amount for a tick interval, if there are no other events in that tick interval */
   private regenerateResources() {
-    const tickInterval = this.tickTracker.currentTickInterval;
+    const tickInterval = this.tickTracker.currentTick;
 
     for (const resource of this.resourceRegistry.items) {
       this.resourceRegenerator.regenerateResource(resource, tickInterval);

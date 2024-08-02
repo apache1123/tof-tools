@@ -10,8 +10,10 @@ import { AbilityTriggerFactory } from '../ability/ability-trigger-factory';
 import { AbilityTriggerRegistry } from '../ability/ability-trigger-registry';
 import { AttackFactory } from '../attack/attack-factory';
 import { AttackRegistry } from '../attack/attack-registry';
+import { AttackTimelineRegistry } from '../attack/attack-timeline-registry';
 import { BuffFactory } from '../buff/buff-factory';
 import { BuffRegistry } from '../buff/buff-registry';
+import { BuffTimelineRegistry } from '../buff/buff-timeline-registry';
 import { UtilizedBuffs } from '../buff/utilized-buffs';
 import { CombatDamageSummary } from '../combat-damage-summary/combat-damage-summary';
 import { DamageTimelineCalculator } from '../damage-calculation/damage-timeline-calculator';
@@ -24,7 +26,7 @@ import { ResourceRegenerator } from '../resource/resource-regenerator';
 import type { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRegistryFactory } from '../resource/resource-registry-factory';
 import type { Target } from '../target/target';
-import { TickTracker } from '../tick-tracker';
+import { TickTracker } from '../tick/tick-tracker';
 import { TimeInterval } from '../time-interval/time-interval';
 import { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import { WeaponTrackerTimeline } from '../weapon-tracker/weapon-tracker-timeline';
@@ -57,6 +59,9 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
   private readonly attackRegistry: AttackRegistry;
   private readonly buffRegistry: BuffRegistry;
   private readonly abilityRegistry: AbilityRegistry<Ability>;
+
+  private readonly attackTimelineRegistry: AttackTimelineRegistry;
+  private readonly buffTimelineRegistry: BuffTimelineRegistry;
 
   private readonly abilityTriggerRegistry: AbilityTriggerRegistry;
 
@@ -105,22 +110,32 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       [...Object.values(defaultResources)]
     );
 
-    const attacks = AttackFactory.createAttacks(
+    const attacksAndTimelines = AttackFactory.createAttacks(
       combatDuration,
       team,
       this.tickTracker,
       this.weaponTracker,
       defaultResources.charge
     );
-    this.attackRegistry = new AttackRegistry(attacks);
+    this.attackRegistry = new AttackRegistry(
+      attacksAndTimelines.map(({ attack }) => attack)
+    );
+    this.attackTimelineRegistry = new AttackTimelineRegistry(
+      attacksAndTimelines.map(({ timeline }) => timeline)
+    );
 
-    const buffs = BuffFactory.createBuffs(
+    const buffsAndTimelines = BuffFactory.createBuffs(
       combatDuration,
       loadout,
       relics,
       this.tickTracker
     );
-    this.buffRegistry = new BuffRegistry(buffs);
+    this.buffRegistry = new BuffRegistry(
+      buffsAndTimelines.map(({ buff }) => buff)
+    );
+    this.buffTimelineRegistry = new BuffTimelineRegistry(
+      buffsAndTimelines.map(({ timeline }) => timeline)
+    );
 
     this.abilityRegistry = new AbilityRegistry([
       ...this.attackRegistry.items,
@@ -133,7 +148,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       this.tickTracker,
       this.weaponTracker,
       this.resourceRegistry,
-      this.buffRegistry,
+      this.buffTimelineRegistry,
       this.abilityRegistry
     );
     this.abilityTriggerRegistry = new AbilityTriggerRegistry(abilityTriggers);
@@ -148,8 +163,8 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
       team,
       this.target,
       this.tickTracker,
-      this.attackRegistry,
-      this.buffRegistry,
+      this.attackTimelineRegistry,
+      this.buffTimelineRegistry,
       this.resourceRegistry,
       this.utilizedBuffs
     );
@@ -177,13 +192,13 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     );
     this.attackSimulator = new AttackSimulator(
       this.tickTracker,
-      this.attackRegistry,
+      this.attackTimelineRegistry,
       this.abilityResourceUpdater,
       this.combatEventNotifier
     );
     this.buffSimulator = new BuffSimulator(
       this.tickTracker,
-      this.buffRegistry,
+      this.buffTimelineRegistry,
       this.abilityResourceUpdater,
       this.combatEventNotifier
     );
@@ -196,7 +211,7 @@ export class CombatSimulator implements Serializable<CombatSimulatorDto> {
     this.tickSimulator = new TickSimulator(
       this.tickTracker,
       this.queuedEventManager,
-      this.attackRegistry,
+      this.attackTimelineRegistry,
       this.weaponSimulator,
       this.attackSimulator,
       this.buffSimulator,
