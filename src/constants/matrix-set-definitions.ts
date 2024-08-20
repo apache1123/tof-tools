@@ -9,7 +9,17 @@ import type { WeaponName } from './weapons/weapon-definitions';
 export const matrixSet2pcLabel = '2pc';
 export const matrixSet4pcLabel = '4pc';
 
-export type MatrixSetBaseName = WeaponName | 'Haboela' | 'Scylla';
+export type MatrixSetBaseName =
+  | Exclude<
+      WeaponName,
+      | 'Nola (Altered)'
+      | 'Nola (Flame-Physical)'
+      | 'Nola (Frost-Volt)'
+      | 'Nola (Physical-Flame)'
+      | 'Nola (Volt-Frost)'
+    >
+  | 'Haboela'
+  | 'Scylla';
 
 export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Alyss 2pc',
@@ -41,6 +51,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Ming Jing 2pc',
   'Nan Yin 2pc',
   'Nemesis 2pc',
+  'Nola 2pc',
   'Plotti 2pc',
   'Rei 2pc',
   'Roslyn 2pc',
@@ -89,6 +100,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Ming Jing 4pc',
   'Nan Yin 4pc',
   'Nemesis 4pc',
+  'Nola 4pc',
   'Plotti 4pc',
   'Rei 4pc',
   'Roslyn 4pc',
@@ -616,6 +628,15 @@ export const matrixSetDefinitionsLookup: DataById<
         isActivePassively: false,
       },
     ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+    buffs: [],
+  },
+  'Nola 2pc': {
+    id: 'Nola 2pc',
+    displayName: 'Nola 2pc',
+    pieces: 2,
+    attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
     buffs: [],
@@ -1285,6 +1306,15 @@ export const matrixSetDefinitionsLookup: DataById<
   'Nemesis 4pc': {
     id: 'Nemesis 4pc',
     displayName: 'Nemesis 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+    buffs: [],
+  },
+  'Nola 4pc': {
+    id: 'Nola 4pc',
+    displayName: 'Nola 4pc',
     pieces: 4,
     attackPercentBuffs: [],
     critRateBuffs: [],

@@ -1,4 +1,7 @@
-import type { WeaponElementalType } from '../constants/elemental-type';
+import type {
+  FusionWeaponElementalType,
+  WeaponElementalType,
+} from '../constants/elemental-type';
 import type { WeaponName } from '../constants/weapons/weapon-definitions';
 import { weaponDefinitions } from '../constants/weapons/weapon-definitions';
 import type { WeaponType } from '../constants/weapons/weapon-type';
@@ -20,6 +23,10 @@ import type {
 export interface WeaponDefinition {
   id: WeaponName;
   displayName: string;
+  /** Optional. The weapon's icon will be inferred from the id if not provided */
+  iconWeaponName?: WeaponName;
+  /** Optional. For displaying the weapon's elemental type icon */
+  elementalIcon?: FusionWeaponElementalType;
   /** The elemental type the weapon is considered to be for the purposes of elemental resonance, matrix effects etc. (not the damage dealing elemental type)
    * E.g. For Yan Miao, her weapon is considered to be both Physical and Flame to trigger Physical resonance and Flame resonance, but deals (mainly) physical damage.
    */
