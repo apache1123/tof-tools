@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const lan = {
   id: 'Lan',
   displayName: 'Lan',
+  elementalIcon: 'Flame',
   resonanceElements: ['Flame'],
   calculationElements: ['Flame'],
   damageElement: 'Flame',

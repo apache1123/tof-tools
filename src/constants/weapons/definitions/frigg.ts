@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const frigg = {
   id: 'Frigg',
   displayName: 'Frigg',
+  elementalIcon: 'Frost',
   resonanceElements: ['Frost'],
   calculationElements: ['Frost'],
   damageElement: 'Frost',

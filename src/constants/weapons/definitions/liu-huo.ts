@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const liuHuo = {
   id: 'Liu Huo',
   displayName: 'Liu Huo',
+  elementalIcon: 'Flame',
   resonanceElements: ['Flame'],
   calculationElements: ['Flame'],
   damageElement: 'Flame',

@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const lingHan = {
   id: 'Ling Han',
   displayName: 'Ling Han',
+  elementalIcon: 'Frost',
   resonanceElements: ['Frost'],
   calculationElements: ['Frost'],
   damageElement: 'Frost',

@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const annabella = {
   id: 'Annabella',
   displayName: 'Annabella',
+  elementalIcon: 'Flame',
   resonanceElements: ['Flame'],
   calculationElements: ['Flame'],
   damageElement: 'Flame',

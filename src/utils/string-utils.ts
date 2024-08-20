@@ -16,5 +16,13 @@ export function pascalCaseToCamelCase(text: string) {
 
 /** e.g. 'Normal case' -> 'normal-case' */
 export function normalCaseToKebabCase(text: string) {
-  return text.toLowerCase().replaceAll(' ', '-')
+  return text.toLowerCase().replaceAll(' ', '-');
+}
+
+/** e.g. 'PascalCase' -> 'pascal-case' */
+export function pascalCaseToKebabCase(text: string) {
+  return text
+    .replace(/([a-z])([A-Z])/g, '$1-$2') // Inserts a hyphen between lowercase and uppercase letters
+    .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2') // Handles cases like 'HTMLParser'
+    .toLowerCase(); // Converts the entire string to lowercase
 }

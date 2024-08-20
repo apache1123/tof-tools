@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const gnonno = {
   id: 'Gnonno',
   displayName: 'Gnonno',
+  elementalIcon: 'Physical',
   resonanceElements: ['Physical'],
   calculationElements: ['Physical'],
   damageElement: 'Physical',

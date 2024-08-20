@@ -9,7 +9,17 @@ import type { WeaponName } from './weapons/weapon-definitions';
 export const matrixSet2pcLabel = '2pc';
 export const matrixSet4pcLabel = '4pc';
 
-export type MatrixSetBaseName = WeaponName | 'Haboela' | 'Scylla';
+export type MatrixSetBaseName =
+  | Exclude<
+      WeaponName,
+      | 'Nola (Altered)'
+      | 'Nola (Flame-Physical)'
+      | 'Nola (Frost-Volt)'
+      | 'Nola (Physical-Flame)'
+      | 'Nola (Volt-Frost)'
+    >
+  | 'Haboela'
+  | 'Scylla';
 
 export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Alyss 2pc',
@@ -41,6 +51,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Ming Jing 2pc',
   'Nan Yin 2pc',
   'Nemesis 2pc',
+  'Nola 2pc',
   'Plotti 2pc',
   'Rei 2pc',
   'Roslyn 2pc',
@@ -89,6 +100,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Ming Jing 4pc',
   'Nan Yin 4pc',
   'Nemesis 4pc',
+  'Nola 4pc',
   'Plotti 4pc',
   'Rei 4pc',
   'Roslyn 4pc',
@@ -620,6 +632,37 @@ export const matrixSetDefinitionsLookup: DataById<
     critDamageBuffs: [],
     buffs: [],
   },
+  'Nola 2pc': {
+    id: 'Nola 2pc',
+    displayName: 'Nola 2pc',
+    pieces: 2,
+    attackPercentBuffs: [
+      {
+        description:
+          "When Nola's weapon is equipped, increase all ATK, works off-hand",
+        starValues: [
+          { star: 0, value: 0.24 },
+          { star: 1, value: 0.26 },
+          { star: 2, value: 0.28 },
+          { star: 3, value: 0.3 },
+        ],
+        elementalTypes: ['Flame', 'Frost', 'Physical', 'Volt'],
+        canStack: false,
+        isActivePassively: true,
+        weaponRequirements: [
+          'Nola',
+          'Nola (Altered)',
+          'Nola (Flame-Physical)',
+          'Nola (Frost-Volt)',
+          'Nola (Physical-Flame)',
+          'Nola (Volt-Frost)',
+        ],
+      },
+    ],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+    buffs: [],
+  },
   'Plotti 2pc': {
     id: 'Plotti 2pc',
     displayName: 'Plotti 2pc',
@@ -868,7 +911,7 @@ export const matrixSetDefinitionsLookup: DataById<
         ],
         canStack: false,
         isActivePassively: true,
-        weaponRequirement: 'Anka',
+        weaponRequirements: ['Anka'],
       },
     ],
     buffs: [],
@@ -1106,7 +1149,7 @@ export const matrixSetDefinitionsLookup: DataById<
         ],
         canStack: false,
         isActivePassively: true,
-        weaponRequirement: 'Ji Yu',
+        weaponRequirements: ['Ji Yu'],
       },
     ],
     buffs: [
@@ -1202,7 +1245,7 @@ export const matrixSetDefinitionsLookup: DataById<
         elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
         canStack: false,
         isActivePassively: true,
-        weaponRequirement: 'Ling Han',
+        weaponRequirements: ['Ling Han'],
       },
     ],
     critRateBuffs: [],
@@ -1277,7 +1320,7 @@ export const matrixSetDefinitionsLookup: DataById<
         ],
         canStack: false,
         isActivePassively: true,
-        weaponRequirement: 'Nan Yin',
+        weaponRequirements: ['Nan Yin'],
       },
     ],
     buffs: [],
@@ -1285,6 +1328,15 @@ export const matrixSetDefinitionsLookup: DataById<
   'Nemesis 4pc': {
     id: 'Nemesis 4pc',
     displayName: 'Nemesis 4pc',
+    pieces: 4,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [],
+    buffs: [],
+  },
+  'Nola 4pc': {
+    id: 'Nola 4pc',
+    displayName: 'Nola 4pc',
     pieces: 4,
     attackPercentBuffs: [],
     critRateBuffs: [],
@@ -1317,7 +1369,7 @@ export const matrixSetDefinitionsLookup: DataById<
         elementalTypes: ['Volt', 'Frost'],
         canStack: false,
         isActivePassively: false,
-        weaponRequirement: 'Rei',
+        weaponRequirements: ['Rei'],
       },
     ],
     critRateBuffs: [],

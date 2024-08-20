@@ -10,6 +10,7 @@ import { minEventDuration } from '../../tick';
 export const brevey = {
   id: 'Brevey',
   displayName: 'Brevey',
+  elementalIcon: 'Volt-Frost',
   resonanceElements: ['Volt', 'Frost'],
   calculationElements: ['Volt', 'Frost'],
   damageElement: 'Volt',

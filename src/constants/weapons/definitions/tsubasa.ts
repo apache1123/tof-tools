@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const tsubasa = {
   id: 'Tsubasa',
   displayName: 'Tsubasa',
+  elementalIcon: 'Frost',
   resonanceElements: ['Frost'],
   calculationElements: ['Frost'],
   damageElement: 'Frost',

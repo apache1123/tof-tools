@@ -5,6 +5,7 @@ import { minEventDuration } from '../../tick';
 export const rei = {
   id: 'Rei',
   displayName: 'Rei',
+  elementalIcon: 'Volt-Frost',
   resonanceElements: ['Volt', 'Frost'],
   calculationElements: ['Volt', 'Frost'],
   damageElement: 'Volt',

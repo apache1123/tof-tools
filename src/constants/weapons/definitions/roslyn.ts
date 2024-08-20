@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const roslyn = {
   id: 'Roslyn',
   displayName: 'Roslyn',
+  elementalIcon: 'Frost-Volt',
   resonanceElements: ['Frost', 'Volt'],
   calculationElements: ['Frost', 'Volt'],
   damageElement: 'Frost',

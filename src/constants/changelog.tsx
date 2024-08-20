@@ -223,4 +223,11 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 6, 6)),
     title: 'Add Anka',
   },
+  {
+    semver: '3.17.0',
+    date: new Date(Date.UTC(2024, 7, 20)),
+    title: 'Add Nola',
+    description:
+      'Since simulacra trait selection has not been added to the gear comparer yet, the calculator assumes you might also equip her trait when using Nola. (Nola trait buffs all ATK for every altered weapon equipped)',
+  },
 ];

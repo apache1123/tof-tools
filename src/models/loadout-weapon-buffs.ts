@@ -122,11 +122,15 @@ export class LoadoutWeaponBuffs {
     if (elementalWeaponsRequirements) {
       let hasMetElementalWeaponsRequirement = false;
       elementalWeaponsRequirements.forEach(
-        ({ weaponElementalType, minNumOfWeapons }) => {
-          if (
+        ({ weaponElementalType, minNumOfWeapons, maxNumOfWeapons }) => {
+          const elementalWeaponCount =
             this._loadout.team.weaponElementalTypes.filter(
               (x) => x === weaponElementalType
-            ).length >= minNumOfWeapons
+            ).length;
+
+          if (
+            elementalWeaponCount >= minNumOfWeapons &&
+            elementalWeaponCount <= maxNumOfWeapons
           )
             hasMetElementalWeaponsRequirement = true;
         }
