@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const lyra = {
   id: 'Lyra',
   displayName: 'Lyra',
+  elementalIcon: 'Physical',
   resonanceElements: ['Physical'],
   calculationElements: ['Physical'],
   damageElement: 'Physical',

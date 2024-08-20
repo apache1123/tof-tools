@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const sakiFuwa = {
   id: 'Saki Fuwa',
   displayName: 'Saki Fuwa',
+  elementalIcon: 'Frost',
   resonanceElements: ['Frost'],
   calculationElements: ['Frost'],
   damageElement: 'Frost',

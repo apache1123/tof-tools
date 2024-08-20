@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const asuka = {
   id: 'Asuka',
   displayName: 'Asuka',
+  elementalIcon: 'Physical-Flame',
   resonanceElements: ['Physical', 'Flame'],
   calculationElements: ['Physical', 'Flame'],
   damageElement: 'Physical',

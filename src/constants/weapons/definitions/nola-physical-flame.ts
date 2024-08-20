@@ -5,6 +5,7 @@ export const nolaPhysicalFlame = {
   ...nolaBase,
   id: 'Nola (Physical-Flame)',
   displayName: 'Nola (Physical-Flame)',
+  elementalIcon: 'Physical-Flame',
   resonanceElements: ['Physical', 'Flame'],
   calculationElements: ['Physical', 'Flame'],
   damageElement: 'Physical',

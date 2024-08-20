@@ -5,6 +5,7 @@ export const nolaFrostVolt = {
   ...nolaBase,
   id: 'Nola (Frost-Volt)',
   displayName: 'Nola (Frost-Volt)',
+  elementalIcon: 'Frost-Volt',
   resonanceElements: ['Frost', 'Volt'],
   calculationElements: ['Frost', 'Volt'],
   damageElement: 'Frost',

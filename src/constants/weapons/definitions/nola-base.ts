@@ -4,6 +4,7 @@ export const nolaBase = {
   id: 'Nola',
   displayName: 'Nola',
   iconWeaponName: 'Nola',
+  elementalIcon: 'Altered',
   resonanceElements: [],
   calculationElements: [],
   damageElement: 'Altered',

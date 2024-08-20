@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const plotti = {
   id: 'Plotti',
   displayName: 'Plotti',
+  elementalIcon: 'Flame-Physical',
   resonanceElements: ['Flame', 'Physical'],
   calculationElements: ['Flame', 'Physical'],
   damageElement: 'Flame',

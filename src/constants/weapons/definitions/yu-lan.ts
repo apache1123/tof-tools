@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const yuLan = {
   id: 'Yu Lan',
   displayName: 'Yu Lan',
+  elementalIcon: 'Frost',
   resonanceElements: ['Frost'],
   calculationElements: ['Frost'],
   damageElement: 'Frost',

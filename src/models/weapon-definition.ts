@@ -25,8 +25,8 @@ export interface WeaponDefinition {
   displayName: string;
   /** Optional. The weapon's icon will be inferred from the id if not provided */
   iconWeaponName?: WeaponName;
-  /** Optional. For displaying the weapon's elemental type icon */
-  elementalIcon?: FusionWeaponElementalType;
+  /** For displaying the weapon's elemental type icon */
+  elementalIcon: FusionWeaponElementalType;
   /** The elemental type the weapon is considered to be for the purposes of elemental resonance, matrix effects etc. (not the damage dealing elemental type)
    * E.g. For Yan Miao, her weapon is considered to be both Physical and Flame to trigger Physical resonance and Flame resonance, but deals (mainly) physical damage.
    */

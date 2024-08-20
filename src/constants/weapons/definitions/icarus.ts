@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const icarus = {
   id: 'Icarus',
   displayName: 'Icarus',
+  elementalIcon: 'Frost',
   resonanceElements: ['Frost'],
   calculationElements: ['Frost'],
   damageElement: 'Frost',

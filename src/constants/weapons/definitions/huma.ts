@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const huma = {
   id: 'Huma',
   displayName: 'Huma',
+  elementalIcon: 'Flame',
   resonanceElements: ['Flame'],
   calculationElements: ['Flame'],
   damageElement: 'Flame',

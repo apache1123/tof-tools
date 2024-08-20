@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const tianLang = {
   id: 'Tian Lang',
   displayName: 'Tian Lang',
+  elementalIcon: 'Volt',
   resonanceElements: ['Volt'],
   calculationElements: ['Volt'],
   damageElement: 'Volt',

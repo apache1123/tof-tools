@@ -28,6 +28,7 @@ export function WeaponEditor({
       icon={
         <WeaponIcon
           weaponName={weaponDefinition.iconWeaponName ?? weaponDefinition.id}
+          elementalIcon={weaponDefinition.elementalIcon}
         />
       }
       definitionSelector={

@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const crow = {
   id: 'Crow',
   displayName: 'Crow',
+  elementalIcon: 'Volt',
   resonanceElements: ['Volt'],
   calculationElements: ['Volt'],
   damageElement: 'Volt',

@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const fenrir = {
   id: 'Fenrir',
   displayName: 'Fenrir',
+  elementalIcon: 'Volt',
   resonanceElements: ['Volt'],
   calculationElements: ['Volt'],
   damageElement: 'Volt',

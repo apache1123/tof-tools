@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const nanYin = {
   id: 'Nan Yin',
   displayName: 'Nan Yin',
+  elementalIcon: 'Altered',
   resonanceElements: ['Altered'],
   calculationElements: ['Altered'],
   damageElement: 'Altered',

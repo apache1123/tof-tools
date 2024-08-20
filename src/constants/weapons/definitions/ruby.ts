@@ -4,6 +4,7 @@ import { chargeResourceId, dodgeResourceId } from '../../resources';
 export const ruby = {
   id: 'Ruby',
   displayName: 'Ruby',
+  elementalIcon: 'Flame',
   resonanceElements: ['Flame'],
   calculationElements: ['Flame'],
   damageElement: 'Flame',
