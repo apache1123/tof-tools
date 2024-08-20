@@ -15,7 +15,7 @@ export function ElementalTypeIcon({
   height = 22,
 }: ElementalTypeIconProps) {
   const imageName = pascalCaseToCamelCase(elementalType);
-  const imagePath = `/icons/elements/${imageName}.png`;
+  const imagePath = `/icons/elements/${imageName}.webp`;
 
   return (
     <Image
