@@ -24,6 +24,7 @@ export const nanYin = {
         {
           weaponElementalType: 'Altered',
           minNumOfWeapons: 3,
+          maxNumOfWeapons: 3,
         },
       ],
     },
