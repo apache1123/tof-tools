@@ -1,10 +1,10 @@
 import Image from 'next/image';
 
-import type { ElementalType } from '../../constants/elemental-type';
-import { pascalCaseToCamelCase } from '../../utils/string-utils';
+import type { FusionWeaponElementalType } from '../../constants/elemental-type';
+import { pascalCaseToKebabCase } from '../../utils/string-utils';
 
 export interface ElementalTypeIconProps {
-  elementalType: ElementalType;
+  elementalType: FusionWeaponElementalType;
   width?: number;
   height?: number;
 }
@@ -14,7 +14,7 @@ export function ElementalTypeIcon({
   width = 24,
   height = 22,
 }: ElementalTypeIconProps) {
-  const imageName = pascalCaseToCamelCase(elementalType);
+  const imageName = pascalCaseToKebabCase(elementalType);
   const imagePath = `/icons/elements/${imageName}.webp`;
 
   return (

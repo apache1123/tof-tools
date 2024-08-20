@@ -16,5 +16,10 @@ export function pascalCaseToCamelCase(text: string) {
 
 /** e.g. 'Normal case' -> 'normal-case' */
 export function normalCaseToKebabCase(text: string) {
-  return text.toLowerCase().replaceAll(' ', '-')
+  return text.toLowerCase().replaceAll(' ', '-');
+}
+
+/** e.g. 'PascalCase' -> 'pascal-case' */
+export function pascalCaseToKebabCase(text: string) {
+  return normalCaseToKebabCase(text);
 }
