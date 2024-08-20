@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const nanYin = {
   id: 'Nan Yin',
   displayName: 'Nan Yin',
+  elementalIcon: 'Altered',
   resonanceElements: ['Altered'],
   calculationElements: ['Altered'],
   damageElement: 'Altered',
@@ -23,6 +24,7 @@ export const nanYin = {
         {
           weaponElementalType: 'Altered',
           minNumOfWeapons: 3,
+          maxNumOfWeapons: 3,
         },
       ],
     },

@@ -129,7 +129,7 @@ export class LoadoutMatrixSetBuffs {
     const {
       weaponResonanceRequirements,
       elementalWeaponsRequirements,
-      weaponRequirement,
+      weaponRequirements,
     } = buffDefinition;
     const { weaponResonance } = this._loadout.team;
 
@@ -158,8 +158,12 @@ export class LoadoutMatrixSetBuffs {
       if (!hasMetElementalWeaponsRequirement) return false;
     }
 
-    if (weaponRequirement) {
-      if (!this._loadout.team.weaponNames.includes(weaponRequirement))
+    if (weaponRequirements) {
+      if (
+        this._loadout.team.weaponNames.every(
+          (weaponName) => !weaponRequirements.includes(weaponName)
+        )
+      )
         return false;
     }
 

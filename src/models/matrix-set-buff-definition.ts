@@ -8,7 +8,7 @@ export interface MatrixSetBuffDefinition {
     { star: 0; value: number },
     { star: 1; value: number },
     { star: 2; value: number },
-    { star: 3; value: number }
+    { star: 3; value: number },
   ];
   canStack: boolean;
   /** always active and is included in the relevant stat in the character sheet naturally. The opposite of this is "conditional" buff */
@@ -20,7 +20,8 @@ export interface MatrixSetBuffDefinition {
     weaponElementalType: WeaponElementalType;
     minNumOfWeapons: 1 | 2 | 3;
   }[];
-  weaponRequirement?: WeaponName;
+  /** "OR" requirements */
+  weaponRequirements?: WeaponName[];
 }
 
 export interface MatrixSetAttackPercentBuffDefinition

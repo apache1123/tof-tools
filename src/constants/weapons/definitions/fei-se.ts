@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const feiSe = {
   id: 'Fei Se',
   displayName: 'Fei Se',
+  elementalIcon: 'Flame',
   resonanceElements: ['Flame'],
   calculationElements: ['Flame'],
   damageElement: 'Flame',

@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const lin = {
   id: 'Lin',
   displayName: 'Lin',
+  elementalIcon: 'Altered',
   resonanceElements: ['Altered'],
   calculationElements: ['Altered'],
   damageElement: 'Altered',

@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const yanuo = {
   id: 'Yanuo',
   displayName: 'Yanuo',
+  elementalIcon: 'Frost-Volt',
   resonanceElements: ['Frost', 'Volt'],
   calculationElements: ['Frost', 'Volt'],
   damageElement: 'Frost',

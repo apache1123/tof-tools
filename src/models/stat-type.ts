@@ -1,6 +1,6 @@
 import type {
   CoreElementalType,
-  ElementalType,
+  StatTypeElementalType,
 } from '../constants/elemental-type';
 import type { StatName, StatRole } from '../constants/stat-types';
 
@@ -9,7 +9,7 @@ export interface StatType {
   displayName: string;
   inGameName: string;
   role: StatRole;
-  elementalType: ElementalType;
+  elementalType: StatTypeElementalType;
   isPercentageBased: boolean;
   iconImageName: string;
   randomStatDefaultValue: number;

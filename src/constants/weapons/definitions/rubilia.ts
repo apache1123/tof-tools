@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const rubilia = {
   id: 'Rubilia',
   displayName: 'Rubilia',
+  elementalIcon: 'Volt',
   resonanceElements: ['Volt'],
   calculationElements: ['Volt'],
   damageElement: 'Volt',

@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const mingJing = {
   id: 'Ming Jing',
   displayName: 'Ming Jing (Zeke)',
+  elementalIcon: 'Physical-Flame',
   resonanceElements: ['Physical', 'Flame'],
   calculationElements: ['Physical', 'Flame'],
   damageElement: 'Physical',

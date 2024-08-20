@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const yanMiao = {
   id: 'Yan Miao',
   displayName: 'Yan Miao',
+  elementalIcon: 'Physical-Flame',
   resonanceElements: ['Physical', 'Flame'],
   calculationElements: ['Physical', 'Flame'],
   damageElement: 'Physical',

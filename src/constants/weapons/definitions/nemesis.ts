@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const nemesis = {
   id: 'Nemesis',
   displayName: 'Nemesis',
+  elementalIcon: 'Volt',
   resonanceElements: ['Volt'],
   calculationElements: ['Volt'],
   damageElement: 'Volt',

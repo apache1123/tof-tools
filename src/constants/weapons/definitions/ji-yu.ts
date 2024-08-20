@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const jiYu = {
   id: 'Ji Yu',
   displayName: 'Ji Yu',
+  elementalIcon: 'Flame-Physical',
   resonanceElements: ['Flame', 'Physical'],
   calculationElements: ['Flame', 'Physical'],
   damageElement: 'Flame',

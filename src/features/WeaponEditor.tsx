@@ -25,7 +25,12 @@ export function WeaponEditor({
 
   return (
     <Layout
-      icon={<WeaponIcon weaponName={weaponDefinition.id} />}
+      icon={
+        <WeaponIcon
+          weaponName={weaponDefinition.iconWeaponName ?? weaponDefinition.id}
+          elementalIcon={weaponDefinition.elementalIcon}
+        />
+      }
       definitionSelector={
         <WeaponDefinitionSelector
           selectedWeaponDefinition={weaponDefinition}

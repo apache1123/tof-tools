@@ -2,7 +2,14 @@ import type { Data } from '../models/data';
 import type { SimulacrumTrait } from '../models/v4/simulacrum-trait';
 import type { WeaponName } from './weapons/weapon-definitions';
 
-export type SimulacrumName = WeaponName;
+export type SimulacrumName = Exclude<
+  WeaponName,
+  | 'Nola (Altered)'
+  | 'Nola (Flame-Physical)'
+  | 'Nola (Frost-Volt)'
+  | 'Nola (Physical-Flame)'
+  | 'Nola (Volt-Frost)'
+>;
 
 export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
   allIds: [
@@ -33,6 +40,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     'Ming Jing',
     'Nan Yin',
     'Nemesis',
+    'Nola',
     'Plotti',
     'Rei',
     'Roslyn',
@@ -888,6 +896,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     Nemesis: {
       id: 'Nemesis',
       displayName: 'Nemesis',
+      buffs: [],
+    },
+    Nola: {
+      id: 'Nola',
+      displayName: 'Nola',
       buffs: [],
     },
     Plotti: {

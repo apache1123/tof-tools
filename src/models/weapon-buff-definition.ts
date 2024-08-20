@@ -20,6 +20,7 @@ export interface WeaponBuffDefinition {
   elementalWeaponsRequirements?: {
     weaponElementalType: WeaponElementalType;
     minNumOfWeapons: 1 | 2 | 3;
+    maxNumOfWeapons: 1 | 2 | 3;
   }[];
 }
 

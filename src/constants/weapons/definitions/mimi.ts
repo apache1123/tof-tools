@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const mimi = {
   id: 'Huang (Mimi)',
   displayName: 'Huang (Mimi)',
+  elementalIcon: 'Volt',
   resonanceElements: ['Volt'],
   calculationElements: ['Volt'],
   damageElement: 'Volt',

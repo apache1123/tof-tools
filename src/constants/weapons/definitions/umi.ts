@@ -4,6 +4,7 @@ import { chargeResourceId } from '../../resources';
 export const umi = {
   id: 'Umi',
   displayName: 'Umi',
+  elementalIcon: 'Physical',
   resonanceElements: ['Physical'],
   calculationElements: ['Physical'],
   damageElement: 'Physical',

@@ -28,6 +28,12 @@ import { mimi } from './definitions/mimi';
 import { mingJing } from './definitions/ming-jing';
 import { nanYin } from './definitions/nan-yin';
 import { nemesis } from './definitions/nemesis';
+import { nolaAltered } from './definitions/nola-altered';
+import { nolaBase } from './definitions/nola-base';
+import { nolaFlamePhysical } from './definitions/nola-flame-physical';
+import { nolaFrostVolt } from './definitions/nola-frost-volt';
+import { nolaPhysicalFlame } from './definitions/nola-physical-flame';
+import { nolaVoltFrost } from './definitions/nola-volt-frost';
 import { plotti } from './definitions/plotti';
 import { rei } from './definitions/rei';
 import { roslyn } from './definitions/roslyn';
@@ -73,6 +79,12 @@ export type WeaponName =
   | 'Ming Jing'
   | 'Nan Yin'
   | 'Nemesis'
+  | 'Nola'
+  | 'Nola (Altered)'
+  | 'Nola (Flame-Physical)'
+  | 'Nola (Frost-Volt)'
+  | 'Nola (Physical-Flame)'
+  | 'Nola (Volt-Frost)'
   | 'Plotti'
   | 'Rei'
   | 'Roslyn'
@@ -119,6 +131,11 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Ming Jing',
     'Nan Yin',
     'Nemesis',
+    'Nola (Altered)',
+    'Nola (Flame-Physical)',
+    'Nola (Frost-Volt)',
+    'Nola (Physical-Flame)',
+    'Nola (Volt-Frost)',
     'Plotti',
     'Rei',
     'Roslyn',
@@ -164,6 +181,12 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     'Ming Jing': mingJing,
     'Nan Yin': nanYin,
     Nemesis: nemesis,
+    Nola: nolaBase,
+    'Nola (Altered)': nolaAltered,
+    'Nola (Flame-Physical)': nolaFlamePhysical,
+    'Nola (Frost-Volt)': nolaFrostVolt,
+    'Nola (Physical-Flame)': nolaPhysicalFlame,
+    'Nola (Volt-Frost)': nolaVoltFrost,
     Plotti: plotti,
     Rei: rei,
     Roslyn: roslyn,

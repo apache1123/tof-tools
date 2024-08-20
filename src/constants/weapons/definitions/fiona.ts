@@ -3,6 +3,7 @@ import type { WeaponDefinition } from '../../../models/weapon-definition';
 export const fiona = {
   id: 'Fiona',
   displayName: 'Fiona',
+  elementalIcon: 'Altered',
   resonanceElements: ['Altered'],
   calculationElements: ['Altered'],
   damageElement: 'Altered',
