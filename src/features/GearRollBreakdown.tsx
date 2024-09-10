@@ -28,13 +28,17 @@ export const GearRollBreakdown = ({ gearSnap }: GearRollBreakdownProps) => {
                 <Typography>
                   <b>{`${y.randomStatId}: `}</b>
                   {pluralize('roll', y.rollCombination.numberOfRolls, true)}
-                  {!!y.rollCombination.rollStrength && (
-                    <>
-                      , strength:{' '}
+                  {!!y.rollCombination.numberOfRolls && (
+                    <div>
+                      Average strength of each roll:{' '}
                       <NumericStringPercentage
                         value={y.rollCombination.rollStrength}
                       />
-                    </>
+                      . Total weighting:{' '}
+                      <NumericStringPercentage
+                        value={y.rollCombination.totalRollWeight}
+                      />
+                    </div>
                   )}
                 </Typography>
               </li>
