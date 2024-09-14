@@ -1,3 +1,5 @@
+import groupBy from 'lodash.groupby';
+
 import { product, sum } from '../../../utils/math-utils';
 import type { DamageBuff } from './damage-buff';
 
@@ -5,10 +7,7 @@ export class DamageBuffAggregate {
   public constructor(private readonly damageBuffs: DamageBuff[]) {}
 
   public getAggregatedResult(): DamageBuffAggregatedResult {
-    const buffsBySource = Object.groupBy(
-      this.damageBuffs,
-      (buff) => buff.source
-    );
+    const buffsBySource = groupBy(this.damageBuffs, (buff) => buff.source);
 
     return {
       damagePercent: product(

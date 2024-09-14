@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import groupBy from 'lodash.groupby';
 import { nanoid } from 'nanoid';
 
 import { prioritizedAugmentationStatTypesLookup } from '../definitions/augmentation-stats';
@@ -76,7 +77,7 @@ export class Gear implements Persistable<GearDto> {
   }
   public getPossibleStars(): number[] {
     return Object.keys(
-      Object.groupBy(this.getRandomStatRollCombinations(), (x) => x.stars)
+      groupBy(this.getRandomStatRollCombinations(), (x) => x.stars)
     ).map((x) => +x);
   }
 
@@ -271,7 +272,7 @@ export class Gear implements Persistable<GearDto> {
         statType: randomStat.type,
       }));
 
-      const randomStatsAndTypesByRole = Object.groupBy(
+      const randomStatsAndTypesByRole = groupBy(
         randomStatsAndTypes,
         (x) => x.statType.role
       );

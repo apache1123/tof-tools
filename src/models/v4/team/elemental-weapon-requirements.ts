@@ -1,3 +1,5 @@
+import groupBy from 'lodash.groupby';
+
 import type { WeaponElementalType } from '../../../definitions/elemental-type';
 import type { Team } from '../../team';
 import type { Requirements } from '../requirements/requirements';
@@ -50,7 +52,7 @@ export class ElementalWeaponRequirements implements Requirements {
 
     if (this.numOfDifferentElementalTypes) {
       const numOfDifferentElementalTypes = Object.keys(
-        Object.groupBy(weaponElementalTypes, (x) => x)
+        groupBy(weaponElementalTypes)
       ).length;
 
       if (numOfDifferentElementalTypes !== this.numOfDifferentElementalTypes)

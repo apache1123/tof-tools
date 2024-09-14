@@ -1,5 +1,3 @@
-import 'object.groupby';
-
 import type { EmotionCache } from '@emotion/react';
 import { CacheProvider } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';

@@ -8,6 +8,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import groupBy from 'lodash.groupby';
 import { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
@@ -102,7 +103,7 @@ function UnableToDetermineStars({
   const gearSnap = useSnapshot(gearState);
 
   const possibleStars = Object.keys(
-    Object.groupBy(randomStatRollCombinations, x => x.stars)
+    groupBy(randomStatRollCombinations, (x) => x.stars)
   );
 
   return (
