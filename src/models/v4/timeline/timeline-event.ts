@@ -20,6 +20,7 @@ export class TimelineEvent implements Serializable<TimelineEventDto> {
     this._timeInterval.startTime = value;
   }
 
+  /** Ending instant of time (exclusive) */
   public get endTime(): number {
     return this._timeInterval.endTime;
   }

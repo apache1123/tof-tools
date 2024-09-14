@@ -3,7 +3,7 @@ import type { TimeIntervalDto } from './dtos/time-interval-dto';
 
 /** A time interval defined by two instant points of time.
  *
- * The start time instant is inclusive and the end time instant is exclusive. i.e. [startTime, exclusive) */
+ * The start time instant is inclusive and the end time instant is exclusive. i.e. [startTime, endTime) */
 export class TimeInterval implements Serializable<TimeIntervalDto> {
   private _startTime: number;
   private _endTime: number;

@@ -1,33 +1,37 @@
-import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
-import type { WeaponResonance } from '../../../constants/weapons/weapon-resonance';
-import type { ResourceId } from '../resource/resource-definition';
+import type { BuffId } from '../../../definitions/types/buff/buff-ability';
+import type { CombatState } from '../combat-context/combat-state';
+import type { Requirements } from '../requirements/requirements';
+import type { ResourceRequirements } from '../resource/resource-requirements';
+import type { TeamRequirements } from '../team/team-requirements';
+import type { ActiveWeaponRequirements } from '../weapon/active-weapon-requirements';
 
-/** Requirements are treated as a "AND" check i.e. the ability can be triggered when all defined requirements pass check */
-export interface AbilityRequirements {
-  // Order requirements from most specific to least specific. Check in this order for efficiency
+export class AbilityRequirements implements Requirements {
+  public constructor(
+    private readonly activeBuff?: BuffId,
+    private readonly activeWeaponRequirements?: ActiveWeaponRequirements,
+    private readonly teamRequirements?: TeamRequirements,
+    private readonly resourceRequirements?: ResourceRequirements
+  ) {}
 
-  hasResource?: {
-    resourceId: ResourceId;
-    minAmount: number;
-  };
-  activeBuff?: string;
-  activeWeapon?: WeaponName;
-  /** Can only be triggered when [weapon] is not active weapon e.g. the [weapon]'s discharge */
-  notActiveWeapon?: WeaponName;
-  anyWeaponInTeam?: WeaponName[];
-  weaponResonance?: WeaponResonance;
-  notWeaponResonance?: WeaponResonance;
-  /** If multiple are defined, it will be an "OR" check between them */
-  elementalTypeWeaponsInTeam?: {
-    elementalType: WeaponElementalType;
-    numOfWeapons: number;
-  }[];
-  /** e.g. for every non-[elemental type] weapon equipped, increase damage by x% */
-  notElementalTypeWeaponsInTeam?: {
-    notElementalType: WeaponElementalType;
-    numOfWeapons: number;
-  };
-  /** The specified number of different elemental weapon types must be in team */
-  numOfDifferentElementalTypesInTeam?: number;
+  public haveBeenMet(state: CombatState): boolean {
+    if (this.activeBuff && !state.activeBuffs.hasBuff(this.activeBuff))
+      return false;
+
+    if (
+      this.activeWeaponRequirements &&
+      !this.activeWeaponRequirements.haveBeenMet(state.activeWeapon)
+    )
+      return false;
+
+    if (this.teamRequirements && !this.teamRequirements.haveBeenMet(state.team))
+      return false;
+
+    if (
+      this.resourceRequirements &&
+      !this.resourceRequirements.haveBeenMet(state.resources)
+    )
+      return false;
+
+    return true;
+  }
 }

@@ -1,4 +1,4 @@
-import type { WeaponName } from '../constants/weapons/weapon-definitions';
+import type { WeaponName } from '../definitions/weapons/weapon-definitions';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponBuffDefinition,

@@ -1,3 +1,3 @@
-import type { TimeInterval } from '../time-interval/time-interval';
+import type { Tick } from './tick';
 
-export type CurrentTick = TimeInterval;
+export type CurrentTick = Tick;

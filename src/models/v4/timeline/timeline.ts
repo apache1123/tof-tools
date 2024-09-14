@@ -49,10 +49,11 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
     this._events.push(event);
   }
 
-  /** Returns events that have any sort of overlap with the interval of start time to end time. */
-  public getEventsOverlappingInterval(startTime: number, endTime: number): T[] {
+  /** Returns events that have any sort of overlap with the interval */
+  public getEventsOverlapping(timeInterval: TimeInterval): T[] {
+    const { startTime, endTime } = timeInterval;
     if (startTime === endTime) {
-      return this.getEventsOverlappingTime(startTime);
+      return this.getEventsAt(startTime);
     }
 
     return this._events.filter(
@@ -65,10 +66,10 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
   }
 
   public hasEventAt(time: number) {
-    return this.getEventsOverlappingTime(time).length !== 0;
+    return this.getEventsAt(time).length !== 0;
   }
 
-  public getEventsOverlappingTime(time: number) {
+  public getEventsAt(time: number) {
     return this._events.filter(
       (event) => event.startTime <= time && event.endTime > time
     );
@@ -105,7 +106,8 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
    * Events will have have their end time set to the specified time, or removed if the specified time is equal to their start time.
    */
   public endAnyEventsAt(time: number) {
-    const events = this.getEventsOverlappingTime(time);
+    const events = this.getEventsAt(time);
+
     for (const event of events) {
       // Cut event short or remove it
       if (time > event.startTime) {
@@ -114,6 +116,8 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
         this.removeEvent(event);
       }
     }
+
+    return events;
   }
 
   public toDto(): TimelineDto {

@@ -1,4 +1,4 @@
-import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
+import type { WeaponName } from '../../../definitions/weapons/weapon-definitions';
 import type { LoadoutDto } from '../../loadout';
 import type { AttackDto } from '../attack/dtos/attack-dto';
 import type { BuffDto } from '../buff/dtos/buff-dto';

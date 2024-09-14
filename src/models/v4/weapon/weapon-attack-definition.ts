@@ -1,53 +1,24 @@
-import type {
-  chargeResourceId,
-  dodgeResourceId,
-  fullCharge,
-} from '../../../constants/resources';
-import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
-import type { AttackDefinition } from '../attack/attack-definition';
+import type { AttackAbility } from '../../../definitions/types/attack/attack-ability';
 import type { WeaponStarRequirement } from './weapon-star-requirement';
 
-export interface WeaponAttackDefinition extends AttackDefinition {
+export interface WeaponAttackDefinition extends AttackAbility {
   starRequirement: WeaponStarRequirement;
 }
 
-export interface PlayerInputAttackDefinition extends WeaponAttackDefinition {
-  triggeredBy: {
-    playerInput: true;
-  } & WeaponAttackDefinition['triggeredBy'];
-}
-
-export interface NormalAttackDefinition extends PlayerInputAttackDefinition {
+export interface NormalAttackDefinition extends WeaponAttackDefinition {
   type: 'normal';
 }
 
-export interface DodgeAttackDefinition extends PlayerInputAttackDefinition {
+export interface DodgeAttackDefinition extends WeaponAttackDefinition {
   type: 'dodge';
 
-  triggeredBy: {
-    requirements: {
-      hasResource: {
-        resourceId: typeof dodgeResourceId;
-        minAmount: 1;
-      };
-    };
-  } & PlayerInputAttackDefinition['triggeredBy'];
+  // TODO: dodge consumption
 }
 
-export interface SkillAttackDefinition extends PlayerInputAttackDefinition {
+export interface SkillAttackDefinition extends WeaponAttackDefinition {
   type: 'skill';
 }
 
-export interface DischargeAttackDefinition extends PlayerInputAttackDefinition {
+export interface DischargeAttackDefinition extends WeaponAttackDefinition {
   type: 'discharge';
-
-  triggeredBy: {
-    requirements: {
-      hasResource: {
-        resourceId: typeof chargeResourceId;
-        minAmount: typeof fullCharge;
-      };
-      notActiveWeapon: WeaponName;
-    };
-  } & PlayerInputAttackDefinition['triggeredBy'];
 }

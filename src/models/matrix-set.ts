@@ -1,3 +1,4 @@
+import type { BuffAbility as BuffAbilityDefinition } from '../definitions/types/buff/buff-ability';
 import type { Dto } from './dto';
 import type { MatrixSetName } from './matrix-set-definition';
 import {
@@ -5,7 +6,6 @@ import {
   type MatrixSetDefinition,
 } from './matrix-set-definition';
 import type { Persistable } from './persistable';
-import type { BuffDefinition } from './v4/buff/buff-definition';
 import { hasMetStarRequirement } from './v4/star-requirement';
 
 export class MatrixSet implements Persistable<MatrixSetDto> {
@@ -30,31 +30,30 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
   }
 
   /** Buffs that can be activated for this matrix set, after filtering out buffs that do not meet the star requirement */
-  public get buffs(): BuffDefinition[] {
-    return this.definition.buffs.map<BuffDefinition>((buffDefinition) => ({
-      ...buffDefinition,
-      attackBuffs: [
-        ...(buffDefinition.attackBuffs ?? []),
-        ...(buffDefinition.attackBuffsWithStarRequirement?.filter(
-          (attackBuffWithStarRequirement) =>
-            hasMetStarRequirement(attackBuffWithStarRequirement, this.stars)
-        ) ?? []),
-      ],
-      damageBuffs: [
-        ...(buffDefinition.damageBuffs ?? []),
-        ...(buffDefinition.damageBuffsWithStarRequirement?.filter(
-          (damageBuffWithStarRequirement) =>
-            hasMetStarRequirement(damageBuffWithStarRequirement, this.stars)
-        ) ?? []),
-      ],
-      critDamageBuffs: [
-        ...(buffDefinition.critDamageBuffs ?? []),
-        ...(buffDefinition.critDamageBuffsWithStarRequirement?.filter(
-          (critDamageBuffWithStarRequirement) =>
-            hasMetStarRequirement(critDamageBuffWithStarRequirement, this.stars)
-        ) ?? []),
-      ],
-    }));
+  public get buffs(): BuffAbilityDefinition[] {
+    return this.definition.buffs.map<BuffAbilityDefinition>(
+      (buffDefinition) => ({
+        ...buffDefinition,
+        attackBuffs: [
+          ...(buffDefinition.attackBuffs ?? []),
+          ...(buffDefinition.attackBuffsWithStarRequirement?.filter(
+            (attackBuffWithStarRequirement) =>
+              hasMetStarRequirement(attackBuffWithStarRequirement, this.stars)
+          ) ?? []),
+        ],
+        // TODO: ? Other buffs?
+        critDamageBuffs: [
+          ...(buffDefinition.critDamageBuffs ?? []),
+          ...(buffDefinition.critDamageBuffsWithStarRequirement?.filter(
+            (critDamageBuffWithStarRequirement) =>
+              hasMetStarRequirement(
+                critDamageBuffWithStarRequirement,
+                this.stars
+              )
+          ) ?? []),
+        ],
+      })
+    );
   }
 
   public copyFromDto(dto: MatrixSetDto): void {

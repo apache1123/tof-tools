@@ -1,4 +1,4 @@
-import type { CoreElementalType } from '../../constants/elemental-type';
+import type { CoreElementalType } from '../../definitions/elemental-type';
 import type { Dto } from '../../models/dto';
 
 /** @deprecated Migrated when switching to Loadouts */

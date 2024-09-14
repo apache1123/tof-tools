@@ -1,7 +1,7 @@
-import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
+import type { WeaponName } from '../../../definitions/weapons/weapon-definitions';
+import { filterOutUndefined } from '../../../utils/array-utils';
 import type { Serializable } from '../../persistable';
-import type { Weapon } from '../../weapon';
-import { Damage } from './damage';
+import { Damage } from '../damage/damage';
 import type { DamageSummaryDto } from './dtos/damage-summary-dto';
 import { WeaponDamageSummary } from './weapon-damage-summary';
 
@@ -11,12 +11,12 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
     WeaponDamageSummary
   >();
 
-  public constructor(public duration: number, ...weapons: Weapon[]) {
-    for (const weapon of weapons) {
-      this.weaponDamageSummaries.set(
-        weapon.definition.id,
-        new WeaponDamageSummary()
-      );
+  public constructor(
+    public duration: number,
+    ...weaponNames: WeaponName[]
+  ) {
+    for (const weaponName of weaponNames) {
+      this.weaponDamageSummaries.set(weaponName, new WeaponDamageSummary());
     }
   }
 
@@ -42,28 +42,35 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
     );
   }
 
-  /** Adds another damage summary. The weapons of the two damage summaries must be the same. Returns another instance without modifying the originals */
+  /** Adds another damage summary. Returns another instance without modifying the originals */
   public add(damageSummary: DamageSummary): DamageSummary {
-    for (const weaponName of this.weaponDamageSummaries.keys()) {
-      if (!damageSummary.weaponDamageSummaries.has(weaponName)) {
-        throw new Error(
-          'Cannot add two DamageSummary instances with different weapons'
-        );
-      }
-    }
+    const aggregatedWeaponNames = new Set([
+      ...this.weaponDamageSummaries.keys(),
+      ...damageSummary.weaponDamageSummaries.keys(),
+    ]);
 
-    const result = new DamageSummary(this.duration + damageSummary.duration);
+    const result = new DamageSummary(
+      this.duration + damageSummary.duration,
+      ...aggregatedWeaponNames
+    );
 
-    for (const [weaponName, thisWeaponDamageSummary] of this
-      .weaponDamageSummaries) {
+    for (const weaponName of aggregatedWeaponNames) {
+      const thisWeaponDamageSummary =
+        this.weaponDamageSummaries.get(weaponName);
       const otherWeaponDamageSummary =
         damageSummary.weaponDamageSummaries.get(weaponName);
-      if (otherWeaponDamageSummary) {
+
+      filterOutUndefined([
+        thisWeaponDamageSummary,
+        otherWeaponDamageSummary,
+      ]).forEach((weaponDamageSummary) => {
         result.weaponDamageSummaries.set(
           weaponName,
-          thisWeaponDamageSummary.add(otherWeaponDamageSummary)
+          result.weaponDamageSummaries
+            .get(weaponName)
+            ?.add(weaponDamageSummary) ?? weaponDamageSummary
         );
-      }
+      });
     }
 
     return result;

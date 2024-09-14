@@ -3,13 +3,13 @@ import { useSnapshot } from 'valtio';
 
 import { RelicIcon } from '../../components/RelicIcon/RelicIcon';
 import { RelicStarsSelector } from '../../components/RelicStarsSelector/RelicStarsSelector';
-import type { RelicName } from '../../constants/relics';
+import type { RelicName } from '../../definitions/relics';
 import {
   metaDamageRelics,
   passiveBuffRelics,
   srRelicsOrder,
   ssrRelicsOrder,
-} from '../../constants/relics';
+} from '../../definitions/relics';
 import { relicsState } from '../../states/states';
 
 const otherRelics: RelicName[] = new Array<RelicName>()

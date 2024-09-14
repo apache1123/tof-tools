@@ -1,24 +1,136 @@
-import type { EventSubscriber } from './event-subscriber';
+import type { Message } from './message';
+import { MessageBroker } from './message-broker';
+import type { AbilityEndedMessage } from './messages/ability-ended';
+import type { AbilityStartedMessage } from './messages/ability-started';
+import type { AbilityTriggerRequest } from './messages/ability-trigger-request';
+import type { ActiveWeaponChangedMessage } from './messages/active-weapon-changed';
+import type { AttackHit } from './messages/attack-hit';
+import type { CombatStartedMessage } from './messages/combat-started';
+import type { ResourceDepleteRequest } from './messages/resource-deplete-request';
+import type { ResourceUpdateRequest } from './messages/resource-update-request';
+import type { ResourceUpdated } from './messages/resource-updated';
 
-/** Managers publishers notifying events and subscribers subscribing to these events. Not to be confused with a timeline or attack or buff "event" */
+enum EventType {
+  CombatStarted = 'combat-start',
+  ActiveWeaponChanged = 'active-weapon-changed',
+  AbilityTriggerRequest = 'ability-trigger-request',
+  AbilityStarted = 'ability-started',
+  AbilityEnded = 'ability-ended',
+  AttackHit = 'attack-hit',
+  ResourceUpdateRequest = 'resource-update-request',
+  ResourceDepleteRequest = 'resource-deplete-request',
+  ResourceUpdated = 'resource-updated',
+}
+
+/** A facade for providing all event driven publishing, subscribing functionality */
 export class EventManager {
-  private readonly subscribers = new Map<string, EventSubscriber[]>();
+  private readonly messageBroker = new MessageBroker();
 
-  public subscribe(eventId: string, subscriber: EventSubscriber) {
-    this.subscribers.set(eventId, [
-      ...(this.subscribers.get(eventId) ?? []),
-      subscriber,
-    ]);
+  public deliverAllMessages() {
+    this.messageBroker.deliverAllMessages();
   }
 
-  public notify(eventId: string) {
-    if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
-      console.log(`Event notify: ${eventId}`);
-    }
+  public publishCombatStarted(message: CombatStartedMessage) {
+    this.messageBroker.queueMessage(EventType.CombatStarted, message);
+  }
+  public onCombatStarted(callback: (message: CombatStartedMessage) => void) {
+    this.messageBroker.subscribeCallback(EventType.CombatStarted, callback);
+  }
 
-    for (const subscriber of this.subscribers.get(eventId) ?? []) {
-      subscriber.handle();
-    }
+  public publishActiveWeaponChanged(
+    newActiveWeapon: ActiveWeaponChangedMessage
+  ) {
+    this.messageBroker.queueMessage(
+      EventType.ActiveWeaponChanged,
+      newActiveWeapon
+    );
+  }
+  public onActiveWeaponChanged(
+    callback: (newActiveWeapon: ActiveWeaponChangedMessage) => void
+  ) {
+    this.messageBroker.subscribeCallback(
+      EventType.ActiveWeaponChanged,
+      callback as (message: Message) => void
+    );
+  }
+
+  public publishAbilityTriggerRequest(request: AbilityTriggerRequest) {
+    this.messageBroker.queueMessage(EventType.AbilityTriggerRequest, request);
+  }
+  public onAbilityTriggerRequest(
+    callback: (request: AbilityTriggerRequest) => void
+  ) {
+    this.messageBroker.subscribeCallback(
+      EventType.AbilityTriggerRequest,
+      callback as (message: Message) => void
+    );
+  }
+
+  public publishAbilityStarted(startedAbility: AbilityStartedMessage) {
+    this.messageBroker.queueMessage(EventType.AbilityStarted, startedAbility);
+  }
+  public onAbilityStarted(
+    callback: (startedAbility: AbilityStartedMessage) => void
+  ) {
+    this.messageBroker.subscribeCallback(
+      EventType.AbilityStarted,
+      callback as (message: Message) => void
+    );
+  }
+
+  public publishAbilityEnded(endedAbility: AbilityEndedMessage) {
+    this.messageBroker.queueMessage(EventType.AbilityEnded, endedAbility);
+  }
+  public onAbilityEnded(callback: (endedAbility: AbilityEndedMessage) => void) {
+    this.messageBroker.subscribeCallback(
+      EventType.AbilityEnded,
+      callback as (message: Message) => void
+    );
+  }
+
+  public publishAttackHit(attackHit: AttackHit) {
+    this.messageBroker.queueMessage(EventType.AttackHit, attackHit);
+  }
+  public onAttackHit(callback: (attackHit: AttackHit) => void) {
+    this.messageBroker.subscribeCallback(
+      EventType.AttackHit,
+      callback as (message: Message) => void
+    );
+  }
+
+  public publishResourceUpdateRequest(request: ResourceUpdateRequest) {
+    this.messageBroker.queueMessage(EventType.ResourceUpdateRequest, request);
+  }
+  public onResourceUpdateRequest(
+    callback: (request: ResourceUpdateRequest) => void
+  ) {
+    this.messageBroker.subscribeCallback(
+      EventType.ResourceUpdateRequest,
+      callback as (message: Message) => void
+    );
+  }
+
+  public publishResourceDepleteRequest(request: ResourceDepleteRequest) {
+    this.messageBroker.queueMessage(EventType.ResourceDepleteRequest, request);
+  }
+  public onResourceDepleteRequest(
+    callback: (request: ResourceDepleteRequest) => void
+  ) {
+    this.messageBroker.subscribeCallback(
+      EventType.ResourceDepleteRequest,
+      callback as (message: Message) => void
+    );
+  }
+
+  public publishResourceUpdated(updatedResource: ResourceUpdated) {
+    this.messageBroker.queueMessage(EventType.ResourceUpdated, updatedResource);
+  }
+  public onResourceUpdated(
+    callback: (updatedResource: ResourceUpdated) => void
+  ) {
+    this.messageBroker.subscribeCallback(
+      EventType.ResourceUpdated,
+      callback as (message: Message) => void
+    );
   }
 }

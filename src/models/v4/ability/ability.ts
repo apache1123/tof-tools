@@ -1,104 +1,102 @@
-import { minEventDuration } from '../../../constants/tick';
 import type { Serializable } from '../../persistable';
-import type { TickTracker } from '../tick/tick-tracker';
+import type { CombatContext } from '../combat-context/combat-context';
+import type { EventManager } from '../event/event-manager';
 import { TimeInterval } from '../time-interval/time-interval';
-import type { AbilityDefinition, AbilityId } from './ability-definition';
-import type { AbilityEndedBy } from './ability-ended-by';
 import type { AbilityEvent } from './ability-event';
+import type { AbilityId } from './ability-id';
+import type { AbilityRequirements } from './ability-requirements';
 import type { AbilityTimeline } from './ability-timeline';
 import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityDto } from './dtos/ability-dto';
 
 /** An ability is anything a character does. Attacks, buffs etc. are all considered abilities. */
-export class Ability<T extends AbilityEvent = AbilityEvent>
+export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   implements Serializable<AbilityDto>
 {
-  public readonly id: AbilityId;
-  public readonly displayName: string;
-  public readonly cooldown: number;
-  public readonly endedBy: AbilityEndedBy;
-  public readonly updatesResources: AbilityUpdatesResource[];
-
-  public readonly timeline: AbilityTimeline<T>;
-
-  private readonly tickTracker: TickTracker;
-
   public constructor(
-    definition: AbilityDefinition,
-    timeline: AbilityTimeline<T>,
-    tickTracker: TickTracker
-  ) {
-    const { id, displayName, cooldown, endedBy, updatesResources } = definition;
-    this.id = id;
-    this.displayName = displayName;
-    this.cooldown = cooldown;
-    this.endedBy = endedBy;
-    this.updatesResources = updatesResources ?? [];
+    public readonly id: AbilityId,
+    protected readonly displayName: string,
+    protected readonly cooldown: number,
+    protected readonly duration: number | undefined,
+    protected readonly canBePlayerTriggered: boolean,
+    protected readonly requirements: AbilityRequirements,
+    protected readonly updatesResources: AbilityUpdatesResource[],
+    protected readonly timeline: AbilityTimeline<TAbilityEvent>,
+    protected readonly eventManager: EventManager,
+    protected readonly context: CombatContext
+  ) {}
 
-    this.timeline = timeline;
-    this.tickTracker = tickTracker;
+  protected getTriggerTime() {
+    return this.context.currentTick.startTime;
   }
 
-  /** The time that any new actions to be performed by the ability will start */
-  protected get triggerTime() {
-    return this.tickTracker.currentTickStart;
+  protected getCurrentCombatState() {
+    return this.context.currentState;
   }
 
-  public canTrigger(): boolean {
-    return !this.isOnCooldown();
+  public canTrigger() {
+    return (
+      !this.timeline.hasEventOnCooldownAt(this.getTriggerTime()) &&
+      this.haveRequirementsBeenMet()
+    );
   }
 
-  /** Trigger the ability at the current start time */
-  public trigger(): T | undefined {
+  public canPlayerTrigger() {
+    return this.canBePlayerTriggered && this.canTrigger();
+  }
+
+  /** Trigger an ability event */
+  public trigger() {
     if (!this.canTrigger()) return;
-    return this.addEvent(this.getNewEventTimeInterval());
+
+    const newEventTimeInterval = this.getNewEventTimeInterval();
+    const newEvent = this.createNewEvent(newEventTimeInterval);
+    this.timeline.addEvent(newEvent);
+
+    this.eventManager.publishAbilityStarted({ id: this.id });
   }
 
-  protected addEvent(timeInterval: TimeInterval): T {
-    throw new Error('Not implemented');
+  /** Perform whatever actions needed during the current tick for this ability. Emit events, update resources, etc. */
+  public process() {
+    const ongoingEvents = this.getOngoingEvents();
+
+    if (ongoingEvents.length === 0) return;
+
+    // Terminate any ongoing events if the requirements for this ability are no longer met
+    if (!this.haveRequirementsBeenMet()) this.terminate();
+
+    for (const event of ongoingEvents) {
+      event.process();
+    }
+  }
+
+  /** Has ongoing events */
+  public isOngoing() {
+    return this.getOngoingEvents().length > 0;
+  }
+
+  protected getOngoingEvents(): TAbilityEvent[] {
+    return this.timeline.getEventsOverlapping(this.context.currentTick);
+  }
+
+  protected abstract createNewEvent(timeInterval: TimeInterval): TAbilityEvent;
+
+  /** Terminate any active ability events */
+  private terminate() {
+    this.timeline.endAnyEventsAt(this.context.currentTick.endTime);
+  }
+
+  private haveRequirementsBeenMet() {
+    return this.requirements.haveBeenMet(this.getCurrentCombatState());
   }
 
   private getNewEventTimeInterval(): TimeInterval {
-    const startTime = this.triggerTime;
-    let endTime!: number;
-
-    const {
-      duration,
-      combatEnd,
-      buffEnd,
-      activeWeapon,
-      notActiveWeapon,
-      resourceDepleted,
-    } = this.endedBy;
-    if (duration) {
-      endTime = startTime + duration;
-    } else if (
-      combatEnd ||
-      buffEnd ||
-      activeWeapon ||
-      notActiveWeapon ||
-      resourceDepleted
-    ) {
-      // For abilities that are ended by a certain condition, set the end time to be the timeline's end time. The ability event will be ended by an event related to that condition
-      endTime = this.timeline.endTime;
-    } else {
-      throw new Error('Cannot determine ability event end time');
-    }
+    const startTime = this.getTriggerTime();
+    const endTime = this.duration
+      ? startTime + this.duration
+      : this.timeline.endTime;
 
     return new TimeInterval(startTime, endTime);
-  }
-
-  /** End any active ability events at the current start time */
-  public endActiveEvents() {
-    const endTime = this.triggerTime + minEventDuration;
-    this.timeline.endAnyEventsAt(endTime);
-  }
-
-  /** Check if the ability is on cooldown at the start of the current start time */
-  public isOnCooldown() {
-    return this.timeline.events.some((event) =>
-      event.isOnCooldown(this.triggerTime)
-    );
   }
 
   public toDto(): AbilityDto {

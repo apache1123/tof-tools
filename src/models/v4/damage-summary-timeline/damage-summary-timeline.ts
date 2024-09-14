@@ -5,13 +5,4 @@ import type { DamageSummaryTimelineDto } from './dtos/damage-summary-timeline-dt
 
 export class DamageSummaryTimeline
   extends Timeline<DamageSummaryEvent>
-  implements Serializable<DamageSummaryTimelineDto>
-{
-  public toDto(): DamageSummaryTimelineDto {
-    const { events } = this;
-    return {
-      ...super.toDto(),
-      events: events.map((event) => event.toDto()),
-    };
-  }
-}
+  implements Serializable<DamageSummaryTimelineDto> {}

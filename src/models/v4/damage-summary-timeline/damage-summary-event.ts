@@ -10,19 +10,8 @@ export class DamageSummaryEvent
 {
   public constructor(
     timeInterval: TimeInterval,
-    public damageSummary: DamageSummary,
-    public cumulatedDamageSummary: DamageSummary,
-    /** The total attack of the active weapon recorded at this time interval  */
-    public activeWeaponTotalAttack: number
+    public damageSummary: DamageSummary
   ) {
     super(timeInterval);
-  }
-
-  public toDto(): DamageSummaryEventDto {
-    const { cumulatedDamageSummary } = this;
-    return {
-      ...super.toDto(),
-      cumulatedDamageSummary: cumulatedDamageSummary.toDto(),
-    };
   }
 }

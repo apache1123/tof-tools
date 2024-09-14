@@ -1,23 +1,23 @@
 import BigNumber from 'bignumber.js';
-import groupBy from 'lodash.groupby';
 import { nanoid } from 'nanoid';
 
-import { prioritizedAugmentationStatTypesLookup } from '../constants/augmentation-stats';
-import type { CoreElementalType } from '../constants/elemental-type';
+import { prioritizedAugmentationStatTypesLookup } from '../definitions/augmentation-stats';
+import type { CoreElementalType } from '../definitions/elemental-type';
 import {
   augmentStatsPullUpFactor1,
   augmentStatsPullUpFactor2,
   augmentStatsPullUpFactor3,
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
-} from '../constants/gear';
-import type { GearName } from '../constants/gear-types';
-import { gearTypesLookup } from '../constants/gear-types';
-import type { StatName, StatRole } from '../constants/stat-types';
-import { statTypesLookup } from '../constants/stat-types';
+} from '../definitions/gear';
+import type { GearName } from '../definitions/gear-types';
+import { gearTypesLookup } from '../definitions/gear-types';
+import type { StatName } from '../definitions/stat-types';
+import { statTypesLookup } from '../definitions/stat-types';
 import { filterOutUndefined } from '../utils/array-utils';
 import { cartesian } from '../utils/cartesian-utils';
 import { sum } from '../utils/math-utils';
+import { keysOf } from '../utils/object-utils';
 import type { AugmentStatDto } from './augment-stat';
 import { AugmentStat } from './augment-stat';
 import type { Dto } from './dto';
@@ -76,7 +76,7 @@ export class Gear implements Persistable<GearDto> {
   }
   public getPossibleStars(): number[] {
     return Object.keys(
-      groupBy(this.getRandomStatRollCombinations(), 'stars')
+      Object.groupBy(this.getRandomStatRollCombinations(), (x) => x.stars)
     ).map((x) => +x);
   }
 
@@ -271,24 +271,25 @@ export class Gear implements Persistable<GearDto> {
         statType: randomStat.type,
       }));
 
-      const randomStatsAndTypesByRole = groupBy(
+      const randomStatsAndTypesByRole = Object.groupBy(
         randomStatsAndTypes,
-        'statType.role'
+        (x) => x.statType.role
       );
 
       // Seems only ele atk & ele atk % values get 'pulled up'
       // For random stats when augmenting, when there are multiple stats of the same stat type but of different elemental types, the stat with the highest value is used as a base, and the rest are "pulled-up" to be a factor of that value. The second highest value is pulled up to be 95% of the highest value, the third highest value is pulled up to be 90%, and the fourth highest value is pulled up to be 85% (unconfirmed, this is too rare).
       // TODO: the logic here kind of breaks down for atk% and dmg%. Because each roll is a fixed increase value, there may be two stats that are both the second highest value, but the below is not checking for equal values and just assumes every value when sorted descending will be lower than the previous.
 
-      Object.keys(randomStatsAndTypesByRole).forEach((role) => {
-        if (
-          (role as StatRole) === 'Attack' ||
-          (role as StatRole) === 'Attack %' ||
-          (role as StatRole) === 'Damage %'
-        ) {
+      keysOf(randomStatsAndTypesByRole).forEach((role) => {
+        if (role === 'Attack' || role === 'Attack %' || role === 'Damage %') {
           let highestValueWithAugment: number | undefined = undefined;
 
-          randomStatsAndTypesByRole[role]
+          const randomStatsAndTypes = randomStatsAndTypesByRole[role];
+          if (!randomStatsAndTypes) {
+            return;
+          }
+
+          randomStatsAndTypes
             .filter(
               (randomStatAndType) =>
                 // Filter out 'Attack'

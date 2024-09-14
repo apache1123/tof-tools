@@ -84,7 +84,7 @@ export function CombatSimulatorTimeline({
           displayName: buff.displayName,
           actions: buff.timeline.events.map((event, index) => ({
             id: `${buff.id}-${index}`,
-            displayName: `${buff.displayName} - Stacks: ${event.stacks}`,
+            displayName: `${buff.displayName}`,
             start: event.startTime,
             end: event.endTime,
             effectId: 'buff-event',

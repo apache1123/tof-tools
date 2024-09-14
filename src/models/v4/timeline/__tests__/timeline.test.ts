@@ -39,7 +39,7 @@ describe('Timeline', () => {
     sut.addEvent(event8);
     sut.addEvent(event9);
 
-    const overlappingEvents = sut.getEventsOverlappingInterval(6, 11);
+    const overlappingEvents = sut.getEventsOverlapping(new TimeInterval(6, 11));
 
     expect(overlappingEvents).not.toContain(event1);
     expect(overlappingEvents).not.toContain(event2);
@@ -63,29 +63,29 @@ describe('Timeline', () => {
     sut.addEvent(event2);
     sut.addEvent(event3);
 
-    expect(sut.getEventsOverlappingTime(0)).toContain(event1);
-    expect(sut.getEventsOverlappingTime(0)).not.toContain(event2);
-    expect(sut.getEventsOverlappingTime(0)).not.toContain(event3);
+    expect(sut.getEventsAt(0)).toContain(event1);
+    expect(sut.getEventsAt(0)).not.toContain(event2);
+    expect(sut.getEventsAt(0)).not.toContain(event3);
 
-    expect(sut.getEventsOverlappingTime(4)).toContain(event1);
-    expect(sut.getEventsOverlappingTime(4)).toContain(event2);
-    expect(sut.getEventsOverlappingTime(4)).not.toContain(event3);
+    expect(sut.getEventsAt(4)).toContain(event1);
+    expect(sut.getEventsAt(4)).toContain(event2);
+    expect(sut.getEventsAt(4)).not.toContain(event3);
 
-    expect(sut.getEventsOverlappingTime(5)).not.toContain(event1);
-    expect(sut.getEventsOverlappingTime(5)).toContain(event2);
-    expect(sut.getEventsOverlappingTime(5)).not.toContain(event3);
+    expect(sut.getEventsAt(5)).not.toContain(event1);
+    expect(sut.getEventsAt(5)).toContain(event2);
+    expect(sut.getEventsAt(5)).not.toContain(event3);
 
-    expect(sut.getEventsOverlappingTime(7)).not.toContain(event1);
-    expect(sut.getEventsOverlappingTime(7)).toContain(event2);
-    expect(sut.getEventsOverlappingTime(7)).not.toContain(event3);
+    expect(sut.getEventsAt(7)).not.toContain(event1);
+    expect(sut.getEventsAt(7)).toContain(event2);
+    expect(sut.getEventsAt(7)).not.toContain(event3);
 
-    expect(sut.getEventsOverlappingTime(10)).not.toContain(event1);
-    expect(sut.getEventsOverlappingTime(10)).not.toContain(event2);
-    expect(sut.getEventsOverlappingTime(10)).toContain(event3);
+    expect(sut.getEventsAt(10)).not.toContain(event1);
+    expect(sut.getEventsAt(10)).not.toContain(event2);
+    expect(sut.getEventsAt(10)).toContain(event3);
 
-    expect(sut.getEventsOverlappingTime(16)).not.toContain(event1);
-    expect(sut.getEventsOverlappingTime(16)).not.toContain(event2);
-    expect(sut.getEventsOverlappingTime(16)).not.toContain(event3);
+    expect(sut.getEventsAt(16)).not.toContain(event1);
+    expect(sut.getEventsAt(16)).not.toContain(event2);
+    expect(sut.getEventsAt(16)).not.toContain(event3);
   });
 
   it('returns correct events that end between the specified time interval', () => {

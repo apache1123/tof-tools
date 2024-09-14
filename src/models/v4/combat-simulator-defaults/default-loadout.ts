@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import { damageCalculatorDefaults } from '../../../constants/damage-calculator-defaults';
-import type { CoreElementalType } from '../../../constants/elemental-type';
+import { damageCalculatorDefaults } from '../../../definitions/damage-calculator-defaults';
+import type { CoreElementalType } from '../../../definitions/elemental-type';
 import { keysOf } from '../../../utils/object-utils';
 import { GearSet } from '../../gear-set';
 import { Loadout } from '../../loadout';

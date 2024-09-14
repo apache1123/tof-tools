@@ -1,55 +1,28 @@
-import { TimeInterval } from '../time-interval/time-interval';
 import type { CurrentTick } from './current-tick';
+import { Tick } from './tick';
 
 export class TickTracker {
-  private _currentTickInterval: TimeInterval;
-  private readonly tickDuration: number;
+  private _currentTick: Tick;
+  public readonly tickDuration: number;
 
-  public constructor(startingTickInterval: TimeInterval, tickDuration: number) {
-    this._currentTickInterval = startingTickInterval;
+  public constructor(startingTime: number, tickDuration: number) {
+    this._currentTick = new Tick(startingTime, startingTime + tickDuration);
     this.tickDuration = tickDuration;
   }
 
   /** The current tick interval that is being simulated */
   public get currentTick(): CurrentTick {
-    return this._currentTickInterval;
-  }
-
-  /** The start time of the current tick interval that is being simulated */
-  public get currentTickStart() {
-    return this._currentTickInterval.startTime;
-  }
-
-  /** The end time of the current tick interval that is being simulated */
-  public get currentTickEnd() {
-    return this._currentTickInterval.endTime;
-  }
-
-  /** The next tick interval after the current tick interval */
-  public getNextTickInterval() {
-    const { endTime } = this._currentTickInterval;
-    return new TimeInterval(endTime, endTime + this.tickDuration);
+    return this._currentTick;
   }
 
   /** Advance the next tick interval that is being simulated */
-  public advanceTickInterval() {
-    this._currentTickInterval = this.getNextTickInterval();
+  public advanceTick() {
+    this._currentTick = this.getNextTick();
   }
 
-  /** Returns the next available tick interval given a time. The assumption is that any sort of event should be executed in the next tick, so given a time an event wishes to be executed, this gives the next closest tick interval */
-  public getNextClosestTickInterval(time: number) {
-    return time < this.currentTick.startTime
-      ? this.currentTick
-      : this.getNextTickInterval();
-  }
-
-  /** Returns the next available tick start time given a time. The assumption is that any sort of event should be executed in the next tick, so given a time an event wishes to be executed, this gives the next closest tick start time */
-  public getNextClosestTickStart(time: number) {
-    return this.getNextClosestTickInterval(time).startTime;
-  }
-
-  /** Returns the next available tick end time given a time. The assumption is that any sort of event should be executed at the start of the next tick, so given a time an event wishes to be executed, this gives the next closest tick end time */
-  public getNextClosestTickEnd(time: number) {
-    return this.getNextClosestTickInterval(time).endTime;
+  /** The next tick interval after the current tick interval */
+  private getNextTick(): Tick {
+    const { endTime } = this._currentTick;
+    return new Tick(endTime, endTime + this.tickDuration);
   }
 }

@@ -1,6 +1,6 @@
 import { Weapon } from '../../../weapon';
 import type { WeaponDefinition } from '../../../weapon-definition';
-import { Damage } from '../damage';
+import { Damage } from '../../damage/damage';
 import { DamageSummary } from '../damage-summary';
 
 describe('DamageSummary', () => {

@@ -1,6 +1,5 @@
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Box, Tooltip } from '@mui/material';
-import groupBy from 'lodash.groupby';
 
 import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
 import type { Gear } from '../models/gear';
@@ -14,7 +13,7 @@ export function GearStars({ gearSnap, gearState }: GearStarsProps) {
   const randomStatRollCombinations = gearSnap.getRandomStatRollCombinations();
 
   const possibleStars = Object.keys(
-    groupBy(randomStatRollCombinations, 'stars')
+    Object.groupBy(randomStatRollCombinations, (x) => x.stars)
   );
 
   return (

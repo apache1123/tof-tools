@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 
-import { maxCharacterLevel } from '../../../constants/character-level';
-import { defaultCritDamagePercent } from '../../../constants/damage-formula';
-import type { CoreElementalType } from '../../../constants/elemental-type';
-import type { GearName } from '../../../constants/gear-types';
+import { maxCharacterLevel } from '../../../definitions/character-level';
+import { defaultCritDamagePercent } from '../../../definitions/damage-formula';
+import type { CoreElementalType } from '../../../definitions/elemental-type';
+import type { GearName } from '../../../definitions/gear-types';
 import type { ElementalAttackDto } from '../../../models/elemental-attack';
 import type { GearDto } from '../../../models/gear';
 import type { GearSetDtoV1, GearSetDtoV2 } from '../../../models/gear-set';
@@ -82,12 +82,12 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
       oldGearComparerOptionsState?.selectedElementalType === 'Flame'
         ? 0
         : oldGearComparerOptionsState?.selectedElementalType === 'Frost'
-        ? 1
-        : oldGearComparerOptionsState?.selectedElementalType === 'Physical'
-        ? 2
-        : oldGearComparerOptionsState?.selectedElementalType === 'Volt'
-        ? 3
-        : 0,
+          ? 1
+          : oldGearComparerOptionsState?.selectedElementalType === 'Physical'
+            ? 2
+            : oldGearComparerOptionsState?.selectedElementalType === 'Volt'
+              ? 3
+              : 0,
     version: 1,
   };
   transferOldGearSets();

@@ -15,7 +15,7 @@ import {
   NumericStringInteger,
   NumericStringPercentage2dp,
 } from '../../components/NumericString/NumericString';
-import { statTypesLookup } from '../../constants/stat-types';
+import { statTypesLookup } from '../../definitions/stat-types';
 
 export function StatRanges() {
   return (

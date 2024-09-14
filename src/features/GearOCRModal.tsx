@@ -14,10 +14,10 @@ import {
   goldGearNamePrefix,
   randomStatsSectionTitle,
   titanGearNamePrefix,
-} from '../constants/gear';
-import type { GearName } from '../constants/gear-types';
-import { gearTypesLookup } from '../constants/gear-types';
-import { statTypesLookup } from '../constants/stat-types';
+} from '../definitions/gear';
+import type { GearName } from '../definitions/gear-types';
+import { gearTypesLookup } from '../definitions/gear-types';
+import { statTypesLookup } from '../definitions/stat-types';
 import { Gear } from '../models/gear';
 import type { GearType } from '../models/gear-type';
 import { RandomStat } from '../models/random-stat';

@@ -16,7 +16,7 @@ export class ResourceTimeline
     return sum(...resourceEvents.map((event) => event.amount)).toNumber();
   }
 
-  public toDto(): ResourceTimelineDto {
+  public override toDto(): ResourceTimelineDto {
     const { events } = this;
     return {
       ...super.toDto(),

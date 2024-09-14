@@ -8,13 +8,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import groupBy from 'lodash.groupby';
 import { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
 import { GearStarsSelector } from '../../components/GearStarsSelector/GearStarsSelector';
 import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
-import { maxNumOfRandomStatRolls } from '../../constants/gear';
+import { maxNumOfRandomStatRolls } from '../../definitions/gear';
 import type { Gear } from '../../models/gear';
 import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
 import type { RandomStat } from '../../models/random-stat';
@@ -103,7 +102,7 @@ function UnableToDetermineStars({
   const gearSnap = useSnapshot(gearState);
 
   const possibleStars = Object.keys(
-    groupBy(randomStatRollCombinations, 'stars')
+    Object.groupBy(randomStatRollCombinations, x => x.stars)
   );
 
   return (

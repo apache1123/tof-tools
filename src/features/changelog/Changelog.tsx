@@ -13,7 +13,7 @@ import { gt } from '@suchipi/femver';
 import { useSnapshot } from 'valtio';
 
 import { ButtonModal } from '../../components/Modal/ButtonModal';
-import { changelog } from '../../constants/changelog';
+import { changelog } from '../../definitions/changelog';
 import { changelogState } from '../../states/states';
 
 export function Changelog() {

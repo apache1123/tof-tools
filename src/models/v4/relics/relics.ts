@@ -1,5 +1,5 @@
-import type { RelicName } from '../../../constants/relics';
-import { maxRelicStars, relicsLookup } from '../../../constants/relics';
+import type { RelicName } from '../../../definitions/relics';
+import { maxRelicStars, relicsLookup } from '../../../definitions/relics';
 import { keysOf } from '../../../utils/object-utils';
 import type { DataById } from '../../data';
 import type { Dto } from '../../dto';
@@ -38,12 +38,10 @@ export class Relics implements Persistable<RelicsDto> {
         const buffs = relicDefinition.buffs.filter(
           ({
             triggeredBy: { combatStart },
-            endedBy: { combatEnd },
             minStarRequirement,
             maxStarRequirement,
           }) =>
             combatStart &&
-            combatEnd &&
             stars >= minStarRequirement &&
             stars <= maxStarRequirement
         );

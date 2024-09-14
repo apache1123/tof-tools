@@ -1,0 +1,46 @@
+import type { WeaponDefinition } from '../../../models/weapon-definition';
+
+export const tianLang = {
+  id: 'Tian Lang',
+  displayName: 'Tian Lang',
+  elementalIcon: 'Volt',
+  resonanceElements: ['Volt'],
+  calculationElements: ['Volt'],
+  damageElement: 'Volt',
+  type: 'DPS',
+  attackPercentBuffs: [
+    {
+      id: 'Volt Resonance',
+      displayName: 'Volt Resonance',
+      description: '+15% volt ATK when equipping 2 or more volt weapons',
+      value: 0.15,
+      elementalTypes: ['Volt'],
+      canStack: false,
+      isActivePassively: true,
+      minStarRequirement: 0,
+      maxStarRequirement: 6,
+      elementalResonanceRequirements: ['Volt'],
+    },
+    {
+      id: 'Volt sense',
+      displayName: 'Volt sense',
+      description:
+        '+6% volt ATK for each other volt weapons equipped. (The tool only assumes 1 other volt weapon)',
+      value: 0.06,
+      elementalTypes: ['Volt'],
+      canStack: false,
+      isActivePassively: false,
+      minStarRequirement: 0,
+      maxStarRequirement: 6,
+      elementalResonanceRequirements: ['Volt'],
+    },
+  ],
+  critRateBuffs: [],
+  critDamageBuffs: [],
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+  buffs: [],
+  resources: [],
+} satisfies WeaponDefinition;
