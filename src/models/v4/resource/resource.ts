@@ -40,6 +40,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     });
   }
 
+  // TODO: not sure if `hasPriority` is actually needed
   /** Adds a resource event to add/subtract the resource amount at the current tick. The amount of resource cannot be added past the max amount or cannot be subtracted past the min amount.
    * @param amount The amount of resource to add; can be negative
    * @param hasPriority If true, will always have priority over other resource events in that time interval, overwriting them
@@ -58,7 +59,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     const amount = this.getCumulatedAmountAt(currentTick.startTime);
     if (amount <= this.minAmount) return;
 
-    this.addResourceEvent(currentTick, -amount, true);
+    this.addResourceEvent(currentTick, -amount, true, true);
   }
 
   /** Called when all resource events have been added for the current tick. Determines the result of all resource events that occurred during the current tick and fires off events accordingly */
@@ -97,42 +98,42 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
   /** Adds a resource event to add/subtract the resource amount at the current tick. The amount of resource cannot be added past the max amount or cannot be subtracted past the min amount.
    * @param amount The amount of resource to add; can be negative
    * @param hasPriority If true, this resource event will overwrite existing ones in the time interval. If false, this resource event will not be added (or be cut short) if there is an existing resource event with priority.
+   * @param isDepletion If true, this resource event will be treated as a deplete resource event, which takes precedence over all other resource events, even ones with priority
    * @returns a resource event if one has been added
    */
-  private addResourceEvent(tick: Tick, amount: number, hasPriority = false) {
+  private addResourceEvent(
+    tick: Tick,
+    amount: number,
+    hasPriority = false,
+    isDepletion = false
+  ) {
     if (!amount) return;
 
     /** Calculate amount of resources to add so the result doesn't go over the max amount or under the min amount the resource can hold */
     const calculateAmountToAdd = () => {
-      const cumulatedAmountPreceding = this.getCumulatedAmountAt(
-        tick.startTime
-      );
+      const cumulatedAmountThusFar = this.getCumulatedAmountAt(tick.endTime);
 
       if (
-        cumulatedAmountPreceding > this.maxAmount ||
-        cumulatedAmountPreceding < this.minAmount
+        cumulatedAmountThusFar > this.maxAmount ||
+        cumulatedAmountThusFar < this.minAmount
       )
         throw new Error(
-          `Resource in an invalid state. Resource: ${this.id}; CumulatedAmount: ${cumulatedAmountPreceding}`
+          `Resource in an invalid state. Resource: ${this.id}; CumulatedAmount: ${cumulatedAmountThusFar}`
         );
 
       let amountToAdd: number;
       if (amount > 0) {
         amountToAdd =
-          BigNumber(cumulatedAmountPreceding).plus(amount).toNumber() >
+          BigNumber(cumulatedAmountThusFar).plus(amount).toNumber() >
           this.maxAmount
-            ? BigNumber(this.maxAmount)
-                .minus(cumulatedAmountPreceding)
-                .toNumber()
+            ? BigNumber(this.maxAmount).minus(cumulatedAmountThusFar).toNumber()
             : amount;
       } else {
         // Negative amount
         amountToAdd =
-          BigNumber(cumulatedAmountPreceding).plus(amount).toNumber() <
+          BigNumber(cumulatedAmountThusFar).plus(amount).toNumber() <
           this.minAmount
-            ? BigNumber(this.minAmount)
-                .minus(cumulatedAmountPreceding)
-                .toNumber()
+            ? BigNumber(this.minAmount).minus(cumulatedAmountThusFar).toNumber()
             : amount;
       }
       return amountToAdd;
@@ -142,7 +143,13 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     if (!amountToAdd) return;
 
     const existingEvents = this.getEvents(tick);
-    if (hasPriority) {
+
+    // Don't add if there is already a depletion event
+    if (existingEvents.some((existingEvent) => existingEvent.isDepletion)) {
+      return;
+    }
+
+    if (isDepletion || hasPriority) {
       // Assuming existing events are always before the event being added
       // Cut short existing events, removing when needed
       for (const existingEvent of existingEvents) {
@@ -168,7 +175,12 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
       return;
     }
 
-    const resourceEvent = new ResourceEvent(tick, amountToAdd, hasPriority);
+    const resourceEvent = new ResourceEvent(
+      tick,
+      amountToAdd,
+      hasPriority,
+      isDepletion
+    );
     this.timeline.addEvent(resourceEvent);
     return resourceEvent;
   }

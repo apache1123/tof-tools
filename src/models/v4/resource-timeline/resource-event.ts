@@ -7,19 +7,16 @@ export class ResourceEvent
   extends TimelineEvent
   implements Serializable<ResourceEventDto>
 {
-  /** Amount of resource added or subtracted */
-  public amount: number;
-  /** If true, this event has priority over others */
-  public hasPriority: boolean;
-
   public constructor(
     timeInterval: TimeInterval,
-    amount: number,
-    hasPriority = false
+    /** Amount of resource added or subtracted */
+    public amount: number,
+    /** If true, this event has priority over others */
+    public hasPriority = false,
+    /** Is an depletion event */
+    public isDepletion = false
   ) {
     super(timeInterval);
-    this.amount = amount;
-    this.hasPriority = hasPriority;
   }
 
   public override toDto(): ResourceEventDto {
