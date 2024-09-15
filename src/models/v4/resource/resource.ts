@@ -174,7 +174,6 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
 
     const resourceEvent = new ResourceEvent(
       currentTick,
-      this,
       amountToAdd,
       hasPriority
     );

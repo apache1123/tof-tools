@@ -11,6 +11,8 @@ export class ResourceTimeline
 {
   /** Cumulated amount of resource up to (but not including) a point of time */
   public getCumulatedAmount(time: number) {
+    if (time === this.startTime) return 0;
+
     const timeInterval = new TimeInterval(this.startTime, time);
     const resourceEvents = this.getEventsEndingBetween(timeInterval);
     return sum(...resourceEvents.map((event) => event.amount)).toNumber();
