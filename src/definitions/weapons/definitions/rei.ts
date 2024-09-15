@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from '../../../models/weapon-definition';
+import type { Weapon } from '../../types/weapon/weapon';
 
 export const rei = {
   id: 'Rei',
@@ -78,4 +78,4 @@ export const rei = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],
-} satisfies WeaponDefinition;
+} satisfies Weapon;

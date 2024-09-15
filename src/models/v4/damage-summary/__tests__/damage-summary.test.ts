@@ -1,5 +1,5 @@
+import type { Weapon as WeaponDefinition } from '../../../../definitions/types/weapon/weapon';
 import { Weapon } from '../../../weapon';
-import type { WeaponDefinition } from '../../../weapon-definition';
 import { Damage } from '../../damage/damage';
 import { DamageSummary } from '../damage-summary';
 

@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from '../../../models/weapon-definition';
+import type { Weapon } from '../../types/weapon/weapon';
 
 export const brevey = {
   id: 'Brevey',
@@ -63,4 +63,4 @@ export const brevey = {
         'Used to track the amount of damage accumulated, one unit is 1 times the total ATK',
     },
   ],
-} satisfies WeaponDefinition;
+} satisfies Weapon;

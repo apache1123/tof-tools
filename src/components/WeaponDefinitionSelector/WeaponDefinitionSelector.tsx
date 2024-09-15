@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
 
+import type { Weapon as WeaponDefinition } from '../../definitions/types/weapon/weapon';
 import { weaponDefinitions } from '../../definitions/weapons/weapon-definitions';
-import type { WeaponDefinition } from '../../models/weapon-definition';
 
 export interface WeaponDefinitionSelectorProps {
   selectedWeaponDefinition: WeaponDefinition | undefined;
