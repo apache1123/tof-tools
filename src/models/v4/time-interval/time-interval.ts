@@ -3,7 +3,7 @@ import type { TimeIntervalDto } from './dtos/time-interval-dto';
 
 /** A time interval defined by two instant points of time.
  *
- * The start time instant is inclusive and the end time instant is exclusive. i.e. [startTime, exclusive) */
+ * The start time instant is inclusive and the end time instant is exclusive. i.e. [startTime, endTime) */
 export class TimeInterval implements Serializable<TimeIntervalDto> {
   private _startTime: number;
   private _endTime: number;
@@ -40,8 +40,10 @@ export class TimeInterval implements Serializable<TimeIntervalDto> {
     return this._endTime;
   }
   public set endTime(value: number) {
-    if (value < this._startTime) {
-      throw new Error('End time cannot be earlier than start time');
+    if (value <= this._startTime) {
+      throw new Error(
+        'End time cannot be earlier than, or the same as, the start time'
+      );
     }
     this._endTime = value;
   }

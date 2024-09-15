@@ -1,9 +1,8 @@
-import type { WeaponName } from '../constants/weapons/weapon-definitions';
+import type { AttackAbility } from '../definitions/types/attack/attack-ability';
+import type { WeaponName } from '../definitions/weapons/weapon-definitions';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
-import type { AttackDefinition } from './v4/attack/attack-definition';
 import { hasMetStarRequirement } from './v4/star-requirement';
-import type { PlayerInputAttackDefinition } from './v4/weapon/weapon-attack-definition';
 import type { WeaponStarRequirement } from './v4/weapon/weapon-star-requirement';
 import {
   getWeaponDefinition,
@@ -32,31 +31,11 @@ export class Weapon implements Persistable<WeaponDto> {
     return this.definition.displayName;
   }
 
-  public get attackDefinitions(): AttackDefinition[] {
-    const { normalAttacks, dodgeAttacks, skills, discharges, passiveAttacks } =
-      this.definition;
-    return [
-      ...normalAttacks,
-      ...dodgeAttacks,
-      ...skills,
-      ...discharges,
-      ...passiveAttacks,
-    ].filter((attackDefinition) =>
-      this.hasMetStarRequirement(attackDefinition.starRequirement)
-    );
-  }
-
-  public get allPlayerInputAttackDefinitions(): PlayerInputAttackDefinition[] {
+  public get attackDefinitions(): AttackAbility[] {
     const { normalAttacks, dodgeAttacks, skills, discharges } = this.definition;
     return [...normalAttacks, ...dodgeAttacks, ...skills, ...discharges].filter(
       (attackDefinition) =>
         this.hasMetStarRequirement(attackDefinition.starRequirement)
-    );
-  }
-
-  public get allPassiveAttackDefinitions(): AttackDefinition[] {
-    return this.definition.passiveAttacks.filter((attackDefinition) =>
-      this.hasMetStarRequirement(attackDefinition.starRequirement)
     );
   }
 

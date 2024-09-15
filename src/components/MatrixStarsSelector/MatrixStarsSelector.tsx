@@ -1,6 +1,6 @@
 import { Rating } from '@mui/material';
 
-import { maxNumOfMatrixStars } from '../../constants/matrix';
+import { maxNumOfMatrixStars } from '../../definitions/matrix';
 
 export interface MatrixStarsSelectorProps {
   stars: number;

@@ -1,7 +1,7 @@
-import type { AttackType } from '../../../constants/attack-type';
+import type { AttackType } from '../../../definitions/attack-type';
 import { keysOf } from '../../../utils/object-utils';
 import type { Serializable } from '../../persistable';
-import { Damage } from './damage';
+import { Damage } from '../damage/damage';
 import type { WeaponDamageSummaryDto } from './dtos/weapon-damage-summary-dto';
 import { ElementalDamageSummary } from './elemental-damage-summary';
 

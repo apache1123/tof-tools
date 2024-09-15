@@ -1,8 +1,8 @@
-import { defaultCritDamagePercent } from '../constants/damage-formula';
+import { defaultCritDamagePercent } from '../definitions/damage-formula';
 import type {
   CoreElementalType,
   WeaponElementalType,
-} from '../constants/elemental-type';
+} from '../definitions/elemental-type';
 import { sum } from '../utils/math-utils';
 import { keysOf } from '../utils/object-utils';
 import type { Dto } from './dto';
@@ -11,6 +11,7 @@ import { ElementalAttack } from './elemental-attack';
 import type { Loadout } from './loadout';
 import type { Persistable } from './persistable';
 
+// TODO: Elemental attacks in this are misleading. Only the base attack is set right now, the total attack is not.
 /** User-inputted stats for a `Loadout` */
 export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public readonly loadout: Loadout;
@@ -21,6 +22,7 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public physicalAttack: ElementalAttack;
   public voltAttack: ElementalAttack;
 
+  /** **Only the base attack is set for each elemental attack** */
   public readonly elementalAttacks: Record<CoreElementalType, ElementalAttack>;
   private _elementalResistances: Record<WeaponElementalType, number>;
 
@@ -62,6 +64,7 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
     }
   }
 
+  /** **Only the base attack is set for this** */
   public get activeElementalAttack(): ElementalAttack {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -81,6 +84,7 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
       ).element;
   }
 
+  /** **Only the base attack is set for this** */
   public getElementalAttack(elementalType: WeaponElementalType) {
     if (elementalType !== 'Altered') {
       return this.elementalAttacks[elementalType];

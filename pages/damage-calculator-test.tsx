@@ -2,9 +2,9 @@ import { Container, TextareaAutosize } from '@mui/material';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
-import { matrixSetDefinitionsLookup } from '../src/constants/matrix-set-definitions';
-import { simulacrumTraits } from '../src/constants/simulacrum-traits';
-import { weaponDefinitions } from '../src/constants/weapons/weapon-definitions';
+import { matrixSetDefinitionsLookup } from '../src/definitions/matrix-set-definitions';
+import { simulacrumTraits } from '../src/definitions/simulacrum-traits';
+import { weaponDefinitions } from '../src/definitions/weapons/weapon-definitions';
 import { CombatSimulatorResult } from '../src/features/combat-simulator/CombatSimulatorResult';
 import { MatrixSet } from '../src/models/matrix-set';
 import { CombatSimulator } from '../src/models/v4/combat-simulator/combat-simulator';
@@ -45,12 +45,12 @@ export default function DamageCalculatorTestPage() {
 
     const relics = getDefaultRelics();
     const options = getDefaultCombatSimulatorOptions();
-    const combatSimulator = new CombatSimulator(loadout, relics, options);
+    // const combatSimulator = new CombatSimulator(loadout, relics, options);
 
-    combatSimulator.performAbility('brevey-normal-hold');
-    combatSimulator.performAbility('rei-discharge');
+    // combatSimulator.performAttack('brevey-normal-hold');
+    // combatSimulator.performAttack('rei-discharge');
 
-    setCombatSimulatorSnapshot(combatSimulator.snapshot());
+    // setCombatSimulatorSnapshot(combatSimulator.snapshot());
   }, []);
 
   return (

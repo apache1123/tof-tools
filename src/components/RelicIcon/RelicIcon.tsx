@@ -2,7 +2,7 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 
-import type { RelicName } from '../../constants/relics';
+import type { RelicName } from '../../definitions/relics';
 import { normalCaseToKebabCase } from '../../utils/string-utils';
 
 export interface RelicIconProps {

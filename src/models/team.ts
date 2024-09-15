@@ -1,9 +1,9 @@
 import groupBy from 'lodash.groupby';
 
-import type { ElementalResonance } from '../constants/elemental-resonance';
-import type { WeaponElementalType } from '../constants/elemental-type';
-import type { WeaponName } from '../constants/weapons/weapon-definitions';
-import type { WeaponResonance } from '../constants/weapons/weapon-resonance';
+import type { ElementalResonance } from '../definitions/elemental-resonance';
+import type { WeaponElementalType } from '../definitions/elemental-type';
+import type { WeaponName } from '../definitions/weapons/weapon-definitions';
+import type { WeaponResonance } from '../definitions/weapons/weapon-resonance';
 import { filterOutUndefined } from '../utils/array-utils';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
@@ -42,7 +42,7 @@ export class Team implements Persistable<TeamDto> {
     const elementalResonances = (
       Object.keys(elementalTypeGroups) as WeaponElementalType[]
     ).flatMap((elementalType) =>
-      elementalTypeGroups[elementalType].length > 1 ? elementalType : []
+      (elementalTypeGroups[elementalType]?.length ?? 0) > 1 ? elementalType : []
     );
 
     return elementalResonances.length ? elementalResonances : ['None'];

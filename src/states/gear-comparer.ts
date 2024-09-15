@@ -1,4 +1,4 @@
-import type { GearName } from '../constants/gear-types';
+import type { GearName } from '../definitions/gear-types';
 import type { Dto } from '../models/dto';
 import type { Gear } from '../models/gear';
 import type { GearSetDtoV2 } from '../models/gear-set';

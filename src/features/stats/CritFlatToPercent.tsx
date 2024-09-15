@@ -3,8 +3,8 @@ import { proxy, useSnapshot } from 'valtio';
 
 import { NumericInput } from '../../components/NumericInput/NumericInput';
 import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
-import { maxCharacterLevel } from '../../constants/character-level';
-import { calculateCritPercentFromFlat } from '../../utils/stat-calculation-utils';
+import { maxCharacterLevel } from '../../definitions/character-level';
+import { calculateCritRatePercentFromFlat } from '../../utils/stat-calculation-utils';
 
 const state = proxy<{ critFlat: number; characterLevel: number }>({
   critFlat: 0,
@@ -14,7 +14,7 @@ const state = proxy<{ critFlat: number; characterLevel: number }>({
 export function CritFlatToPercent() {
   const snap = useSnapshot(state);
 
-  const critPercent = calculateCritPercentFromFlat(
+  const critPercent = calculateCritRatePercentFromFlat(
     snap.critFlat,
     snap.characterLevel
   );

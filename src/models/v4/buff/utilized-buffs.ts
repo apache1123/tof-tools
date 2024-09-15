@@ -1,4 +1,4 @@
-import type { BuffId } from './buff-definition';
+import type { BuffId } from '../../../definitions/types/buff/buff-ability';
 
 /** To track what buffs have been utilized in combat. "Utilized" means the buff has been applied to any of the attacks in the sequence of attacks during combat.
  *

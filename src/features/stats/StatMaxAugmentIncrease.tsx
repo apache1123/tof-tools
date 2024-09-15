@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { proxy, useSnapshot } from 'valtio';
 
 import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
-import { statTypesLookup } from '../../constants/stat-types';
+import { statTypesLookup } from '../../definitions/stat-types';
 import { RandomStat } from '../../models/random-stat';
 import type { StatType } from '../../models/stat-type';
 import { EmptyStatEditor, StatEditor } from '../StatEditor';

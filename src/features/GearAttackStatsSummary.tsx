@@ -6,10 +6,10 @@ import {
   NumericStringInteger,
   NumericStringPercentage2dp,
 } from '../components/NumericString/NumericString';
-import type { CoreElementalType } from '../constants/elemental-type';
+import type { CoreElementalType } from '../definitions/elemental-type';
 import type { Gear } from '../models/gear';
 import { userStatsState } from '../states/states';
-import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
+import { calculateCritRatePercentFromFlat } from '../utils/stat-calculation-utils';
 
 export interface GearAttackStatsSummaryProps {
   gearSnap: Gear;
@@ -28,7 +28,7 @@ export function GearAttackStatsSummary({
     gearSnap.getTotalElementalDamagePercent(elementalType);
 
   const { characterLevel } = useSnapshot(userStatsState);
-  const totalCritFlatToPercent = calculateCritPercentFromFlat(
+  const totalCritFlatToPercent = calculateCritRatePercentFromFlat(
     totalCritFlat,
     characterLevel
   );

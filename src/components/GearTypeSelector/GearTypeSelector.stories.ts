@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { gearTypesLookup } from '../../constants/gear-types';
+import { gearTypesLookup } from '../../definitions/gear-types';
 import type { GearType } from '../../models/gear-type';
 import { GearTypeSelector } from './GearTypeSelector';
 

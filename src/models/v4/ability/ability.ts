@@ -1,86 +1,102 @@
-import { minEventDuration } from '../../../constants/tick';
 import type { Serializable } from '../../persistable';
-import type { AbilityEvent } from '../ability-timeline/ability-event';
-import type { AbilityTimeline } from '../ability-timeline/ability-timeline';
-import type { TickTracker } from '../tick-tracker';
-import type { AbilityDefinition, AbilityId } from './ability-definition';
-import type { AbilityEndedBy } from './ability-ended-by';
+import type { CombatContext } from '../combat-context/combat-context';
+import type { EventManager } from '../event/event-manager';
+import { TimeInterval } from '../time-interval/time-interval';
+import type { AbilityEvent } from './ability-event';
+import type { AbilityId } from './ability-id';
+import type { AbilityRequirements } from './ability-requirements';
+import type { AbilityTimeline } from './ability-timeline';
 import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityDto } from './dtos/ability-dto';
 
 /** An ability is anything a character does. Attacks, buffs etc. are all considered abilities. */
-export abstract class Ability<T extends AbilityEvent = AbilityEvent>
+export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   implements Serializable<AbilityDto>
 {
-  public readonly id: AbilityId;
-  public readonly displayName: string;
-  public readonly cooldown: number;
-  public readonly endedBy: AbilityEndedBy;
-  public readonly updatesResources: AbilityUpdatesResource[];
-
-  public readonly timeline: AbilityTimeline<T>;
-
-  private readonly tickTracker: TickTracker;
-
   public constructor(
-    definition: AbilityDefinition,
-    timeline: AbilityTimeline<T>,
-    tickTracker: TickTracker
-  ) {
-    const { id, displayName, cooldown, endedBy, updatesResources } = definition;
-    this.id = id;
-    this.displayName = displayName;
-    this.cooldown = cooldown;
-    this.endedBy = endedBy;
-    this.updatesResources = updatesResources ?? [];
+    public readonly id: AbilityId,
+    protected readonly displayName: string,
+    protected readonly cooldown: number,
+    protected readonly duration: number | undefined,
+    protected readonly canBePlayerTriggered: boolean,
+    protected readonly requirements: AbilityRequirements,
+    protected readonly updatesResources: AbilityUpdatesResource[],
+    protected readonly timeline: AbilityTimeline<TAbilityEvent>,
+    protected readonly eventManager: EventManager,
+    protected readonly context: CombatContext
+  ) {}
 
-    this.timeline = timeline;
-    this.tickTracker = tickTracker;
+  protected getTriggerTime() {
+    return this.context.currentTick.startTime;
   }
 
-  public get lastEvent() {
-    return this.timeline.lastEvent;
+  protected getCurrentCombatState() {
+    return this.context.currentState;
   }
 
-  /** The time that any new actions to be performed by the ability will start */
-  protected get triggerTime() {
-    return this.tickTracker.currentTickStart;
-  }
-
-  public canTrigger(): boolean {
-    return !this.isOnCooldown();
-  }
-
-  /** Trigger the ability at the current start time */
-  public trigger(): T | undefined {
-    if (!this.canTrigger()) return;
-    return this.addEvent();
-  }
-
-  protected abstract addEvent(): T;
-
-  /** Returns any ability events overlapping with the current tick */
-  public getActiveEvents(): T[] {
-    return this.timeline.getEventsOverlappingInterval(
-      this.tickTracker.currentTickStart,
-      this.tickTracker.currentTickEnd
+  public canTrigger() {
+    return (
+      !this.timeline.hasEventOnCooldownAt(this.getTriggerTime()) &&
+      this.haveRequirementsBeenMet()
     );
   }
 
-  /** End any active ability events at the current start time */
-  public endActiveEvents(): T[] {
-    const endTime = this.triggerTime + minEventDuration;
-    return this.timeline.endAnyEventsAt(endTime);
+  public canPlayerTrigger() {
+    return this.canBePlayerTriggered && this.canTrigger();
   }
 
-  /** Check if the ability is active at the start of the current start time */
-  public isActive() {
-    return this.timeline.hasEventAt(this.triggerTime);
+  /** Trigger an ability event */
+  public trigger() {
+    if (!this.canTrigger()) return;
+
+    const newEventTimeInterval = this.getNewEventTimeInterval();
+    const newEvent = this.createNewEvent(newEventTimeInterval);
+    this.timeline.addEvent(newEvent);
+
+    this.eventManager.publishAbilityStarted({ id: this.id });
   }
 
-  /** Check if the ability is on cooldown at the start of the current start time */
-  public isOnCooldown() {
-    return this.timeline.hasEventOnCooldownAt(this.triggerTime);
+  /** Perform whatever actions needed during the current tick for this ability. Emit events, update resources, etc. */
+  public process() {
+    const ongoingEvents = this.getOngoingEvents();
+
+    if (ongoingEvents.length === 0) return;
+
+    // Terminate any ongoing events if the requirements for this ability are no longer met
+    if (!this.haveRequirementsBeenMet()) this.terminate();
+
+    for (const event of ongoingEvents) {
+      event.process();
+    }
+  }
+
+  /** Has ongoing events */
+  public isOngoing() {
+    return this.getOngoingEvents().length > 0;
+  }
+
+  protected getOngoingEvents(): TAbilityEvent[] {
+    return this.timeline.getEventsOverlapping(this.context.currentTick);
+  }
+
+  protected abstract createNewEvent(timeInterval: TimeInterval): TAbilityEvent;
+
+  /** Terminate any active ability events */
+  private terminate() {
+    this.timeline.endAnyEventsAt(this.context.currentTick.endTime);
+  }
+
+  private haveRequirementsBeenMet() {
+    return this.requirements.haveBeenMet(this.getCurrentCombatState());
+  }
+
+  private getNewEventTimeInterval(): TimeInterval {
+    const startTime = this.getTriggerTime();
+    const endTime = this.duration
+      ? startTime + this.duration
+      : this.timeline.endTime;
+
+    return new TimeInterval(startTime, endTime);
   }
 
   public toDto(): AbilityDto {

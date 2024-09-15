@@ -1,4 +1,3 @@
-import { minEventDuration } from '../../../constants/tick';
 import { sum } from '../../../utils/math-utils';
 import type { Serializable } from '../../persistable';
 import { TimeInterval } from '../time-interval/time-interval';
@@ -12,12 +11,12 @@ export class ResourceTimeline
 {
   /** Cumulated amount of resource up to (but not including) a point of time */
   public getCumulatedAmount(time: number) {
-    const timeInterval = new TimeInterval(-minEventDuration, time); // start time is negative because there could be an event that adds the starting amount of a resource before the combat start time of time=0
+    const timeInterval = new TimeInterval(this.startTime, time);
     const resourceEvents = this.getEventsEndingBetween(timeInterval);
     return sum(...resourceEvents.map((event) => event.amount)).toNumber();
   }
 
-  public toDto(): ResourceTimelineDto {
+  public override toDto(): ResourceTimelineDto {
     const { events } = this;
     return {
       ...super.toDto(),

@@ -1,4 +1,4 @@
-import { defaultNumOfRandomStats } from '../constants/gear';
+import { defaultNumOfRandomStats } from '../definitions/gear';
 import { Gear } from '../models/gear';
 import type { GearComparerState } from './gear-comparer';
 

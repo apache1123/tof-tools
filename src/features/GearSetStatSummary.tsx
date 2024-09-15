@@ -5,7 +5,7 @@ import {
   NumericStringInteger,
   NumericStringPercentage2dp,
 } from '../components/NumericString/NumericString';
-import type { CoreElementalType } from '../constants/elemental-type';
+import type { CoreElementalType } from '../definitions/elemental-type';
 import type { GearSet } from '../models/gear-set';
 
 export interface GearSetStatSummaryProps {

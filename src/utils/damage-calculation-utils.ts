@@ -1,10 +1,15 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 
+import { defaultCritDamagePercent } from '../definitions/damage-formula';
+import { sum } from './math-utils';
+import { calculateCritRatePercentFromFlat } from './stat-calculation-utils';
+
+// TODO: Split totalAttackPercent into gearAttackPercent and buffAttackPercent
 export function calculateTotalAttack(
-  baseAttack: BigNumber,
-  totalAttackPercent: BigNumber
+  baseAttack: BigNumber.Value,
+  totalAttackPercent: BigNumber.Value
 ) {
-  return baseAttack.times(totalAttackPercent.plus(1));
+  return BigNumber(baseAttack).times(BigNumber(totalAttackPercent).plus(1));
 }
 
 export function calculateDamageMultiplier(
@@ -17,4 +22,23 @@ export function calculateDamageMultiplier(
   return calculateTotalAttack(attackFlat, attackPercent)
     .multipliedBy(critPercent.multipliedBy(critDamagePercent).plus(1))
     .multipliedBy(damagePercent.plus(1));
+}
+
+export function calculateTotalCritRatePercent(
+  critRateFlat: BigNumber.Value,
+  characterLevel: BigNumber.Value,
+  gearCritRatePercent: BigNumber.Value,
+  buffCritRatePercent: BigNumber.Value
+) {
+  return sum(
+    calculateCritRatePercentFromFlat(critRateFlat, characterLevel),
+    gearCritRatePercent,
+    buffCritRatePercent
+  );
+}
+
+export function calculateTotalCritDamagePercent(
+  buffCritDamagePercent: BigNumber.Value
+) {
+  return sum(defaultCritDamagePercent, buffCritDamagePercent);
 }

@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { maxNumOfRandomStatRolls } from '../constants/gear';
-import type { StatName } from '../constants/stat-types';
-import { statTypesLookup } from '../constants/stat-types';
+import { maxNumOfRandomStatRolls } from '../definitions/gear';
+import type { StatName } from '../definitions/stat-types';
+import { statTypesLookup } from '../definitions/stat-types';
 import { toIntegerString, toPercentageString2dp } from '../utils/number-utils';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';

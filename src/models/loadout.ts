@@ -1,17 +1,17 @@
 import BigNumber from 'bignumber.js';
 import { nanoid } from 'nanoid';
 
-import { defaultCritDamagePercent } from '../constants/damage-formula';
+import { defaultCritDamagePercent } from '../definitions/damage-formula';
 import type {
   CoreElementalType,
   WeaponElementalType,
-} from '../constants/elemental-type';
-import type { GearName } from '../constants/gear-types';
-import type { SimulacrumName } from '../constants/simulacrum-traits';
-import { simulacrumTraits } from '../constants/simulacrum-traits';
+} from '../definitions/elemental-type';
+import type { GearName } from '../definitions/gear-types';
+import type { SimulacrumName } from '../definitions/simulacrum-traits';
+import { simulacrumTraits } from '../definitions/simulacrum-traits';
 import { calculateDamageMultiplier } from '../utils/damage-calculation-utils';
 import { sum } from '../utils/math-utils';
-import { calculateCritPercentFromFlat } from '../utils/stat-calculation-utils';
+import { calculateCritRatePercentFromFlat } from '../utils/stat-calculation-utils';
 import type { Dto } from './dto';
 import { Gear } from './gear';
 import type { GearSet, GearSetDtoV2 } from './gear-set';
@@ -39,7 +39,7 @@ export class Loadout implements Persistable<LoadoutDto> {
     public elementalType: CoreElementalType,
     public readonly team: Team,
     public readonly gearSet: GearSet,
-    public readonly userStats: UserStats
+    private readonly userStats: UserStats
   ) {
     this._id = nanoid();
 
@@ -78,7 +78,7 @@ export class Loadout implements Persistable<LoadoutDto> {
 
     const critPercentWithoutGear = BigNumber(this.critPercentTotal)
       .minus(
-        calculateCritPercentFromFlat(
+        calculateCritRatePercentFromFlat(
           gear.getTotalCritFlat(),
           this.userStats.characterLevel
         )
@@ -137,14 +137,14 @@ export class Loadout implements Persistable<LoadoutDto> {
 
     const critPercent = BigNumber(critPercentTotal)
       .minus(
-        calculateCritPercentFromFlat(
+        calculateCritRatePercentFromFlat(
           originalGear.getTotalCritFlat(),
           characterLevel
         )
       )
       .minus(originalGear.getTotalCritPercent())
       .plus(
-        calculateCritPercentFromFlat(
+        calculateCritRatePercentFromFlat(
           substituteGear.getTotalCritFlat(),
           characterLevel
         )
@@ -234,10 +234,14 @@ export class Loadout implements Persistable<LoadoutDto> {
     return this.loadoutStats.critFlat;
   }
 
+  /** Crit rate% - from gear only */
+  public get gearCritPercent(): number {
+    return this.gearSet.getTotalCritPercent();
+  }
   /** Crit rate% - accounting from stats and gear only */
   public get critPercentUnbuffed(): number {
     return sum(
-      calculateCritPercentFromFlat(
+      calculateCritRatePercentFromFlat(
         this.loadoutStats.critFlat,
         this.userStats.characterLevel
       ),

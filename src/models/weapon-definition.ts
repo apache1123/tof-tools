@@ -1,16 +1,15 @@
 import type {
   FusionWeaponElementalType,
   WeaponElementalType,
-} from '../constants/elemental-type';
-import type { WeaponName } from '../constants/weapons/weapon-definitions';
-import { weaponDefinitions } from '../constants/weapons/weapon-definitions';
-import type { WeaponType } from '../constants/weapons/weapon-type';
+} from '../definitions/elemental-type';
+import type { WeaponName } from '../definitions/weapons/weapon-definitions';
+import { weaponDefinitions } from '../definitions/weapons/weapon-definitions';
+import type { WeaponType } from '../definitions/weapons/weapon-type';
 import type {
   DischargeAttackDefinition,
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
-  WeaponAttackDefinition,
 } from './v4/weapon/weapon-attack-definition';
 import type { WeaponBuffDefinition } from './v4/weapon/weapon-buff-definition';
 import type { WeaponResourceDefinition } from './v4/weapon/weapon-resource-definition';
@@ -46,7 +45,6 @@ export interface WeaponDefinition {
   dodgeAttacks: DodgeAttackDefinition[];
   skills: SkillAttackDefinition[];
   discharges: DischargeAttackDefinition[];
-  passiveAttacks: WeaponAttackDefinition[];
 
   buffs: WeaponBuffDefinition[];
 

@@ -1,6 +1,6 @@
-import type { WeaponElementalType } from '../../../constants/elemental-type';
+import type { WeaponElementalType } from '../../../definitions/elemental-type';
 import { keysOf } from '../../../utils/object-utils';
-import { Damage } from './damage';
+import { Damage } from '../damage/damage';
 
 export class ElementalDamageSummary {
   public readonly elementalTypeDamages: Record<WeaponElementalType, Damage> = {

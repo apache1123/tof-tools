@@ -1,7 +1,7 @@
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import Image from 'next/image';
 
-import type { GearName } from '../../constants/gear-types';
+import type { GearName } from '../../definitions/gear-types';
 import { normalCaseToKebabCase } from '../../utils/string-utils';
 
 export interface GearTypeIconProps {

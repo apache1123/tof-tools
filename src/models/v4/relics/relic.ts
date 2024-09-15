@@ -1,4 +1,4 @@
-import type { RelicName } from '../../../constants/relics';
+import type { RelicName } from '../../../definitions/relics';
 import type { RelicBuffDefinition } from './relic-buff-definition';
 
 export interface Relic {

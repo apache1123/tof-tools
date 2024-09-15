@@ -1,6 +1,6 @@
-import type { GearName, GearVersion } from '../constants/gear-types';
-import type { StatName } from '../constants/stat-types';
-import { statTypesLookup } from '../constants/stat-types';
+import type { GearName, GearVersion } from '../definitions/gear-types';
+import type { StatName } from '../definitions/stat-types';
+import { statTypesLookup } from '../definitions/stat-types';
 import type { StatType } from './stat-type';
 
 export interface GearType {

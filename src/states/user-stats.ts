@@ -1,5 +1,5 @@
-import { maxCharacterLevel } from '../constants/character-level';
-import type { CoreElementalType } from '../constants/elemental-type';
+import { maxCharacterLevel } from '../definitions/character-level';
+import type { CoreElementalType } from '../definitions/elemental-type';
 import type { DataById } from '../models/data';
 import type { Dto } from '../models/dto';
 import type { ElementalUserStatsDto } from '../models/elemental-user-stats';

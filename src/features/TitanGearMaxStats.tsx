@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
 
-import type { CoreElementalType } from '../constants/elemental-type';
+import type { CoreElementalType } from '../definitions/elemental-type';
 import type { Gear } from '../models/gear';
 import { GearAttackStatsSummary } from './GearAttackStatsSummary';
 

@@ -1,6 +1,6 @@
-import type { ElementalResonance } from '../constants/elemental-resonance';
-import type { WeaponElementalType } from '../constants/elemental-type';
-import type { WeaponResonance } from '../constants/weapons/weapon-resonance';
+import type { ElementalResonance } from '../definitions/elemental-resonance';
+import type { WeaponElementalType } from '../definitions/elemental-type';
+import type { WeaponResonance } from '../definitions/weapons/weapon-resonance';
 
 export interface WeaponBuffDefinition {
   id: string;

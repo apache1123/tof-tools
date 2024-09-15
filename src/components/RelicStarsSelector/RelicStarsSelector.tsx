@@ -1,6 +1,6 @@
 import { Rating } from '@mui/material';
 
-import { maxRelicStars } from '../../constants/relics';
+import { maxRelicStars } from '../../definitions/relics';
 
 export interface RelicStarsSelectorProps {
   stars: number;

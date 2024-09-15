@@ -14,7 +14,7 @@ export function GearStars({ gearSnap, gearState }: GearStarsProps) {
   const randomStatRollCombinations = gearSnap.getRandomStatRollCombinations();
 
   const possibleStars = Object.keys(
-    groupBy(randomStatRollCombinations, 'stars')
+    groupBy(randomStatRollCombinations, (x) => x.stars)
   );
 
   return (

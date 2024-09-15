@@ -1,4 +1,4 @@
-import { Damage } from '../damage';
+import { Damage } from '../../damage/damage';
 import { ElementalDamageSummary } from '../elemental-damage-summary';
 
 describe('ElementalDamageSummary', () => {

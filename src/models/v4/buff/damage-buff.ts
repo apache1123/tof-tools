@@ -1,23 +1,32 @@
-import type { AttackType } from '../../../constants/attack-type';
-import type { DamageCategory } from '../../../constants/damage-category';
-import type { WeaponElementalType } from '../../../constants/elemental-type';
-import type { WeaponName } from '../../../constants/weapons/weapon-definitions';
-import type { AttackId } from '../attack/attack-definition';
+import type { BuffId } from '../../../definitions/types/buff/buff-ability';
+import type { AttackHit } from '../event/messages/attack-hit';
+import { Buff } from './buff';
+import type { BuffSource } from './buff-source';
+import type { DamageBuffRestrictedTo } from './damage-buff-restricted-to';
 
-export interface DamageBuff {
-  value: number;
-  /** The elemental types the damage buff applies to */
-  elementalTypes: WeaponElementalType[];
-  /** Damage buffs in the same category are additive. If they are not, they are multiplicative */
-  damageCategory: DamageCategory;
+export abstract class DamageBuff extends Buff {
+  public constructor(
+    id: BuffId,
+    value: number,
+    public readonly source: BuffSource,
+    private readonly restrictedTo: DamageBuffRestrictedTo
+  ) {
+    super(id, value);
+  }
 
-  /** Damage buff only applies to certain abilities */
-  appliesTo?: {
-    /** Damage buff only applies to attacks of this weapon */
-    weapon?: WeaponName;
-    /** Damage buff only applies to attacks of this attack type */
-    attackType?: AttackType;
-    /** Damage buff only applies to these attacks */
-    attacks?: AttackId[];
-  };
+  public override canApplyTo(attackHit: AttackHit): boolean {
+    const {
+      finalDamageModifiers: { canOnlyBeBuffedByTitans },
+    } = attackHit;
+
+    return (
+      (!canOnlyBeBuffedByTitans || this.source === 'titan') &&
+      (!this.restrictedTo.weapon ||
+        this.restrictedTo.weapon === attackHit.weapon.id) &&
+      (!this.restrictedTo.attackType ||
+        this.restrictedTo.attackType === attackHit.attackType) &&
+      (!this.restrictedTo.attacks ||
+        this.restrictedTo.attacks.includes(attackHit.attackId))
+    );
+  }
 }

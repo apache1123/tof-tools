@@ -1,8 +1,8 @@
 import type {
   CoreElementalType,
   StatTypeElementalType,
-} from '../constants/elemental-type';
-import type { StatName, StatRole } from '../constants/stat-types';
+} from '../definitions/elemental-type';
+import type { StatName, StatRole } from '../definitions/stat-types';
 
 export interface StatType {
   id: StatName;

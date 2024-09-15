@@ -2,8 +2,8 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 
-import type { FusionWeaponElementalType } from '../../constants/elemental-type';
-import type { WeaponName } from '../../constants/weapons/weapon-definitions';
+import type { FusionWeaponElementalType } from '../../definitions/elemental-type';
+import type { WeaponName } from '../../definitions/weapons/weapon-definitions';
 import { normalCaseToKebabCase } from '../../utils/string-utils';
 import { ElementalTypeIcon } from '../ElementalTypeIcon/ElementalTypeIcon';
 

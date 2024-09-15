@@ -3,7 +3,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import {
   matrixSet2pcOrder,
   matrixSet4pcOrder,
-} from '../../constants/matrix-set-definitions';
+} from '../../definitions/matrix-set-definitions';
 import {
   getMatrixSetDefinition,
   type MatrixSetDefinition,

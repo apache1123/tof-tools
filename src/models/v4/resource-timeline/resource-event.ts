@@ -27,7 +27,7 @@ export class ResourceEvent
     this.hasPriority = hasPriority;
   }
 
-  public toDto(): ResourceEventDto {
+  public override toDto(): ResourceEventDto {
     const { amount } = this;
     return {
       ...super.toDto(),

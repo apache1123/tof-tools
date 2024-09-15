@@ -1,6 +1,6 @@
 import { Autocomplete, Stack, TextField, Typography } from '@mui/material';
 
-import { gearTypesLookup } from '../../constants/gear-types';
+import { gearTypesLookup } from '../../definitions/gear-types';
 import type { GearType } from '../../models/gear-type';
 import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
 

@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSnapshot } from 'valtio';
 
-import { gearTypesLookup } from '../../constants/gear-types';
+import { gearTypesLookup } from '../../definitions/gear-types';
 import type { LoadoutsState } from '../../states/loadouts';
 import { loadoutsState } from '../../states/states';
 import { LoadoutGear } from './LoadoutGear';

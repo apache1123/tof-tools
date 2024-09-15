@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 
-import type { CoreElementalType } from '../constants/elemental-type';
-import type { GearName } from '../constants/gear-types';
-import { gearTypesLookup } from '../constants/gear-types';
+import type { CoreElementalType } from '../definitions/elemental-type';
+import type { GearName } from '../definitions/gear-types';
+import { gearTypesLookup } from '../definitions/gear-types';
 import { sum } from '../utils/math-utils';
 import type { DataById } from './data';
 import type { Dto } from './dto';

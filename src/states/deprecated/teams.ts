@@ -1,4 +1,4 @@
-import type { CoreElementalType } from '../../constants/elemental-type';
+import type { CoreElementalType } from '../../definitions/elemental-type';
 import type { DataById } from '../../models/data';
 import type { Dto } from '../../models/dto';
 import type { TeamDto } from '../../models/team';

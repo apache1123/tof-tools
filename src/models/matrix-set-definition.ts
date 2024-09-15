@@ -1,7 +1,7 @@
 import {
   type MatrixSetBaseName,
   matrixSetDefinitionsLookup,
-} from '../constants/matrix-set-definitions';
+} from '../definitions/matrix-set-definitions';
 import type {
   MatrixSetAttackPercentBuffDefinition,
   MatrixSetCritDamageBuffDefinition,
