@@ -29,7 +29,7 @@
     "@rpldy/upload-drop-zone": "^1.8.0",
     "@rpldy/upload-paste": "^1.8.0",
     "@rpldy/uploady": "^1.8.0",
-    "@sentry/nextjs": "^7.112.2",
+    "@sentry/nextjs": "^8.30.0",
     "@suchipi/femver": "^1.0.0",
     "@vercel/analytics": "^1.2.2",
     "@xzdarcy/react-timeline-editor": "^0.1.9",
