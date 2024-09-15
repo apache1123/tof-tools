@@ -12,6 +12,7 @@ import { Damage } from '../damage/damage';
 import type { EventManager } from '../event/event-manager';
 import type { EventSubscriber } from '../event/event-subscriber';
 import type { AttackHit } from '../event/messages/attack-hit';
+import type { CurrentTick } from '../tick/current-tick';
 import { DamageRecordEvent } from './damage-record-event';
 import type { DamageRecordTimeline } from './damage-record-timeline';
 import type { DamageRecordDto } from './dtos/damage-record-dto';
@@ -24,6 +25,7 @@ export class DamageRecord
     private readonly timeline: DamageRecordTimeline,
     private readonly utilizedBuffs: UtilizedBuffs,
     private readonly context: CombatContext,
+    private readonly currentTick: CurrentTick,
     private readonly eventManager: EventManager
   ) {}
 
@@ -34,7 +36,7 @@ export class DamageRecord
   }
 
   public recordHitDamage(attackHit: AttackHit) {
-    const { currentTick, currentState } = this.context;
+    const { currentState } = this.context;
     const baseDamage = this.getBaseDamage(attackHit, currentState);
     const finalDamage = this.getFinalDamage(
       baseDamage,
@@ -44,7 +46,7 @@ export class DamageRecord
 
     this.timeline.addEvent(
       new DamageRecordEvent(
-        currentTick,
+        this.currentTick.value,
         new Damage(baseDamage, finalDamage),
         attackHit.weapon,
         attackHit.attackType,

@@ -18,6 +18,7 @@ import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-d
 import type { EventManager } from '../event/event-manager';
 import type { AttackHit } from '../event/messages/attack-hit';
 import type { CurrentTick } from '../tick/current-tick';
+import type { Tick } from '../tick/tick';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { AttackEventDto } from './dtos/attack-event-dto';
 
@@ -32,6 +33,7 @@ export class AttackEvent
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
     context: CombatContext,
+    currentTick: CurrentTick,
     private readonly elementalType: WeaponElementalType,
     private readonly baseDamageModifiersDefinition: BaseDamageModifiersDefinition,
     private readonly finalDamageModifiersDefinition: FinalDamageModifiersDefinition,
@@ -46,23 +48,21 @@ export class AttackEvent
       cooldown,
       updatesResources,
       eventManager,
-      context
+      context,
+      currentTick
     );
   }
 
   protected override additionalProcessing(
-    currentTick: CurrentTick,
+    tick: Tick,
     combatState: CombatState
   ): void {
-    this.processHits(currentTick, combatState);
+    this.processHits(tick, combatState);
   }
 
-  private processHits(
-    currentTick: CurrentTick,
-    combatState: CombatState
-  ): void {
+  private processHits(tick: Tick, combatState: CombatState): void {
     this.getTimeOfHits()
-      .filter((time) => currentTick.includes(time))
+      .filter((time) => tick.includes(time))
       .forEach((time) => {
         const attackHit: AttackHit = {
           time,

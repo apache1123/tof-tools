@@ -4,6 +4,7 @@ import type { AbilityId } from '../ability/ability-id';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import type { CombatContext } from '../combat-context/combat-context';
 import type { EventManager } from '../event/event-manager';
+import type { CurrentTick } from '../tick/current-tick';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { ActiveBuff } from './active-buff';
 import type { AttackBuff } from './attack-buff';
@@ -25,6 +26,7 @@ export class BuffEvent
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
     context: CombatContext,
+    currentTick: CurrentTick,
     public readonly baseAttackBuffs: BaseAttackBuff[],
     public readonly attackBuffs: AttackBuff[],
     public readonly elementalDamageBuffs: ElementalDamageBuff[],
@@ -39,7 +41,8 @@ export class BuffEvent
       cooldown,
       updatesResources,
       eventManager,
-      context
+      context,
+      currentTick
     );
   }
 

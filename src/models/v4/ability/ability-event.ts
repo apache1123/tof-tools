@@ -6,6 +6,7 @@ import type { CombatContext } from '../combat-context/combat-context';
 import type { CombatState } from '../combat-context/combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
+import type { Tick } from '../tick/tick';
 import type { TimeInterval } from '../time-interval/time-interval';
 import { TimelineEvent } from '../timeline/timeline-event';
 import type { AbilityId } from './ability-id';
@@ -23,7 +24,8 @@ export abstract class AbilityEvent
     public cooldown: number,
     private readonly updatesResources: AbilityUpdatesResource[],
     protected readonly eventManager: EventManager,
-    protected readonly context: CombatContext
+    protected readonly context: CombatContext,
+    protected readonly currentTick: CurrentTick
   ) {
     super(timeInterval);
     this.cooldown = cooldown;
@@ -39,19 +41,20 @@ export abstract class AbilityEvent
   }
 
   public process() {
-    const { currentTick, currentState } = this.context;
+    const { currentState } = this.context;
+    const currentTick = this.currentTick.value;
     this.updateResources(currentTick);
     this.publishAbilityEnd(currentTick);
     this.additionalProcessing(currentTick, currentState);
   }
 
   protected abstract additionalProcessing(
-    currentTick: CurrentTick,
+    tick: Tick,
     combatState: CombatState
   ): void;
 
   /** Updates resources for the duration of the current tick */
-  private updateResources(currentTick: CurrentTick) {
+  private updateResources(tick: Tick) {
     for (const updatesResource of this.updatesResources) {
       const {
         resourceId,
@@ -68,7 +71,7 @@ export abstract class AbilityEvent
 
       if (!amount && !amountPerSecond) continue;
 
-      const { duration } = currentTick;
+      const { duration } = tick;
       let resolvedAmount!: number;
       // Resource updates over the duration of the tick, so work out how much to add per tick.
       // Assume for a flat amount of resources to add, linearly distribute it over the duration of the event
@@ -94,8 +97,8 @@ export abstract class AbilityEvent
   }
 
   /** Notify ability end if the end time of this event is in the current tick */
-  private publishAbilityEnd(currentTick: CurrentTick) {
-    if (currentTick.includes(this.endTime)) {
+  private publishAbilityEnd(tick: Tick) {
+    if (tick.includes(this.endTime)) {
       this.eventManager.publishAbilityEnded({ id: this.abilityId });
     }
   }

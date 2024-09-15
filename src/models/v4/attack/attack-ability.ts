@@ -10,6 +10,7 @@ import type { CombatState } from '../combat-context/combat-state';
 import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-damage-modifiers-definition';
 import type { EventManager } from '../event/event-manager';
+import type { CurrentTick } from '../tick/current-tick';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { AttackElementalType } from './attack-elemental-type';
 import { AttackEvent } from './attack-event';
@@ -32,6 +33,7 @@ export class AttackAbility
     timeline: AttackTimeline,
     eventManager: EventManager,
     context: CombatContext,
+    currentTick: CurrentTick,
     private readonly weapon: Weapon,
     private readonly elementalType: AttackElementalType,
     private readonly type: AttackType,
@@ -52,7 +54,8 @@ export class AttackAbility
       updatesResources,
       timeline,
       eventManager,
-      context
+      context,
+      currentTick
     );
   }
 
@@ -74,6 +77,7 @@ export class AttackAbility
       this.updatesResources,
       this.eventManager,
       this.context,
+      this.currentTick,
       elementalType,
       this.baseDamageModifiers,
       this.finalDamageModifiers,

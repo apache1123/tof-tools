@@ -5,6 +5,7 @@ import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import type { CombatContext } from '../combat-context/combat-context';
 import type { EventManager } from '../event/event-manager';
+import type { CurrentTick } from '../tick/current-tick';
 import type { TimeInterval } from '../time-interval/time-interval';
 import { ActiveBuffCollection } from './active-buff-collection';
 import type { AttackBuff } from './attack-buff';
@@ -33,6 +34,7 @@ export class BuffAbility
     timeline: BuffTimeline,
     eventManager: EventManager,
     context: CombatContext,
+    currentTick: CurrentTick,
     private readonly maxStacks: number,
     private readonly baseAttackBuffs: BaseAttackBuff[],
     private readonly attackBuffs: AttackBuff[],
@@ -52,7 +54,8 @@ export class BuffAbility
       updatesResources,
       timeline,
       eventManager,
-      context
+      context,
+      currentTick
     );
   }
 
@@ -72,6 +75,7 @@ export class BuffAbility
       this.updatesResources,
       this.eventManager,
       this.context,
+      this.currentTick,
       this.baseAttackBuffs,
       this.attackBuffs,
       this.elementalDamageBuffs,

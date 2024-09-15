@@ -44,8 +44,7 @@ import type { Target } from '../target/target';
 import { ElementalWeaponRequirements } from '../team/elemental-weapon-requirements';
 import { TeamRequirements } from '../team/team-requirements';
 import { WeaponResonanceRequirements } from '../team/weapon-resonance-requirements';
-import type { CurrentTick } from '../tick/current-tick';
-import { TickTracker } from '../tick/tick-tracker';
+import { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
 import { ActiveWeaponRequirements } from '../weapon/active-weapon-requirements';
 import { WeaponTracker } from '../weapon-tracker/weapon-tracker';
@@ -53,7 +52,7 @@ import { WeaponTrackerTimeline } from '../weapon-tracker/weapon-tracker-timeline
 import type { CombatState } from './combat-state';
 
 export class CombatContext {
-  private readonly tickTracker: TickTracker;
+  private readonly currentTick: CurrentTick;
   private readonly weaponTracker: WeaponTracker;
   private readonly damageRecord: DamageRecord;
   private readonly team: Team;
@@ -78,14 +77,14 @@ export class CombatContext {
     const { weapons } = this.team;
 
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
-    this.tickTracker = new TickTracker(
+    this.currentTick = new CurrentTick(
       startingTickInterval.startTime,
       tickDuration
     );
     this.weaponTracker = new WeaponTracker(
       new WeaponTrackerTimeline(combatDuration),
       this.eventManager,
-      this
+      this.currentTick
     );
 
     const createResource = (definition: ResourceDefinition): Resource =>
@@ -97,7 +96,7 @@ export class CombatContext {
         definition.regenerate ?? {},
         new ResourceTimeline(combatDuration),
         eventManager,
-        this
+        this.currentTick
       );
     this.charge = new Charge(
       chargeDefinition.id,
@@ -107,7 +106,7 @@ export class CombatContext {
       chargeDefinition.regenerate ?? {},
       new ResourceTimeline(combatDuration),
       eventManager,
-      this
+      this.currentTick
     );
     const dodge = createResource(dodgeResourceDefinition);
     const endurance = createResource(enduranceDefinition);
@@ -185,6 +184,7 @@ export class CombatContext {
           new AttackTimeline(combatDuration),
           eventManager,
           this,
+          this.currentTick,
           weapon,
           definition.elementalType,
           definition.type,
@@ -290,6 +290,7 @@ export class CombatContext {
           new BuffTimeline(combatDuration),
           eventManager,
           this,
+          this.currentTick,
           abilityDef.maxStacks,
           baseAttackBuffs,
           attackBuffs,
@@ -312,6 +313,7 @@ export class CombatContext {
       new DamageRecordTimeline(combatDuration),
       utilizedBuffs,
       this,
+      this.currentTick,
       eventManager
     );
 
@@ -328,22 +330,8 @@ export class CombatContext {
   /** The current state of the combat at the start of the current tick */
   private _currentState!: CombatState;
 
-  public get currentTick(): CurrentTick {
-    return this.tickTracker.currentTick;
-  }
-
   public get currentState(): CombatState {
     return this._currentState;
-  }
-
-  /** The time to trigger whatever events */
-  public get triggerTime() {
-    return this.currentTick.startTime;
-  }
-
-  /** The time to terminate whatever events */
-  public get terminateTime() {
-    return this.currentTick.endTime;
   }
 
   public beginCombat() {
@@ -377,12 +365,12 @@ export class CombatContext {
   }
 
   private advanceTick() {
-    this.tickTracker.advanceTick();
+    this.currentTick.advance();
     this.setCurrentState();
   }
 
   private processTick() {
-    if (this.currentTick.isProcessed) return;
+    if (this.currentTick.value.isProcessed) return;
 
     this.eventManager.deliverAllMessages();
 
@@ -394,7 +382,7 @@ export class CombatContext {
       resource.process();
     }
 
-    this.currentTick.isProcessed = true;
+    this.currentTick.value.isProcessed = true;
   }
 
   /** Advance and process ticks until there are no ongoing foreground attacks */

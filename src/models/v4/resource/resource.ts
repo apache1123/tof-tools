@@ -2,13 +2,12 @@ import BigNumber from 'bignumber.js';
 
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Serializable } from '../../persistable';
-import type { CombatContext } from '../combat-context/combat-context';
 import type { EventManager } from '../event/event-manager';
 import type { EventSubscriber } from '../event/event-subscriber';
 import { ResourceEvent } from '../resource-timeline/resource-event';
 import type { ResourceTimeline } from '../resource-timeline/resource-timeline';
 import type { CurrentTick } from '../tick/current-tick';
-import type { TimeInterval } from '../time-interval/time-interval';
+import type { Tick } from '../tick/tick';
 import type { ResourceDto } from './dtos/resource-dto';
 import type { ResourceId } from './resource-definition';
 import type { ResourceRegenerationDefinition } from './resource-regeneration-definition';
@@ -22,7 +21,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     private readonly regenerationDefinition: ResourceRegenerationDefinition,
     protected readonly timeline: ResourceTimeline,
     protected readonly eventManager: EventManager,
-    protected readonly context: CombatContext
+    protected readonly currentTick: CurrentTick
   ) {}
 
   private readonly minAmount = 0;
@@ -48,14 +47,14 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
    */
   public add(amount: number, hasPriority = false) {
     return (
-      this.addResourceEvent(this.context.currentTick, amount, hasPriority) ??
+      this.addResourceEvent(this.currentTick.value, amount, hasPriority) ??
       undefined
     );
   }
 
   /** Adds a resource event to deplete the resource at the current tick. Will always have priority over other resource events in that time interval */
   public deplete() {
-    const currentTick = this.context.currentTick;
+    const currentTick = this.currentTick.value;
     const amount = this.getCumulatedAmountAt(currentTick.startTime);
     if (amount <= this.minAmount) return;
 
@@ -64,11 +63,12 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
 
   /** Called when all resource events have been added for the current tick. Determines the result of all resource events that occurred during the current tick and fires off events accordingly */
   public process() {
-    const currentTick = this.context.currentTick;
-    this.passiveRegenerate(currentTick);
+    this.passiveRegenerate(this.currentTick.value);
 
-    const startingAmount = this.getCumulatedAmountAt(currentTick.startTime);
-    const endingAmount = this.getCumulatedAmountAt(currentTick.endTime);
+    const startingAmount = this.getCumulatedAmountAt(
+      this.currentTick.startTime
+    );
+    const endingAmount = this.getCumulatedAmountAt(this.currentTick.endTime);
 
     if (startingAmount === endingAmount) return;
 
@@ -80,14 +80,14 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
 
   /** Current cumulated amount of resource (at the start of the current tick) */
   public getCumulatedAmount() {
-    return this.getCumulatedAmountAt(this.context.currentTick.startTime);
+    return this.getCumulatedAmountAt(this.currentTick.startTime);
   }
 
   /** Adds the defined starting amount of resource, e.g. before combat start */
   public addStartingAmount() {
     const { startingAmount } = this;
     if (!startingAmount) return;
-    this.addResourceEvent(this.context.currentTick, startingAmount);
+    this.addResourceEvent(this.currentTick.value, startingAmount);
   }
 
   private getCumulatedAmountAt(time: number) {
@@ -99,17 +99,13 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
    * @param hasPriority If true, this resource event will overwrite existing ones in the time interval. If false, this resource event will not be added (or be cut short) if there is an existing resource event with priority.
    * @returns a resource event if one has been added
    */
-  private addResourceEvent(
-    currentTick: CurrentTick,
-    amount: number,
-    hasPriority = false
-  ) {
+  private addResourceEvent(tick: Tick, amount: number, hasPriority = false) {
     if (!amount) return;
 
     /** Calculate amount of resources to add so the result doesn't go over the max amount or under the min amount the resource can hold */
     const calculateAmountToAdd = () => {
       const cumulatedAmountPreceding = this.getCumulatedAmountAt(
-        currentTick.startTime
+        tick.startTime
       );
 
       if (
@@ -145,13 +141,13 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     let amountToAdd = calculateAmountToAdd();
     if (!amountToAdd) return;
 
-    const existingEvents = this.getEvents(currentTick);
+    const existingEvents = this.getEvents(tick);
     if (hasPriority) {
       // Assuming existing events are always before the event being added
       // Cut short existing events, removing when needed
       for (const existingEvent of existingEvents) {
-        if (existingEvent.startTime < currentTick.startTime) {
-          existingEvent.endTime = currentTick.startTime;
+        if (existingEvent.startTime < tick.startTime) {
+          existingEvent.endTime = tick.startTime;
 
           if (existingEvent.startTime === existingEvent.endTime) {
             this.timeline.removeEvent(existingEvent);
@@ -172,11 +168,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
       return;
     }
 
-    const resourceEvent = new ResourceEvent(
-      currentTick,
-      amountToAdd,
-      hasPriority
-    );
+    const resourceEvent = new ResourceEvent(tick, amountToAdd, hasPriority);
     this.timeline.addEvent(resourceEvent);
     return resourceEvent;
   }
@@ -184,30 +176,30 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
   /** Passively regenerate the resource amount for the current tick according to the resource definition.
    * - Only when there are no other resource events added in the tick
    */
-  private passiveRegenerate(currentTick: CurrentTick) {
+  private passiveRegenerate(tick: Tick) {
     if (!this.regenerationDefinition) return;
 
-    const existingEvents = this.getEvents(currentTick);
+    const existingEvents = this.getEvents(tick);
     if (existingEvents.length) return;
 
-    const regenerateAmount = this.calculateRegenerateAmount(currentTick);
-    this.addResourceEvent(currentTick, regenerateAmount);
+    const regenerateAmount = this.calculateRegenerateAmount(tick);
+    this.addResourceEvent(tick, regenerateAmount);
   }
 
-  private calculateRegenerateAmount(currentTick: CurrentTick) {
+  private calculateRegenerateAmount(tick: Tick) {
     const { amountPerSecond } = this.regenerationDefinition;
 
     if (amountPerSecond)
       return BigNumber(amountPerSecond)
-        .times(currentTick.duration)
+        .times(tick.duration)
         .div(oneSecondDuration)
         .toNumber();
 
     return 0;
   }
 
-  private getEvents(currentTick: TimeInterval) {
-    return this.timeline.getEventsOverlapping(currentTick);
+  private getEvents(tick: Tick) {
+    return this.timeline.getEventsOverlapping(tick);
   }
 
   public toDto(): ResourceDto {

@@ -1,7 +1,7 @@
 import { minEventDuration } from '../../../definitions/tick';
 import type { Weapon } from '../../weapon';
-import type { CombatContext } from '../combat-context/combat-context';
 import type { EventManager } from '../event/event-manager';
+import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
 import { WeaponTrackerEvent } from './weapon-tracker-event';
 import type { WeaponTrackerTimeline } from './weapon-tracker-timeline';
@@ -10,7 +10,7 @@ export class WeaponTracker {
   public constructor(
     private readonly timeline: WeaponTrackerTimeline,
     private readonly eventManager: EventManager,
-    private readonly context: CombatContext
+    private readonly currentTick: CurrentTick
   ) {}
 
   /** The current active weapon */
@@ -28,7 +28,7 @@ export class WeaponTracker {
 
   public setActiveWeapon(weapon: Weapon) {
     if (this.getActiveWeapon() !== weapon) {
-      const time = this.context.currentTick.startTime;
+      const time = this.currentTick.startTime;
       this.timeline.addEvent(
         new WeaponTrackerEvent(
           new TimeInterval(time, time + minEventDuration),
@@ -45,7 +45,7 @@ export class WeaponTracker {
   }
 
   private getActiveWeaponEvent() {
-    return this.getLastEventBefore(this.context.currentTick.startTime);
+    return this.getLastEventBefore(this.currentTick.startTime);
   }
 
   private getLastEventBefore(time: number) {

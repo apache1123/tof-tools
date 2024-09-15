@@ -1,6 +1,7 @@
 import type { Serializable } from '../../persistable';
 import type { CombatContext } from '../combat-context/combat-context';
 import type { EventManager } from '../event/event-manager';
+import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { AbilityEvent } from './ability-event';
 import type { AbilityId } from './ability-id';
@@ -23,11 +24,12 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     protected readonly updatesResources: AbilityUpdatesResource[],
     protected readonly timeline: AbilityTimeline<TAbilityEvent>,
     protected readonly eventManager: EventManager,
-    protected readonly context: CombatContext
+    protected readonly context: CombatContext,
+    protected readonly currentTick: CurrentTick
   ) {}
 
   protected getTriggerTime() {
-    return this.context.currentTick.startTime;
+    return this.currentTick.startTime;
   }
 
   protected getCurrentCombatState() {
@@ -76,14 +78,14 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   }
 
   protected getOngoingEvents(): TAbilityEvent[] {
-    return this.timeline.getEventsOverlapping(this.context.currentTick);
+    return this.timeline.getEventsOverlapping(this.currentTick.value);
   }
 
   protected abstract createNewEvent(timeInterval: TimeInterval): TAbilityEvent;
 
   /** Terminate any active ability events */
   private terminate() {
-    this.timeline.endAnyEventsAt(this.context.currentTick.endTime);
+    this.timeline.endAnyEventsAt(this.currentTick.endTime);
   }
 
   private haveRequirementsBeenMet() {
