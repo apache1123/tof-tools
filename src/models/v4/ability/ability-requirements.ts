@@ -1,5 +1,5 @@
 import type { BuffId } from '../../../definitions/types/buff/buff-ability';
-import type { CombatState } from '../combat-context/combat-state';
+import type { CombatState } from '../combat-state/combat-state';
 import type { Requirements } from '../requirements/requirements';
 import type { ResourceRequirements } from '../resource/resource-requirements';
 import type { TeamRequirements } from '../team/team-requirements';

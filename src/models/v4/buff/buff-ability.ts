@@ -3,7 +3,7 @@ import { Ability } from '../ability/ability';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { CombatContext } from '../combat-context/combat-context';
+import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import type { TimeInterval } from '../time-interval/time-interval';
@@ -33,8 +33,8 @@ export class BuffAbility
     updatesResources: AbilityUpdatesResource[],
     timeline: BuffTimeline,
     eventManager: EventManager,
-    context: CombatContext,
     currentTick: CurrentTick,
+    currentCombatState: CurrentCombatState,
     private readonly maxStacks: number,
     private readonly baseAttackBuffs: BaseAttackBuff[],
     private readonly attackBuffs: AttackBuff[],
@@ -54,8 +54,8 @@ export class BuffAbility
       updatesResources,
       timeline,
       eventManager,
-      context,
-      currentTick
+      currentTick,
+      currentCombatState
     );
   }
 
@@ -74,8 +74,8 @@ export class BuffAbility
       this.cooldown,
       this.updatesResources,
       this.eventManager,
-      this.context,
       this.currentTick,
+      this.currentCombatState,
       this.baseAttackBuffs,
       this.attackBuffs,
       this.elementalDamageBuffs,

@@ -6,8 +6,8 @@ import type { Buff } from '../buff/buff';
 import { ElementalDamageBuffAggregate } from '../buff/elemental-damage-buff-aggregate';
 import { FinalDamageBuffAggregate } from '../buff/final-damage-buff-aggregate';
 import type { UtilizedBuffs } from '../buff/utilized-buffs';
-import type { CombatContext } from '../combat-context/combat-context';
-import type { CombatState } from '../combat-context/combat-state';
+import type { CombatState } from '../combat-state/combat-state';
+import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import { Damage } from '../damage/damage';
 import type { EventManager } from '../event/event-manager';
 import type { EventSubscriber } from '../event/event-subscriber';
@@ -24,8 +24,8 @@ export class DamageRecord
   public constructor(
     private readonly timeline: DamageRecordTimeline,
     private readonly utilizedBuffs: UtilizedBuffs,
-    private readonly context: CombatContext,
     private readonly currentTick: CurrentTick,
+    private readonly currentCombatState: CurrentCombatState,
     private readonly eventManager: EventManager
   ) {}
 
@@ -36,7 +36,7 @@ export class DamageRecord
   }
 
   public recordHitDamage(attackHit: AttackHit) {
-    const { currentState } = this.context;
+    const currentState = this.currentCombatState.value;
     const baseDamage = this.getBaseDamage(attackHit, currentState);
     const finalDamage = this.getFinalDamage(
       baseDamage,

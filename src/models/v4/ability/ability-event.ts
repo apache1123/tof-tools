@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Serializable } from '../../persistable';
-import type { CombatContext } from '../combat-context/combat-context';
-import type { CombatState } from '../combat-context/combat-state';
+import type { CombatState } from '../combat-state/combat-state';
+import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import type { Tick } from '../tick/tick';
@@ -24,8 +24,8 @@ export abstract class AbilityEvent
     public cooldown: number,
     private readonly updatesResources: AbilityUpdatesResource[],
     protected readonly eventManager: EventManager,
-    protected readonly context: CombatContext,
-    protected readonly currentTick: CurrentTick
+    protected readonly currentTick: CurrentTick,
+    protected readonly currentCombatState: CurrentCombatState
   ) {
     super(timeInterval);
     this.cooldown = cooldown;
@@ -41,11 +41,10 @@ export abstract class AbilityEvent
   }
 
   public process() {
-    const { currentState } = this.context;
     const currentTick = this.currentTick.value;
     this.updateResources(currentTick);
     this.publishAbilityEnd(currentTick);
-    this.additionalProcessing(currentTick, currentState);
+    this.additionalProcessing(currentTick, this.currentCombatState.value);
   }
 
   protected abstract additionalProcessing(

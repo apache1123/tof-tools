@@ -30,6 +30,8 @@ import { FinalDamageBuff } from '../buff/final-damage-buff';
 import { UtilizedBuffs } from '../buff/utilized-buffs';
 import type { Character } from '../character/character';
 import { Charge } from '../charge/charge';
+import type { CombatState } from '../combat-state/combat-state';
+import { CurrentCombatState } from '../combat-state/current-combat-state';
 import { DamageRecord } from '../damage-record/damage-record';
 import { DamageRecordTimeline } from '../damage-record/damage-record-timeline';
 import type { EventManager } from '../event/event-manager';
@@ -49,10 +51,10 @@ import { TimeInterval } from '../time-interval/time-interval';
 import { ActiveWeaponRequirements } from '../weapon/active-weapon-requirements';
 import { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import { WeaponTrackerTimeline } from '../weapon-tracker/weapon-tracker-timeline';
-import type { CombatState } from './combat-state';
 
-export class CombatContext {
+export class CombatControl {
   private readonly currentTick: CurrentTick;
+  private readonly currentCombatState: CurrentCombatState;
   private readonly weaponTracker: WeaponTracker;
   private readonly damageRecord: DamageRecord;
   private readonly team: Team;
@@ -85,6 +87,16 @@ export class CombatContext {
       new WeaponTrackerTimeline(combatDuration),
       this.eventManager,
       this.currentTick
+    );
+
+    this.currentCombatState = new CurrentCombatState(
+      character,
+      team,
+      this.weaponTracker,
+      target,
+      [],
+      undefined,
+      this.getActiveBuffs()
     );
 
     const createResource = (definition: ResourceDefinition): Resource =>
@@ -183,8 +195,8 @@ export class CombatContext {
           definition.updatesResources ?? [],
           new AttackTimeline(combatDuration),
           eventManager,
-          this,
           this.currentTick,
+          this.currentCombatState,
           weapon,
           definition.elementalType,
           definition.type,
@@ -289,8 +301,8 @@ export class CombatContext {
           abilityDef.updatesResources ?? [],
           new BuffTimeline(combatDuration),
           eventManager,
-          this,
           this.currentTick,
+          this.currentCombatState,
           abilityDef.maxStacks,
           baseAttackBuffs,
           attackBuffs,
@@ -312,8 +324,8 @@ export class CombatContext {
     this.damageRecord = new DamageRecord(
       new DamageRecordTimeline(combatDuration),
       utilizedBuffs,
-      this,
       this.currentTick,
+      this.currentCombatState,
       eventManager
     );
 
@@ -322,8 +334,6 @@ export class CombatContext {
       ...abilityTriggers,
       this.damageRecord
     );
-
-    this.setCurrentState();
   }
 
   private hasBegunCombat = false;
@@ -366,7 +376,7 @@ export class CombatContext {
 
   private advanceTick() {
     this.currentTick.advance();
-    this.setCurrentState();
+    this.updateCurrentState();
   }
 
   private processTick() {
@@ -395,47 +405,16 @@ export class CombatContext {
     }
   }
 
-  private setCurrentState() {
-    const activeWeapon = this.weaponTracker.getActiveWeapon();
-    const activeWeaponState = activeWeapon
-      ? { id: activeWeapon.id, damageElement: activeWeapon.damageElement }
-      : undefined;
-
-    const previousWeapon = this.weaponTracker.getPreviousWeapon();
-    const previousWeaponState = previousWeapon
-      ? { id: previousWeapon.id, damageElement: previousWeapon.damageElement }
-      : undefined;
-
-    const activeBuffs = this.getActiveBuffs();
-
-    this._currentState = {
-      team: this.team,
-
-      activeWeapon: activeWeaponState,
-      previousWeapon: previousWeaponState,
-
-      resources: this.resources.items.map((resource) => ({
-        id: resource.id,
-        amount: resource.getCumulatedAmount(),
-      })),
-      charge: {
-        amount: this.charge.getCumulatedAmount(),
-        hasFullCharge: this.charge.hasFullCharge(),
-      },
-
-      activeBuffs,
-
-      elementalAttacks: this.character.getElementalAttacks(activeBuffs),
-      critRateFlat: this.character.getCritRateFlat(),
-      critRatePercent: this.character.getCritRatePercent(activeBuffs),
-      totalCritRatePercent: this.character.getTotalCritRatePercent(activeBuffs),
-      totalCritDamagePercent:
-        this.character.getTotalCritDamagePercent(activeBuffs),
-      hp: this.character.getHp(),
-      elementalResistances: this.character.getElementalResistances(),
-
-      targetResistance: this.target.resistance,
-    };
+  private updateCurrentState() {
+    this.currentCombatState.update(
+      this.character,
+      this.team,
+      this.weaponTracker,
+      this.target,
+      this.resources.items,
+      this.charge,
+      this.getActiveBuffs()
+    );
   }
 
   private getActiveBuffs() {

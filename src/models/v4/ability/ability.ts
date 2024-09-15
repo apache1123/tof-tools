@@ -1,5 +1,5 @@
 import type { Serializable } from '../../persistable';
-import type { CombatContext } from '../combat-context/combat-context';
+import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
@@ -24,8 +24,8 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     protected readonly updatesResources: AbilityUpdatesResource[],
     protected readonly timeline: AbilityTimeline<TAbilityEvent>,
     protected readonly eventManager: EventManager,
-    protected readonly context: CombatContext,
-    protected readonly currentTick: CurrentTick
+    protected readonly currentTick: CurrentTick,
+    protected readonly currentCombatState: CurrentCombatState
   ) {}
 
   protected getTriggerTime() {
@@ -33,7 +33,7 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   }
 
   protected getCurrentCombatState() {
-    return this.context.currentState;
+    return this.currentCombatState.value;
   }
 
   public canTrigger() {

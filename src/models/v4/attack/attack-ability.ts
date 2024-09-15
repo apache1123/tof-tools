@@ -5,8 +5,8 @@ import { Ability } from '../ability/ability';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { CombatContext } from '../combat-context/combat-context';
-import type { CombatState } from '../combat-context/combat-state';
+import type { CombatState } from '../combat-state/combat-state';
+import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-damage-modifiers-definition';
 import type { EventManager } from '../event/event-manager';
@@ -32,8 +32,8 @@ export class AttackAbility
     updatesResources: AbilityUpdatesResource[],
     timeline: AttackTimeline,
     eventManager: EventManager,
-    context: CombatContext,
     currentTick: CurrentTick,
+    currentCombatState: CurrentCombatState,
     private readonly weapon: Weapon,
     private readonly elementalType: AttackElementalType,
     private readonly type: AttackType,
@@ -54,8 +54,8 @@ export class AttackAbility
       updatesResources,
       timeline,
       eventManager,
-      context,
-      currentTick
+      currentTick,
+      currentCombatState
     );
   }
 
@@ -76,8 +76,8 @@ export class AttackAbility
       this.cooldown,
       this.updatesResources,
       this.eventManager,
-      this.context,
       this.currentTick,
+      this.currentCombatState,
       elementalType,
       this.baseDamageModifiers,
       this.finalDamageModifiers,

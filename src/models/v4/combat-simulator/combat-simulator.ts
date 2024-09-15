@@ -2,14 +2,14 @@ import type { AttackId } from '../../../definitions/types/attack/attack-ability'
 import type { Loadout } from '../../loadout';
 import type { UserStats } from '../../user-stats';
 import { Character } from '../character/character';
-import { CombatContext } from '../combat-context/combat-context';
+import { CombatControl } from '../combat-control/combat-control';
 import { EventManager } from '../event/event-manager';
 import type { Relics } from '../relics/relics';
 import type { Target } from '../target/target';
 import type { CombatSimulatorOptions } from './combat-simulator-options';
 
 export class CombatSimulator {
-  private readonly combatContext: CombatContext;
+  private readonly combatControl: CombatControl;
 
   public constructor(
     loadout: Loadout,
@@ -25,7 +25,7 @@ export class CombatSimulator {
 
     const target: Target = { resistance: targetResistance };
 
-    this.combatContext = new CombatContext(
+    this.combatControl = new CombatControl(
       combatDuration,
       loadout,
       userStats,
@@ -37,11 +37,11 @@ export class CombatSimulator {
   }
 
   public performAttack(id: AttackId) {
-    return this.combatContext.performAttack(id);
+    return this.combatControl.performAttack(id);
   }
 
   public getAvailableAttacks() {
-    return this.combatContext.getAvailableAttacks();
+    return this.combatControl.getAvailableAttacks();
   }
 
   // /** Similar to `toDto()`, but cleaned up and aggregated for display purposes. The intention is for the output of this to be for display purposes only and not able to be deserialized with all the correct states later. e.g. Abilities with empty timelines removed, Player input attacks are combined into one, for each weapon */

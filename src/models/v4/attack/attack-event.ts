@@ -9,8 +9,8 @@ import { AbilityEvent } from '../ability/ability-event';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import type { AttackHitCount } from '../attack/attack-hit-count';
-import type { CombatContext } from '../combat-context/combat-context';
-import type { CombatState } from '../combat-context/combat-state';
+import type { CombatState } from '../combat-state/combat-state';
+import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { BaseDamageModifiers } from '../damage-modifiers/base-damage-modifiers';
 import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiers } from '../damage-modifiers/final-damage-modifiers';
@@ -32,8 +32,8 @@ export class AttackEvent
     cooldown: number,
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
-    context: CombatContext,
     currentTick: CurrentTick,
+    currentCombatState: CurrentCombatState,
     private readonly elementalType: WeaponElementalType,
     private readonly baseDamageModifiersDefinition: BaseDamageModifiersDefinition,
     private readonly finalDamageModifiersDefinition: FinalDamageModifiersDefinition,
@@ -48,8 +48,8 @@ export class AttackEvent
       cooldown,
       updatesResources,
       eventManager,
-      context,
-      currentTick
+      currentTick,
+      currentCombatState
     );
   }
 
