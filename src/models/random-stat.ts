@@ -138,17 +138,34 @@ export class RandomStat implements Persistable<RandomStatDto> {
     const combinations: RollCombination[] = [];
     for (let n = smallestNumOfRolls; n <= largestNumOfRolls; n++) {
       // (value - defaultValue - n * minValue) / (maxValue - minValue) / n
-      const rollStrength = BigNumber(value)
-        .minus(BigNumber(randomStatDefaultValue))
-        .minus(BigNumber(randomStatMinRollValue).multipliedBy(n))
-        .dividedBy(
-          BigNumber(randomStatMaxRollValue).minus(
-            BigNumber(randomStatMinRollValue)
-          )
-        )
-        .dividedBy(n)
-        .toNumber();
-      combinations.push({ numberOfRolls: n, rollStrength });
+      // Need to check if minValue === maxValue to prevent div by 0 in the case of % value stats, e.g. ele atk%, where every roll is fixed (minValue = maxValue). This also means % stats always have roll strength = 1
+      const rollStrength =
+        randomStatMinRollValue >= randomStatMaxRollValue
+          ? 1
+          : BigNumber(value)
+              .minus(BigNumber(randomStatDefaultValue))
+              .minus(BigNumber(randomStatMinRollValue).multipliedBy(n))
+              .dividedBy(
+                BigNumber(randomStatMaxRollValue).minus(
+                  BigNumber(randomStatMinRollValue)
+                )
+              )
+              .dividedBy(n)
+              .toNumber();
+
+      // (value - defaultValue) / n / maxValue * n
+      // a.k.a. work out the average of one roll, divided by the max roll value, multiplied by the number of rolls
+      const totalRollWeight =
+        n === 0
+          ? 0
+          : BigNumber(value)
+              .minus(randomStatDefaultValue)
+              .div(n)
+              .div(randomStatMaxRollValue)
+              .times(n)
+              .toNumber();
+
+      combinations.push({ numberOfRolls: n, rollStrength, totalRollWeight });
     }
 
     return combinations;

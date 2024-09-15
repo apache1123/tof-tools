@@ -201,15 +201,8 @@ export class Gear implements Persistable<GearDto> {
     const rollBreakdown =
       gearStatRollCombinations[0].randomStatRollCombinations;
     const highestStatName = rollBreakdown.reduce((prev, current) =>
-      current.rollCombination.numberOfRolls >
-        prev.rollCombination.numberOfRolls ||
-      (current.rollCombination.numberOfRolls ===
-        prev.rollCombination.numberOfRolls &&
-        ((current.rollCombination.rollStrength &&
-          prev.rollCombination.rollStrength &&
-          current.rollCombination.rollStrength >=
-            prev.rollCombination.rollStrength) ||
-          current.rollCombination.rollStrength === undefined))
+      current.rollCombination.totalRollWeight >=
+      prev.rollCombination.totalRollWeight
         ? current
         : prev
     ).randomStatId;
