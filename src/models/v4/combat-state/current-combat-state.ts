@@ -4,10 +4,10 @@ import { ActiveBuffCollection } from '../buff/active-buff-collection';
 import type { BuffAbility } from '../buff/buff-ability';
 import type { Character } from '../character/character';
 import type { Charge } from '../charge/charge';
+import type { CurrentWeapon } from '../current-weapon/current-weapon';
 import type { Registry } from '../registry/registry';
 import type { Resource } from '../resource/resource';
 import type { Target } from '../target/target';
-import type { WeaponTracker } from '../weapon-tracker/weapon-tracker';
 import type { CombatState } from './combat-state';
 
 export class CurrentCombatState {
@@ -16,7 +16,7 @@ export class CurrentCombatState {
   public constructor(
     private readonly character: Character,
     private readonly team: Team,
-    private readonly weaponTracker: WeaponTracker,
+    private readonly currentWeapon: CurrentWeapon,
     private readonly target: Target,
     private readonly charge: Charge | undefined,
     private readonly resources: Registry<Resource>,
@@ -31,12 +31,12 @@ export class CurrentCombatState {
   }
 
   public update() {
-    const activeWeapon = this.weaponTracker.getActiveWeapon();
+    const activeWeapon = this.currentWeapon.value;
     const activeWeaponState = activeWeapon
       ? { id: activeWeapon.id, damageElement: activeWeapon.damageElement }
       : undefined;
 
-    const previousWeapon = this.weaponTracker.getPreviousWeapon();
+    const previousWeapon = this.currentWeapon.previous;
     const previousWeaponState = previousWeapon
       ? { id: previousWeapon.id, damageElement: previousWeapon.damageElement }
       : undefined;

@@ -30,6 +30,8 @@ import { UtilizedBuffs } from '../buff/utilized-buffs';
 import { Character } from '../character/character';
 import { Charge } from '../charge/charge';
 import { CurrentCombatState } from '../combat-state/current-combat-state';
+import { CurrentWeapon } from '../current-weapon/current-weapon';
+import { CurrentWeaponTimeline } from '../current-weapon/current-weapon-timeline';
 import { DamageRecord } from '../damage-record/damage-record';
 import { DamageRecordTimeline } from '../damage-record/damage-record-timeline';
 import { EventManager } from '../event/event-manager';
@@ -47,8 +49,6 @@ import { WeaponResonanceRequirements } from '../team/weapon-resonance-requiremen
 import { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
 import { ActiveWeaponRequirements } from '../weapon/active-weapon-requirements';
-import { WeaponTracker } from '../weapon-tracker/weapon-tracker';
-import { WeaponTrackerTimeline } from '../weapon-tracker/weapon-tracker-timeline';
 import type { CombatSimulatorOptions } from './combat-simulator-options';
 
 export class CombatSimulator {
@@ -57,7 +57,7 @@ export class CombatSimulator {
   private readonly target: Target;
   private readonly currentTick: CurrentTick;
   private readonly currentCombatState: CurrentCombatState;
-  private readonly weaponTracker: WeaponTracker;
+  private readonly currentWeapon: CurrentWeapon;
   private readonly damageRecord: DamageRecord;
   private readonly team: Team;
   private readonly charge: Charge;
@@ -91,8 +91,8 @@ export class CombatSimulator {
       startingTickInterval.startTime,
       tickDuration
     );
-    this.weaponTracker = new WeaponTracker(
-      new WeaponTrackerTimeline(combatDuration),
+    this.currentWeapon = new CurrentWeapon(
+      new CurrentWeaponTimeline(combatDuration),
       this.eventManager,
       this.currentTick
     );
@@ -138,7 +138,7 @@ export class CombatSimulator {
     this.currentCombatState = new CurrentCombatState(
       this.character,
       team,
-      this.weaponTracker,
+      this.currentWeapon,
       this.target,
       this.charge,
       this.resources,
