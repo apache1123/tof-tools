@@ -3,7 +3,7 @@ export class Registry<T extends { id: string }> {
 
   public constructor(items: T[]) {
     for (const item of items) {
-      this._items.set(item.id, item);
+      this.add(item);
     }
   }
 
@@ -11,7 +11,11 @@ export class Registry<T extends { id: string }> {
     return [...this._items.values()];
   }
 
-  public getItem(id: string) {
+  public get(id: string) {
     return this._items.get(id);
+  }
+
+  public add(item: T) {
+    this._items.set(item.id, item);
   }
 }
