@@ -1,7 +1,3 @@
-import type { AttackType } from '../../../../definitions/attack-type';
-import type { WeaponElementalType } from '../../../../definitions/elemental-type';
-import type { Weapon as WeaponDefinition } from '../../../../definitions/types/weapon/weapon';
-import { Weapon } from '../../../weapon';
 import {
   cooldownTest,
   createAbilityId,
@@ -19,13 +15,16 @@ import {
 import type { AbilityId } from '../../ability/ability-id';
 import type { AbilityUpdatesResource } from '../../ability/ability-updates-resource';
 import type { CurrentCombatState } from '../../combat-state/current-combat-state';
-import type { BaseDamageModifiersDefinition } from '../../damage-modifiers/base-damage-modifiers-definition';
-import type { FinalDamageModifiersDefinition } from '../../damage-modifiers/final-damage-modifiers-definition';
 import type { EventManager } from '../../event/event-manager';
 import type { CurrentTick } from '../../tick/current-tick';
 import type { TimeInterval } from '../../time-interval/time-interval';
-import { AttackEvent } from '../attack-event';
-import type { AttackHitCount } from '../attack-hit-count';
+import type { AttackBuff } from '../attack-buff';
+import type { BaseAttackBuff } from '../base-attack-buff';
+import { BuffEvent } from '../buff-event';
+import type { CritDamageBuff } from '../crit-damage-buff';
+import type { ElementalDamageBuff } from '../elemental-damage-buff';
+import type { FinalDamageBuff } from '../final-damage-buff';
+import type { MiscellaneousBuff } from '../miscellaneous-buff';
 
 // Ability event dependencies / properties
 let timeInterval: TimeInterval;
@@ -36,17 +35,18 @@ let eventManager: EventManager;
 let currentTick: CurrentTick;
 let currentCombatState: CurrentCombatState;
 
-// Attack event dependencies / properties
-const elementalType: WeaponElementalType = 'Volt';
-let baseDamageModifiersDefinition: BaseDamageModifiersDefinition;
-let finalDamageModifiersDefinition: FinalDamageModifiersDefinition;
-const type: AttackType = 'normal';
-let hitCount: AttackHitCount;
-let weapon: Weapon;
+// Buff event dependencies / properties
+let baseAttackBuffs: BaseAttackBuff[];
+let attackBuffs: AttackBuff[];
+let elementalDamageBuffs: ElementalDamageBuff[];
+let finalDamageBuffs: FinalDamageBuff[];
+let critRateBuffs: CritDamageBuff[];
+let critDamageBuffs: CritDamageBuff[];
+let miscBuff: MiscellaneousBuff | undefined;
 
-let sut: AttackEvent;
+let sut: BuffEvent;
 
-describe('Attack event', () => {
+describe('Buff event', () => {
   beforeEach(() => {
     timeInterval = createTimeInterval();
     abilityId = createAbilityId();
@@ -56,16 +56,15 @@ describe('Attack event', () => {
     currentTick = createCurrentTick();
     currentCombatState = createCurrentCombatState();
 
-    baseDamageModifiersDefinition = {
-      attackFlat: 252,
-      attackMultiplier: 1.2,
-      damageDealtIsPerSecond: false,
-    };
-    finalDamageModifiersDefinition = {};
-    hitCount = { numberOfHitsFixed: 3 };
-    weapon = new Weapon({ id: 'Meryl' } as WeaponDefinition);
+    baseAttackBuffs = [];
+    attackBuffs = [];
+    elementalDamageBuffs = [];
+    finalDamageBuffs = [];
+    critRateBuffs = [];
+    critDamageBuffs = [];
+    miscBuff = undefined;
 
-    sut = new AttackEvent(
+    sut = new BuffEvent(
       timeInterval,
       abilityId,
       cooldown,
@@ -73,12 +72,13 @@ describe('Attack event', () => {
       eventManager,
       currentTick,
       currentCombatState,
-      elementalType,
-      baseDamageModifiersDefinition,
-      finalDamageModifiersDefinition,
-      type,
-      hitCount,
-      weapon
+      baseAttackBuffs,
+      attackBuffs,
+      elementalDamageBuffs,
+      finalDamageBuffs,
+      critRateBuffs,
+      critDamageBuffs,
+      miscBuff
     );
   });
 
