@@ -1,4 +1,3 @@
-import { minEventDuration } from '../../../definitions/tick';
 import type { Weapon } from '../../weapon';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
@@ -28,10 +27,12 @@ export class CurrentWeapon {
 
   public set(weapon: Weapon) {
     if (this.value !== weapon) {
-      const time = this.currentTick.startTime;
       this.timeline.addEvent(
         new CurrentWeaponEvent(
-          new TimeInterval(time, time + minEventDuration),
+          new TimeInterval(
+            this.currentTick.startTime,
+            this.currentTick.endTime
+          ),
           weapon
         )
       );
