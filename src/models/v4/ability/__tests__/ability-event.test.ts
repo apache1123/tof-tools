@@ -4,20 +4,68 @@ import type { CurrentCombatState } from '../../combat-state/current-combat-state
 import type { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
 import { TimeInterval } from '../../time-interval/time-interval';
-import type { AbilityEvent } from '../ability-event';
+import { AbilityEvent } from '../ability-event';
 import type { AbilityId } from '../ability-id';
 import type { AbilityUpdatesResource } from '../ability-updates-resource';
 
-/** Ability event abstract class tests to be re-used in child class tests */
+// Ability event dependencies / properties
+let timeInterval: TimeInterval;
+let abilityId: AbilityId;
+let cooldown: number;
+let updatesResources: AbilityUpdatesResource[];
+let eventManager: EventManager;
+let currentTick: CurrentTick;
+let currentCombatState: CurrentCombatState;
 
-// Ability event dependencies / properties needed in constructor
-export const createTimeInterval = () => new TimeInterval(0, 5000);
-export const createAbilityId = (): AbilityId => 'id';
-export const createCooldown = () => 1500;
-export const createUpdatesResources = (): AbilityUpdatesResource[] => [];
-export const createEventManager = () => mock<EventManager>();
-export const createCurrentTick = () => new CurrentTick(0, 500);
-export const createCurrentCombatState = () => mock<CurrentCombatState>();
+let sut: AbilityEvent;
+
+describe('Ability event', () => {
+  beforeEach(() => {
+    timeInterval = new TimeInterval(0, 5000);
+    abilityId = 'id';
+    cooldown = 1500;
+    updatesResources = [];
+    eventManager = mock<EventManager>();
+    currentTick = new CurrentTick(0, 500);
+    currentCombatState = mock<CurrentCombatState>();
+
+    sut = new AbilityEvent(
+      timeInterval,
+      abilityId,
+      cooldown,
+      updatesResources,
+      eventManager,
+      currentTick,
+      currentCombatState
+    );
+  });
+
+  it('returns correctly if it is on cooldown', () => {
+    cooldownTest(sut);
+  });
+
+  it('should publish ability end if the end time of this event is in the current tick', () => {
+    publishAbilityEndTest(sut, currentTick, eventManager);
+  });
+
+  describe('request resource updates', () => {
+    it('should request resource update with the correct resource amount, adjusted for the duration of the tick, when the amount to update is defined as a flat amount for the duration of the attack event', () => {
+      requestResourceUpdateFlatAmountTest(sut, updatesResources, eventManager);
+    });
+
+    it('should request resource update with the correct resource amount, adjusted for the duration of the tick, when the amount to update is defined as a per second amount', () => {
+      requestResourceUpdatePerSecondAmountTest(
+        sut,
+        updatesResources,
+        eventManager
+      );
+    });
+
+    it('should request resource deletion', () => {
+      requestResourceDepletionTest(sut, updatesResources, eventManager);
+    });
+  });
+});
 
 export function cooldownTest(sut: AbilityEvent) {
   expect(sut.isOnCooldown(0)).toBe(true);

@@ -11,7 +11,7 @@ import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityDto } from './dtos/ability-dto';
 
 /** An ability is anything a character does. Attacks, buffs etc. are all considered abilities. */
-export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
+export class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   implements Serializable<AbilityDto>
 {
   public constructor(
@@ -81,7 +81,10 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     return this.timeline.getEventsOverlapping(this.currentTick.value);
   }
 
-  protected abstract createNewEvent(timeInterval: TimeInterval): TAbilityEvent;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected createNewEvent(timeInterval: TimeInterval): TAbilityEvent {
+    throw new Error('Not implemented');
+  }
 
   /** Terminate any active ability events */
   private terminate() {

@@ -14,7 +14,7 @@ import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityEventDto } from './dtos/ability-event-dto';
 
 /** An ability event is produced when that ability is performed, spanning over a time interval and has a cooldown etc.  */
-export abstract class AbilityEvent
+export class AbilityEvent
   extends TimelineEvent
   implements Serializable<AbilityEventDto>
 {
@@ -47,10 +47,10 @@ export abstract class AbilityEvent
     this.additionalProcessing(currentTick, this.currentCombatState.value);
   }
 
-  protected abstract additionalProcessing(
-    tick: Tick,
-    combatState: CombatState
-  ): void;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected additionalProcessing(tick: Tick, combatState: CombatState) {
+    return;
+  }
 
   /** Updates resources for the duration of the current tick */
   private updateResources(tick: Tick) {
