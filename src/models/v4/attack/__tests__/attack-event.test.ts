@@ -34,19 +34,30 @@ let sut: AttackEvent;
 
 describe('Attack event', () => {
   beforeEach(() => {
-    timeInterval = new TimeInterval(0, 5000);
+    timeInterval = new TimeInterval(0, 500);
     abilityId = 'id';
     cooldown = 1500;
     updatesResources = [];
     eventManager = mock<EventManager>();
     currentTick = new CurrentTick(0, 500);
-    currentCombatState = mock<CurrentCombatState>();
+    currentCombatState = mock<CurrentCombatState>({
+      value: {
+        resources: [],
+      },
+    });
 
     elementalType = 'Volt';
     baseDamageModifiersDefinition = {
-      attackFlat: 252,
-      attackMultiplier: 1.2,
       damageDealtIsPerSecond: false,
+      attackMultiplier: 1.2,
+      attackFlat: 252,
+      hpMultiplier: 0.3,
+      sumOfResistancesMultiplier: 0.3,
+      critRateFlatMultiplier: 0.3,
+      resourceAmountMultiplier: {
+        resourceId: 'resource-id',
+        multiplier: 3,
+      },
     };
     finalDamageModifiersDefinition = {};
     type = 'normal';
@@ -68,5 +79,124 @@ describe('Attack event', () => {
       hitCount,
       weapon
     );
+  });
+
+  describe('Attack hits', () => {
+    it('should publish attack hits if they are within the current tick', () => {
+      // current tick 0-500, event 0-500, 3 hits
+      sut.process();
+      expect(eventManager.publishAttackHit).toHaveBeenCalledTimes(3);
+    });
+
+    describe('Attack hit timing', () => {
+      it('should publish attack hits at the right time, for an attack with a fixed number of hits over its duration', () => {
+        // current tick 0-500, event 0-500, 3 hits at 125, 250, 375
+        sut.process();
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            time: 125,
+          })
+        );
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            time: 250,
+          })
+        );
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            time: 375,
+          })
+        );
+      });
+
+      it('should publish attack hits at the right time, for an attack with a number of hits over a second', () => {
+        // current tick 0-500, event 0-500, 4 hits per second => 2 hits per 500ms => hits at 167, 333
+        hitCount.numberOfHitsFixed = undefined;
+        hitCount.numberOfHitsPerSecond = 4;
+        sut.process();
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            time: 167,
+          })
+        );
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            time: 333,
+          })
+        );
+      });
+    });
+
+    describe('Base damage modifiers', () => {
+      it('should calculate the base damage modifiers correctly, for an attack where the damage dealt is defined to be for the whole event', () => {
+        // current tick 0-500, event 0-500, 3 hits => applicable values should be divided by 3
+        sut.process();
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            baseDamageModifiers: {
+              attackMultiplier: 0.4,
+              attackFlat: 84,
+              hpMultiplier: 0.1,
+              sumOfResistancesMultiplier: 0.1,
+              critRateFlatMultiplier: 0.1,
+              resourceAmountMultiplier: 1,
+            },
+          })
+        );
+      });
+
+      it('should calculate the base damage modifiers correctly, for an attack where the damage dealt is defined to be per second (and the hits is defined to be for the whole attack)', () => {
+        // current tick 0-500, event 0-500; event is half the duration of per second; 3 hits; Per hit, applicable values should be divided by (2 * 3) = 6
+        baseDamageModifiersDefinition.damageDealtIsPerSecond = true;
+        sut.process();
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            baseDamageModifiers: {
+              attackMultiplier: 0.2,
+              attackFlat: 42,
+              hpMultiplier: 0.05,
+              sumOfResistancesMultiplier: 0.05,
+              critRateFlatMultiplier: 0.05,
+              resourceAmountMultiplier: 1,
+            },
+          })
+        );
+      });
+
+      it('should calculate the base damage modifiers correctly, for an attack where the damage dealt is defined to be per second (and the hits is defined to be per second)', () => {
+        // current tick 0-500, event 0-500; event is half the duration of per second; 4 hits per second => 2 hits; Per hit, applicable values should be divided by (2 * 2) = 4
+        baseDamageModifiersDefinition.damageDealtIsPerSecond = true;
+        hitCount.numberOfHitsFixed = undefined;
+        hitCount.numberOfHitsPerSecond = 4;
+        sut.process();
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            baseDamageModifiers: {
+              attackMultiplier: 0.3,
+              attackFlat: 63,
+              hpMultiplier: 0.075,
+              sumOfResistancesMultiplier: 0.075,
+              critRateFlatMultiplier: 0.075,
+              resourceAmountMultiplier: 1,
+            },
+          })
+        );
+      });
+
+      it('should calculate the base damage modifiers correctly, when there is an applicable resource for the resource amount multiplier', () => {
+        currentCombatState.value.resources.push({
+          id: 'resource-id',
+          amount: 100,
+        });
+        sut.process();
+        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+          expect.objectContaining({
+            baseDamageModifiers: expect.objectContaining({
+              resourceAmountMultiplier: 300,
+            }),
+          })
+        );
+      });
+    });
   });
 });

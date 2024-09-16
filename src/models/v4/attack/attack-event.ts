@@ -100,7 +100,7 @@ export class AttackEvent
       critRateFlatMultiplier,
     } = this.baseDamageModifiersDefinition;
 
-    // If the damage modifiers are defined as per second, each of the damage modifier's base duration is one second. If they are not defined to be per second, the the base duration is the attack's duration.
+    // If the damage modifiers are defined as per second, each of the damage modifier's base duration is one second. If they are not defined to be per second, then the base duration is the attack's duration.
     const durationAdjustment = damageDealtIsPerSecond
       ? BigNumber(this.duration).div(oneSecondDuration)
       : 1;
@@ -136,6 +136,7 @@ export class AttackEvent
     if (hitCount.numberOfHitsFixed) {
       numberOfHits = hitCount.numberOfHitsFixed;
     } else if (hitCount.numberOfHitsPerSecond) {
+      // using the numberOfHitsPerSecond is an average number, work out the number of hits based on the attack duration
       numberOfHits = BigNumber(duration)
         .times(hitCount.numberOfHitsPerSecond)
         .dividedToIntegerBy(oneSecondDuration)
@@ -150,11 +151,14 @@ export class AttackEvent
     const result = [];
 
     // Distribute the number of hits evenly across the attack event's duration. By evenly, it means the time between hits, and the time between the first hit and the start time, and the time between the last hit and the end time, are the same. e.g. like how space-evenly works in css flex box.
+    // Calculate this by dividing the duration by (the number of hits + 1) e.g. 3 hits over 1000 duration = hits at 250, 500, 750
     const numberOfHits = this.getNumberOfHits();
+
     const durationBetweenHits = BigNumber(duration).div(numberOfHits + 1);
     for (let hitIndex = 1; hitIndex <= numberOfHits; hitIndex++) {
       const timeOfHit = BigNumber(startTime)
         .plus(durationBetweenHits.times(hitIndex))
+        .decimalPlaces(0)
         .toNumber();
       result.push(timeOfHit);
     }
