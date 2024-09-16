@@ -32,7 +32,7 @@ export abstract class AbilityEvent
   }
 
   /** Cooldown ends at a point of time (exclusive) */
-  public get cooldownEndsAt() {
+  private get cooldownEndsAt() {
     return this.startTime + this.cooldown;
   }
 

@@ -57,7 +57,7 @@ export class TimeInterval implements Serializable<TimeIntervalDto> {
     return this._endTime - this._startTime;
   }
 
-  /** Determines whether a time lies in this time interval */
+  /** Determines whether a time lies in this time interval (startTime <= time < endTime) */
   public includes(time: number) {
     return time >= this._startTime && time < this._endTime;
   }
