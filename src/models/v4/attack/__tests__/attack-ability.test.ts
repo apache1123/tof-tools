@@ -1,8 +1,8 @@
 import { mock } from 'jest-mock-extended';
 
 import type { Weapon } from '../../../weapon';
+import type { ActiveWeapon } from '../../active-weapon/active-weapon';
 import type { Charge } from '../../charge/charge';
-import type { CurrentWeapon } from '../../current-weapon/current-weapon';
 import { CurrentTick } from '../../tick/current-tick';
 import { TimeInterval } from '../../time-interval/time-interval';
 import { Timeline } from '../../timeline/timeline';
@@ -24,7 +24,7 @@ describe.skip('Attack ability', () => {
         definition,
         timeline,
         tickTracker,
-        mock<CurrentWeapon>(),
+        mock<ActiveWeapon>(),
         mock<Charge>()
       );
       sut.trigger();

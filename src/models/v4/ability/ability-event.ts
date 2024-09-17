@@ -2,8 +2,6 @@ import BigNumber from 'bignumber.js';
 
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Serializable } from '../../persistable';
-import type { CombatState } from '../combat-state/combat-state';
-import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import type { Tick } from '../tick/tick';
@@ -14,7 +12,7 @@ import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityEventDto } from './dtos/ability-event-dto';
 
 /** An ability event is produced when that ability is performed, spanning over a time interval and has a cooldown etc.  */
-export class AbilityEvent
+export abstract class AbilityEvent
   extends TimelineEvent
   implements Serializable<AbilityEventDto>
 {
@@ -24,8 +22,7 @@ export class AbilityEvent
     public cooldown: number,
     private readonly updatesResources: AbilityUpdatesResource[],
     protected readonly eventManager: EventManager,
-    protected readonly currentTick: CurrentTick,
-    protected readonly currentCombatState: CurrentCombatState
+    protected readonly currentTick: CurrentTick
   ) {
     super(timeInterval);
     this.cooldown = cooldown;
@@ -44,13 +41,10 @@ export class AbilityEvent
     const currentTick = this.currentTick.value;
     this.updateResources(currentTick);
     this.publishAbilityEnd(currentTick);
-    this.additionalProcessing(currentTick, this.currentCombatState.value);
+    this.additionalProcessing(currentTick);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected additionalProcessing(tick: Tick, combatState: CombatState) {
-    return;
-  }
+  protected abstract additionalProcessing(tick: Tick): void;
 
   /** Updates resources for the duration of the current tick */
   private updateResources(tick: Tick) {
@@ -100,5 +94,12 @@ export class AbilityEvent
     if (tick.includes(this.endTime)) {
       this.eventManager.publishAbilityEnded({ id: this.abilityId });
     }
+  }
+}
+
+/** A concrete class that extends the abstract class to aid testing */
+export class ConcreteAbilityEvent extends AbilityEvent {
+  protected override additionalProcessing(): void {
+    return;
   }
 }

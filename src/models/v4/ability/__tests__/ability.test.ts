@@ -2,7 +2,6 @@ import type { MockProxy } from 'jest-mock-extended';
 import { mock } from 'jest-mock-extended';
 
 import { repeat } from '../../../../utils/test-utils';
-import type { CurrentCombatState } from '../../combat-state/current-combat-state';
 import type { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
 import type { Ability } from '../ability';
@@ -23,7 +22,6 @@ let updatesResources: AbilityUpdatesResource[];
 let timeline: AbilityTimeline;
 let eventManager: EventManager;
 let currentTick: CurrentTick;
-let currentCombatState: CurrentCombatState;
 
 let sut: Ability;
 
@@ -42,7 +40,6 @@ describe('Ability', () => {
     timeline = new AbilityTimeline(100000);
     eventManager = mock<EventManager>();
     currentTick = new CurrentTick(0, 1000);
-    currentCombatState = mock<CurrentCombatState>();
 
     createSut();
   });
@@ -58,8 +55,7 @@ describe('Ability', () => {
       updatesResources,
       timeline,
       eventManager,
-      currentTick,
-      currentCombatState
+      currentTick
     );
   }
 

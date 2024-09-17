@@ -1,3 +1,4 @@
+import type { MockProxy } from 'jest-mock-extended';
 import { mock } from 'jest-mock-extended';
 
 import type { AttackType } from '../../../../definitions/attack-type';
@@ -6,10 +7,11 @@ import type { Weapon as WeaponDefinition } from '../../../../definitions/types/w
 import { Weapon } from '../../../weapon';
 import type { AbilityId } from '../../ability/ability-id';
 import type { AbilityUpdatesResource } from '../../ability/ability-updates-resource';
-import type { CurrentCombatState } from '../../combat-state/current-combat-state';
 import type { BaseDamageModifiersDefinition } from '../../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiersDefinition } from '../../damage-modifiers/final-damage-modifiers-definition';
 import type { EventManager } from '../../event/event-manager';
+import type { CurrentResource } from '../../resource/current-resource/current-resource';
+import type { CurrentResources } from '../../resource/current-resource/current-resources';
 import { CurrentTick } from '../../tick/current-tick';
 import { TimeInterval } from '../../time-interval/time-interval';
 import { AttackEvent } from '../attack-event';
@@ -21,7 +23,7 @@ let cooldown: number;
 let updatesResources: AbilityUpdatesResource[];
 let eventManager: EventManager;
 let currentTick: CurrentTick;
-let currentCombatState: CurrentCombatState;
+let currentResources: MockProxy<CurrentResources>;
 
 let elementalType: WeaponElementalType;
 let baseDamageModifiersDefinition: BaseDamageModifiersDefinition;
@@ -40,11 +42,7 @@ describe('Attack event', () => {
     updatesResources = [];
     eventManager = mock<EventManager>();
     currentTick = new CurrentTick(0, 500);
-    currentCombatState = mock<CurrentCombatState>({
-      value: {
-        resources: [],
-      },
-    });
+    currentResources = mock<CurrentResources>();
 
     elementalType = 'Volt';
     baseDamageModifiersDefinition = {
@@ -64,6 +62,10 @@ describe('Attack event', () => {
     hitCount = { numberOfHitsFixed: 3 };
     weapon = new Weapon({ id: 'Meryl' } as WeaponDefinition);
 
+    resetSut();
+  });
+
+  function resetSut() {
     sut = new AttackEvent(
       timeInterval,
       abilityId,
@@ -71,15 +73,15 @@ describe('Attack event', () => {
       updatesResources,
       eventManager,
       currentTick,
-      currentCombatState,
       elementalType,
       baseDamageModifiersDefinition,
       finalDamageModifiersDefinition,
       type,
       hitCount,
-      weapon
+      weapon,
+      currentResources
     );
-  });
+  }
 
   describe('Attack hits', () => {
     it('should publish attack hits if they are within the current tick', () => {
@@ -184,10 +186,19 @@ describe('Attack event', () => {
       });
 
       it('should calculate the base damage modifiers correctly, when there is an applicable resource for the resource amount multiplier', () => {
-        currentCombatState.value.resources.push({
+        const currentResource: CurrentResource = {
           id: 'resource-id',
           amount: 100,
+        };
+        currentResources = mock<CurrentResources>({
+          all: [currentResource],
         });
+        currentResources.find
+          .calledWith('resource-id')
+          .mockReturnValue(currentResource);
+
+        resetSut();
+
         sut.process();
         expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
           expect.objectContaining({

@@ -9,14 +9,13 @@ import { AbilityEvent } from '../ability/ability-event';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import type { AttackHitCount } from '../attack/attack-hit-count';
-import type { CombatState } from '../combat-state/combat-state';
-import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { BaseDamageModifiers } from '../damage-modifiers/base-damage-modifiers';
 import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiers } from '../damage-modifiers/final-damage-modifiers';
 import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-damage-modifiers-definition';
 import type { EventManager } from '../event/event-manager';
 import type { AttackHit } from '../event/messages/attack-hit';
+import type { CurrentResources } from '../resource/current-resource/current-resources';
 import type { CurrentTick } from '../tick/current-tick';
 import type { Tick } from '../tick/tick';
 import type { TimeInterval } from '../time-interval/time-interval';
@@ -33,14 +32,14 @@ export class AttackEvent
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
     currentTick: CurrentTick,
-    currentCombatState: CurrentCombatState,
     private readonly elementalType: WeaponElementalType,
     private readonly baseDamageModifiersDefinition: BaseDamageModifiersDefinition,
     private readonly finalDamageModifiersDefinition: FinalDamageModifiersDefinition,
     private readonly type: AttackType,
     private readonly hitCount: AttackHitCount,
     /** The weapon this attack derived from, for convenience */
-    private readonly weapon: Weapon
+    private readonly weapon: Weapon,
+    private readonly currentResources: CurrentResources
   ) {
     super(
       timeInterval,
@@ -48,26 +47,22 @@ export class AttackEvent
       cooldown,
       updatesResources,
       eventManager,
-      currentTick,
-      currentCombatState
+      currentTick
     );
   }
 
-  protected override additionalProcessing(
-    tick: Tick,
-    combatState: CombatState
-  ): void {
-    this.processHits(tick, combatState);
+  protected override additionalProcessing(tick: Tick): void {
+    this.processHits(tick);
   }
 
-  private processHits(tick: Tick, combatState: CombatState): void {
+  private processHits(tick: Tick): void {
     this.getTimeOfHits()
       .filter((time) => tick.includes(time))
       .forEach((time) => {
         const attackHit: AttackHit = {
           time,
           elementalType: this.elementalType,
-          baseDamageModifiers: this.getBaseDamageModifiersPerHit(combatState),
+          baseDamageModifiers: this.getBaseDamageModifiersPerHit(),
           finalDamageModifiers: this.getFinalDamageModifiersPerHit(),
           attackId: this.abilityId,
           attackType: this.type,
@@ -88,9 +83,7 @@ export class AttackEvent
    *
    * Here: attackMultiplier, attackFlat, hpMultiplier need to be adjusted, but resourceAmountMultiplier will not change
    */
-  private getBaseDamageModifiersPerHit(
-    combatState: CombatState
-  ): BaseDamageModifiers {
+  private getBaseDamageModifiersPerHit(): BaseDamageModifiers {
     const {
       damageDealtIsPerSecond,
       attackMultiplier,
@@ -119,7 +112,7 @@ export class AttackEvent
       critRateFlatMultiplier: calculateAdjustedValue(
         critRateFlatMultiplier ?? 0
       ),
-      resourceAmountMultiplier: this.getResourceAmountMultiplier(combatState),
+      resourceAmountMultiplier: this.getResourceAmountMultiplier(),
     };
   }
 
@@ -166,20 +159,18 @@ export class AttackEvent
     return result;
   }
 
-  private getResourceAmountMultiplier(combatState: CombatState) {
+  private getResourceAmountMultiplier() {
     const { resourceAmountMultiplier } = this.baseDamageModifiersDefinition;
 
     let result = 1;
     if (resourceAmountMultiplier) {
       const { resourceId } = resourceAmountMultiplier;
 
-      const resource = combatState.resources.find(
-        (resource) => resource.id === resourceId
-      );
+      const currentResource = this.currentResources.find(resourceId);
 
-      if (resource) {
+      if (currentResource) {
         result = BigNumber(resourceAmountMultiplier.multiplier)
-          .times(resource.amount)
+          .times(currentResource.amount)
           .toNumber();
       }
     }

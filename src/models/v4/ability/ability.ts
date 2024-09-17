@@ -1,9 +1,9 @@
 import type { Serializable } from '../../persistable';
-import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
-import { AbilityEvent } from './ability-event';
+import type { AbilityEvent } from './ability-event';
+import { ConcreteAbilityEvent } from './ability-event';
 import type { AbilityId } from './ability-id';
 import type { AbilityRequirements } from './ability-requirements';
 import type { AbilityTimeline } from './ability-timeline';
@@ -24,16 +24,11 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     protected readonly updatesResources: AbilityUpdatesResource[],
     protected readonly timeline: AbilityTimeline<TAbilityEvent>,
     protected readonly eventManager: EventManager,
-    protected readonly currentTick: CurrentTick,
-    protected readonly currentCombatState: CurrentCombatState
+    protected readonly currentTick: CurrentTick
   ) {}
 
   protected getTriggerTime() {
     return this.currentTick.startTime;
-  }
-
-  protected getCurrentCombatState() {
-    return this.currentCombatState.value;
   }
 
   public canTrigger() {
@@ -47,15 +42,14 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     return this.canBePlayerTriggered && this.canTrigger();
   }
 
-  
   /** Trigger an ability event */
   public trigger() {
     if (!this.canTrigger()) return;
-    
+
     const newEventTimeInterval = this.getNewEventTimeInterval();
     const newEvent = this.createNewEvent(newEventTimeInterval);
     this.timeline.addEvent(newEvent);
-    
+
     this.eventManager.publishAbilityStarted({ id: this.id });
   }
 
@@ -90,7 +84,7 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   }
 
   private haveRequirementsBeenMet() {
-    return this.requirements.haveBeenMet(this.getCurrentCombatState());
+    return this.requirements.haveBeenMet();
   }
 
   private getNewEventTimeInterval(): TimeInterval {
@@ -111,14 +105,13 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
 /** A concrete class that extends the abstract class to aid testing */
 export class ConcreteAbility extends Ability<AbilityEvent> {
   protected override createNewEvent(timeInterval: TimeInterval): AbilityEvent {
-    return new AbilityEvent(
+    return new ConcreteAbilityEvent(
       timeInterval,
       this.id,
       this.cooldown,
       this.updatesResources,
       this.eventManager,
-      this.currentTick,
-      this.currentCombatState
+      this.currentTick
     );
   }
 }

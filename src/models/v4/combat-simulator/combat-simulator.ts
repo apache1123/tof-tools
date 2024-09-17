@@ -15,11 +15,16 @@ import type { UserStats } from '../../user-stats';
 import type { Ability } from '../ability/ability';
 import { AbilityRequirements } from '../ability/ability-requirements';
 import { AbilityTrigger } from '../ability/ability-trigger';
+import { ActiveWeapon } from '../active-weapon/active-weapon';
+import { ActiveWeaponTimeline } from '../active-weapon/active-weapon-timeline';
 import { AttackAbility } from '../attack/attack-ability';
+import { AttackRegistry } from '../attack/attack-registry';
 import { AttackTimeline } from '../attack/attack-timeline';
+import { ActiveBuffs } from '../buff/active-buff/active-buffs';
 import { AttackBuff } from '../buff/attack-buff';
 import { BaseAttackBuff } from '../buff/base-attack-buff';
 import { BuffAbility } from '../buff/buff-ability';
+import { BuffRegistry } from '../buff/buff-registry';
 import type { BuffSource } from '../buff/buff-source';
 import { BuffTimeline } from '../buff/buff-timeline';
 import { CritDamageBuff } from '../buff/crit-damage-buff';
@@ -27,19 +32,18 @@ import { CritRateBuff } from '../buff/crit-rate-buff';
 import { ElementalDamageBuff } from '../buff/elemental-damage-buff';
 import { FinalDamageBuff } from '../buff/final-damage-buff';
 import { UtilizedBuffs } from '../buff/utilized-buffs';
-import { Character } from '../character/character';
+import { CurrentCharacterStats } from '../character/current-character-stats';
 import { Charge } from '../charge/charge';
-import { CurrentCombatState } from '../combat-state/current-combat-state';
-import { CurrentWeapon } from '../current-weapon/current-weapon';
-import { CurrentWeaponTimeline } from '../current-weapon/current-weapon-timeline';
 import { DamageRecord } from '../damage-record/damage-record';
 import { DamageRecordTimeline } from '../damage-record/damage-record-timeline';
 import { EventManager } from '../event/event-manager';
 import type { EventSubscriber } from '../event/event-subscriber';
 import { Registry } from '../registry/registry';
 import type { Relics } from '../relics/relics';
+import { CurrentResources } from '../resource/current-resource/current-resources';
 import { Resource } from '../resource/resource';
 import type { ResourceDefinition } from '../resource/resource-definition';
+import { ResourceRegistry } from '../resource/resource-registry';
 import { ResourceRequirements } from '../resource/resource-requirements';
 import { ResourceTimeline } from '../resource-timeline/resource-timeline';
 import type { Target } from '../target/target';
@@ -52,18 +56,23 @@ import { ActiveWeaponRequirements } from '../weapon/active-weapon-requirements';
 import type { CombatSimulatorOptions } from './combat-simulator-options';
 
 export class CombatSimulator {
-  private readonly character: Character;
   private readonly eventManager: EventManager;
   private readonly target: Target;
-  private readonly currentTick: CurrentTick;
-  private readonly currentCombatState: CurrentCombatState;
-  private readonly currentWeapon: CurrentWeapon;
-  private readonly damageRecord: DamageRecord;
   private readonly team: Team;
-  private readonly charge: Charge;
-  private readonly resources: Registry<Resource>;
-  private readonly attacks: Registry<AttackAbility>;
-  private readonly buffs: Registry<BuffAbility>;
+  private readonly currentTick: CurrentTick;
+  private readonly activeWeapon: ActiveWeapon;
+
+  private readonly resources: ResourceRegistry;
+  private readonly currentResources: CurrentResources;
+
+  private readonly attacks: AttackRegistry;
+
+  private readonly buffs: BuffRegistry;
+  private readonly activeBuffs: ActiveBuffs;
+
+  private readonly currentCharacterStats: CurrentCharacterStats;
+  private readonly damageRecord: DamageRecord;
+
   private readonly eventSubscribers: EventSubscriber[] = [];
 
   private hasBegunCombat = false;
@@ -78,8 +87,6 @@ export class CombatSimulator {
 
     this.eventManager = new EventManager();
 
-    this.character = new Character(userStats, loadout, loadout.loadoutStats);
-
     this.target = { resistance: targetResistance };
 
     const { team, simulacrumTrait } = loadout;
@@ -91,8 +98,8 @@ export class CombatSimulator {
       startingTickInterval.startTime,
       tickDuration
     );
-    this.currentWeapon = new CurrentWeapon(
-      new CurrentWeaponTimeline(combatDuration),
+    this.activeWeapon = new ActiveWeapon(
+      new ActiveWeaponTimeline(combatDuration),
       this.eventManager,
       this.currentTick
     );
@@ -108,7 +115,7 @@ export class CombatSimulator {
         this.eventManager,
         this.currentTick
       );
-    this.charge = new Charge(
+    const charge = new Charge(
       chargeDefinition.id,
       chargeDefinition.displayName,
       chargeDefinition.maxAmount,
@@ -125,31 +132,21 @@ export class CombatSimulator {
         createResource(resourceDefinition)
       )
     );
-    this.resources = new Registry([
-      this.charge,
+    this.resources = new ResourceRegistry(charge, [
       dodge,
       endurance,
       ...customResources,
     ]);
-
-    this.attacks = new Registry([]);
-    this.buffs = new Registry([]);
-
-    this.currentCombatState = new CurrentCombatState(
-      this.character,
-      team,
-      this.currentWeapon,
-      this.target,
-      this.charge,
-      this.resources,
-      this.attacks,
-      this.buffs
-    );
+    this.currentResources = new CurrentResources(this.resources);
 
     const createRequirements = (
       definition: AbilityRequirementsDefinition
     ): AbilityRequirements =>
       new AbilityRequirements(
+        this.team,
+        this.activeWeapon,
+        this.currentResources,
+        this.activeBuffs,
         definition.activeBuff,
         new ActiveWeaponRequirements(
           definition.activeWeapon?.is,
@@ -194,6 +191,7 @@ export class CombatSimulator {
 
     const abilityTriggers: AbilityTrigger[] = [];
 
+    this.attacks = new AttackRegistry([]);
     for (const weapon of weapons) {
       for (const definition of weapon.attackDefinitions) {
         const attack = new AttackAbility(
@@ -207,7 +205,6 @@ export class CombatSimulator {
           new AttackTimeline(combatDuration),
           this.eventManager,
           this.currentTick,
-          this.currentCombatState,
           weapon,
           definition.elementalType,
           definition.type,
@@ -215,7 +212,9 @@ export class CombatSimulator {
           definition.baseDamageModifiers,
           definition.finalDamageModifiers,
           definition.hitCount,
-          !!definition.doesNotTriggerEvents
+          !!definition.doesNotTriggerEvents,
+          this.activeWeapon,
+          this.currentResources
         );
         this.attacks.add(attack);
 
@@ -244,6 +243,7 @@ export class CombatSimulator {
       { source: 'relic', abilityDefinitions: relics.passiveRelicBuffs },
     ];
 
+    this.buffs = new BuffRegistry([]);
     for (const { source, abilityDefinitions } of buffAbilityDefinitions) {
       for (const abilityDef of abilityDefinitions) {
         const { id } = abilityDef;
@@ -311,7 +311,6 @@ export class CombatSimulator {
           new BuffTimeline(combatDuration),
           this.eventManager,
           this.currentTick,
-          this.currentCombatState,
           abilityDef.maxStacks,
           baseAttackBuffs,
           attackBuffs,
@@ -326,13 +325,24 @@ export class CombatSimulator {
       }
     }
 
+    this.activeBuffs = new ActiveBuffs(this.buffs);
+
+    this.currentCharacterStats = new CurrentCharacterStats(
+      userStats,
+      loadout,
+      loadout.loadoutStats,
+      this.activeBuffs
+    );
+
     const utilizedBuffs = new UtilizedBuffs();
     this.damageRecord = new DamageRecord(
       new DamageRecordTimeline(combatDuration),
       utilizedBuffs,
       this.currentTick,
-      this.currentCombatState,
-      this.eventManager
+      this.eventManager,
+      this.target,
+      this.activeBuffs,
+      this.currentCharacterStats
     );
 
     this.eventSubscribers.push(
@@ -343,7 +353,7 @@ export class CombatSimulator {
   }
 
   public beginCombat() {
-    this.subscribeSubscribers();
+    this.subscribeEventSubscribers();
     this.addStartingResources();
     this.processTick();
     this.advanceTick();
@@ -374,7 +384,6 @@ export class CombatSimulator {
 
   private advanceTick() {
     this.currentTick.advance();
-    this.updateCurrentState();
   }
 
   private processTick() {
@@ -395,16 +404,10 @@ export class CombatSimulator {
 
   /** Advance and process ticks until there are no ongoing foreground attacks */
   private finishOngoingForegroundAttacks() {
-    while (
-      this.attacks.items.some((attack) => attack.isOngoingForegroundAttack())
-    ) {
+    while (this.attacks.hasOngoingForegroundAttack()) {
       this.advanceTick();
       this.processTick();
     }
-  }
-
-  private updateCurrentState() {
-    this.currentCombatState.update();
   }
 
   private addStartingResources() {
@@ -413,7 +416,7 @@ export class CombatSimulator {
     }
   }
 
-  private subscribeSubscribers() {
+  private subscribeEventSubscribers() {
     for (const subscriber of this.eventSubscribers) {
       subscriber.subscribeToEvents();
     }

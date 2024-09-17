@@ -2,11 +2,10 @@ import type { Serializable } from '../../persistable';
 import { AbilityEvent } from '../ability/ability-event';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import type { TimeInterval } from '../time-interval/time-interval';
-import type { ActiveBuff } from './active-buff';
+import type { ActiveBuff } from './active-buff/active-buff';
 import type { AttackBuff } from './attack-buff';
 import type { BaseAttackBuff } from './base-attack-buff';
 import type { CritDamageBuff } from './crit-damage-buff';
@@ -26,7 +25,6 @@ export class BuffEvent
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
     currentTick: CurrentTick,
-    currentCombatState: CurrentCombatState,
     public readonly baseAttackBuffs: BaseAttackBuff[],
     public readonly attackBuffs: AttackBuff[],
     public readonly elementalDamageBuffs: ElementalDamageBuff[],
@@ -41,8 +39,7 @@ export class BuffEvent
       cooldown,
       updatesResources,
       eventManager,
-      currentTick,
-      currentCombatState
+      currentTick
     );
   }
 

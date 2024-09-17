@@ -5,11 +5,11 @@ import { Ability } from '../ability/ability';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { CombatState } from '../combat-state/combat-state';
-import type { CurrentCombatState } from '../combat-state/current-combat-state';
+import type { ActiveWeapon } from '../active-weapon/active-weapon';
 import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-damage-modifiers-definition';
 import type { EventManager } from '../event/event-manager';
+import type { CurrentResources } from '../resource/current-resource/current-resources';
 import type { CurrentTick } from '../tick/current-tick';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { AttackElementalType } from './attack-elemental-type';
@@ -33,7 +33,6 @@ export class AttackAbility
     timeline: AttackTimeline,
     eventManager: EventManager,
     currentTick: CurrentTick,
-    currentCombatState: CurrentCombatState,
     private readonly weapon: Weapon,
     private readonly elementalType: AttackElementalType,
     private readonly type: AttackType,
@@ -42,7 +41,9 @@ export class AttackAbility
     private readonly baseDamageModifiers: BaseDamageModifiersDefinition,
     private readonly finalDamageModifiers: FinalDamageModifiersDefinition,
     private readonly hitCount: AttackHitCount,
-    private readonly doesNotTriggerEvents: boolean
+    private readonly doesNotTriggerEvents: boolean,
+    private readonly activeWeapon: ActiveWeapon,
+    private readonly currentResources: CurrentResources
   ) {
     super(
       id,
@@ -54,8 +55,7 @@ export class AttackAbility
       updatesResources,
       timeline,
       eventManager,
-      currentTick,
-      currentCombatState
+      currentTick
     );
   }
 
@@ -68,7 +68,7 @@ export class AttackAbility
   }
 
   protected override createNewEvent(timeInterval: TimeInterval) {
-    const elementalType = this.getElementalType(this.getCurrentCombatState());
+    const elementalType = this.getElementalType();
 
     return new AttackEvent(
       timeInterval,
@@ -77,25 +77,30 @@ export class AttackAbility
       this.updatesResources,
       this.eventManager,
       this.currentTick,
-      this.currentCombatState,
       elementalType,
       this.baseDamageModifiers,
       this.finalDamageModifiers,
       this.type,
       this.hitCount,
-      this.weapon
+      this.weapon,
+      this.currentResources
     );
   }
 
   /** Returns the elemental type of the attack at the current trigger time. Most attacks will have a fixed elemental type, but some might have a dynamic elemental type, dependent on the previous weapon, or current weapon, etc. */
-  private getElementalType(state: CombatState) {
+  private getElementalType() {
     const { elementalType } = this;
-    const { activeWeapon, previousWeapon } = state;
 
-    if (elementalType.followCurrentWeaponElementalType && activeWeapon) {
-      return activeWeapon.damageElement;
-    } else if (elementalType.followLastWeaponElementalType && previousWeapon) {
-      return previousWeapon.damageElement;
+    if (
+      elementalType.followCurrentWeaponElementalType &&
+      this.activeWeapon.current
+    ) {
+      return this.activeWeapon.current.damageElement;
+    } else if (
+      elementalType.followLastWeaponElementalType &&
+      this.activeWeapon.previous
+    ) {
+      return this.activeWeapon.previous.damageElement;
     } else {
       return elementalType.defaultElementalType;
     }
@@ -106,16 +111,17 @@ export class AttackAbility
    * - If weapon is not the active weapon, only the discharge is available, provided there is also a full charge. */
   private canTriggerGivenWeaponAndCharge(): boolean {
     const { isForegroundAttack, type } = this;
-    const { activeWeapon, charge } = this.getCurrentCombatState();
 
     if (!isForegroundAttack) return true;
 
-    if (activeWeapon === this.weapon) {
+    if (this.activeWeapon.current === this.weapon) {
       return type !== 'discharge';
     }
 
     // Not active weapon
-    return type === 'discharge' && charge.hasFullCharge;
+    return (
+      type === 'discharge' && this.currentResources.currentCharge.hasFullCharge
+    );
   }
 
   // TODO: This being here is extremely awkward

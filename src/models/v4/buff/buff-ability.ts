@@ -3,11 +3,10 @@ import { Ability } from '../ability/ability';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityRequirements } from '../ability/ability-requirements';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { CurrentCombatState } from '../combat-state/current-combat-state';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import type { TimeInterval } from '../time-interval/time-interval';
-import { ActiveBuffCollection } from './active-buff-collection';
+import type { ActiveBuff } from './active-buff/active-buff';
 import type { AttackBuff } from './attack-buff';
 import type { BaseAttackBuff } from './base-attack-buff';
 import { BuffEvent } from './buff-event';
@@ -34,7 +33,6 @@ export class BuffAbility
     timeline: BuffTimeline,
     eventManager: EventManager,
     currentTick: CurrentTick,
-    currentCombatState: CurrentCombatState,
     private readonly maxStacks: number,
     private readonly baseAttackBuffs: BaseAttackBuff[],
     private readonly attackBuffs: AttackBuff[],
@@ -54,13 +52,12 @@ export class BuffAbility
       updatesResources,
       timeline,
       eventManager,
-      currentTick,
-      currentCombatState
+      currentTick
     );
   }
 
-  public getActiveBuffs(): ActiveBuffCollection {
-    return new ActiveBuffCollection(this.getOngoingEvents());
+  public getActiveBuffs(): ActiveBuff[] {
+    return this.getOngoingEvents();
   }
 
   public override canTrigger(): boolean {
@@ -75,7 +72,6 @@ export class BuffAbility
       this.updatesResources,
       this.eventManager,
       this.currentTick,
-      this.currentCombatState,
       this.baseAttackBuffs,
       this.attackBuffs,
       this.elementalDamageBuffs,

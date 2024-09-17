@@ -11,7 +11,7 @@ export class Registry<T extends { id: string }> {
     return [...this._items.values()];
   }
 
-  public get(id: string) {
+  public find(id: string) {
     return this._items.get(id);
   }
 

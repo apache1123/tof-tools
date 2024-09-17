@@ -1,10 +1,10 @@
 import { mock } from 'jest-mock-extended';
 
-import type { CurrentCombatState } from '../../combat-state/current-combat-state';
 import type { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
 import { TimeInterval } from '../../time-interval/time-interval';
-import { AbilityEvent } from '../ability-event';
+import type { AbilityEvent } from '../ability-event';
+import { ConcreteAbilityEvent } from '../ability-event';
 import type { AbilityId } from '../ability-id';
 import type { AbilityUpdatesResource } from '../ability-updates-resource';
 
@@ -15,7 +15,6 @@ let cooldown: number;
 let updatesResources: AbilityUpdatesResource[];
 let eventManager: EventManager;
 let currentTick: CurrentTick;
-let currentCombatState: CurrentCombatState;
 
 let sut: AbilityEvent;
 
@@ -27,16 +26,14 @@ describe('Ability event', () => {
     updatesResources = [];
     eventManager = mock<EventManager>();
     currentTick = new CurrentTick(0, 500);
-    currentCombatState = mock<CurrentCombatState>();
 
-    sut = new AbilityEvent(
+    sut = new ConcreteAbilityEvent(
       timeInterval,
       abilityId,
       cooldown,
       updatesResources,
       eventManager,
-      currentTick,
-      currentCombatState
+      currentTick
     );
   });
 

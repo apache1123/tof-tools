@@ -2,18 +2,18 @@ import type { Weapon } from '../../weapon';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
-import { CurrentWeaponEvent } from './current-weapon-event';
-import type { CurrentWeaponTimeline } from './current-weapon-timeline';
+import { ActiveWeaponEvent } from './active-weapon-event';
+import type { ActiveWeaponTimeline } from './active-weapon-timeline';
 
-export class CurrentWeapon {
+export class ActiveWeapon {
   public constructor(
-    private readonly timeline: CurrentWeaponTimeline,
+    private readonly timeline: ActiveWeaponTimeline,
     private readonly eventManager: EventManager,
     private readonly currentTick: CurrentTick
   ) {}
 
   /** The current active weapon */
-  public get value(): Weapon | undefined {
+  public get current(): Weapon | undefined {
     return this.getActiveWeaponEvent()?.weapon;
   }
 
@@ -26,9 +26,9 @@ export class CurrentWeapon {
   }
 
   public set(weapon: Weapon) {
-    if (this.value !== weapon) {
+    if (this.current !== weapon) {
       this.timeline.addEvent(
-        new CurrentWeaponEvent(
+        new ActiveWeaponEvent(
           new TimeInterval(
             this.currentTick.startTime,
             this.currentTick.endTime
