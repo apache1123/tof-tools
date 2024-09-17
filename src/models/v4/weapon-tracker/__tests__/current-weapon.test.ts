@@ -1,9 +1,9 @@
 import { weaponDefinitions } from '../../../../definitions/weapons/weapon-definitions';
 import { Weapon } from '../../../weapon';
+import { CurrentWeapon } from '../../current-weapon/current-weapon';
+import { CurrentWeaponTimeline } from '../../current-weapon/current-weapon-timeline';
 import { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
-import { CurrentWeapon } from '../current-weapon';
-import { CurrentWeaponTimeline } from '../current-weapon-timeline';
 
 let timeline: CurrentWeaponTimeline;
 let eventManager: EventManager;
