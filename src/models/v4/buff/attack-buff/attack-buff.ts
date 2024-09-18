@@ -1,7 +1,7 @@
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import type { BuffId } from '../../../definitions/types/buff/buff-ability';
-import type { AttackHit } from '../event/messages/attack-hit';
-import { Buff } from './buff';
+import type { WeaponElementalType } from '../../../../definitions/elemental-type';
+import type { BuffId } from '../../../../definitions/types/buff/buff-ability';
+import type { AttackHit } from '../../event/messages/attack-hit';
+import { Buff } from '../buff';
 
 export class AttackBuff extends Buff {
   public constructor(

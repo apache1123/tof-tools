@@ -1,4 +1,4 @@
-import { sum } from '../../../utils/math-utils';
+import { sum } from '../../../../utils/math-utils';
 import type { CritRateBuff } from './crit-rate-buff';
 
 export class CritRateBuffAggregate {

@@ -14,10 +14,10 @@ import type { Loadout } from '../../loadout';
 import type { LoadoutStats } from '../../loadout-stats';
 import type { UserStats } from '../../user-stats';
 import type { ActiveBuffs } from '../buff/active-buff/active-buffs';
-import { AttackBuffAggregate } from '../buff/attack-buff-aggregate';
-import { BaseAttackBuffAggregate } from '../buff/base-attack-buff-aggregate';
-import { CritDamageBuffAggregate } from '../buff/crit-damage-buff-aggregate';
-import { CritRateBuffAggregate } from '../buff/crit-rate-buff-aggregate';
+import { AttackBuffAggregate } from '../buff/attack-buff/attack-buff-aggregate';
+import { BaseAttackBuffAggregate } from '../buff/base-attack-buff/base-attack-buff-aggregate';
+import { CritDamageBuffAggregate } from '../buff/crit-damage-buff/crit-damage-buff-aggregate';
+import { CritRateBuffAggregate } from '../buff/crit-rate-buff/crit-rate-buff-aggregate';
 import { ElementalResistances } from './elemental-resistances';
 
 export class CurrentCharacterStats {
