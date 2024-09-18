@@ -1,5 +1,5 @@
 import type { Requirements } from '../requirements/requirements';
-import type { ActiveResource } from './active-resource';
+import type { CurrentResource } from './current-resource/current-resource';
 import type { ResourceId } from './resource-definition';
 
 export class ResourceRequirements implements Requirements {
@@ -10,11 +10,11 @@ export class ResourceRequirements implements Requirements {
     }
   ) {}
 
-  public haveBeenMet(activeResources: ActiveResource[]): boolean {
+  public haveBeenMet(currentResources: CurrentResource[]): boolean {
     const { hasResource } = this;
     if (
       hasResource &&
-      !activeResources.some(
+      !currentResources.some(
         ({ id, amount }) =>
           id === hasResource.id && amount >= hasResource.minAmount
       )

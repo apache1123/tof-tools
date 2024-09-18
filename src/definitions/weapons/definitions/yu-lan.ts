@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from '../../../models/weapon-definition';
+import type { Weapon } from '../../types/weapon/weapon';
 
 export const yuLan = {
   id: 'Yu Lan',
@@ -30,4 +30,4 @@ export const yuLan = {
   discharges: [],
   buffs: [],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies Weapon;

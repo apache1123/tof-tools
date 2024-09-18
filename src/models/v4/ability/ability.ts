@@ -1,8 +1,9 @@
 import type { Serializable } from '../../persistable';
-import type { CombatContext } from '../combat-context/combat-context';
 import type { EventManager } from '../event/event-manager';
+import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { AbilityEvent } from './ability-event';
+import { ConcreteAbilityEvent } from './ability-event';
 import type { AbilityId } from './ability-id';
 import type { AbilityRequirements } from './ability-requirements';
 import type { AbilityTimeline } from './ability-timeline';
@@ -23,15 +24,11 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     protected readonly updatesResources: AbilityUpdatesResource[],
     protected readonly timeline: AbilityTimeline<TAbilityEvent>,
     protected readonly eventManager: EventManager,
-    protected readonly context: CombatContext
+    protected readonly currentTick: CurrentTick
   ) {}
 
   protected getTriggerTime() {
-    return this.context.currentTick.startTime;
-  }
-
-  protected getCurrentCombatState() {
-    return this.context.currentState;
+    return this.currentTick.startTime;
   }
 
   public canTrigger() {
@@ -56,6 +53,11 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     this.eventManager.publishAbilityStarted({ id: this.id });
   }
 
+  /** Has ongoing events */
+  public isOngoing() {
+    return this.getOngoingEvents().length > 0;
+  }
+
   /** Perform whatever actions needed during the current tick for this ability. Emit events, update resources, etc. */
   public process() {
     const ongoingEvents = this.getOngoingEvents();
@@ -70,24 +72,19 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     }
   }
 
-  /** Has ongoing events */
-  public isOngoing() {
-    return this.getOngoingEvents().length > 0;
-  }
-
   protected getOngoingEvents(): TAbilityEvent[] {
-    return this.timeline.getEventsOverlapping(this.context.currentTick);
+    return this.timeline.getEventsOverlapping(this.currentTick.value);
   }
 
   protected abstract createNewEvent(timeInterval: TimeInterval): TAbilityEvent;
 
   /** Terminate any active ability events */
   private terminate() {
-    this.timeline.endAnyEventsAt(this.context.currentTick.endTime);
+    this.timeline.endAnyEventsAt(this.currentTick.endTime);
   }
 
   private haveRequirementsBeenMet() {
-    return this.requirements.haveBeenMet(this.getCurrentCombatState());
+    return this.requirements.haveBeenMet();
   }
 
   private getNewEventTimeInterval(): TimeInterval {
@@ -102,5 +99,19 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   public toDto(): AbilityDto {
     const { id, displayName, timeline } = this;
     return { id, displayName, timeline: timeline.toDto(), version: 1 };
+  }
+}
+
+/** A concrete class that extends the abstract class to aid testing */
+export class ConcreteAbility extends Ability<AbilityEvent> {
+  protected override createNewEvent(timeInterval: TimeInterval): AbilityEvent {
+    return new ConcreteAbilityEvent(
+      timeInterval,
+      this.id,
+      this.cooldown,
+      this.updatesResources,
+      this.eventManager,
+      this.currentTick
+    );
   }
 }

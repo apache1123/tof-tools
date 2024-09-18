@@ -9,15 +9,15 @@ import { AbilityEvent } from '../ability/ability-event';
 import type { AbilityId } from '../ability/ability-id';
 import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
 import type { AttackHitCount } from '../attack/attack-hit-count';
-import type { CombatContext } from '../combat-context/combat-context';
-import type { CombatState } from '../combat-context/combat-state';
 import type { BaseDamageModifiers } from '../damage-modifiers/base-damage-modifiers';
 import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiers } from '../damage-modifiers/final-damage-modifiers';
 import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-damage-modifiers-definition';
 import type { EventManager } from '../event/event-manager';
 import type { AttackHit } from '../event/messages/attack-hit';
+import type { CurrentResources } from '../resource/current-resource/current-resources';
 import type { CurrentTick } from '../tick/current-tick';
+import type { Tick } from '../tick/tick';
 import type { TimeInterval } from '../time-interval/time-interval';
 import type { AttackEventDto } from './dtos/attack-event-dto';
 
@@ -31,14 +31,15 @@ export class AttackEvent
     cooldown: number,
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
-    context: CombatContext,
+    currentTick: CurrentTick,
     private readonly elementalType: WeaponElementalType,
     private readonly baseDamageModifiersDefinition: BaseDamageModifiersDefinition,
     private readonly finalDamageModifiersDefinition: FinalDamageModifiersDefinition,
     private readonly type: AttackType,
     private readonly hitCount: AttackHitCount,
     /** The weapon this attack derived from, for convenience */
-    private readonly weapon: Weapon
+    private readonly weapon: Weapon,
+    private readonly currentResources: CurrentResources
   ) {
     super(
       timeInterval,
@@ -46,28 +47,22 @@ export class AttackEvent
       cooldown,
       updatesResources,
       eventManager,
-      context
+      currentTick
     );
   }
 
-  protected override additionalProcessing(
-    currentTick: CurrentTick,
-    combatState: CombatState
-  ): void {
-    this.processHits(currentTick, combatState);
+  protected override additionalProcessing(tick: Tick): void {
+    this.processHits(tick);
   }
 
-  private processHits(
-    currentTick: CurrentTick,
-    combatState: CombatState
-  ): void {
+  private processHits(tick: Tick): void {
     this.getTimeOfHits()
-      .filter((time) => currentTick.includes(time))
+      .filter((time) => tick.includes(time))
       .forEach((time) => {
         const attackHit: AttackHit = {
           time,
           elementalType: this.elementalType,
-          baseDamageModifiers: this.getBaseDamageModifiersPerHit(combatState),
+          baseDamageModifiers: this.getBaseDamageModifiersPerHit(),
           finalDamageModifiers: this.getFinalDamageModifiersPerHit(),
           attackId: this.abilityId,
           attackType: this.type,
@@ -88,9 +83,7 @@ export class AttackEvent
    *
    * Here: attackMultiplier, attackFlat, hpMultiplier need to be adjusted, but resourceAmountMultiplier will not change
    */
-  private getBaseDamageModifiersPerHit(
-    combatState: CombatState
-  ): BaseDamageModifiers {
+  private getBaseDamageModifiersPerHit(): BaseDamageModifiers {
     const {
       damageDealtIsPerSecond,
       attackMultiplier,
@@ -100,7 +93,7 @@ export class AttackEvent
       critRateFlatMultiplier,
     } = this.baseDamageModifiersDefinition;
 
-    // If the damage modifiers are defined as per second, each of the damage modifier's base duration is one second. If they are not defined to be per second, the the base duration is the attack's duration.
+    // If the damage modifiers are defined as per second, each of the damage modifier's base duration is one second. If they are not defined to be per second, then the base duration is the attack's duration.
     const durationAdjustment = damageDealtIsPerSecond
       ? BigNumber(this.duration).div(oneSecondDuration)
       : 1;
@@ -119,7 +112,7 @@ export class AttackEvent
       critRateFlatMultiplier: calculateAdjustedValue(
         critRateFlatMultiplier ?? 0
       ),
-      resourceAmountMultiplier: this.getResourceAmountMultiplier(combatState),
+      resourceAmountMultiplier: this.getResourceAmountMultiplier(),
     };
   }
 
@@ -136,6 +129,7 @@ export class AttackEvent
     if (hitCount.numberOfHitsFixed) {
       numberOfHits = hitCount.numberOfHitsFixed;
     } else if (hitCount.numberOfHitsPerSecond) {
+      // using the numberOfHitsPerSecond is an average number, work out the number of hits based on the attack duration
       numberOfHits = BigNumber(duration)
         .times(hitCount.numberOfHitsPerSecond)
         .dividedToIntegerBy(oneSecondDuration)
@@ -150,11 +144,14 @@ export class AttackEvent
     const result = [];
 
     // Distribute the number of hits evenly across the attack event's duration. By evenly, it means the time between hits, and the time between the first hit and the start time, and the time between the last hit and the end time, are the same. e.g. like how space-evenly works in css flex box.
+    // Calculate this by dividing the duration by (the number of hits + 1) e.g. 3 hits over 1000 duration = hits at 250, 500, 750
     const numberOfHits = this.getNumberOfHits();
+
     const durationBetweenHits = BigNumber(duration).div(numberOfHits + 1);
     for (let hitIndex = 1; hitIndex <= numberOfHits; hitIndex++) {
       const timeOfHit = BigNumber(startTime)
         .plus(durationBetweenHits.times(hitIndex))
+        .decimalPlaces(0)
         .toNumber();
       result.push(timeOfHit);
     }
@@ -162,20 +159,18 @@ export class AttackEvent
     return result;
   }
 
-  private getResourceAmountMultiplier(combatState: CombatState) {
+  private getResourceAmountMultiplier() {
     const { resourceAmountMultiplier } = this.baseDamageModifiersDefinition;
 
     let result = 1;
     if (resourceAmountMultiplier) {
       const { resourceId } = resourceAmountMultiplier;
 
-      const resource = combatState.resources.find(
-        (resource) => resource.id === resourceId
-      );
+      const currentResource = this.currentResources.find(resourceId);
 
-      if (resource) {
+      if (currentResource) {
         result = BigNumber(resourceAmountMultiplier.multiplier)
-          .times(resource.amount)
+          .times(currentResource.amount)
           .toNumber();
       }
     }

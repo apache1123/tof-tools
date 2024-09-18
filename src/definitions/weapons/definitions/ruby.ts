@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from '../../../models/weapon-definition';
+import type { Weapon } from '../../types/weapon/weapon';
 
 export const ruby = {
   id: 'Ruby',
@@ -41,4 +41,4 @@ export const ruby = {
   discharges: [],
   buffs: [],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies Weapon;

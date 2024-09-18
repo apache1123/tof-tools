@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from '../../../models/weapon-definition';
+import type { Weapon } from '../../types/weapon/weapon';
 
 export const king = {
   id: 'King',
@@ -17,4 +17,4 @@ export const king = {
   discharges: [],
   buffs: [],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies Weapon;

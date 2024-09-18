@@ -1,25 +1,25 @@
 import type {
-  FusionWeaponElementalType,
-  WeaponElementalType,
-} from '../definitions/elemental-type';
-import type { WeaponName } from '../definitions/weapons/weapon-definitions';
-import { weaponDefinitions } from '../definitions/weapons/weapon-definitions';
-import type { WeaponType } from '../definitions/weapons/weapon-type';
-import type {
   DischargeAttackDefinition,
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
-} from './v4/weapon/weapon-attack-definition';
-import type { WeaponBuffDefinition } from './v4/weapon/weapon-buff-definition';
-import type { WeaponResourceDefinition } from './v4/weapon/weapon-resource-definition';
+} from '../../../models/v4/weapon/weapon-attack-definition';
+import type { WeaponBuffDefinition } from '../../../models/v4/weapon/weapon-buff-definition';
+import type { WeaponResourceDefinition } from '../../../models/v4/weapon/weapon-resource-definition';
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritDamageBuffDefinition,
   WeaponCritRateBuffDefinition,
-} from './weapon-buff-definition';
+} from '../../../models/weapon-buff-definition';
+import type {
+  FusionWeaponElementalType,
+  WeaponElementalType,
+} from '../../elemental-type';
+import type { WeaponName } from '../../weapons/weapon-definitions';
+import { weaponDefinitions } from '../../weapons/weapon-definitions';
+import type { WeaponType } from '../../weapons/weapon-type';
 
-export interface WeaponDefinition {
+export interface Weapon {
   id: WeaponName;
   displayName: string;
   /** Optional. The weapon's icon will be inferred from the id if not provided */
@@ -51,6 +51,6 @@ export interface WeaponDefinition {
   resources: WeaponResourceDefinition[];
 }
 
-export function getWeaponDefinition(id: WeaponName): WeaponDefinition {
+export function getWeaponDefinition(id: WeaponName): Weapon {
   return weaponDefinitions.byId[id];
 }

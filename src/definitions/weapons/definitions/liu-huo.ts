@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from '../../../models/weapon-definition';
+import type { Weapon } from '../../types/weapon/weapon';
 
 export const liuHuo = {
   id: 'Liu Huo',
@@ -30,4 +30,4 @@ export const liuHuo = {
   discharges: [],
   buffs: [],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies Weapon;

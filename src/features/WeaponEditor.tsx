@@ -4,8 +4,8 @@ import type { ReactNode } from 'react';
 import { WeaponDefinitionSelector } from '../components/WeaponDefinitionSelector/WeaponDefinitionSelector';
 import { WeaponIcon } from '../components/WeaponIcon/WeaponIcon';
 import { WeaponStarsSelector } from '../components/WeaponStarsSelector/WeaponStarsSelector';
+import type { Weapon as WeaponDefinition } from '../definitions/types/weapon/weapon';
 import type { Weapon } from '../models/weapon';
-import type { WeaponDefinition } from '../models/weapon-definition';
 import { WeaponMatrixSetsEditor } from './WeaponMatrixSetsEditor';
 
 export interface WeaponEditorProps {

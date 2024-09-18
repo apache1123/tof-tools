@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from '../../../models/weapon-definition';
+import type { Weapon } from '../../types/weapon/weapon';
 
 export const nolaBase = {
   id: 'Nola',
@@ -77,4 +77,4 @@ export const nolaBase = {
   discharges: [],
   buffs: [],
   resources: [],
-} as const satisfies WeaponDefinition;
+} as const satisfies Weapon;

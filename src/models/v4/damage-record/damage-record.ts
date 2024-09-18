@@ -1,17 +1,20 @@
 import BigNumber from 'bignumber.js';
 
+import type { WeaponElementalType } from '../../../definitions/elemental-type';
 import { product, sum } from '../../../utils/math-utils';
 import type { Serializable } from '../../persistable';
+import type { ActiveBuffs } from '../buff/active-buff/active-buffs';
 import type { Buff } from '../buff/buff';
 import { ElementalDamageBuffAggregate } from '../buff/elemental-damage-buff-aggregate';
 import { FinalDamageBuffAggregate } from '../buff/final-damage-buff-aggregate';
 import type { UtilizedBuffs } from '../buff/utilized-buffs';
-import type { CombatContext } from '../combat-context/combat-context';
-import type { CombatState } from '../combat-context/combat-state';
+import type { CurrentCharacterStats } from '../character/current-character-stats';
 import { Damage } from '../damage/damage';
 import type { EventManager } from '../event/event-manager';
 import type { EventSubscriber } from '../event/event-subscriber';
 import type { AttackHit } from '../event/messages/attack-hit';
+import type { Target } from '../target/target';
+import type { CurrentTick } from '../tick/current-tick';
 import { DamageRecordEvent } from './damage-record-event';
 import type { DamageRecordTimeline } from './damage-record-timeline';
 import type { DamageRecordDto } from './dtos/damage-record-dto';
@@ -23,8 +26,11 @@ export class DamageRecord
   public constructor(
     private readonly timeline: DamageRecordTimeline,
     private readonly utilizedBuffs: UtilizedBuffs,
-    private readonly context: CombatContext,
-    private readonly eventManager: EventManager
+    private readonly currentTick: CurrentTick,
+    private readonly eventManager: EventManager,
+    private readonly target: Target,
+    private readonly activeBuffs: ActiveBuffs,
+    private readonly currentCharacterStats: CurrentCharacterStats
   ) {}
 
   public subscribeToEvents() {
@@ -34,17 +40,12 @@ export class DamageRecord
   }
 
   public recordHitDamage(attackHit: AttackHit) {
-    const { currentTick, currentState } = this.context;
-    const baseDamage = this.getBaseDamage(attackHit, currentState);
-    const finalDamage = this.getFinalDamage(
-      baseDamage,
-      attackHit,
-      currentState
-    );
+    const baseDamage = this.getBaseDamage(attackHit);
+    const finalDamage = this.getFinalDamage(baseDamage, attackHit);
 
     this.timeline.addEvent(
       new DamageRecordEvent(
-        currentTick,
+        this.currentTick.value,
         new Damage(baseDamage, finalDamage),
         attackHit.weapon,
         attackHit.attackType,
@@ -53,10 +54,7 @@ export class DamageRecord
     );
   }
 
-  private getBaseDamage(
-    attackHit: AttackHit,
-    combatState: CombatState
-  ): number {
+  private getBaseDamage(attackHit: AttackHit): number {
     const { elementalType, baseDamageModifiers } = attackHit;
     const {
       attackMultiplier,
@@ -67,45 +65,34 @@ export class DamageRecord
       resourceAmountMultiplier,
     } = baseDamageModifiers;
 
-    const { elementalAttacks, critRateFlat, hp, elementalResistances } =
-      combatState;
+    const totalAttack = this.getTotalAttack(elementalType);
 
-    const totalAttack =
-      elementalAttacks.getElementalAttack(elementalType).totalAttack;
-    const sumOfAllResistances = elementalResistances.getSumOfAllResistances();
+    const sumOfAllResistances = this.currentCharacterStats
+      .getElementalResistances()
+      .getSumOfAllResistances();
 
     return BigNumber(totalAttack)
       .times(attackMultiplier)
       .plus(attackFlat)
-      .plus(product(critRateFlat, critRateFlatMultiplier ?? 0))
-      .plus(product(hp, hpMultiplier ?? 0))
+      .plus(product(this.getCritFlat(), critRateFlatMultiplier ?? 0))
+      .plus(product(this.getHp(), hpMultiplier ?? 0))
       .plus(product(sumOfAllResistances, sumOfResistancesMultiplier ?? 0))
       .times(resourceAmountMultiplier)
       .toNumber();
   }
 
-  private getFinalDamage(
-    baseDamage: number,
-    attackHit: AttackHit,
-    combatState: CombatState
-  ): number {
+  private getFinalDamage(baseDamage: number, attackHit: AttackHit): number {
     return product(
       baseDamage,
-      sum(this.getElementalDamagePercent(attackHit, combatState), 1),
-      sum(this.getFinalDamageBuffPercent(attackHit, combatState), 1),
-      product(
-        this.getCritRatePercent(combatState),
-        this.getCritDamagePercent(combatState)
-      ).plus(1),
-      BigNumber(1).minus(this.getTargetResistancePercent(combatState))
+      sum(this.getElementalDamagePercent(attackHit), 1),
+      sum(this.getFinalDamageBuffPercent(attackHit), 1),
+      product(this.getCritRatePercent(), this.getCritDamagePercent()).plus(1),
+      BigNumber(1).minus(this.getTargetResistancePercent())
     ).toNumber();
   }
 
-  private getElementalDamagePercent(
-    attackHit: AttackHit,
-    combatState: CombatState
-  ): number {
-    const elementalDamageBuffs = combatState.activeBuffs
+  private getElementalDamagePercent(attackHit: AttackHit): number {
+    const elementalDamageBuffs = this.activeBuffs
       .getElementalDamageBuffs()
       .filter((buff) => buff.canApplyTo(attackHit));
 
@@ -116,11 +103,8 @@ export class DamageRecord
     ).getAggregatedResult().damagePercentByElement[attackHit.elementalType];
   }
 
-  private getFinalDamageBuffPercent(
-    attackHit: AttackHit,
-    combatState: CombatState
-  ): number {
-    const finalDamageBuffs = combatState.activeBuffs
+  private getFinalDamageBuffPercent(attackHit: AttackHit): number {
+    const finalDamageBuffs = this.activeBuffs
       .getFinalDamageBuffs()
       .filter((buff) => buff.canApplyTo(attackHit));
 
@@ -130,16 +114,29 @@ export class DamageRecord
       .finalDamagePercent;
   }
 
-  private getCritRatePercent(combatState: CombatState): number {
-    return combatState.totalCritRatePercent;
+  private getTotalAttack(elementalType: WeaponElementalType) {
+    return this.currentCharacterStats.getElementalAttack(elementalType)
+      .totalAttack;
   }
 
-  private getCritDamagePercent(combatState: CombatState): number {
-    return combatState.totalCritDamagePercent;
+  private getCritFlat() {
+    return this.currentCharacterStats.getCritRateFlat();
   }
 
-  private getTargetResistancePercent(combatState: CombatState): number {
-    return combatState.targetResistance;
+  private getCritRatePercent(): number {
+    return this.currentCharacterStats.getTotalCritRatePercent();
+  }
+
+  private getCritDamagePercent(): number {
+    return this.currentCharacterStats.getTotalCritDamagePercent();
+  }
+
+  private getHp() {
+    return this.currentCharacterStats.getHp();
+  }
+
+  private getTargetResistancePercent(): number {
+    return this.target.resistance;
   }
 
   private recordUtilizedBuffs(buffs: Buff[]) {

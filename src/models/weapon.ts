@@ -1,13 +1,13 @@
 import type { AttackAbility } from '../definitions/types/attack/attack-ability';
+import {
+  getWeaponDefinition,
+  type Weapon as WeaponDefinition,
+} from '../definitions/types/weapon/weapon';
 import type { WeaponName } from '../definitions/weapons/weapon-definitions';
 import type { Dto } from './dto';
 import type { Persistable } from './persistable';
 import { hasMetStarRequirement } from './v4/star-requirement';
 import type { WeaponStarRequirement } from './v4/weapon/weapon-star-requirement';
-import {
-  getWeaponDefinition,
-  type WeaponDefinition,
-} from './weapon-definition';
 import type { WeaponMatrixSetsDto } from './weapon-matrix-sets';
 import { WeaponMatrixSets } from './weapon-matrix-sets';
 

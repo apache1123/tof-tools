@@ -1,3 +1,4 @@
+import type { Weapon as WeaponDefinition } from '../definitions/types/weapon/weapon';
 import type { Loadout } from './loadout';
 import type { Weapon } from './weapon';
 import type {
@@ -7,7 +8,6 @@ import type {
   WeaponCritRateBuff,
 } from './weapon-buff';
 import type { WeaponBuffDefinition } from './weapon-buff-definition';
-import type { WeaponDefinition } from './weapon-definition';
 
 export class LoadoutWeaponBuffs {
   private _loadout: Loadout;
