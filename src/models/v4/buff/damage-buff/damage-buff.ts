@@ -4,7 +4,7 @@ import { Buff } from '../buff';
 import type { BuffSource } from '../buff-source';
 import type { DamageBuffRestrictedTo } from './damage-buff-restricted-to';
 
-export abstract class DamageBuff extends Buff {
+export class DamageBuff extends Buff {
   public constructor(
     id: BuffId,
     value: number,
