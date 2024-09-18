@@ -20,6 +20,16 @@ export class MessageBroker {
     }
   }
 
+  public unsubscribeCallback(
+    messageType: string,
+    callback: (message: Message) => void
+  ): void {
+    const callbacks = this.callbacksByMessageType.get(messageType);
+    if (callbacks) {
+      callbacks.delete(callback);
+    }
+  }
+
   public queueMessage(messageType: string, message: Message): void {
     this.queue.push({ messageType, message });
   }
