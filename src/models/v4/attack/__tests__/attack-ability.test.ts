@@ -1,86 +1,274 @@
+import type { MockProxy } from 'jest-mock-extended';
 import { mock } from 'jest-mock-extended';
 
-import type { Weapon } from '../../../weapon';
-import type { ActiveWeapon } from '../../active-weapon/active-weapon';
-import type { Charge } from '../../charge/charge';
+import type { AttackType } from '../../../../definitions/attack-type';
+import { weaponDefinitions } from '../../../../definitions/weapons/weapon-definitions';
+import { Weapon } from '../../../weapon';
+import type { AbilityId } from '../../ability/ability-id';
+import type { AbilityRequirements } from '../../ability/ability-requirements';
+import type { AbilityUpdatesResource } from '../../ability/ability-updates-resource';
+import { ActiveWeapon } from '../../active-weapon/active-weapon';
+import { ActiveWeaponTimeline } from '../../active-weapon/active-weapon-timeline';
+import type { BaseDamageModifiersDefinition } from '../../damage-modifiers/base-damage-modifiers-definition';
+import type { FinalDamageModifiersDefinition } from '../../damage-modifiers/final-damage-modifiers-definition';
+import { EventManager } from '../../event/event-manager';
+import type { CurrentResources } from '../../resource/current-resource/current-resources';
 import { CurrentTick } from '../../tick/current-tick';
-import { TimeInterval } from '../../time-interval/time-interval';
-import { Timeline } from '../../timeline/timeline';
 import { AttackAbility } from '../attack-ability';
-import type { AttackEvent } from '../attack-event';
+import type { AttackElementalType } from '../attack-elemental-type';
+import type { AttackHitCount } from '../attack-hit-count';
+import { AttackTimeline } from '../attack-timeline';
 
-// TODO: out of date
-describe.skip('Attack ability', () => {
-  describe('adding attack event', () => {
-    it('cuts the previous attack event short if a new one is added before it has ended', () => {
-      const timeline = new Timeline<AttackEvent>(100);
-      const definition = mock<AttackAbility>({
-        endedBy: { duration: 20 },
+let id: AbilityId;
+let displayName: string;
+let cooldown: number;
+let duration: number | undefined;
+let canBePlayerTriggered: boolean;
+let requirements: AbilityRequirements;
+let updatesResources: AbilityUpdatesResource[];
+let timeline: AttackTimeline;
+let eventManager: EventManager;
+let currentTick: CurrentTick;
+let weapon: Weapon;
+let elementalType: AttackElementalType;
+let type: AttackType;
+let isForegroundAttack: boolean;
+let baseDamageModifiers: BaseDamageModifiersDefinition;
+let finalDamageModifiers: FinalDamageModifiersDefinition;
+let hitCount: AttackHitCount;
+let doesNotTriggerEvents: boolean;
+let activeWeapon: ActiveWeapon;
+let currentResources: MockProxy<CurrentResources>;
+
+let sut: AttackAbility;
+
+describe('Attack ability', () => {
+  beforeEach(() => {
+    id = 'id';
+    displayName = 'displayName';
+    cooldown = 1999;
+    duration = 5000;
+    canBePlayerTriggered = true;
+    requirements = mock<AbilityRequirements>({
+      haveBeenMet: () => true,
+    });
+    updatesResources = [];
+    timeline = new AttackTimeline(100000);
+    eventManager = new EventManager();
+    currentTick = new CurrentTick(0, 1000);
+    weapon = new Weapon(weaponDefinitions.byId['Huang (Mimi)']);
+    elementalType = { defaultElementalType: 'Altered' };
+    type = 'normal';
+    isForegroundAttack = true;
+    baseDamageModifiers = mock<BaseDamageModifiersDefinition>();
+    finalDamageModifiers = mock<FinalDamageModifiersDefinition>();
+    hitCount = mock<AttackHitCount>();
+    doesNotTriggerEvents = false;
+    activeWeapon = new ActiveWeapon(
+      new ActiveWeaponTimeline(100000),
+      eventManager,
+      currentTick
+    );
+    currentResources = mock<CurrentResources>();
+
+    resetSut();
+  });
+
+  function resetSut() {
+    sut = new AttackAbility(
+      id,
+      displayName,
+      cooldown,
+      duration,
+      canBePlayerTriggered,
+      requirements,
+      updatesResources,
+      timeline,
+      eventManager,
+      currentTick,
+      weapon,
+      elementalType,
+      type,
+      isForegroundAttack,
+      baseDamageModifiers,
+      finalDamageModifiers,
+      hitCount,
+      doesNotTriggerEvents,
+      activeWeapon,
+      currentResources
+    );
+  }
+
+  describe('Can trigger', () => {
+    describe("When the attack is a foreground attack and the attack's weapon is the active weapon", () => {
+      beforeEach(() => {
+        activeWeapon.set(weapon);
+        currentTick.advance(); // Active weapon takes effect at the next tick
       });
-      const tickTracker = new CurrentTick(new TimeInterval(0, 10), 10);
 
-      const sut = new AttackAbility(
-        mock<Weapon>(),
-        definition,
-        timeline,
-        tickTracker,
-        mock<ActiveWeapon>(),
-        mock<Charge>()
-      );
-      sut.trigger();
-      tickTracker.advance();
-      sut.trigger();
+      it('returns true when the attack is a normal attack', () => {
+        type = 'normal';
+        resetSut();
+        expect(sut.canTrigger()).toBe(true);
+      });
 
-      expect(timeline.events[0].startTime).toBe(0);
-      expect(timeline.events[0].endTime).toBe(10);
-      expect(timeline.events[1].startTime).toBe(10);
-      expect(timeline.events[1].endTime).toBe(30);
+      it('returns true when the attack is a dodge attack', () => {
+        type = 'dodge';
+        resetSut();
+        expect(sut.canTrigger()).toBe(true);
+      });
+
+      it('returns true when the attack is a skill attack', () => {
+        type = 'skill';
+        resetSut();
+        expect(sut.canTrigger()).toBe(true);
+      });
+
+      it('returns false when the attack is a discharge attack', () => {
+        type = 'discharge';
+        resetSut();
+        expect(sut.canTrigger()).toBe(false);
+      });
+    });
+
+    describe("When the attack is a foreground attack and the attack's weapon is not the active weapon", () => {
+      beforeEach(() => {
+        activeWeapon.set(new Weapon(weaponDefinitions.byId['Meryl']));
+        currentTick.advance(); // Active weapon takes effect at the next tick
+      });
+
+      it('returns false when the attack is a normal attack', () => {
+        type = 'normal';
+        resetSut();
+        expect(sut.canTrigger()).toBe(false);
+      });
+
+      it('returns false when the attack is a dodge attack', () => {
+        type = 'dodge';
+        resetSut();
+        expect(sut.canTrigger()).toBe(false);
+      });
+
+      it('returns false when the attack is a skill attack', () => {
+        type = 'skill';
+        resetSut();
+        expect(sut.canTrigger()).toBe(false);
+      });
+
+      it('returns false when the attack is a discharge attack and there is no full charge', () => {
+        type = 'discharge';
+        currentResources = mock<CurrentResources>({
+          currentCharge: { hasFullCharge: false },
+        });
+        resetSut();
+        expect(sut.canTrigger()).toBe(false);
+      });
+
+      it('returns true when the attack is a discharge attack and there is a full charge', () => {
+        type = 'discharge';
+        currentResources = mock<CurrentResources>({
+          currentCharge: { hasFullCharge: true },
+        });
+        resetSut();
+        expect(sut.canTrigger()).toBe(true);
+      });
+    });
+
+    describe('When the a attack is not a foreground attack', () => {
+      beforeEach(() => {
+        isForegroundAttack = false;
+        resetSut();
+      });
+
+      describe("The attack's weapon is the active weapon", () => {
+        beforeEach(() => {
+          activeWeapon.set(weapon);
+          currentTick.advance(); // Active weapon takes effect at the next tick
+        });
+
+        it('returns true when the attack is a normal attack', () => {
+          type = 'normal';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+
+        it('returns true when the attack is a dodge attack', () => {
+          type = 'dodge';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+
+        it('returns true when the attack is a skill attack', () => {
+          type = 'skill';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+
+        it('returns true when the attack is a discharge attack', () => {
+          type = 'discharge';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+      });
+
+      describe("The attack's weapon is not the active weapon", () => {
+        beforeEach(() => {
+          activeWeapon.set(new Weapon(weaponDefinitions.byId['Meryl']));
+          currentTick.advance(); // Active weapon takes effect at the next tick
+        });
+
+        it('returns true when the attack is a normal attack', () => {
+          type = 'normal';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+
+        it('returns true when the attack is a dodge attack', () => {
+          type = 'dodge';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+
+        it('returns true when the attack is a skill attack', () => {
+          type = 'skill';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+
+        it('returns true when the attack is a discharge attack', () => {
+          type = 'discharge';
+          resetSut();
+          expect(sut.canTrigger()).toBe(true);
+        });
+      });
     });
   });
-  describe('resolving elemental type', () => {
-    it('returns the correct elemental type, when there are no special conditions', () => {
-      const sut = newAttack({ defaultElementalType: 'Altered' });
-      const event = sut.trigger();
-      expect(event?.elementalType).toBe('Altered');
-    });
 
-    it("returns the correct elemental type, when the attack's elemental type follows the active weapon", () => {
-      const sut = newAttack({
-        followCurrentWeaponElementalType: true,
-        defaultElementalType: 'Flame',
-      });
-      const event = sut.trigger();
-      expect(event?.elementalType).toBe('Altered');
-    });
-
-    it("returns the correct elemental type, when the attack's elemental type follows the previous weapon", () => {
-      const sut = newAttack({
-        followLastWeaponElementalType: true,
-        defaultElementalType: 'Altered',
-      });
-      const event = sut.trigger();
-      expect(event?.elementalType).toBe('Frost');
-    });
-
-    function newAttack(elementalType: AttackAbility['elementalType']) {
-      const timeline = new Timeline<AttackEvent>(100);
-      const definition = mock<AttackAbility>({
-        elementalType,
-        triggeredBy: { playerInput: true },
-        endedBy: { duration: 100 },
+  describe('Trigger', () => {
+    describe('Resolving elemental type', () => {
+      beforeEach(() => {
+        activeWeapon.set(new Weapon(weaponDefinitions.byId['Meryl'])); // Meryl - frost
+        currentTick.advance(); // Active weapon takes effect at the next tick
+        activeWeapon.set(weapon); // Mimi - volt
+        currentTick.advance(); // Active weapon takes effect at the next tick
       });
 
-      return new AttackAbility(
-        mock<AttackAbility['weapon']>(),
-        definition,
-        timeline,
-        mock<AttackAbility['tickTracker']>(),
-        mock<AttackAbility['weaponTracker']>({
-          activeWeapon: { damageElement: 'Altered' },
-          previousWeapon: { damageElement: 'Frost' },
-        }),
-        mock<AttackAbility['charge']>()
-      );
-    }
+      it("returns the correct elemental type matching the attack's default elemental type, when there are no special conditions", () => {
+        sut.trigger();
+        expect(timeline.events[0].elementalType).toBe('Altered');
+      });
+
+      it("returns the correct elemental type, when the attack's elemental type follows the active weapon", () => {
+        elementalType.followCurrentWeaponElementalType = true;
+        sut.trigger();
+        expect(timeline.events[0].elementalType).toBe('Volt');
+      });
+
+      it("returns the correct elemental type, when the attack's elemental type follows the previous weapon", () => {
+        elementalType.followLastWeaponElementalType = true;
+        sut.trigger();
+        expect(timeline.events[0].elementalType).toBe('Frost');
+      });
+    });
   });
 });

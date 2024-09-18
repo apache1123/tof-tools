@@ -41,10 +41,10 @@ describe('Ability', () => {
     eventManager = mock<EventManager>();
     currentTick = new CurrentTick(0, 1000);
 
-    createSut();
+    resetSut();
   });
 
-  function createSut() {
+  function resetSut() {
     sut = new ConcreteAbility(
       id,
       displayName,
@@ -87,7 +87,7 @@ describe('Ability', () => {
 
     it("should create a new timeline event with its end time set to the timeline's end time if the duration is undefined", () => {
       duration = undefined;
-      createSut();
+      resetSut();
       sut.trigger();
       expect(timeline.events[0].duration).toBe(100000);
     });

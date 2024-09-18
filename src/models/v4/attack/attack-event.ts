@@ -32,10 +32,10 @@ export class AttackEvent
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
     currentTick: CurrentTick,
-    private readonly elementalType: WeaponElementalType,
+    public readonly elementalType: WeaponElementalType,
+    public readonly type: AttackType,
     private readonly baseDamageModifiersDefinition: BaseDamageModifiersDefinition,
     private readonly finalDamageModifiersDefinition: FinalDamageModifiersDefinition,
-    private readonly type: AttackType,
     private readonly hitCount: AttackHitCount,
     /** The weapon this attack derived from, for convenience */
     private readonly weapon: Weapon,

@@ -78,9 +78,9 @@ export class AttackAbility
       this.eventManager,
       this.currentTick,
       elementalType,
+      this.type,
       this.baseDamageModifiers,
       this.finalDamageModifiers,
-      this.type,
       this.hitCount,
       this.weapon,
       this.currentResources
@@ -123,14 +123,4 @@ export class AttackAbility
       type === 'discharge' && this.currentResources.currentCharge.hasFullCharge
     );
   }
-
-  // TODO: This being here is extremely awkward
-  // private switchWeaponsIfNeeded() {
-  //   if (
-  //     this.isActiveAttack &&
-  //     this.weaponTracker.activeWeapon !== this.weapon
-  //   ) {
-  //     this.weaponTracker.setActiveWeapon(this.weapon);
-  //   }
-  // }
 }

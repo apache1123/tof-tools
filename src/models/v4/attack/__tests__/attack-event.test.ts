@@ -74,9 +74,9 @@ describe('Attack event', () => {
       eventManager,
       currentTick,
       elementalType,
+      type,
       baseDamageModifiersDefinition,
       finalDamageModifiersDefinition,
-      type,
       hitCount,
       weapon,
       currentResources
