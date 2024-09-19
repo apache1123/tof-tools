@@ -20,7 +20,7 @@ describe('Ability timeline', () => {
     abilityId = 'id';
     updatesResources = [];
     eventManager = new EventManager();
-    currentTick = new CurrentTick(0, 100);
+    currentTick = new CurrentTick(0, 100, eventManager);
   });
 
   describe('has event on cooldown', () => {

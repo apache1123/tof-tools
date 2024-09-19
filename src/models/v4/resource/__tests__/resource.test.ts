@@ -20,7 +20,7 @@ describe('Resource', () => {
   beforeEach(() => {
     timeline = new ResourceTimeline(endTime);
     eventManager = new EventManager();
-    currentTick = new CurrentTick(0, 1000);
+    currentTick = new CurrentTick(0, 1000, eventManager);
 
     sut = new Resource(
       id,

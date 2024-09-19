@@ -18,7 +18,7 @@ describe('Active weapon', () => {
   beforeEach(() => {
     timeline = new ActiveWeaponTimeline(5000);
     eventManager = new EventManager();
-    currentTick = new CurrentTick(0, 1000);
+    currentTick = new CurrentTick(0, 1000, eventManager);
     sut = new ActiveWeapon(timeline, eventManager, currentTick);
   });
 

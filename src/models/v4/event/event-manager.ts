@@ -4,6 +4,7 @@ import type { AbilityEndedMessage } from './messages/ability-ended';
 import type { AbilityStartedMessage } from './messages/ability-started';
 import type { AbilityTriggerRequest } from './messages/ability-trigger-request';
 import type { ActiveWeaponChangedMessage } from './messages/active-weapon-changed';
+import type { AdvancingTick } from './messages/advancing-tick';
 import type { AttackHit } from './messages/attack-hit';
 import type { CombatStartedMessage } from './messages/combat-started';
 import type { ResourceDepleteRequest } from './messages/resource-deplete-request';
@@ -11,6 +12,7 @@ import type { ResourceUpdateRequest } from './messages/resource-update-request';
 import type { ResourceUpdated } from './messages/resource-updated';
 
 enum EventType {
+  TickAdvancing = 'tick-advancing',
   CombatStarted = 'combat-start',
   ActiveWeaponChanged = 'active-weapon-changed',
   AbilityTriggerRequest = 'ability-trigger-request',
@@ -28,6 +30,20 @@ export class EventManager {
 
   public deliverAllMessages() {
     this.messageBroker.deliverAllMessages();
+  }
+
+  /** Publish to subscribers that the current tick is advancing and to perform actions upon the current tick */
+  public publishTickAdvancing(message: AdvancingTick) {
+    this.messageBroker.queueMessage(EventType.TickAdvancing, message);
+  }
+  /** Subscribe to when the current tick is advancing and handle something through the callback */
+  public onTickAdvancing(callback: (message: AdvancingTick) => void) {
+    this.messageBroker.subscribeCallback(EventType.TickAdvancing, callback);
+  }
+  public unsubscribeToTickAdvancing(
+    callback: (message: AdvancingTick) => void
+  ) {
+    this.messageBroker.unsubscribeCallback(EventType.TickAdvancing, callback);
   }
 
   public publishCombatStarted(message: CombatStartedMessage) {

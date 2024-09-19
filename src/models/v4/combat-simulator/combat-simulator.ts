@@ -96,7 +96,8 @@ export class CombatSimulator {
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
     this.currentTick = new CurrentTick(
       startingTickInterval.startTime,
-      tickDuration
+      tickDuration,
+      this.eventManager
     );
     this.activeWeapon = new ActiveWeapon(
       new ActiveWeaponTimeline(combatDuration),

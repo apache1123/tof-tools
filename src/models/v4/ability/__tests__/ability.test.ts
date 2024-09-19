@@ -2,7 +2,7 @@ import type { MockProxy } from 'jest-mock-extended';
 import { mock } from 'jest-mock-extended';
 
 import { repeat } from '../../../../utils/test-utils';
-import type { EventManager } from '../../event/event-manager';
+import { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
 import type { Ability } from '../ability';
 import { ConcreteAbility } from '../ability';
@@ -38,8 +38,8 @@ describe('Ability', () => {
 
     updatesResources = [];
     timeline = new AbilityTimeline(100000);
-    eventManager = mock<EventManager>();
-    currentTick = new CurrentTick(0, 1000);
+    eventManager = new EventManager();
+    currentTick = new CurrentTick(0, 1000, eventManager);
 
     resetSut();
   });
@@ -80,6 +80,15 @@ describe('Ability', () => {
   });
 
   describe('Trigger', () => {
+    let publishAbilityStartedSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      publishAbilityStartedSpy = jest.spyOn(
+        eventManager,
+        'publishAbilityStarted'
+      );
+    });
+
     it('should create a new timeline event with a fixed duration if the duration is defined', () => {
       sut.trigger();
       expect(timeline.events[0].duration).toBe(5000);
@@ -94,7 +103,7 @@ describe('Ability', () => {
 
     it('should publish the ability started event', () => {
       sut.trigger();
-      expect(eventManager.publishAbilityStarted).toHaveBeenCalledWith({
+      expect(publishAbilityStartedSpy).toHaveBeenCalledWith({
         id,
       });
     });
@@ -103,7 +112,7 @@ describe('Ability', () => {
       requirements.haveBeenMet.mockReturnValue(false);
       sut.trigger();
       expect(timeline.events.length).toBe(0);
-      expect(eventManager.publishAbilityStarted).not.toHaveBeenCalled();
+      expect(publishAbilityStartedSpy).not.toHaveBeenCalled();
     });
   });
 

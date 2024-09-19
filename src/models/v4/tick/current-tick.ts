@@ -1,10 +1,15 @@
+import type { EventManager } from '../event/event-manager';
 import { Tick } from './tick';
 
 export class CurrentTick {
   private _value: Tick;
   public readonly tickDuration: number;
 
-  public constructor(startingTime: number, tickDuration: number) {
+  public constructor(
+    startingTime: number,
+    tickDuration: number,
+    private readonly eventManager: EventManager
+  ) {
     this._value = new Tick(startingTime, startingTime + tickDuration);
     this.tickDuration = tickDuration;
   }
@@ -26,6 +31,7 @@ export class CurrentTick {
 
   /** Advance to the next tick interval that is being simulated */
   public advance() {
+    this.eventManager.publishTickAdvancing({});
     this._value = this.getNext();
   }
 
