@@ -25,6 +25,10 @@ describe('Ability event', () => {
     eventManager = new EventManager();
     currentTick = new CurrentTick(0, 500, eventManager);
 
+    resetSut();
+  });
+
+  function resetSut() {
     sut = new ConcreteAbilityEvent(
       timeInterval,
       abilityId,
@@ -33,7 +37,8 @@ describe('Ability event', () => {
       eventManager,
       currentTick
     );
-  });
+    sut.subscribeToEvents();
+  }
 
   it('returns correctly if it is on cooldown', () => {
     expect(sut.isOnCooldown(0)).toBe(true);
@@ -47,17 +52,15 @@ describe('Ability event', () => {
     sut.endTime = 1000;
     const spy = jest.spyOn(eventManager, 'publishAbilityEnded');
     // 0-500 tick
-    sut.process();
+    currentTick.advance();
     expect(spy).not.toHaveBeenCalled();
 
-    currentTick.advance();
     // 500-1000 tick
-    sut.process();
+    currentTick.advance();
     expect(spy).not.toHaveBeenCalled();
 
+    // 1000-1500 tick (endTime 1000 is inclusive in 1000-1500 tick but not 500-1000 tick)
     currentTick.advance();
-    // 1000-1500 tick
-    sut.process();
     expect(spy).toHaveBeenCalledWith({
       id: sut.abilityId,
     });
@@ -80,7 +83,7 @@ describe('Ability event', () => {
 
     it('should request resource update with the correct resource amount, adjusted for the duration of the tick, when the amount to update is defined as a flat amount for the duration of the attack event', () => {
       updatesResources.push({ resourceId: 'resource-id', amount: 100 });
-      sut.process();
+      currentTick.advance();
 
       expect(publishResourceUpdateSpy).toHaveBeenCalledWith({
         id: 'resource-id',
@@ -94,7 +97,7 @@ describe('Ability event', () => {
         resourceId: 'resource-id',
         amountPerSecond: 200,
       });
-      sut.process();
+      currentTick.advance();
 
       expect(publishResourceUpdateSpy).toHaveBeenCalledWith({
         id: 'resource-id',
@@ -108,11 +111,30 @@ describe('Ability event', () => {
         resourceId: 'resource-id',
         depleteResource: true,
       });
-      sut.process();
+      currentTick.advance();
 
       expect(publishResourceDepleteSpy).toHaveBeenCalledWith({
         id: 'resource-id',
       });
     });
+  });
+
+  it('should unsubscribe itself from tick advancing event updates when it ends', () => {
+    sut.endTime = 1000;
+    const spy = jest.spyOn(eventManager, 'unsubscribeToTickAdvancing');
+
+    // 0 time
+    currentTick.advance();
+
+    // 500
+    expect(spy).not.toHaveBeenCalled();
+    currentTick.advance();
+
+    // 1000
+    expect(spy).not.toHaveBeenCalled();
+    currentTick.advance();
+
+    // 1500
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

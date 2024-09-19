@@ -348,6 +348,8 @@ export class CombatSimulator {
 
     this.eventSubscribers.push(
       ...this.resources.items,
+      ...this.attacks.items,
+      ...this.buffs.items,
       ...abilityTriggers,
       this.damageRecord
     );
@@ -356,7 +358,6 @@ export class CombatSimulator {
   public beginCombat() {
     this.subscribeEventSubscribers();
     this.addStartingResources();
-    this.processTick();
     this.advanceTick();
     this.hasBegunCombat = true;
     this.eventManager.publishCombatStarted({});
@@ -372,7 +373,6 @@ export class CombatSimulator {
     this.eventManager.publishAbilityTriggerRequest({ id });
 
     // Advance tick to start the attack, then finish it
-    this.processTick();
     this.advanceTick();
     this.finishOngoingForegroundAttacks();
   }
@@ -383,32 +383,15 @@ export class CombatSimulator {
       .map((attack) => attack.id);
   }
 
-  private advanceTick() {
-    this.currentTick.advance();
-  }
-
-  private processTick() {
-    if (this.currentTick.value.isProcessed) return;
-
-    this.eventManager.deliverAllMessages();
-
-    for (const ability of this.abilities.items) {
-      ability.process();
-    }
-
-    for (const resource of this.resources.items) {
-      resource.process();
-    }
-
-    this.currentTick.value.isProcessed = true;
-  }
-
   /** Advance and process ticks until there are no ongoing foreground attacks */
   private finishOngoingForegroundAttacks() {
     while (this.attacks.hasOngoingForegroundAttack()) {
       this.advanceTick();
-      this.processTick();
     }
+  }
+
+  private advanceTick() {
+    this.currentTick.advance();
   }
 
   private addStartingResources() {

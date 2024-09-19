@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { oneSecondDuration } from '../../../utils/time-utils';
 import type { Serializable } from '../../persistable';
 import type { EventManager } from '../event/event-manager';
+import type { EventSubscriber } from '../event/event-subscriber';
 import type { CurrentTick } from '../tick/current-tick';
 import type { Tick } from '../tick/tick';
 import type { TimeInterval } from '../time-interval/time-interval';
@@ -14,7 +15,7 @@ import type { AbilityEventDto } from './dtos/ability-event-dto';
 /** An ability event is produced when that ability is performed, spanning over a time interval and has a cooldown etc.  */
 export abstract class AbilityEvent
   extends TimelineEvent
-  implements Serializable<AbilityEventDto>
+  implements EventSubscriber, Serializable<AbilityEventDto>
 {
   public constructor(
     timeInterval: TimeInterval,
@@ -28,6 +29,10 @@ export abstract class AbilityEvent
     this.cooldown = cooldown;
   }
 
+  public subscribeToEvents(): void {
+    this.eventManager.onTickAdvancing(this.handleTickAdvancing.bind(this));
+  }
+
   /** Cooldown ends at a point of time (exclusive) */
   private get cooldownEndsAt() {
     return this.startTime + this.cooldown;
@@ -37,17 +42,19 @@ export abstract class AbilityEvent
     return this.startTime <= time && time < this.cooldownEndsAt;
   }
 
-  public process() {
+  private handleTickAdvancing() {
     const currentTick = this.currentTick.value;
     this.updateResources(currentTick);
-    this.publishAbilityEnd(currentTick);
+    this.handleAbilityEnding(currentTick);
     this.additionalProcessing(currentTick);
   }
 
   protected abstract additionalProcessing(tick: Tick): void;
 
-  /** Updates resources for the duration of the current tick */
+  /** Updates resources for the duration of the tick */
   private updateResources(tick: Tick) {
+    if (!this.timeInterval.includes(tick.startTime)) return;
+
     for (const updatesResource of this.updatesResources) {
       const {
         resourceId,
@@ -89,10 +96,14 @@ export abstract class AbilityEvent
     }
   }
 
-  /** Notify ability end if the end time of this event is in the current tick */
-  private publishAbilityEnd(tick: Tick) {
+  /** Notify ability end if the end time of this event is in the current tick and remove the subscription to the event manager */
+  private handleAbilityEnding(tick: Tick) {
     if (tick.includes(this.endTime)) {
       this.eventManager.publishAbilityEnded({ id: this.abilityId });
+
+      this.eventManager.unsubscribeToTickAdvancing(
+        this.handleTickAdvancing.bind(this)
+      );
     }
   }
 }

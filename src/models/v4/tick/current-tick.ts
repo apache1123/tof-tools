@@ -33,6 +33,8 @@ export class CurrentTick {
   public advance() {
     this.eventManager.publishTickAdvancing({});
     this._value = this.getNext();
+    // Consume whatever events have been published over the previous tick when starting the next one
+    this.eventManager.deliverQueuedMessages();
   }
 
   /** The next tick interval after the current tick interval */

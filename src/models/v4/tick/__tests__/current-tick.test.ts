@@ -28,9 +28,18 @@ describe('Current tick', () => {
     expect(sut.endTime).toBe(200);
   });
 
-  it('publishes the tick advance event when advancing', () => {
-    const spy = jest.spyOn(eventManager, 'publishTickAdvancing');
+  it('publishes the tick advancing event when advancing, then consumes tells the event manager to deliver all messages', () => {
+    const publishTickAdvancingSpy = jest.spyOn(
+      eventManager,
+      'publishTickAdvancing'
+    );
+    const deliverQueuedMessagesSpy = jest.spyOn(
+      eventManager,
+      'deliverQueuedMessages'
+    );
     sut.advance();
-    expect(spy).toHaveBeenCalled();
+    expect(publishTickAdvancingSpy).toHaveBeenCalledBefore(
+      deliverQueuedMessagesSpy
+    );
   });
 });

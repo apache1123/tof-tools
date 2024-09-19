@@ -27,6 +27,8 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
   private readonly minAmount = 0;
 
   public subscribeToEvents(): void {
+    this.eventManager.onTickAdvancing(this.handleTickAdvancing.bind(this));
+
     this.eventManager.onResourceUpdateRequest((request) => {
       if (request.id === this.id) {
         this.add(request.amount, request.hasPriority);
@@ -62,8 +64,8 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     this.addResourceEvent(currentTick, -amount, true, true);
   }
 
-  /** Called when all resource events have been added for the current tick. Determines the result of all resource events that occurred during the current tick and fires off events accordingly */
-  public process() {
+  /** Called after all resource events have been added for the current tick. Determines the result of all resource events that occurred during the current tick and fires off events accordingly */
+  private handleTickAdvancing() {
     this.passiveRegenerate(this.currentTick.value);
 
     const startingAmount = this.getCumulatedAmountAt(

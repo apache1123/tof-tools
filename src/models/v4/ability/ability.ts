@@ -1,5 +1,6 @@
 import type { Serializable } from '../../persistable';
 import type { EventManager } from '../event/event-manager';
+import type { EventSubscriber } from '../event/event-subscriber';
 import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
 import type { AbilityEvent } from './ability-event';
@@ -12,7 +13,7 @@ import type { AbilityDto } from './dtos/ability-dto';
 
 /** An ability is anything a character does. Attacks, buffs etc. are all considered abilities. */
 export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
-  implements Serializable<AbilityDto>
+  implements EventSubscriber, Serializable<AbilityDto>
 {
   public constructor(
     public readonly id: AbilityId,
@@ -26,6 +27,10 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     protected readonly eventManager: EventManager,
     protected readonly currentTick: CurrentTick
   ) {}
+
+  public subscribeToEvents(): void {
+    this.eventManager.onTickAdvancing(this.handleTickAdvancing.bind(this));
+  }
 
   protected getTriggerTime() {
     return this.currentTick.startTime;
@@ -49,6 +54,7 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     const newEventTimeInterval = this.getNewEventTimeInterval();
     const newEvent = this.createNewEvent(newEventTimeInterval);
     this.timeline.addEvent(newEvent);
+    newEvent.subscribeToEvents();
 
     this.eventManager.publishAbilityStarted({ id: this.id });
   }
@@ -59,17 +65,13 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   }
 
   /** Perform whatever actions needed during the current tick for this ability. Emit events, update resources, etc. */
-  public process() {
+  private handleTickAdvancing() {
     const ongoingEvents = this.getOngoingEvents();
 
     if (ongoingEvents.length === 0) return;
 
     // Terminate any ongoing events if the requirements for this ability are no longer met
     if (!this.haveRequirementsBeenMet()) this.terminate();
-
-    for (const event of ongoingEvents) {
-      event.process();
-    }
   }
 
   protected getOngoingEvents(): TAbilityEvent[] {

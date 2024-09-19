@@ -24,17 +24,17 @@ enum EventType {
   ResourceUpdated = 'resource-updated',
 }
 
-/** A facade for providing all event driven publishing, subscribing functionality */
+/** A facade for providing all event driven publishing, subscribing functionality. Most events that are published are queued and are only delivered when instructed to (usually after advancing to the next tick), with the exception to a select few (e.g. the `tickAdvancing` event) that are delivered immediately */
 export class EventManager {
   private readonly messageBroker = new MessageBroker();
 
-  public deliverAllMessages() {
-    this.messageBroker.deliverAllMessages();
+  public deliverQueuedMessages() {
+    this.messageBroker.deliverQueuedMessages();
   }
 
   /** Publish to subscribers that the current tick is advancing and to perform actions upon the current tick */
   public publishTickAdvancing(message: AdvancingTick) {
-    this.messageBroker.queueMessage(EventType.TickAdvancing, message);
+    this.messageBroker.pushMessage(EventType.TickAdvancing, message);
   }
   /** Subscribe to when the current tick is advancing and handle something through the callback */
   public onTickAdvancing(callback: (message: AdvancingTick) => void) {

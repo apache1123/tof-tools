@@ -6,7 +6,6 @@ import { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
 import type { Ability } from '../ability';
 import { ConcreteAbility } from '../ability';
-import type { AbilityEvent } from '../ability-event';
 import type { AbilityId } from '../ability-id';
 import type { AbilityRequirements } from '../ability-requirements';
 import { AbilityTimeline } from '../ability-timeline';
@@ -57,6 +56,7 @@ describe('Ability', () => {
       eventManager,
       currentTick
     );
+    sut.subscribeToEvents();
   }
 
   describe('Can trigger', () => {
@@ -133,38 +133,19 @@ describe('Ability', () => {
     });
   });
 
-  describe('Process', () => {
+  describe('On tick advancing', () => {
     it('should terminate an ongoing timeline event if the requirements are no longer met', () => {
       sut.trigger();
-      sut.process();
 
       currentTick.advance(); // -> 1000-2000
-      sut.process();
       expect(sut.isOngoing()).toBe(true);
 
       currentTick.advance(); // -> 2000-3000
       requirements.haveBeenMet.mockReturnValue(false);
-      sut.process();
       expect(sut.isOngoing()).toBe(true);
 
       currentTick.advance(); // -> 3000-4000
       expect(sut.isOngoing()).toBe(false);
-    });
-
-    it('should call process() on all ongoing timeline events', () => {
-      const event1 = mock<AbilityEvent>({ startTime: 0, endTime: 10000 });
-      const event2 = mock<AbilityEvent>({ startTime: 1000, endTime: 11000 });
-
-      timeline.addEvent(event1);
-      timeline.addEvent(event2);
-
-      sut.process();
-      expect(event1.process).toHaveBeenCalledTimes(1);
-
-      currentTick.advance(); // -> 1000-2000
-      sut.process();
-      expect(event1.process).toHaveBeenCalledTimes(2);
-      expect(event2.process).toHaveBeenCalledTimes(1);
     });
   });
 });
