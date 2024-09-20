@@ -8,6 +8,7 @@ import { ConcreteAbilityEvent } from './ability-event';
 import type { AbilityId } from './ability-id';
 import type { AbilityRequirements } from './ability-requirements';
 import type { AbilityTimeline } from './ability-timeline';
+import type { AbilityTriggerOptions } from './ability-trigger-options';
 import type { AbilityUpdatesResource } from './ability-updates-resource';
 import type { AbilityDto } from './dtos/ability-dto';
 
@@ -48,10 +49,12 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   }
 
   /** Trigger an ability event */
-  public trigger() {
+  public trigger(options?: AbilityTriggerOptions) {
     if (!this.canTrigger()) return;
 
-    const newEventTimeInterval = this.getNewEventTimeInterval();
+    const newEventTimeInterval = this.getNewEventTimeInterval(
+      options?.duration
+    );
     const newEvent = this.createNewEvent(newEventTimeInterval);
     this.timeline.addEvent(newEvent);
     newEvent.subscribeToEvents();
@@ -89,11 +92,14 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     return this.requirements.haveBeenMet();
   }
 
-  private getNewEventTimeInterval(): TimeInterval {
+  private getNewEventTimeInterval(specifiedDuration?: number): TimeInterval {
     const startTime = this.getTriggerTime();
-    const endTime = this.duration
-      ? startTime + this.duration
-      : this.timeline.endTime;
+    // If no specified duration, use the ability's default duration. If no default duration, assume ability is open-ended and set it to end when the timeline ends
+    const endTime = specifiedDuration
+      ? startTime + specifiedDuration
+      : this.duration
+        ? startTime + this.duration
+        : this.timeline.endTime;
 
     return new TimeInterval(startTime, endTime);
   }

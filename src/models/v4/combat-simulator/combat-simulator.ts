@@ -16,6 +16,7 @@ import type { Weapon } from '../../weapon';
 import type { Ability } from '../ability/ability';
 import { AbilityRequirements } from '../ability/ability-requirements';
 import { AbilityTrigger } from '../ability/ability-trigger';
+import type { AbilityTriggerOptions } from '../ability/ability-trigger-options';
 import { ActiveWeapon } from '../active-weapon/active-weapon';
 import { ActiveWeaponTimeline } from '../active-weapon/active-weapon-timeline';
 import { AttackAbility } from '../attack/attack-ability';
@@ -365,14 +366,14 @@ export class CombatSimulator {
     this.eventManager.publishCombatStarted({});
   }
 
-  public performAttack(id: AttackId) {
+  public performAttack(id: AttackId, options?: AbilityTriggerOptions) {
     if (!this.hasBegunCombat)
       throw new Error('Combat has not begun. Call beginCombat() first.');
 
     if (!this.getAvailableAttacks().includes(id))
       throw new Error(`Attack ${id} is not available to be performed`);
 
-    this.eventManager.publishAbilityTriggerRequest({ id });
+    this.eventManager.publishAbilityTriggerRequest({ id, options });
 
     // Advance tick to start the attack, then finish it
     this.advanceTick();

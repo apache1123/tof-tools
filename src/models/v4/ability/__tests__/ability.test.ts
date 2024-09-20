@@ -114,6 +114,12 @@ describe('Ability', () => {
       expect(timeline.events.length).toBe(0);
       expect(publishAbilityStartedSpy).not.toHaveBeenCalled();
     });
+
+    it('can take on a custom ability duration', () => {
+      const customDuration = 555;
+      sut.trigger({ duration: customDuration });
+      expect(timeline.events[0].duration).toBe(customDuration);
+    });
   });
 
   describe('Is ongoing', () => {

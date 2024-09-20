@@ -9,6 +9,7 @@ import type { ResourceUpdated } from '../event/messages/resource-updated';
 import type { ResourceId } from '../resource/resource-definition';
 import type { Ability } from './ability';
 import type { AbilityId } from './ability-id';
+import type { AbilityTriggerOptions } from './ability-trigger-options';
 
 export class AbilityTrigger implements EventSubscriber {
   public constructor(
@@ -71,12 +72,13 @@ export class AbilityTrigger implements EventSubscriber {
     }
   }
 
-  private triggerAbility() {
-    this.ability.trigger();
+  private triggerAbility(options?: AbilityTriggerOptions) {
+    this.ability.trigger(options);
   }
 
   private handleAbilityRequest(abilityRequest: AbilityTriggerRequest): void {
-    if (abilityRequest.id === this.id) this.triggerAbility();
+    if (abilityRequest.id === this.id)
+      this.triggerAbility(abilityRequest.options);
   }
 
   private handleCombatStarted(): void {
