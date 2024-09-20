@@ -12,6 +12,7 @@ import type { BuffAbility as BuffAbilityDefinition } from '../../../definitions/
 import type { Loadout } from '../../loadout';
 import type { Team } from '../../team';
 import type { UserStats } from '../../user-stats';
+import type { Weapon } from '../../weapon';
 import type { Ability } from '../ability/ability';
 import { AbilityRequirements } from '../ability/ability-requirements';
 import { AbilityTrigger } from '../ability/ability-trigger';
@@ -382,6 +383,14 @@ export class CombatSimulator {
     return this.attacks.items
       .filter((attack) => attack.canPlayerTrigger())
       .map((attack) => attack.id);
+  }
+
+  public switchToWeapon(weapon: Weapon) {
+    this.activeWeapon.switchTo(weapon);
+  }
+
+  public getWeaponsToSwitchTo() {
+    return this.activeWeapon.getWeaponsToSwitchTo();
   }
 
   /** Advance and process ticks until there are no ongoing foreground attacks */
