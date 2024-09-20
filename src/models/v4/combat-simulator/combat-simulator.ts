@@ -100,6 +100,7 @@ export class CombatSimulator {
       this.eventManager
     );
     this.activeWeapon = new ActiveWeapon(
+      weapons,
       new ActiveWeaponTimeline(combatDuration),
       this.eventManager,
       this.currentTick

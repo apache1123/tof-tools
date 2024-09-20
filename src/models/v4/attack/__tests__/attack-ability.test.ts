@@ -37,6 +37,7 @@ let baseDamageModifiers: BaseDamageModifiersDefinition;
 let finalDamageModifiers: FinalDamageModifiersDefinition;
 let hitCount: AttackHitCount;
 let doesNotTriggerEvents: boolean;
+let anotherWeapon: Weapon;
 let activeWeapon: ActiveWeapon;
 let currentResources: MockProxy<CurrentResources>;
 
@@ -64,7 +65,9 @@ describe('Attack ability', () => {
     finalDamageModifiers = mock<FinalDamageModifiersDefinition>();
     hitCount = mock<AttackHitCount>();
     doesNotTriggerEvents = false;
+    anotherWeapon = new Weapon(weaponDefinitions.byId['Meryl']);
     activeWeapon = new ActiveWeapon(
+      [weapon, anotherWeapon],
       new ActiveWeaponTimeline(100000),
       eventManager,
       currentTick
@@ -102,7 +105,7 @@ describe('Attack ability', () => {
   describe('Can trigger', () => {
     describe("When the attack is a foreground attack and the attack's weapon is the active weapon", () => {
       beforeEach(() => {
-        activeWeapon.set(weapon);
+        activeWeapon.switchTo(weapon);
         currentTick.advance(); // Active weapon takes effect at the next tick
       });
 
@@ -133,7 +136,7 @@ describe('Attack ability', () => {
 
     describe("When the attack is a foreground attack and the attack's weapon is not the active weapon", () => {
       beforeEach(() => {
-        activeWeapon.set(new Weapon(weaponDefinitions.byId['Meryl']));
+        activeWeapon.switchTo(new Weapon(weaponDefinitions.byId['Meryl']));
         currentTick.advance(); // Active weapon takes effect at the next tick
       });
 
@@ -182,7 +185,7 @@ describe('Attack ability', () => {
 
       describe("The attack's weapon is the active weapon", () => {
         beforeEach(() => {
-          activeWeapon.set(weapon);
+          activeWeapon.switchTo(weapon);
           currentTick.advance(); // Active weapon takes effect at the next tick
         });
 
@@ -213,7 +216,7 @@ describe('Attack ability', () => {
 
       describe("The attack's weapon is not the active weapon", () => {
         beforeEach(() => {
-          activeWeapon.set(new Weapon(weaponDefinitions.byId['Meryl']));
+          activeWeapon.switchTo(new Weapon(weaponDefinitions.byId['Meryl']));
           currentTick.advance(); // Active weapon takes effect at the next tick
         });
 
@@ -247,9 +250,9 @@ describe('Attack ability', () => {
   describe('Trigger', () => {
     describe('Resolving elemental type', () => {
       beforeEach(() => {
-        activeWeapon.set(new Weapon(weaponDefinitions.byId['Meryl'])); // Meryl - frost
+        activeWeapon.switchTo(anotherWeapon); // Meryl - frost
         currentTick.advance(); // Active weapon takes effect at the next tick
-        activeWeapon.set(weapon); // Mimi - volt
+        activeWeapon.switchTo(weapon); // Mimi - volt
         currentTick.advance(); // Active weapon takes effect at the next tick
       });
 
