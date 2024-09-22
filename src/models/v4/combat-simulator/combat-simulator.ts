@@ -12,25 +12,27 @@ import type { BuffAbility as BuffAbilityDefinition } from '../../../definitions/
 import type { Loadout } from '../../loadout';
 import type { Team } from '../../team';
 import type { UserStats } from '../../user-stats';
+import type { Weapon } from '../../weapon';
 import type { Ability } from '../ability/ability';
 import { AbilityRequirements } from '../ability/ability-requirements';
 import { AbilityTrigger } from '../ability/ability-trigger';
+import type { AbilityTriggerOptions } from '../ability/ability-trigger-options';
 import { ActiveWeapon } from '../active-weapon/active-weapon';
 import { ActiveWeaponTimeline } from '../active-weapon/active-weapon-timeline';
 import { AttackAbility } from '../attack/attack-ability';
 import { AttackRegistry } from '../attack/attack-registry';
 import { AttackTimeline } from '../attack/attack-timeline';
 import { ActiveBuffs } from '../buff/active-buff/active-buffs';
-import { AttackBuff } from '../buff/attack-buff';
-import { BaseAttackBuff } from '../buff/base-attack-buff';
+import { AttackBuff } from '../buff/attack-buff/attack-buff';
+import { BaseAttackBuff } from '../buff/base-attack-buff/base-attack-buff';
 import { BuffAbility } from '../buff/buff-ability';
 import { BuffRegistry } from '../buff/buff-registry';
 import type { BuffSource } from '../buff/buff-source';
 import { BuffTimeline } from '../buff/buff-timeline';
-import { CritDamageBuff } from '../buff/crit-damage-buff';
-import { CritRateBuff } from '../buff/crit-rate-buff';
-import { ElementalDamageBuff } from '../buff/elemental-damage-buff';
-import { FinalDamageBuff } from '../buff/final-damage-buff';
+import { CritDamageBuff } from '../buff/crit-damage-buff/crit-damage-buff';
+import { CritRateBuff } from '../buff/crit-rate-buff/crit-rate-buff';
+import { ElementalDamageBuff } from '../buff/elemental-damage-buff/elemental-damage-buff';
+import { FinalDamageBuff } from '../buff/final-damage-buff/final-damage-buff';
 import { UtilizedBuffs } from '../buff/utilized-buffs';
 import { CurrentCharacterStats } from '../character/current-character-stats';
 import { Charge } from '../charge/charge';
@@ -96,9 +98,11 @@ export class CombatSimulator {
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
     this.currentTick = new CurrentTick(
       startingTickInterval.startTime,
-      tickDuration
+      tickDuration,
+      this.eventManager
     );
     this.activeWeapon = new ActiveWeapon(
+      weapons,
       new ActiveWeaponTimeline(combatDuration),
       this.eventManager,
       this.currentTick
@@ -347,6 +351,8 @@ export class CombatSimulator {
 
     this.eventSubscribers.push(
       ...this.resources.items,
+      ...this.attacks.items,
+      ...this.buffs.items,
       ...abilityTriggers,
       this.damageRecord
     );
@@ -355,23 +361,21 @@ export class CombatSimulator {
   public beginCombat() {
     this.subscribeEventSubscribers();
     this.addStartingResources();
-    this.processTick();
     this.advanceTick();
     this.hasBegunCombat = true;
     this.eventManager.publishCombatStarted({});
   }
 
-  public performAttack(id: AttackId) {
+  public performAttack(id: AttackId, options?: AbilityTriggerOptions) {
     if (!this.hasBegunCombat)
       throw new Error('Combat has not begun. Call beginCombat() first.');
 
     if (!this.getAvailableAttacks().includes(id))
       throw new Error(`Attack ${id} is not available to be performed`);
 
-    this.eventManager.publishAbilityTriggerRequest({ id });
+    this.eventManager.publishAbilityTriggerRequest({ id, options });
 
     // Advance tick to start the attack, then finish it
-    this.processTick();
     this.advanceTick();
     this.finishOngoingForegroundAttacks();
   }
@@ -382,32 +386,23 @@ export class CombatSimulator {
       .map((attack) => attack.id);
   }
 
-  private advanceTick() {
-    this.currentTick.advance();
+  public switchToWeapon(weapon: Weapon) {
+    this.activeWeapon.switchTo(weapon);
   }
 
-  private processTick() {
-    if (this.currentTick.value.isProcessed) return;
-
-    this.eventManager.deliverAllMessages();
-
-    for (const ability of this.abilities.items) {
-      ability.process();
-    }
-
-    for (const resource of this.resources.items) {
-      resource.process();
-    }
-
-    this.currentTick.value.isProcessed = true;
+  public getWeaponsToSwitchTo() {
+    return this.activeWeapon.getWeaponsToSwitchTo();
   }
 
   /** Advance and process ticks until there are no ongoing foreground attacks */
   private finishOngoingForegroundAttacks() {
     while (this.attacks.hasOngoingForegroundAttack()) {
       this.advanceTick();
-      this.processTick();
     }
+  }
+
+  private advanceTick() {
+    this.currentTick.advance();
   }
 
   private addStartingResources() {

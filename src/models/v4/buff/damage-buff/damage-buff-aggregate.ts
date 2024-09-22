@@ -1,6 +1,6 @@
 import groupBy from 'lodash.groupby';
 
-import { product, sum } from '../../../utils/math-utils';
+import { product, sum } from '../../../../utils/math-utils';
 import type { DamageBuff } from './damage-buff';
 
 export class DamageBuffAggregate {

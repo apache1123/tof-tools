@@ -1,4 +1,4 @@
-import { DamageBuffAggregate } from './damage-buff-aggregate';
+import { DamageBuffAggregate } from '../damage-buff/damage-buff-aggregate';
 import type { FinalDamageBuff } from './final-damage-buff';
 
 export class FinalDamageBuffAggregate {

@@ -1,10 +1,10 @@
-import type { BuffId } from '../../../definitions/types/buff/buff-ability';
-import type { AttackHit } from '../event/messages/attack-hit';
-import { Buff } from './buff';
-import type { BuffSource } from './buff-source';
+import type { BuffId } from '../../../../definitions/types/buff/buff-ability';
+import type { AttackHit } from '../../event/messages/attack-hit';
+import { Buff } from '../buff';
+import type { BuffSource } from '../buff-source';
 import type { DamageBuffRestrictedTo } from './damage-buff-restricted-to';
 
-export abstract class DamageBuff extends Buff {
+export class DamageBuff extends Buff {
   public constructor(
     id: BuffId,
     value: number,

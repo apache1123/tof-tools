@@ -1,7 +1,7 @@
 import groupBy from 'lodash.groupby';
 
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import { DamageBuffAggregate } from './damage-buff-aggregate';
+import type { WeaponElementalType } from '../../../../definitions/elemental-type';
+import { DamageBuffAggregate } from '../damage-buff/damage-buff-aggregate';
 import type { ElementalDamageBuff } from './elemental-damage-buff';
 
 export class ElementalDamageBuffAggregate {

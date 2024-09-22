@@ -1,5 +1,5 @@
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import { sum } from '../../../utils/math-utils';
+import type { WeaponElementalType } from '../../../../definitions/elemental-type';
+import { sum } from '../../../../utils/math-utils';
 import type { AttackBuff } from './attack-buff';
 
 export class AttackBuffAggregate {

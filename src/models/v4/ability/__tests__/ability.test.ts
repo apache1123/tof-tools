@@ -2,11 +2,10 @@ import type { MockProxy } from 'jest-mock-extended';
 import { mock } from 'jest-mock-extended';
 
 import { repeat } from '../../../../utils/test-utils';
-import type { EventManager } from '../../event/event-manager';
+import { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
 import type { Ability } from '../ability';
 import { ConcreteAbility } from '../ability';
-import type { AbilityEvent } from '../ability-event';
 import type { AbilityId } from '../ability-id';
 import type { AbilityRequirements } from '../ability-requirements';
 import { AbilityTimeline } from '../ability-timeline';
@@ -38,13 +37,13 @@ describe('Ability', () => {
 
     updatesResources = [];
     timeline = new AbilityTimeline(100000);
-    eventManager = mock<EventManager>();
-    currentTick = new CurrentTick(0, 1000);
+    eventManager = new EventManager();
+    currentTick = new CurrentTick(0, 1000, eventManager);
 
-    createSut();
+    resetSut();
   });
 
-  function createSut() {
+  function resetSut() {
     sut = new ConcreteAbility(
       id,
       displayName,
@@ -57,6 +56,7 @@ describe('Ability', () => {
       eventManager,
       currentTick
     );
+    sut.subscribeToEvents();
   }
 
   describe('Can trigger', () => {
@@ -80,6 +80,15 @@ describe('Ability', () => {
   });
 
   describe('Trigger', () => {
+    let publishAbilityStartedSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      publishAbilityStartedSpy = jest.spyOn(
+        eventManager,
+        'publishAbilityStarted'
+      );
+    });
+
     it('should create a new timeline event with a fixed duration if the duration is defined', () => {
       sut.trigger();
       expect(timeline.events[0].duration).toBe(5000);
@@ -87,14 +96,14 @@ describe('Ability', () => {
 
     it("should create a new timeline event with its end time set to the timeline's end time if the duration is undefined", () => {
       duration = undefined;
-      createSut();
+      resetSut();
       sut.trigger();
       expect(timeline.events[0].duration).toBe(100000);
     });
 
     it('should publish the ability started event', () => {
       sut.trigger();
-      expect(eventManager.publishAbilityStarted).toHaveBeenCalledWith({
+      expect(publishAbilityStartedSpy).toHaveBeenCalledWith({
         id,
       });
     });
@@ -103,7 +112,13 @@ describe('Ability', () => {
       requirements.haveBeenMet.mockReturnValue(false);
       sut.trigger();
       expect(timeline.events.length).toBe(0);
-      expect(eventManager.publishAbilityStarted).not.toHaveBeenCalled();
+      expect(publishAbilityStartedSpy).not.toHaveBeenCalled();
+    });
+
+    it('can take on a custom ability duration', () => {
+      const customDuration = 555;
+      sut.trigger({ duration: customDuration });
+      expect(timeline.events[0].duration).toBe(customDuration);
     });
   });
 
@@ -124,38 +139,19 @@ describe('Ability', () => {
     });
   });
 
-  describe('Process', () => {
+  describe('On tick advancing', () => {
     it('should terminate an ongoing timeline event if the requirements are no longer met', () => {
       sut.trigger();
-      sut.process();
 
       currentTick.advance(); // -> 1000-2000
-      sut.process();
       expect(sut.isOngoing()).toBe(true);
 
       currentTick.advance(); // -> 2000-3000
       requirements.haveBeenMet.mockReturnValue(false);
-      sut.process();
       expect(sut.isOngoing()).toBe(true);
 
       currentTick.advance(); // -> 3000-4000
       expect(sut.isOngoing()).toBe(false);
-    });
-
-    it('should call process() on all ongoing timeline events', () => {
-      const event1 = mock<AbilityEvent>({ startTime: 0, endTime: 10000 });
-      const event2 = mock<AbilityEvent>({ startTime: 1000, endTime: 11000 });
-
-      timeline.addEvent(event1);
-      timeline.addEvent(event2);
-
-      sut.process();
-      expect(event1.process).toHaveBeenCalledTimes(1);
-
-      currentTick.advance(); // -> 1000-2000
-      sut.process();
-      expect(event1.process).toHaveBeenCalledTimes(2);
-      expect(event2.process).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -1,16 +1,27 @@
+import { weaponSwitchCooldownDuration } from '../../../definitions/active-weapon';
+import { consoleErrorDev } from '../../../utils/dev-utils';
 import type { Weapon } from '../../weapon';
 import type { EventManager } from '../event/event-manager';
 import type { CurrentTick } from '../tick/current-tick';
 import { TimeInterval } from '../time-interval/time-interval';
 import { ActiveWeaponEvent } from './active-weapon-event';
 import type { ActiveWeaponTimeline } from './active-weapon-timeline';
+import { WeaponSwitchCooldownEvent } from './weapon-switch-cooldown-event';
+import { WeaponSwitchCooldownTimeline } from './weapon-switch-cooldown-timeline';
 
 export class ActiveWeapon {
+  private readonly weaponSwitchCooldownTimeline: WeaponSwitchCooldownTimeline;
+
   public constructor(
+    private readonly weapons: Weapon[],
     private readonly timeline: ActiveWeaponTimeline,
     private readonly eventManager: EventManager,
     private readonly currentTick: CurrentTick
-  ) {}
+  ) {
+    this.weaponSwitchCooldownTimeline = new WeaponSwitchCooldownTimeline(
+      timeline.endTime
+    );
+  }
 
   /** The current active weapon */
   public get current(): Weapon | undefined {
@@ -25,24 +36,47 @@ export class ActiveWeapon {
     return this.getLastEventBefore(lastEvent.startTime)?.weapon;
   }
 
-  public set(weapon: Weapon) {
-    if (this.current !== weapon) {
-      this.timeline.addEvent(
-        new ActiveWeaponEvent(
+  public switchTo(weapon: Weapon) {
+    if (!this.getWeaponsToSwitchTo().includes(weapon)) {
+      consoleErrorDev(`Weapon ${weapon.id} cannot be switched to`);
+      return;
+    }
+
+    this.timeline.addEvent(
+      new ActiveWeaponEvent(
+        new TimeInterval(this.currentTick.startTime, this.currentTick.endTime),
+        weapon
+      )
+    );
+
+    // If there is a current active weapon, track its weapon switch cooldown
+    if (this.current) {
+      this.weaponSwitchCooldownTimeline.addEvent(
+        new WeaponSwitchCooldownEvent(
           new TimeInterval(
             this.currentTick.startTime,
-            this.currentTick.endTime
+            this.currentTick.startTime + weaponSwitchCooldownDuration
           ),
-          weapon
+          this.current
         )
       );
-
-      // TODO: does this need to fire every tick for some abilities to work?
-      this.eventManager.publishActiveWeaponChanged({
-        id: weapon.id,
-        damageElement: weapon.damageElement,
-      });
     }
+
+    this.eventManager.publishActiveWeaponChanged({
+      id: weapon.id,
+      damageElement: weapon.damageElement,
+    });
+  }
+
+  public getWeaponsToSwitchTo() {
+    return this.weapons.filter(
+      (weapon) =>
+        weapon !== this.current &&
+        !this.weaponSwitchCooldownTimeline.isOnCooldown(
+          weapon,
+          this.currentTick.startTime
+        )
+    );
   }
 
   private getActiveWeaponEvent() {

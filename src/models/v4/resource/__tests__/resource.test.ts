@@ -1,5 +1,3 @@
-import { mock } from 'jest-mock-extended';
-
 import { EventManager } from '../../event/event-manager';
 import { ResourceTimeline } from '../../resource-timeline/resource-timeline';
 import { CurrentTick } from '../../tick/current-tick';
@@ -20,8 +18,12 @@ describe('Resource', () => {
   beforeEach(() => {
     timeline = new ResourceTimeline(endTime);
     eventManager = new EventManager();
-    currentTick = new CurrentTick(0, 1000);
+    currentTick = new CurrentTick(0, 1000, eventManager);
 
+    resetSut();
+  });
+
+  function resetSut() {
     sut = new Resource(
       id,
       displayName,
@@ -32,7 +34,8 @@ describe('Resource', () => {
       eventManager,
       currentTick
     );
-  });
+    sut.subscribeToEvents();
+  }
 
   describe('adding resource amount', () => {
     it('should add the correct amount', () => {
@@ -106,29 +109,25 @@ describe('Resource', () => {
     });
   });
 
-  describe('process', () => {
+  describe('On tick advancing', () => {
     it('should passive regenerate resource amount only when there are no other resource events', () => {
-      sut.process();
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(20);
 
       sut.add(10);
-      sut.process();
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(30);
 
       sut.deplete();
-      sut.process();
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(0);
 
-      sut.process();
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(20);
     });
 
     it('should public resource updated event when the resource amount changes', () => {
-      const eventManager = mock<EventManager>();
+      const spy = jest.spyOn(eventManager, 'publishResourceUpdated');
       const sut = new Resource(
         id,
         displayName,
@@ -140,15 +139,16 @@ describe('Resource', () => {
         currentTick
       );
       sut.add(10);
-      sut.process();
-      expect(eventManager.publishResourceUpdated).toHaveBeenCalled();
+      currentTick.advance();
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('subscribing to events', () => {
-    it('should handle resource update requests', () => {
-      sut.subscribeToEvents();
+    // We always need to advance two ticks for request events to take effect because - the resource request is requested at tick 1, acted upon in tick 2 (in which the resource amount is updated), then the result will be visible at the start of tick 3
 
+    it('should handle resource update requests', () => {
+      regenerate.amountPerSecond = 0;
       eventManager.publishResourceUpdateRequest({
         id,
         amount: 10,
@@ -159,26 +159,24 @@ describe('Resource', () => {
         amount: 20,
         hasPriority: false,
       });
-      eventManager.deliverAllMessages();
 
-      currentTick.advance();
+      currentTick.advance(); // -> 1000-2000
+      currentTick.advance(); // -> 2000-3000
       expect(sut.getCumulatedAmount()).toBe(10);
     });
 
     it('should handle resource deplete requests', () => {
-      sut.subscribeToEvents();
-
       sut.add(10);
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(10);
 
       eventManager.publishResourceDepleteRequest({ id: 'some-other-id' });
-      eventManager.deliverAllMessages();
+      currentTick.advance();
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(10);
 
       eventManager.publishResourceDepleteRequest({ id });
-      eventManager.deliverAllMessages();
+      currentTick.advance();
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(0);
     });

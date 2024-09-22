@@ -20,19 +20,40 @@ export class MessageBroker {
     }
   }
 
+  public unsubscribeCallback(
+    messageType: string,
+    callback: (message: Message) => void
+  ): void {
+    const callbacks = this.callbacksByMessageType.get(messageType);
+    if (callbacks) {
+      callbacks.delete(callback);
+    }
+  }
+
+  /** Queues a message be delivered some time in the future */
   public queueMessage(messageType: string, message: Message): void {
     this.queue.push({ messageType, message });
   }
 
-  public deliverAllMessages() {
+  /** Deliver all queued messages */
+  public deliverQueuedMessages() {
     let item;
     while ((item = this.queue.shift())) {
       const { messageType, message } = item;
-      const callbacks = this.callbacksByMessageType.get(messageType);
-      if (callbacks) {
-        for (const callback of callbacks) {
-          callback(message);
-        }
+      this.deliverMessage(messageType, message);
+    }
+  }
+
+  /** Pushes a message to be delivered immediately to subscribers, without queueing */
+  public pushMessage(messageType: string, message: Message): void {
+    this.deliverMessage(messageType, message);
+  }
+
+  private deliverMessage(messageType: string, message: Message) {
+    const callbacks = this.callbacksByMessageType.get(messageType);
+    if (callbacks) {
+      for (const callback of callbacks) {
+        callback(message);
       }
     }
   }

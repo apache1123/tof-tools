@@ -9,7 +9,7 @@ import type { AbilityId } from '../../ability/ability-id';
 import type { AbilityUpdatesResource } from '../../ability/ability-updates-resource';
 import type { BaseDamageModifiersDefinition } from '../../damage-modifiers/base-damage-modifiers-definition';
 import type { FinalDamageModifiersDefinition } from '../../damage-modifiers/final-damage-modifiers-definition';
-import type { EventManager } from '../../event/event-manager';
+import { EventManager } from '../../event/event-manager';
 import type { CurrentResource } from '../../resource/current-resource/current-resource';
 import type { CurrentResources } from '../../resource/current-resource/current-resources';
 import { CurrentTick } from '../../tick/current-tick';
@@ -40,8 +40,8 @@ describe('Attack event', () => {
     abilityId = 'id';
     cooldown = 1500;
     updatesResources = [];
-    eventManager = mock<EventManager>();
-    currentTick = new CurrentTick(0, 500);
+    eventManager = new EventManager();
+    currentTick = new CurrentTick(0, 500, eventManager);
     currentResources = mock<CurrentResources>();
 
     elementalType = 'Volt';
@@ -74,37 +74,44 @@ describe('Attack event', () => {
       eventManager,
       currentTick,
       elementalType,
+      type,
       baseDamageModifiersDefinition,
       finalDamageModifiersDefinition,
-      type,
       hitCount,
       weapon,
       currentResources
     );
+    sut.subscribeToEvents();
   }
 
   describe('Attack hits', () => {
+    let publishAttackHitSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      publishAttackHitSpy = jest.spyOn(eventManager, 'publishAttackHit');
+    });
+
     it('should publish attack hits if they are within the current tick', () => {
       // current tick 0-500, event 0-500, 3 hits
-      sut.process();
-      expect(eventManager.publishAttackHit).toHaveBeenCalledTimes(3);
+      currentTick.advance();
+      expect(publishAttackHitSpy).toHaveBeenCalledTimes(3);
     });
 
     describe('Attack hit timing', () => {
       it('should publish attack hits at the right time, for an attack with a fixed number of hits over its duration', () => {
         // current tick 0-500, event 0-500, 3 hits at 125, 250, 375
-        sut.process();
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        currentTick.advance();
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             time: 125,
           })
         );
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             time: 250,
           })
         );
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             time: 375,
           })
@@ -115,13 +122,13 @@ describe('Attack event', () => {
         // current tick 0-500, event 0-500, 4 hits per second => 2 hits per 500ms => hits at 167, 333
         hitCount.numberOfHitsFixed = undefined;
         hitCount.numberOfHitsPerSecond = 4;
-        sut.process();
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        currentTick.advance();
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             time: 167,
           })
         );
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             time: 333,
           })
@@ -132,8 +139,8 @@ describe('Attack event', () => {
     describe('Base damage modifiers', () => {
       it('should calculate the base damage modifiers correctly, for an attack where the damage dealt is defined to be for the whole event', () => {
         // current tick 0-500, event 0-500, 3 hits => applicable values should be divided by 3
-        sut.process();
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        currentTick.advance();
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             baseDamageModifiers: {
               attackMultiplier: 0.4,
@@ -150,8 +157,8 @@ describe('Attack event', () => {
       it('should calculate the base damage modifiers correctly, for an attack where the damage dealt is defined to be per second (and the hits is defined to be for the whole attack)', () => {
         // current tick 0-500, event 0-500; event is half the duration of per second; 3 hits; Per hit, applicable values should be divided by (2 * 3) = 6
         baseDamageModifiersDefinition.damageDealtIsPerSecond = true;
-        sut.process();
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        currentTick.advance();
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             baseDamageModifiers: {
               attackMultiplier: 0.2,
@@ -170,8 +177,8 @@ describe('Attack event', () => {
         baseDamageModifiersDefinition.damageDealtIsPerSecond = true;
         hitCount.numberOfHitsFixed = undefined;
         hitCount.numberOfHitsPerSecond = 4;
-        sut.process();
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        currentTick.advance();
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             baseDamageModifiers: {
               attackMultiplier: 0.3,
@@ -199,8 +206,8 @@ describe('Attack event', () => {
 
         resetSut();
 
-        sut.process();
-        expect(eventManager.publishAttackHit).toHaveBeenCalledWith(
+        currentTick.advance();
+        expect(publishAttackHitSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             baseDamageModifiers: expect.objectContaining({
               resourceAmountMultiplier: 300,

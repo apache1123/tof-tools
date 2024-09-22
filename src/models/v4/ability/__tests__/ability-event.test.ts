@@ -1,6 +1,4 @@
-import { mock } from 'jest-mock-extended';
-
-import type { EventManager } from '../../event/event-manager';
+import { EventManager } from '../../event/event-manager';
 import { CurrentTick } from '../../tick/current-tick';
 import { TimeInterval } from '../../time-interval/time-interval';
 import type { AbilityEvent } from '../ability-event';
@@ -24,9 +22,13 @@ describe('Ability event', () => {
     abilityId = 'id';
     cooldown = 1500;
     updatesResources = [];
-    eventManager = mock<EventManager>();
-    currentTick = new CurrentTick(0, 500);
+    eventManager = new EventManager();
+    currentTick = new CurrentTick(0, 500, eventManager);
 
+    resetSut();
+  });
+
+  function resetSut() {
     sut = new ConcreteAbilityEvent(
       timeInterval,
       abilityId,
@@ -35,111 +37,104 @@ describe('Ability event', () => {
       eventManager,
       currentTick
     );
-  });
+    sut.subscribeToEvents();
+  }
 
   it('returns correctly if it is on cooldown', () => {
-    cooldownTest(sut);
+    expect(sut.isOnCooldown(0)).toBe(true);
+    expect(sut.isOnCooldown(1000)).toBe(true);
+    expect(sut.isOnCooldown(1499)).toBe(true);
+    expect(sut.isOnCooldown(1500)).toBe(false);
+    expect(sut.isOnCooldown(2000)).toBe(false);
   });
 
   it('should publish ability end if the end time of this event is in the current tick', () => {
-    publishAbilityEndTest(sut, currentTick, eventManager);
+    sut.endTime = 1000;
+    const spy = jest.spyOn(eventManager, 'publishAbilityEnded');
+    // 0-500 tick
+    currentTick.advance();
+    expect(spy).not.toHaveBeenCalled();
+
+    // 500-1000 tick
+    currentTick.advance();
+    expect(spy).not.toHaveBeenCalled();
+
+    // 1000-1500 tick (endTime 1000 is inclusive in 1000-1500 tick but not 500-1000 tick)
+    currentTick.advance();
+    expect(spy).toHaveBeenCalledWith({
+      id: sut.abilityId,
+    });
   });
 
   describe('request resource updates', () => {
-    it('should request resource update with the correct resource amount, adjusted for the duration of the tick, when the amount to update is defined as a flat amount for the duration of the attack event', () => {
-      requestResourceUpdateFlatAmountTest(sut, updatesResources, eventManager);
-    });
+    let publishResourceUpdateSpy: jest.SpyInstance;
+    let publishResourceDepleteSpy: jest.SpyInstance;
 
-    it('should request resource update with the correct resource amount, adjusted for the duration of the tick, when the amount to update is defined as a per second amount', () => {
-      requestResourceUpdatePerSecondAmountTest(
-        sut,
-        updatesResources,
-        eventManager
+    beforeEach(() => {
+      publishResourceUpdateSpy = jest.spyOn(
+        eventManager,
+        'publishResourceUpdateRequest'
+      );
+      publishResourceDepleteSpy = jest.spyOn(
+        eventManager,
+        'publishResourceDepleteRequest'
       );
     });
 
-    it('should request resource deletion', () => {
-      requestResourceDepletionTest(sut, updatesResources, eventManager);
+    it('should request resource update with the correct resource amount, adjusted for the duration of the tick, when the amount to update is defined as a flat amount for the duration of the attack event', () => {
+      updatesResources.push({ resourceId: 'resource-id', amount: 100 });
+      currentTick.advance();
+
+      expect(publishResourceUpdateSpy).toHaveBeenCalledWith({
+        id: 'resource-id',
+        amount: 10, // Tick is 1/10 of the duration of the attack event, so 100 / 10 = 20
+        hasPriority: false,
+      });
+    });
+
+    it('should request resource update with the correct resource amount, adjusted for the duration of the tick, when the amount to update is defined as a per second amount', () => {
+      updatesResources.push({
+        resourceId: 'resource-id',
+        amountPerSecond: 200,
+      });
+      currentTick.advance();
+
+      expect(publishResourceUpdateSpy).toHaveBeenCalledWith({
+        id: 'resource-id',
+        amount: 100, // Tick is 1/2 of the duration of 1 second, so 200 / 2 = 100
+        hasPriority: false,
+      });
+    });
+
+    it('should request resource depletion', () => {
+      updatesResources.push({
+        resourceId: 'resource-id',
+        depleteResource: true,
+      });
+      currentTick.advance();
+
+      expect(publishResourceDepleteSpy).toHaveBeenCalledWith({
+        id: 'resource-id',
+      });
     });
   });
+
+  it('should unsubscribe itself from tick advancing event updates when it ends', () => {
+    sut.endTime = 1000;
+    const spy = jest.spyOn(eventManager, 'unsubscribeToTickAdvancing');
+
+    // 0 time
+    currentTick.advance();
+
+    // 500
+    expect(spy).not.toHaveBeenCalled();
+    currentTick.advance();
+
+    // 1000
+    expect(spy).not.toHaveBeenCalled();
+    currentTick.advance();
+
+    // 1500
+    expect(spy).toHaveBeenCalledOnce();
+  });
 });
-
-export function cooldownTest(sut: AbilityEvent) {
-  expect(sut.isOnCooldown(0)).toBe(true);
-  expect(sut.isOnCooldown(1000)).toBe(true);
-  expect(sut.isOnCooldown(1499)).toBe(true);
-  expect(sut.isOnCooldown(1500)).toBe(false);
-  expect(sut.isOnCooldown(2000)).toBe(false);
-}
-
-export function publishAbilityEndTest(
-  sut: AbilityEvent,
-  currentTick: CurrentTick,
-  eventManager: EventManager
-) {
-  sut.endTime = 1000;
-  // 0-500 tick
-  sut.process();
-  expect(eventManager.publishAbilityEnded).not.toHaveBeenCalled();
-
-  currentTick.advance();
-  // 500-1000 tick
-  sut.process();
-  expect(eventManager.publishAbilityEnded).not.toHaveBeenCalled();
-
-  currentTick.advance();
-  // 1000-1500 tick
-  sut.process();
-  expect(eventManager.publishAbilityEnded).toHaveBeenCalledWith({
-    id: sut.abilityId,
-  });
-}
-
-export function requestResourceUpdateFlatAmountTest(
-  sut: AbilityEvent,
-  updatesResources: AbilityUpdatesResource[],
-  eventManager: EventManager
-) {
-  updatesResources.push({ resourceId: 'resource-id', amount: 100 });
-  sut.process();
-
-  expect(eventManager.publishResourceUpdateRequest).toHaveBeenCalledWith({
-    id: 'resource-id',
-    amount: 10, // Tick is 1/10 of the duration of the attack event, so 100 / 10 = 20
-    hasPriority: false,
-  });
-}
-
-export function requestResourceUpdatePerSecondAmountTest(
-  sut: AbilityEvent,
-  updatesResources: AbilityUpdatesResource[],
-  eventManager: EventManager
-) {
-  updatesResources.push({
-    resourceId: 'resource-id',
-    amountPerSecond: 200,
-  });
-  sut.process();
-
-  expect(eventManager.publishResourceUpdateRequest).toHaveBeenCalledWith({
-    id: 'resource-id',
-    amount: 100, // Tick is 1/2 of the duration of 1 second, so 200 / 2 = 100
-    hasPriority: false,
-  });
-}
-
-export function requestResourceDepletionTest(
-  sut: AbilityEvent,
-  updatesResources: AbilityUpdatesResource[],
-  eventManager: EventManager
-) {
-  updatesResources.push({
-    resourceId: 'resource-id',
-    depleteResource: true,
-  });
-  sut.process();
-
-  expect(eventManager.publishResourceDepleteRequest).toHaveBeenCalledWith({
-    id: 'resource-id',
-  });
-}
