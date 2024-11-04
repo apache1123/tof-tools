@@ -235,4 +235,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 10, 4)),
     title: 'Add Meryl Ironheart',
   },
+  {
+    semver: '3.19.0',
+    date: new Date(Date.UTC(2024, 10, 4)),
+    title: 'Add Asurada',
+  },
 ];

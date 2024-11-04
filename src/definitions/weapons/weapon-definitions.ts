@@ -4,6 +4,7 @@ import { alyss } from './definitions/alyss';
 import { anka } from './definitions/anka';
 import { annabella } from './definitions/annabella';
 import { asuka } from './definitions/asuka';
+import { asurada } from './definitions/asurada';
 import { brevey } from './definitions/brevey';
 import { claudia } from './definitions/claudia';
 import { cobaltB } from './definitions/cobalt-b';
@@ -56,6 +57,7 @@ export type WeaponName =
   | 'Anka'
   | 'Annabella'
   | 'Asuka'
+  | 'Asurada'
   | 'Brevey'
   | 'Claudia'
   | 'Cobalt-B'
@@ -109,6 +111,7 @@ export const weaponDefinitions: Data<WeaponName, Weapon> = {
     'Anka',
     'Annabella',
     'Asuka',
+    'Asurada',
     'Brevey',
     'Claudia',
     'Cobalt-B',
@@ -160,6 +163,7 @@ export const weaponDefinitions: Data<WeaponName, Weapon> = {
     Anka: anka,
     Annabella: annabella,
     Asuka: asuka,
+    Asurada: asurada,
     Brevey: brevey,
     Claudia: claudia,
     'Cobalt-B': cobaltB,
