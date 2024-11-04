@@ -37,6 +37,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     'Liu Huo',
     'Lyra',
     'Meryl',
+    'Meryl Ironheart',
     'Ming Jing',
     'Nan Yin',
     'Nemesis',
@@ -562,6 +563,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     Meryl: {
       id: 'Meryl',
       displayName: 'Meryl',
+      buffs: [],
+    },
+    'Meryl Ironheart': {
+      id: 'Meryl Ironheart',
+      displayName: 'Meryl Ironheart',
       buffs: [],
     },
     'Ming Jing': {

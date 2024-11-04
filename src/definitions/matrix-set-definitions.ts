@@ -48,6 +48,7 @@ export const matrixSet2pcOrder: DataAllIds<MatrixSet2pcName> = [
   'Liu Huo 2pc',
   'Lyra 2pc',
   'Meryl 2pc',
+  'Meryl Ironheart 2pc',
   'Ming Jing 2pc',
   'Nan Yin 2pc',
   'Nemesis 2pc',
@@ -97,6 +98,7 @@ export const matrixSet4pcOrder: DataAllIds<MatrixSet4pcName> = [
   'Liu Huo 4pc',
   'Lyra 4pc',
   'Meryl 4pc',
+  'Meryl Ironheart 4pc',
   'Ming Jing 4pc',
   'Nan Yin 4pc',
   'Nemesis 4pc',
@@ -559,6 +561,29 @@ export const matrixSetDefinitionsLookup: DataById<
     attackPercentBuffs: [],
     critRateBuffs: [],
     critDamageBuffs: [],
+    buffs: [],
+  },
+  'Meryl Ironheart 2pc': {
+    id: 'Meryl Ironheart 2pc',
+    displayName: 'Meryl Ironheart 2pc',
+    pieces: 2,
+    attackPercentBuffs: [],
+    critRateBuffs: [],
+    critDamageBuffs: [
+      {
+        description:
+          '(Assuming max stacks) Each time Chain Static is triggered, increase crit damage by 6% for 5, stacking up to 4 times',
+        starValues: [
+          { star: 0, value: 0.24 },
+          { star: 1, value: 0.24 },
+          { star: 2, value: 0.24 },
+          { star: 3, value: 0.24 },
+        ],
+        canStack: false,
+        isActivePassively: false,
+        weaponRequirements: ['Meryl Ironheart'],
+      },
+    ],
     buffs: [],
   },
   'Ming Jing 2pc': {
@@ -1277,6 +1302,42 @@ export const matrixSetDefinitionsLookup: DataById<
     pieces: 4,
     attackPercentBuffs: [],
     critRateBuffs: [],
+    critDamageBuffs: [],
+    buffs: [],
+  },
+  'Meryl Ironheart 4pc': {
+    id: 'Meryl Ironheart 4pc',
+    displayName: 'Meryl Ironheart 4pc',
+    pieces: 4,
+    attackPercentBuffs: [
+      {
+        description: 'Increase volt ATK when Siege Edge is equipped',
+        starValues: [
+          { star: 0, value: 0.21 },
+          { star: 1, value: 0.24 },
+          { star: 2, value: 0.27 },
+          { star: 3, value: 0.3 },
+        ],
+        elementalTypes: ['Volt'],
+        canStack: false,
+        isActivePassively: true,
+        weaponRequirements: ['Meryl Ironheart'],
+      },
+    ],
+    critRateBuffs: [
+      {
+        description: '+7% crit rate when Fortitude Resonance is triggered',
+        starValues: [
+          { star: 0, value: 0.07 },
+          { star: 1, value: 0.07 },
+          { star: 2, value: 0.07 },
+          { star: 3, value: 0.07 },
+        ],
+        canStack: false,
+        isActivePassively: true,
+        weaponResonanceRequirements: ['Fortitude'],
+      },
+    ],
     critDamageBuffs: [],
     buffs: [],
   },
