@@ -230,4 +230,9 @@ export const changelog: Changelog = [
     description:
       'Since simulacra trait selection has not been added to the gear comparer yet, the calculator assumes you might also equip her trait when using Nola. (Nola trait buffs all ATK for every altered weapon equipped)',
   },
+  {
+    semver: '3.18.0',
+    date: new Date(Date.UTC(2024, 10, 4)),
+    title: 'Add Meryl Ironheart',
+  },
 ];

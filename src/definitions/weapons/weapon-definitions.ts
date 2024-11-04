@@ -24,6 +24,7 @@ import { lingHan } from './definitions/ling-han';
 import { liuHuo } from './definitions/liu-huo';
 import { lyra } from './definitions/lyra';
 import { meryl } from './definitions/meryl';
+import { merylIronheart } from './definitions/meryl-ironheart';
 import { mimi } from './definitions/mimi';
 import { mingJing } from './definitions/ming-jing';
 import { nanYin } from './definitions/nan-yin';
@@ -76,6 +77,7 @@ export type WeaponName =
   | 'Liu Huo'
   | 'Lyra'
   | 'Meryl'
+  | 'Meryl Ironheart'
   | 'Ming Jing'
   | 'Nan Yin'
   | 'Nemesis'
@@ -128,6 +130,7 @@ export const weaponDefinitions: Data<WeaponName, Weapon> = {
     'Liu Huo',
     'Lyra',
     'Meryl',
+    'Meryl Ironheart',
     'Ming Jing',
     'Nan Yin',
     'Nemesis',
@@ -178,6 +181,7 @@ export const weaponDefinitions: Data<WeaponName, Weapon> = {
     'Liu Huo': liuHuo,
     Lyra: lyra,
     Meryl: meryl,
+    'Meryl Ironheart': merylIronheart,
     'Ming Jing': mingJing,
     'Nan Yin': nanYin,
     Nemesis: nemesis,
