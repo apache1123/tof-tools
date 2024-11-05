@@ -64,7 +64,7 @@ export function LoadoutStatsEditor({
                     component="span"
                     color="info.main"
                   >
-                    This is the <b>NOT</b> your elemental attack value you see
+                    This is <b>NOT</b> your elemental attack value you see
                     on the Wanderer screen.{' '}
                   </Typography>
                   <Typography variant="inherit" component="span">

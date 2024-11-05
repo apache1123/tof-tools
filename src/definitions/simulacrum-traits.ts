@@ -17,6 +17,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     'Anka',
     'Annabella',
     'Asuka',
+    'Asurada',
     'Brevey',
     'Claudia',
     'Cobalt-B',
@@ -105,6 +106,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
       ],
+    },
+    Asurada: {
+      id: 'Asurada',
+      displayName: 'Asurada',
+      buffs: [], 
     },
     Brevey: {
       id: 'Brevey',
