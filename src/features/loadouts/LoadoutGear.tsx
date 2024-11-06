@@ -1,14 +1,14 @@
-import { Button, Tooltip } from '@mui/material';
-import { useRouter } from 'next/router';
-import { useSnapshot } from 'valtio';
+import { Button, Tooltip } from "@mui/material";
+import { useRouter } from "next/router";
+import { useSnapshot } from "valtio";
 
-import { GearTypeSelector } from '../../components/GearTypeSelector/GearTypeSelector';
-import type { Gear } from '../../models/gear';
-import type { LoadoutsState } from '../../states/loadouts';
-import { gearComparerState, loadoutsState } from '../../states/states';
-import { GearOCRModal } from '../GearOCRModal';
-import { GearPiece } from '../GearPiece';
-import { GearValue } from '../GearValue';
+import { GearTypeSelector } from "../../components/GearTypeSelector/GearTypeSelector";
+import type { Gear } from "../../models/gear";
+import type { LoadoutsState } from "../../states/loadouts";
+import { gearComparerState, loadoutsState } from "../../states/states";
+import { GearOCRModal } from "../GearOCRModal";
+import { GearPiece } from "../GearPiece";
+import { GearValue } from "../GearValue";
 
 export interface LoadoutGearProps {
   gearSnap: Gear;
@@ -17,7 +17,7 @@ export interface LoadoutGearProps {
 
 export function LoadoutGear({ gearSnap, gearState }: LoadoutGearProps) {
   const { selectedLoadout: loadoutSnap } = useSnapshot(
-    loadoutsState
+    loadoutsState,
   ) as LoadoutsState;
   const { elementalType } = loadoutSnap;
 
@@ -58,7 +58,7 @@ export function LoadoutGear({ gearSnap, gearState }: LoadoutGearProps) {
                 onClick={() => {
                   // Assumes the `loadoutsState` is shared between here and the gear comparer, so as a result, the selected loadout will be the same for both. Knowing this, we only need to change the selected gear type in the gear comparer to match that of this gear
                   gearComparerState.selectedGearTypeId = gearState.type.id;
-                  router.push('/gear-comparer');
+                  router.push("/gear-comparer");
                 }}
                 variant="text"
               >

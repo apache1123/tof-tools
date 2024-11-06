@@ -1,4 +1,4 @@
-import { maxCharacterLevel } from './character-level';
+import { maxCharacterLevel } from "./character-level";
 
 const wandererLevel = maxCharacterLevel;
 

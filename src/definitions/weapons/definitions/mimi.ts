@@ -1,25 +1,25 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { Weapon } from "../../types/weapon/weapon";
 
 export const mimi = {
-  id: 'Huang (Mimi)',
-  displayName: 'Huang (Mimi)',
-  elementalIcon: 'Volt',
-  resonanceElements: ['Volt'],
-  calculationElements: ['Volt'],
-  damageElement: 'Volt',
-  type: 'Defense',
+  id: "Huang (Mimi)",
+  displayName: "Huang (Mimi)",
+  elementalIcon: "Volt",
+  resonanceElements: ["Volt"],
+  calculationElements: ["Volt"],
+  damageElement: "Volt",
+  type: "Defense",
   attackPercentBuffs: [
     {
-      id: 'Volt Resonance',
-      displayName: 'Volt Resonance',
-      description: '+15% volt ATK when equipping 2 or more volt weapons',
+      id: "Volt Resonance",
+      displayName: "Volt Resonance",
+      description: "+15% volt ATK when equipping 2 or more volt weapons",
       value: 0.15,
-      elementalTypes: ['Volt'],
+      elementalTypes: ["Volt"],
       canStack: false,
       isActivePassively: true,
       minStarRequirement: 0,
       maxStarRequirement: 6,
-      elementalResonanceRequirements: ['Volt'],
+      elementalResonanceRequirements: ["Volt"],
     },
   ],
   critRateBuffs: [],

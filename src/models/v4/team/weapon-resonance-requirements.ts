@@ -1,11 +1,11 @@
-import type { WeaponResonance } from '../../../definitions/weapons/weapon-resonance';
-import type { Team } from '../../team';
-import type { Requirements } from '../requirements/requirements';
+import type { WeaponResonance } from "../../../definitions/weapons/weapon-resonance";
+import type { Team } from "../../team";
+import type { Requirements } from "../requirements/requirements";
 
 export class WeaponResonanceRequirements implements Requirements {
   public constructor(
     private readonly isResonance?: WeaponResonance,
-    private readonly isNotResonance?: WeaponResonance
+    private readonly isNotResonance?: WeaponResonance,
   ) {}
 
   public haveBeenMet(team: Team): boolean {

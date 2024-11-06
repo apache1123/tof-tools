@@ -1,4 +1,4 @@
-import type { ResourceRegenerationDefinition } from './resource-regeneration-definition';
+import type { ResourceRegenerationDefinition } from "./resource-regeneration-definition";
 
 export type ResourceId = string;
 

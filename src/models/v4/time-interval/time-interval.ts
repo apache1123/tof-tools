@@ -1,5 +1,5 @@
-import type { Serializable } from '../../persistable';
-import type { TimeIntervalDto } from './dtos/time-interval-dto';
+import type { Serializable } from "../../persistable";
+import type { TimeIntervalDto } from "./dtos/time-interval-dto";
 
 /** A time interval defined by two instant points of time.
  *
@@ -14,11 +14,11 @@ export class TimeInterval implements Serializable<TimeIntervalDto> {
    */
   public constructor(startTime: number, endTime: number) {
     if (endTime < startTime) {
-      throw new Error('End time cannot be earlier than start time');
+      throw new Error("End time cannot be earlier than start time");
     }
 
     if (endTime === startTime) {
-      throw new Error('End time cannot be the same as start time');
+      throw new Error("End time cannot be the same as start time");
     }
 
     this._startTime = startTime;
@@ -30,7 +30,7 @@ export class TimeInterval implements Serializable<TimeIntervalDto> {
   }
   public set startTime(value: number) {
     if (value > this._endTime) {
-      throw new Error('Start time cannot be later than end time');
+      throw new Error("Start time cannot be later than end time");
     }
     this._startTime = value;
   }
@@ -42,7 +42,7 @@ export class TimeInterval implements Serializable<TimeIntervalDto> {
   public set endTime(value: number) {
     if (value <= this._startTime) {
       throw new Error(
-        'End time cannot be earlier than, or the same as, the start time'
+        "End time cannot be earlier than, or the same as, the start time",
       );
     }
     this._endTime = value;

@@ -1,8 +1,8 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
-import type { CoreElementalType } from '../definitions/elemental-type';
-import type { Gear } from '../models/gear';
-import { GearAttackStatsSummary } from './GearAttackStatsSummary';
+import type { CoreElementalType } from "../definitions/elemental-type";
+import type { Gear } from "../models/gear";
+import { GearAttackStatsSummary } from "./GearAttackStatsSummary";
 
 export interface TitanGearMaxStatsProps {
   maxTitanGearSnap: Gear;
@@ -28,8 +28,8 @@ export function TitanGearMaxStats({
             return (
               <Typography key={i} gutterBottom>
                 <strong>{displayName}: </strong>
-                {randomStat.valueString} +{' '}
-                {randomStat.augmentIncreaseValueString} ={' '}
+                {randomStat.valueString} +{" "}
+                {randomStat.augmentIncreaseValueString} ={" "}
                 <strong>{randomStat.totalValueString}</strong>
               </Typography>
             );
@@ -49,8 +49,8 @@ export function TitanGearMaxStats({
             return (
               <Typography key={i} gutterBottom>
                 <strong>{displayName}: </strong>
-                {augmentStat.valueString} +{' '}
-                {augmentStat.augmentIncreaseValueString} ={' '}
+                {augmentStat.valueString} +{" "}
+                {augmentStat.augmentIncreaseValueString} ={" "}
                 <strong>{augmentStat.totalValueString}</strong>
               </Typography>
             );

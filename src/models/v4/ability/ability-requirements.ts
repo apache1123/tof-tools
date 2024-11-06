@@ -1,12 +1,12 @@
-import type { BuffId } from '../../../definitions/types/buff/buff-ability';
-import type { Team } from '../../team';
-import type { ActiveWeapon } from '../active-weapon/active-weapon';
-import type { ActiveBuffs } from '../buff/active-buff/active-buffs';
-import type { Requirements } from '../requirements/requirements';
-import type { CurrentResources } from '../resource/current-resource/current-resources';
-import type { ResourceRequirements } from '../resource/resource-requirements';
-import type { TeamRequirements } from '../team/team-requirements';
-import type { ActiveWeaponRequirements } from '../weapon/active-weapon-requirements';
+import type { BuffId } from "../../../definitions/types/buff/buff-ability";
+import type { Team } from "../../team";
+import type { ActiveWeapon } from "../active-weapon/active-weapon";
+import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
+import type { Requirements } from "../requirements/requirements";
+import type { CurrentResources } from "../resource/current-resource/current-resources";
+import type { ResourceRequirements } from "../resource/resource-requirements";
+import type { TeamRequirements } from "../team/team-requirements";
+import type { ActiveWeaponRequirements } from "../weapon/active-weapon-requirements";
 
 export class AbilityRequirements implements Requirements {
   public constructor(
@@ -17,7 +17,7 @@ export class AbilityRequirements implements Requirements {
     private readonly activeBuff?: BuffId,
     private readonly activeWeaponRequirements?: ActiveWeaponRequirements,
     private readonly teamRequirements?: TeamRequirements,
-    private readonly resourceRequirements?: ResourceRequirements
+    private readonly resourceRequirements?: ResourceRequirements,
   ) {}
 
   public haveBeenMet(): boolean {

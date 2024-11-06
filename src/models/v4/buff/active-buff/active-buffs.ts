@@ -1,6 +1,6 @@
-import type { BuffId } from '../../../../definitions/types/buff/buff-ability';
-import type { BuffRegistry } from '../buff-registry';
-import type { ActiveBuff } from './active-buff';
+import type { BuffId } from "../../../../definitions/types/buff/buff-ability";
+import type { BuffRegistry } from "../buff-registry";
+import type { ActiveBuff } from "./active-buff";
 
 /** All currently active buffs at the current tick */
 export class ActiveBuffs {
@@ -24,7 +24,7 @@ export class ActiveBuffs {
 
   public getElementalDamageBuffs() {
     return this.items.flatMap(
-      (currentBuff) => currentBuff.elementalDamageBuffs
+      (currentBuff) => currentBuff.elementalDamageBuffs,
     );
   }
 

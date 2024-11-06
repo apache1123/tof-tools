@@ -1,17 +1,17 @@
-import { filterOutUndefined } from '../utils/array-utils';
-import type { Dto } from './dto';
-import type { MatrixSetDto } from './matrix-set';
-import { MatrixSet } from './matrix-set';
+import { filterOutUndefined } from "../utils/array-utils";
+import type { Dto } from "./dto";
+import type { MatrixSetDto } from "./matrix-set";
+import { MatrixSet } from "./matrix-set";
 import type {
   MatrixSet2pcName,
   MatrixSet4pcName,
-} from './matrix-set-definition';
+} from "./matrix-set-definition";
 import {
   getMatrixSet2pcTo4pcName,
   getMatrixSet4pcTo2pcName,
   getMatrixSetDefinition,
-} from './matrix-set-definition';
-import type { Persistable } from './persistable';
+} from "./matrix-set-definition";
+import type { Persistable } from "./persistable";
 
 export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
   private _matrixSet4pc: MatrixSet | undefined;
@@ -47,11 +47,11 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
     const { matrixSet4pc, matrixSet2pc1, matrixSet2pc2 } = this;
     if (matrixSet4pc) {
       const counterpartMatrixSet2pcName = getMatrixSet4pcTo2pcName(
-        matrixSet4pc.definition.id as MatrixSet4pcName
+        matrixSet4pc.definition.id as MatrixSet4pcName,
       );
 
       const counterpartMatrixSet2pc = new MatrixSet(
-        getMatrixSetDefinition(counterpartMatrixSet2pcName)
+        getMatrixSetDefinition(counterpartMatrixSet2pcName),
       );
       counterpartMatrixSet2pc.stars = matrixSet4pc.stars;
 
@@ -74,10 +74,10 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
             : matrixSet2pc2;
 
         const counterpartMatrixSet4pcName = getMatrixSet2pcTo4pcName(
-          matrixSet2pc1.definition.id as MatrixSet2pcName
+          matrixSet2pc1.definition.id as MatrixSet2pcName,
         );
         const counterpartMatrixSet4pc = new MatrixSet(
-          getMatrixSetDefinition(counterpartMatrixSet4pcName)
+          getMatrixSetDefinition(counterpartMatrixSet4pcName),
         );
         counterpartMatrixSet4pc.stars = lowestStar;
 
@@ -100,7 +100,7 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
       this._matrixSet2pc1.stars === this._matrixSet2pc2.stars
     ) {
       const counterpart4pcName = getMatrixSet2pcTo4pcName(
-        this._matrixSet2pc1.definition.id as MatrixSet2pcName
+        this._matrixSet2pc1.definition.id as MatrixSet2pcName,
       );
       const counterpart4pcDefinition =
         getMatrixSetDefinition(counterpart4pcName);
@@ -133,7 +133,7 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
 
     function getMatrixSetFromDto(matrixSetDto: MatrixSetDto): MatrixSet {
       const matrixSet = new MatrixSet(
-        getMatrixSetDefinition(matrixSetDto.definitionId)
+        getMatrixSetDefinition(matrixSetDto.definitionId),
       );
       matrixSet.copyFromDto(matrixSetDto);
       return matrixSet;

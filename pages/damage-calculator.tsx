@@ -1,6 +1,6 @@
-import { Box, Container, Paper, Typography } from '@mui/material';
-import Head from 'next/head';
-import Image from 'next/image';
+import { Box, Container, Paper, Typography } from "@mui/material";
+import Head from "next/head";
+import Image from "next/image";
 
 export default function DamageCalculatorPage() {
   return (
@@ -10,7 +10,7 @@ export default function DamageCalculatorPage() {
       </Head>
 
       <Container maxWidth="lg" sx={{ p: 3 }}>
-        <Paper sx={{ p: 2, textAlign: 'center', mb: 10 }}>
+        <Paper sx={{ p: 2, textAlign: "center", mb: 10 }}>
           <Box mb={10}>
             <Image
               src="/stickers/赦免天使在工作 01.gif"

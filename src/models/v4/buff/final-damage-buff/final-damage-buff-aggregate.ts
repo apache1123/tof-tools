@@ -1,12 +1,12 @@
-import { DamageBuffAggregate } from '../damage-buff/damage-buff-aggregate';
-import type { FinalDamageBuff } from './final-damage-buff';
+import { DamageBuffAggregate } from "../damage-buff/damage-buff-aggregate";
+import type { FinalDamageBuff } from "./final-damage-buff";
 
 export class FinalDamageBuffAggregate {
   public constructor(private readonly finalDamageBuffs: FinalDamageBuff[]) {}
 
   public getAggregatedResult(): FinalDamageBuffAggregatedResult {
     const damageBuffAggregatedResult = new DamageBuffAggregate(
-      this.finalDamageBuffs
+      this.finalDamageBuffs,
     ).getAggregatedResult();
 
     return {

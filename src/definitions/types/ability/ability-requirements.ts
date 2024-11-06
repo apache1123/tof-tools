@@ -1,7 +1,7 @@
-import type { ResourceId } from '../../../models/v4/resource/resource-definition';
-import type { WeaponElementalType } from '../../elemental-type';
-import type { WeaponName } from '../../weapons/weapon-definitions';
-import type { WeaponResonance } from '../../weapons/weapon-resonance';
+import type { ResourceId } from "../../../models/v4/resource/resource-definition";
+import type { WeaponElementalType } from "../../elemental-type";
+import type { WeaponName } from "../../weapons/weapon-definitions";
+import type { WeaponResonance } from "../../weapons/weapon-resonance";
 
 /** Requirements are treated as a "AND" check i.e. the ability can be triggered when all defined requirements pass check */
 export interface AbilityRequirements {

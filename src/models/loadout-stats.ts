@@ -1,15 +1,15 @@
-import { defaultCritDamagePercent } from '../definitions/damage-formula';
+import { defaultCritDamagePercent } from "../definitions/damage-formula";
 import type {
   CoreElementalType,
   WeaponElementalType,
-} from '../definitions/elemental-type';
-import { sum } from '../utils/math-utils';
-import { keysOf } from '../utils/object-utils';
-import type { Dto } from './dto';
-import type { ElementalAttackDto } from './elemental-attack';
-import { ElementalAttack } from './elemental-attack';
-import type { Loadout } from './loadout';
-import type { Persistable } from './persistable';
+} from "../definitions/elemental-type";
+import { sum } from "../utils/math-utils";
+import { keysOf } from "../utils/object-utils";
+import type { Dto } from "./dto";
+import type { ElementalAttackDto } from "./elemental-attack";
+import { ElementalAttack } from "./elemental-attack";
+import type { Loadout } from "./loadout";
+import type { Persistable } from "./persistable";
 
 // TODO: Elemental attacks in this are misleading. Only the base attack is set right now, the total attack is not.
 /** User-inputted stats for a `Loadout` */
@@ -68,7 +68,7 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public get activeElementalAttack(): ElementalAttack {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return this[this.loadout.elementalType.toLowerCase() + 'Attack'];
+    return this[this.loadout.elementalType.toLowerCase() + "Attack"];
   }
 
   public get elementWithHighestAttack() {
@@ -80,13 +80,13 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
       .reduce((prev, curr) =>
         curr.elementalAttack.totalAttack >= prev.elementalAttack.totalAttack
           ? curr
-          : prev
+          : prev,
       ).element;
   }
 
   /** **Only the base attack is set for this** */
   public getElementalAttack(elementalType: WeaponElementalType) {
-    if (elementalType !== 'Altered') {
+    if (elementalType !== "Altered") {
       return this.elementalAttacks[elementalType];
     }
 

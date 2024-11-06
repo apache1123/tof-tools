@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { CoreElementalTypeSelector } from './CoreElementalTypeSelector';
+import { CoreElementalTypeSelector } from "./CoreElementalTypeSelector";
 
 const meta: Meta<typeof CoreElementalTypeSelector> = {
-  title: 'Core Elemental Type Selector',
+  title: "Core Elemental Type Selector",
   component: CoreElementalTypeSelector,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;

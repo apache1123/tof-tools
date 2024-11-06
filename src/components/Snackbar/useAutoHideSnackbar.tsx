@@ -1,14 +1,14 @@
-import type { AlertColor, SnackbarCloseReason } from '@mui/material';
-import { Alert, Snackbar } from '@mui/material';
-import type { ReactNode } from 'react';
-import { useState } from 'react';
+import type { AlertColor, SnackbarCloseReason } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 export enum AutoHideDuration {
   Short = 3000,
   Long = 5000,
 }
 
-const defaultSeverity: AlertColor = 'success';
+const defaultSeverity: AlertColor = "success";
 const defaultAutoHideDuration = AutoHideDuration.Short;
 
 export function useAutoHideSnackbar() {
@@ -16,7 +16,7 @@ export function useAutoHideSnackbar() {
   const [message, setMessage] = useState<ReactNode>(undefined);
   const [severity, setSeverity] = useState(defaultSeverity);
   const [autoHideDuration, setAutoHideDuration] = useState(
-    defaultAutoHideDuration
+    defaultAutoHideDuration,
   );
 
   function show(
@@ -24,7 +24,7 @@ export function useAutoHideSnackbar() {
     options: { severity?: AlertColor; autoHideDuration?: AutoHideDuration } = {
       severity: defaultSeverity,
       autoHideDuration: defaultAutoHideDuration,
-    }
+    },
   ) {
     setMessage(message);
 
@@ -37,9 +37,9 @@ export function useAutoHideSnackbar() {
 
   function handleClose(
     event: React.SyntheticEvent | Event,
-    reason: SnackbarCloseReason
+    reason: SnackbarCloseReason,
   ) {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -52,9 +52,9 @@ export function useAutoHideSnackbar() {
         open={open}
         autoHideDuration={autoHideDuration}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert severity={severity} variant="filled" sx={{ width: '100%' }}>
+        <Alert severity={severity} variant="filled" sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>

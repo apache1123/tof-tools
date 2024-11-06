@@ -1,4 +1,4 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -7,21 +7,21 @@ import {
   Button,
   Stack,
   Typography,
-} from '@mui/material';
-import groupBy from 'lodash.groupby';
-import { useEffect } from 'react';
-import { useSnapshot } from 'valtio';
+} from "@mui/material";
+import groupBy from "lodash.groupby";
+import { useEffect } from "react";
+import { useSnapshot } from "valtio";
 
-import { GearStarsSelector } from '../../components/GearStarsSelector/GearStarsSelector';
-import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
-import { maxNumOfRandomStatRolls } from '../../definitions/gear';
-import type { Gear } from '../../models/gear';
-import type { GearRandomStatRollCombinations } from '../../models/gear-random-stat-roll-combinations';
-import type { RandomStat } from '../../models/random-stat';
-import { gearComparerState, rollSimulatorState } from '../../states/states';
-import { getComparisonColor } from '../../utils/color-utils';
-import { sum } from '../../utils/math-utils';
-import { GearRollSimulatorStat } from './GearRollSimulatorStat';
+import { GearStarsSelector } from "../../components/GearStarsSelector/GearStarsSelector";
+import { NumericStringPercentage2dp } from "../../components/NumericString/NumericString";
+import { maxNumOfRandomStatRolls } from "../../definitions/gear";
+import type { Gear } from "../../models/gear";
+import type { GearRandomStatRollCombinations } from "../../models/gear-random-stat-roll-combinations";
+import type { RandomStat } from "../../models/random-stat";
+import { gearComparerState, rollSimulatorState } from "../../states/states";
+import { getComparisonColor } from "../../utils/color-utils";
+import { sum } from "../../utils/math-utils";
+import { GearRollSimulatorStat } from "./GearRollSimulatorStat";
 
 export function GearRollSimulator() {
   const { replacementGear } = useSnapshot(gearComparerState);
@@ -103,14 +103,14 @@ function UnableToDetermineStars({
   const gearSnap = useSnapshot(gearState);
 
   const possibleStars = Object.keys(
-    groupBy(randomStatRollCombinations, (x) => x.stars)
+    groupBy(randomStatRollCombinations, (x) => x.stars),
   );
 
   return (
     <Box>
       <Typography color="info.main" gutterBottom>
-        Can&apos;t determine the number of stars{' '}
-        <strong>(either {possibleStars.join(' or ')} stars)</strong>. Select it
+        Can&apos;t determine the number of stars{" "}
+        <strong>(either {possibleStars.join(" or ")} stars)</strong>. Select it
         below to continue
       </Typography>
       <GearStarsSelector
@@ -139,7 +139,7 @@ function DeterminedStars({
   const totalRolls = startingRolls + sum(...rolls).toNumber();
 
   const matchingRandomStatRollCombinations = randomStatRollCombinations.find(
-    (x) => x.stars === startingRolls
+    (x) => x.stars === startingRolls,
   );
 
   const canRoll = totalRolls < maxNumOfRandomStatRolls;

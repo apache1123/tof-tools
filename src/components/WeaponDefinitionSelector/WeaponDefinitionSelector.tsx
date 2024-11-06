@@ -1,7 +1,7 @@
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, TextField } from "@mui/material";
 
-import type { Weapon as WeaponDefinition } from '../../definitions/types/weapon/weapon';
-import { weaponDefinitions } from '../../definitions/weapons/weapon-definitions';
+import type { Weapon as WeaponDefinition } from "../../definitions/types/weapon/weapon";
+import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions";
 
 export interface WeaponDefinitionSelectorProps {
   selectedWeaponDefinition: WeaponDefinition | undefined;
@@ -10,7 +10,7 @@ export interface WeaponDefinitionSelectorProps {
 }
 
 const options = weaponDefinitions.allIds.map(
-  (id) => weaponDefinitions.byId[id]
+  (id) => weaponDefinitions.byId[id],
 );
 
 export const WeaponDefinitionSelector = ({

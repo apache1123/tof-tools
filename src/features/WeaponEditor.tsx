@@ -1,25 +1,25 @@
-import { Stack } from '@mui/material';
-import type { ReactNode } from 'react';
+import { Stack } from "@mui/material";
+import type { ReactNode } from "react";
 
-import { WeaponDefinitionSelector } from '../components/WeaponDefinitionSelector/WeaponDefinitionSelector';
-import { WeaponIcon } from '../components/WeaponIcon/WeaponIcon';
-import { WeaponStarsSelector } from '../components/WeaponStarsSelector/WeaponStarsSelector';
-import type { Weapon as WeaponDefinition } from '../definitions/types/weapon/weapon';
-import type { Weapon } from '../models/weapon';
-import { WeaponMatrixSetsEditor } from './WeaponMatrixSetsEditor';
+import { WeaponDefinitionSelector } from "../components/WeaponDefinitionSelector/WeaponDefinitionSelector";
+import { WeaponIcon } from "../components/WeaponIcon/WeaponIcon";
+import { WeaponStarsSelector } from "../components/WeaponStarsSelector/WeaponStarsSelector";
+import type { Weapon as WeaponDefinition } from "../definitions/types/weapon/weapon";
+import type { Weapon } from "../models/weapon";
+import { WeaponMatrixSetsEditor } from "./WeaponMatrixSetsEditor";
 
 export interface WeaponEditorProps {
   weaponSnap: Weapon;
   weaponState: Weapon;
   onClearWeapon(): void;
-  ['data-testid']?: string;
+  ["data-testid"]?: string;
 }
 
 export function WeaponEditor({
   weaponSnap,
   weaponState,
   onClearWeapon,
-  'data-testid': dataTestId,
+  "data-testid": dataTestId,
 }: WeaponEditorProps) {
   const weaponDefinition = weaponSnap.definition;
 
@@ -62,12 +62,12 @@ export function WeaponEditor({
 
 export interface EmptyWeaponEditorProps {
   onWeaponDefinitionChange(weaponDefinition: WeaponDefinition): void;
-  ['data-testid']?: string;
+  ["data-testid"]?: string;
 }
 
 export function EmptyWeaponEditor({
   onWeaponDefinitionChange,
-  'data-testid': dataTestId,
+  "data-testid": dataTestId,
 }: EmptyWeaponEditorProps) {
   return (
     <Layout
@@ -91,13 +91,13 @@ function Layout({
   definitionSelector,
   starsSelector,
   matrixSetsEditor,
-  'data-testid': dataTestId,
+  "data-testid": dataTestId,
 }: {
   icon: ReactNode;
   definitionSelector: ReactNode;
   starsSelector: ReactNode;
   matrixSetsEditor?: ReactNode;
-  ['data-testid']?: string;
+  ["data-testid"]?: string;
 }) {
   return (
     <Stack spacing={4} flexGrow={1} data-testid={dataTestId}>

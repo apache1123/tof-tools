@@ -1,11 +1,11 @@
-import { Box, Divider, Link, Paper, Stack, Typography } from '@mui/material';
+import { Box, Divider, Link, Paper, Stack, Typography } from "@mui/material";
 
-import { LoadoutSelector } from '../loadouts/LoadoutSelector';
-import { LoadoutStats } from '../loadouts/LoadoutStats';
-import { LoadoutTeam } from '../loadouts/LoadoutTeam';
-import { BuffSummary } from './BuffSummary';
-import { GearsSideBySide } from './GearsSideBySide';
-import { LoadoutTitle } from './LoadoutTitle';
+import { LoadoutSelector } from "../loadouts/LoadoutSelector";
+import { LoadoutStats } from "../loadouts/LoadoutStats";
+import { LoadoutTeam } from "../loadouts/LoadoutTeam";
+import { BuffSummary } from "./BuffSummary";
+import { GearsSideBySide } from "./GearsSideBySide";
+import { LoadoutTitle } from "./LoadoutTitle";
 
 export function GearComparer() {
   return (
@@ -30,15 +30,15 @@ export function GearComparer() {
 
       <Box mt={10} textAlign="center">
         <Typography variant="body2">
-          This calculator is based off of <strong>Maygi&apos;s</strong>{' '}
+          This calculator is based off of <strong>Maygi&apos;s</strong>{" "}
           <Link
             href="https://docs.google.com/spreadsheets/d/1ZrJokNh_0AF_9welc7Etz6K8jlpzi5bXpiWz-mQZa78/edit#gid=1875148939"
             target="_blank"
             rel="noopener"
           >
-            {' '}
+            {" "}
             Gear Comparison calculator.
-          </Link>{' '}
+          </Link>{" "}
           Go check it out! 😊
         </Typography>
       </Box>

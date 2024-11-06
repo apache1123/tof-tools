@@ -1,5 +1,5 @@
-import { sum } from '../../../../utils/math-utils';
-import type { CritRateBuff } from './crit-rate-buff';
+import { sum } from "../../../../utils/math-utils";
+import type { CritRateBuff } from "./crit-rate-buff";
 
 export class CritRateBuffAggregate {
   public constructor(private readonly critRateBuffs: CritRateBuff[]) {}
@@ -7,7 +7,7 @@ export class CritRateBuffAggregate {
   public getAggregatedResult(): CritRateBuffAggregatedResult {
     return {
       critRatePercent: sum(
-        ...this.critRateBuffs.map((buff) => buff.value)
+        ...this.critRateBuffs.map((buff) => buff.value),
       ).toNumber(),
     };
   }

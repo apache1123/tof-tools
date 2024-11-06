@@ -1,45 +1,45 @@
 import type {
   CoreElementalType,
   WeaponElementalType,
-} from '../../../definitions/elemental-type';
+} from "../../../definitions/elemental-type";
 import {
   calculateTotalAttack,
   calculateTotalCritDamagePercent,
   calculateTotalCritRatePercent,
-} from '../../../utils/damage-calculation-utils';
-import { sum } from '../../../utils/math-utils';
-import { ElementalAttack } from '../../elemental-attack';
-import { ElementalAttacks } from '../../elemental-attacks';
-import type { Loadout } from '../../loadout';
-import type { LoadoutStats } from '../../loadout-stats';
-import type { UserStats } from '../../user-stats';
-import type { ActiveBuffs } from '../buff/active-buff/active-buffs';
-import { AttackBuffAggregate } from '../buff/attack-buff/attack-buff-aggregate';
-import { BaseAttackBuffAggregate } from '../buff/base-attack-buff/base-attack-buff-aggregate';
-import { CritDamageBuffAggregate } from '../buff/crit-damage-buff/crit-damage-buff-aggregate';
-import { CritRateBuffAggregate } from '../buff/crit-rate-buff/crit-rate-buff-aggregate';
-import { ElementalResistances } from './elemental-resistances';
+} from "../../../utils/damage-calculation-utils";
+import { sum } from "../../../utils/math-utils";
+import { ElementalAttack } from "../../elemental-attack";
+import { ElementalAttacks } from "../../elemental-attacks";
+import type { Loadout } from "../../loadout";
+import type { LoadoutStats } from "../../loadout-stats";
+import type { UserStats } from "../../user-stats";
+import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
+import { AttackBuffAggregate } from "../buff/attack-buff/attack-buff-aggregate";
+import { BaseAttackBuffAggregate } from "../buff/base-attack-buff/base-attack-buff-aggregate";
+import { CritDamageBuffAggregate } from "../buff/crit-damage-buff/crit-damage-buff-aggregate";
+import { CritRateBuffAggregate } from "../buff/crit-rate-buff/crit-rate-buff-aggregate";
+import { ElementalResistances } from "./elemental-resistances";
 
 export class CurrentCharacterStats {
   public constructor(
     private readonly userStats: UserStats,
     private readonly loadout: Loadout,
     private readonly loadoutStats: LoadoutStats,
-    private readonly activeBuffs: ActiveBuffs
+    private readonly activeBuffs: ActiveBuffs,
   ) {}
 
   public getElementalAttacks(): ElementalAttacks {
     return new ElementalAttacks({
-      Flame: this.getElementalAttack('Flame'),
-      Frost: this.getElementalAttack('Frost'),
-      Physical: this.getElementalAttack('Physical'),
-      Volt: this.getElementalAttack('Volt'),
+      Flame: this.getElementalAttack("Flame"),
+      Frost: this.getElementalAttack("Frost"),
+      Physical: this.getElementalAttack("Physical"),
+      Volt: this.getElementalAttack("Volt"),
     });
   }
 
   public getElementalAttack(element: WeaponElementalType): ElementalAttack {
-    if (element === 'Altered') {
-      return this.getElementalAttacks().getElementalAttack('Altered');
+    if (element === "Altered") {
+      return this.getElementalAttacks().getElementalAttack("Altered");
     }
 
     const baseAttack = this.getBaseAttack(element);
@@ -59,7 +59,7 @@ export class CurrentCharacterStats {
   public getCritRatePercent(): number {
     return sum(
       this.getGearCritRatePercent(),
-      this.getBuffCritRatePercent()
+      this.getBuffCritRatePercent(),
     ).toNumber();
   }
 
@@ -69,13 +69,13 @@ export class CurrentCharacterStats {
       this.getCritRateFlat(),
       this.userStats.characterLevel,
       this.getGearCritRatePercent(),
-      this.getBuffCritRatePercent()
+      this.getBuffCritRatePercent(),
     ).toNumber();
   }
 
   public getTotalCritDamagePercent(): number {
     return calculateTotalCritDamagePercent(
-      this.getBuffCritDamagePercent()
+      this.getBuffCritDamagePercent(),
     ).toNumber();
   }
 
@@ -93,7 +93,7 @@ export class CurrentCharacterStats {
 
     const baseAttackBuffs = this.activeBuffs.getBaseAttackBuffs();
     const baseAttackBuffValue = new BaseAttackBuffAggregate(
-      baseAttackBuffs
+      baseAttackBuffs,
     ).getAggregatedResult().baseAttackByElement[element];
 
     return sum(baseAttack, baseAttackBuffValue);
@@ -104,7 +104,7 @@ export class CurrentCharacterStats {
 
     const attackBuffs = this.activeBuffs.getAttackBuffs();
     const buffAttackPercent = new AttackBuffAggregate(
-      attackBuffs
+      attackBuffs,
     ).getAggregatedResult().attackPercentByElement[element];
 
     return sum(gearAttackPercent, buffAttackPercent);
@@ -117,7 +117,7 @@ export class CurrentCharacterStats {
   private getBuffCritRatePercent(): number {
     const critRateBuffs = this.activeBuffs.getCritRateBuffs();
     const aggregatedResult = new CritRateBuffAggregate(
-      critRateBuffs
+      critRateBuffs,
     ).getAggregatedResult();
     return aggregatedResult.critRatePercent;
   }
@@ -125,7 +125,7 @@ export class CurrentCharacterStats {
   private getBuffCritDamagePercent() {
     const critDamageBuffs = this.activeBuffs.getCritDamageBuffs();
     const aggregatedResult = new CritDamageBuffAggregate(
-      critDamageBuffs
+      critDamageBuffs,
     ).getAggregatedResult();
     return aggregatedResult.critDamagePercent;
   }

@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { weaponDefinitions } from '../../definitions/weapons/weapon-definitions';
-import { WeaponDefinitionSelector } from './WeaponDefinitionSelector';
+import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions";
+import { WeaponDefinitionSelector } from "./WeaponDefinitionSelector";
 
 const meta: Meta<typeof WeaponDefinitionSelector> = {
-  title: 'Weapon Definition Selector',
+  title: "Weapon Definition Selector",
   component: WeaponDefinitionSelector,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -20,6 +20,6 @@ export const Empty: Story = {
 
 export const Preselected: Story = {
   args: {
-    selectedWeaponDefinition: weaponDefinitions.byId['Fenrir'],
+    selectedWeaponDefinition: weaponDefinitions.byId["Fenrir"],
   },
 };

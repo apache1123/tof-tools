@@ -1,11 +1,11 @@
-import { Paper, Stack } from '@mui/material';
+import { Paper, Stack } from "@mui/material";
 
-import { LoadoutGearSet } from './LoadoutGearSet';
-import { LoadoutGearSetStatSummary } from './LoadoutGearSetStatSummary';
-import { LoadoutStats } from './LoadoutStats';
-import { LoadoutTabs } from './LoadoutTabs';
-import { LoadoutTeam } from './LoadoutTeam';
-import { LoadoutTopBar } from './LoadoutTopBar';
+import { LoadoutGearSet } from "./LoadoutGearSet";
+import { LoadoutGearSetStatSummary } from "./LoadoutGearSetStatSummary";
+import { LoadoutStats } from "./LoadoutStats";
+import { LoadoutTabs } from "./LoadoutTabs";
+import { LoadoutTeam } from "./LoadoutTeam";
+import { LoadoutTopBar } from "./LoadoutTopBar";
 
 export function Loadouts() {
   return (

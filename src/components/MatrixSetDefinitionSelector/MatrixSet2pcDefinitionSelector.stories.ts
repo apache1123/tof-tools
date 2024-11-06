@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { matrixSetDefinitionsLookup } from '../../definitions/matrix-set-definitions';
-import { MatrixSet2pcDefinitionSelector } from './MatrixSetDefinitionSelector';
+import { matrixSetDefinitionsLookup } from "../../definitions/matrix-set-definitions";
+import { MatrixSet2pcDefinitionSelector } from "./MatrixSetDefinitionSelector";
 
 const meta: Meta<typeof MatrixSet2pcDefinitionSelector> = {
-  title: 'Matrix Set 2pc Definition Selector',
+  title: "Matrix Set 2pc Definition Selector",
   component: MatrixSet2pcDefinitionSelector,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -20,6 +20,6 @@ export const Empty: Story = {
 
 export const Preselected: Story = {
   args: {
-    selectedMatrixSetDefinition: matrixSetDefinitionsLookup['Fenrir 2pc'],
+    selectedMatrixSetDefinition: matrixSetDefinitionsLookup["Fenrir 2pc"],
   },
 };

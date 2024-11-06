@@ -1,12 +1,12 @@
-import { BarChart, cheerfulFiestaPalette } from '@mui/x-charts';
-import { useRouter } from 'next/router';
+import { BarChart, cheerfulFiestaPalette } from "@mui/x-charts";
+import { useRouter } from "next/router";
 
-import { routes } from '../../../routes/routes';
-import type { WeaponName } from '../../definitions/weapons/weapon-definitions';
-import type { WeaponBreakpointStars } from '../../definitions/weapons/weapon-stars';
-import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator/combat-simulator-snapshot';
-import type { WeaponDto } from '../../models/weapon';
-import { toShortNumberFormat } from '../../utils/locale-utils';
+import { routes } from "../../../routes/routes";
+import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponBreakpointStars } from "../../definitions/weapons/weapon-stars";
+import type { CombatSimulatorSnapshot } from "../../models/v4/combat-simulator/combat-simulator-snapshot";
+import type { WeaponDto } from "../../models/weapon";
+import { toShortNumberFormat } from "../../utils/locale-utils";
 
 export interface SimulatorResult {
   snapshotPath: string;
@@ -29,7 +29,7 @@ function weaponsToString(weapons: WeaponDto[]) {
   // TODO: should the dto return a display name
   return weapons
     .map((weapon) => `${weapon.definitionId} ${starsToString(weapon.stars)}`)
-    .join(',\n');
+    .join(",\n");
 }
 
 export function CombatSimulatorResultBreakpointComparison({
@@ -53,7 +53,7 @@ export function CombatSimulatorResultBreakpointComparison({
 
       const finalDamages = sortedResults.map(
         ({ result }) =>
-          result.snapshot.damageSummary?.totalDamage.finalDamage ?? 0
+          result.snapshot.damageSummary?.totalDamage.finalDamage ?? 0,
       );
 
       return {
@@ -62,7 +62,7 @@ export function CombatSimulatorResultBreakpointComparison({
         xLabels,
         finalDamages,
       };
-    }
+    },
   );
 
   return (
@@ -78,19 +78,19 @@ export function CombatSimulatorResultBreakpointComparison({
               data: finalDamages,
               valueFormatter: (value, { dataIndex }) => {
                 return `${toShortNumberFormat(value ?? 0)} (${weaponsToString(
-                  results[dataIndex].result.snapshot.loadout.team.weapons ?? []
+                  results[dataIndex].result.snapshot.loadout.team.weapons ?? [],
                 )})`;
               },
               highlightScope: {
-                highlighted: 'series',
-                faded: 'global',
+                highlighted: "series",
+                faded: "global",
               },
             };
-          }
+          },
         )}
         xAxis={breakpointComparisonGroupsSorted.map(({ xLabels }) => ({
           data: xLabels,
-          scaleType: 'band',
+          scaleType: "band",
           valueFormatter: (star) => starsToString(star),
         }))}
         yAxis={[

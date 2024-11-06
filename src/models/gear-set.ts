@@ -1,14 +1,14 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
-import type { CoreElementalType } from '../definitions/elemental-type';
-import type { GearName } from '../definitions/gear-types';
-import { gearTypesLookup } from '../definitions/gear-types';
-import { sum } from '../utils/math-utils';
-import type { DataById } from './data';
-import type { Dto } from './dto';
-import type { GearDto } from './gear';
-import { Gear } from './gear';
-import type { Persistable } from './persistable';
+import type { CoreElementalType } from "../definitions/elemental-type";
+import type { GearName } from "../definitions/gear-types";
+import { gearTypesLookup } from "../definitions/gear-types";
+import { sum } from "../utils/math-utils";
+import type { DataById } from "./data";
+import type { Dto } from "./dto";
+import type { GearDto } from "./gear";
+import { Gear } from "./gear";
+import type { Persistable } from "./persistable";
 
 export class GearSet implements Persistable<GearSetDtoV2> {
   private _id: string;
@@ -36,7 +36,7 @@ export class GearSet implements Persistable<GearSetDtoV2> {
       ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalAttackFlat(elementalType) : 0;
-      })
+      }),
     ).toNumber();
   }
 
@@ -45,7 +45,7 @@ export class GearSet implements Persistable<GearSetDtoV2> {
       ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalAttackPercent(elementalType) : 0;
-      })
+      }),
     ).toNumber();
   }
 
@@ -54,7 +54,7 @@ export class GearSet implements Persistable<GearSetDtoV2> {
       ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalCritFlat() : 0;
-      })
+      }),
     ).toNumber();
   }
 
@@ -63,7 +63,7 @@ export class GearSet implements Persistable<GearSetDtoV2> {
       ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalCritPercent() : 0;
-      })
+      }),
     ).toNumber();
   }
 
@@ -72,7 +72,7 @@ export class GearSet implements Persistable<GearSetDtoV2> {
       ...Object.keys(this._gearsByTypeId).map((typeId) => {
         const gear = this.getGearByType(typeId as GearName);
         return gear ? gear.getTotalElementalDamagePercent(elementalType) : 0;
-      })
+      }),
     ).toNumber();
   }
 

@@ -1,74 +1,74 @@
-import type { Data } from '../models/data';
-import type { SimulacrumTrait } from '../models/v4/simulacrum-trait';
-import type { WeaponName } from './weapons/weapon-definitions';
+import type { Data } from "../models/data";
+import type { SimulacrumTrait } from "../models/v4/simulacrum-trait";
+import type { WeaponName } from "./weapons/weapon-definitions";
 
 export type SimulacrumName = Exclude<
   WeaponName,
-  | 'Nola (Altered)'
-  | 'Nola (Flame-Physical)'
-  | 'Nola (Frost-Volt)'
-  | 'Nola (Physical-Flame)'
-  | 'Nola (Volt-Frost)'
+  | "Nola (Altered)"
+  | "Nola (Flame-Physical)"
+  | "Nola (Frost-Volt)"
+  | "Nola (Physical-Flame)"
+  | "Nola (Volt-Frost)"
 >;
 
 export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
   allIds: [
-    'Alyss',
-    'Anka',
-    'Annabella',
-    'Asuka',
-    'Asurada',
-    'Brevey',
-    'Claudia',
-    'Cobalt-B',
-    'Cocoritter',
-    'Crow',
-    'Fei Se',
-    'Fenrir',
-    'Fiona',
-    'Frigg',
-    'Gnonno',
-    'Huang (Mimi)',
-    'Huma',
-    'Icarus',
-    'King',
-    'Lan',
-    'Lin',
-    'Ling Han',
-    'Liu Huo',
-    'Lyra',
-    'Meryl',
-    'Meryl Ironheart',
-    'Ming Jing',
-    'Nan Yin',
-    'Nemesis',
-    'Nola',
-    'Plotti',
-    'Rei',
-    'Roslyn',
-    'Rubilia',
-    'Ruby',
-    'Saki Fuwa',
-    'Samir',
-    'Shiro',
-    'Tian Lang',
-    'Tsubasa',
-    'Umi',
-    'Yan Miao',
-    'Yanuo',
-    'Yu Lan',
-    'Zero',
+    "Alyss",
+    "Anka",
+    "Annabella",
+    "Asuka",
+    "Asurada",
+    "Brevey",
+    "Claudia",
+    "Cobalt-B",
+    "Cocoritter",
+    "Crow",
+    "Fei Se",
+    "Fenrir",
+    "Fiona",
+    "Frigg",
+    "Gnonno",
+    "Huang (Mimi)",
+    "Huma",
+    "Icarus",
+    "King",
+    "Lan",
+    "Lin",
+    "Ling Han",
+    "Liu Huo",
+    "Lyra",
+    "Meryl",
+    "Meryl Ironheart",
+    "Ming Jing",
+    "Nan Yin",
+    "Nemesis",
+    "Nola",
+    "Plotti",
+    "Rei",
+    "Roslyn",
+    "Rubilia",
+    "Ruby",
+    "Saki Fuwa",
+    "Samir",
+    "Shiro",
+    "Tian Lang",
+    "Tsubasa",
+    "Umi",
+    "Yan Miao",
+    "Yanuo",
+    "Yu Lan",
+    "Zero",
   ],
   byId: {
     Alyss: {
-      id: 'Alyss',
-      displayName: 'Alyss',
+      id: "Alyss",
+      displayName: "Alyss",
       buffs: [
         {
-          id: 'alyss-trait',
-          displayName: 'Alyss trait',
+          id: "alyss-trait",
+          displayName: "Alyss trait",
           description:
-            'Increase final damage by 18% for 18 seconds after successfully using a weapon skill.',
+            "Increase final damage by 18% for 18 seconds after successfully using a weapon skill.",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -79,26 +79,26 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Anka: {
-      id: 'Anka',
-      displayName: 'Anka',
+      id: "Anka",
+      displayName: "Anka",
       // TODO:
       buffs: [],
     },
     Annabella: {
-      id: 'Annabella',
-      displayName: 'Annabella',
+      id: "Annabella",
+      displayName: "Annabella",
       // TODO:
       buffs: [],
-      remarks: 'Annabella trait not implemented yet',
+      remarks: "Annabella trait not implemented yet",
     },
     Asuka: {
-      id: 'Asuka',
-      displayName: 'Asuka',
+      id: "Asuka",
+      displayName: "Asuka",
       buffs: [
         {
-          id: 'asuka-trait',
-          displayName: 'Asuka trait',
-          description: 'Increase final damage by 18%',
+          id: "asuka-trait",
+          displayName: "Asuka trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -108,18 +108,18 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Asurada: {
-      id: 'Asurada',
-      displayName: 'Asurada',
-      buffs: [], 
+      id: "Asurada",
+      displayName: "Asurada",
+      buffs: [],
     },
     Brevey: {
-      id: 'Brevey',
-      displayName: 'Brevey',
+      id: "Brevey",
+      displayName: "Brevey",
       buffs: [
         {
-          id: 'brevey-trait',
-          displayName: 'Brevey trait',
-          description: 'Increase final damage by 18%',
+          id: "brevey-trait",
+          displayName: "Brevey trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -127,14 +127,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'brevey-trait-additional',
-          displayName: 'Brevey trait additional',
+          id: "brevey-trait-additional",
+          displayName: "Brevey trait additional",
           description:
-            'When Pactcrest ☆ Metz is equipped, increase final damage by an additional 6%.',
+            "When Pactcrest ☆ Metz is equipped, increase final damage by an additional 6%.",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
-              anyWeapon: ['Brevey'],
+              anyWeapon: ["Brevey"],
             },
           },
           canBePlayerTriggered: false,
@@ -146,29 +146,29 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Claudia: {
-      id: 'Claudia',
-      displayName: 'Claudia',
+      id: "Claudia",
+      displayName: "Claudia",
       buffs: [],
     },
-    'Cobalt-B': {
-      id: 'Cobalt-B',
-      displayName: 'Cobalt-B',
+    "Cobalt-B": {
+      id: "Cobalt-B",
+      displayName: "Cobalt-B",
       buffs: [],
-      remarks: 'Cobalt-B trait will not be implemented',
+      remarks: "Cobalt-B trait will not be implemented",
     },
     Cocoritter: {
-      id: 'Cocoritter',
-      displayName: 'Cocoritter',
+      id: "Cocoritter",
+      displayName: "Cocoritter",
       buffs: [
         {
-          id: 'cocoritter-trait',
-          displayName: 'Cocoritter trait',
+          id: "cocoritter-trait",
+          displayName: "Cocoritter trait",
           description:
             "Using a support-type weapon's discharge skill or weapon skill, increase nearby allies' (including self) ATK by 15% for 5 seconds.",
           attackBuffs: [
             {
               value: 0.15,
-              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
             },
           ],
           maxStacks: 1,
@@ -184,13 +184,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Crow: {
-      id: 'Crow',
-      displayName: 'Crow',
+      id: "Crow",
+      displayName: "Crow",
       buffs: [
         {
-          id: 'crow-trait',
-          displayName: 'Crow trait',
-          description: 'Increase damage dealt by 10% when not in team play',
+          id: "crow-trait",
+          displayName: "Crow trait",
+          description: "Increase damage dealt by 10% when not in team play",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -199,10 +199,10 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
         // TODO: verify if this is 10+12% or 10+2%
         {
-          id: 'crow-trait-combat-start',
-          displayName: 'Crow trait - entering combat',
+          id: "crow-trait-combat-start",
+          displayName: "Crow trait - entering combat",
           description:
-            'Increase damage dealt by 12% for 12 seconds when entering combat',
+            "Increase damage dealt by 12% for 12 seconds when entering combat",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -212,20 +212,20 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
       ],
     },
-    'Fei Se': {
-      id: 'Fei Se',
-      displayName: 'Fei Se',
+    "Fei Se": {
+      id: "Fei Se",
+      displayName: "Fei Se",
       buffs: [
         {
-          id: 'feise-trait-1-flame',
-          displayName: 'Fei Se trait',
+          id: "feise-trait-1-flame",
+          displayName: "Fei Se trait",
           description:
-            'After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.',
+            "After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Flame', numOfWeapons: 1 }],
+                numOfElementalWeapons: [{ element: "Flame", numOfWeapons: 1 }],
               },
             },
           },
@@ -237,41 +237,41 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'feise-trait-2-flame',
-          displayName: 'Fei Se trait',
+          id: "feise-trait-2-flame",
+          displayName: "Fei Se trait",
           description:
-            'After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.',
+            "After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Flame', numOfWeapons: 2 }],
+                numOfElementalWeapons: [{ element: "Flame", numOfWeapons: 2 }],
               },
             },
           },
           canBePlayerTriggered: false,
           triggeredBy: {
-            abilityEnd: ['feise-skill-whirling'],
+            abilityEnd: ["feise-skill-whirling"],
           },
           duration: 30000,
           cooldown: 0,
         },
         {
-          id: 'feise-trait-3-flame',
-          displayName: 'Fei Se trait',
+          id: "feise-trait-3-flame",
+          displayName: "Fei Se trait",
           description:
-            'After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.',
+            "After using Whirling, for every flame weapon equipped, increase final damage by 9% for 30 seconds.",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Flame', numOfWeapons: 3 }],
+                numOfElementalWeapons: [{ element: "Flame", numOfWeapons: 3 }],
               },
             },
           },
           canBePlayerTriggered: false,
           triggeredBy: {
-            abilityEnd: ['feise-skill-whirling'],
+            abilityEnd: ["feise-skill-whirling"],
           },
           duration: 30000,
           cooldown: 0,
@@ -279,14 +279,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Fenrir: {
-      id: 'Fenrir',
-      displayName: 'Fenrir',
+      id: "Fenrir",
+      displayName: "Fenrir",
       buffs: [
         {
-          id: 'fenrir-trait-2-elemental-types',
-          displayName: 'Fenrir trait',
+          id: "fenrir-trait-2-elemental-types",
+          displayName: "Fenrir trait",
           description:
-            'Increase final damage by 18% when equipping 2 weapons of different elements',
+            "Increase final damage by 18% when equipping 2 weapons of different elements",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
@@ -298,10 +298,10 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'fenrir-trait-3-elemental-types',
-          displayName: 'Fenrir trait',
+          id: "fenrir-trait-3-elemental-types",
+          displayName: "Fenrir trait",
           description:
-            'Increase final damage by 23% when equipping 3 weapons of different elements',
+            "Increase final damage by 23% when equipping 3 weapons of different elements",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
@@ -316,13 +316,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     },
     // TODO: Fiona skills are specifically buffed by trait
     Fiona: {
-      id: 'Fiona',
-      displayName: 'Fiona',
+      id: "Fiona",
+      displayName: "Fiona",
       buffs: [
         {
-          id: 'fiona-trait',
-          displayName: 'Fiona trait',
-          description: 'Increase final damage by 18%',
+          id: "fiona-trait",
+          displayName: "Fiona trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -332,18 +332,18 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Frigg: {
-      id: 'Frigg',
-      displayName: 'Frigg',
+      id: "Frigg",
+      displayName: "Frigg",
       buffs: [
         {
-          id: 'frigg-trait',
-          displayName: 'Frigg trait',
+          id: "frigg-trait",
+          displayName: "Frigg trait",
           description:
-            'Upon entering battle, gain 2.4% frost ATK for 5 seconds every 3 seconds, with up to 10 stacks. Assume max stacks at the start for simplicity',
+            "Upon entering battle, gain 2.4% frost ATK for 5 seconds every 3 seconds, with up to 10 stacks. Assume max stacks at the start for simplicity",
           attackBuffs: [
             {
               value: 0.24,
-              elementalTypes: ['Frost'],
+              elementalTypes: ["Frost"],
             },
           ],
           maxStacks: 1,
@@ -354,23 +354,23 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
       ],
       remarks:
-        'For simplicity, Frigg trait is calculated as max stacks at the start of battle, so it will be stronger than it actually is',
+        "For simplicity, Frigg trait is calculated as max stacks at the start of battle, so it will be stronger than it actually is",
     },
     // TODO:
     Gnonno: {
-      id: 'Gnonno',
-      displayName: 'Gnonno',
+      id: "Gnonno",
+      displayName: "Gnonno",
       buffs: [],
     },
     // TODO: crit rate duration buff
-    'Huang (Mimi)': {
-      id: 'Huang (Mimi)',
-      displayName: 'Huang (Mimi)',
+    "Huang (Mimi)": {
+      id: "Huang (Mimi)",
+      displayName: "Huang (Mimi)",
       buffs: [
         {
-          id: 'mimi-trait',
-          displayName: 'Mimi trait',
-          description: 'Increase final damage by 18%',
+          id: "mimi-trait",
+          displayName: "Mimi trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -378,15 +378,15 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'mimi-trait-triple-volt',
-          displayName: 'Mimi trait - Triple volt',
+          id: "mimi-trait-triple-volt",
+          displayName: "Mimi trait - Triple volt",
           description:
-            'When equipped with 3 volt weapons, increase volt damage by 6%',
+            "When equipped with 3 volt weapons, increase volt damage by 6%",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Volt', numOfWeapons: 3 }],
+                numOfElementalWeapons: [{ element: "Volt", numOfWeapons: 3 }],
               },
             },
           },
@@ -397,35 +397,35 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Huma: {
-      id: 'Huma',
-      displayName: 'Huma',
+      id: "Huma",
+      displayName: "Huma",
       buffs: [],
     },
     Icarus: {
-      id: 'Icarus',
-      displayName: 'Icarus',
+      id: "Icarus",
+      displayName: "Icarus",
       buffs: [
         {
-          id: 'icarus-trait',
-          displayName: 'Icarus trait',
+          id: "icarus-trait",
+          displayName: "Icarus trait",
           description:
-            'After equipping Precious One, increase final damage by 15%',
+            "After equipping Precious One, increase final damage by 15%",
           maxStacks: 1,
-          requirements: { teamRequirements: { anyWeapon: ['Icarus'] } },
+          requirements: { teamRequirements: { anyWeapon: ["Icarus"] } },
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
           cooldown: 0,
         },
       ],
     },
-    'Ji Yu': {
-      id: 'Ji Yu',
-      displayName: 'Ji Yu',
+    "Ji Yu": {
+      id: "Ji Yu",
+      displayName: "Ji Yu",
       buffs: [
         {
-          id: 'jiyu-trait',
-          displayName: 'Ji Yu trait',
-          description: 'Increase final damage by 18%.',
+          id: "jiyu-trait",
+          displayName: "Ji Yu trait",
+          description: "Increase final damage by 18%.",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -433,36 +433,36 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'jiyu-trait-flame',
-          displayName: 'Ji Yu trait - flame',
+          id: "jiyu-trait-flame",
+          displayName: "Ji Yu trait - flame",
           description:
-            'When Freeflow is equipped, if there is only 1 target in the zone, increase flame damage by 10%. If there are 2 or more targets, increase flame damage to 14%.',
+            "When Freeflow is equipped, if there is only 1 target in the zone, increase flame damage by 10%. If there are 2 or more targets, increase flame damage to 14%.",
           maxStacks: 1,
-          requirements: { teamRequirements: { anyWeapon: ['Ji Yu'] } },
+          requirements: { teamRequirements: { anyWeapon: ["Ji Yu"] } },
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
           cooldown: 0,
-          remarks: 'Assume active at all times for simplicity',
+          remarks: "Assume active at all times for simplicity",
         },
       ],
     },
     King: {
-      id: 'King',
-      displayName: 'King',
+      id: "King",
+      displayName: "King",
       buffs: [],
     },
     Lan: {
-      id: 'Lan',
-      displayName: 'Lan',
+      id: "Lan",
+      displayName: "Lan",
       buffs: [
         {
-          id: 'lan-trait',
-          displayName: 'Lan trait',
+          id: "lan-trait",
+          displayName: "Lan trait",
           description:
-            'During Fortitude resonance, final damage is increased by 8%',
+            "During Fortitude resonance, final damage is increased by 8%",
           maxStacks: 1,
           requirements: {
-            teamRequirements: { weaponResonance: { is: 'Fortitude' } },
+            teamRequirements: { weaponResonance: { is: "Fortitude" } },
           },
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
@@ -472,19 +472,19 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     },
     // TODO: lin extra skill damage
     Lin: {
-      id: 'Lin',
-      displayName: 'Lin',
+      id: "Lin",
+      displayName: "Lin",
       buffs: [],
     },
     // TODO: 3 frost extra charge gained; deal passive attack after frost weapon skill or discharge
-    'Ling Han': {
-      id: 'Ling Han',
-      displayName: 'Ling Han',
+    "Ling Han": {
+      id: "Ling Han",
+      displayName: "Ling Han",
       buffs: [
         {
-          id: 'linghan-trait',
-          displayName: 'Ling Han trait',
-          description: 'Increase final damage by 18%',
+          id: "linghan-trait",
+          displayName: "Ling Han trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -492,15 +492,15 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'linghan-trait-1-frost',
-          displayName: 'Ling Han trait - 1 frost weapon',
+          id: "linghan-trait-1-frost",
+          displayName: "Ling Han trait - 1 frost weapon",
           description:
-            'For every frost weapon equipped, increase frost damage by 2.5%',
+            "For every frost weapon equipped, increase frost damage by 2.5%",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Frost', numOfWeapons: 1 }],
+                numOfElementalWeapons: [{ element: "Frost", numOfWeapons: 1 }],
               },
             },
           },
@@ -509,15 +509,15 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'linghan-trait-2-frost',
-          displayName: 'Ling Han trait - 2 frost weapons',
+          id: "linghan-trait-2-frost",
+          displayName: "Ling Han trait - 2 frost weapons",
           description:
-            'For every frost weapon equipped, increase frost damage by 2.5%',
+            "For every frost weapon equipped, increase frost damage by 2.5%",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Frost', numOfWeapons: 2 }],
+                numOfElementalWeapons: [{ element: "Frost", numOfWeapons: 2 }],
               },
             },
           },
@@ -526,15 +526,15 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'linghan-trait-3-frost',
-          displayName: 'Ling Han trait - 3 frost weapons',
+          id: "linghan-trait-3-frost",
+          displayName: "Ling Han trait - 3 frost weapons",
           description:
-            'For every frost weapon equipped, increase frost damage by 2.5%',
+            "For every frost weapon equipped, increase frost damage by 2.5%",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Frost', numOfWeapons: 3 }],
+                numOfElementalWeapons: [{ element: "Frost", numOfWeapons: 3 }],
               },
             },
           },
@@ -545,14 +545,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     // TODO: liu huo trait additional effects...
-    'Liu Huo': {
-      id: 'Liu Huo',
-      displayName: 'Liu Huo',
+    "Liu Huo": {
+      id: "Liu Huo",
+      displayName: "Liu Huo",
       buffs: [
         {
-          id: 'liuhuo-trait',
-          displayName: 'Liu Huo trait',
-          description: 'Increase final damage by 18%',
+          id: "liuhuo-trait",
+          displayName: "Liu Huo trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -562,28 +562,28 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Lyra: {
-      id: 'Lyra',
-      displayName: 'Lyra',
+      id: "Lyra",
+      displayName: "Lyra",
       buffs: [],
     },
     Meryl: {
-      id: 'Meryl',
-      displayName: 'Meryl',
+      id: "Meryl",
+      displayName: "Meryl",
       buffs: [],
     },
-    'Meryl Ironheart': {
-      id: 'Meryl Ironheart',
-      displayName: 'Meryl Ironheart',
+    "Meryl Ironheart": {
+      id: "Meryl Ironheart",
+      displayName: "Meryl Ironheart",
       buffs: [],
     },
-    'Ming Jing': {
-      id: 'Ming Jing',
-      displayName: 'Ming Jing (Zeke)',
+    "Ming Jing": {
+      id: "Ming Jing",
+      displayName: "Ming Jing (Zeke)",
       buffs: [
         {
-          id: 'mingjing-trait',
-          displayName: 'Ming Jing trait',
-          description: 'Increase final damage by 18%',
+          id: "mingjing-trait",
+          displayName: "Ming Jing trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -591,12 +591,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'mingjing-trait-physical-increase',
-          displayName: 'Ming Jing trait - physical base attack increase',
+          id: "mingjing-trait-physical-increase",
+          displayName: "Ming Jing trait - physical base attack increase",
           description:
             "The Wanderer's base physical ATK is increased to the highest value out of their physical/flame/frost/volt base ATK.",
           miscBuff: {
-            increaseElementalBaseAttackToMatchHighest: 'Physical',
+            increaseElementalBaseAttackToMatchHighest: "Physical",
           },
           maxStacks: 1,
           requirements: {},
@@ -605,12 +605,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'mingjing-trait-normal-attack',
-          displayName: 'Ming Jing trait - normal attack increase',
+          id: "mingjing-trait-normal-attack",
+          displayName: "Ming Jing trait - normal attack increase",
           description:
-            'When the main slot weapon is Onyx Tortoise, normal attack damage is increased by 50%.',
+            "When the main slot weapon is Onyx Tortoise, normal attack damage is increased by 50%.",
           maxStacks: 1,
-          requirements: { activeWeapon: { is: 'Ming Jing' } },
+          requirements: { activeWeapon: { is: "Ming Jing" } },
           canBePlayerTriggered: false,
           triggeredBy: { activeWeaponChange: true },
           cooldown: 0,
@@ -618,14 +618,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
       ],
     },
-    'Nan Yin': {
-      id: 'Nan Yin',
-      displayName: 'Nan Yin',
+    "Nan Yin": {
+      id: "Nan Yin",
+      displayName: "Nan Yin",
       buffs: [
         {
-          id: 'nanyin-trait',
-          displayName: 'Nan Yin trait',
-          description: 'Increase final damage by 18%',
+          id: "nanyin-trait",
+          displayName: "Nan Yin trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -633,17 +633,17 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'nanyin-trait-active-weapon-1-non-altered',
-          displayName: 'Nan Yin trait - 1 non-altered weapon',
+          id: "nanyin-trait-active-weapon-1-non-altered",
+          displayName: "Nan Yin trait - 1 non-altered weapon",
           description:
-            'When Purple Bamboo is in the main slot, for every 1 non-altered weapon equipped, increase all elemental damage by 8%',
+            "When Purple Bamboo is in the main slot, for every 1 non-altered weapon equipped, increase all elemental damage by 8%",
           maxStacks: 1,
           requirements: {
-            activeWeapon: { is: 'Nan Yin' },
+            activeWeapon: { is: "Nan Yin" },
             teamRequirements: {
               elementalWeapons: {
                 numOfNotElementalWeapons: {
-                  notElement: 'Altered',
+                  notElement: "Altered",
                   numOfWeapons: 1,
                 },
               },
@@ -654,17 +654,17 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'nanyin-trait-active-weapon-2-non-altered',
-          displayName: 'Nan Yin trait - 2 non-altered weapons',
+          id: "nanyin-trait-active-weapon-2-non-altered",
+          displayName: "Nan Yin trait - 2 non-altered weapons",
           description:
-            'When Purple Bamboo is in the main slot, for every 1 non-altered weapon equipped, increase all elemental damage by 8%',
+            "When Purple Bamboo is in the main slot, for every 1 non-altered weapon equipped, increase all elemental damage by 8%",
           maxStacks: 1,
           requirements: {
-            activeWeapon: { is: 'Nan Yin' },
+            activeWeapon: { is: "Nan Yin" },
             teamRequirements: {
               elementalWeapons: {
                 numOfNotElementalWeapons: {
-                  notElement: 'Altered',
+                  notElement: "Altered",
                   numOfWeapons: 2,
                 },
               },
@@ -678,23 +678,23 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     },
     // TODO: attack on electrode summon
     Nemesis: {
-      id: 'Nemesis',
-      displayName: 'Nemesis',
+      id: "Nemesis",
+      displayName: "Nemesis",
       buffs: [],
     },
     Nola: {
-      id: 'Nola',
-      displayName: 'Nola',
+      id: "Nola",
+      displayName: "Nola",
       buffs: [],
     },
     Plotti: {
-      id: 'Plotti',
-      displayName: 'Plotti',
+      id: "Plotti",
+      displayName: "Plotti",
       buffs: [
         {
-          id: 'plotti-trait',
-          displayName: 'Plotti trait',
-          description: 'Increase final damage by 18%',
+          id: "plotti-trait",
+          displayName: "Plotti trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -702,8 +702,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'plotti-trait-weapon-damage-buff',
-          displayName: 'Plotti trait - plotti weapon buff',
+          id: "plotti-trait-weapon-damage-buff",
+          displayName: "Plotti trait - plotti weapon buff",
           description:
             "Increase EP-7000 Skyfire EP-7000 Skyfire's flame damage by 30%",
           maxStacks: 1,
@@ -716,13 +716,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Rei: {
-      id: 'Rei',
-      displayName: 'Rei',
+      id: "Rei",
+      displayName: "Rei",
       buffs: [
         {
-          id: 'rei-trait',
-          displayName: 'Rei trait',
-          description: 'Increase final damage by 18%',
+          id: "rei-trait",
+          displayName: "Rei trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -730,13 +730,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'rei-trait-attack-resonance',
-          displayName: 'Rei trait - Attack resonance',
+          id: "rei-trait-attack-resonance",
+          displayName: "Rei trait - Attack resonance",
           description:
-            'Increase volt damage by 8% when Attack Resonance is activated',
+            "Increase volt damage by 8% when Attack Resonance is activated",
           maxStacks: 1,
           requirements: {
-            teamRequirements: { weaponResonance: { is: 'Attack' } },
+            teamRequirements: { weaponResonance: { is: "Attack" } },
           },
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
@@ -745,25 +745,25 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Roslyn: {
-      id: 'Roslyn',
-      displayName: 'Roslyn',
+      id: "Roslyn",
+      displayName: "Roslyn",
       // TODO:
       buffs: [],
     },
     Rubilia: {
-      id: 'Rubilia',
-      displayName: 'Rubilia',
+      id: "Rubilia",
+      displayName: "Rubilia",
       buffs: [
         {
-          id: 'rubilia-trait-1-volt',
-          displayName: 'Rubilia trait - 1 volt weapon',
+          id: "rubilia-trait-1-volt",
+          displayName: "Rubilia trait - 1 volt weapon",
           description:
-            'Increase volt damage by 8% for every 1 volt weapon equipped',
+            "Increase volt damage by 8% for every 1 volt weapon equipped",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Volt', numOfWeapons: 1 }],
+                numOfElementalWeapons: [{ element: "Volt", numOfWeapons: 1 }],
               },
             },
           },
@@ -772,15 +772,15 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'rubilia-trait-2-volt',
-          displayName: 'Rubilia trait - 2 volt weapons',
+          id: "rubilia-trait-2-volt",
+          displayName: "Rubilia trait - 2 volt weapons",
           description:
-            'Increase volt damage by 8% for every 1 volt weapon equipped',
+            "Increase volt damage by 8% for every 1 volt weapon equipped",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Volt', numOfWeapons: 2 }],
+                numOfElementalWeapons: [{ element: "Volt", numOfWeapons: 2 }],
               },
             },
           },
@@ -789,15 +789,15 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'rubilia-trait-3-volt',
-          displayName: 'Rubilia trait - 3 volt weapons',
+          id: "rubilia-trait-3-volt",
+          displayName: "Rubilia trait - 3 volt weapons",
           description:
-            'Increase volt damage by 8% for every 1 volt weapon equipped',
+            "Increase volt damage by 8% for every 1 volt weapon equipped",
           maxStacks: 1,
           requirements: {
             teamRequirements: {
               elementalWeapons: {
-                numOfElementalWeapons: [{ element: 'Volt', numOfWeapons: 3 }],
+                numOfElementalWeapons: [{ element: "Volt", numOfWeapons: 3 }],
               },
             },
           },
@@ -808,83 +808,83 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Ruby: {
-      id: 'Ruby',
-      displayName: 'Ruby',
+      id: "Ruby",
+      displayName: "Ruby",
       buffs: [
         {
-          id: 'ruby-trait-dolly-atk',
-          displayName: 'Ruby trait - Dolly ATK increase',
+          id: "ruby-trait-dolly-atk",
+          displayName: "Ruby trait - Dolly ATK increase",
           description:
-            'Increases flame ATK after throwing Dolly by 12% for 10 seconds',
+            "Increases flame ATK after throwing Dolly by 12% for 10 seconds",
           attackBuffs: [
             {
               value: 0.12,
-              elementalTypes: ['Flame'],
+              elementalTypes: ["Flame"],
             },
           ],
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
-          triggeredBy: { abilityEnd: ['ruby-dodge-go-dolly'] },
+          triggeredBy: { abilityEnd: ["ruby-dodge-go-dolly"] },
           duration: 10000,
           cooldown: 0,
         },
         {
-          id: 'ruby-trait-dolly-dmg',
-          displayName: 'Ruby trait - Dolly DMG increase',
+          id: "ruby-trait-dolly-dmg",
+          displayName: "Ruby trait - Dolly DMG increase",
           description:
-            'Increases the flame damage received by all enemies within 5 meters of Dolly by 8%',
+            "Increases the flame damage received by all enemies within 5 meters of Dolly by 8%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
-          triggeredBy: { abilityEnd: ['ruby-dodge-go-dolly'] },
+          triggeredBy: { abilityEnd: ["ruby-dodge-go-dolly"] },
           duration: 10000,
           cooldown: 0,
-          remarks: 'Assumes Dolly remains for 10 seconds and enemy is near it',
+          remarks: "Assumes Dolly remains for 10 seconds and enemy is near it",
         },
       ],
     },
-    'Saki Fuwa': {
-      id: 'Saki Fuwa',
-      displayName: 'Saki Fuwa',
+    "Saki Fuwa": {
+      id: "Saki Fuwa",
+      displayName: "Saki Fuwa",
       buffs: [],
     },
     Samir: {
-      id: 'Samir',
-      displayName: 'Samir',
+      id: "Samir",
+      displayName: "Samir",
       buffs: [
         {
-          id: 'samir-trait',
-          displayName: 'Samir trait',
+          id: "samir-trait",
+          displayName: "Samir trait",
           description:
-            'Grant 1 stack of Concentration every 4 seconds when Samir receives no damage. Each stack increases damage dealt by 4%, and can stack up to 5 times.',
+            "Grant 1 stack of Concentration every 4 seconds when Samir receives no damage. Each stack increases damage dealt by 4%, and can stack up to 5 times.",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
           cooldown: 0,
           remarks:
-            'For simplicity, assume max stacks at all times (+20% damage at all times)',
+            "For simplicity, assume max stacks at all times (+20% damage at all times)",
         },
       ],
     },
     Shiro: {
-      id: 'Shiro',
-      displayName: 'Shiro',
+      id: "Shiro",
+      displayName: "Shiro",
       buffs: [
         {
-          id: 'shiro-trait',
-          displayName: 'Shiro trait',
+          id: "shiro-trait",
+          displayName: "Shiro trait",
           description:
-            'After using a weapon skill/discharge skill, increase all kinds of ATK by 16% and physical ATK by an additional 10% for 8 seconds. Cooldown: 16 seconds.',
+            "After using a weapon skill/discharge skill, increase all kinds of ATK by 16% and physical ATK by an additional 10% for 8 seconds. Cooldown: 16 seconds.",
           attackBuffs: [
             {
               value: 0.16,
-              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
             },
             {
               value: 0.1,
-              elementalTypes: ['Physical'],
+              elementalTypes: ["Physical"],
             },
           ],
           maxStacks: 1,
@@ -899,15 +899,15 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
       ],
     },
-    'Tian Lang': {
-      id: 'Tian Lang',
-      displayName: 'Tian Lang',
+    "Tian Lang": {
+      id: "Tian Lang",
+      displayName: "Tian Lang",
       buffs: [
         {
-          id: 'tianlang-trait',
-          displayName: 'Tian Lang trait',
+          id: "tianlang-trait",
+          displayName: "Tian Lang trait",
           description:
-            'When volt weapon skill and discharge skill are released simultaneously, increase volt damage by 18% for 8 seconds.',
+            "When volt weapon skill and discharge skill are released simultaneously, increase volt damage by 18% for 8 seconds.",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -924,18 +924,18 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Tsubasa: {
-      id: 'Tsubasa',
-      displayName: 'Tsubasa',
+      id: "Tsubasa",
+      displayName: "Tsubasa",
       buffs: [
         {
-          id: 'tsubasa-trait',
-          displayName: 'Tsubasa trait',
+          id: "tsubasa-trait",
+          displayName: "Tsubasa trait",
           description:
-            'Each time Tsubasa deals damage, gain 1 stack of Fierce Strike, up to 1 stack per 1 second. Each stack adds 0.6% ATK, up to 30 stacks. Refreshes effect duration upon gaining the effect again. The effect lasts for 30 seconds.',
+            "Each time Tsubasa deals damage, gain 1 stack of Fierce Strike, up to 1 stack per 1 second. Each stack adds 0.6% ATK, up to 30 stacks. Refreshes effect duration upon gaining the effect again. The effect lasts for 30 seconds.",
           attackBuffs: [
             {
               value: 0.18,
-              elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
+              elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
             },
           ],
           maxStacks: 1,
@@ -943,17 +943,17 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
           cooldown: 0,
-          remarks: 'For simplicity, assume max stacks at all times (+18% ATK)',
+          remarks: "For simplicity, assume max stacks at all times (+18% ATK)",
         },
       ],
     },
     Umi: {
-      id: 'Umi',
-      displayName: 'Umi',
+      id: "Umi",
+      displayName: "Umi",
       buffs: [
         {
-          id: 'umi-trait',
-          displayName: 'Umi trait',
+          id: "umi-trait",
+          displayName: "Umi trait",
           description:
             "Increases final damage by 18% for 30 seconds whenever Umi uses It's Magic Time",
           maxStacks: 1,
@@ -967,14 +967,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
         },
       ],
     },
-    'Yan Miao': {
-      id: 'Yan Miao',
-      displayName: 'Yan Miao',
+    "Yan Miao": {
+      id: "Yan Miao",
+      displayName: "Yan Miao",
       buffs: [
         {
-          id: 'yanmiao-trait',
-          displayName: 'Yan Miao trait',
-          description: 'Increase final damage by 18%',
+          id: "yanmiao-trait",
+          displayName: "Yan Miao trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -982,30 +982,30 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'yanmiao-trait-weapon-buff',
-          displayName: 'Yan Miao trait - Equilibrium buff',
+          id: "yanmiao-trait-weapon-buff",
+          displayName: "Yan Miao trait - Equilibrium buff",
           // TODO:
           description:
-            'When Equilibrium is equipped, increase physical damage dealt to targets with less than 80% of HP by 10%',
+            "When Equilibrium is equipped, increase physical damage dealt to targets with less than 80% of HP by 10%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
           cooldown: 0,
-          remarks: 'This is assumed to be active 80% of the battle duration',
+          remarks: "This is assumed to be active 80% of the battle duration",
         },
         {
-          id: 'yanmiao-trait-normal-atk-buff-1-phys',
-          displayName: 'Yan Miao trait - 1 physical weapon',
+          id: "yanmiao-trait-normal-atk-buff-1-phys",
+          displayName: "Yan Miao trait - 1 physical weapon",
           description:
-            'For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.',
+            "For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.",
           maxStacks: 1,
           requirements: {
-            activeWeapon: { is: 'Yan Miao' },
+            activeWeapon: { is: "Yan Miao" },
             teamRequirements: {
               elementalWeapons: {
                 numOfElementalWeapons: [
-                  { element: 'Physical', numOfWeapons: 1 },
+                  { element: "Physical", numOfWeapons: 1 },
                 ],
               },
             },
@@ -1016,17 +1016,17 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           // TODO: buff
         },
         {
-          id: 'yanmiao-trait-normal-atk-buff-2-phys',
-          displayName: 'Yan Miao trait - 2 physical weapons',
+          id: "yanmiao-trait-normal-atk-buff-2-phys",
+          displayName: "Yan Miao trait - 2 physical weapons",
           description:
-            'For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.',
+            "For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.",
           maxStacks: 1,
           requirements: {
-            activeWeapon: { is: 'Yan Miao' },
+            activeWeapon: { is: "Yan Miao" },
             teamRequirements: {
               elementalWeapons: {
                 numOfElementalWeapons: [
-                  { element: 'Physical', numOfWeapons: 2 },
+                  { element: "Physical", numOfWeapons: 2 },
                 ],
               },
             },
@@ -1037,17 +1037,17 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           // TODO: buff
         },
         {
-          id: 'yanmiao-trait-normal-atk-buff-3-phys',
-          displayName: 'Yan Miao trait - 3 physical weapons',
+          id: "yanmiao-trait-normal-atk-buff-3-phys",
+          displayName: "Yan Miao trait - 3 physical weapons",
           description:
-            'For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.',
+            "For every 1 physical weapon equipped, increase normal attack damage of Equilibrium by 20%, up to 40%.",
           maxStacks: 1,
           requirements: {
-            activeWeapon: { is: 'Yan Miao' },
+            activeWeapon: { is: "Yan Miao" },
             teamRequirements: {
               elementalWeapons: {
                 numOfElementalWeapons: [
-                  { element: 'Physical', numOfWeapons: 3 },
+                  { element: "Physical", numOfWeapons: 3 },
                 ],
               },
             },
@@ -1060,13 +1060,13 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Yanuo: {
-      id: 'Yanuo',
-      displayName: 'Yanuo',
+      id: "Yanuo",
+      displayName: "Yanuo",
       buffs: [
         {
-          id: 'yanuo-trait',
-          displayName: 'Yanuo trait',
-          description: 'Increase final damage by 18%',
+          id: "yanuo-trait",
+          displayName: "Yanuo trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -1074,12 +1074,12 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
           cooldown: 0,
         },
         {
-          id: 'yanuo-trait-additional',
-          displayName: 'Yanuo trait - additional',
+          id: "yanuo-trait-additional",
+          displayName: "Yanuo trait - additional",
           description:
-            'When equipped with Wicked, increase final damage by an additional 6%',
+            "When equipped with Wicked, increase final damage by an additional 6%",
           maxStacks: 1,
-          requirements: { teamRequirements: { anyWeapon: ['Yanuo'] } },
+          requirements: { teamRequirements: { anyWeapon: ["Yanuo"] } },
           canBePlayerTriggered: false,
           triggeredBy: { combatStart: true },
           cooldown: 0,
@@ -1087,14 +1087,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     // TODO: Yu Lan MA/sweeping forms
-    'Yu Lan': {
-      id: 'Yu Lan',
-      displayName: 'Yu Lan',
+    "Yu Lan": {
+      id: "Yu Lan",
+      displayName: "Yu Lan",
       buffs: [
         {
-          id: 'yulan-trait',
-          displayName: 'Yu Lan trait',
-          description: 'Increase final damage by 18%',
+          id: "yulan-trait",
+          displayName: "Yu Lan trait",
+          description: "Increase final damage by 18%",
           maxStacks: 1,
           requirements: {},
           canBePlayerTriggered: false,
@@ -1104,8 +1104,8 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       ],
     },
     Zero: {
-      id: 'Zero',
-      displayName: 'Zero',
+      id: "Zero",
+      displayName: "Zero",
       buffs: [],
     },
   },

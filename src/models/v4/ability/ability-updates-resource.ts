@@ -1,4 +1,4 @@
-import type { ResourceId } from '../resource/resource-definition';
+import type { ResourceId } from "../resource/resource-definition";
 
 export interface AbilityUpdatesResource {
   resourceId: ResourceId;

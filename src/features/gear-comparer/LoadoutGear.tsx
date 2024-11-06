@@ -1,12 +1,12 @@
-import { useSnapshot } from 'valtio';
+import { useSnapshot } from "valtio";
 
-import { GearTypeSelector } from '../../components/GearTypeSelector/GearTypeSelector';
-import { gearTypesLookup } from '../../definitions/gear-types';
-import type { Gear } from '../../models/gear';
-import type { GearComparerState } from '../../states/gear-comparer';
-import { gearComparerState } from '../../states/states';
-import { GearOCRModal } from '../GearOCRModal';
-import { GearPiece } from '../GearPiece';
+import { GearTypeSelector } from "../../components/GearTypeSelector/GearTypeSelector";
+import { gearTypesLookup } from "../../definitions/gear-types";
+import type { Gear } from "../../models/gear";
+import type { GearComparerState } from "../../states/gear-comparer";
+import { gearComparerState } from "../../states/states";
+import { GearOCRModal } from "../GearOCRModal";
+import { GearPiece } from "../GearPiece";
 
 export function LoadoutGear({
   maxTitanGear,
@@ -43,7 +43,7 @@ export function LoadoutGear({
         <GearOCRModal
           onFinalizeGear={(gearFromOCR) => {
             gearComparerState.loadoutsState.selectedLoadout.gearSet.setGear(
-              gearFromOCR
+              gearFromOCR,
             );
             gearComparerState.selectedGearTypeId = gearFromOCR.type.id;
           }}
@@ -52,7 +52,7 @@ export function LoadoutGear({
       showTitanToggle
       showStatSummary={elementalType}
       showMaxTitanGear={{ maxTitanGear }}
-      data-testid={'loadout-gear'}
+      data-testid={"loadout-gear"}
     />
   );
 }

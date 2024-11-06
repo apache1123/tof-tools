@@ -1,17 +1,17 @@
-import type { EmotionCache } from '@emotion/react';
-import { CacheProvider } from '@emotion/react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
-import { Analytics } from '@vercel/analytics/react';
-import BigNumber from 'bignumber.js';
-import type { AppProps } from 'next/app';
-import Head from 'next/head';
-import * as React from 'react';
-import { useEffect } from 'react';
+import type { EmotionCache } from "@emotion/react";
+import { CacheProvider } from "@emotion/react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import { Analytics } from "@vercel/analytics/react";
+import BigNumber from "bignumber.js";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import * as React from "react";
+import { useEffect } from "react";
 
-import createEmotionCache from '../src/createEmotionCache';
-import { useLocalStoragePersistence } from '../src/states/hooks/useLocalStoragePersistence';
-import { migrateStatesToLatestVersion } from '../src/states/migrations/state-migrations-state';
+import createEmotionCache from "../src/createEmotionCache";
+import { useLocalStoragePersistence } from "../src/states/hooks/useLocalStoragePersistence";
+import { migrateStatesToLatestVersion } from "../src/states/migrations/state-migrations-state";
 import {
   changelogState,
   changelogStateKey,
@@ -23,9 +23,9 @@ import {
   relicsStateKey,
   userStatsState,
   userStatsStateKey,
-} from '../src/states/states';
-import theme from '../src/theme';
-import Layout from './_layout';
+} from "../src/states/states";
+import theme from "../src/theme";
+import Layout from "./_layout";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

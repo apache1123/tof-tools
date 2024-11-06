@@ -1,7 +1,7 @@
 export type AttackType =
-  | 'normal'
-  | 'dodge'
-  | 'skill'
-  | 'discharge'
-  | 'passive'
-  | 'other';
+  | "normal"
+  | "dodge"
+  | "skill"
+  | "discharge"
+  | "passive"
+  | "other";

@@ -1,13 +1,13 @@
-import type { Weapon as WeaponDefinition } from '../definitions/types/weapon/weapon';
-import type { Loadout } from './loadout';
-import type { Weapon } from './weapon';
+import type { Weapon as WeaponDefinition } from "../definitions/types/weapon/weapon";
+import type { Loadout } from "./loadout";
+import type { Weapon } from "./weapon";
 import type {
   WeaponAttackPercentBuff,
   WeaponBuff,
   WeaponCritDamageBuff,
   WeaponCritRateBuff,
-} from './weapon-buff';
-import type { WeaponBuffDefinition } from './weapon-buff-definition';
+} from "./weapon-buff";
+import type { WeaponBuffDefinition } from "./weapon-buff-definition";
 
 export class LoadoutWeaponBuffs {
   private _loadout: Loadout;
@@ -55,7 +55,7 @@ export class LoadoutWeaponBuffs {
         const { canStack } = buffDefinition;
         const buff: WeaponCritRateBuff = this.mapBuffDefinitionToBuff(
           buffDefinition,
-          weaponDefinition
+          weaponDefinition,
         );
         this.addBuff(buff, buffs, canStack);
       });
@@ -77,7 +77,7 @@ export class LoadoutWeaponBuffs {
         const { canStack } = buffDefinition;
         const buff: WeaponCritDamageBuff = this.mapBuffDefinitionToBuff(
           buffDefinition,
-          weaponDefinition
+          weaponDefinition,
         );
         this.addBuff(buff, buffs, canStack);
       });
@@ -88,7 +88,7 @@ export class LoadoutWeaponBuffs {
 
   private hasMetBuffRequirements(
     buffDefinition: WeaponBuffDefinition,
-    weapon: Weapon
+    weapon: Weapon,
   ): boolean {
     const {
       minStarRequirement,
@@ -105,7 +105,7 @@ export class LoadoutWeaponBuffs {
     if (
       elementalResonanceRequirements &&
       elementalResonanceRequirements.every(
-        (x) => !elementalResonances.includes(x)
+        (x) => !elementalResonances.includes(x),
       )
     )
       return false;
@@ -125,7 +125,7 @@ export class LoadoutWeaponBuffs {
         ({ weaponElementalType, minNumOfWeapons, maxNumOfWeapons }) => {
           const elementalWeaponCount =
             this._loadout.team.weaponElementalTypes.filter(
-              (x) => x === weaponElementalType
+              (x) => x === weaponElementalType,
             ).length;
 
           if (
@@ -133,7 +133,7 @@ export class LoadoutWeaponBuffs {
             elementalWeaponCount <= maxNumOfWeapons
           )
             hasMetElementalWeaponsRequirement = true;
-        }
+        },
       );
 
       if (!hasMetElementalWeaponsRequirement) return false;
@@ -145,13 +145,13 @@ export class LoadoutWeaponBuffs {
   private addBuff(
     buff: WeaponBuff,
     collection: WeaponBuff[],
-    canStack: boolean
+    canStack: boolean,
   ) {
     if (canStack) {
       collection.push(buff);
     } else {
       const duplicate = collection.find(
-        (addedBuff) => addedBuff.id === buff.id
+        (addedBuff) => addedBuff.id === buff.id,
       );
       if (!duplicate) {
         collection.push(buff);
@@ -161,7 +161,7 @@ export class LoadoutWeaponBuffs {
 
   private mapBuffDefinitionToBuff(
     buffDefinition: WeaponBuffDefinition,
-    weaponDefinition: WeaponDefinition
+    weaponDefinition: WeaponDefinition,
   ): WeaponBuff {
     const { id, description, displayName, value, isActivePassively } =
       buffDefinition;

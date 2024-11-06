@@ -1,8 +1,8 @@
-import { useSnapshot } from 'valtio';
+import { useSnapshot } from "valtio";
 
-import type { GearSet } from '../../models/gear-set';
-import { loadoutsState } from '../../states/states';
-import { GearSetStatSummary } from '../GearSetStatSummary';
+import type { GearSet } from "../../models/gear-set";
+import { loadoutsState } from "../../states/states";
+import { GearSetStatSummary } from "../GearSetStatSummary";
 
 export function LoadoutGearSetStatSummary() {
   const {

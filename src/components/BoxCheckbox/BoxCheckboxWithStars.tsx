@@ -1,10 +1,10 @@
-import { Rating } from '@mui/material';
+import { Rating } from "@mui/material";
 
-import type { BoxCheckboxProps } from './BoxCheckbox';
-import { BoxCheckbox } from './BoxCheckbox';
+import type { BoxCheckboxProps } from "./BoxCheckbox";
+import { BoxCheckbox } from "./BoxCheckbox";
 
 export interface BoxCheckboxWithStarsProps
-  extends Omit<BoxCheckboxProps, 'onIsCheckedChange' | 'additionalSelector'> {
+  extends Omit<BoxCheckboxProps, "onIsCheckedChange" | "additionalSelector"> {
   maxNumOfStars: number;
   stars: number;
   onChange?(isChecked: boolean, stars: number): void;

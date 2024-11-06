@@ -1,14 +1,14 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import { maxNumOfRandomStatRolls } from '../definitions/gear';
-import type { StatName } from '../definitions/stat-types';
-import { statTypesLookup } from '../definitions/stat-types';
-import { toIntegerString, toPercentageString2dp } from '../utils/number-utils';
-import type { Dto } from './dto';
-import type { Persistable } from './persistable';
-import type { RollCombination } from './random-stat-roll-combination';
-import { zeroRollCombination } from './random-stat-roll-combination';
-import { type StatType } from './stat-type';
+import { maxNumOfRandomStatRolls } from "../definitions/gear";
+import type { StatName } from "../definitions/stat-types";
+import { statTypesLookup } from "../definitions/stat-types";
+import { toIntegerString, toPercentageString2dp } from "../utils/number-utils";
+import type { Dto } from "./dto";
+import type { Persistable } from "./persistable";
+import type { RollCombination } from "./random-stat-roll-combination";
+import { zeroRollCombination } from "./random-stat-roll-combination";
+import { type StatType } from "./stat-type";
 
 export class RandomStat implements Persistable<RandomStatDto> {
   private _type: StatType;
@@ -132,7 +132,7 @@ export class RandomStat implements Persistable<RandomStatDto> {
         .minus(BigNumber(randomStatDefaultValue))
         .dividedBy(BigNumber(randomStatMinRollValue))
         .integerValue(BigNumber.ROUND_FLOOR),
-      maxNumOfRandomStatRolls
+      maxNumOfRandomStatRolls,
     ).toNumber();
 
     const combinations: RollCombination[] = [];
@@ -147,8 +147,8 @@ export class RandomStat implements Persistable<RandomStatDto> {
               .minus(BigNumber(randomStatMinRollValue).multipliedBy(n))
               .dividedBy(
                 BigNumber(randomStatMaxRollValue).minus(
-                  BigNumber(randomStatMinRollValue)
-                )
+                  BigNumber(randomStatMinRollValue),
+                ),
               )
               .dividedBy(n)
               .toNumber();

@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { RelicIcon } from './RelicIcon';
+import { RelicIcon } from "./RelicIcon";
 
 const meta: Meta<typeof RelicIcon> = {
-  title: 'Relic Icon',
+  title: "Relic Icon",
   component: RelicIcon,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -14,5 +14,5 @@ type Story = StoryObj<typeof RelicIcon>;
 export const Blank: Story = {};
 
 export const Icon: Story = {
-  args: { relicName: 'Alternate Destiny' },
+  args: { relicName: "Alternate Destiny" },
 };

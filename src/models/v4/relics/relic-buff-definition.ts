@@ -1,4 +1,4 @@
-import type { BuffAbility } from '../../../definitions/types/buff/buff-ability';
+import type { BuffAbility } from "../../../definitions/types/buff/buff-ability";
 
 export interface RelicBuffDefinition extends BuffAbility {
   minStarRequirement: number;

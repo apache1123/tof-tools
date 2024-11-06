@@ -1,4 +1,4 @@
-import { Rating } from '@mui/material';
+import { Rating } from "@mui/material";
 
 export interface GearStarsSelectorProps {
   stars: number;

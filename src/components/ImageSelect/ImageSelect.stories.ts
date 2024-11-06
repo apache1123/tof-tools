@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { ImageSelect } from './ImageSelect';
+import { ImageSelect } from "./ImageSelect";
 
 const meta: Meta<typeof ImageSelect> = {
-  title: 'Image Select',
+  title: "Image Select",
   component: ImageSelect,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;

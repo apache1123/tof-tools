@@ -1,5 +1,5 @@
-import { Timeline } from '../timeline/timeline';
-import type { AbilityEvent } from './ability-event';
+import { Timeline } from "../timeline/timeline";
+import type { AbilityEvent } from "./ability-event";
 
 export class AbilityTimeline<
   T extends AbilityEvent = AbilityEvent,

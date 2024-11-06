@@ -1,5 +1,5 @@
-import { Registry } from '../registry/registry';
-import type { AttackAbility } from './attack-ability';
+import { Registry } from "../registry/registry";
+import type { AttackAbility } from "./attack-ability";
 
 export class AttackRegistry extends Registry<AttackAbility> {
   public hasOngoingForegroundAttack() {

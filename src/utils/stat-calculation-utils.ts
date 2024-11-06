@@ -1,8 +1,8 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
 export function calculateCritRatePercentFromFlat(
   critRateFlat: BigNumber.Value,
-  charLevel: BigNumber.Value
+  charLevel: BigNumber.Value,
 ): number {
   // Rough crit rate formula from maygi spreadsheet
   // Crit rate% = Crit rate flat / (a * lvl^2 + b * lvl + c)
@@ -15,7 +15,7 @@ export function calculateCritRatePercentFromFlat(
       a
         .multipliedBy(BigNumber(charLevel).exponentiatedBy(2))
         .plus(b.multipliedBy(charLevel))
-        .plus(c)
+        .plus(c),
     )
     .toNumber();
 }

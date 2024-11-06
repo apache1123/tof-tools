@@ -1,20 +1,20 @@
-import ClearIcon from '@mui/icons-material/Clear';
-import DoneIcon from '@mui/icons-material/Done';
-import EditIcon from '@mui/icons-material/Edit';
-import { IconButton, Input, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
-import { useSnapshot } from 'valtio';
+import ClearIcon from "@mui/icons-material/Clear";
+import DoneIcon from "@mui/icons-material/Done";
+import EditIcon from "@mui/icons-material/Edit";
+import { IconButton, Input, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+import { useSnapshot } from "valtio";
 
-import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
-import { loadoutsState } from '../../states/states';
+import { ElementalStyledText } from "../../components/ElementalStyledText/ElementalStyledText";
+import { loadoutsState } from "../../states/states";
 
-const iconSize = 'small';
+const iconSize = "small";
 
 export function LoadoutName() {
   const { selectedLoadout: loadout } = useSnapshot(loadoutsState);
 
   const [isEditMode, setIsEditMode] = useState(false);
-  const [editingName, setEditingName] = useState('');
+  const [editingName, setEditingName] = useState("");
 
   function saveName() {
     loadoutsState.selectedLoadoutItem.loadout.name = editingName;
@@ -56,7 +56,7 @@ export function LoadoutName() {
               setEditingName(event.target.value);
             }}
             onKeyDown={(event) => {
-              if (event.key === 'Enter') {
+              if (event.key === "Enter") {
                 saveName();
                 setIsEditMode(false);
               }

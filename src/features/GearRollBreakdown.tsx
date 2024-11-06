@@ -1,9 +1,9 @@
-import { Divider, Typography } from '@mui/material';
-import pluralize from 'pluralize';
-import { Fragment } from 'react';
+import { Divider, Typography } from "@mui/material";
+import pluralize from "pluralize";
+import { Fragment } from "react";
 
-import { NumericStringPercentage } from '../components/NumericString/NumericString';
-import { type Gear } from '../models/gear';
+import { NumericStringPercentage } from "../components/NumericString/NumericString";
+import { type Gear } from "../models/gear";
 
 export interface GearRollBreakdownProps {
   gearSnap: Gear;
@@ -27,14 +27,14 @@ export const GearRollBreakdown = ({ gearSnap }: GearRollBreakdownProps) => {
               <li key={y.randomStatId}>
                 <Typography>
                   <b>{`${y.randomStatId}: `}</b>
-                  {pluralize('roll', y.rollCombination.numberOfRolls, true)}
+                  {pluralize("roll", y.rollCombination.numberOfRolls, true)}
                   {!!y.rollCombination.numberOfRolls && (
                     <div>
-                      Average strength of each roll:{' '}
+                      Average strength of each roll:{" "}
                       <NumericStringPercentage
                         value={y.rollCombination.rollStrength}
                       />
-                      . Total weighting:{' '}
+                      . Total weighting:{" "}
                       <NumericStringPercentage
                         value={y.rollCombination.totalRollWeight}
                       />

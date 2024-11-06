@@ -1,15 +1,15 @@
-import type { AttackAbility } from '../definitions/types/attack/attack-ability';
+import type { AttackAbility } from "../definitions/types/attack/attack-ability";
 import {
   getWeaponDefinition,
   type Weapon as WeaponDefinition,
-} from '../definitions/types/weapon/weapon';
-import type { WeaponName } from '../definitions/weapons/weapon-definitions';
-import type { Dto } from './dto';
-import type { Persistable } from './persistable';
-import { hasMetStarRequirement } from './v4/star-requirement';
-import type { WeaponStarRequirement } from './v4/weapon/weapon-star-requirement';
-import type { WeaponMatrixSetsDto } from './weapon-matrix-sets';
-import { WeaponMatrixSets } from './weapon-matrix-sets';
+} from "../definitions/types/weapon/weapon";
+import type { WeaponName } from "../definitions/weapons/weapon-definitions";
+import type { Dto } from "./dto";
+import type { Persistable } from "./persistable";
+import { hasMetStarRequirement } from "./v4/star-requirement";
+import type { WeaponStarRequirement } from "./v4/weapon/weapon-star-requirement";
+import type { WeaponMatrixSetsDto } from "./weapon-matrix-sets";
+import { WeaponMatrixSets } from "./weapon-matrix-sets";
 
 /** A weapon (with its equipped matrices) that exists within a `Team` */
 export class Weapon implements Persistable<WeaponDto> {
@@ -35,14 +35,14 @@ export class Weapon implements Persistable<WeaponDto> {
     const { normalAttacks, dodgeAttacks, skills, discharges } = this.definition;
     return [...normalAttacks, ...dodgeAttacks, ...skills, ...discharges].filter(
       (attackDefinition) =>
-        this.hasMetStarRequirement(attackDefinition.starRequirement)
+        this.hasMetStarRequirement(attackDefinition.starRequirement),
     );
   }
 
   /** Buffs that can be activated for this weapon */
   public get buffs() {
     return this.definition.buffs.filter((buffDefinition) =>
-      this.hasMetStarRequirement(buffDefinition.starRequirement)
+      this.hasMetStarRequirement(buffDefinition.starRequirement),
     );
   }
 
@@ -61,7 +61,7 @@ export class Weapon implements Persistable<WeaponDto> {
   /** Resources that can be activated for this weapon */
   public get resources() {
     return this.definition.resources.filter((resourceDefinition) =>
-      this.hasMetStarRequirement(resourceDefinition.starRequirement)
+      this.hasMetStarRequirement(resourceDefinition.starRequirement),
     );
   }
 

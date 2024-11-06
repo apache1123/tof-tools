@@ -1,9 +1,9 @@
-import type { TextFieldVariants } from '@mui/material/TextField';
-import TextField from '@mui/material/TextField';
-import type { ReactNode } from 'react';
-import { NumericFormat } from 'react-number-format';
+import type { TextFieldVariants } from "@mui/material/TextField";
+import TextField from "@mui/material/TextField";
+import type { ReactNode } from "react";
+import { NumericFormat } from "react-number-format";
 
-import { getNumberSeparators } from '../../utils/locale-utils';
+import { getNumberSeparators } from "../../utils/locale-utils";
 
 export interface NumericInputProps {
   value?: number;
@@ -21,14 +21,14 @@ export interface NumericInputProps {
   required?: boolean;
   error?: boolean;
   helperText?: ReactNode;
-  'aria-label'?: string;
+  "aria-label"?: string;
 }
 
 const { decimalSeparator, groupSeparator } = getNumberSeparators();
 
 export const NumericInput = ({
   onChange,
-  variant = 'standard',
+  variant = "standard",
   allowNegative = false,
   decimalScale = 3,
   fullWidth = true,
@@ -47,7 +47,7 @@ export const NumericInput = ({
       allowNegative={allowNegative}
       decimalScale={decimalScale}
       customInput={TextField}
-      inputProps={{ inputMode: 'decimal' }}
+      inputProps={{ inputMode: "decimal" }}
       variant={variant}
       fullWidth={fullWidth}
       {...rest}

@@ -1,16 +1,16 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import { oneSecondDuration } from '../../../utils/time-utils';
-import type { Serializable } from '../../persistable';
-import type { EventManager } from '../event/event-manager';
-import type { EventSubscriber } from '../event/event-subscriber';
-import { ResourceEvent } from '../resource-timeline/resource-event';
-import type { ResourceTimeline } from '../resource-timeline/resource-timeline';
-import type { CurrentTick } from '../tick/current-tick';
-import type { Tick } from '../tick/tick';
-import type { ResourceDto } from './dtos/resource-dto';
-import type { ResourceId } from './resource-definition';
-import type { ResourceRegenerationDefinition } from './resource-regeneration-definition';
+import { oneSecondDuration } from "../../../utils/time-utils";
+import type { Serializable } from "../../persistable";
+import type { EventManager } from "../event/event-manager";
+import type { EventSubscriber } from "../event/event-subscriber";
+import { ResourceEvent } from "../resource-timeline/resource-event";
+import type { ResourceTimeline } from "../resource-timeline/resource-timeline";
+import type { CurrentTick } from "../tick/current-tick";
+import type { Tick } from "../tick/tick";
+import type { ResourceDto } from "./dtos/resource-dto";
+import type { ResourceId } from "./resource-definition";
+import type { ResourceRegenerationDefinition } from "./resource-regeneration-definition";
 
 export class Resource implements EventSubscriber, Serializable<ResourceDto> {
   public constructor(
@@ -21,7 +21,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     private readonly regenerationDefinition: ResourceRegenerationDefinition,
     protected readonly timeline: ResourceTimeline,
     protected readonly eventManager: EventManager,
-    protected readonly currentTick: CurrentTick
+    protected readonly currentTick: CurrentTick,
   ) {}
 
   private readonly minAmount = 0;
@@ -69,7 +69,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     this.passiveRegenerate(this.currentTick.value);
 
     const startingAmount = this.getCumulatedAmountAt(
-      this.currentTick.startTime
+      this.currentTick.startTime,
     );
     const endingAmount = this.getCumulatedAmountAt(this.currentTick.endTime);
 
@@ -107,7 +107,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
     tick: Tick,
     amount: number,
     hasPriority = false,
-    isDepletion = false
+    isDepletion = false,
   ) {
     if (!amount) return;
 
@@ -120,7 +120,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
         cumulatedAmountThusFar < this.minAmount
       )
         throw new Error(
-          `Resource in an invalid state. Resource: ${this.id}; CumulatedAmount: ${cumulatedAmountThusFar}`
+          `Resource in an invalid state. Resource: ${this.id}; CumulatedAmount: ${cumulatedAmountThusFar}`,
         );
 
       let amountToAdd: number;
@@ -181,7 +181,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
       tick,
       amountToAdd,
       hasPriority,
-      isDepletion
+      isDepletion,
     );
     this.timeline.addEvent(resourceEvent);
     return resourceEvent;

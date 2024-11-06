@@ -1,4 +1,4 @@
-import type { ResourceId } from '../resource/resource-definition';
+import type { ResourceId } from "../resource/resource-definition";
 
 /** Base damage = ((totalAttack * attackMultiplier) + attackFlat + (hp * hpMultiplier) + (sumOfResistances * sumOfResistancesMultiplier) + (critRateFlat * critRateFlatMultiplier)) * resourceAmountMultiplier */
 export interface BaseDamageModifiersDefinition {

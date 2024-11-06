@@ -1,28 +1,28 @@
-import BigNumber from 'bignumber.js';
-import { nanoid } from 'nanoid';
+import BigNumber from "bignumber.js";
+import { nanoid } from "nanoid";
 
-import { defaultCritDamagePercent } from '../definitions/damage-formula';
+import { defaultCritDamagePercent } from "../definitions/damage-formula";
 import type {
   CoreElementalType,
   WeaponElementalType,
-} from '../definitions/elemental-type';
-import type { GearName } from '../definitions/gear-types';
-import type { SimulacrumName } from '../definitions/simulacrum-traits';
-import { simulacrumTraits } from '../definitions/simulacrum-traits';
-import { calculateDamageMultiplier } from '../utils/damage-calculation-utils';
-import { sum } from '../utils/math-utils';
-import { calculateCritRatePercentFromFlat } from '../utils/stat-calculation-utils';
-import type { Dto } from './dto';
-import { Gear } from './gear';
-import type { GearSet, GearSetDtoV2 } from './gear-set';
-import { LoadoutMatrixSetBuffs } from './loadout-matrix-set-buffs';
-import type { LoadoutStatsDto } from './loadout-stats';
-import { LoadoutStats } from './loadout-stats';
-import { LoadoutWeaponBuffs } from './loadout-weapon-buffs';
-import type { Persistable } from './persistable';
-import type { Team, TeamDto } from './team';
-import type { UserStats } from './user-stats';
-import type { SimulacrumTrait } from './v4/simulacrum-trait';
+} from "../definitions/elemental-type";
+import type { GearName } from "../definitions/gear-types";
+import type { SimulacrumName } from "../definitions/simulacrum-traits";
+import { simulacrumTraits } from "../definitions/simulacrum-traits";
+import { calculateDamageMultiplier } from "../utils/damage-calculation-utils";
+import { sum } from "../utils/math-utils";
+import { calculateCritRatePercentFromFlat } from "../utils/stat-calculation-utils";
+import type { Dto } from "./dto";
+import { Gear } from "./gear";
+import type { GearSet, GearSetDtoV2 } from "./gear-set";
+import { LoadoutMatrixSetBuffs } from "./loadout-matrix-set-buffs";
+import type { LoadoutStatsDto } from "./loadout-stats";
+import { LoadoutStats } from "./loadout-stats";
+import { LoadoutWeaponBuffs } from "./loadout-weapon-buffs";
+import type { Persistable } from "./persistable";
+import type { Team, TeamDto } from "./team";
+import type { UserStats } from "./user-stats";
+import type { SimulacrumTrait } from "./v4/simulacrum-trait";
 
 export class Loadout implements Persistable<LoadoutDto> {
   private _id: string;
@@ -39,7 +39,7 @@ export class Loadout implements Persistable<LoadoutDto> {
     public elementalType: CoreElementalType,
     public readonly team: Team,
     public readonly gearSet: GearSet,
-    private readonly userStats: UserStats
+    private readonly userStats: UserStats,
   ) {
     this._id = nanoid();
 
@@ -58,7 +58,7 @@ export class Loadout implements Persistable<LoadoutDto> {
       BigNumber(this.attackPercentTotal),
       BigNumber(this.critPercentTotal),
       BigNumber(this.critDamageTotal),
-      BigNumber(this.elementalDamageTotal)
+      BigNumber(this.elementalDamageTotal),
     ).toNumber();
   }
 
@@ -69,26 +69,26 @@ export class Loadout implements Persistable<LoadoutDto> {
     const gear = this.gearSet.getGearByType(gearTypeId);
 
     const attackFlatWithoutGear = BigNumber(
-      this.loadoutStats.activeElementalAttack.baseAttack
+      this.loadoutStats.activeElementalAttack.baseAttack,
     ).minus(gear.getTotalAttackFlat(this.elementalType));
 
     const attackPercentWithoutGear = BigNumber(this.attackPercentTotal).minus(
-      gear.getTotalAttackPercent(this.elementalType)
+      gear.getTotalAttackPercent(this.elementalType),
     );
 
     const critPercentWithoutGear = BigNumber(this.critPercentTotal)
       .minus(
         calculateCritRatePercentFromFlat(
           gear.getTotalCritFlat(),
-          this.userStats.characterLevel
-        )
+          this.userStats.characterLevel,
+        ),
       )
       .minus(gear.getTotalCritPercent());
 
     const critDamageWithoutGear = BigNumber(this.critDamageTotal);
 
     const elementalDamageWithoutGear = BigNumber(
-      this.elementalDamageTotal
+      this.elementalDamageTotal,
     ).minus(gear.getTotalElementalDamagePercent(this.elementalType));
 
     const multiplierWithoutGear = calculateDamageMultiplier(
@@ -96,7 +96,7 @@ export class Loadout implements Persistable<LoadoutDto> {
       attackPercentWithoutGear,
       critPercentWithoutGear,
       critDamageWithoutGear,
-      elementalDamageWithoutGear
+      elementalDamageWithoutGear,
     );
 
     if (multiplierWithoutGear.isZero()) {
@@ -139,15 +139,15 @@ export class Loadout implements Persistable<LoadoutDto> {
       .minus(
         calculateCritRatePercentFromFlat(
           originalGear.getTotalCritFlat(),
-          characterLevel
-        )
+          characterLevel,
+        ),
       )
       .minus(originalGear.getTotalCritPercent())
       .plus(
         calculateCritRatePercentFromFlat(
           substituteGear.getTotalCritFlat(),
-          characterLevel
-        )
+          characterLevel,
+        ),
       )
       .plus(substituteGear.getTotalCritPercent());
 
@@ -163,14 +163,14 @@ export class Loadout implements Persistable<LoadoutDto> {
         attackPercent,
         critPercent,
         critDamage,
-        elementalDamage
+        elementalDamage,
       ).toNumber();
 
     return BigNumber(loadoutDamageMultiplierWithReplacementGear)
       .dividedBy(
         BigNumber(this.damageMultiplier).dividedBy(
-          this.getGearValue(originalGear.type.id as GearName) + 1
-        )
+          this.getGearValue(originalGear.type.id as GearName) + 1,
+        ),
       )
       .minus(1)
       .toNumber();
@@ -213,12 +213,12 @@ export class Loadout implements Persistable<LoadoutDto> {
 
   /** Attack% of the specified elemental type - accounting from gear only */
   public getGearAttackPercent(elementalType: WeaponElementalType): number {
-    if (elementalType !== 'Altered') {
+    if (elementalType !== "Altered") {
       return this.gearSet.getTotalAttackPercent(elementalType);
     }
 
     return this.gearSet.getTotalAttackPercent(
-      this.loadoutStats.elementWithHighestAttack
+      this.loadoutStats.elementWithHighestAttack,
     );
   }
 
@@ -226,7 +226,7 @@ export class Loadout implements Persistable<LoadoutDto> {
   public get attackPercentTotal(): number {
     return sum(
       this.gearSet.getTotalAttackPercent(this.elementalType),
-      this.attackBuffTotal
+      this.attackBuffTotal,
     ).toNumber();
   }
 
@@ -243,9 +243,9 @@ export class Loadout implements Persistable<LoadoutDto> {
     return sum(
       calculateCritRatePercentFromFlat(
         this.loadoutStats.critFlat,
-        this.userStats.characterLevel
+        this.userStats.characterLevel,
       ),
-      this.gearSet.getTotalCritPercent()
+      this.gearSet.getTotalCritPercent(),
     ).toNumber();
   }
   /** Total crit rate% - accounting from all sources (loadoutStats, gear (crit%) and buffs) */
@@ -264,62 +264,62 @@ export class Loadout implements Persistable<LoadoutDto> {
 
   /** Dmg% of the specified elemental type - accounting from gear only */
   public getGearElementalDamage(elementalType: WeaponElementalType): number {
-    if (elementalType !== 'Altered') {
+    if (elementalType !== "Altered") {
       return this.gearSet.getTotalDamagePercent(elementalType);
     }
 
     return this.gearSet.getTotalDamagePercent(
-      this.loadoutStats.elementWithHighestAttack
+      this.loadoutStats.elementWithHighestAttack,
     );
   }
 
   /** Total dmg% of the loadout's elemental type - accounting from all sources (gear) */
   public get elementalDamageTotal(): number {
     return sum(
-      this.gearSet.getTotalDamagePercent(this.elementalType)
+      this.gearSet.getTotalDamagePercent(this.elementalType),
     ).toNumber();
   }
 
   /** Total attack% buff of the loadout's elemental type that will be active in combat */
   public get attackBuffTotal(): number {
     const weaponAttackBuffValues = this.weaponBuffs.attackPercentBuffs.map(
-      (buff) => buff.value
+      (buff) => buff.value,
     );
     const matrixAttackBuffValues = this.matrixSetBuffs.attackPercentBuffs.map(
-      (buff) => buff.value
+      (buff) => buff.value,
     );
 
     return sum(
-      ...weaponAttackBuffValues.concat(matrixAttackBuffValues)
+      ...weaponAttackBuffValues.concat(matrixAttackBuffValues),
     ).toNumber();
   }
 
   /** Total crit rate% buff that will be active in combat */
   public get critRateBuffTotal(): number {
     const weaponCritRateBuffValues = this.weaponBuffs.critRateBuffs.map(
-      (buff) => buff.value
+      (buff) => buff.value,
     );
     const matrixCritRateBuffValues = this.matrixSetBuffs.critRateBuffs.map(
-      (buff) => buff.value
+      (buff) => buff.value,
     );
 
     return sum(
-      ...weaponCritRateBuffValues.concat(matrixCritRateBuffValues)
+      ...weaponCritRateBuffValues.concat(matrixCritRateBuffValues),
     ).toNumber();
   }
 
   /** Total crit damage% buff that will be active in combat */
   public get critDamageBuffTotal(): number {
     const weaponCritDamageBuffValues = this.weaponBuffs.critDamageBuffs.map(
-      (buff) => buff.value
+      (buff) => buff.value,
     );
     const matrixCritDamageBuffValues = this.matrixSetBuffs.critDamageBuffs.map(
-      (buff) => buff.value
+      (buff) => buff.value,
     );
 
     return sum(
       ...weaponCritDamageBuffValues,
-      ...matrixCritDamageBuffValues
+      ...matrixCritDamageBuffValues,
     ).toNumber();
   }
 

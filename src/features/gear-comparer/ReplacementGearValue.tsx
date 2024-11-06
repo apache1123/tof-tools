@@ -1,7 +1,7 @@
-import { useSnapshot } from 'valtio';
+import { useSnapshot } from "valtio";
 
-import { gearComparerState } from '../../states/states';
-import { GearValue } from '../GearValue';
+import { gearComparerState } from "../../states/states";
+import { GearValue } from "../GearValue";
 
 export interface ReplacementGearValueProps {
   maxTitanGearValue: number | undefined;

@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { GearTypeIcon } from './GearTypeIcon';
+import { GearTypeIcon } from "./GearTypeIcon";
 
 const meta: Meta<typeof GearTypeIcon> = {
-  title: 'Gear Type Icon',
+  title: "Gear Type Icon",
   component: GearTypeIcon,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -19,72 +19,72 @@ export const Unknown: Story = {
 
 export const Helmet: Story = {
   args: {
-    gearName: 'Helmet',
+    gearName: "Helmet",
   },
 };
 
 export const Eyepiece: Story = {
   args: {
-    gearName: 'Eyepiece',
+    gearName: "Eyepiece",
   },
 };
 
 export const Spaulders: Story = {
   args: {
-    gearName: 'Spaulders',
+    gearName: "Spaulders",
   },
 };
 
 export const Gloves: Story = {
   args: {
-    gearName: 'Gloves',
+    gearName: "Gloves",
   },
 };
 
 export const Bracers: Story = {
   args: {
-    gearName: 'Bracers',
+    gearName: "Bracers",
   },
 };
 
 export const Armor: Story = {
   args: {
-    gearName: 'Armor',
+    gearName: "Armor",
   },
 };
 
 export const CombatEngine: Story = {
   args: {
-    gearName: 'Combat Engine',
+    gearName: "Combat Engine",
   },
 };
 
 export const Belt: Story = {
   args: {
-    gearName: 'Belt',
+    gearName: "Belt",
   },
 };
 
 export const Legguards: Story = {
   args: {
-    gearName: 'Legguards',
+    gearName: "Legguards",
   },
 };
 
 export const Boots: Story = {
   args: {
-    gearName: 'Boots',
+    gearName: "Boots",
   },
 };
 
 export const Exoskeleton: Story = {
   args: {
-    gearName: 'Exoskeleton',
+    gearName: "Exoskeleton",
   },
 };
 
 export const Microreactor: Story = {
   args: {
-    gearName: 'Microreactor',
+    gearName: "Microreactor",
   },
 };

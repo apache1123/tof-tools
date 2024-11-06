@@ -1,12 +1,12 @@
-import { Damage } from '../../damage/damage';
-import { DamageSummary } from '../damage-summary';
+import { Damage } from "../../damage/damage";
+import { DamageSummary } from "../damage-summary";
 
-describe('DamageSummary', () => {
+describe("DamageSummary", () => {
   const duration = 1000;
-  const mockWeapon1 = 'Alyss';
-  const mockWeapon2 = 'Annabella';
+  const mockWeapon1 = "Alyss";
+  const mockWeapon2 = "Annabella";
 
-  it('returns total damage correctly', () => {
+  it("returns total damage correctly", () => {
     const sut = new DamageSummary(duration, mockWeapon1, mockWeapon2);
     const weaponDamageSummary1 = sut.weaponDamageSummaries.get(mockWeapon1);
     if (weaponDamageSummary1) {
@@ -23,7 +23,7 @@ describe('DamageSummary', () => {
     expect(sut.totalDamage).toEqual(new Damage(60, 120));
   });
 
-  it('adds correctly', () => {
+  it("adds correctly", () => {
     const sut1 = new DamageSummary(duration, mockWeapon1, mockWeapon2);
     const weaponDamageSummary1 = sut1.weaponDamageSummaries.get(mockWeapon1);
     if (weaponDamageSummary1) {

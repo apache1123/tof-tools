@@ -1,8 +1,8 @@
-import { useSnapshot } from 'valtio';
+import { useSnapshot } from "valtio";
 
-import type { LoadoutsState } from '../../states/loadouts';
-import { loadoutsState } from '../../states/states';
-import { LoadoutStatsEditor } from './LoadoutStatsEditor';
+import type { LoadoutsState } from "../../states/loadouts";
+import { loadoutsState } from "../../states/states";
+import { LoadoutStatsEditor } from "./LoadoutStatsEditor";
 
 export function LoadoutStats() {
   const {

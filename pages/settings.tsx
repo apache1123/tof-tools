@@ -1,7 +1,7 @@
-import { Container, Stack } from '@mui/material';
-import Head from 'next/head';
+import { Container, Stack } from "@mui/material";
+import Head from "next/head";
 
-import { TransferAppData } from '../src/features/settings/TransferAppData';
+import { TransferAppData } from "../src/features/settings/TransferAppData";
 
 export default function StatsPage() {
   return (

@@ -1,8 +1,8 @@
 import type {
   CoreElementalType,
   StatTypeElementalType,
-} from '../definitions/elemental-type';
-import type { StatName, StatRole } from '../definitions/stat-types';
+} from "../definitions/elemental-type";
+import type { StatName, StatRole } from "../definitions/stat-types";
 
 export interface StatType {
   id: StatName;
@@ -22,41 +22,41 @@ export interface StatType {
 
 export function isElementalAttackFlat(
   statType: StatType,
-  elementalType: CoreElementalType
+  elementalType: CoreElementalType,
 ) {
   return (
-    statType.role === 'Attack' &&
+    statType.role === "Attack" &&
     (statType.elementalType === elementalType ||
-      statType.elementalType === 'All')
+      statType.elementalType === "All")
   );
 }
 
 export function isElementalAttackPercent(
   statType: StatType,
-  elementalType: CoreElementalType
+  elementalType: CoreElementalType,
 ) {
   return (
-    statType.role === 'Attack %' &&
+    statType.role === "Attack %" &&
     (statType.elementalType === elementalType ||
-      statType.elementalType === 'All')
+      statType.elementalType === "All")
   );
 }
 
 export function isCritFlat(statType: StatType) {
-  return statType.role === 'Crit';
+  return statType.role === "Crit";
 }
 
 export function isCritPercent(statType: StatType) {
-  return statType.role === 'Crit %';
+  return statType.role === "Crit %";
 }
 
 export function isElementalDamagePercent(
   statType: StatType,
-  elementalType: CoreElementalType
+  elementalType: CoreElementalType,
 ) {
   return (
-    statType.role === 'Damage %' &&
+    statType.role === "Damage %" &&
     (statType.elementalType === elementalType ||
-      statType.elementalType === 'All')
+      statType.elementalType === "All")
   );
 }

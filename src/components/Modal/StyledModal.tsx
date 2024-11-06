@@ -1,5 +1,5 @@
-import CloseIcon from '@mui/icons-material/Close';
-import type { DialogProps } from '@mui/material';
+import CloseIcon from "@mui/icons-material/Close";
+import type { DialogProps } from "@mui/material";
 import {
   Button,
   Dialog,
@@ -8,8 +8,8 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-} from '@mui/material';
-import type { ReactNode } from 'react';
+} from "@mui/material";
+import type { ReactNode } from "react";
 
 export interface StyledModalProps {
   open: boolean;
@@ -23,7 +23,7 @@ export interface StyledModalProps {
   onConfirm?(): void;
   onClose?(): void;
   fullWidth?: boolean;
-  maxWidth?: DialogProps['maxWidth'];
+  maxWidth?: DialogProps["maxWidth"];
   ariaModalTitle?: string;
   ariaModalDescription?: string;
 }
@@ -61,10 +61,10 @@ export function StyledModal({
           aria-label="close"
           onClick={onClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
-            color: 'grey',
+            color: "grey",
           }}
         >
           <CloseIcon />

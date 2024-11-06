@@ -1,10 +1,10 @@
-import { NoSsr } from '@mui/material';
+import { NoSsr } from "@mui/material";
 
 import {
   toIntegerString,
   toPercentageString,
   toPercentageString2dp,
-} from '../../utils/number-utils';
+} from "../../utils/number-utils";
 
 export function NumericStringPercentage({ value }: { value: number }) {
   return <NumericStringBase valueString={toPercentageString(value)} />;

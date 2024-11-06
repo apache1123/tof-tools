@@ -1,18 +1,18 @@
-import { mock } from 'jest-mock-extended';
+import { mock } from "jest-mock-extended";
 
-import type { AbilityId } from '../../ability/ability-id';
-import type { AbilityRequirements } from '../../ability/ability-requirements';
-import type { AbilityUpdatesResource } from '../../ability/ability-updates-resource';
-import { EventManager } from '../../event/event-manager';
-import { CurrentTick } from '../../tick/current-tick';
-import type { AttackBuff } from '../attack-buff/attack-buff';
-import type { BaseAttackBuff } from '../base-attack-buff/base-attack-buff';
-import { BuffAbility } from '../buff-ability';
-import { BuffTimeline } from '../buff-timeline';
-import type { CritDamageBuff } from '../crit-damage-buff/crit-damage-buff';
-import type { CritRateBuff } from '../crit-rate-buff/crit-rate-buff';
-import type { ElementalDamageBuff } from '../elemental-damage-buff/elemental-damage-buff';
-import type { FinalDamageBuff } from '../final-damage-buff/final-damage-buff';
+import type { AbilityId } from "../../ability/ability-id";
+import type { AbilityRequirements } from "../../ability/ability-requirements";
+import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
+import { EventManager } from "../../event/event-manager";
+import { CurrentTick } from "../../tick/current-tick";
+import type { AttackBuff } from "../attack-buff/attack-buff";
+import type { BaseAttackBuff } from "../base-attack-buff/base-attack-buff";
+import { BuffAbility } from "../buff-ability";
+import { BuffTimeline } from "../buff-timeline";
+import type { CritDamageBuff } from "../crit-damage-buff/crit-damage-buff";
+import type { CritRateBuff } from "../crit-rate-buff/crit-rate-buff";
+import type { ElementalDamageBuff } from "../elemental-damage-buff/elemental-damage-buff";
+import type { FinalDamageBuff } from "../final-damage-buff/final-damage-buff";
 
 let id: AbilityId;
 let displayName: string;
@@ -34,10 +34,10 @@ let critDamageBuffs: CritDamageBuff[];
 
 let sut: BuffAbility;
 
-describe('Buff ability', () => {
+describe("Buff ability", () => {
   beforeEach(() => {
-    id = 'id';
-    displayName = 'displayName';
+    id = "id";
+    displayName = "displayName";
     cooldown = 0;
     duration = 3000;
     canBePlayerTriggered = false;
@@ -77,11 +77,11 @@ describe('Buff ability', () => {
       elementalDamageBuffs,
       finalDamageBuffs,
       critRateBuffs,
-      critDamageBuffs
+      critDamageBuffs,
     );
   }
 
-  it('cannot trigger when it is already at max stacks', () => {
+  it("cannot trigger when it is already at max stacks", () => {
     expect(sut.canTrigger()).toBe(true);
     sut.trigger();
     currentTick.advance(); // -> 1000-2000, one stack

@@ -1,30 +1,30 @@
-import type { FormControlProps, SelectChangeEvent } from '@mui/material';
-import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import type { ReactNode } from 'react';
+import type { FormControlProps, SelectChangeEvent } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import type { ReactNode } from "react";
 
-import type { CoreElementalType } from '../../definitions/elemental-type';
-import { ElementalStyledText } from '../ElementalStyledText/ElementalStyledText';
-import { ElementalTypeIcon } from '../ElementalTypeIcon/ElementalTypeIcon';
+import type { CoreElementalType } from "../../definitions/elemental-type";
+import { ElementalStyledText } from "../ElementalStyledText/ElementalStyledText";
+import { ElementalTypeIcon } from "../ElementalTypeIcon/ElementalTypeIcon";
 
 export interface CoreElementalTypeSelectorProps {
   elementalType: CoreElementalType | undefined;
   onElementalTypeChange?(value: CoreElementalType): void;
   label?: ReactNode;
-  size?: 'small' | 'medium';
+  size?: "small" | "medium";
   required?: boolean;
-  variant?: FormControlProps['variant'];
+  variant?: FormControlProps["variant"];
   disabled?: boolean;
 }
 
-const options: CoreElementalType[] = ['Flame', 'Frost', 'Physical', 'Volt'];
+const options: CoreElementalType[] = ["Flame", "Frost", "Physical", "Volt"];
 
 export function CoreElementalTypeSelector({
   elementalType,
   onElementalTypeChange,
-  label = 'Elemental type',
-  size = 'medium',
+  label = "Elemental type",
+  size = "medium",
   required = false,
-  variant = 'standard',
+  variant = "standard",
   disabled,
 }: CoreElementalTypeSelectorProps) {
   const handleChange = (event: SelectChangeEvent) => {
@@ -45,7 +45,7 @@ export function CoreElementalTypeSelector({
       <Select
         labelId="elemental-type-select-label"
         id="elemental-type-select"
-        value={elementalType ?? ''}
+        value={elementalType ?? ""}
         label={label}
         onChange={handleChange}
       >

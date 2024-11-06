@@ -1,8 +1,8 @@
-import { Skeleton, Stack, Typography } from '@mui/material';
-import { useSnapshot } from 'valtio';
+import { Skeleton, Stack, Typography } from "@mui/material";
+import { useSnapshot } from "valtio";
 
-import { ocrState } from '../../states/ocr-temp-gear';
-import { ImageSelect } from '../ImageSelect/ImageSelect';
+import { ocrState } from "../../states/ocr-temp-gear";
+import { ImageSelect } from "../ImageSelect/ImageSelect";
 
 export interface ImageOCRProps {
   onOCRTextChange?(text: string): void;

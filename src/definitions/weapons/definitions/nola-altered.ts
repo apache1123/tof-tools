@@ -1,14 +1,14 @@
-import type { Weapon } from '../../types/weapon/weapon';
-import { nolaBase } from './nola-base';
+import type { Weapon } from "../../types/weapon/weapon";
+import { nolaBase } from "./nola-base";
 
 export const nolaAltered = {
   ...nolaBase,
-  id: 'Nola (Altered)',
-  displayName: 'Nola (Altered)',
-  elementalIcon: 'Altered',
-  resonanceElements: ['Altered'],
-  calculationElements: ['Altered'],
-  damageElement: 'Altered',
+  id: "Nola (Altered)",
+  displayName: "Nola (Altered)",
+  elementalIcon: "Altered",
+  resonanceElements: ["Altered"],
+  calculationElements: ["Altered"],
+  damageElement: "Altered",
   attackPercentBuffs: [...nolaBase.attackPercentBuffs],
   critRateBuffs: [...nolaBase.critRateBuffs],
   critDamageBuffs: [...nolaBase.critDamageBuffs],

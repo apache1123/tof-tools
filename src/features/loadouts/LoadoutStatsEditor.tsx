@@ -1,12 +1,12 @@
-import { Box, Tooltip, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import Image from 'next/image';
-import { useSnapshot } from 'valtio';
+import { Box, Tooltip, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import Image from "next/image";
+import { useSnapshot } from "valtio";
 
-import { NumericInput } from '../../components/NumericInput/NumericInput';
-import { maxCharacterLevel } from '../../definitions/character-level';
-import type { LoadoutStats } from '../../models/loadout-stats';
-import { userStatsState } from '../../states/states';
+import { NumericInput } from "../../components/NumericInput/NumericInput";
+import { maxCharacterLevel } from "../../definitions/character-level";
+import type { LoadoutStats } from "../../models/loadout-stats";
+import { userStatsState } from "../../states/states";
 
 export interface LoadoutStatsEditorProps {
   loadoutStatsSnap: LoadoutStats;
@@ -38,7 +38,7 @@ export function LoadoutStatsEditor({
         <Grid xs={12} sm={6} md={4} lg={3}>
           <NumericInput
             id="base-attack"
-            label={'Base attack' + (elementalType ? ` (${elementalType})` : '')}
+            label={"Base attack" + (elementalType ? ` (${elementalType})` : "")}
             variant="filled"
             required
             error={!baseAttack}
@@ -64,8 +64,8 @@ export function LoadoutStatsEditor({
                     component="span"
                     color="info.main"
                   >
-                    This is <b>NOT</b> your elemental attack value you see
-                    on the Wanderer screen.{' '}
+                    This is <b>NOT</b> your elemental attack value you see on
+                    the Wanderer screen.{" "}
                   </Typography>
                   <Typography variant="inherit" component="span">
                     Instead, it is the first number when you click on your
@@ -115,7 +115,7 @@ export function LoadoutStatsEditor({
             }}
             helperText={
               characterLevel !== maxCharacterLevel ? (
-                <Box component="span" sx={{ color: 'warning.main' }}>
+                <Box component="span" sx={{ color: "warning.main" }}>
                   Current max wanderer level is {maxCharacterLevel}
                 </Box>
               ) : undefined

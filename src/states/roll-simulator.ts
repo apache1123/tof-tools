@@ -1,6 +1,6 @@
-import { defaultNumOfRandomStats } from '../definitions/gear';
-import { Gear } from '../models/gear';
-import type { GearComparerState } from './gear-comparer';
+import { defaultNumOfRandomStats } from "../definitions/gear";
+import { Gear } from "../models/gear";
+import type { GearComparerState } from "./gear-comparer";
 
 export class RollSimulatorState {
   private _gear: Gear | undefined;
@@ -27,7 +27,7 @@ export class RollSimulatorState {
     if (!this._gear) return 0;
 
     return this._gearComparerState.loadoutsState.selectedLoadout.getSubstituteGearValue(
-      this._gear
+      this._gear,
     );
   }
 

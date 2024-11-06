@@ -1,9 +1,9 @@
-import AddIcon from '@mui/icons-material/Add';
-import { Box, Paper, Tab, Tabs } from '@mui/material';
-import { useSnapshot } from 'valtio';
+import AddIcon from "@mui/icons-material/Add";
+import { Box, Paper, Tab, Tabs } from "@mui/material";
+import { useSnapshot } from "valtio";
 
-import { ElementalTypeIcon } from '../../components/ElementalTypeIcon/ElementalTypeIcon';
-import { loadoutsState } from '../../states/states';
+import { ElementalTypeIcon } from "../../components/ElementalTypeIcon/ElementalTypeIcon";
+import { loadoutsState } from "../../states/states";
 
 export function LoadoutTabs() {
   const { loadoutList, selectedLoadoutIndex, selectedLoadout } =
@@ -14,7 +14,7 @@ export function LoadoutTabs() {
       <Tabs
         value={selectedLoadoutIndex}
         onChange={(_, value) => {
-          if (value === 'add') {
+          if (value === "add") {
             loadoutsState.addNewLoadout();
             loadoutsState.selectedLoadoutIndex =
               loadoutsState.loadoutList.length - 1;

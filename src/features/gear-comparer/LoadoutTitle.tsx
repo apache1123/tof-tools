@@ -1,10 +1,10 @@
-import { Divider, Stack, Typography } from '@mui/material';
-import { useSnapshot } from 'valtio';
+import { Divider, Stack, Typography } from "@mui/material";
+import { useSnapshot } from "valtio";
 
-import { ElementalStyledText } from '../../components/ElementalStyledText/ElementalStyledText';
-import { ElementalTypeIcon } from '../../components/ElementalTypeIcon/ElementalTypeIcon';
-import type { GearComparerState } from '../../states/gear-comparer';
-import { gearComparerState } from '../../states/states';
+import { ElementalStyledText } from "../../components/ElementalStyledText/ElementalStyledText";
+import { ElementalTypeIcon } from "../../components/ElementalTypeIcon/ElementalTypeIcon";
+import type { GearComparerState } from "../../states/gear-comparer";
+import { gearComparerState } from "../../states/states";
 
 export function LoadoutTitle() {
   const {
@@ -20,13 +20,13 @@ export function LoadoutTitle() {
     >
       <Typography variant="h4">Loadout {selectedLoadout.name}</Typography>
       <Typography display="flex" alignItems="center">
-        Comparing using{' '}
+        Comparing using{" "}
         <ElementalStyledText
           elementalType={selectedLoadout.elementalType}
           mx={1}
         >
           {selectedLoadout.elementalType}
-        </ElementalStyledText>{' '}
+        </ElementalStyledText>{" "}
         <ElementalTypeIcon elementalType={selectedLoadout.elementalType} />
       </Typography>
     </Stack>

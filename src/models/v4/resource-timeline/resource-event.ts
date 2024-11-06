@@ -1,7 +1,7 @@
-import type { Serializable } from '../../persistable';
-import type { TimeInterval } from '../time-interval/time-interval';
-import { TimelineEvent } from '../timeline/timeline-event';
-import type { ResourceEventDto } from './dtos/resource-event-dto';
+import type { Serializable } from "../../persistable";
+import type { TimeInterval } from "../time-interval/time-interval";
+import { TimelineEvent } from "../timeline/timeline-event";
+import type { ResourceEventDto } from "./dtos/resource-event-dto";
 
 export class ResourceEvent
   extends TimelineEvent
@@ -14,7 +14,7 @@ export class ResourceEvent
     /** If true, this event has priority over others */
     public hasPriority = false,
     /** Is an depletion event */
-    public isDepletion = false
+    public isDepletion = false,
   ) {
     super(timeInterval);
   }

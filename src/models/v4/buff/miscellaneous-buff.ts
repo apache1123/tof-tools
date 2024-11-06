@@ -1,4 +1,4 @@
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
+import type { WeaponElementalType } from "../../../definitions/elemental-type";
 
 export interface MiscellaneousBuff {
   // TODO: calculations for these buffs

@@ -5,8 +5,8 @@ import {
   Paper,
   Tooltip,
   Typography,
-} from '@mui/material';
-import type { ChangeEvent, ReactNode } from 'react';
+} from "@mui/material";
+import type { ChangeEvent, ReactNode } from "react";
 
 export interface BoxCheckboxProps {
   isChecked: boolean;
@@ -34,10 +34,10 @@ export function BoxCheckbox({
       elevation={1}
       sx={{
         p: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '100%',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
       }}
     >
       <FormControlLabel
@@ -45,7 +45,7 @@ export function BoxCheckbox({
           <Checkbox
             checked={isChecked}
             onChange={handleChange}
-            inputProps={{ 'aria-label': 'controlled' }}
+            inputProps={{ "aria-label": "controlled" }}
           />
         }
         label={

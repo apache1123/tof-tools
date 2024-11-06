@@ -1,14 +1,14 @@
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography } from "@mui/material";
 
-import { NumericStringPercentage2dp } from '../components/NumericString/NumericString';
-import { getComparisonColor } from '../utils/color-utils';
+import { NumericStringPercentage2dp } from "../components/NumericString/NumericString";
+import { getComparisonColor } from "../utils/color-utils";
 
 export interface GearValueProps {
   gearValue: number;
   isGearValueHigher?: boolean;
   titanGearValue?: number;
   isTitanGearValueHigher?: boolean;
-  ['data-testid']?: string;
+  ["data-testid"]?: string;
 }
 
 export function GearValue({
@@ -16,10 +16,10 @@ export function GearValue({
   isGearValueHigher,
   titanGearValue,
   isTitanGearValueHigher,
-  'data-testid': dataTestId,
+  "data-testid": dataTestId,
 }: GearValueProps) {
   return (
-    <Paper elevation={2} square sx={{ p: 2, textAlign: 'center' }}>
+    <Paper elevation={2} square sx={{ p: 2, textAlign: "center" }}>
       <Typography>Value: </Typography>
       <Typography
         fontSize="1.5rem"
@@ -27,9 +27,9 @@ export function GearValue({
           color:
             isGearValueHigher !== undefined
               ? getComparisonColor(isGearValueHigher)
-              : 'inherit',
+              : "inherit",
         }}
-        data-testid={dataTestId ? `${dataTestId}-value` : 'gear-value'}
+        data-testid={dataTestId ? `${dataTestId}-value` : "gear-value"}
       >
         <NumericStringPercentage2dp value={gearValue} />
       </Typography>
@@ -41,10 +41,10 @@ export function GearValue({
             color={
               isTitanGearValueHigher !== undefined
                 ? getComparisonColor(isTitanGearValueHigher)
-                : 'inherit'
+                : "inherit"
             }
             data-testid={
-              dataTestId ? `${dataTestId}-max-titan-value` : 'max-titan-value'
+              dataTestId ? `${dataTestId}-max-titan-value` : "max-titan-value"
             }
           >
             <NumericStringPercentage2dp value={titanGearValue} />

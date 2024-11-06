@@ -1,10 +1,10 @@
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { Box, IconButton, InputBase, Paper, Stack } from '@mui/material';
-import { asUploadButton } from '@rpldy/upload-button';
-import UploadDropZone from '@rpldy/upload-drop-zone';
-import withPasteUpload from '@rpldy/upload-paste';
-import Uploady, { useBatchAddListener } from '@rpldy/uploady';
-import { forwardRef, useEffect, useRef } from 'react';
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { Box, IconButton, InputBase, Paper, Stack } from "@mui/material";
+import { asUploadButton } from "@rpldy/upload-button";
+import UploadDropZone from "@rpldy/upload-drop-zone";
+import withPasteUpload from "@rpldy/upload-paste";
+import Uploady, { useBatchAddListener } from "@rpldy/uploady";
+import { forwardRef, useEffect, useRef } from "react";
 
 export interface ImageSelectProps {
   onSelectedImageChange?(image: File): void;
@@ -17,7 +17,7 @@ const UploadButton = asUploadButton(
     <IconButton {...props} type="button" aria-label="Select image">
       <AddPhotoAlternateIcon />
     </IconButton>
-  ))
+  )),
 );
 
 const PasteInput = withPasteUpload(
@@ -28,11 +28,11 @@ const PasteInput = withPasteUpload(
       ref={ref}
       placeholder="Drag & drop, select or paste screenshot of gear"
       inputProps={{
-        'aria-label': 'Drag & drop, select or paste screenshot of gear',
+        "aria-label": "Drag & drop, select or paste screenshot of gear",
       }}
       fullWidth
     />
-  ))
+  )),
 );
 
 const PasteInputWithDropZone = () => (
@@ -48,7 +48,7 @@ const ImageSelectCustomInput = () => (
     component="form"
     sx={{
       p: 1,
-      width: '100%',
+      width: "100%",
     }}
   >
     <Stack direction="row" alignItems="center">

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from "path";
 
 /** Splits a file path string into an array of parts
  * @example splitFilePath('simulator-results/rei/rei0-brevey6-nanyin0.json')

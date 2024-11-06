@@ -1,10 +1,10 @@
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Typography } from '@mui/material';
-import { useSnapshot } from 'valtio';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Typography } from "@mui/material";
+import { useSnapshot } from "valtio";
 
-import { ButtonModal } from '../../components/Modal/ButtonModal';
-import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { loadoutsState } from '../../states/states';
+import { ButtonModal } from "../../components/Modal/ButtonModal";
+import { useAutoHideSnackbar } from "../../components/Snackbar/useAutoHideSnackbar";
+import { loadoutsState } from "../../states/states";
 
 export function DeleteLoadout() {
   const {
@@ -30,7 +30,7 @@ export function DeleteLoadout() {
         hideClose
         onConfirm={() => {
           loadoutsState.deleteSelectedLoadout();
-          showSnackbar('Loadout deleted');
+          showSnackbar("Loadout deleted");
         }}
         aria-label="delete-loadout"
       />

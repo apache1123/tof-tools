@@ -1,18 +1,18 @@
-import type { TypographyProps } from '@mui/material';
-import { Typography } from '@mui/material';
+import type { TypographyProps } from "@mui/material";
+import { Typography } from "@mui/material";
 
-import type { WeaponElementalType } from '../../definitions/elemental-type';
-import { pascalCaseToCamelCase } from '../../utils/string-utils';
+import type { WeaponElementalType } from "../../definitions/elemental-type";
+import { pascalCaseToCamelCase } from "../../utils/string-utils";
 
 export interface ElementalStyledTextProps
-  extends TypographyProps<'span', { component?: 'span' }> {
+  extends TypographyProps<"span", { component?: "span" }> {
   elementalType: WeaponElementalType;
 }
 
 export function ElementalStyledText({
   elementalType,
-  component = 'span',
-  variant = 'inherit',
+  component = "span",
+  variant = "inherit",
   children,
   ...rest
 }: ElementalStyledTextProps) {

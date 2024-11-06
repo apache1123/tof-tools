@@ -1,12 +1,12 @@
-import { Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import { useSnapshot } from 'valtio';
+import { Box, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import { useSnapshot } from "valtio";
 
-import { gearComparerState } from '../../states/states';
-import { LoadoutGear } from './LoadoutGear';
-import { LoadoutGearValue } from './LoadoutGearValue';
-import { ReplacementGear } from './ReplacementGear';
-import { ReplacementGearValue } from './ReplacementGearValue';
+import { gearComparerState } from "../../states/states";
+import { LoadoutGear } from "./LoadoutGear";
+import { LoadoutGearValue } from "./LoadoutGearValue";
+import { ReplacementGear } from "./ReplacementGear";
+import { ReplacementGearValue } from "./ReplacementGearValue";
 
 export function GearsSideBySide() {
   const {

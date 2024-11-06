@@ -1,8 +1,8 @@
-import { Autocomplete, Stack, TextField, Typography } from '@mui/material';
+import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 
-import { gearTypesLookup } from '../../definitions/gear-types';
-import type { GearType } from '../../models/gear-type';
-import { GearTypeIcon } from '../GearTypeIcon/GearTypeIcon';
+import { gearTypesLookup } from "../../definitions/gear-types";
+import type { GearType } from "../../models/gear-type";
+import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
 type Option = { gearType: GearType; isTitan?: boolean };
 
@@ -38,7 +38,7 @@ export const GearTypeSelector = ({
         <TextField {...params} label="Select gear type" variant="standard" />
       )}
       value={options?.find(
-        (option) => option.gearType.id === selectedGearType?.id
+        (option) => option.gearType.id === selectedGearType?.id,
       )}
       onChange={(_, { gearType }) => {
         if (onChange) {

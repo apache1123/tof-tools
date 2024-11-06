@@ -1,4 +1,4 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -9,21 +9,21 @@ import {
   Stack,
   Switch,
   Typography,
-} from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import Image from 'next/image';
-import type { ReactNode } from 'react';
+} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import Image from "next/image";
+import type { ReactNode } from "react";
 
-import { GearTypeIcon } from '../components/GearTypeIcon/GearTypeIcon';
-import type { CoreElementalType } from '../definitions/elemental-type';
-import type { Gear } from '../models/gear';
-import { getPossibleRandomStatTypes } from '../models/gear-type';
-import { RandomStat } from '../models/random-stat';
-import { GearAttackStatsSummary } from './GearAttackStatsSummary';
-import { GearRollBreakdown } from './GearRollBreakdown';
-import { GearStars } from './GearStars';
-import { EmptyStatEditor, StatEditor } from './StatEditor';
-import { TitanGearMaxStats } from './TitanGearMaxStats';
+import { GearTypeIcon } from "../components/GearTypeIcon/GearTypeIcon";
+import type { CoreElementalType } from "../definitions/elemental-type";
+import type { Gear } from "../models/gear";
+import { getPossibleRandomStatTypes } from "../models/gear-type";
+import { RandomStat } from "../models/random-stat";
+import { GearAttackStatsSummary } from "./GearAttackStatsSummary";
+import { GearRollBreakdown } from "./GearRollBreakdown";
+import { GearStars } from "./GearStars";
+import { EmptyStatEditor, StatEditor } from "./StatEditor";
+import { TitanGearMaxStats } from "./TitanGearMaxStats";
 
 export interface GearPieceProps {
   gearSnap: Gear;
@@ -37,7 +37,7 @@ export interface GearPieceProps {
   showStatSummary?: CoreElementalType;
   showMaxTitanGear?: { maxTitanGear: Gear | undefined };
   additionalAccordions?: ReactNode;
-  ['data-testid']?: string;
+  ["data-testid"]?: string;
 }
 
 export const GearPiece = ({
@@ -49,7 +49,7 @@ export const GearPiece = ({
   showStatSummary,
   showMaxTitanGear,
   additionalAccordions,
-  'data-testid': dataTestId,
+  "data-testid": dataTestId,
 }: GearPieceProps) => {
   const gearType = gearSnap.type;
   const isTitan = gearSnap.isAugmented;
@@ -144,9 +144,9 @@ export const GearPiece = ({
                     {gearSnap.stars !== 5 &&
                     gearSnap.getPossibleStars().length > 1 ? (
                       <Typography color="info.main" gutterBottom>
-                        Can&apos;t determine the number of stars{' '}
+                        Can&apos;t determine the number of stars{" "}
                         <strong>
-                          (either {gearSnap.getPossibleStars().join(' or ')}{' '}
+                          (either {gearSnap.getPossibleStars().join(" or ")}{" "}
                           stars)
                         </strong>
                         . Select it above to continue
@@ -202,7 +202,7 @@ function Layout({
   titanToggle,
   actions,
   summary,
-  'data-testid': dataTestId,
+  "data-testid": dataTestId,
 }: {
   typeIcon: ReactNode;
   typeSelector: ReactNode;
@@ -211,7 +211,7 @@ function Layout({
   titanToggle: ReactNode;
   actions: ReactNode;
   summary: ReactNode;
-  ['data-testid']?: string;
+  ["data-testid"]?: string;
 }) {
   return (
     <Paper sx={{ p: 2 }} square elevation={2} data-testid={dataTestId}>

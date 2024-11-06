@@ -1,18 +1,18 @@
-import { List, ListItem, ListItemText, Stack } from '@mui/material';
+import { List, ListItem, ListItemText, Stack } from "@mui/material";
 import type {
   TimelineAction,
   TimelineEffect,
   TimelineRow,
   TimelineState,
-} from '@xzdarcy/react-timeline-editor';
-import { Timeline } from '@xzdarcy/react-timeline-editor';
-import { useRef } from 'react';
+} from "@xzdarcy/react-timeline-editor";
+import { Timeline } from "@xzdarcy/react-timeline-editor";
+import { useRef } from "react";
 
-import type { CombatSimulatorSnapshot } from '../../models/v4/combat-simulator/combat-simulator-snapshot';
-import { AttackBuffEventRenderer } from './AttackBuffEventRenderer';
-import { AttackEventRenderer } from './AttackEventRenderer';
-import { CombatSimulatorTimelineScaleRenderer } from './CombatSimulatorTimelineScaleRenderer';
-import styles from './styles.module.css';
+import type { CombatSimulatorSnapshot } from "../../models/v4/combat-simulator/combat-simulator-snapshot";
+import { AttackBuffEventRenderer } from "./AttackBuffEventRenderer";
+import { AttackEventRenderer } from "./AttackEventRenderer";
+import { CombatSimulatorTimelineScaleRenderer } from "./CombatSimulatorTimelineScaleRenderer";
+import styles from "./styles.module.css";
 
 export interface CombatSimulatorTimelineRow extends TimelineRow {
   displayName: string;
@@ -23,7 +23,7 @@ export interface CombatSimulatorTimelineAction extends TimelineAction {
   effectId: CombatSimulatorTimelineEffectId;
 }
 
-export type CombatSimulatorTimelineEffectId = 'attack-event' | 'buff-event';
+export type CombatSimulatorTimelineEffectId = "attack-event" | "buff-event";
 export interface CombatSimulatorTimelineEffect extends TimelineEffect {
   id: CombatSimulatorTimelineEffectId;
 }
@@ -32,11 +32,11 @@ const effects: Record<
   CombatSimulatorTimelineEffectId,
   CombatSimulatorTimelineEffect
 > = {
-  'attack-event': {
-    id: 'attack-event',
+  "attack-event": {
+    id: "attack-event",
   },
-  'buff-event': {
-    id: 'buff-event',
+  "buff-event": {
+    id: "buff-event",
   },
 };
 
@@ -59,8 +59,8 @@ export function CombatSimulatorTimeline({
               displayName: event.attackDisplayName,
               start: event.startTime,
               end: event.endTime,
-              effectId: 'attack-event',
-            })
+              effectId: "attack-event",
+            }),
           ),
         classNames: [styles.timelineRow],
       }))
@@ -73,10 +73,10 @@ export function CombatSimulatorTimeline({
             displayName: attack.displayName,
             start: event.startTime,
             end: event.endTime,
-            effectId: 'attack-event',
+            effectId: "attack-event",
           })),
           classNames: [styles.timelineRow],
-        }))
+        })),
       )
       .concat(
         combatSimulatorSnapshot.buffs.map((buff) => ({
@@ -87,10 +87,10 @@ export function CombatSimulatorTimeline({
             displayName: `${buff.displayName}`,
             start: event.startTime,
             end: event.endTime,
-            effectId: 'buff-event',
+            effectId: "buff-event",
           })),
           classNames: [styles.timelineRow],
-        }))
+        })),
       )
       .concat(
         combatSimulatorSnapshot.resources.map((resource) => ({
@@ -101,10 +101,10 @@ export function CombatSimulatorTimeline({
             displayName: `${resource.displayName} - Amount: ${event.amount}. Cumulated: ${event.cumulatedAmount}`,
             start: event.startTime,
             end: event.endTime,
-            effectId: 'buff-event',
+            effectId: "buff-event",
           })),
           classNames: [styles.timelineRow],
-        }))
+        })),
       );
 
   const listRef = useRef<HTMLUListElement>(null);
@@ -120,14 +120,14 @@ export function CombatSimulatorTimeline({
             timelineRef.current.setScrollTop(target.scrollTop);
           }
         }}
-        sx={{ mt: '34px', height: 1166, overflow: 'scroll' }}
+        sx={{ mt: "34px", height: 1166, overflow: "scroll" }}
       >
         {editorData.map((row, i) => (
           <ListItem key={i} sx={{ height: 32 }} disablePadding>
             <ListItemText
               primary={row.displayName}
-              primaryTypographyProps={{ variant: 'body2' }}
-              sx={{ whiteSpace: 'nowrap' }}
+              primaryTypographyProps={{ variant: "body2" }}
+              sx={{ whiteSpace: "nowrap" }}
             />
           </ListItem>
         ))}
@@ -139,7 +139,7 @@ export function CombatSimulatorTimeline({
         autoScroll={true}
         getActionRender={(action) => {
           const typedAction = action as CombatSimulatorTimelineAction;
-          if (typedAction.effectId === 'attack-event') {
+          if (typedAction.effectId === "attack-event") {
             return <AttackEventRenderer action={typedAction} />;
           } else {
             return <AttackBuffEventRenderer action={typedAction} />;
@@ -149,7 +149,7 @@ export function CombatSimulatorTimeline({
         getScaleRender={(scale) => (
           <CombatSimulatorTimelineScaleRenderer scale={scale} />
         )}
-        style={{ width: '100%', height: 1200 }}
+        style={{ width: "100%", height: 1200 }}
         ref={timelineRef}
         onScroll={({ scrollTop }) => {
           if (listRef.current) {

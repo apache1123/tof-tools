@@ -1,14 +1,14 @@
-import { Box, Stack, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import type { ReactNode } from 'react';
+import { Box, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import type { ReactNode } from "react";
 
-import type { NumericInputProps } from '../components/NumericInput/NumericInput';
-import { NumericInput } from '../components/NumericInput/NumericInput';
-import { PercentageNumericInput } from '../components/NumericInput/PercentageNumericInput';
-import { StatTypeIcon } from '../components/StatTypeIcon/StatTypeIcon';
-import { StatTypeSelector } from '../components/StatTypeSelector/StatTypeSelector';
-import type { RandomStat } from '../models/random-stat';
-import type { StatType } from '../models/stat-type';
+import type { NumericInputProps } from "../components/NumericInput/NumericInput";
+import { NumericInput } from "../components/NumericInput/NumericInput";
+import { PercentageNumericInput } from "../components/NumericInput/PercentageNumericInput";
+import { StatTypeIcon } from "../components/StatTypeIcon/StatTypeIcon";
+import { StatTypeSelector } from "../components/StatTypeSelector/StatTypeSelector";
+import type { RandomStat } from "../models/random-stat";
+import type { StatType } from "../models/stat-type";
 
 export interface StatEditorProps {
   statSnap: RandomStat;
@@ -46,7 +46,7 @@ export const StatEditor = ({
           onChange={(value) => {
             statState.value = value;
           }}
-          label={isAugmented ? 'Base' : undefined}
+          label={isAugmented ? "Base" : undefined}
           aria-label="stat-value-input"
         />
       }
@@ -81,7 +81,7 @@ export const StatEditor = ({
 };
 
 interface EmptyStatEditorProps
-  extends Pick<StatEditorProps, 'possibleStatTypes' | 'isAugmented'> {
+  extends Pick<StatEditorProps, "possibleStatTypes" | "isAugmented"> {
   onStatTypeChange(statType: StatType): void;
 }
 
@@ -101,7 +101,7 @@ export const EmptyStatEditor = ({
         />
       }
       valueInput={
-        <NumericInput disabled label={isAugmented ? 'Base' : undefined} />
+        <NumericInput disabled label={isAugmented ? "Base" : undefined} />
       }
       augmentIncreaseValueInput={
         isAugmented && (
@@ -129,12 +129,12 @@ function StatInput({
   onChange,
   disabled,
   label,
-  ['aria-label']: ariaLabel,
+  ["aria-label"]: ariaLabel,
 }: {
   isPercentageBased: boolean;
 } & Pick<
   NumericInputProps,
-  'value' | 'onChange' | 'disabled' | 'label' | 'aria-label'
+  "value" | "onChange" | "disabled" | "label" | "aria-label"
 >) {
   return isPercentageBased ? (
     <PercentageNumericInput

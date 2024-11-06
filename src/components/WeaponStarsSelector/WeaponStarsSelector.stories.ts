@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { WeaponStarsSelector } from './WeaponStarsSelector';
+import { WeaponStarsSelector } from "./WeaponStarsSelector";
 
 const meta: Meta<typeof WeaponStarsSelector> = {
-  title: 'Weapon Stars Selector',
+  title: "Weapon Stars Selector",
   component: WeaponStarsSelector,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;

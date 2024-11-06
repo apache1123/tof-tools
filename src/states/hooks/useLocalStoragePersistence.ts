@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
-import { proxy, subscribe } from 'valtio';
-import { devtools, proxySet } from 'valtio/utils';
+import { useEffect } from "react";
+import { proxy, subscribe } from "valtio";
+import { devtools, proxySet } from "valtio/utils";
 
-import type { Dto } from '../../models/dto';
-import type { Persistable } from '../../models/persistable';
+import type { Dto } from "../../models/dto";
+import type { Persistable } from "../../models/persistable";
 
 export const localStoragePersistenceState = proxy<{
   persistedKeys: Set<string>;
 }>({
   persistedKeys: proxySet(),
 });
-devtools(localStoragePersistenceState, { name: 'localStoragePersistence' });
+devtools(localStoragePersistenceState, { name: "localStoragePersistence" });
 
 export function useLocalStoragePersistence<TObjectDto extends Dto>(
   proxyState: Persistable<TObjectDto>,
-  key: string
+  key: string,
 ) {
   useEffect(() => {
     if (localStorage.getItem(key)) {
@@ -23,7 +23,7 @@ export function useLocalStoragePersistence<TObjectDto extends Dto>(
     }
 
     const unsubscribe = subscribe(proxyState, () =>
-      localStorage.setItem(key, JSON.stringify(proxyState.toDto()))
+      localStorage.setItem(key, JSON.stringify(proxyState.toDto())),
     );
 
     localStoragePersistenceState.persistedKeys.add(key);

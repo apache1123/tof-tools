@@ -1,12 +1,12 @@
-import groupBy from 'lodash.groupby';
+import groupBy from "lodash.groupby";
 
-import type { WeaponElementalType } from '../../../../definitions/elemental-type';
-import { DamageBuffAggregate } from '../damage-buff/damage-buff-aggregate';
-import type { ElementalDamageBuff } from './elemental-damage-buff';
+import type { WeaponElementalType } from "../../../../definitions/elemental-type";
+import { DamageBuffAggregate } from "../damage-buff/damage-buff-aggregate";
+import type { ElementalDamageBuff } from "./elemental-damage-buff";
 
 export class ElementalDamageBuffAggregate {
   public constructor(
-    private readonly elementalDamageBuffs: ElementalDamageBuff[]
+    private readonly elementalDamageBuffs: ElementalDamageBuff[],
   ) {}
 
   public getAggregatedResult(): ElementalDamageBuffAggregatedResult {
@@ -20,7 +20,7 @@ export class ElementalDamageBuffAggregate {
 
     const buffsByElement = groupBy(
       this.elementalDamageBuffs,
-      (buff) => buff.elementalType
+      (buff) => buff.elementalType,
     );
 
     (Object.keys(buffsByElement) as WeaponElementalType[]).forEach(
@@ -29,11 +29,11 @@ export class ElementalDamageBuffAggregate {
         if (!buffs) return;
 
         const damageBuffAggregatedResult = new DamageBuffAggregate(
-          buffs
+          buffs,
         ).getAggregatedResult();
         damagePercentByElement[elementalType] =
           damageBuffAggregatedResult.damagePercent;
-      }
+      },
     );
 
     return { damagePercentByElement };

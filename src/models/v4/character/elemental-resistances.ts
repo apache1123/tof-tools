@@ -1,11 +1,11 @@
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import { sum } from '../../../utils/math-utils';
+import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import { sum } from "../../../utils/math-utils";
 
 export class ElementalResistances {
   private readonly _elementalResistances: Record<WeaponElementalType, number>;
 
   public constructor(
-    elementalResistances: Record<WeaponElementalType, number>
+    elementalResistances: Record<WeaponElementalType, number>,
   ) {
     this._elementalResistances = elementalResistances;
   }

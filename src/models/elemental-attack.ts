@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import type { Dto } from './dto';
-import type { Persistable } from './persistable';
+import type { Dto } from "./dto";
+import type { Persistable } from "./persistable";
 
 export class ElementalAttack implements Persistable<ElementalAttackDto> {
   private _baseAttack = 0;

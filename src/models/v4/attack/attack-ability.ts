@@ -1,22 +1,22 @@
-import type { AttackType } from '../../../definitions/attack-type';
-import type { Serializable } from '../../persistable';
-import type { Weapon } from '../../weapon';
-import { Ability } from '../ability/ability';
-import type { AbilityId } from '../ability/ability-id';
-import type { AbilityRequirements } from '../ability/ability-requirements';
-import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { ActiveWeapon } from '../active-weapon/active-weapon';
-import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
-import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-damage-modifiers-definition';
-import type { EventManager } from '../event/event-manager';
-import type { CurrentResources } from '../resource/current-resource/current-resources';
-import type { CurrentTick } from '../tick/current-tick';
-import type { TimeInterval } from '../time-interval/time-interval';
-import type { AttackElementalType } from './attack-elemental-type';
-import { AttackEvent } from './attack-event';
-import type { AttackHitCount } from './attack-hit-count';
-import type { AttackTimeline } from './attack-timeline';
-import type { AttackDto } from './dtos/attack-dto';
+import type { AttackType } from "../../../definitions/attack-type";
+import type { Serializable } from "../../persistable";
+import type { Weapon } from "../../weapon";
+import { Ability } from "../ability/ability";
+import type { AbilityId } from "../ability/ability-id";
+import type { AbilityRequirements } from "../ability/ability-requirements";
+import type { AbilityUpdatesResource } from "../ability/ability-updates-resource";
+import type { ActiveWeapon } from "../active-weapon/active-weapon";
+import type { BaseDamageModifiersDefinition } from "../damage-modifiers/base-damage-modifiers-definition";
+import type { FinalDamageModifiersDefinition } from "../damage-modifiers/final-damage-modifiers-definition";
+import type { EventManager } from "../event/event-manager";
+import type { CurrentResources } from "../resource/current-resource/current-resources";
+import type { CurrentTick } from "../tick/current-tick";
+import type { TimeInterval } from "../time-interval/time-interval";
+import type { AttackElementalType } from "./attack-elemental-type";
+import { AttackEvent } from "./attack-event";
+import type { AttackHitCount } from "./attack-hit-count";
+import type { AttackTimeline } from "./attack-timeline";
+import type { AttackDto } from "./dtos/attack-dto";
 
 export class AttackAbility
   extends Ability<AttackEvent>
@@ -43,7 +43,7 @@ export class AttackAbility
     private readonly hitCount: AttackHitCount,
     private readonly doesNotTriggerEvents: boolean,
     private readonly activeWeapon: ActiveWeapon,
-    private readonly currentResources: CurrentResources
+    private readonly currentResources: CurrentResources,
   ) {
     super(
       id,
@@ -55,7 +55,7 @@ export class AttackAbility
       updatesResources,
       timeline,
       eventManager,
-      currentTick
+      currentTick,
     );
   }
 
@@ -83,7 +83,7 @@ export class AttackAbility
       this.finalDamageModifiers,
       this.hitCount,
       this.weapon,
-      this.currentResources
+      this.currentResources,
     );
   }
 
@@ -115,12 +115,12 @@ export class AttackAbility
     if (!isForegroundAttack) return true;
 
     if (this.activeWeapon.current === this.weapon) {
-      return type !== 'discharge';
+      return type !== "discharge";
     }
 
     // Not active weapon
     return (
-      type === 'discharge' && this.currentResources.currentCharge.hasFullCharge
+      type === "discharge" && this.currentResources.currentCharge.hasFullCharge
     );
   }
 }

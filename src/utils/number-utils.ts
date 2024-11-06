@@ -1,19 +1,19 @@
 export function toPercentageString(number: number) {
-  return number.toLocaleString(undefined, { style: 'percent' });
+  return number.toLocaleString(undefined, { style: "percent" });
 }
 
 export function toPercentageString2dp(number: number) {
   return number.toLocaleString(undefined, {
-    style: 'percent',
+    style: "percent",
     maximumFractionDigits: 2,
   });
 }
 
 export function toSignedPercentageString1dp(number: number) {
   return number.toLocaleString(undefined, {
-    style: 'percent',
+    style: "percent",
     maximumFractionDigits: 1,
-    signDisplay: 'always',
+    signDisplay: "always",
   });
 }
 

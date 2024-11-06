@@ -1,10 +1,10 @@
-import { EventManager } from '../../event/event-manager';
-import { ResourceTimeline } from '../../resource-timeline/resource-timeline';
-import { CurrentTick } from '../../tick/current-tick';
-import { Resource } from '../resource';
+import { EventManager } from "../../event/event-manager";
+import { ResourceTimeline } from "../../resource-timeline/resource-timeline";
+import { CurrentTick } from "../../tick/current-tick";
+import { Resource } from "../resource";
 
-const id = 'id';
-const displayName = 'displayName';
+const id = "id";
+const displayName = "displayName";
 const maxAmount = 100;
 const startingAmount = 0;
 const regenerate = { amountPerSecond: 20 };
@@ -14,7 +14,7 @@ let eventManager: EventManager;
 let currentTick: CurrentTick;
 let sut: Resource;
 
-describe('Resource', () => {
+describe("Resource", () => {
   beforeEach(() => {
     timeline = new ResourceTimeline(endTime);
     eventManager = new EventManager();
@@ -32,13 +32,13 @@ describe('Resource', () => {
       regenerate,
       timeline,
       eventManager,
-      currentTick
+      currentTick,
     );
     sut.subscribeToEvents();
   }
 
-  describe('adding resource amount', () => {
-    it('should add the correct amount', () => {
+  describe("adding resource amount", () => {
+    it("should add the correct amount", () => {
       sut.add(10);
       expect(sut.getCumulatedAmount()).toBe(0);
 
@@ -47,20 +47,20 @@ describe('Resource', () => {
       expect(sut.getCumulatedAmount()).toBe(20);
     });
 
-    it('should not add more than max amount, in one add', () => {
+    it("should not add more than max amount, in one add", () => {
       sut.add(150);
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(maxAmount);
     });
 
-    it('should not add more than max amount, in multiple adds over the same tick', () => {
+    it("should not add more than max amount, in multiple adds over the same tick", () => {
       sut.add(50);
       sut.add(100);
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(maxAmount);
     });
 
-    it('should not add more than max amount, in multiple adds over multiple ticks', () => {
+    it("should not add more than max amount, in multiple adds over multiple ticks", () => {
       sut.add(50);
       currentTick.advance();
       sut.add(100);
@@ -68,7 +68,7 @@ describe('Resource', () => {
       expect(sut.getCumulatedAmount()).toBe(maxAmount);
     });
 
-    it('should add only the prioritized amount, ignoring all others in the same tick', () => {
+    it("should add only the prioritized amount, ignoring all others in the same tick", () => {
       sut.add(50);
       sut.add(20);
       sut.add(10, true);
@@ -77,7 +77,7 @@ describe('Resource', () => {
       expect(sut.getCumulatedAmount()).toBe(40);
     });
 
-    it('can add negative amounts, but not below 0', () => {
+    it("can add negative amounts, but not below 0", () => {
       sut.add(50);
       currentTick.advance();
       sut.add(-5);
@@ -89,8 +89,8 @@ describe('Resource', () => {
     });
   });
 
-  describe('depleting resource', () => {
-    it('should deplete the correct amount', () => {
+  describe("depleting resource", () => {
+    it("should deplete the correct amount", () => {
       sut.add(50);
       currentTick.advance();
       sut.deplete();
@@ -98,7 +98,7 @@ describe('Resource', () => {
       expect(sut.getCumulatedAmount()).toBe(0);
     });
 
-    it('should prioritize deplete over other resource events', () => {
+    it("should prioritize deplete over other resource events", () => {
       sut.add(50);
       currentTick.advance();
       sut.add(10, true);
@@ -109,8 +109,8 @@ describe('Resource', () => {
     });
   });
 
-  describe('On tick advancing', () => {
-    it('should passive regenerate resource amount only when there are no other resource events', () => {
+  describe("On tick advancing", () => {
+    it("should passive regenerate resource amount only when there are no other resource events", () => {
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(20);
 
@@ -126,8 +126,8 @@ describe('Resource', () => {
       expect(sut.getCumulatedAmount()).toBe(20);
     });
 
-    it('should public resource updated event when the resource amount changes', () => {
-      const spy = jest.spyOn(eventManager, 'publishResourceUpdated');
+    it("should public resource updated event when the resource amount changes", () => {
+      const spy = jest.spyOn(eventManager, "publishResourceUpdated");
       const sut = new Resource(
         id,
         displayName,
@@ -136,7 +136,7 @@ describe('Resource', () => {
         regenerate,
         timeline,
         eventManager,
-        currentTick
+        currentTick,
       );
       sut.add(10);
       currentTick.advance();
@@ -144,10 +144,10 @@ describe('Resource', () => {
     });
   });
 
-  describe('subscribing to events', () => {
+  describe("subscribing to events", () => {
     // We always need to advance two ticks for request events to take effect because - the resource request is requested at tick 1, acted upon in tick 2 (in which the resource amount is updated), then the result will be visible at the start of tick 3
 
-    it('should handle resource update requests', () => {
+    it("should handle resource update requests", () => {
       regenerate.amountPerSecond = 0;
       eventManager.publishResourceUpdateRequest({
         id,
@@ -155,7 +155,7 @@ describe('Resource', () => {
         hasPriority: false,
       });
       eventManager.publishResourceUpdateRequest({
-        id: 'some-other-id',
+        id: "some-other-id",
         amount: 20,
         hasPriority: false,
       });
@@ -165,12 +165,12 @@ describe('Resource', () => {
       expect(sut.getCumulatedAmount()).toBe(10);
     });
 
-    it('should handle resource deplete requests', () => {
+    it("should handle resource deplete requests", () => {
       sut.add(10);
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(10);
 
-      eventManager.publishResourceDepleteRequest({ id: 'some-other-id' });
+      eventManager.publishResourceDepleteRequest({ id: "some-other-id" });
       currentTick.advance();
       currentTick.advance();
       expect(sut.getCumulatedAmount()).toBe(10);

@@ -1,15 +1,15 @@
-import type { MockProxy } from 'jest-mock-extended';
-import { mock } from 'jest-mock-extended';
+import type { MockProxy } from "jest-mock-extended";
+import { mock } from "jest-mock-extended";
 
-import { repeat } from '../../../../utils/test-utils';
-import { EventManager } from '../../event/event-manager';
-import { CurrentTick } from '../../tick/current-tick';
-import type { Ability } from '../ability';
-import { ConcreteAbility } from '../ability';
-import type { AbilityId } from '../ability-id';
-import type { AbilityRequirements } from '../ability-requirements';
-import { AbilityTimeline } from '../ability-timeline';
-import type { AbilityUpdatesResource } from '../ability-updates-resource';
+import { repeat } from "../../../../utils/test-utils";
+import { EventManager } from "../../event/event-manager";
+import { CurrentTick } from "../../tick/current-tick";
+import type { Ability } from "../ability";
+import { ConcreteAbility } from "../ability";
+import type { AbilityId } from "../ability-id";
+import type { AbilityRequirements } from "../ability-requirements";
+import { AbilityTimeline } from "../ability-timeline";
+import type { AbilityUpdatesResource } from "../ability-updates-resource";
 
 let id: AbilityId;
 let displayName: string;
@@ -24,10 +24,10 @@ let currentTick: CurrentTick;
 
 let sut: Ability;
 
-describe('Ability', () => {
+describe("Ability", () => {
   beforeEach(() => {
-    id = 'id';
-    displayName = 'displayName';
+    id = "id";
+    displayName = "displayName";
     cooldown = 1999;
     duration = 5000;
     canBePlayerTriggered = true;
@@ -54,13 +54,13 @@ describe('Ability', () => {
       updatesResources,
       timeline,
       eventManager,
-      currentTick
+      currentTick,
     );
     sut.subscribeToEvents();
   }
 
-  describe('Can trigger', () => {
-    it('returns false when there is an event on cooldown', () => {
+  describe("Can trigger", () => {
+    it("returns false when there is an event on cooldown", () => {
       expect(sut.canTrigger()).toBe(true);
       sut.trigger();
       expect(sut.canTrigger()).toBe(false);
@@ -72,24 +72,24 @@ describe('Ability', () => {
       expect(sut.canTrigger()).toBe(true);
     });
 
-    it('returns false when requirements are not met', () => {
+    it("returns false when requirements are not met", () => {
       // Requirements class tested in its own tests
       requirements.haveBeenMet.mockReturnValue(false);
       expect(sut.canTrigger()).toBe(false);
     });
   });
 
-  describe('Trigger', () => {
+  describe("Trigger", () => {
     let publishAbilityStartedSpy: jest.SpyInstance;
 
     beforeEach(() => {
       publishAbilityStartedSpy = jest.spyOn(
         eventManager,
-        'publishAbilityStarted'
+        "publishAbilityStarted",
       );
     });
 
-    it('should create a new timeline event with a fixed duration if the duration is defined', () => {
+    it("should create a new timeline event with a fixed duration if the duration is defined", () => {
       sut.trigger();
       expect(timeline.events[0].duration).toBe(5000);
     });
@@ -101,29 +101,29 @@ describe('Ability', () => {
       expect(timeline.events[0].duration).toBe(100000);
     });
 
-    it('should publish the ability started event', () => {
+    it("should publish the ability started event", () => {
       sut.trigger();
       expect(publishAbilityStartedSpy).toHaveBeenCalledWith({
         id,
       });
     });
 
-    it('should do nothing if ability cannot be triggered', () => {
+    it("should do nothing if ability cannot be triggered", () => {
       requirements.haveBeenMet.mockReturnValue(false);
       sut.trigger();
       expect(timeline.events.length).toBe(0);
       expect(publishAbilityStartedSpy).not.toHaveBeenCalled();
     });
 
-    it('can take on a custom ability duration', () => {
+    it("can take on a custom ability duration", () => {
       const customDuration = 555;
       sut.trigger({ duration: customDuration });
       expect(timeline.events[0].duration).toBe(customDuration);
     });
   });
 
-  describe('Is ongoing', () => {
-    it('should return true if there is an ongoing event', () => {
+  describe("Is ongoing", () => {
+    it("should return true if there is an ongoing event", () => {
       expect(sut.isOngoing()).toBe(false);
       sut.trigger();
       expect(sut.isOngoing()).toBe(true);
@@ -139,8 +139,8 @@ describe('Ability', () => {
     });
   });
 
-  describe('On tick advancing', () => {
-    it('should terminate an ongoing timeline event if the requirements are no longer met', () => {
+  describe("On tick advancing", () => {
+    it("should terminate an ongoing timeline event if the requirements are no longer met", () => {
       sut.trigger();
 
       currentTick.advance(); // -> 1000-2000

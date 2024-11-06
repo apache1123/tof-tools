@@ -1,3 +1,3 @@
-import type { TimelineEventDto } from '../../timeline/dtos/timeline-event-dto';
+import type { TimelineEventDto } from "../../timeline/dtos/timeline-event-dto";
 
 export type DamageSummaryEventDto = TimelineEventDto;

@@ -1,15 +1,15 @@
-import type { WeaponName } from '../../../definitions/weapons/weapon-definitions';
-import type { EventManager } from '../event/event-manager';
-import type { EventSubscriber } from '../event/event-subscriber';
-import type { AbilityEndedMessage } from '../event/messages/ability-ended';
-import type { AbilityStartedMessage } from '../event/messages/ability-started';
-import type { AbilityTriggerRequest } from '../event/messages/ability-trigger-request';
-import type { AttackHit } from '../event/messages/attack-hit';
-import type { ResourceUpdated } from '../event/messages/resource-updated';
-import type { ResourceId } from '../resource/resource-definition';
-import type { Ability } from './ability';
-import type { AbilityId } from './ability-id';
-import type { AbilityTriggerOptions } from './ability-trigger-options';
+import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { EventManager } from "../event/event-manager";
+import type { EventSubscriber } from "../event/event-subscriber";
+import type { AbilityEndedMessage } from "../event/messages/ability-ended";
+import type { AbilityStartedMessage } from "../event/messages/ability-started";
+import type { AbilityTriggerRequest } from "../event/messages/ability-trigger-request";
+import type { AttackHit } from "../event/messages/attack-hit";
+import type { ResourceUpdated } from "../event/messages/resource-updated";
+import type { ResourceId } from "../resource/resource-definition";
+import type { Ability } from "./ability";
+import type { AbilityId } from "./ability-id";
+import type { AbilityTriggerOptions } from "./ability-trigger-options";
 
 export class AbilityTrigger implements EventSubscriber {
   public constructor(
@@ -23,7 +23,7 @@ export class AbilityTrigger implements EventSubscriber {
       any?: boolean;
       ofWeapon?: WeaponName;
     },
-    private readonly triggerOnResourceUpdate?: ResourceId
+    private readonly triggerOnResourceUpdate?: ResourceId,
   ) {}
 
   public get id() {

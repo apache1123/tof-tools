@@ -1,5 +1,5 @@
-import type { AbilityRegistryDto } from '../../ability/dtos/ability-registry-dto';
-import type { AttackDto } from './attack-dto';
+import type { AbilityRegistryDto } from "../../ability/dtos/ability-registry-dto";
+import type { AttackDto } from "./attack-dto";
 
 export interface AttackRegistryDto extends AbilityRegistryDto {
   activeAttacks: AttackDto[];

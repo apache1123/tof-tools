@@ -1,6 +1,6 @@
-import { Box, Tooltip } from '@mui/material';
+import { Box, Tooltip } from "@mui/material";
 
-import type { CombatSimulatorTimelineAction } from './CombatSimulatorTimeline';
+import type { CombatSimulatorTimelineAction } from "./CombatSimulatorTimeline";
 
 export function AttackBuffEventRenderer({
   action,

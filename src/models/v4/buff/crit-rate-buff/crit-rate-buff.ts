@@ -1,4 +1,4 @@
-import { Buff } from '../buff';
+import { Buff } from "../buff";
 
 export class CritRateBuff extends Buff {
   public override canApplyTo(): boolean {

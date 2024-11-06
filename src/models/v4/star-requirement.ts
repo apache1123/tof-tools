@@ -3,7 +3,10 @@ export interface StarRequirement {
   maxStarRequirement: number;
 }
 
-export function hasMetStarRequirement(requirement: StarRequirement, stars: number) {
+export function hasMetStarRequirement(
+  requirement: StarRequirement,
+  stars: number,
+) {
   return (
     stars >= requirement.minStarRequirement &&
     stars <= requirement.maxStarRequirement

@@ -1,9 +1,9 @@
-import { stateMigrations } from './state-migrations';
+import { stateMigrations } from "./state-migrations";
 
 export interface StateMigrationsState {
   version: number;
 }
-export const stateMigrationsStateKey = 'state-migrations';
+export const stateMigrationsStateKey = "state-migrations";
 
 export function migrateStatesToLatestVersion() {
   const stateMigrationsState = getStateMigrationsState();
@@ -16,12 +16,12 @@ export function migrateStatesToLatestVersion() {
   }
 
   const migration = stateMigrations.find(
-    (migration) => migration.version === version
+    (migration) => migration.version === version,
   );
 
   if (!migration) {
     throw new Error(
-      `Could not find migration for version ${version} to ${latestVersion}`
+      `Could not find migration for version ${version} to ${latestVersion}`,
     );
   }
 
@@ -35,7 +35,7 @@ function getStateMigrationsState(): StateMigrationsState {
   return localStorage.getItem(stateMigrationsStateKey)
     ? (JSON.parse(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        localStorage.getItem(stateMigrationsStateKey)!
+        localStorage.getItem(stateMigrationsStateKey)!,
       ) as StateMigrationsState)
     : { version: 1 };
 }
@@ -43,6 +43,6 @@ function getStateMigrationsState(): StateMigrationsState {
 function setStateMigrationsState(stateMigrationsState: StateMigrationsState) {
   localStorage.setItem(
     stateMigrationsStateKey,
-    JSON.stringify(stateMigrationsState)
+    JSON.stringify(stateMigrationsState),
   );
 }

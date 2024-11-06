@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { WeaponIcon } from './WeaponIcon';
+import { WeaponIcon } from "./WeaponIcon";
 
 const meta: Meta<typeof WeaponIcon> = {
-  title: 'Weapon Icon',
+  title: "Weapon Icon",
   component: WeaponIcon,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -13,8 +13,8 @@ type Story = StoryObj<typeof WeaponIcon>;
 
 export const Initial: Story = {
   args: {
-    weaponName: 'Nola',
+    weaponName: "Nola",
     size: 100,
-    elementalIcon: 'Flame-Physical',
+    elementalIcon: "Flame-Physical",
   },
 };

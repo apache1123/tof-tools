@@ -1,5 +1,5 @@
-import { damageCalculatorDefaults } from '../../../definitions/damage-calculator-defaults';
-import { Relics } from '../relics/relics';
+import { damageCalculatorDefaults } from "../../../definitions/damage-calculator-defaults";
+import { Relics } from "../relics/relics";
 
 export function getDefaultRelics() {
   const { makeAllRelicsMaxStars } = damageCalculatorDefaults;

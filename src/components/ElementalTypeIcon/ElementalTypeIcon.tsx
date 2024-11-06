@@ -1,7 +1,7 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import type { FusionWeaponElementalType } from '../../definitions/elemental-type';
-import { pascalCaseToKebabCase } from '../../utils/string-utils';
+import type { FusionWeaponElementalType } from "../../definitions/elemental-type";
+import { pascalCaseToKebabCase } from "../../utils/string-utils";
 
 export interface ElementalTypeIconProps {
   elementalType: FusionWeaponElementalType;

@@ -1,10 +1,10 @@
-import type { RelicName } from '../../../definitions/relics';
-import { maxRelicStars, relicsLookup } from '../../../definitions/relics';
-import { keysOf } from '../../../utils/object-utils';
-import type { DataById } from '../../data';
-import type { Dto } from '../../dto';
-import type { Persistable } from '../../persistable';
-import type { RelicBuffDefinition } from './relic-buff-definition';
+import type { RelicName } from "../../../definitions/relics";
+import { maxRelicStars, relicsLookup } from "../../../definitions/relics";
+import { keysOf } from "../../../utils/object-utils";
+import type { DataById } from "../../data";
+import type { Dto } from "../../dto";
+import type { Persistable } from "../../persistable";
+import type { RelicBuffDefinition } from "./relic-buff-definition";
 
 export class Relics implements Persistable<RelicsDto> {
   private readonly _relicStars: DataById<RelicName, number>;
@@ -24,7 +24,7 @@ export class Relics implements Persistable<RelicsDto> {
   public setRelicStars(relicName: RelicName, stars: number) {
     this._relicStars[relicName] = Math.min(
       Math.max(Math.floor(stars), 0),
-      maxRelicStars
+      maxRelicStars,
     );
   }
 
@@ -43,7 +43,7 @@ export class Relics implements Persistable<RelicsDto> {
           }) =>
             combatStart &&
             stars >= minStarRequirement &&
-            stars <= maxStarRequirement
+            stars <= maxStarRequirement,
         );
         return buffs || [];
       }

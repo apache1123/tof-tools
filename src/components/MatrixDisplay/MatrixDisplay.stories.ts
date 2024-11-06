@@ -1,22 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { MatrixSet } from '../../models/matrix-set';
-import { getMatrixSetDefinition } from '../../models/matrix-set-definition';
-import { MatrixDisplay } from './MatrixDisplay';
+import { MatrixSet } from "../../models/matrix-set";
+import { getMatrixSetDefinition } from "../../models/matrix-set-definition";
+import { MatrixDisplay } from "./MatrixDisplay";
 
 const meta: Meta<typeof MatrixDisplay> = {
-  title: 'Matrix Display',
+  title: "Matrix Display",
   component: MatrixDisplay,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<typeof MatrixDisplay>;
 
-const matrixSet2pc = new MatrixSet(getMatrixSetDefinition('Alyss 2pc'));
+const matrixSet2pc = new MatrixSet(getMatrixSetDefinition("Alyss 2pc"));
 matrixSet2pc.stars = 3;
 
-const matrixSet4pc = new MatrixSet(getMatrixSetDefinition('Alyss 4pc'));
+const matrixSet4pc = new MatrixSet(getMatrixSetDefinition("Alyss 4pc"));
 matrixSet4pc.stars = 1;
 
 export const TwoPiece: Story = {

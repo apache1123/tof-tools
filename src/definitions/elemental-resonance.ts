@@ -1,7 +1,7 @@
 export type ElementalResonance =
-  | 'None'
-  | 'Altered'
-  | 'Flame'
-  | 'Frost'
-  | 'Physical'
-  | 'Volt';
+  | "None"
+  | "Altered"
+  | "Flame"
+  | "Frost"
+  | "Physical"
+  | "Volt";

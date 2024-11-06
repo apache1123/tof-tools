@@ -1,23 +1,23 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import { product, sum } from '../../../utils/math-utils';
-import type { Serializable } from '../../persistable';
-import type { ActiveBuffs } from '../buff/active-buff/active-buffs';
-import type { Buff } from '../buff/buff';
-import { ElementalDamageBuffAggregate } from '../buff/elemental-damage-buff/elemental-damage-buff-aggregate';
-import { FinalDamageBuffAggregate } from '../buff/final-damage-buff/final-damage-buff-aggregate';
-import type { UtilizedBuffs } from '../buff/utilized-buffs';
-import type { CurrentCharacterStats } from '../character/current-character-stats';
-import { Damage } from '../damage/damage';
-import type { EventManager } from '../event/event-manager';
-import type { EventSubscriber } from '../event/event-subscriber';
-import type { AttackHit } from '../event/messages/attack-hit';
-import type { Target } from '../target/target';
-import type { CurrentTick } from '../tick/current-tick';
-import { DamageRecordEvent } from './damage-record-event';
-import type { DamageRecordTimeline } from './damage-record-timeline';
-import type { DamageRecordDto } from './dtos/damage-record-dto';
+import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import { product, sum } from "../../../utils/math-utils";
+import type { Serializable } from "../../persistable";
+import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
+import type { Buff } from "../buff/buff";
+import { ElementalDamageBuffAggregate } from "../buff/elemental-damage-buff/elemental-damage-buff-aggregate";
+import { FinalDamageBuffAggregate } from "../buff/final-damage-buff/final-damage-buff-aggregate";
+import type { UtilizedBuffs } from "../buff/utilized-buffs";
+import type { CurrentCharacterStats } from "../character/current-character-stats";
+import { Damage } from "../damage/damage";
+import type { EventManager } from "../event/event-manager";
+import type { EventSubscriber } from "../event/event-subscriber";
+import type { AttackHit } from "../event/messages/attack-hit";
+import type { Target } from "../target/target";
+import type { CurrentTick } from "../tick/current-tick";
+import { DamageRecordEvent } from "./damage-record-event";
+import type { DamageRecordTimeline } from "./damage-record-timeline";
+import type { DamageRecordDto } from "./dtos/damage-record-dto";
 
 /** A record (timeline) of damages during combat */
 export class DamageRecord
@@ -30,7 +30,7 @@ export class DamageRecord
     private readonly eventManager: EventManager,
     private readonly target: Target,
     private readonly activeBuffs: ActiveBuffs,
-    private readonly currentCharacterStats: CurrentCharacterStats
+    private readonly currentCharacterStats: CurrentCharacterStats,
   ) {}
 
   public subscribeToEvents() {
@@ -49,8 +49,8 @@ export class DamageRecord
         new Damage(baseDamage, finalDamage),
         attackHit.weapon,
         attackHit.attackType,
-        attackHit.elementalType
-      )
+        attackHit.elementalType,
+      ),
     );
   }
 
@@ -87,7 +87,7 @@ export class DamageRecord
       sum(this.getElementalDamagePercent(attackHit), 1),
       sum(this.getFinalDamageBuffPercent(attackHit), 1),
       product(this.getCritRatePercent(), this.getCritDamagePercent()).plus(1),
-      BigNumber(1).minus(this.getTargetResistancePercent())
+      BigNumber(1).minus(this.getTargetResistancePercent()),
     ).toNumber();
   }
 
@@ -99,7 +99,7 @@ export class DamageRecord
     this.recordUtilizedBuffs(elementalDamageBuffs);
 
     return new ElementalDamageBuffAggregate(
-      elementalDamageBuffs
+      elementalDamageBuffs,
     ).getAggregatedResult().damagePercentByElement[attackHit.elementalType];
   }
 

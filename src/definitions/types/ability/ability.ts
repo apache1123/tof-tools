@@ -1,6 +1,6 @@
-import type { AbilityUpdatesResource } from '../../../models/v4/ability/ability-updates-resource';
-import type { AbilityRequirements } from './ability-requirements';
-import type { AbilityTriggeredBy } from './ability-triggered-by';
+import type { AbilityUpdatesResource } from "../../../models/v4/ability/ability-updates-resource";
+import type { AbilityRequirements } from "./ability-requirements";
+import type { AbilityTriggeredBy } from "./ability-triggered-by";
 
 export interface Ability {
   id: string;

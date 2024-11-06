@@ -1,4 +1,4 @@
-import { Relics } from '../models/v4/relics/relics';
+import { Relics } from "../models/v4/relics/relics";
 
 export class RelicsState extends Relics {
   public constructor() {

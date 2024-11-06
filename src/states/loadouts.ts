@@ -1,10 +1,10 @@
-import type { Dto } from '../models/dto';
-import { GearSet } from '../models/gear-set';
-import type { LoadoutDto } from '../models/loadout';
-import { Loadout } from '../models/loadout';
-import type { Persistable } from '../models/persistable';
-import { Team } from '../models/team';
-import type { UserStats } from '../models/user-stats';
+import type { Dto } from "../models/dto";
+import { GearSet } from "../models/gear-set";
+import type { LoadoutDto } from "../models/loadout";
+import { Loadout } from "../models/loadout";
+import type { Persistable } from "../models/persistable";
+import { Team } from "../models/team";
+import type { UserStats } from "../models/user-stats";
 
 export class LoadoutsState implements Persistable<LoadoutsStateDto> {
   private _loadoutList: LoadoutListItem[];
@@ -43,14 +43,14 @@ export class LoadoutsState implements Persistable<LoadoutsStateDto> {
 
   public addNewLoadout() {
     const lastDefaultLoadoutIndex = this._loadoutList.findLastIndex(
-      (loadout) => loadout.isDefault
+      (loadout) => loadout.isDefault,
     );
     const loadout = new Loadout(
       `Custom Loadout ${this._loadoutList.length - lastDefaultLoadoutIndex}`,
-      'Flame',
+      "Flame",
       new Team(),
       new GearSet(),
-      this._userStats
+      this._userStats,
     );
     this._loadoutList.push({ loadout, isDefault: false });
   }
@@ -70,39 +70,39 @@ export class LoadoutsState implements Persistable<LoadoutsStateDto> {
 
   private addDefaultLoadouts() {
     const loadout1 = new Loadout(
-      'Flame',
-      'Flame',
+      "Flame",
+      "Flame",
       new Team(),
       new GearSet(),
-      this._userStats
+      this._userStats,
     );
     const loadout2 = new Loadout(
-      'Frost',
-      'Frost',
+      "Frost",
+      "Frost",
       new Team(),
       new GearSet(),
-      this._userStats
+      this._userStats,
     );
     const loadout3 = new Loadout(
-      'Physical',
-      'Physical',
+      "Physical",
+      "Physical",
       new Team(),
       new GearSet(),
-      this._userStats
+      this._userStats,
     );
     const loadout4 = new Loadout(
-      'Volt',
-      'Volt',
+      "Volt",
+      "Volt",
       new Team(),
       new GearSet(),
-      this._userStats
+      this._userStats,
     );
 
     this._loadoutList.push(
       { loadout: loadout1, isDefault: true },
       { loadout: loadout2, isDefault: true },
       { loadout: loadout3, isDefault: true },
-      { loadout: loadout4, isDefault: true }
+      { loadout: loadout4, isDefault: true },
     );
   }
 
@@ -116,7 +116,7 @@ export class LoadoutsState implements Persistable<LoadoutsStateDto> {
         loadoutDto.elementalType,
         new Team(),
         new GearSet(),
-        this._userStats
+        this._userStats,
       );
       loadout.copyFromDto(loadoutDto);
 

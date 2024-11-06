@@ -1,8 +1,8 @@
-import { Stack } from '@mui/material';
+import { Stack } from "@mui/material";
 
-import type { MatrixSetName } from '../../models/matrix-set-definition';
-import { MatrixIcon } from '../MatrixIcon/MatrixIcon';
-import { MatrixStarsSelector } from '../MatrixStarsSelector/MatrixStarsSelector';
+import type { MatrixSetName } from "../../models/matrix-set-definition";
+import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
+import { MatrixStarsSelector } from "../MatrixStarsSelector/MatrixStarsSelector";
 
 export interface MatrixDisplayProps {
   matrixName: MatrixSetName;

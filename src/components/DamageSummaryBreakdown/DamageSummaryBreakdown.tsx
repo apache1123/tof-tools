@@ -1,11 +1,11 @@
-import { Box, Stack } from '@mui/material';
-import { useState } from 'react';
+import { Box, Stack } from "@mui/material";
+import { useState } from "react";
 
-import type { WeaponName } from '../../definitions/weapons/weapon-definitions';
-import type { DamageSummaryDto } from '../../models/v4/damage-summary/dtos/damage-summary-dto';
-import { DamageSummaryBreakdownSideBar } from './DamageSummaryBreakdownSideBar';
-import { DamageSummaryBreakdownTable } from './DamageSummaryBreakdownTable';
-import { DamageSummaryBreakdownTopBar } from './DamageSummaryBreakdownTopBar';
+import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { DamageSummaryDto } from "../../models/v4/damage-summary/dtos/damage-summary-dto";
+import { DamageSummaryBreakdownSideBar } from "./DamageSummaryBreakdownSideBar";
+import { DamageSummaryBreakdownTable } from "./DamageSummaryBreakdownTable";
+import { DamageSummaryBreakdownTopBar } from "./DamageSummaryBreakdownTopBar";
 
 export function DamageSummaryBreakdown({
   damageSummary,
@@ -18,7 +18,7 @@ export function DamageSummaryBreakdown({
 
   const { totalDamage, duration, damageByWeapon } = damageSummary;
   const selectedWeaponDamageSummary = damageByWeapon.find(
-    ({ weaponName }) => weaponName === selectedWeaponName
+    ({ weaponName }) => weaponName === selectedWeaponName,
   );
 
   return (
@@ -35,7 +35,7 @@ export function DamageSummaryBreakdown({
             ({ weaponName, percentageOfTotalDamage }) => ({
               weaponName,
               percentageOfTotalDamage,
-            })
+            }),
           )}
           selectedWeaponName={selectedWeaponName}
           onWeaponChange={(selectedWeaponName) => {

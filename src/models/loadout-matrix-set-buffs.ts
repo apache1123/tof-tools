@@ -1,11 +1,11 @@
-import type { Loadout } from './loadout';
+import type { Loadout } from "./loadout";
 import type {
   MatrixSetAttackPercentBuff,
   MatrixSetBuff,
   MatrixSetCritDamageBuff,
   MatrixSetCritRateBuff,
-} from './matrix-set-buff';
-import type { MatrixSetBuffDefinition } from './matrix-set-buff-definition';
+} from "./matrix-set-buff";
+import type { MatrixSetBuffDefinition } from "./matrix-set-buff-definition";
 
 export class LoadoutMatrixSetBuffs {
   private _loadout: Loadout;
@@ -148,11 +148,11 @@ export class LoadoutMatrixSetBuffs {
         ({ weaponElementalType, minNumOfWeapons }) => {
           if (
             this._loadout.team.weaponElementalTypes.filter(
-              (x) => x === weaponElementalType
+              (x) => x === weaponElementalType,
             ).length >= minNumOfWeapons
           )
             hasMetElementalWeaponsRequirement = true;
-        }
+        },
       );
 
       if (!hasMetElementalWeaponsRequirement) return false;
@@ -161,7 +161,7 @@ export class LoadoutMatrixSetBuffs {
     if (weaponRequirements) {
       if (
         this._loadout.team.weaponNames.every(
-          (weaponName) => !weaponRequirements.includes(weaponName)
+          (weaponName) => !weaponRequirements.includes(weaponName),
         )
       )
         return false;
@@ -173,13 +173,13 @@ export class LoadoutMatrixSetBuffs {
   private addBuff(
     buff: MatrixSetBuff,
     collection: MatrixSetBuff[],
-    canStack: boolean
+    canStack: boolean,
   ) {
     if (canStack) {
       collection.push(buff);
     } else {
       const duplicate = collection.find(
-        (addedBuff) => addedBuff.matrixSetId === buff.matrixSetId
+        (addedBuff) => addedBuff.matrixSetId === buff.matrixSetId,
       );
       if (duplicate) {
         duplicate.stars = Math.max(duplicate.stars, buff.stars);

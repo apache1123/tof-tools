@@ -8,14 +8,14 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material';
-import BigNumber from 'bignumber.js';
+} from "@mui/material";
+import BigNumber from "bignumber.js";
 
 import {
   NumericStringInteger,
   NumericStringPercentage2dp,
-} from '../../components/NumericString/NumericString';
-import { statTypesLookup } from '../../definitions/stat-types';
+} from "../../components/NumericString/NumericString";
+import { statTypesLookup } from "../../definitions/stat-types";
 
 export function StatRanges() {
   return (
@@ -50,7 +50,7 @@ export function StatRanges() {
                   BigNumber(randomStatMinRollValue)
                     .plus(randomStatMaxRollValue)
                     .dividedBy(2)
-                    .times(5)
+                    .times(5),
                 )
                 .toNumber();
               const max5RollsTotalValue = BigNumber(randomStatDefaultValue)

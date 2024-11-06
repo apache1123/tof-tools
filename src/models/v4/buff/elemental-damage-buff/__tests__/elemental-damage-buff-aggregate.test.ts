@@ -1,43 +1,43 @@
-import { ElementalDamageBuff } from '../elemental-damage-buff';
-import { ElementalDamageBuffAggregate } from '../elemental-damage-buff-aggregate';
+import { ElementalDamageBuff } from "../elemental-damage-buff";
+import { ElementalDamageBuffAggregate } from "../elemental-damage-buff-aggregate";
 
 let elementalDamageBuffs: ElementalDamageBuff[];
 
 let sut: ElementalDamageBuffAggregate;
 
-describe('Elemental damage buff aggregate', () => {
+describe("Elemental damage buff aggregate", () => {
   beforeEach(() => {
     elementalDamageBuffs = [
       new ElementalDamageBuff(
-        'altered weapon buff 1',
+        "altered weapon buff 1",
         0.1,
-        'weapon',
+        "weapon",
         {},
-        'Altered'
+        "Altered",
       ),
       new ElementalDamageBuff(
-        'altered weapon buff 2',
+        "altered weapon buff 2",
         0.3,
-        'weapon',
+        "weapon",
         {},
-        'Altered'
+        "Altered",
       ),
       new ElementalDamageBuff(
-        'altered matrix buff 1 ',
+        "altered matrix buff 1 ",
         0.21,
-        'matrix',
+        "matrix",
         {},
-        'Altered'
+        "Altered",
       ),
       new ElementalDamageBuff(
-        'altered matrix buff 2',
+        "altered matrix buff 2",
         0.15,
-        'matrix',
+        "matrix",
         {},
-        'Altered'
+        "Altered",
       ),
-      new ElementalDamageBuff('volt team buff', 0.45, 'team', {}, 'Volt'),
-      new ElementalDamageBuff('volt relic buff', 0.11, 'relic', {}, 'Volt'),
+      new ElementalDamageBuff("volt team buff", 0.45, "team", {}, "Volt"),
+      new ElementalDamageBuff("volt relic buff", 0.11, "relic", {}, "Volt"),
     ];
 
     resetSut();
@@ -47,7 +47,7 @@ describe('Elemental damage buff aggregate', () => {
     sut = new ElementalDamageBuffAggregate(elementalDamageBuffs);
   }
 
-  it('should sum buffs of the same source, whilst multiplying buffs of different sources', () => {
+  it("should sum buffs of the same source, whilst multiplying buffs of different sources", () => {
     expect(sut.getAggregatedResult()).toMatchObject({
       damagePercentByElement: {
         Altered: 0.904,

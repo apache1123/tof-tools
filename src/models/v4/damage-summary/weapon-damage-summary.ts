@@ -1,9 +1,9 @@
-import type { AttackType } from '../../../definitions/attack-type';
-import { keysOf } from '../../../utils/object-utils';
-import type { Serializable } from '../../persistable';
-import { Damage } from '../damage/damage';
-import type { WeaponDamageSummaryDto } from './dtos/weapon-damage-summary-dto';
-import { ElementalDamageSummary } from './elemental-damage-summary';
+import type { AttackType } from "../../../definitions/attack-type";
+import { keysOf } from "../../../utils/object-utils";
+import type { Serializable } from "../../persistable";
+import { Damage } from "../damage/damage";
+import type { WeaponDamageSummaryDto } from "./dtos/weapon-damage-summary-dto";
+import { ElementalDamageSummary } from "./elemental-damage-summary";
 
 export class WeaponDamageSummary
   implements Serializable<WeaponDamageSummaryDto>
@@ -24,7 +24,7 @@ export class WeaponDamageSummary
     return keysOf(this.attackTypeDamageSummaries).reduce(
       (result, attackType) =>
         result.add(this.attackTypeDamageSummaries[attackType].totalDamage),
-      new Damage(0, 0)
+      new Damage(0, 0),
     );
   }
 
@@ -35,7 +35,7 @@ export class WeaponDamageSummary
     keysOf(this.attackTypeDamageSummaries).forEach((attackType) => {
       result.attackTypeDamageSummaries[attackType] =
         this.attackTypeDamageSummaries[attackType].add(
-          weaponDamageSummary.attackTypeDamageSummaries[attackType]
+          weaponDamageSummary.attackTypeDamageSummaries[attackType],
         );
     });
 

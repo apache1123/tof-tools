@@ -1,6 +1,6 @@
-import { initializeChangelogState } from './v1/initialize-changelog-state';
-import { migrateTeamsGearSetsStatsToLoadouts } from './v1/migrate-teams-gear-sets-stats-to-loadouts';
-import { fixGearSetsGearTypeData } from './v2/fix-gear-sets-gear-type-data';
+import { initializeChangelogState } from "./v1/initialize-changelog-state";
+import { migrateTeamsGearSetsStatsToLoadouts } from "./v1/migrate-teams-gear-sets-stats-to-loadouts";
+import { fixGearSetsGearTypeData } from "./v2/fix-gear-sets-gear-type-data";
 
 export const stateMigrations: StateMigration[] = [
   {

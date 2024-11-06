@@ -1,7 +1,7 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography } from "@mui/material";
 
-import { toShortNumberFormat } from '../../utils/locale-utils';
-import { toMinutesAndSeconds } from '../../utils/time-utils';
+import { toShortNumberFormat } from "../../utils/locale-utils";
+import { toMinutesAndSeconds } from "../../utils/time-utils";
 
 export interface DamageSummaryBreakdownTopBarProps {
   totalBaseDamage: number;

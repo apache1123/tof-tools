@@ -1,6 +1,6 @@
-import { ButtonModal } from '../../components/Modal/ButtonModal';
-import { Gear } from '../../models/gear';
-import type { Loadout } from '../../models/loadout';
+import { ButtonModal } from "../../components/Modal/ButtonModal";
+import { Gear } from "../../models/gear";
+import type { Loadout } from "../../models/loadout";
 
 export interface SaveGearModalProps {
   gear: Gear;

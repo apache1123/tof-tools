@@ -1,16 +1,16 @@
-import type { Serializable } from '../../persistable';
-import type { EventManager } from '../event/event-manager';
-import type { EventSubscriber } from '../event/event-subscriber';
-import type { CurrentTick } from '../tick/current-tick';
-import { TimeInterval } from '../time-interval/time-interval';
-import type { AbilityEvent } from './ability-event';
-import { ConcreteAbilityEvent } from './ability-event';
-import type { AbilityId } from './ability-id';
-import type { AbilityRequirements } from './ability-requirements';
-import type { AbilityTimeline } from './ability-timeline';
-import type { AbilityTriggerOptions } from './ability-trigger-options';
-import type { AbilityUpdatesResource } from './ability-updates-resource';
-import type { AbilityDto } from './dtos/ability-dto';
+import type { Serializable } from "../../persistable";
+import type { EventManager } from "../event/event-manager";
+import type { EventSubscriber } from "../event/event-subscriber";
+import type { CurrentTick } from "../tick/current-tick";
+import { TimeInterval } from "../time-interval/time-interval";
+import type { AbilityEvent } from "./ability-event";
+import { ConcreteAbilityEvent } from "./ability-event";
+import type { AbilityId } from "./ability-id";
+import type { AbilityRequirements } from "./ability-requirements";
+import type { AbilityTimeline } from "./ability-timeline";
+import type { AbilityTriggerOptions } from "./ability-trigger-options";
+import type { AbilityUpdatesResource } from "./ability-updates-resource";
+import type { AbilityDto } from "./dtos/ability-dto";
 
 /** An ability is anything a character does. Attacks, buffs etc. are all considered abilities. */
 export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
@@ -26,7 +26,7 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     protected readonly updatesResources: AbilityUpdatesResource[],
     protected readonly timeline: AbilityTimeline<TAbilityEvent>,
     protected readonly eventManager: EventManager,
-    protected readonly currentTick: CurrentTick
+    protected readonly currentTick: CurrentTick,
   ) {}
 
   public subscribeToEvents(): void {
@@ -53,7 +53,7 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     if (!this.canTrigger()) return;
 
     const newEventTimeInterval = this.getNewEventTimeInterval(
-      options?.duration
+      options?.duration,
     );
     const newEvent = this.createNewEvent(newEventTimeInterval);
     this.timeline.addEvent(newEvent);
@@ -70,7 +70,6 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
   /** Perform whatever actions needed during the current tick for this ability. Emit events, update resources, etc. */
   private handleTickAdvancing() {
     const ongoingEvents = this.getOngoingEvents();
-
     if (ongoingEvents.length === 0) return;
 
     // Terminate any ongoing events if the requirements for this ability are no longer met
@@ -119,7 +118,7 @@ export class ConcreteAbility extends Ability<AbilityEvent> {
       this.cooldown,
       this.updatesResources,
       this.eventManager,
-      this.currentTick
+      this.currentTick,
     );
   }
 }

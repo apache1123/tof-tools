@@ -1,4 +1,4 @@
-import type { Dto } from '../../../dto';
+import type { Dto } from "../../../dto";
 
 export interface TimeIntervalDto extends Dto {
   startTime: number;

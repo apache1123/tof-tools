@@ -1,13 +1,13 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { Weapon } from "../../types/weapon/weapon";
 
 export const crow = {
-  id: 'Crow',
-  displayName: 'Crow',
-  elementalIcon: 'Volt',
-  resonanceElements: ['Volt'],
-  calculationElements: ['Volt'],
-  damageElement: 'Volt',
-  type: 'DPS',
+  id: "Crow",
+  displayName: "Crow",
+  elementalIcon: "Volt",
+  resonanceElements: ["Volt"],
+  calculationElements: ["Volt"],
+  damageElement: "Volt",
+  type: "DPS",
   attackPercentBuffs: [],
   critRateBuffs: [],
   critDamageBuffs: [],

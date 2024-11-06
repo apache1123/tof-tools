@@ -1,4 +1,4 @@
-import type { Message } from '../message';
+import type { Message } from "../message";
 
 export interface ResourceUpdateRequest extends Message {
   /** The resource to add to */

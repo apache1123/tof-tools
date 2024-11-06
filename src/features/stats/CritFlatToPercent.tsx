@@ -1,10 +1,10 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
-import { proxy, useSnapshot } from 'valtio';
+import { Box, Paper, Stack, Typography } from "@mui/material";
+import { proxy, useSnapshot } from "valtio";
 
-import { NumericInput } from '../../components/NumericInput/NumericInput';
-import { NumericStringPercentage2dp } from '../../components/NumericString/NumericString';
-import { maxCharacterLevel } from '../../definitions/character-level';
-import { calculateCritRatePercentFromFlat } from '../../utils/stat-calculation-utils';
+import { NumericInput } from "../../components/NumericInput/NumericInput";
+import { NumericStringPercentage2dp } from "../../components/NumericString/NumericString";
+import { maxCharacterLevel } from "../../definitions/character-level";
+import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-utils";
 
 const state = proxy<{ critFlat: number; characterLevel: number }>({
   critFlat: 0,
@@ -16,7 +16,7 @@ export function CritFlatToPercent() {
 
   const critPercent = calculateCritRatePercentFromFlat(
     snap.critFlat,
-    snap.characterLevel
+    snap.characterLevel,
   );
 
   return (
@@ -49,7 +49,7 @@ export function CritFlatToPercent() {
                 }}
                 helperText={
                   snap.characterLevel !== maxCharacterLevel ? (
-                    <Box component="span" sx={{ color: 'warning.main' }}>
+                    <Box component="span" sx={{ color: "warning.main" }}>
                       Current max character level is {maxCharacterLevel}
                     </Box>
                   ) : undefined

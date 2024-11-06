@@ -1,12 +1,12 @@
-import type { GridColDef } from '@mui/x-data-grid';
-import { DataGrid } from '@mui/x-data-grid';
+import type { GridColDef } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 
-import type { DamageDto } from '../../models/v4/damage-summary/dtos/damage-dto';
-import type { DamageSummaryDto } from '../../models/v4/damage-summary/dtos/damage-summary-dto';
-import { toShortNumberFormat } from '../../utils/locale-utils';
+import type { DamageDto } from "../../models/v4/damage-summary/dtos/damage-dto";
+import type { DamageSummaryDto } from "../../models/v4/damage-summary/dtos/damage-summary-dto";
+import { toShortNumberFormat } from "../../utils/locale-utils";
 
 export interface DamageSummaryBreakdownTableProps {
-  weaponDamageSummary: DamageSummaryDto['damageByWeapon'][number];
+  weaponDamageSummary: DamageSummaryDto["damageByWeapon"][number];
 }
 
 interface Row {
@@ -21,22 +21,22 @@ export function DamageSummaryBreakdownTable({
   weaponDamageSummary,
 }: DamageSummaryBreakdownTableProps) {
   const columns: GridColDef<Row>[] = [
-    { field: 'attackTypeLabel', headerName: 'Type', flex: 1 },
+    { field: "attackTypeLabel", headerName: "Type", flex: 1 },
     {
-      field: 'baseDamage',
-      headerName: 'Base DMG',
+      field: "baseDamage",
+      headerName: "Base DMG",
       valueFormatter: (value: number) => toShortNumberFormat(value),
       flex: 1,
     },
     {
-      field: 'finalDamage',
-      headerName: 'Final DMG',
+      field: "finalDamage",
+      headerName: "Final DMG",
       valueFormatter: (value: number) => toShortNumberFormat(value),
       flex: 1,
     },
     {
-      field: 'multiplier',
-      headerName: 'Multiplier',
+      field: "multiplier",
+      headerName: "Multiplier",
       valueFormatter: (value: number) => toShortNumberFormat(value),
       flex: 1,
     },
@@ -44,7 +44,7 @@ export function DamageSummaryBreakdownTable({
 
   const attackTypeDamageSummaryToRow = (
     attackTypeLabel: string,
-    damage: DamageDto
+    damage: DamageDto,
   ): Row => ({
     id: attackTypeLabel,
     attackTypeLabel: attackTypeLabel,
@@ -55,32 +55,32 @@ export function DamageSummaryBreakdownTable({
 
   const rows: Row[] = [
     attackTypeDamageSummaryToRow(
-      'Normal attack',
-      weaponDamageSummary.normalAttackDamage
+      "Normal attack",
+      weaponDamageSummary.normalAttackDamage,
     ),
     attackTypeDamageSummaryToRow(
-      'Dodge',
-      weaponDamageSummary.dodgeAttackDamage
+      "Dodge",
+      weaponDamageSummary.dodgeAttackDamage,
     ),
     attackTypeDamageSummaryToRow(
-      'Discharge',
-      weaponDamageSummary.dischargeAttackDamage
+      "Discharge",
+      weaponDamageSummary.dischargeAttackDamage,
     ),
     attackTypeDamageSummaryToRow(
-      'Passive',
-      weaponDamageSummary.passiveAttackDamage
+      "Passive",
+      weaponDamageSummary.passiveAttackDamage,
     ),
     attackTypeDamageSummaryToRow(
-      'Skill',
-      weaponDamageSummary.skillAttackDamage
+      "Skill",
+      weaponDamageSummary.skillAttackDamage,
     ),
     attackTypeDamageSummaryToRow(
-      'Other',
-      weaponDamageSummary.otherAttackDamage
+      "Other",
+      weaponDamageSummary.otherAttackDamage,
     ),
     {
-      id: 'Total',
-      attackTypeLabel: 'Total',
+      id: "Total",
+      attackTypeLabel: "Total",
       baseDamage: weaponDamageSummary.totalDamage.baseDamage,
       finalDamage: weaponDamageSummary.totalDamage.finalDamage,
       multiplier: weaponDamageSummary.totalDamage.damageMultiplier,

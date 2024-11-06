@@ -1,5 +1,5 @@
-import type { Dto } from '../models/dto';
-import type { Persistable } from '../models/persistable';
+import type { Dto } from "../models/dto";
+import type { Persistable } from "../models/persistable";
 
 export class ChangelogState implements Persistable<ChangelogStateDto> {
   /** User's last read semver in the changelog.

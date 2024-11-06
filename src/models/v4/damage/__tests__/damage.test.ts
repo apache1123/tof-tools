@@ -1,12 +1,12 @@
-import { Damage } from '../../damage/damage';
+import { Damage } from "../../damage/damage";
 
-describe('Damage', () => {
-  it('calculates the damage multiplier correctly', () => {
+describe("Damage", () => {
+  it("calculates the damage multiplier correctly", () => {
     const sut = new Damage(21.8, 114.3);
     expect(sut.damageMultiplier).toBeCloseTo(5.24);
   });
 
-  it('adds correctly', () => {
+  it("adds correctly", () => {
     const damage1 = new Damage(21.8, 114.3);
     const damage2 = new Damage(5.7, 40.1);
     const damage3 = new Damage(1.3, 10.1);

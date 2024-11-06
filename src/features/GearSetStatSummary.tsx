@@ -1,12 +1,12 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography } from "@mui/material";
 
-import { ElementalStyledText } from '../components/ElementalStyledText/ElementalStyledText';
+import { ElementalStyledText } from "../components/ElementalStyledText/ElementalStyledText";
 import {
   NumericStringInteger,
   NumericStringPercentage2dp,
-} from '../components/NumericString/NumericString';
-import type { CoreElementalType } from '../definitions/elemental-type';
-import type { GearSet } from '../models/gear-set';
+} from "../components/NumericString/NumericString";
+import type { CoreElementalType } from "../definitions/elemental-type";
+import type { GearSet } from "../models/gear-set";
 
 export interface GearSetStatSummaryProps {
   gearSetSnap: GearSet;

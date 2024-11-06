@@ -3,21 +3,21 @@ import type {
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
-} from '../../../models/v4/weapon/weapon-attack-definition';
-import type { WeaponBuffDefinition } from '../../../models/v4/weapon/weapon-buff-definition';
-import type { WeaponResourceDefinition } from '../../../models/v4/weapon/weapon-resource-definition';
+} from "../../../models/v4/weapon/weapon-attack-definition";
+import type { WeaponBuffDefinition } from "../../../models/v4/weapon/weapon-buff-definition";
+import type { WeaponResourceDefinition } from "../../../models/v4/weapon/weapon-resource-definition";
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritDamageBuffDefinition,
   WeaponCritRateBuffDefinition,
-} from '../../../models/weapon-buff-definition';
+} from "../../../models/weapon-buff-definition";
 import type {
   FusionWeaponElementalType,
   WeaponElementalType,
-} from '../../elemental-type';
-import type { WeaponName } from '../../weapons/weapon-definitions';
-import { weaponDefinitions } from '../../weapons/weapon-definitions';
-import type { WeaponType } from '../../weapons/weapon-type';
+} from "../../elemental-type";
+import type { WeaponName } from "../../weapons/weapon-definitions";
+import { weaponDefinitions } from "../../weapons/weapon-definitions";
+import type { WeaponType } from "../../weapons/weapon-type";
 
 export interface Weapon {
   id: WeaponName;

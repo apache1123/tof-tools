@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { BoxCheckbox } from './BoxCheckbox';
+import { BoxCheckbox } from "./BoxCheckbox";
 
 const meta: Meta<typeof BoxCheckbox> = {
-  title: 'Box Checkbox',
+  title: "Box Checkbox",
   component: BoxCheckbox,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -13,15 +13,15 @@ type Story = StoryObj<typeof BoxCheckbox>;
 
 export const Initial: Story = {
   args: {
-    title: 'Title',
-    subtitle: 'Subtitle',
+    title: "Title",
+    subtitle: "Subtitle",
   },
 };
 
 export const Checked: Story = {
   args: {
     isChecked: true,
-    title: 'Title',
-    subtitle: 'Subtitle',
+    title: "Title",
+    subtitle: "Subtitle",
   },
 };

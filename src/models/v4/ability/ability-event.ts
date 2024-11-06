@@ -1,16 +1,16 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import { oneSecondDuration } from '../../../utils/time-utils';
-import type { Serializable } from '../../persistable';
-import type { EventManager } from '../event/event-manager';
-import type { EventSubscriber } from '../event/event-subscriber';
-import type { CurrentTick } from '../tick/current-tick';
-import type { Tick } from '../tick/tick';
-import type { TimeInterval } from '../time-interval/time-interval';
-import { TimelineEvent } from '../timeline/timeline-event';
-import type { AbilityId } from './ability-id';
-import type { AbilityUpdatesResource } from './ability-updates-resource';
-import type { AbilityEventDto } from './dtos/ability-event-dto';
+import { oneSecondDuration } from "../../../utils/time-utils";
+import type { Serializable } from "../../persistable";
+import type { EventManager } from "../event/event-manager";
+import type { EventSubscriber } from "../event/event-subscriber";
+import type { CurrentTick } from "../tick/current-tick";
+import type { Tick } from "../tick/tick";
+import type { TimeInterval } from "../time-interval/time-interval";
+import { TimelineEvent } from "../timeline/timeline-event";
+import type { AbilityId } from "./ability-id";
+import type { AbilityUpdatesResource } from "./ability-updates-resource";
+import type { AbilityEventDto } from "./dtos/ability-event-dto";
 
 /** An ability event is produced when that ability is performed, spanning over a time interval and has a cooldown etc.  */
 export abstract class AbilityEvent
@@ -23,7 +23,7 @@ export abstract class AbilityEvent
     public cooldown: number,
     private readonly updatesResources: AbilityUpdatesResource[],
     protected readonly eventManager: EventManager,
-    protected readonly currentTick: CurrentTick
+    protected readonly currentTick: CurrentTick,
   ) {
     super(timeInterval);
     this.cooldown = cooldown;
@@ -102,7 +102,7 @@ export abstract class AbilityEvent
       this.eventManager.publishAbilityEnded({ id: this.abilityId });
 
       this.eventManager.unsubscribeToTickAdvancing(
-        this.handleTickAdvancing.bind(this)
+        this.handleTickAdvancing.bind(this),
       );
     }
   }

@@ -6,5 +6,5 @@ export function toMinutesAndSeconds(milliseconds: number) {
   return `${date.getMinutes()}:${date
     .getSeconds()
     .toString()
-    .padStart(2, '0')}`;
+    .padStart(2, "0")}`;
 }

@@ -1,8 +1,8 @@
-import { Stack } from '@mui/material';
+import { Stack } from "@mui/material";
 
-import type { WeaponName } from '../../definitions/weapons/weapon-definitions';
-import { WeaponIcon } from '../WeaponIcon/WeaponIcon';
-import { WeaponStarsSelector } from '../WeaponStarsSelector/WeaponStarsSelector';
+import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import { WeaponIcon } from "../WeaponIcon/WeaponIcon";
+import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector";
 
 export interface WeaponDisplayProps {
   weaponName: WeaponName;

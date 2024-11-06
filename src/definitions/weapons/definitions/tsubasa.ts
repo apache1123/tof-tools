@@ -1,13 +1,13 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { Weapon } from "../../types/weapon/weapon";
 
 export const tsubasa = {
-  id: 'Tsubasa',
-  displayName: 'Tsubasa',
-  elementalIcon: 'Frost',
-  resonanceElements: ['Frost'],
-  calculationElements: ['Frost'],
-  damageElement: 'Frost',
-  type: 'DPS',
+  id: "Tsubasa",
+  displayName: "Tsubasa",
+  elementalIcon: "Frost",
+  resonanceElements: ["Frost"],
+  calculationElements: ["Frost"],
+  damageElement: "Frost",
+  type: "DPS",
   attackPercentBuffs: [],
   critRateBuffs: [],
   critDamageBuffs: [],

@@ -1,20 +1,20 @@
-import { Container } from '@mui/material';
-import { readdir, readFile } from 'fs/promises';
+import { Container } from "@mui/material";
+import { readdir, readFile } from "fs/promises";
 import type {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
-} from 'next';
-import Head from 'next/head';
-import path from 'path';
-import type { ParsedUrlQuery } from 'querystring';
+} from "next";
+import Head from "next/head";
+import path from "path";
+import type { ParsedUrlQuery } from "querystring";
 
-import { CombatSimulatorResult } from '../../src/features/combat-simulator/CombatSimulatorResult';
-import type { CombatSimulatorSnapshot } from '../../src/models/v4/combat-simulator/combat-simulator-snapshot';
-import { splitFilePath } from '../../src/utils/file-utils';
+import { CombatSimulatorResult } from "../../src/features/combat-simulator/CombatSimulatorResult";
+import type { CombatSimulatorSnapshot } from "../../src/models/v4/combat-simulator/combat-simulator-snapshot";
+import { splitFilePath } from "../../src/utils/file-utils";
 
-const simulatorResultsDirPath = 'simulator-results/';
-const simulatorResultsFileExt = '.json';
+const simulatorResultsDirPath = "simulator-results/";
+const simulatorResultsFileExt = ".json";
 
 interface Params extends ParsedUrlQuery {
   filePath: string[];
@@ -40,10 +40,10 @@ export const getStaticPaths = (async () => {
       const filePath = splitFilePath(relativePath);
       filePath[filePath.length - 1] = path.basename(
         filePath[filePath.length - 1],
-        path.extname(filePath[filePath.length - 1])
+        path.extname(filePath[filePath.length - 1]),
       );
       return filePath;
-    }
+    },
   );
 
   return {
@@ -60,9 +60,9 @@ export const getStaticProps = (async ({ params }) => {
   const data = await readFile(
     `${path.join(
       simulatorResultsDirPath,
-      ...params.filePath
+      ...params.filePath,
     )}${simulatorResultsFileExt}`,
-    { encoding: 'utf-8' }
+    { encoding: "utf-8" },
   );
   const snapshot = JSON.parse(data);
   return { props: { snapshot } };

@@ -1,15 +1,15 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import { damageCalculatorDefaults } from '../../../definitions/damage-calculator-defaults';
-import type { CoreElementalType } from '../../../definitions/elemental-type';
-import { keysOf } from '../../../utils/object-utils';
-import { GearSet } from '../../gear-set';
-import { Loadout } from '../../loadout';
-import { Team } from '../../team';
+import { damageCalculatorDefaults } from "../../../definitions/damage-calculator-defaults";
+import type { CoreElementalType } from "../../../definitions/elemental-type";
+import { keysOf } from "../../../utils/object-utils";
+import { GearSet } from "../../gear-set";
+import { Loadout } from "../../loadout";
+import { Team } from "../../team";
 
 // TODO: support altered as main elemental type. Requires changes to Loadout
 export function getLoadoutWithDefaultStats(
-  mainElementalType: CoreElementalType
+  mainElementalType: CoreElementalType,
 ) {
   const {
     wandererLevel,
@@ -21,11 +21,11 @@ export function getLoadoutWithDefaultStats(
   } = damageCalculatorDefaults;
 
   const loadout = new Loadout(
-    'loadout',
+    "loadout",
     mainElementalType,
     new Team(),
     new GearSet(),
-    { characterLevel: wandererLevel }
+    { characterLevel: wandererLevel },
   );
 
   const elementalAttacks = loadout.loadoutStats.elementalAttacks;

@@ -1,20 +1,20 @@
-import { Damage } from '../../damage/damage';
-import { WeaponDamageSummary } from '../weapon-damage-summary';
+import { Damage } from "../../damage/damage";
+import { WeaponDamageSummary } from "../weapon-damage-summary";
 
-describe('WeaponDamageSummary', () => {
-  it('returns total damage correctly', () => {
+describe("WeaponDamageSummary", () => {
+  it("returns total damage correctly", () => {
     const sut = new WeaponDamageSummary();
     sut.attackTypeDamageSummaries.normal.elementalTypeDamages.Altered =
       new Damage(10, 20);
     sut.attackTypeDamageSummaries.dodge.elementalTypeDamages.Frost = new Damage(
       50,
-      100
+      100,
     );
 
     expect(sut.totalDamage).toEqual(new Damage(60, 120));
   });
 
-  it('adds correctly', () => {
+  it("adds correctly", () => {
     const sut1 = new WeaponDamageSummary();
     sut1.attackTypeDamageSummaries.normal.elementalTypeDamages.Altered =
       new Damage(5, 10);
@@ -27,10 +27,10 @@ describe('WeaponDamageSummary', () => {
 
     const sutResult = sut1.add(sut2);
     expect(sutResult.attackTypeDamageSummaries.normal.totalDamage).toEqual(
-      new Damage(5, 10)
+      new Damage(5, 10),
     );
     expect(sutResult.attackTypeDamageSummaries.dodge.totalDamage).toEqual(
-      new Damage(60, 120)
+      new Damage(60, 120),
     );
 
     expect(sutResult).not.toBe(sut1);

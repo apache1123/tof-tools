@@ -1,14 +1,14 @@
-import Grid from '@mui/material/Unstable_Grid2';
-import { useSnapshot } from 'valtio';
+import Grid from "@mui/material/Unstable_Grid2";
+import { useSnapshot } from "valtio";
 
-import { gearTypesLookup } from '../../definitions/gear-types';
-import type { LoadoutsState } from '../../states/loadouts';
-import { loadoutsState } from '../../states/states';
-import { LoadoutGear } from './LoadoutGear';
+import { gearTypesLookup } from "../../definitions/gear-types";
+import type { LoadoutsState } from "../../states/loadouts";
+import { loadoutsState } from "../../states/states";
+import { LoadoutGear } from "./LoadoutGear";
 
 export function LoadoutGearSet() {
   const { selectedLoadout: loadoutSnap } = useSnapshot(
-    loadoutsState
+    loadoutsState,
   ) as LoadoutsState;
   const { gearSet: gearSetSnap } = loadoutSnap;
 

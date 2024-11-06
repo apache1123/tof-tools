@@ -1,8 +1,8 @@
-import { Box, Stack } from '@mui/material';
+import { Box, Stack } from "@mui/material";
 
-import { LoadoutSelector } from '../loadouts/LoadoutSelector';
-import { LoadoutStats } from '../loadouts/LoadoutStats';
-import { LoadoutTeam } from '../loadouts/LoadoutTeam';
+import { LoadoutSelector } from "../loadouts/LoadoutSelector";
+import { LoadoutStats } from "../loadouts/LoadoutStats";
+import { LoadoutTeam } from "../loadouts/LoadoutTeam";
 
 export function DamageSimulator() {
   return (

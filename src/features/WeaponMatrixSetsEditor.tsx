@@ -1,15 +1,15 @@
-import { Box, Stack } from '@mui/material';
-import { useState } from 'react';
+import { Box, Stack } from "@mui/material";
+import { useState } from "react";
 
 import {
   MatrixSet2pcDefinitionSelector,
   MatrixSet4pcDefinitionSelector,
-} from '../components/MatrixSetDefinitionSelector/MatrixSetDefinitionSelector';
-import { MatrixSetPiecesSelector } from '../components/MatrixSetPiecesSelector/MatrixSetPiecesSelector';
-import { MatrixStarsSelector } from '../components/MatrixStarsSelector/MatrixStarsSelector';
-import { MatrixSet } from '../models/matrix-set';
-import { type MatrixSetPieces } from '../models/matrix-set-definition';
-import type { WeaponMatrixSets } from '../models/weapon-matrix-sets';
+} from "../components/MatrixSetDefinitionSelector/MatrixSetDefinitionSelector";
+import { MatrixSetPiecesSelector } from "../components/MatrixSetPiecesSelector/MatrixSetPiecesSelector";
+import { MatrixStarsSelector } from "../components/MatrixStarsSelector/MatrixStarsSelector";
+import { MatrixSet } from "../models/matrix-set";
+import { type MatrixSetPieces } from "../models/matrix-set-definition";
+import type { WeaponMatrixSets } from "../models/weapon-matrix-sets";
 
 export interface WeaponMatrixSetsEditorProps {
   weaponMatrixSetsSnap: WeaponMatrixSets;
@@ -37,8 +37,8 @@ export function WeaponMatrixSetsEditor({
   const matrixSetPieces: MatrixSetPieces = matrixSet4pcSnap
     ? 4
     : matrixSet2pc1Snap || matrixSet2pc2Snap
-    ? 2
-    : defaultMatrixSetPieces;
+      ? 2
+      : defaultMatrixSetPieces;
 
   const matrixSet4pcDefinition = matrixSet4pcSnap?.definition;
   const matrixSet2pc1Definition = matrixSet2pc1Snap?.definition;
@@ -57,7 +57,7 @@ export function WeaponMatrixSetsEditor({
       />
 
       {matrixSetPieces === 2 && (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <MatrixSet2pcDefinitionSelector
               selectedMatrixSetDefinition={matrixSet2pc1Definition}
@@ -67,7 +67,7 @@ export function WeaponMatrixSetsEditor({
                     matrixSet2pc1State.definition = definition;
                   } else {
                     weaponMatrixSetsState.matrixSet2pc1 = new MatrixSet(
-                      definition
+                      definition,
                     );
                   }
                 } else {
@@ -96,7 +96,7 @@ export function WeaponMatrixSetsEditor({
                     matrixSet2pc2State.definition = definition;
                   } else {
                     weaponMatrixSetsState.matrixSet2pc2 = new MatrixSet(
-                      definition
+                      definition,
                     );
                   }
                 } else {
@@ -124,7 +124,7 @@ export function WeaponMatrixSetsEditor({
           direction="row"
           alignItems="center"
           spacing={1}
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           <MatrixSet4pcDefinitionSelector
             selectedMatrixSetDefinition={matrixSet4pcDefinition}
@@ -134,7 +134,7 @@ export function WeaponMatrixSetsEditor({
                   matrixSet4pcState.definition = definition;
                 } else {
                   weaponMatrixSetsState.matrixSet4pc = new MatrixSet(
-                    definition
+                    definition,
                   );
                 }
               } else {

@@ -1,15 +1,15 @@
-import { Box, Typography } from '@mui/material';
-import { useSnapshot } from 'valtio';
+import { Box, Typography } from "@mui/material";
+import { useSnapshot } from "valtio";
 
-import { ElementalStyledText } from '../components/ElementalStyledText/ElementalStyledText';
+import { ElementalStyledText } from "../components/ElementalStyledText/ElementalStyledText";
 import {
   NumericStringInteger,
   NumericStringPercentage2dp,
-} from '../components/NumericString/NumericString';
-import type { CoreElementalType } from '../definitions/elemental-type';
-import type { Gear } from '../models/gear';
-import { userStatsState } from '../states/states';
-import { calculateCritRatePercentFromFlat } from '../utils/stat-calculation-utils';
+} from "../components/NumericString/NumericString";
+import type { CoreElementalType } from "../definitions/elemental-type";
+import type { Gear } from "../models/gear";
+import { userStatsState } from "../states/states";
+import { calculateCritRatePercentFromFlat } from "../utils/stat-calculation-utils";
 
 export interface GearAttackStatsSummaryProps {
   gearSnap: Gear;
@@ -30,14 +30,14 @@ export function GearAttackStatsSummary({
   const { characterLevel } = useSnapshot(userStatsState);
   const totalCritFlatToPercent = calculateCritRatePercentFromFlat(
     totalCritFlat,
-    characterLevel
+    characterLevel,
   );
 
   return (
     <Box>
       {!!totalAttackFlat && (
         <Typography>
-          Attack{' '}
+          Attack{" "}
           <ElementalStyledText elementalType={elementalType}>
             <NumericStringInteger value={totalAttackFlat} />
           </ElementalStyledText>
@@ -45,7 +45,7 @@ export function GearAttackStatsSummary({
       )}
       {!!totalAttackPercent && (
         <Typography>
-          Attack{' '}
+          Attack{" "}
           <ElementalStyledText elementalType={elementalType}>
             <NumericStringPercentage2dp value={totalAttackPercent} />
           </ElementalStyledText>
@@ -53,7 +53,7 @@ export function GearAttackStatsSummary({
       )}
       {!!totalDamagePercent && (
         <Typography>
-          Damage{' '}
+          Damage{" "}
           <ElementalStyledText elementalType={elementalType}>
             <NumericStringPercentage2dp value={totalDamagePercent} />
           </ElementalStyledText>
@@ -61,7 +61,7 @@ export function GearAttackStatsSummary({
       )}
       {!!totalCritFlat && (
         <Typography>
-          Crit{' '}
+          Crit{" "}
           <ElementalStyledText elementalType={elementalType}>
             <NumericStringInteger value={totalCritFlat} /> (
             <NumericStringPercentage2dp value={totalCritFlatToPercent} />)
@@ -70,7 +70,7 @@ export function GearAttackStatsSummary({
       )}
       {!!totalCritPercent && (
         <Typography>
-          Crit{' '}
+          Crit{" "}
           <ElementalStyledText elementalType={elementalType}>
             <NumericStringPercentage2dp value={totalCritPercent} />
           </ElementalStyledText>

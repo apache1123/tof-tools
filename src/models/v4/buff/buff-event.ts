@@ -1,18 +1,18 @@
-import type { Serializable } from '../../persistable';
-import { AbilityEvent } from '../ability/ability-event';
-import type { AbilityId } from '../ability/ability-id';
-import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { EventManager } from '../event/event-manager';
-import type { CurrentTick } from '../tick/current-tick';
-import type { TimeInterval } from '../time-interval/time-interval';
-import type { ActiveBuff } from './active-buff/active-buff';
-import type { AttackBuff } from './attack-buff/attack-buff';
-import type { BaseAttackBuff } from './base-attack-buff/base-attack-buff';
-import type { CritDamageBuff } from './crit-damage-buff/crit-damage-buff';
-import type { BuffEventDto } from './dtos/buff-event-dto';
-import type { ElementalDamageBuff } from './elemental-damage-buff/elemental-damage-buff';
-import type { FinalDamageBuff } from './final-damage-buff/final-damage-buff';
-import type { MiscellaneousBuff } from './miscellaneous-buff';
+import type { Serializable } from "../../persistable";
+import { AbilityEvent } from "../ability/ability-event";
+import type { AbilityId } from "../ability/ability-id";
+import type { AbilityUpdatesResource } from "../ability/ability-updates-resource";
+import type { EventManager } from "../event/event-manager";
+import type { CurrentTick } from "../tick/current-tick";
+import type { TimeInterval } from "../time-interval/time-interval";
+import type { ActiveBuff } from "./active-buff/active-buff";
+import type { AttackBuff } from "./attack-buff/attack-buff";
+import type { BaseAttackBuff } from "./base-attack-buff/base-attack-buff";
+import type { CritDamageBuff } from "./crit-damage-buff/crit-damage-buff";
+import type { BuffEventDto } from "./dtos/buff-event-dto";
+import type { ElementalDamageBuff } from "./elemental-damage-buff/elemental-damage-buff";
+import type { FinalDamageBuff } from "./final-damage-buff/final-damage-buff";
+import type { MiscellaneousBuff } from "./miscellaneous-buff";
 
 export class BuffEvent
   extends AbilityEvent
@@ -31,7 +31,7 @@ export class BuffEvent
     public readonly finalDamageBuffs: FinalDamageBuff[],
     public readonly critRateBuffs: CritDamageBuff[],
     public readonly critDamageBuffs: CritDamageBuff[],
-    public readonly miscBuff: MiscellaneousBuff | undefined
+    public readonly miscBuff: MiscellaneousBuff | undefined,
   ) {
     super(
       timeInterval,
@@ -39,7 +39,7 @@ export class BuffEvent
       cooldown,
       updatesResources,
       eventManager,
-      currentTick
+      currentTick,
     );
   }
 

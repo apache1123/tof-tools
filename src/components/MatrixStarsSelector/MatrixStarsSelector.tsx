@@ -1,12 +1,12 @@
-import { Rating } from '@mui/material';
+import { Rating } from "@mui/material";
 
-import { maxNumOfMatrixStars } from '../../definitions/matrix';
+import { maxNumOfMatrixStars } from "../../definitions/matrix";
 
 export interface MatrixStarsSelectorProps {
   stars: number;
   onStarsChange?(value: number): void;
   disabled?: boolean;
-  size?: 'small' | 'medium';
+  size?: "small" | "medium";
 }
 
 export function MatrixStarsSelector({

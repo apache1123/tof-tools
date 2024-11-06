@@ -1,9 +1,9 @@
-import type { WeaponName } from '../../../definitions/weapons/weapon-definitions';
-import { filterOutUndefined } from '../../../utils/array-utils';
-import type { Serializable } from '../../persistable';
-import { Damage } from '../damage/damage';
-import type { DamageSummaryDto } from './dtos/damage-summary-dto';
-import { WeaponDamageSummary } from './weapon-damage-summary';
+import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import { filterOutUndefined } from "../../../utils/array-utils";
+import type { Serializable } from "../../persistable";
+import { Damage } from "../damage/damage";
+import type { DamageSummaryDto } from "./dtos/damage-summary-dto";
+import { WeaponDamageSummary } from "./weapon-damage-summary";
 
 export class DamageSummary implements Serializable<DamageSummaryDto> {
   public readonly weaponDamageSummaries = new Map<
@@ -24,7 +24,7 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
     return Array.from(this.weaponDamageSummaries.values()).reduce(
       (result, weaponDamageSummary) =>
         result.add(weaponDamageSummary.totalDamage),
-      new Damage(0, 0)
+      new Damage(0, 0),
     );
   }
 
@@ -38,7 +38,7 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
         weaponName,
         percentage:
           weaponDamageSummary.totalDamage.finalDamage / totalFinalDamage,
-      })
+      }),
     );
   }
 
@@ -51,7 +51,7 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
 
     const result = new DamageSummary(
       this.duration + damageSummary.duration,
-      ...aggregatedWeaponNames
+      ...aggregatedWeaponNames,
     );
 
     for (const weaponName of aggregatedWeaponNames) {
@@ -68,7 +68,7 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
           weaponName,
           result.weaponDamageSummaries
             .get(weaponName)
-            ?.add(weaponDamageSummary) ?? weaponDamageSummary
+            ?.add(weaponDamageSummary) ?? weaponDamageSummary,
         );
       });
     }
@@ -87,9 +87,9 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
           percentageOfTotalDamage:
             this.damagePercentageByWeapon.find(
               (damagePercentageItem) =>
-                damagePercentageItem.weaponName === weaponName
+                damagePercentageItem.weaponName === weaponName,
             )?.percentage ?? 0,
-        })
+        }),
       ),
       duration,
       version: 1,

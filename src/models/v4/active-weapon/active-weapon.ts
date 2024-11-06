@@ -1,13 +1,13 @@
-import { weaponSwitchCooldownDuration } from '../../../definitions/active-weapon';
-import { consoleErrorDev } from '../../../utils/dev-utils';
-import type { Weapon } from '../../weapon';
-import type { EventManager } from '../event/event-manager';
-import type { CurrentTick } from '../tick/current-tick';
-import { TimeInterval } from '../time-interval/time-interval';
-import { ActiveWeaponEvent } from './active-weapon-event';
-import type { ActiveWeaponTimeline } from './active-weapon-timeline';
-import { WeaponSwitchCooldownEvent } from './weapon-switch-cooldown-event';
-import { WeaponSwitchCooldownTimeline } from './weapon-switch-cooldown-timeline';
+import { weaponSwitchCooldownDuration } from "../../../definitions/active-weapon";
+import { consoleErrorDev } from "../../../utils/dev-utils";
+import type { Weapon } from "../../weapon";
+import type { EventManager } from "../event/event-manager";
+import type { CurrentTick } from "../tick/current-tick";
+import { TimeInterval } from "../time-interval/time-interval";
+import { ActiveWeaponEvent } from "./active-weapon-event";
+import type { ActiveWeaponTimeline } from "./active-weapon-timeline";
+import { WeaponSwitchCooldownEvent } from "./weapon-switch-cooldown-event";
+import { WeaponSwitchCooldownTimeline } from "./weapon-switch-cooldown-timeline";
 
 export class ActiveWeapon {
   private readonly weaponSwitchCooldownTimeline: WeaponSwitchCooldownTimeline;
@@ -16,10 +16,10 @@ export class ActiveWeapon {
     private readonly weapons: Weapon[],
     private readonly timeline: ActiveWeaponTimeline,
     private readonly eventManager: EventManager,
-    private readonly currentTick: CurrentTick
+    private readonly currentTick: CurrentTick,
   ) {
     this.weaponSwitchCooldownTimeline = new WeaponSwitchCooldownTimeline(
-      timeline.endTime
+      timeline.endTime,
     );
   }
 
@@ -45,8 +45,8 @@ export class ActiveWeapon {
     this.timeline.addEvent(
       new ActiveWeaponEvent(
         new TimeInterval(this.currentTick.startTime, this.currentTick.endTime),
-        weapon
-      )
+        weapon,
+      ),
     );
 
     // If there is a current active weapon, track its weapon switch cooldown
@@ -55,10 +55,10 @@ export class ActiveWeapon {
         new WeaponSwitchCooldownEvent(
           new TimeInterval(
             this.currentTick.startTime,
-            this.currentTick.startTime + weaponSwitchCooldownDuration
+            this.currentTick.startTime + weaponSwitchCooldownDuration,
           ),
-          this.current
-        )
+          this.current,
+        ),
       );
     }
 
@@ -74,8 +74,8 @@ export class ActiveWeapon {
         weapon !== this.current &&
         !this.weaponSwitchCooldownTimeline.isOnCooldown(
           weapon,
-          this.currentTick.startTime
-        )
+          this.currentTick.startTime,
+        ),
     );
   }
 

@@ -1,6 +1,6 @@
-import type { Serializable } from '../../persistable';
-import type { TimeInterval } from '../time-interval/time-interval';
-import type { TimelineEventDto } from './dtos/timeline-event-dto';
+import type { Serializable } from "../../persistable";
+import type { TimeInterval } from "../time-interval/time-interval";
+import type { TimelineEventDto } from "./dtos/timeline-event-dto";
 
 export class TimelineEvent implements Serializable<TimelineEventDto> {
   private readonly _timeInterval: TimeInterval;

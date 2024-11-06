@@ -1,35 +1,35 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
-import { maxCharacterLevel } from '../../../definitions/character-level';
-import { defaultCritDamagePercent } from '../../../definitions/damage-formula';
-import type { CoreElementalType } from '../../../definitions/elemental-type';
-import type { GearName } from '../../../definitions/gear-types';
-import type { ElementalAttackDto } from '../../../models/elemental-attack';
-import type { GearDto } from '../../../models/gear';
-import type { GearSetDtoV1, GearSetDtoV2 } from '../../../models/gear-set';
-import type { LoadoutDto } from '../../../models/loadout';
-import type { MatrixSetDto } from '../../../models/matrix-set';
-import type { RandomStatDto } from '../../../models/random-stat';
-import type { TeamDto } from '../../../models/team';
-import type { WeaponDto } from '../../../models/weapon';
-import { filterOutUndefined } from '../../../utils/array-utils';
-import type { GearComparerGearsStateDto } from '../../deprecated/gear-comparer-gear';
-import type { GearComparerOptionsStateDto } from '../../deprecated/gear-comparer-options';
-import type { GearSetsStateDto } from '../../deprecated/gear-sets';
-import type { TeamsStateDto } from '../../deprecated/teams';
-import type { GearComparerStateDto } from '../../gear-comparer';
-import type { LoadoutsStateDto } from '../../loadouts';
+import { maxCharacterLevel } from "../../../definitions/character-level";
+import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
+import type { CoreElementalType } from "../../../definitions/elemental-type";
+import type { GearName } from "../../../definitions/gear-types";
+import type { ElementalAttackDto } from "../../../models/elemental-attack";
+import type { GearDto } from "../../../models/gear";
+import type { GearSetDtoV1, GearSetDtoV2 } from "../../../models/gear-set";
+import type { LoadoutDto } from "../../../models/loadout";
+import type { MatrixSetDto } from "../../../models/matrix-set";
+import type { RandomStatDto } from "../../../models/random-stat";
+import type { TeamDto } from "../../../models/team";
+import type { WeaponDto } from "../../../models/weapon";
+import { filterOutUndefined } from "../../../utils/array-utils";
+import type { GearComparerGearsStateDto } from "../../deprecated/gear-comparer-gear";
+import type { GearComparerOptionsStateDto } from "../../deprecated/gear-comparer-options";
+import type { GearSetsStateDto } from "../../deprecated/gear-sets";
+import type { TeamsStateDto } from "../../deprecated/teams";
+import type { GearComparerStateDto } from "../../gear-comparer";
+import type { LoadoutsStateDto } from "../../loadouts";
 import type {
   UserStatsStateDtoV1,
   UserStatsStateDtoV2,
-} from '../../user-stats';
+} from "../../user-stats";
 
 export function migrateTeamsGearSetsStatsToLoadouts() {
-  const userStatsKey = 'userStats';
-  const gearSetsKey = 'gearSets';
-  const gearComparerOptionsKey = 'gearComparerOptions';
-  const gearComparerGearsKey = 'gearComparerGears';
-  const teamsKey = 'teams';
+  const userStatsKey = "userStats";
+  const gearSetsKey = "gearSets";
+  const gearComparerOptionsKey = "gearComparerOptions";
+  const gearComparerGearsKey = "gearComparerGears";
+  const teamsKey = "teams";
 
   const userStatsJson = localStorage.getItem(userStatsKey);
   const gearSetsJson = localStorage.getItem(gearSetsKey);
@@ -62,44 +62,44 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   const newLoadoutsState: LoadoutsStateDto = {
     loadoutList: [
       {
-        loadout: newLoadoutWithTransferredStatsAndTeam('Flame'),
+        loadout: newLoadoutWithTransferredStatsAndTeam("Flame"),
         isDefault: true,
       },
       {
-        loadout: newLoadoutWithTransferredStatsAndTeam('Frost'),
+        loadout: newLoadoutWithTransferredStatsAndTeam("Frost"),
         isDefault: true,
       },
       {
-        loadout: newLoadoutWithTransferredStatsAndTeam('Physical'),
+        loadout: newLoadoutWithTransferredStatsAndTeam("Physical"),
         isDefault: true,
       },
       {
-        loadout: newLoadoutWithTransferredStatsAndTeam('Volt'),
+        loadout: newLoadoutWithTransferredStatsAndTeam("Volt"),
         isDefault: true,
       },
     ],
     selectedLoadoutIndex:
-      oldGearComparerOptionsState?.selectedElementalType === 'Flame'
+      oldGearComparerOptionsState?.selectedElementalType === "Flame"
         ? 0
-        : oldGearComparerOptionsState?.selectedElementalType === 'Frost'
+        : oldGearComparerOptionsState?.selectedElementalType === "Frost"
           ? 1
-          : oldGearComparerOptionsState?.selectedElementalType === 'Physical'
+          : oldGearComparerOptionsState?.selectedElementalType === "Physical"
             ? 2
-            : oldGearComparerOptionsState?.selectedElementalType === 'Volt'
+            : oldGearComparerOptionsState?.selectedElementalType === "Volt"
               ? 3
               : 0,
     version: 1,
   };
   transferOldGearSets();
-  localStorage.setItem('loadouts', JSON.stringify(newLoadoutsState));
+  localStorage.setItem("loadouts", JSON.stringify(newLoadoutsState));
 
   const newGearComparerState: GearComparerStateDto = {
-    selectedGearTypeId: oldGearComparerGearsState?.GearA?.typeId ?? 'Armor',
+    selectedGearTypeId: oldGearComparerGearsState?.GearA?.typeId ?? "Armor",
     replacementGearGearSet: newGearSet(),
     version: 1,
   };
   transferOldReplacementGear();
-  localStorage.setItem('gearComparer', JSON.stringify(newGearComparerState));
+  localStorage.setItem("gearComparer", JSON.stringify(newGearComparerState));
 
   localStorage.removeItem(gearSetsKey);
   localStorage.removeItem(gearComparerOptionsKey);
@@ -124,7 +124,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
 
         if (oldGearSet) {
           // Default to Flame if gear set elemental type was not chosen
-          const elementalType = oldGearSet.elementalType ?? 'Flame';
+          const elementalType = oldGearSet.elementalType ?? "Flame";
 
           let usingDefaultLoadout =
             !defaultElementalLoadoutFilled[elementalType];
@@ -132,7 +132,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
             const defaultLoadout = newLoadoutsState.loadoutList.find(
               (loadout) =>
                 loadout.loadout.elementalType === elementalType &&
-                loadout.isDefault
+                loadout.isDefault,
             )?.loadout;
 
             if (defaultLoadout) {
@@ -159,7 +159,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
 
     function transferOldGearSetToLoadout(
       oldGearSet: GearSetDtoV1,
-      loadout: LoadoutDto
+      loadout: LoadoutDto,
     ) {
       loadout.name = oldGearSet.name;
 
@@ -172,8 +172,8 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
           Gloves: newGearFromOld(oldGearSet.gearsByTypeId.Gloves),
           Bracers: newGearFromOld(oldGearSet.gearsByTypeId.Bracers),
           Armor: newGearFromOld(oldGearSet.gearsByTypeId.Armor),
-          'Combat Engine': newGearFromOld(
-            oldGearSet.gearsByTypeId['Combat Engine']
+          "Combat Engine": newGearFromOld(
+            oldGearSet.gearsByTypeId["Combat Engine"],
           ),
           Belt: newGearFromOld(oldGearSet.gearsByTypeId.Belt),
           Legguards: newGearFromOld(oldGearSet.gearsByTypeId.Legguards),
@@ -195,7 +195,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   }
 
   function newLoadoutWithTransferredStatsAndTeam(
-    elementalType: CoreElementalType
+    elementalType: CoreElementalType,
   ): LoadoutDto {
     const loadout: LoadoutDto = {
       id: nanoid(),
@@ -267,18 +267,18 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     return {
       id: nanoid(),
       gearsByTypeId: {
-        Helmet: newGear('Helmet'),
-        Eyepiece: newGear('Eyepiece'),
-        Spaulders: newGear('Spaulders'),
-        Gloves: newGear('Gloves'),
-        Bracers: newGear('Bracers'),
-        Armor: newGear('Armor'),
-        'Combat Engine': newGear('Combat Engine'),
-        Belt: newGear('Belt'),
-        Legguards: newGear('Legguards'),
-        Boots: newGear('Boots'),
-        Exoskeleton: newGear('Exoskeleton'),
-        Microreactor: newGear('Microreactor'),
+        Helmet: newGear("Helmet"),
+        Eyepiece: newGear("Eyepiece"),
+        Spaulders: newGear("Spaulders"),
+        Gloves: newGear("Gloves"),
+        Bracers: newGear("Bracers"),
+        Armor: newGear("Armor"),
+        "Combat Engine": newGear("Combat Engine"),
+        Belt: newGear("Belt"),
+        Legguards: newGear("Legguards"),
+        Boots: newGear("Boots"),
+        Exoskeleton: newGear("Exoskeleton"),
+        Microreactor: newGear("Microreactor"),
       },
       version: 2,
     };
@@ -309,7 +309,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   }
 
   function newRandomStatsFromOld(
-    oldRandomStats: (RandomStatDto | undefined)[]
+    oldRandomStats: (RandomStatDto | undefined)[],
   ): (RandomStatDto | undefined)[] {
     return oldRandomStats.map((oldRandomStat) => {
       return oldRandomStat
@@ -324,7 +324,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   }
 
   function newAugmentStatsFromOld(
-    oldAugmentStats: RandomStatDto[] | undefined
+    oldAugmentStats: RandomStatDto[] | undefined,
   ): RandomStatDto[] | undefined {
     return oldAugmentStats
       ? oldAugmentStats.map((oldAugmentStat) => {

@@ -1,14 +1,14 @@
-import { useSnapshot } from 'valtio';
+import { useSnapshot } from "valtio";
 
-import { GearTypeSelector } from '../../components/GearTypeSelector/GearTypeSelector';
-import { gearTypesLookup } from '../../definitions/gear-types';
-import type { Gear } from '../../models/gear';
-import type { GearComparerState } from '../../states/gear-comparer';
-import { gearComparerState } from '../../states/states';
-import { GearOCRModal } from '../GearOCRModal';
-import { GearPiece } from '../GearPiece';
-import { GearRollSimulator } from './GearRollSimulator';
-import { SaveGearModal } from './SaveGearModal';
+import { GearTypeSelector } from "../../components/GearTypeSelector/GearTypeSelector";
+import { gearTypesLookup } from "../../definitions/gear-types";
+import type { Gear } from "../../models/gear";
+import type { GearComparerState } from "../../states/gear-comparer";
+import { gearComparerState } from "../../states/states";
+import { GearOCRModal } from "../GearOCRModal";
+import { GearPiece } from "../GearPiece";
+import { GearRollSimulator } from "./GearRollSimulator";
+import { SaveGearModal } from "./SaveGearModal";
 
 export function ReplacementGear({
   maxTitanGear,
@@ -60,7 +60,7 @@ export function ReplacementGear({
       showStatSummary={elementalType}
       showMaxTitanGear={{ maxTitanGear }}
       additionalAccordions={<GearRollSimulator />}
-      data-testid={'replacement-gear'}
+      data-testid={"replacement-gear"}
     />
   );
 }

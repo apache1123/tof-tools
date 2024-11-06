@@ -1,5 +1,5 @@
-import type { SimulacrumName } from '../../definitions/simulacrum-traits';
-import type { BuffAbility } from '../../definitions/types/buff/buff-ability';
+import type { SimulacrumName } from "../../definitions/simulacrum-traits";
+import type { BuffAbility } from "../../definitions/types/buff/buff-ability";
 
 export interface SimulacrumTrait {
   id: SimulacrumName;

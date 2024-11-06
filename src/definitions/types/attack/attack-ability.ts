@@ -1,10 +1,10 @@
-import type { AbilityId } from '../../../models/v4/ability/ability-id';
-import type { AttackElementalType } from '../../../models/v4/attack/attack-elemental-type';
-import type { AttackHitCount } from '../../../models/v4/attack/attack-hit-count';
-import type { BaseDamageModifiersDefinition } from '../../../models/v4/damage-modifiers/base-damage-modifiers-definition';
-import type { FinalDamageModifiersDefinition } from '../../../models/v4/damage-modifiers/final-damage-modifiers-definition';
-import type { AttackType } from '../../attack-type';
-import type { Ability } from '../ability/ability';
+import type { AbilityId } from "../../../models/v4/ability/ability-id";
+import type { AttackElementalType } from "../../../models/v4/attack/attack-elemental-type";
+import type { AttackHitCount } from "../../../models/v4/attack/attack-hit-count";
+import type { BaseDamageModifiersDefinition } from "../../../models/v4/damage-modifiers/base-damage-modifiers-definition";
+import type { FinalDamageModifiersDefinition } from "../../../models/v4/damage-modifiers/final-damage-modifiers-definition";
+import type { AttackType } from "../../attack-type";
+import type { Ability } from "../ability/ability";
 
 export type AttackId = AbilityId;
 

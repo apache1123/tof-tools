@@ -1,7 +1,7 @@
-import type { GearName, GearVersion } from '../definitions/gear-types';
-import type { StatName } from '../definitions/stat-types';
-import { statTypesLookup } from '../definitions/stat-types';
-import type { StatType } from './stat-type';
+import type { GearName, GearVersion } from "../definitions/gear-types";
+import type { StatName } from "../definitions/stat-types";
+import { statTypesLookup } from "../definitions/stat-types";
+import type { StatType } from "./stat-type";
 
 export interface GearType {
   id: GearName;
@@ -15,6 +15,6 @@ export interface GearType {
 
 export function getPossibleRandomStatTypes(gearType: GearType): StatType[] {
   return gearType.possibleRandomStatTypeIds.map(
-    (id) => statTypesLookup.byId[id]
+    (id) => statTypesLookup.byId[id],
   );
 }

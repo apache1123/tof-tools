@@ -1,6 +1,6 @@
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import { keysOf } from '../../../utils/object-utils';
-import { Damage } from '../damage/damage';
+import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import { keysOf } from "../../../utils/object-utils";
+import { Damage } from "../damage/damage";
 
 export class ElementalDamageSummary {
   public readonly elementalTypeDamages: Record<WeaponElementalType, Damage> = {
@@ -15,13 +15,13 @@ export class ElementalDamageSummary {
     return keysOf(this.elementalTypeDamages).reduce(
       (result, elementalType) =>
         result.add(this.elementalTypeDamages[elementalType]),
-      new Damage(0, 0)
+      new Damage(0, 0),
     );
   }
 
   /** Adds another elemental damage summary. Returns another instance without modifying the originals */
   public add(
-    elementalDamageSummary: ElementalDamageSummary
+    elementalDamageSummary: ElementalDamageSummary,
   ): ElementalDamageSummary {
     const result = new ElementalDamageSummary();
 

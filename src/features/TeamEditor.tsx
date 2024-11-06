@@ -1,9 +1,9 @@
-import { Box, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Stack, Typography, useMediaQuery } from "@mui/material";
 
-import type { Team } from '../models/team';
-import { Weapon } from '../models/weapon';
-import theme from '../theme';
-import { EmptyWeaponEditor, WeaponEditor } from './WeaponEditor';
+import type { Team } from "../models/team";
+import { Weapon } from "../models/weapon";
+import theme from "../theme";
+import { EmptyWeaponEditor, WeaponEditor } from "./WeaponEditor";
 
 export interface TeamProps {
   teamSnap: Team;
@@ -11,9 +11,9 @@ export interface TeamProps {
 }
 
 export function TeamEditor({ teamSnap, teamState }: TeamProps) {
-  const stackDividerOrientation = useMediaQuery(theme.breakpoints.down('sm'))
-    ? 'horizontal'
-    : 'vertical';
+  const stackDividerOrientation = useMediaQuery(theme.breakpoints.down("sm"))
+    ? "horizontal"
+    : "vertical";
 
   const {
     weapon1: weapon1State,
@@ -32,7 +32,7 @@ export function TeamEditor({ teamSnap, teamState }: TeamProps) {
         Weapons/Matrices
       </Typography>
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ xs: "column", sm: "row" }}
         justifyContent="space-evenly"
         spacing={5}
         divider={

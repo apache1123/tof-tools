@@ -1,10 +1,10 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 import {
   matrixSet2pcIdSuffix,
   matrixSet4pcIdSuffix,
   type MatrixSetName,
-} from '../../models/matrix-set-definition';
+} from "../../models/matrix-set-definition";
 
 export interface MatrixIconProps {
   matrixName: MatrixSetName;
@@ -19,13 +19,13 @@ export const MatrixIcon = ({
 }: MatrixIconProps) => {
   const suffixRegex = new RegExp(
     `(${matrixSet2pcIdSuffix}|${matrixSet4pcIdSuffix})`,
-    'g'
+    "g",
   );
   const imageName = matrixName
     .toLowerCase()
-    .replaceAll(suffixRegex, '')
+    .replaceAll(suffixRegex, "")
     .trimEnd()
-    .replaceAll(' ', '-');
+    .replaceAll(" ", "-");
   const imagePath = `/icons/matrices/${imageName}.webp`;
 
   return (

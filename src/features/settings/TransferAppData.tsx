@@ -1,10 +1,10 @@
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
-import { type ChangeEvent, useState } from 'react';
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { type ChangeEvent, useState } from "react";
 
-import { useAutoHideSnackbar } from '../../components/Snackbar/useAutoHideSnackbar';
-import { localStoragePersistenceState } from '../../states/hooks/useLocalStoragePersistence';
-import type { StateMigrationsState } from '../../states/migrations/state-migrations-state';
-import { stateMigrationsStateKey } from '../../states/migrations/state-migrations-state';
+import { useAutoHideSnackbar } from "../../components/Snackbar/useAutoHideSnackbar";
+import { localStoragePersistenceState } from "../../states/hooks/useLocalStoragePersistence";
+import type { StateMigrationsState } from "../../states/migrations/state-migrations-state";
+import { stateMigrationsStateKey } from "../../states/migrations/state-migrations-state";
 
 export function TransferAppData() {
   // Disallow users to import until they've made a backup
@@ -21,7 +21,7 @@ export function TransferAppData() {
           <ImportAppData />
           {!hasMadeBackup && (
             <Typography variant="subtitle2" color="warning.main">
-              Please press <b>Export</b> to save a backup first before doing an{' '}
+              Please press <b>Export</b> to save a backup first before doing an{" "}
               <b>Import</b>
             </Typography>
           )}
@@ -46,12 +46,12 @@ export function TransferAppData() {
       }
 
       const json = JSON.stringify(data);
-      const blob = new Blob([json], { type: 'application/json' });
+      const blob = new Blob([json], { type: "application/json" });
       const url = URL.createObjectURL(blob);
 
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.download = 'tof-tools-data.json';
+      link.download = "tof-tools-data.json";
       link.click();
       URL.revokeObjectURL(url);
 
@@ -72,8 +72,8 @@ export function TransferAppData() {
       const file = event.target.files?.item(0);
       if (!file) return;
 
-      if (file.type !== 'application/json') {
-        showSnackbar('Invalid file type', { severity: 'error' });
+      if (file.type !== "application/json") {
+        showSnackbar("Invalid file type", { severity: "error" });
         return;
       }
 
@@ -85,7 +85,7 @@ export function TransferAppData() {
           try {
             data = JSON.parse(reader.result as string);
           } catch (error) {
-            showSnackbar('Invalid file', { severity: 'error' });
+            showSnackbar("Invalid file", { severity: "error" });
             return;
           }
 
@@ -95,7 +95,7 @@ export function TransferAppData() {
             Object.keys(data).forEach((key) => {
               localStorage.setItem(
                 key,
-                JSON.stringify((data as Record<string, unknown>)[key])
+                JSON.stringify((data as Record<string, unknown>)[key]),
               );
             });
 
@@ -113,19 +113,19 @@ export function TransferAppData() {
                 unknownDataSchema.loadouts ? { version: 2 } : { version: 1 };
               localStorage.setItem(
                 stateMigrationsStateKey,
-                JSON.stringify(stateMigrationsState)
+                JSON.stringify(stateMigrationsState),
               );
             }
 
-            showSnackbar('Successfully imported data. Page will reload soon');
+            showSnackbar("Successfully imported data. Page will reload soon");
             setTimeout(() => {
               location.reload();
             }, 3000);
           } else {
-            showSnackbar('Invalid file', { severity: 'error' });
+            showSnackbar("Invalid file", { severity: "error" });
           }
         } else {
-          showSnackbar('Invalid file', { severity: 'error' });
+          showSnackbar("Invalid file", { severity: "error" });
         }
       };
 
@@ -143,7 +143,7 @@ export function TransferAppData() {
             style={{
               height: 1,
               width: 1,
-              visibility: 'hidden',
+              visibility: "hidden",
             }}
             onChange={handleImport}
           />

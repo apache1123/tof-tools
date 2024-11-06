@@ -1,16 +1,16 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
-import { useSnapshot } from 'valtio';
+import { Box, Paper, Stack, Typography } from "@mui/material";
+import { useSnapshot } from "valtio";
 
-import { RelicIcon } from '../../components/RelicIcon/RelicIcon';
-import { RelicStarsSelector } from '../../components/RelicStarsSelector/RelicStarsSelector';
-import type { RelicName } from '../../definitions/relics';
+import { RelicIcon } from "../../components/RelicIcon/RelicIcon";
+import { RelicStarsSelector } from "../../components/RelicStarsSelector/RelicStarsSelector";
+import type { RelicName } from "../../definitions/relics";
 import {
   metaDamageRelics,
   passiveBuffRelics,
   srRelicsOrder,
   ssrRelicsOrder,
-} from '../../definitions/relics';
-import { relicsState } from '../../states/states';
+} from "../../definitions/relics";
+import { relicsState } from "../../states/states";
 
 const otherRelics: RelicName[] = new Array<RelicName>()
   .concat(ssrRelicsOrder)
@@ -18,7 +18,7 @@ const otherRelics: RelicName[] = new Array<RelicName>()
   .filter(
     (relicName) =>
       !metaDamageRelics.includes(relicName) &&
-      !passiveBuffRelics.includes(relicName)
+      !passiveBuffRelics.includes(relicName),
   );
 
 export function Relics() {

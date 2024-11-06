@@ -1,9 +1,9 @@
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Box, Tooltip } from '@mui/material';
-import groupBy from 'lodash.groupby';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { Box, Tooltip } from "@mui/material";
+import groupBy from "lodash.groupby";
 
-import { GearStarsSelector } from '../components/GearStarsSelector/GearStarsSelector';
-import type { Gear } from '../models/gear';
+import { GearStarsSelector } from "../components/GearStarsSelector/GearStarsSelector";
+import type { Gear } from "../models/gear";
 
 export interface GearStarsProps {
   gearSnap: Gear;
@@ -14,7 +14,7 @@ export function GearStars({ gearSnap, gearState }: GearStarsProps) {
   const randomStatRollCombinations = gearSnap.getRandomStatRollCombinations();
 
   const possibleStars = Object.keys(
-    groupBy(randomStatRollCombinations, (x) => x.stars)
+    groupBy(randomStatRollCombinations, (x) => x.stars),
   );
 
   return (
@@ -34,8 +34,8 @@ export function GearStars({ gearSnap, gearState }: GearStarsProps) {
         <Tooltip
           title={
             <>
-              Can&apos;t automatically determine the number of stars{' '}
-              <strong>(either {possibleStars.join(' or ')} stars)</strong>.
+              Can&apos;t automatically determine the number of stars{" "}
+              <strong>(either {possibleStars.join(" or ")} stars)</strong>.
               Please select it manually.
             </>
           }

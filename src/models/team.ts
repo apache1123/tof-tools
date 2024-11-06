@@ -1,15 +1,15 @@
-import groupBy from 'lodash.groupby';
+import groupBy from "lodash.groupby";
 
-import type { ElementalResonance } from '../definitions/elemental-resonance';
-import type { WeaponElementalType } from '../definitions/elemental-type';
-import { getWeaponDefinition } from '../definitions/types/weapon/weapon';
-import type { WeaponName } from '../definitions/weapons/weapon-definitions';
-import type { WeaponResonance } from '../definitions/weapons/weapon-resonance';
-import { filterOutUndefined } from '../utils/array-utils';
-import type { Dto } from './dto';
-import type { Persistable } from './persistable';
-import type { WeaponDto } from './weapon';
-import { Weapon } from './weapon';
+import type { ElementalResonance } from "../definitions/elemental-resonance";
+import type { WeaponElementalType } from "../definitions/elemental-type";
+import { getWeaponDefinition } from "../definitions/types/weapon/weapon";
+import type { WeaponName } from "../definitions/weapons/weapon-definitions";
+import type { WeaponResonance } from "../definitions/weapons/weapon-resonance";
+import { filterOutUndefined } from "../utils/array-utils";
+import type { Dto } from "./dto";
+import type { Persistable } from "./persistable";
+import type { WeaponDto } from "./weapon";
+import { Weapon } from "./weapon";
 
 export class Team implements Persistable<TeamDto> {
   public weapon1: WeaponSlot;
@@ -27,7 +27,7 @@ export class Team implements Persistable<TeamDto> {
   /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
   public get weaponElementalTypes(): WeaponElementalType[] {
     return this.weapons.flatMap(
-      (weapon) => weapon.definition.resonanceElements
+      (weapon) => weapon.definition.resonanceElements,
     );
   }
 
@@ -35,17 +35,19 @@ export class Team implements Persistable<TeamDto> {
   /** This returns the presumed elemental resonance(s), depending on the number of weapons of each element. However, whether or not to activate elemental resonance buff(s) will depend on if the weapons themselves have the buff(s) available. */
   public get elementalResonances(): ElementalResonance[] {
     const elementalTypes = this.weapons.flatMap(
-      (weapon) => weapon.definition.resonanceElements
+      (weapon) => weapon.definition.resonanceElements,
     );
 
     const elementalTypeGroups = groupBy(elementalTypes);
     const elementalResonances = (
       Object.keys(elementalTypeGroups) as WeaponElementalType[]
     ).flatMap((elementalType) =>
-      (elementalTypeGroups[elementalType]?.length ?? 0) > 1 ? elementalType : []
+      (elementalTypeGroups[elementalType]?.length ?? 0) > 1
+        ? elementalType
+        : [],
     );
 
-    return elementalResonances.length ? elementalResonances : ['None'];
+    return elementalResonances.length ? elementalResonances : ["None"];
   }
 
   public get weaponResonance(): WeaponResonance {
@@ -53,20 +55,20 @@ export class Team implements Persistable<TeamDto> {
       return weapon.definition.type;
     });
 
-    if (weaponTypes.filter((type) => type === 'DPS').length > 1)
-      return 'Attack';
-    if (weaponTypes.filter((type) => type === 'Defense').length > 1)
-      return 'Fortitude';
-    if (weaponTypes.filter((type) => type === 'Support').length > 1)
-      return 'Benediction';
+    if (weaponTypes.filter((type) => type === "DPS").length > 1)
+      return "Attack";
+    if (weaponTypes.filter((type) => type === "Defense").length > 1)
+      return "Fortitude";
+    if (weaponTypes.filter((type) => type === "Support").length > 1)
+      return "Benediction";
     if (
-      weaponTypes.filter((type) => type === 'DPS').length &&
-      weaponTypes.filter((type) => type === 'Defense').length &&
-      weaponTypes.filter((type) => type === 'Support').length
+      weaponTypes.filter((type) => type === "DPS").length &&
+      weaponTypes.filter((type) => type === "Defense").length &&
+      weaponTypes.filter((type) => type === "Support").length
     )
-      return 'Balance';
+      return "Balance";
 
-    return 'None';
+    return "None";
   }
 
   public copyFromDto(dto: TeamDto): void {

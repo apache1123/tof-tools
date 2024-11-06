@@ -1,10 +1,10 @@
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 import {
   matrixSet2pcLabel,
   matrixSet4pcLabel,
-} from '../../definitions/matrix-set-definitions';
-import type { MatrixSetPieces } from '../../models/matrix-set-definition';
+} from "../../definitions/matrix-set-definitions";
+import type { MatrixSetPieces } from "../../models/matrix-set-definition";
 
 export interface MatrixSetPiecesSelectorProps {
   matrixSetPieces: MatrixSetPieces;

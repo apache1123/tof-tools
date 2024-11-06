@@ -2,60 +2,60 @@ import {
   chargeDefinition,
   dodgeResourceDefinition,
   enduranceDefinition,
-} from '../../../definitions/resources';
-import { teamBuffs } from '../../../definitions/team-buffs';
-import { tickDuration } from '../../../definitions/tick';
-import type { Ability as AbilityDefinition } from '../../../definitions/types/ability/ability';
-import type { AbilityRequirements as AbilityRequirementsDefinition } from '../../../definitions/types/ability/ability-requirements';
-import type { AttackId } from '../../../definitions/types/attack/attack-ability';
-import type { BuffAbility as BuffAbilityDefinition } from '../../../definitions/types/buff/buff-ability';
-import type { Loadout } from '../../loadout';
-import type { Team } from '../../team';
-import type { UserStats } from '../../user-stats';
-import type { Weapon } from '../../weapon';
-import type { Ability } from '../ability/ability';
-import { AbilityRequirements } from '../ability/ability-requirements';
-import { AbilityTrigger } from '../ability/ability-trigger';
-import type { AbilityTriggerOptions } from '../ability/ability-trigger-options';
-import { ActiveWeapon } from '../active-weapon/active-weapon';
-import { ActiveWeaponTimeline } from '../active-weapon/active-weapon-timeline';
-import { AttackAbility } from '../attack/attack-ability';
-import { AttackRegistry } from '../attack/attack-registry';
-import { AttackTimeline } from '../attack/attack-timeline';
-import { ActiveBuffs } from '../buff/active-buff/active-buffs';
-import { AttackBuff } from '../buff/attack-buff/attack-buff';
-import { BaseAttackBuff } from '../buff/base-attack-buff/base-attack-buff';
-import { BuffAbility } from '../buff/buff-ability';
-import { BuffRegistry } from '../buff/buff-registry';
-import type { BuffSource } from '../buff/buff-source';
-import { BuffTimeline } from '../buff/buff-timeline';
-import { CritDamageBuff } from '../buff/crit-damage-buff/crit-damage-buff';
-import { CritRateBuff } from '../buff/crit-rate-buff/crit-rate-buff';
-import { ElementalDamageBuff } from '../buff/elemental-damage-buff/elemental-damage-buff';
-import { FinalDamageBuff } from '../buff/final-damage-buff/final-damage-buff';
-import { UtilizedBuffs } from '../buff/utilized-buffs';
-import { CurrentCharacterStats } from '../character/current-character-stats';
-import { Charge } from '../charge/charge';
-import { DamageRecord } from '../damage-record/damage-record';
-import { DamageRecordTimeline } from '../damage-record/damage-record-timeline';
-import { EventManager } from '../event/event-manager';
-import type { EventSubscriber } from '../event/event-subscriber';
-import { Registry } from '../registry/registry';
-import type { Relics } from '../relics/relics';
-import { CurrentResources } from '../resource/current-resource/current-resources';
-import { Resource } from '../resource/resource';
-import type { ResourceDefinition } from '../resource/resource-definition';
-import { ResourceRegistry } from '../resource/resource-registry';
-import { ResourceRequirements } from '../resource/resource-requirements';
-import { ResourceTimeline } from '../resource-timeline/resource-timeline';
-import type { Target } from '../target/target';
-import { ElementalWeaponRequirements } from '../team/elemental-weapon-requirements';
-import { TeamRequirements } from '../team/team-requirements';
-import { WeaponResonanceRequirements } from '../team/weapon-resonance-requirements';
-import { CurrentTick } from '../tick/current-tick';
-import { TimeInterval } from '../time-interval/time-interval';
-import { ActiveWeaponRequirements } from '../weapon/active-weapon-requirements';
-import type { CombatSimulatorOptions } from './combat-simulator-options';
+} from "../../../definitions/resources";
+import { teamBuffs } from "../../../definitions/team-buffs";
+import { tickDuration } from "../../../definitions/tick";
+import type { Ability as AbilityDefinition } from "../../../definitions/types/ability/ability";
+import type { AbilityRequirements as AbilityRequirementsDefinition } from "../../../definitions/types/ability/ability-requirements";
+import type { AttackId } from "../../../definitions/types/attack/attack-ability";
+import type { BuffAbility as BuffAbilityDefinition } from "../../../definitions/types/buff/buff-ability";
+import type { Loadout } from "../../loadout";
+import type { Team } from "../../team";
+import type { UserStats } from "../../user-stats";
+import type { Weapon } from "../../weapon";
+import type { Ability } from "../ability/ability";
+import { AbilityRequirements } from "../ability/ability-requirements";
+import { AbilityTrigger } from "../ability/ability-trigger";
+import type { AbilityTriggerOptions } from "../ability/ability-trigger-options";
+import { ActiveWeapon } from "../active-weapon/active-weapon";
+import { ActiveWeaponTimeline } from "../active-weapon/active-weapon-timeline";
+import { AttackAbility } from "../attack/attack-ability";
+import { AttackRegistry } from "../attack/attack-registry";
+import { AttackTimeline } from "../attack/attack-timeline";
+import { ActiveBuffs } from "../buff/active-buff/active-buffs";
+import { AttackBuff } from "../buff/attack-buff/attack-buff";
+import { BaseAttackBuff } from "../buff/base-attack-buff/base-attack-buff";
+import { BuffAbility } from "../buff/buff-ability";
+import { BuffRegistry } from "../buff/buff-registry";
+import type { BuffSource } from "../buff/buff-source";
+import { BuffTimeline } from "../buff/buff-timeline";
+import { CritDamageBuff } from "../buff/crit-damage-buff/crit-damage-buff";
+import { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
+import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
+import { FinalDamageBuff } from "../buff/final-damage-buff/final-damage-buff";
+import { UtilizedBuffs } from "../buff/utilized-buffs";
+import { CurrentCharacterStats } from "../character/current-character-stats";
+import { Charge } from "../charge/charge";
+import { DamageRecord } from "../damage-record/damage-record";
+import { DamageRecordTimeline } from "../damage-record/damage-record-timeline";
+import { EventManager } from "../event/event-manager";
+import type { EventSubscriber } from "../event/event-subscriber";
+import { Registry } from "../registry/registry";
+import type { Relics } from "../relics/relics";
+import { CurrentResources } from "../resource/current-resource/current-resources";
+import { Resource } from "../resource/resource";
+import type { ResourceDefinition } from "../resource/resource-definition";
+import { ResourceRegistry } from "../resource/resource-registry";
+import { ResourceRequirements } from "../resource/resource-requirements";
+import { ResourceTimeline } from "../resource-timeline/resource-timeline";
+import type { Target } from "../target/target";
+import { ElementalWeaponRequirements } from "../team/elemental-weapon-requirements";
+import { TeamRequirements } from "../team/team-requirements";
+import { WeaponResonanceRequirements } from "../team/weapon-resonance-requirements";
+import { CurrentTick } from "../tick/current-tick";
+import { TimeInterval } from "../time-interval/time-interval";
+import { ActiveWeaponRequirements } from "../weapon/active-weapon-requirements";
+import type { CombatSimulatorOptions } from "./combat-simulator-options";
 
 export class CombatSimulator {
   private readonly eventManager: EventManager;
@@ -83,7 +83,7 @@ export class CombatSimulator {
     loadout: Loadout,
     userStats: UserStats,
     relics: Relics,
-    options: CombatSimulatorOptions
+    options: CombatSimulatorOptions,
   ) {
     const { combatDuration, targetResistance } = options;
 
@@ -99,13 +99,13 @@ export class CombatSimulator {
     this.currentTick = new CurrentTick(
       startingTickInterval.startTime,
       tickDuration,
-      this.eventManager
+      this.eventManager,
     );
     this.activeWeapon = new ActiveWeapon(
       weapons,
       new ActiveWeaponTimeline(combatDuration),
       this.eventManager,
-      this.currentTick
+      this.currentTick,
     );
 
     const createResource = (definition: ResourceDefinition): Resource =>
@@ -117,7 +117,7 @@ export class CombatSimulator {
         definition.regenerate ?? {},
         new ResourceTimeline(combatDuration),
         this.eventManager,
-        this.currentTick
+        this.currentTick,
       );
     const charge = new Charge(
       chargeDefinition.id,
@@ -127,14 +127,14 @@ export class CombatSimulator {
       chargeDefinition.regenerate ?? {},
       new ResourceTimeline(combatDuration),
       this.eventManager,
-      this.currentTick
+      this.currentTick,
     );
     const dodge = createResource(dodgeResourceDefinition);
     const endurance = createResource(enduranceDefinition);
     const customResources = team.weapons.flatMap((weapon) =>
       weapon.resources.map((resourceDefinition) =>
-        createResource(resourceDefinition)
-      )
+        createResource(resourceDefinition),
+      ),
     );
     this.resources = new ResourceRegistry(charge, [
       dodge,
@@ -144,7 +144,7 @@ export class CombatSimulator {
     this.currentResources = new CurrentResources(this.resources);
 
     const createRequirements = (
-      definition: AbilityRequirementsDefinition
+      definition: AbilityRequirementsDefinition,
     ): AbilityRequirements =>
       new AbilityRequirements(
         this.team,
@@ -154,26 +154,26 @@ export class CombatSimulator {
         definition.activeBuff,
         new ActiveWeaponRequirements(
           definition.activeWeapon?.is,
-          definition.activeWeapon?.isNot
+          definition.activeWeapon?.isNot,
         ),
         new TeamRequirements(
           definition.teamRequirements?.anyWeapon,
           new WeaponResonanceRequirements(
             definition.teamRequirements?.weaponResonance?.is,
-            definition.teamRequirements?.weaponResonance?.isNot
+            definition.teamRequirements?.weaponResonance?.isNot,
           ),
           new ElementalWeaponRequirements(
             definition.teamRequirements?.elementalWeapons?.numOfElementalWeapons,
             definition.teamRequirements?.elementalWeapons?.numOfNotElementalWeapons,
-            definition.teamRequirements?.elementalWeapons?.numOfDifferentElementalTypes
-          )
+            definition.teamRequirements?.elementalWeapons?.numOfDifferentElementalTypes,
+          ),
         ),
-        new ResourceRequirements(definition.hasResource)
+        new ResourceRequirements(definition.hasResource),
       );
 
     const createAbilityTrigger = (
       ability: Ability,
-      definition: AbilityDefinition
+      definition: AbilityDefinition,
     ): AbilityTrigger => {
       const { triggeredBy } = definition;
       return new AbilityTrigger(
@@ -189,7 +189,7 @@ export class CombatSimulator {
               ofWeapon: triggeredBy.hitOfWeapon,
             }
           : undefined,
-        triggeredBy.resourceUpdate
+        triggeredBy.resourceUpdate,
       );
     };
 
@@ -218,7 +218,7 @@ export class CombatSimulator {
           definition.hitCount,
           !!definition.doesNotTriggerEvents,
           this.activeWeapon,
-          this.currentResources
+          this.currentResources,
         );
         this.attacks.add(attack);
 
@@ -231,20 +231,20 @@ export class CombatSimulator {
       abilityDefinitions: BuffAbilityDefinition[];
     }[] = [
       {
-        source: 'weapon',
+        source: "weapon",
         abilityDefinitions: weapons.flatMap((weapon) => weapon.buffs),
       },
       {
-        source: 'matrix',
+        source: "matrix",
         abilityDefinitions: weapons.flatMap((weapon) =>
           weapon.matrixSets
             .getMatrixSets()
-            .flatMap((matrixSet) => matrixSet.buffs)
+            .flatMap((matrixSet) => matrixSet.buffs),
         ),
       },
-      { source: 'team', abilityDefinitions: teamBuffs },
-      { source: 'simulacra', abilityDefinitions: simulacrumTrait?.buffs ?? [] },
-      { source: 'relic', abilityDefinitions: relics.passiveRelicBuffs },
+      { source: "team", abilityDefinitions: teamBuffs },
+      { source: "simulacra", abilityDefinitions: simulacrumTrait?.buffs ?? [] },
+      { source: "relic", abilityDefinitions: relics.passiveRelicBuffs },
     ];
 
     this.buffs = new BuffRegistry([]);
@@ -256,16 +256,16 @@ export class CombatSimulator {
           abilityDef.baseAttackBuffs?.flatMap((baseAttackBuffDef) =>
             baseAttackBuffDef.elementalTypes.map(
               (elementalType) =>
-                new BaseAttackBuff(id, baseAttackBuffDef.value, elementalType)
-            )
+                new BaseAttackBuff(id, baseAttackBuffDef.value, elementalType),
+            ),
           ) ?? [];
 
         const attackBuffs =
           abilityDef.attackBuffs?.flatMap((attackBuffDef) =>
             attackBuffDef.elementalTypes.map(
               (elementalType) =>
-                new AttackBuff(id, attackBuffDef.value, elementalType)
-            )
+                new AttackBuff(id, attackBuffDef.value, elementalType),
+            ),
           ) ?? [];
 
         const elementalDamageBuffs =
@@ -277,9 +277,9 @@ export class CombatSimulator {
                   elementalDamageBuffDef.value,
                   source,
                   elementalDamageBuffDef.restrictedTo ?? {},
-                  elementalType
-                )
-            )
+                  elementalType,
+                ),
+            ),
           ) ?? [];
 
         const finalDamageBuffs =
@@ -289,19 +289,19 @@ export class CombatSimulator {
                 id,
                 finalDamageBuffDef.value,
                 source,
-                finalDamageBuffDef.restrictedTo ?? {}
-              )
+                finalDamageBuffDef.restrictedTo ?? {},
+              ),
           ) ?? [];
 
         const critRateBuffs =
           abilityDef.critRateBuffs?.map(
-            (critRateBuffDef) => new CritRateBuff(id, critRateBuffDef.value)
+            (critRateBuffDef) => new CritRateBuff(id, critRateBuffDef.value),
           ) ?? [];
 
         const critDamageBuffs =
           abilityDef.critDamageBuffs?.map(
             (critDamageBuffDef) =>
-              new CritDamageBuff(id, critDamageBuffDef.value)
+              new CritDamageBuff(id, critDamageBuffDef.value),
           ) ?? [];
 
         const buffAbility = new BuffAbility(
@@ -321,7 +321,7 @@ export class CombatSimulator {
           elementalDamageBuffs,
           finalDamageBuffs,
           critRateBuffs,
-          critDamageBuffs
+          critDamageBuffs,
         );
         this.buffs.add(buffAbility);
 
@@ -335,7 +335,7 @@ export class CombatSimulator {
       userStats,
       loadout,
       loadout.loadoutStats,
-      this.activeBuffs
+      this.activeBuffs,
     );
 
     const utilizedBuffs = new UtilizedBuffs();
@@ -346,7 +346,7 @@ export class CombatSimulator {
       this.eventManager,
       this.target,
       this.activeBuffs,
-      this.currentCharacterStats
+      this.currentCharacterStats,
     );
 
     this.eventSubscribers.push(
@@ -354,7 +354,7 @@ export class CombatSimulator {
       ...this.attacks.items,
       ...this.buffs.items,
       ...abilityTriggers,
-      this.damageRecord
+      this.damageRecord,
     );
   }
 
@@ -368,7 +368,7 @@ export class CombatSimulator {
 
   public performAttack(id: AttackId, options?: AbilityTriggerOptions) {
     if (!this.hasBegunCombat)
-      throw new Error('Combat has not begun. Call beginCombat() first.');
+      throw new Error("Combat has not begun. Call beginCombat() first.");
 
     if (!this.getAvailableAttacks().includes(id))
       throw new Error(`Attack ${id} is not available to be performed`);

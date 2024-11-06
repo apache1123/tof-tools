@@ -1,7 +1,7 @@
-import type { CurrentCharge } from '../../charge/current-charge';
-import type { ResourceId } from '../resource-definition';
-import type { ResourceRegistry } from '../resource-registry';
-import type { CurrentResource } from './current-resource';
+import type { CurrentCharge } from "../../charge/current-charge";
+import type { ResourceId } from "../resource-definition";
+import type { ResourceRegistry } from "../resource-registry";
+import type { CurrentResource } from "./current-resource";
 
 export class CurrentResources {
   public constructor(private readonly resources: ResourceRegistry) {}

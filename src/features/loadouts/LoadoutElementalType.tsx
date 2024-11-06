@@ -1,7 +1,7 @@
-import { useSnapshot } from 'valtio';
+import { useSnapshot } from "valtio";
 
-import { CoreElementalTypeSelector } from '../../components/CoreElementalTypeSelector/CoreElementalTypeSelector';
-import { loadoutsState } from '../../states/states';
+import { CoreElementalTypeSelector } from "../../components/CoreElementalTypeSelector/CoreElementalTypeSelector";
+import { loadoutsState } from "../../states/states";
 
 export function LoadoutElementalType() {
   const {
@@ -14,7 +14,7 @@ export function LoadoutElementalType() {
       onElementalTypeChange={(elementalType) => {
         loadoutsState.selectedLoadoutItem.loadout.elementalType = elementalType;
       }}
-      label={loadout.elementalType ? null : 'Element type'}
+      label={loadout.elementalType ? null : "Element type"}
       size="small"
       variant="outlined"
       required={!loadout.elementalType}

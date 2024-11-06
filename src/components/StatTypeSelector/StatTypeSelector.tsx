@@ -1,7 +1,7 @@
-import { Autocomplete, TextField } from '@mui/material';
-import type { SyntheticEvent } from 'react';
+import { Autocomplete, TextField } from "@mui/material";
+import type { SyntheticEvent } from "react";
 
-import type { StatType } from '../../models/stat-type';
+import type { StatType } from "../../models/stat-type";
 
 export interface StatTypeSelectorProps {
   possibleStatTypes: StatType[];

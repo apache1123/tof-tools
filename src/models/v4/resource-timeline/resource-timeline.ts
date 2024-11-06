@@ -1,9 +1,9 @@
-import { sum } from '../../../utils/math-utils';
-import type { Serializable } from '../../persistable';
-import { TimeInterval } from '../time-interval/time-interval';
-import { Timeline } from '../timeline/timeline';
-import type { ResourceTimelineDto } from './dtos/resource-timeline-dto';
-import type { ResourceEvent } from './resource-event';
+import { sum } from "../../../utils/math-utils";
+import type { Serializable } from "../../persistable";
+import { TimeInterval } from "../time-interval/time-interval";
+import { Timeline } from "../timeline/timeline";
+import type { ResourceTimelineDto } from "./dtos/resource-timeline-dto";
+import type { ResourceEvent } from "./resource-event";
 
 export class ResourceTimeline
   extends Timeline<ResourceEvent>

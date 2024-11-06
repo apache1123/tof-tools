@@ -1,18 +1,18 @@
-import type { Theme } from '@mui/material';
-import { Button, IconButton, type SxProps, Tooltip } from '@mui/material';
-import { type ReactNode, useState } from 'react';
+import type { Theme } from "@mui/material";
+import { Button, IconButton, type SxProps, Tooltip } from "@mui/material";
+import { type ReactNode, useState } from "react";
 
-import type { StyledModalProps } from './StyledModal';
-import { StyledModal } from './StyledModal';
+import type { StyledModalProps } from "./StyledModal";
+import { StyledModal } from "./StyledModal";
 
-export interface ButtonModalProps extends Omit<StyledModalProps, 'open'> {
+export interface ButtonModalProps extends Omit<StyledModalProps, "open"> {
   buttonText?: ReactNode;
   icon?: ReactNode;
   iconButton?: boolean;
   disabled?: boolean;
   openByDefault?: boolean;
   buttonSx?: SxProps<Theme>;
-  ['aria-label']?: string;
+  ["aria-label"]?: string;
 }
 
 export function ButtonModal({
@@ -23,7 +23,7 @@ export function ButtonModal({
   iconButton,
   disabled,
   openByDefault,
-  'aria-label': ariaLabel,
+  "aria-label": ariaLabel,
   buttonSx,
   ...rest
 }: ButtonModalProps) {

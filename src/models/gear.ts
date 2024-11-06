@@ -1,44 +1,44 @@
-import BigNumber from 'bignumber.js';
-import groupBy from 'lodash.groupby';
-import { nanoid } from 'nanoid';
+import BigNumber from "bignumber.js";
+import groupBy from "lodash.groupby";
+import { nanoid } from "nanoid";
 
-import { prioritizedAugmentationStatTypesLookup } from '../definitions/augmentation-stats';
-import type { CoreElementalType } from '../definitions/elemental-type';
+import { prioritizedAugmentationStatTypesLookup } from "../definitions/augmentation-stats";
+import type { CoreElementalType } from "../definitions/elemental-type";
 import {
   augmentStatsPullUpFactor1,
   augmentStatsPullUpFactor2,
   augmentStatsPullUpFactor3,
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
-} from '../definitions/gear';
-import type { GearName } from '../definitions/gear-types';
-import { gearTypesLookup } from '../definitions/gear-types';
-import type { StatName } from '../definitions/stat-types';
-import { statTypesLookup } from '../definitions/stat-types';
-import { filterOutUndefined } from '../utils/array-utils';
-import { cartesian } from '../utils/cartesian-utils';
-import { sum } from '../utils/math-utils';
-import { keysOf } from '../utils/object-utils';
-import type { AugmentStatDto } from './augment-stat';
-import { AugmentStat } from './augment-stat';
-import type { Dto } from './dto';
+} from "../definitions/gear";
+import type { GearName } from "../definitions/gear-types";
+import { gearTypesLookup } from "../definitions/gear-types";
+import type { StatName } from "../definitions/stat-types";
+import { statTypesLookup } from "../definitions/stat-types";
+import { filterOutUndefined } from "../utils/array-utils";
+import { cartesian } from "../utils/cartesian-utils";
+import { sum } from "../utils/math-utils";
+import { keysOf } from "../utils/object-utils";
+import type { AugmentStatDto } from "./augment-stat";
+import { AugmentStat } from "./augment-stat";
+import type { Dto } from "./dto";
 import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
-} from './gear-random-stat-roll-combinations';
-import type { GearStatDifference } from './gear-stat-difference';
-import type { GearType } from './gear-type';
-import type { Persistable } from './persistable';
-import type { RandomStatDto } from './random-stat';
-import { RandomStat } from './random-stat';
-import type { StatType } from './stat-type';
+} from "./gear-random-stat-roll-combinations";
+import type { GearStatDifference } from "./gear-stat-difference";
+import type { GearType } from "./gear-type";
+import type { Persistable } from "./persistable";
+import type { RandomStatDto } from "./random-stat";
+import { RandomStat } from "./random-stat";
+import type { StatType } from "./stat-type";
 import {
   isCritFlat,
   isCritPercent,
   isElementalAttackFlat,
   isElementalAttackPercent,
   isElementalDamagePercent,
-} from './stat-type';
+} from "./stat-type";
 
 export class Gear implements Persistable<GearDto> {
   private _id: string;
@@ -77,7 +77,7 @@ export class Gear implements Persistable<GearDto> {
   }
   public getPossibleStars(): number[] {
     return Object.keys(
-      groupBy(this.getRandomStatRollCombinations(), (x) => x.stars)
+      groupBy(this.getRandomStatRollCombinations(), (x) => x.stars),
     ).map((x) => +x);
   }
 
@@ -98,14 +98,14 @@ export class Gear implements Persistable<GearDto> {
   public getTotalAttackFlat(elementalType: CoreElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
-      isElementalAttackFlat
+      isElementalAttackFlat,
     );
   }
 
   public getTotalAttackPercent(elementalType: CoreElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
-      isElementalAttackPercent
+      isElementalAttackPercent,
     );
   }
 
@@ -118,11 +118,11 @@ export class Gear implements Persistable<GearDto> {
   }
 
   public getTotalElementalDamagePercent(
-    elementalType: CoreElementalType
+    elementalType: CoreElementalType,
   ): number {
     return this.additiveSumElementalStatValues(
       elementalType,
-      isElementalDamagePercent
+      isElementalDamagePercent,
     );
   }
 
@@ -134,13 +134,13 @@ export class Gear implements Persistable<GearDto> {
               (rollCombination): RandomStatRollCombination => ({
                 randomStatId: randomStat.type.id,
                 rollCombination,
-              })
+              }),
             )
-          : []
+          : [],
     );
 
     const allPossibleCombinations: RandomStatRollCombination[][] = cartesian(
-      allRandomStatsWithRollCombinations
+      allRandomStatsWithRollCombinations,
     );
 
     // Assuming the roll combinations for each stat is ordered by least number of rolls first
@@ -164,13 +164,13 @@ export class Gear implements Persistable<GearDto> {
           (x) =>
             x
               .map((y) => y.rollCombination.numberOfRolls ?? 0)
-              .reduce((prev, current) => prev + current, 0) === rolls
+              .reduce((prev, current) => prev + current, 0) === rolls,
         )
         .forEach((x) =>
           result.push({
             stars: rolls,
             randomStatRollCombinations: x,
-          })
+          }),
         );
     }
 
@@ -204,7 +204,7 @@ export class Gear implements Persistable<GearDto> {
       current.rollCombination.totalRollWeight >=
       prev.rollCombination.totalRollWeight
         ? current
-        : prev
+        : prev,
     ).randomStatId;
 
     const prioritizedStatNames =
@@ -213,7 +213,7 @@ export class Gear implements Persistable<GearDto> {
     const elementalPrioritizedStatNames = elementalType
       ? prioritizedStatNames.filter(
           (statName) =>
-            statTypesLookup.byId[statName].elementalType === elementalType
+            statTypesLookup.byId[statName].elementalType === elementalType,
         )
       : [];
     const fallbackStatNames =
@@ -237,10 +237,10 @@ export class Gear implements Persistable<GearDto> {
         if (
           maxTitanGear.augmentStats.length < maxNumOfAugmentStats &&
           !maxTitanGear.randomStats.some(
-            (randomStat) => randomStat?.type.id === statName
+            (randomStat) => randomStat?.type.id === statName,
           ) &&
           !maxTitanGear.augmentStats.some(
-            (augmentStat) => augmentStat.type.id === statName
+            (augmentStat) => augmentStat.type.id === statName,
           )
         ) {
           const statType = statTypesLookup.byId[statName];
@@ -259,7 +259,7 @@ export class Gear implements Persistable<GearDto> {
 
     function pullUpStatsValueIfApplicable() {
       const randomStatsAndTypes = filterOutUndefined(
-        maxTitanGear.randomStats
+        maxTitanGear.randomStats,
       ).map((randomStat) => ({
         randomStat,
         statType: randomStat.type,
@@ -267,7 +267,7 @@ export class Gear implements Persistable<GearDto> {
 
       const randomStatsAndTypesByRole = groupBy(
         randomStatsAndTypes,
-        (x) => x.statType.role
+        (x) => x.statType.role,
       );
 
       // Seems only ele atk & ele atk % values get 'pulled up'
@@ -275,7 +275,7 @@ export class Gear implements Persistable<GearDto> {
       // TODO: the logic here kind of breaks down for atk% and dmg%. Because each roll is a fixed increase value, there may be two stats that are both the second highest value, but the below is not checking for equal values and just assumes every value when sorted descending will be lower than the previous.
 
       keysOf(randomStatsAndTypesByRole).forEach((role) => {
-        if (role === 'Attack' || role === 'Attack %' || role === 'Damage %') {
+        if (role === "Attack" || role === "Attack %" || role === "Damage %") {
           let highestValueWithAugment: number | undefined = undefined;
 
           const randomStatsAndTypes = randomStatsAndTypesByRole[role];
@@ -287,10 +287,10 @@ export class Gear implements Persistable<GearDto> {
             .filter(
               (randomStatAndType) =>
                 // Filter out 'Attack'
-                randomStatAndType.statType.elementalType !== 'All'
+                randomStatAndType.statType.elementalType !== "All",
             )
             .sort(
-              (a, b) => (b.randomStat?.value ?? 0) - (a.randomStat?.value ?? 0)
+              (a, b) => (b.randomStat?.value ?? 0) - (a.randomStat?.value ?? 0),
             )
             .forEach((randomStatAndType, i) => {
               if (randomStatAndType.randomStat) {
@@ -312,7 +312,7 @@ export class Gear implements Persistable<GearDto> {
 
                 if (highestValueWithAugment && pullUpFactor) {
                   const pullUptoValue = BigNumber(
-                    highestValueWithAugment
+                    highestValueWithAugment,
                   ).times(pullUpFactor);
 
                   const { randomStat } = randomStatAndType;
@@ -327,20 +327,20 @@ export class Gear implements Persistable<GearDto> {
 
       // Similar "pull-up" happens with augment stats, but each augment stat will always be 95%.
       const valueWithAugmentOfHighestStat = maxTitanGear.randomStats.find(
-        (randomStat) => randomStat?.type.id === highestStatName
+        (randomStat) => randomStat?.type.id === highestStatName,
       )?.totalValue;
       maxTitanGear.augmentStats.forEach((augmentStat) => {
         const statType = augmentStat.type;
         if (
           valueWithAugmentOfHighestStat &&
-          (statType.role === 'Attack' ||
-            statType.role === 'Attack %' ||
-            statType.role === 'Damage %') &&
+          (statType.role === "Attack" ||
+            statType.role === "Attack %" ||
+            statType.role === "Damage %") &&
           // Filter out 'Attack'
-          statType.elementalType !== 'All'
+          statType.elementalType !== "All"
         ) {
           const pullUptoValue = BigNumber(valueWithAugmentOfHighestStat).times(
-            augmentStatsPullUpFactor1
+            augmentStatsPullUpFactor1,
           );
           augmentStat.augmentIncreaseValue = pullUptoValue
             .minus(augmentStat.value)
@@ -352,7 +352,7 @@ export class Gear implements Persistable<GearDto> {
 
   // Additively sum up all random stat & augment stat values based on a stat type condition
   private additiveSumStatValues(
-    predicate: (statType: StatType) => boolean
+    predicate: (statType: StatType) => boolean,
   ): number {
     return sum(
       ...this.randomStats.concat(this.augmentStats).map((stat) => {
@@ -360,14 +360,17 @@ export class Gear implements Persistable<GearDto> {
 
         const statType = stat.type;
         return predicate(statType) ? stat.totalValue : 0;
-      })
+      }),
     ).toNumber();
   }
 
   // Additively sum up all random stat & augment values based on a stat type & elemental type condition
   private additiveSumElementalStatValues(
     elementalType: CoreElementalType,
-    predicate: (statType: StatType, elementalType: CoreElementalType) => boolean
+    predicate: (
+      statType: StatType,
+      elementalType: CoreElementalType,
+    ) => boolean,
   ): number {
     return sum(
       ...this.randomStats.concat(this.augmentStats).map((stat) => {
@@ -375,13 +378,13 @@ export class Gear implements Persistable<GearDto> {
 
         const statType = stat.type;
         return predicate(statType, elementalType) ? stat.totalValue : 0;
-      })
+      }),
     ).toNumber();
   }
 
   private resetRandomStats() {
     this.randomStats = [...Array(this._type.numberOfRandomStats)].map(
-      () => undefined
+      () => undefined,
     );
   }
 
@@ -396,20 +399,20 @@ export class Gear implements Persistable<GearDto> {
   /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
   public static calculateStatDifference(
     baseGear: Gear,
-    newGear: Gear
+    newGear: Gear,
   ): GearStatDifference {
     return {
-      flameAttack: BigNumber(newGear.getTotalAttackFlat('Flame'))
-        .minus(baseGear.getTotalAttackFlat('Flame'))
+      flameAttack: BigNumber(newGear.getTotalAttackFlat("Flame"))
+        .minus(baseGear.getTotalAttackFlat("Flame"))
         .toNumber(),
-      frostAttack: BigNumber(newGear.getTotalAttackFlat('Frost'))
-        .minus(baseGear.getTotalAttackFlat('Frost'))
+      frostAttack: BigNumber(newGear.getTotalAttackFlat("Frost"))
+        .minus(baseGear.getTotalAttackFlat("Frost"))
         .toNumber(),
-      physicalAttack: BigNumber(newGear.getTotalAttackFlat('Physical'))
-        .minus(baseGear.getTotalAttackFlat('Physical'))
+      physicalAttack: BigNumber(newGear.getTotalAttackFlat("Physical"))
+        .minus(baseGear.getTotalAttackFlat("Physical"))
         .toNumber(),
-      voltAttack: BigNumber(newGear.getTotalAttackFlat('Volt'))
-        .minus(baseGear.getTotalAttackFlat('Volt'))
+      voltAttack: BigNumber(newGear.getTotalAttackFlat("Volt"))
+        .minus(baseGear.getTotalAttackFlat("Volt"))
         .toNumber(),
       critFlat: BigNumber(newGear.getTotalCritFlat())
         .minus(baseGear.getTotalCritFlat())
@@ -417,19 +420,19 @@ export class Gear implements Persistable<GearDto> {
       critPercent: BigNumber(newGear.getTotalCritPercent())
         .minus(baseGear.getTotalCritPercent())
         .toNumber(),
-      flameDamage: BigNumber(newGear.getTotalElementalDamagePercent('Flame'))
-        .minus(baseGear.getTotalElementalDamagePercent('Flame'))
+      flameDamage: BigNumber(newGear.getTotalElementalDamagePercent("Flame"))
+        .minus(baseGear.getTotalElementalDamagePercent("Flame"))
         .toNumber(),
-      frostDamage: BigNumber(newGear.getTotalElementalDamagePercent('Frost'))
-        .minus(baseGear.getTotalElementalDamagePercent('Frost'))
+      frostDamage: BigNumber(newGear.getTotalElementalDamagePercent("Frost"))
+        .minus(baseGear.getTotalElementalDamagePercent("Frost"))
         .toNumber(),
       physicalDamage: BigNumber(
-        newGear.getTotalElementalDamagePercent('Physical')
+        newGear.getTotalElementalDamagePercent("Physical"),
       )
-        .minus(baseGear.getTotalElementalDamagePercent('Physical'))
+        .minus(baseGear.getTotalElementalDamagePercent("Physical"))
         .toNumber(),
-      voltDamage: BigNumber(newGear.getTotalElementalDamagePercent('Volt'))
-        .minus(baseGear.getTotalElementalDamagePercent('Volt'))
+      voltDamage: BigNumber(newGear.getTotalElementalDamagePercent("Volt"))
+        .minus(baseGear.getTotalElementalDamagePercent("Volt"))
         .toNumber(),
     };
   }

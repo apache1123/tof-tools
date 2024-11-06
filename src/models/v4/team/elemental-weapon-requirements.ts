@@ -1,8 +1,8 @@
-import groupBy from 'lodash.groupby';
+import groupBy from "lodash.groupby";
 
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import type { Team } from '../../team';
-import type { Requirements } from '../requirements/requirements';
+import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { Team } from "../../team";
+import type { Requirements } from "../requirements/requirements";
 
 export class ElementalWeaponRequirements implements Requirements {
   public constructor(
@@ -16,7 +16,7 @@ export class ElementalWeaponRequirements implements Requirements {
       notElement: WeaponElementalType;
       numOfWeapons: number;
     },
-    private readonly numOfDifferentElementalTypes?: number
+    private readonly numOfDifferentElementalTypes?: number,
   ) {}
 
   public haveBeenMet(team: Team): boolean {
@@ -26,7 +26,7 @@ export class ElementalWeaponRequirements implements Requirements {
       this.numOfElementalWeapons &&
       this.numOfElementalWeapons.every((requirement) => {
         const numOfWeaponsOfElementalType = weaponElementalTypes.filter(
-          (x) => x === requirement.element
+          (x) => x === requirement.element,
         ).length;
 
         return numOfWeaponsOfElementalType !== requirement.numOfWeapons;
@@ -39,8 +39,8 @@ export class ElementalWeaponRequirements implements Requirements {
       const numOfNotElementalTypeWeapons = weapons.filter(
         (weapon) =>
           !weapon.definition.resonanceElements.includes(
-            notElementalWeaponRequirement.notElement
-          )
+            notElementalWeaponRequirement.notElement,
+          ),
       ).length;
 
       if (
@@ -52,7 +52,7 @@ export class ElementalWeaponRequirements implements Requirements {
 
     if (this.numOfDifferentElementalTypes) {
       const numOfDifferentElementalTypes = Object.keys(
-        groupBy(weaponElementalTypes)
+        groupBy(weaponElementalTypes),
       ).length;
 
       if (numOfDifferentElementalTypes !== this.numOfDifferentElementalTypes)

@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import type { Serializable } from '../../persistable';
-import type { DamageDto } from '../damage-summary/dtos/damage-dto';
+import type { Serializable } from "../../persistable";
+import type { DamageDto } from "../damage-summary/dtos/damage-dto";
 
 export class Damage implements Serializable<DamageDto> {
   private _baseDamage: number;

@@ -1,8 +1,8 @@
-import { getLatestTimeInterval } from '../../../utils/time-interval-utils';
-import type { Serializable } from '../../persistable';
-import type { TimeInterval } from '../time-interval/time-interval';
-import type { TimelineDto } from './dtos/timeline-dto';
-import type { TimelineEvent } from './timeline-event';
+import { getLatestTimeInterval } from "../../../utils/time-interval-utils";
+import type { Serializable } from "../../persistable";
+import type { TimeInterval } from "../time-interval/time-interval";
+import type { TimelineDto } from "./dtos/timeline-dto";
+import type { TimelineEvent } from "./timeline-event";
 
 export class Timeline<T extends TimelineEvent = TimelineEvent>
   implements Serializable<TimelineDto>
@@ -11,7 +11,7 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
 
   public constructor(
     public readonly endTime: number,
-    public readonly startTime = 0
+    public readonly startTime = 0,
   ) {}
 
   public get events(): ReadonlyArray<T> {
@@ -25,19 +25,19 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
   public addEvent(event: T) {
     if (event.startTime < this.startTime) {
       throw new Error(
-        'Cannot add an event that starts before the timeline starts'
+        "Cannot add an event that starts before the timeline starts",
       );
     }
 
     if (event.startTime >= this.endTime) {
       throw new Error(
-        "Cannot add event that starts after the timeline's end time"
+        "Cannot add event that starts after the timeline's end time",
       );
     }
 
     if (this.lastEvent && event.startTime < this.lastEvent.startTime) {
       throw new Error(
-        'Cannot add an event that is earlier than the latest event'
+        "Cannot add an event that is earlier than the latest event",
       );
     }
 
@@ -61,7 +61,7 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
         (event.startTime < endTime && event.endTime > startTime) ||
         (event.startTime === event.endTime &&
           event.startTime >= startTime &&
-          event.startTime < endTime)
+          event.startTime < endTime),
     );
   }
 
@@ -71,7 +71,7 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
 
   public getEventsAt(time: number) {
     return this._events.filter(
-      (event) => event.startTime <= time && event.endTime > time
+      (event) => event.startTime <= time && event.endTime > time,
     );
   }
 
@@ -79,7 +79,7 @@ export class Timeline<T extends TimelineEvent = TimelineEvent>
     return this._events.filter(
       (event) =>
         event.endTime > timeInterval.startTime &&
-        event.endTime <= timeInterval.endTime
+        event.endTime <= timeInterval.endTime,
     );
   }
 

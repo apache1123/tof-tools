@@ -1,6 +1,6 @@
-import type { AbilityId } from '../../../models/v4/ability/ability-id';
-import type { ResourceId } from '../../../models/v4/resource/resource-definition';
-import type { WeaponName } from '../../weapons/weapon-definitions';
+import type { AbilityId } from "../../../models/v4/ability/ability-id";
+import type { ResourceId } from "../../../models/v4/resource/resource-definition";
+import type { WeaponName } from "../../weapons/weapon-definitions";
 
 export interface AbilityTriggeredBy {
   combatStart?: boolean;

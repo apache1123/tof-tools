@@ -1,25 +1,25 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import type { AttackType } from '../../../definitions/attack-type';
-import type { WeaponElementalType } from '../../../definitions/elemental-type';
-import { oneSecondDuration } from '../../../utils/time-utils';
-import type { Serializable } from '../../persistable';
-import type { Weapon } from '../../weapon';
-import { AbilityEvent } from '../ability/ability-event';
-import type { AbilityId } from '../ability/ability-id';
-import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { AttackHitCount } from '../attack/attack-hit-count';
-import type { BaseDamageModifiers } from '../damage-modifiers/base-damage-modifiers';
-import type { BaseDamageModifiersDefinition } from '../damage-modifiers/base-damage-modifiers-definition';
-import type { FinalDamageModifiers } from '../damage-modifiers/final-damage-modifiers';
-import type { FinalDamageModifiersDefinition } from '../damage-modifiers/final-damage-modifiers-definition';
-import type { EventManager } from '../event/event-manager';
-import type { AttackHit } from '../event/messages/attack-hit';
-import type { CurrentResources } from '../resource/current-resource/current-resources';
-import type { CurrentTick } from '../tick/current-tick';
-import type { Tick } from '../tick/tick';
-import type { TimeInterval } from '../time-interval/time-interval';
-import type { AttackEventDto } from './dtos/attack-event-dto';
+import type { AttackType } from "../../../definitions/attack-type";
+import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import { oneSecondDuration } from "../../../utils/time-utils";
+import type { Serializable } from "../../persistable";
+import type { Weapon } from "../../weapon";
+import { AbilityEvent } from "../ability/ability-event";
+import type { AbilityId } from "../ability/ability-id";
+import type { AbilityUpdatesResource } from "../ability/ability-updates-resource";
+import type { AttackHitCount } from "../attack/attack-hit-count";
+import type { BaseDamageModifiers } from "../damage-modifiers/base-damage-modifiers";
+import type { BaseDamageModifiersDefinition } from "../damage-modifiers/base-damage-modifiers-definition";
+import type { FinalDamageModifiers } from "../damage-modifiers/final-damage-modifiers";
+import type { FinalDamageModifiersDefinition } from "../damage-modifiers/final-damage-modifiers-definition";
+import type { EventManager } from "../event/event-manager";
+import type { AttackHit } from "../event/messages/attack-hit";
+import type { CurrentResources } from "../resource/current-resource/current-resources";
+import type { CurrentTick } from "../tick/current-tick";
+import type { Tick } from "../tick/tick";
+import type { TimeInterval } from "../time-interval/time-interval";
+import type { AttackEventDto } from "./dtos/attack-event-dto";
 
 export class AttackEvent
   extends AbilityEvent
@@ -39,7 +39,7 @@ export class AttackEvent
     private readonly hitCount: AttackHitCount,
     /** The weapon this attack derived from, for convenience */
     private readonly weapon: Weapon,
-    private readonly currentResources: CurrentResources
+    private readonly currentResources: CurrentResources,
   ) {
     super(
       timeInterval,
@@ -47,7 +47,7 @@ export class AttackEvent
       cooldown,
       updatesResources,
       eventManager,
-      currentTick
+      currentTick,
     );
   }
 
@@ -107,10 +107,10 @@ export class AttackEvent
       attackFlat: calculateAdjustedValue(attackFlat),
       hpMultiplier: calculateAdjustedValue(hpMultiplier ?? 0),
       sumOfResistancesMultiplier: calculateAdjustedValue(
-        sumOfResistancesMultiplier ?? 0
+        sumOfResistancesMultiplier ?? 0,
       ),
       critRateFlatMultiplier: calculateAdjustedValue(
-        critRateFlatMultiplier ?? 0
+        critRateFlatMultiplier ?? 0,
       ),
       resourceAmountMultiplier: this.getResourceAmountMultiplier(),
     };

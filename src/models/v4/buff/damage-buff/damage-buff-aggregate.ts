@@ -1,7 +1,7 @@
-import groupBy from 'lodash.groupby';
+import groupBy from "lodash.groupby";
 
-import { product, sum } from '../../../../utils/math-utils';
-import type { DamageBuff } from './damage-buff';
+import { product, sum } from "../../../../utils/math-utils";
+import type { DamageBuff } from "./damage-buff";
 
 export class DamageBuffAggregate {
   public constructor(private readonly damageBuffs: DamageBuff[]) {}
@@ -12,8 +12,8 @@ export class DamageBuffAggregate {
     return {
       damagePercent: product(
         ...Object.values(buffsBySource).map((buffs) =>
-          sum(...buffs.map((buff) => buff.value ?? 0), 1)
-        )
+          sum(...buffs.map((buff) => buff.value ?? 0), 1),
+        ),
       )
         .minus(1)
         .toNumber(),

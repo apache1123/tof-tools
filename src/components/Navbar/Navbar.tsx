@@ -1,19 +1,19 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link, Tab, Tabs } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import * as React from 'react';
+import MenuIcon from "@mui/icons-material/Menu";
+import { Link, Tab, Tabs } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import * as React from "react";
 
-import { routes } from '../../../routes/routes';
-import { RandomSticker } from '../RandomSticker/RandomSticker';
+import { routes } from "../../../routes/routes";
+import { RandomSticker } from "../RandomSticker/RandomSticker";
 
 const pages: { label: string; path: string }[] = [
   routes.damageCalculator,
@@ -26,7 +26,7 @@ const pages: { label: string; path: string }[] = [
 
 export function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
+    null,
   );
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -42,14 +42,14 @@ export function Navbar() {
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
-          sx={{ justifyContent: { xs: 'space-between' } }}
+          sx={{ justifyContent: { xs: "space-between" } }}
         >
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
             <Link href="/" underline="none">
               <Logo />
             </Link>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="menu"
@@ -64,18 +64,18 @@ export function Navbar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
@@ -88,7 +88,7 @@ export function Navbar() {
                     href={page.path}
                     underline="none"
                     color={
-                      page.path === router.pathname ? 'primary' : 'inherit'
+                      page.path === router.pathname ? "primary" : "inherit"
                     }
                   >
                     <Typography textAlign="center">{page.label}</Typography>
@@ -98,15 +98,15 @@ export function Navbar() {
             </Menu>
           </Box>
 
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <Sticker />
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+          <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
             <Link href="/" underline="none">
               <Logo />
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 3 }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, ml: 3 }}>
             <Tabs
               value={
                 pages.find((page) => page.path === router.pathname)
@@ -124,7 +124,7 @@ export function Navbar() {
               ))}
             </Tabs>
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Sticker />
           </Box>
         </Toolbar>

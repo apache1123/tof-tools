@@ -1,14 +1,14 @@
-import { Link } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import { useSnapshot } from 'valtio';
+import { Link } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import { useSnapshot } from "valtio";
 
-import { LoadoutSelector as LoadoutSelectorComponent } from '../../components/LoadoutSelector/LoadoutSelector';
-import type { LoadoutsState } from '../../states/loadouts';
-import { gearComparerState, loadoutsState } from '../../states/states';
+import { LoadoutSelector as LoadoutSelectorComponent } from "../../components/LoadoutSelector/LoadoutSelector";
+import type { LoadoutsState } from "../../states/loadouts";
+import { gearComparerState, loadoutsState } from "../../states/states";
 
 export function LoadoutSelector() {
   const { loadoutList, selectedLoadout } = useSnapshot(
-    loadoutsState
+    loadoutsState,
   ) as LoadoutsState;
 
   return (

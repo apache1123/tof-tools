@@ -1,22 +1,22 @@
-import type { Serializable } from '../../persistable';
-import { Ability } from '../ability/ability';
-import type { AbilityId } from '../ability/ability-id';
-import type { AbilityRequirements } from '../ability/ability-requirements';
-import type { AbilityUpdatesResource } from '../ability/ability-updates-resource';
-import type { EventManager } from '../event/event-manager';
-import type { CurrentTick } from '../tick/current-tick';
-import type { TimeInterval } from '../time-interval/time-interval';
-import type { ActiveBuff } from './active-buff/active-buff';
-import type { AttackBuff } from './attack-buff/attack-buff';
-import type { BaseAttackBuff } from './base-attack-buff/base-attack-buff';
-import { BuffEvent } from './buff-event';
-import type { BuffTimeline } from './buff-timeline';
-import type { CritDamageBuff } from './crit-damage-buff/crit-damage-buff';
-import type { CritRateBuff } from './crit-rate-buff/crit-rate-buff';
-import type { BuffDto } from './dtos/buff-dto';
-import type { ElementalDamageBuff } from './elemental-damage-buff/elemental-damage-buff';
-import type { FinalDamageBuff } from './final-damage-buff/final-damage-buff';
-import type { MiscellaneousBuff } from './miscellaneous-buff';
+import type { Serializable } from "../../persistable";
+import { Ability } from "../ability/ability";
+import type { AbilityId } from "../ability/ability-id";
+import type { AbilityRequirements } from "../ability/ability-requirements";
+import type { AbilityUpdatesResource } from "../ability/ability-updates-resource";
+import type { EventManager } from "../event/event-manager";
+import type { CurrentTick } from "../tick/current-tick";
+import type { TimeInterval } from "../time-interval/time-interval";
+import type { ActiveBuff } from "./active-buff/active-buff";
+import type { AttackBuff } from "./attack-buff/attack-buff";
+import type { BaseAttackBuff } from "./base-attack-buff/base-attack-buff";
+import { BuffEvent } from "./buff-event";
+import type { BuffTimeline } from "./buff-timeline";
+import type { CritDamageBuff } from "./crit-damage-buff/crit-damage-buff";
+import type { CritRateBuff } from "./crit-rate-buff/crit-rate-buff";
+import type { BuffDto } from "./dtos/buff-dto";
+import type { ElementalDamageBuff } from "./elemental-damage-buff/elemental-damage-buff";
+import type { FinalDamageBuff } from "./final-damage-buff/final-damage-buff";
+import type { MiscellaneousBuff } from "./miscellaneous-buff";
 
 export class BuffAbility
   extends Ability<BuffEvent>
@@ -40,7 +40,7 @@ export class BuffAbility
     private readonly finalDamageBuffs: FinalDamageBuff[],
     private readonly critRateBuffs: CritRateBuff[],
     private readonly critDamageBuffs: CritDamageBuff[],
-    private readonly miscBuff?: MiscellaneousBuff
+    private readonly miscBuff?: MiscellaneousBuff,
   ) {
     super(
       id,
@@ -52,7 +52,7 @@ export class BuffAbility
       updatesResources,
       timeline,
       eventManager,
-      currentTick
+      currentTick,
     );
   }
 
@@ -78,7 +78,7 @@ export class BuffAbility
       this.finalDamageBuffs,
       this.critRateBuffs,
       this.critDamageBuffs,
-      this.miscBuff
+      this.miscBuff,
     );
   }
 

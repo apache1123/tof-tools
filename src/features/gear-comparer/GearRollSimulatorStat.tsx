@@ -1,8 +1,8 @@
-import { Button, ButtonGroup, Stack, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import pluralize from 'pluralize';
+import { Button, ButtonGroup, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import pluralize from "pluralize";
 
-import type { RandomStat } from '../../models/random-stat';
+import type { RandomStat } from "../../models/random-stat";
 
 export interface GearRollSimulatorStatProps {
   statSnap: RandomStat;
@@ -30,7 +30,7 @@ export function GearRollSimulatorStat({
         <Stack direction="row" spacing={2}>
           <Typography>{statSnap.valueString}</Typography>
           <Typography fontStyle="italic">
-            ({pluralize('roll', rolls, true)})
+            ({pluralize("roll", rolls, true)})
           </Typography>
         </Stack>
       </Grid>

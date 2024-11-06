@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { MatrixSetPiecesSelector } from './MatrixSetPiecesSelector';
+import { MatrixSetPiecesSelector } from "./MatrixSetPiecesSelector";
 
 const meta: Meta<typeof MatrixSetPiecesSelector> = {
-  title: 'Matrix Set Pieces Selector',
+  title: "Matrix Set Pieces Selector",
   component: MatrixSetPiecesSelector,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;

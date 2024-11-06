@@ -1,5 +1,5 @@
-import type { Dto } from '../../../dto';
-import type { DamageDto } from './damage-dto';
+import type { Dto } from "../../../dto";
+import type { DamageDto } from "./damage-dto";
 
 export interface WeaponDamageSummaryDto extends Dto {
   totalDamage: DamageDto;

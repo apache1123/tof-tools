@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-import type { NumericInputProps } from './NumericInput';
-import { NumericInput } from './NumericInput';
+import type { NumericInputProps } from "./NumericInput";
+import { NumericInput } from "./NumericInput";
 
 export type PercentageNumericInputProps = NumericInputProps;
 

@@ -1,5 +1,5 @@
-import type { EventManager } from '../event/event-manager';
-import { Tick } from './tick';
+import type { EventManager } from "../event/event-manager";
+import { Tick } from "./tick";
 
 export class CurrentTick {
   private _value: Tick;
@@ -8,7 +8,7 @@ export class CurrentTick {
   public constructor(
     startingTime: number,
     tickDuration: number,
-    private readonly eventManager: EventManager
+    private readonly eventManager: EventManager,
   ) {
     this._value = new Tick(startingTime, startingTime + tickDuration);
     this.tickDuration = tickDuration;

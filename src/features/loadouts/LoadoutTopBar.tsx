@@ -1,10 +1,10 @@
-import { Box, Stack, Typography } from '@mui/material';
-import { useSnapshot } from 'valtio';
+import { Box, Stack, Typography } from "@mui/material";
+import { useSnapshot } from "valtio";
 
-import { loadoutsState } from '../../states/states';
-import { DeleteLoadout } from './DeleteLoadout';
-import { LoadoutElementalType } from './LoadoutElementalType';
-import { LoadoutName } from './LoadoutName';
+import { loadoutsState } from "../../states/states";
+import { DeleteLoadout } from "./DeleteLoadout";
+import { LoadoutElementalType } from "./LoadoutElementalType";
+import { LoadoutName } from "./LoadoutName";
 
 export function LoadoutTopBar() {
   const {

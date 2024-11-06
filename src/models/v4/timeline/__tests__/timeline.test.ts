@@ -1,12 +1,12 @@
-import { TimeInterval } from '../../time-interval/time-interval';
-import { Timeline } from '../timeline';
-import { TimelineEvent } from '../timeline-event';
+import { TimeInterval } from "../../time-interval/time-interval";
+import { Timeline } from "../timeline";
+import { TimelineEvent } from "../timeline-event";
 
-describe('Timeline', () => {
+describe("Timeline", () => {
   const timelineDuration = 100;
 
-  describe('adding events', () => {
-    it('throws an error when trying to add a new event with a start time earlier than the start time of the latest event', () => {
+  describe("adding events", () => {
+    it("throws an error when trying to add a new event with a start time earlier than the start time of the latest event", () => {
       const sut = new Timeline(timelineDuration);
       sut.addEvent(new TimelineEvent(new TimeInterval(5, 7)));
       expect(() => {
@@ -15,7 +15,7 @@ describe('Timeline', () => {
     });
   });
 
-  it('returns correct events overlapping with the specified start and end time', () => {
+  it("returns correct events overlapping with the specified start and end time", () => {
     const sut = new Timeline(timelineDuration);
 
     // Test against the interval of 6 to 11.
@@ -52,7 +52,7 @@ describe('Timeline', () => {
     expect(overlappingEvents).not.toContain(event9);
   });
 
-  it('returns correct events overlapping with the specified time', () => {
+  it("returns correct events overlapping with the specified time", () => {
     const sut = new Timeline(timelineDuration);
 
     const event1 = new TimelineEvent(new TimeInterval(0, 5));
@@ -88,7 +88,7 @@ describe('Timeline', () => {
     expect(sut.getEventsAt(16)).not.toContain(event3);
   });
 
-  it('returns correct events that end between the specified time interval', () => {
+  it("returns correct events that end between the specified time interval", () => {
     const sut = new Timeline(timelineDuration);
 
     const event1 = new TimelineEvent(new TimeInterval(0, 5));
@@ -112,7 +112,7 @@ describe('Timeline', () => {
     ]);
   });
 
-  it('returns the latest event that ends before the specified time', () => {
+  it("returns the latest event that ends before the specified time", () => {
     const sut = new Timeline(timelineDuration);
 
     const event1 = new TimelineEvent(new TimeInterval(0, 5));
@@ -130,14 +130,14 @@ describe('Timeline', () => {
     expect(sut.getLatestEventBefore(16)).toEqual(event3);
   });
 
-  describe('ending events', () => {
-    it('should not end any events if there are no events', () => {
+  describe("ending events", () => {
+    it("should not end any events if there are no events", () => {
       const sut = new Timeline(timelineDuration);
       sut.endAnyEventsAt(0);
       expect(sut.events).toHaveLength(0);
     });
 
-    it('should end any events that overlap with the time', () => {
+    it("should end any events that overlap with the time", () => {
       const sut = new Timeline(timelineDuration);
       sut.addEvent(new TimelineEvent(new TimeInterval(0, 10)));
 
@@ -148,7 +148,7 @@ describe('Timeline', () => {
       expect(events[0].endTime).toBe(5);
     });
 
-    it('should not end any events that do not overlap with the time', () => {
+    it("should not end any events that do not overlap with the time", () => {
       const sut = new Timeline(timelineDuration);
       sut.addEvent(new TimelineEvent(new TimeInterval(0, 10)));
       sut.addEvent(new TimelineEvent(new TimeInterval(20, 30)));
@@ -162,7 +162,7 @@ describe('Timeline', () => {
       expect(events[1].endTime).toBe(30);
     });
 
-    it('should remove an event if ending that event at the specified time will cause it to have a zero duration', () => {
+    it("should remove an event if ending that event at the specified time will cause it to have a zero duration", () => {
       const sut = new Timeline(timelineDuration);
       sut.addEvent(new TimelineEvent(new TimeInterval(10, 20)));
 

@@ -1,4 +1,4 @@
-import type { Message } from './message';
+import type { Message } from "./message";
 
 /** Pub-sub message broker for delivering messages to subscribers (callbacks) */
 export class MessageBroker {
@@ -10,7 +10,7 @@ export class MessageBroker {
 
   public subscribeCallback(
     messageType: string,
-    callback: (message: Message) => void
+    callback: (message: Message) => void,
   ): void {
     const callbacks = this.callbacksByMessageType.get(messageType);
     if (callbacks) {
@@ -22,7 +22,7 @@ export class MessageBroker {
 
   public unsubscribeCallback(
     messageType: string,
-    callback: (message: Message) => void
+    callback: (message: Message) => void,
   ): void {
     const callbacks = this.callbacksByMessageType.get(messageType);
     if (callbacks) {

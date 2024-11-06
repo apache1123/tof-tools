@@ -6,15 +6,15 @@ import {
   TimelineItem,
   TimelineOppositeContent,
   TimelineSeparator,
-} from '@mui/lab';
-import { timelineOppositeContentClasses } from '@mui/lab/TimelineOppositeContent';
-import { Typography } from '@mui/material';
-import { gt } from '@suchipi/femver';
-import { useSnapshot } from 'valtio';
+} from "@mui/lab";
+import { timelineOppositeContentClasses } from "@mui/lab/TimelineOppositeContent";
+import { Typography } from "@mui/material";
+import { gt } from "@suchipi/femver";
+import { useSnapshot } from "valtio";
 
-import { ButtonModal } from '../../components/Modal/ButtonModal';
-import { changelog } from '../../definitions/changelog';
-import { changelogState } from '../../states/states';
+import { ButtonModal } from "../../components/Modal/ButtonModal";
+import { changelog } from "../../definitions/changelog";
+import { changelogState } from "../../states/states";
 
 export function Changelog() {
   const { lastSeenChangelogSemver } = useSnapshot(changelogState);
@@ -47,7 +47,7 @@ export function Changelog() {
                   {date.toLocaleDateString()}
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot color={isImportant ? 'warning' : 'primary'} />
+                  <TimelineDot color={isImportant ? "warning" : "primary"} />
                   <TimelineConnector />
                 </TimelineSeparator>
                 <TimelineContent>
@@ -55,7 +55,7 @@ export function Changelog() {
                     <Typography
                       variant="h6"
                       component="div"
-                      color={isImportant ? 'error' : 'primary'}
+                      color={isImportant ? "error" : "primary"}
                     >
                       {title}
                     </Typography>

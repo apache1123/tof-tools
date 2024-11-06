@@ -1,39 +1,39 @@
-import { Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import BigNumber from 'bignumber.js';
-import a from 'indefinite';
-import Image from 'next/image';
-import type { ReactNode } from 'react';
-import { useState } from 'react';
-import { useSnapshot } from 'valtio';
+import { Box, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import BigNumber from "bignumber.js";
+import a from "indefinite";
+import Image from "next/image";
+import type { ReactNode } from "react";
+import { useState } from "react";
+import { useSnapshot } from "valtio";
 
-import { GearTypeSelector } from '../components/GearTypeSelector/GearTypeSelector';
-import { ImageOCR } from '../components/ImageOCR/ImageOCR';
-import { ButtonModal } from '../components/Modal/ButtonModal';
+import { GearTypeSelector } from "../components/GearTypeSelector/GearTypeSelector";
+import { ImageOCR } from "../components/ImageOCR/ImageOCR";
+import { ButtonModal } from "../components/Modal/ButtonModal";
 import {
   goldGearNamePrefix,
   randomStatsSectionTitle,
   titanGearNamePrefix,
-} from '../definitions/gear';
-import type { GearName } from '../definitions/gear-types';
-import { gearTypesLookup } from '../definitions/gear-types';
-import { statTypesLookup } from '../definitions/stat-types';
-import { Gear } from '../models/gear';
-import type { GearType } from '../models/gear-type';
-import { RandomStat } from '../models/random-stat';
-import type { StatType } from '../models/stat-type';
-import type { OcrState } from '../states/ocr-temp-gear';
+} from "../definitions/gear";
+import type { GearName } from "../definitions/gear-types";
+import { gearTypesLookup } from "../definitions/gear-types";
+import { statTypesLookup } from "../definitions/stat-types";
+import { Gear } from "../models/gear";
+import type { GearType } from "../models/gear-type";
+import { RandomStat } from "../models/random-stat";
+import type { StatType } from "../models/stat-type";
+import type { OcrState } from "../states/ocr-temp-gear";
 import {
   ocrState,
   removeOCRTempGear,
   setOCRTempGear,
-} from '../states/ocr-temp-gear';
+} from "../states/ocr-temp-gear";
 import {
   containsString,
   indexOfIgnoringCase,
   splitIntoWords,
-} from '../utils/string-utils';
-import { GearPiece } from './GearPiece';
+} from "../utils/string-utils";
+import { GearPiece } from "./GearPiece";
 
 export interface GearOCRModalProps {
   onFinalizeGear?(gear: Gear): void;
@@ -178,7 +178,7 @@ function ExampleScreenshotModal() {
   return (
     <ButtonModal
       buttonText="Example"
-      buttonSx={{ textTransform: 'initial', p: 0 }}
+      buttonSx={{ textTransform: "initial", p: 0 }}
       modalContent={
         <Box display="flex" justifyContent="center" alignItems="center">
           <Image
@@ -263,22 +263,22 @@ function getGearFromOCR(text: string): Gear | undefined {
       for (const randomStatType of randomStatTypes) {
         const indexOfRandomStatName = indexOfIgnoringCase(
           line,
-          randomStatType.inGameName
+          randomStatType.inGameName,
         );
 
         if (indexOfRandomStatName === -1) continue;
 
         // Matched random stat name, assume the word after the name is the value and try to match it
         const stringAfterRandomStatName = line.slice(
-          indexOfRandomStatName + randomStatType.inGameName.length
+          indexOfRandomStatName + randomStatType.inGameName.length,
         );
         const firstWordAfterRandomStatName = splitIntoWords(
-          stringAfterRandomStatName
+          stringAfterRandomStatName,
         )[0];
 
         if (!firstWordAfterRandomStatName) continue;
 
-        const hasPercentage = firstWordAfterRandomStatName.includes('%');
+        const hasPercentage = firstWordAfterRandomStatName.includes("%");
 
         // e.g. 'Physical Resistance +7.87%' has to be matched to 'Physical Resistance %', not 'Physical Resistance'
         if (hasPercentage !== !!randomStatType.isPercentageBased) continue;
@@ -288,11 +288,11 @@ function getGearFromOCR(text: string): Gear | undefined {
         // Assume the in-game locale is always ',' thousand separator and '.' decimal separator
         const value = hasPercentage
           ? BigNumber(
-              firstWordAfterRandomStatName.replace('%', '').replace(',', '')
+              firstWordAfterRandomStatName.replace("%", "").replace(",", ""),
             )
               .dividedBy(100)
               .toNumber()
-          : +firstWordAfterRandomStatName.replace(',', '');
+          : +firstWordAfterRandomStatName.replace(",", "");
 
         if (Number.isNaN(value)) continue;
 

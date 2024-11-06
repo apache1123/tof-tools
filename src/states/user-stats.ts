@@ -1,10 +1,10 @@
-import { maxCharacterLevel } from '../definitions/character-level';
-import type { CoreElementalType } from '../definitions/elemental-type';
-import type { DataById } from '../models/data';
-import type { Dto } from '../models/dto';
-import type { ElementalUserStatsDto } from '../models/elemental-user-stats';
-import type { Persistable } from '../models/persistable';
-import type { UserStats } from '../models/user-stats';
+import { maxCharacterLevel } from "../definitions/character-level";
+import type { CoreElementalType } from "../definitions/elemental-type";
+import type { DataById } from "../models/data";
+import type { Dto } from "../models/dto";
+import type { ElementalUserStatsDto } from "../models/elemental-user-stats";
+import type { Persistable } from "../models/persistable";
+import type { UserStats } from "../models/user-stats";
 
 export class UserStatsState
   implements UserStats, Persistable<UserStatsStateDtoV2>

@@ -1,6 +1,6 @@
-import type { WeaponElementalType } from '../../../../definitions/elemental-type';
-import { sum } from '../../../../utils/math-utils';
-import type { BaseAttackBuff } from './base-attack-buff';
+import type { WeaponElementalType } from "../../../../definitions/elemental-type";
+import { sum } from "../../../../utils/math-utils";
+import type { BaseAttackBuff } from "./base-attack-buff";
 
 export class BaseAttackBuffAggregate {
   public constructor(private readonly baseAttackBuffs: BaseAttackBuff[]) {}
@@ -18,7 +18,7 @@ export class BaseAttackBuffAggregate {
       const elementalType = buff.elementalType;
       baseAttackByElement[elementalType] = sum(
         baseAttackByElement[elementalType],
-        buff.value
+        buff.value,
       ).toNumber();
     }
 

@@ -1,23 +1,23 @@
-import { labels } from '@catppuccin/palette';
-import { pink } from '@mui/material/colors';
-import { createTheme } from '@mui/material/styles';
-import { Roboto } from 'next/font/google';
+import { labels } from "@catppuccin/palette";
+import { pink } from "@mui/material/colors";
+import { createTheme } from "@mui/material/styles";
+import { Roboto } from "next/font/google";
 
 export const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  fallback: ['Helvetica', 'Arial', 'sans-serif'],
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
-const catppuccinFlavor = 'macchiato';
+const catppuccinFlavor = "macchiato";
 
 // Create a theme instance.
 let theme = createTheme({
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- custom colors defined below
   // @ts-ignore
   palette: {
-    mode: 'dark',
+    mode: "dark",
     background: {
       default: labels.base[catppuccinFlavor].hex,
       paper: labels.surface0[catppuccinFlavor].hex,
@@ -92,25 +92,25 @@ theme = createTheme(theme, {
   },
 });
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface PaletteOptions {
-    flame: PaletteOptions['primary'];
-    frost: PaletteOptions['primary'];
-    physical: PaletteOptions['primary'];
-    volt: PaletteOptions['primary'];
-    titan: PaletteOptions['primary'];
+    flame: PaletteOptions["primary"];
+    frost: PaletteOptions["primary"];
+    physical: PaletteOptions["primary"];
+    volt: PaletteOptions["primary"];
+    titan: PaletteOptions["primary"];
   }
 
   interface Palette {
-    flame: Palette['primary'];
-    frost: Palette['primary'];
-    physical: Palette['primary'];
-    volt: Palette['primary'];
-    titan: Palette['primary'];
+    flame: Palette["primary"];
+    frost: Palette["primary"];
+    physical: Palette["primary"];
+    volt: Palette["primary"];
+    titan: Palette["primary"];
   }
 }
 
-declare module '@mui/material/Switch' {
+declare module "@mui/material/Switch" {
   interface SwitchPropsColorOverrides {
     titan: true;
   }

@@ -1,7 +1,7 @@
-import type { AttackBuff } from '../../../definitions/types/buff/attack-buff';
-import type { BuffAbility } from '../../../definitions/types/buff/buff-ability';
-import type { CritDamageBuff } from '../../../definitions/types/buff/crit-damage-buff';
-import type { StarRequirement } from '../star-requirement';
+import type { AttackBuff } from "../../../definitions/types/buff/attack-buff";
+import type { BuffAbility } from "../../../definitions/types/buff/buff-ability";
+import type { CritDamageBuff } from "../../../definitions/types/buff/crit-damage-buff";
+import type { StarRequirement } from "../star-requirement";
 
 // TODO:
 export interface MatrixBuffDefinition extends BuffAbility {

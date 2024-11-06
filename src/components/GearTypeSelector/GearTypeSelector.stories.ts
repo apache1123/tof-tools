@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { gearTypesLookup } from '../../definitions/gear-types';
-import type { GearType } from '../../models/gear-type';
-import { GearTypeSelector } from './GearTypeSelector';
+import { gearTypesLookup } from "../../definitions/gear-types";
+import type { GearType } from "../../models/gear-type";
+import { GearTypeSelector } from "./GearTypeSelector";
 
 const meta: Meta<typeof GearTypeSelector> = {
-  title: 'Gear Type Selector',
+  title: "Gear Type Selector",
   component: GearTypeSelector,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<typeof GearTypeSelector>;
 
 const selectedGearType = {
-  id: 'Helmet',
-  displayName: 'Helmet',
+  id: "Helmet",
+  displayName: "Helmet",
 } as GearType;
 
 const customOptions = gearTypesLookup.allIds.map((id) => ({
