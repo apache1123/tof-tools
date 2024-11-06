@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, Typography, useMediaQuery } from "@mui/material";
 
-import type { Team } from "../models/team";
+import type { Team } from "../models/team/team";
 import { Weapon } from "../models/weapon";
 import theme from "../theme";
 import { EmptyWeaponEditor, WeaponEditor } from "./WeaponEditor";

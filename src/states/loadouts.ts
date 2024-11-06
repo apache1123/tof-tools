@@ -3,7 +3,7 @@ import { GearSet } from "../models/gear-set";
 import type { LoadoutDto } from "../models/loadout";
 import { Loadout } from "../models/loadout";
 import type { Persistable } from "../models/persistable";
-import { Team } from "../models/team";
+import { Team } from "../models/team/team";
 import type { UserStats } from "../models/user-stats";
 
 export class LoadoutsState implements Persistable<LoadoutsStateDto> {

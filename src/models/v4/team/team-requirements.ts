@@ -1,5 +1,5 @@
 import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
-import type { Team } from "../../team";
+import type { Team } from "../../team/team";
 import type { Requirements } from "../requirements/requirements";
 import type { ElementalWeaponRequirements } from "./elemental-weapon-requirements";
 import type { WeaponResonanceRequirements } from "./weapon-resonance-requirements";

@@ -10,7 +10,7 @@ import type { GearSetDtoV1, GearSetDtoV2 } from "../../../models/gear-set";
 import type { LoadoutDto } from "../../../models/loadout";
 import type { MatrixSetDto } from "../../../models/matrix-set";
 import type { RandomStatDto } from "../../../models/random-stat";
-import type { TeamDto } from "../../../models/team";
+import type { TeamDto } from "../../../models/team/team";
 import type { WeaponDto } from "../../../models/weapon";
 import { filterOutUndefined } from "../../../utils/array-utils";
 import type { GearComparerGearsStateDto } from "../../deprecated/gear-comparer-gear";

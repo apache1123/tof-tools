@@ -1,15 +1,15 @@
 import groupBy from "lodash.groupby";
 
-import type { ElementalResonance } from "../definitions/elemental-resonance";
-import type { WeaponElementalType } from "../definitions/elemental-type";
-import { getWeaponDefinition } from "../definitions/types/weapon/weapon";
-import type { WeaponName } from "../definitions/weapons/weapon-definitions";
-import type { WeaponResonance } from "../definitions/weapons/weapon-resonance";
-import { filterOutUndefined } from "../utils/array-utils";
-import type { Dto } from "./dto";
-import type { Persistable } from "./persistable";
-import type { WeaponDto } from "./weapon";
-import { Weapon } from "./weapon";
+import type { ElementalResonance } from "../../definitions/elemental-resonance";
+import type { WeaponElementalType } from "../../definitions/elemental-type";
+import { getWeaponDefinition } from "../../definitions/types/weapon/weapon";
+import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
+import { filterOutUndefined } from "../../utils/array-utils";
+import type { Dto } from "../dto";
+import type { Persistable } from "../persistable";
+import type { WeaponDto } from "../weapon";
+import { Weapon } from "../weapon";
 
 export class Team implements Persistable<TeamDto> {
   public weapon1: WeaponSlot;

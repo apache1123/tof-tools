@@ -1,8 +1,8 @@
-import type { ElementalResonance } from "../../definitions/elemental-resonance";
-import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions";
-import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
+import type { ElementalResonance } from "../../../definitions/elemental-resonance";
+import { weaponDefinitions } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponResonance } from "../../../definitions/weapons/weapon-resonance";
+import { Weapon } from "../../weapon";
 import { Team } from "../team";
-import { Weapon } from "../weapon";
 
 describe("team", () => {
   describe("elemental resonance", () => {

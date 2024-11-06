@@ -5,7 +5,7 @@ import type { CoreElementalType } from "../../../definitions/elemental-type";
 import { keysOf } from "../../../utils/object-utils";
 import { GearSet } from "../../gear-set";
 import { Loadout } from "../../loadout";
-import { Team } from "../../team";
+import { Team } from "../../team/team";
 
 // TODO: support altered as main elemental type. Requires changes to Loadout
 export function getLoadoutWithDefaultStats(

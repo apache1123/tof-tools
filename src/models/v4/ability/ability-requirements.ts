@@ -1,5 +1,5 @@
 import type { BuffId } from "../../../definitions/types/buff/buff-ability";
-import type { Team } from "../../team";
+import type { Team } from "../../team/team";
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import type { Requirements } from "../requirements/requirements";

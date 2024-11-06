@@ -10,7 +10,7 @@ import type { AbilityRequirements as AbilityRequirementsDefinition } from "../..
 import type { AttackId } from "../../../definitions/types/attack/attack-ability";
 import type { BuffAbility as BuffAbilityDefinition } from "../../../definitions/types/buff/buff-ability";
 import type { Loadout } from "../../loadout";
-import type { Team } from "../../team";
+import type { Team } from "../../team/team";
 import type { UserStats } from "../../user-stats";
 import type { Weapon } from "../../weapon";
 import type { Ability } from "../ability/ability";

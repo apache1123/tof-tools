@@ -1,5 +1,5 @@
 import type { WeaponResonance } from "../../../definitions/weapons/weapon-resonance";
-import type { Team } from "../../team";
+import type { Team } from "../../team/team";
 import type { Requirements } from "../requirements/requirements";
 
 export class WeaponResonanceRequirements implements Requirements {

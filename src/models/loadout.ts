@@ -20,7 +20,7 @@ import type { LoadoutStatsDto } from "./loadout-stats";
 import { LoadoutStats } from "./loadout-stats";
 import { LoadoutWeaponBuffs } from "./loadout-weapon-buffs";
 import type { Persistable } from "./persistable";
-import type { Team, TeamDto } from "./team";
+import type { Team, TeamDto } from "./team/team";
 import type { UserStats } from "./user-stats";
 import type { SimulacrumTrait } from "./v4/simulacrum-trait";
 
