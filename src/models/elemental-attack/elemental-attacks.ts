@@ -1,8 +1,8 @@
 import type {
   CoreElementalType,
   WeaponElementalType,
-} from "../definitions/elemental-type";
-import { keysOf } from "../utils/object-utils";
+} from "../../definitions/elemental-type";
+import { keysOf } from "../../utils/object-utils";
 import type { ElementalAttack } from "./elemental-attack";
 
 export class ElementalAttacks {

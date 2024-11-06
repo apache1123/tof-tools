@@ -2,9 +2,9 @@ import { defaultCritDamagePercent } from "../definitions/damage-formula";
 import type { WeaponElementalType } from "../definitions/elemental-type";
 import { sum } from "../utils/math-utils";
 import type { Dto } from "./dto";
-import type { ElementalAttackDto } from "./elemental-attack";
-import { ElementalAttack } from "./elemental-attack";
-import { ElementalAttacks } from "./elemental-attacks";
+import type { ElementalAttackDto } from "./elemental-attack/elemental-attack";
+import { ElementalAttack } from "./elemental-attack/elemental-attack";
+import { ElementalAttacks } from "./elemental-attack/elemental-attacks";
 import type { Loadout } from "./loadout";
 import type { Persistable } from "./persistable";
 

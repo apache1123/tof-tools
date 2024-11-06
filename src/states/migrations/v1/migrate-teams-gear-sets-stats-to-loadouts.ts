@@ -4,7 +4,7 @@ import { maxCharacterLevel } from "../../../definitions/character-level";
 import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
 import type { CoreElementalType } from "../../../definitions/elemental-type";
 import type { GearName } from "../../../definitions/gear-types";
-import type { ElementalAttackDto } from "../../../models/elemental-attack";
+import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
 import type { GearDto } from "../../../models/gear";
 import type { GearSetDtoV1, GearSetDtoV2 } from "../../../models/gear-set";
 import type { LoadoutDto } from "../../../models/loadout";

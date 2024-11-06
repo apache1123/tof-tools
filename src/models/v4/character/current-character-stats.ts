@@ -8,8 +8,8 @@ import {
   calculateTotalCritRatePercent,
 } from "../../../utils/damage-calculation-utils";
 import { sum } from "../../../utils/math-utils";
-import { ElementalAttack } from "../../elemental-attack";
-import { ElementalAttacks } from "../../elemental-attacks";
+import { ElementalAttack } from "../../elemental-attack/elemental-attack";
+import { ElementalAttacks } from "../../elemental-attack/elemental-attacks";
 import type { Loadout } from "../../loadout";
 import type { LoadoutStats } from "../../loadout-stats";
 import type { UserStats } from "../../user-stats";
