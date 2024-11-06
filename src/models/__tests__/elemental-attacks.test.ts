@@ -34,4 +34,11 @@ describe("Elemental attacks", () => {
     sut.setElementalAttack("Flame", newElementalAttack);
     expect(sut.getElementalAttack("Flame")).toBe(newElementalAttack);
   });
+
+  it("can return the highest elemental attack", () => {
+    expect(sut.getHighestElementalAttack()).toEqual({
+      element: "Volt",
+      elementalAttack: voltAttack,
+    });
+  });
 });

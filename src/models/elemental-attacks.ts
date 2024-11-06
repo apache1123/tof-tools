@@ -2,6 +2,7 @@ import type {
   CoreElementalType,
   WeaponElementalType,
 } from "../definitions/elemental-type";
+import { keysOf } from "../utils/object-utils";
 import type { ElementalAttack } from "./elemental-attack";
 
 export class ElementalAttacks {
@@ -18,7 +19,7 @@ export class ElementalAttacks {
 
   public getElementalAttack(element: WeaponElementalType): ElementalAttack {
     return element === "Altered"
-      ? this.getHighestElementalAttack()
+      ? this.getHighestElementalAttack().elementalAttack
       : this._elementalAttacks[element];
   }
 
@@ -29,9 +30,23 @@ export class ElementalAttacks {
     this._elementalAttacks[element] = elementalAttack;
   }
 
-  private getHighestElementalAttack(): ElementalAttack {
-    return Object.values(this._elementalAttacks).reduce((result, curr) =>
-      curr.totalAttack >= result.totalAttack ? curr : result,
+  public getHighestElementalAttack(): {
+    element: CoreElementalType;
+    elementalAttack: ElementalAttack;
+  } {
+    const element = this.getHighestElementalAttackElement();
+    return {
+      element,
+      elementalAttack: this._elementalAttacks[element],
+    };
+  }
+
+  private getHighestElementalAttackElement() {
+    return keysOf(this._elementalAttacks).reduce((highestElement, curr) =>
+      this._elementalAttacks[curr].totalAttack >=
+      this._elementalAttacks[highestElement].totalAttack
+        ? curr
+        : highestElement,
     );
   }
 }

@@ -1,13 +1,10 @@
 import { defaultCritDamagePercent } from "../definitions/damage-formula";
-import type {
-  CoreElementalType,
-  WeaponElementalType,
-} from "../definitions/elemental-type";
+import type { WeaponElementalType } from "../definitions/elemental-type";
 import { sum } from "../utils/math-utils";
-import { keysOf } from "../utils/object-utils";
 import type { Dto } from "./dto";
 import type { ElementalAttackDto } from "./elemental-attack";
 import { ElementalAttack } from "./elemental-attack";
+import { ElementalAttacks } from "./elemental-attacks";
 import type { Loadout } from "./loadout";
 import type { Persistable } from "./persistable";
 
@@ -16,14 +13,14 @@ import type { Persistable } from "./persistable";
 export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   public readonly loadout: Loadout;
 
-  // TODO: These are too inflexible, but I don't want to change them without unit tests in case something breaks. This should be replaced by the elementalAttackLookup below
+  // TODO: These are too inflexible, but I don't want to change them without unit tests in case something breaks. This should be replaced by `elementalAttacks` below
   public flameAttack: ElementalAttack;
   public frostAttack: ElementalAttack;
   public physicalAttack: ElementalAttack;
   public voltAttack: ElementalAttack;
 
   /** **Only the base attack is set for each elemental attack** */
-  public readonly elementalAttacks: Record<CoreElementalType, ElementalAttack>;
+  public readonly elementalAttacks: ElementalAttacks;
   private _elementalResistances: Record<WeaponElementalType, number>;
 
   private _critFlat = 0;
@@ -44,12 +41,12 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
     this.physicalAttack = newElementalAttack();
     this.voltAttack = newElementalAttack();
 
-    this.elementalAttacks = {
+    this.elementalAttacks = new ElementalAttacks({
       Flame: this.flameAttack,
       Frost: this.frostAttack,
       Physical: this.physicalAttack,
       Volt: this.voltAttack,
-    };
+    });
 
     this._elementalResistances = {
       Altered: 0,
@@ -72,25 +69,12 @@ export class LoadoutStats implements Persistable<LoadoutStatsDto> {
   }
 
   public get elementWithHighestAttack() {
-    return keysOf(this.elementalAttacks)
-      .map((element) => ({
-        element,
-        elementalAttack: this.elementalAttacks[element],
-      }))
-      .reduce((prev, curr) =>
-        curr.elementalAttack.totalAttack >= prev.elementalAttack.totalAttack
-          ? curr
-          : prev,
-      ).element;
+    return this.elementalAttacks.getHighestElementalAttack().element;
   }
 
   /** **Only the base attack is set for this** */
   public getElementalAttack(elementalType: WeaponElementalType) {
-    if (elementalType !== "Altered") {
-      return this.elementalAttacks[elementalType];
-    }
-
-    return this.elementalAttacks[this.elementWithHighestAttack];
+    return this.elementalAttacks.getElementalAttack(elementalType);
   }
 
   public get critFlat(): number {
