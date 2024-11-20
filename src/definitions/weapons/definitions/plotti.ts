@@ -5,7 +5,7 @@ export const plotti = {
   displayName: "Plotti",
   elementalIcon: "Flame-Physical",
   resonanceElements: ["Flame", "Physical"],
-  calculationElements: ["Flame", "Physical"],
+  gearResonanceElements: ["Flame", "Physical"],
   damageElement: "Flame",
   type: "DPS",
   attackPercentBuffs: [

@@ -5,7 +5,7 @@ export const huma = {
   displayName: "Huma",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "Defense",
   attackPercentBuffs: [],

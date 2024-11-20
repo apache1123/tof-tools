@@ -7,7 +7,7 @@ import type { EventManager } from "../event/event-manager";
 import type { CurrentTick } from "../tick/current-tick";
 import type { TimeInterval } from "../time-interval/time-interval";
 import type { ActiveBuff } from "./active-buff/active-buff";
-import type { AttackBuff } from "./attack-buff/attack-buff";
+import type { AttackPercentBuff } from "./attack-percent-buff/attack-percent-buff";
 import type { BaseAttackBuff } from "./base-attack-buff/base-attack-buff";
 import { BuffEvent } from "./buff-event";
 import type { BuffTimeline } from "./buff-timeline";
@@ -16,11 +16,12 @@ import type { CritRateBuff } from "./crit-rate-buff/crit-rate-buff";
 import type { BuffDto } from "./dtos/buff-dto";
 import type { ElementalDamageBuff } from "./elemental-damage-buff/elemental-damage-buff";
 import type { FinalDamageBuff } from "./final-damage-buff/final-damage-buff";
+import type { HasActiveBuffs } from "./has-active-buffs";
 import type { MiscellaneousBuff } from "./miscellaneous-buff";
 
 export class BuffAbility
   extends Ability<BuffEvent>
-  implements Serializable<BuffDto>
+  implements HasActiveBuffs, Serializable<BuffDto>
 {
   public constructor(
     id: AbilityId,
@@ -35,7 +36,7 @@ export class BuffAbility
     currentTick: CurrentTick,
     private readonly maxStacks: number,
     private readonly baseAttackBuffs: BaseAttackBuff[],
-    private readonly attackBuffs: AttackBuff[],
+    private readonly attackBuffs: AttackPercentBuff[],
     private readonly elementalDamageBuffs: ElementalDamageBuff[],
     private readonly finalDamageBuffs: FinalDamageBuff[],
     private readonly critRateBuffs: CritRateBuff[],
@@ -82,10 +83,6 @@ export class BuffAbility
     );
   }
 
-  private isAtMaxStacks(time: number) {
-    return this.timeline.getEventsAt(time).length >= this.maxStacks;
-  }
-
   public override toDto(): BuffDto {
     const { timeline } = this;
     return {
@@ -95,5 +92,9 @@ export class BuffAbility
         version: 1,
       },
     };
+  }
+
+  private isAtMaxStacks(time: number) {
+    return this.timeline.getEventsAt(time).length >= this.maxStacks;
   }
 }

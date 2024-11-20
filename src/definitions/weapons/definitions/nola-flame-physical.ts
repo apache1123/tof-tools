@@ -7,7 +7,7 @@ export const nolaFlamePhysical = {
   displayName: "Nola (Flame-Physical)",
   elementalIcon: "Flame-Physical",
   resonanceElements: ["Flame", "Physical"],
-  calculationElements: ["Flame", "Physical"],
+  gearResonanceElements: ["Flame", "Physical"],
   damageElement: "Flame",
   // TODO: the flame-physical skill flame base attack buff
   attackPercentBuffs: [

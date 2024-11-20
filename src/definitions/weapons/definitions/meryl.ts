@@ -5,7 +5,7 @@ export const meryl = {
   displayName: "Meryl",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
-  calculationElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "Defense",
   attackPercentBuffs: [],

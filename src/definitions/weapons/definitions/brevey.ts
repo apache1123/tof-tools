@@ -5,7 +5,7 @@ export const brevey = {
   displayName: "Brevey",
   elementalIcon: "Volt-Frost",
   resonanceElements: ["Volt", "Frost"],
-  calculationElements: ["Volt", "Frost"],
+  gearResonanceElements: ["Volt", "Frost"],
   damageElement: "Volt",
   type: "Support",
   attackPercentBuffs: [

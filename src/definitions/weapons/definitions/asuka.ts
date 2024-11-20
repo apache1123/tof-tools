@@ -5,7 +5,7 @@ export const asuka = {
   displayName: "Asuka",
   elementalIcon: "Physical-Flame",
   resonanceElements: ["Physical", "Flame"],
-  calculationElements: ["Physical", "Flame"],
+  gearResonanceElements: ["Physical", "Flame"],
   damageElement: "Physical",
   type: "Defense",
   attackPercentBuffs: [

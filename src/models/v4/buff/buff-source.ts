@@ -4,4 +4,5 @@ export type BuffSource =
   | "relic"
   | "simulacra"
   | "team"
+  | "gear"
   | "titan";

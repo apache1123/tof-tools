@@ -5,7 +5,7 @@ export const mingJing = {
   displayName: "Ming Jing (Zeke)",
   elementalIcon: "Physical-Flame",
   resonanceElements: ["Physical", "Flame"],
-  calculationElements: ["Physical", "Flame"],
+  gearResonanceElements: ["Physical", "Flame"],
   damageElement: "Physical",
   type: "DPS",
   attackPercentBuffs: [

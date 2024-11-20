@@ -9,21 +9,20 @@ import type { Ability as AbilityDefinition } from "../../../definitions/types/ab
 import type { AbilityRequirements as AbilityRequirementsDefinition } from "../../../definitions/types/ability/ability-requirements";
 import type { AttackId } from "../../../definitions/types/attack/attack-ability";
 import type { BuffAbility as BuffAbilityDefinition } from "../../../definitions/types/buff/buff-ability";
-import type { Loadout } from "../../loadout";
+import type { Loadout } from "../../loadout/loadout";
 import type { Team } from "../../team/team";
-import type { UserStats } from "../../user-stats";
 import type { Weapon } from "../../weapon";
 import type { Ability } from "../ability/ability";
 import { AbilityRequirements } from "../ability/ability-requirements";
 import { AbilityTrigger } from "../ability/ability-trigger";
 import type { AbilityTriggerOptions } from "../ability/ability-trigger-options";
-import { ActiveWeapon } from "../active-weapon/active-weapon";
 import { ActiveWeaponTimeline } from "../active-weapon/active-weapon-timeline";
+import { CombatSimulatorActiveWeapon } from "../active-weapon/combat-simulator-active-weapon";
 import { AttackAbility } from "../attack/attack-ability";
 import { AttackRegistry } from "../attack/attack-registry";
 import { AttackTimeline } from "../attack/attack-timeline";
 import { ActiveBuffs } from "../buff/active-buff/active-buffs";
-import { AttackBuff } from "../buff/attack-buff/attack-buff";
+import { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-buff";
 import { BaseAttackBuff } from "../buff/base-attack-buff/base-attack-buff";
 import { BuffAbility } from "../buff/buff-ability";
 import { BuffRegistry } from "../buff/buff-registry";
@@ -34,7 +33,8 @@ import { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
 import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { FinalDamageBuff } from "../buff/final-damage-buff/final-damage-buff";
 import { UtilizedBuffs } from "../buff/utilized-buffs";
-import { CurrentCharacterStats } from "../character/current-character-stats";
+import { Character } from "../character/character";
+import type { CharacterInfo } from "../character/character-info";
 import { Charge } from "../charge/charge";
 import { DamageRecord } from "../damage-record/damage-record";
 import { DamageRecordTimeline } from "../damage-record/damage-record-timeline";
@@ -58,30 +58,9 @@ import { ActiveWeaponRequirements } from "../weapon/active-weapon-requirements";
 import type { CombatSimulatorOptions } from "./combat-simulator-options";
 
 export class CombatSimulator {
-  private readonly eventManager: EventManager;
-  private readonly target: Target;
-  private readonly team: Team;
-  private readonly currentTick: CurrentTick;
-  private readonly activeWeapon: ActiveWeapon;
-
-  private readonly resources: ResourceRegistry;
-  private readonly currentResources: CurrentResources;
-
-  private readonly attacks: AttackRegistry;
-
-  private readonly buffs: BuffRegistry;
-  private readonly activeBuffs: ActiveBuffs;
-
-  private readonly currentCharacterStats: CurrentCharacterStats;
-  private readonly damageRecord: DamageRecord;
-
-  private readonly eventSubscribers: EventSubscriber[] = [];
-
-  private hasBegunCombat = false;
-
   public constructor(
     loadout: Loadout,
-    userStats: UserStats,
+    characterInfo: CharacterInfo,
     relics: Relics,
     options: CombatSimulatorOptions,
   ) {
@@ -101,7 +80,7 @@ export class CombatSimulator {
       tickDuration,
       this.eventManager,
     );
-    this.activeWeapon = new ActiveWeapon(
+    this.activeWeapon = new CombatSimulatorActiveWeapon(
       weapons,
       new ActiveWeaponTimeline(combatDuration),
       this.eventManager,
@@ -254,54 +233,32 @@ export class CombatSimulator {
 
         const baseAttackBuffs =
           abilityDef.baseAttackBuffs?.flatMap((baseAttackBuffDef) =>
-            baseAttackBuffDef.elementalTypes.map(
-              (elementalType) =>
-                new BaseAttackBuff(id, baseAttackBuffDef.value, elementalType),
-            ),
+            BaseAttackBuff.create(baseAttackBuffDef, id),
           ) ?? [];
 
         const attackBuffs =
           abilityDef.attackBuffs?.flatMap((attackBuffDef) =>
-            attackBuffDef.elementalTypes.map(
-              (elementalType) =>
-                new AttackBuff(id, attackBuffDef.value, elementalType),
-            ),
+            AttackPercentBuff.create(attackBuffDef, id),
           ) ?? [];
 
         const elementalDamageBuffs =
           abilityDef.elementalDamageBuffs?.flatMap((elementalDamageBuffDef) =>
-            elementalDamageBuffDef.elementalTypes.map(
-              (elementalType) =>
-                new ElementalDamageBuff(
-                  id,
-                  elementalDamageBuffDef.value,
-                  source,
-                  elementalDamageBuffDef.restrictedTo ?? {},
-                  elementalType,
-                ),
-            ),
+            ElementalDamageBuff.create(elementalDamageBuffDef, id, source),
           ) ?? [];
 
         const finalDamageBuffs =
-          abilityDef.finalDamageBuffs?.map(
-            (finalDamageBuffDef) =>
-              new FinalDamageBuff(
-                id,
-                finalDamageBuffDef.value,
-                source,
-                finalDamageBuffDef.restrictedTo ?? {},
-              ),
+          abilityDef.finalDamageBuffs?.map((finalDamageBuffDef) =>
+            FinalDamageBuff.create(finalDamageBuffDef, id, source),
           ) ?? [];
 
         const critRateBuffs =
-          abilityDef.critRateBuffs?.map(
-            (critRateBuffDef) => new CritRateBuff(id, critRateBuffDef.value),
+          abilityDef.critRateBuffs?.map((critRateBuffDef) =>
+            CritRateBuff.create(critRateBuffDef, id),
           ) ?? [];
 
         const critDamageBuffs =
-          abilityDef.critDamageBuffs?.map(
-            (critDamageBuffDef) =>
-              new CritDamageBuff(id, critDamageBuffDef.value),
+          abilityDef.critDamageBuffs?.map((critDamageBuffDef) =>
+            CritDamageBuff.create(critDamageBuffDef, id),
           ) ?? [];
 
         const buffAbility = new BuffAbility(
@@ -331,22 +288,22 @@ export class CombatSimulator {
 
     this.activeBuffs = new ActiveBuffs(this.buffs);
 
-    this.currentCharacterStats = new CurrentCharacterStats(
-      userStats,
+    this.character = new Character(
+      characterInfo,
       loadout,
-      loadout.loadoutStats,
       this.activeBuffs,
+      this.activeWeapon,
     );
 
     const utilizedBuffs = new UtilizedBuffs();
     this.damageRecord = new DamageRecord(
       new DamageRecordTimeline(combatDuration),
-      utilizedBuffs,
       this.currentTick,
       this.eventManager,
+      this.character,
       this.target,
       this.activeBuffs,
-      this.currentCharacterStats,
+      utilizedBuffs,
     );
 
     this.eventSubscribers.push(
@@ -356,6 +313,25 @@ export class CombatSimulator {
       ...abilityTriggers,
       this.damageRecord,
     );
+  }
+
+  private readonly eventManager: EventManager;
+  private readonly target: Target;
+  private readonly team: Team;
+  private readonly currentTick: CurrentTick;
+  private readonly activeWeapon: CombatSimulatorActiveWeapon;
+  private readonly resources: ResourceRegistry;
+  private readonly currentResources: CurrentResources;
+  private readonly attacks: AttackRegistry;
+  private readonly buffs: BuffRegistry;
+  private readonly activeBuffs: ActiveBuffs;
+  private readonly character: Character;
+  private readonly damageRecord: DamageRecord;
+  private readonly eventSubscribers: EventSubscriber[] = [];
+  private hasBegunCombat = false;
+
+  private get abilities(): Registry<Ability> {
+    return new Registry([...this.attacks.items, ...this.buffs.items]);
   }
 
   public beginCombat() {
@@ -417,9 +393,6 @@ export class CombatSimulator {
     }
   }
 
-  private get abilities(): Registry<Ability> {
-    return new Registry([...this.attacks.items, ...this.buffs.items]);
-  }
   // /** Similar to `toDto()`, but cleaned up and aggregated for display purposes. The intention is for the output of this to be for display purposes only and not able to be deserialized with all the correct states later. e.g. Abilities with empty timelines removed, Player input attacks are combined into one, for each weapon */
   // public snapshot(): CombatSimulatorSnapshot {
   //   const playerInputAttackTimelines = [];

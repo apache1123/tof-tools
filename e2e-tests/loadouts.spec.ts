@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { dismissChangelog } from "./helpers/dismiss-changelog";
+import { dismissChangelog } from "./helpers/dismiss-changelog"; // TODO: Test weapons/matrices, stats, gear persistence
 
 // TODO: Test weapons/matrices, stats, gear persistence
 

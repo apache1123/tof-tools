@@ -5,7 +5,7 @@ export const umi = {
   displayName: "Umi",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
-  calculationElements: ["Physical"],
+  gearResonanceElements: ["Physical"],
   damageElement: "Physical",
   type: "DPS",
   attackPercentBuffs: [

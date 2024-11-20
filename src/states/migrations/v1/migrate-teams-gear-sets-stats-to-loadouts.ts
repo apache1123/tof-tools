@@ -5,9 +5,12 @@ import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
 import type { CoreElementalType } from "../../../definitions/elemental-type";
 import type { GearName } from "../../../definitions/gear-types";
 import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
-import type { GearDto } from "../../../models/gear";
-import type { GearSetDtoV1, GearSetDtoV2 } from "../../../models/gear-set";
-import type { LoadoutDto } from "../../../models/loadout";
+import type { GearDto } from "../../../models/gear/gear";
+import type {
+  GearSetDtoV1,
+  GearSetDtoV2,
+} from "../../../models/gear-set/gear-set";
+import type { LoadoutDtoV1 } from "../../../models/loadout/loadout";
 import type { MatrixSetDto } from "../../../models/matrix-set";
 import type { RandomStatDto } from "../../../models/random-stat";
 import type { TeamDto } from "../../../models/team/team";
@@ -18,7 +21,7 @@ import type { GearComparerOptionsStateDto } from "../../deprecated/gear-comparer
 import type { GearSetsStateDto } from "../../deprecated/gear-sets";
 import type { TeamsStateDto } from "../../deprecated/teams";
 import type { GearComparerStateDto } from "../../gear-comparer";
-import type { LoadoutsStateDto } from "../../loadouts";
+import type { LoadoutsStateDtoV1 } from "../../loadouts";
 import type {
   UserStatsStateDtoV1,
   UserStatsStateDtoV2,
@@ -59,7 +62,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   };
   localStorage.setItem(userStatsKey, JSON.stringify(newUserStatsState));
 
-  const newLoadoutsState: LoadoutsStateDto = {
+  const newLoadoutsState: LoadoutsStateDtoV1 = {
     loadoutList: [
       {
         loadout: newLoadoutWithTransferredStatsAndTeam("Flame"),
@@ -159,7 +162,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
 
     function transferOldGearSetToLoadout(
       oldGearSet: GearSetDtoV1,
-      loadout: LoadoutDto,
+      loadout: LoadoutDtoV1,
     ) {
       loadout.name = oldGearSet.name;
 
@@ -196,8 +199,8 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
 
   function newLoadoutWithTransferredStatsAndTeam(
     elementalType: CoreElementalType,
-  ): LoadoutDto {
-    const loadout: LoadoutDto = {
+  ): LoadoutDtoV1 {
+    const loadout: LoadoutDtoV1 = {
       id: nanoid(),
       name: elementalType,
       elementalType: elementalType,

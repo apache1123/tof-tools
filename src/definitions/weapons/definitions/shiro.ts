@@ -5,7 +5,7 @@ export const shiro = {
   displayName: "Shiro",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
-  calculationElements: ["Physical"],
+  gearResonanceElements: ["Physical"],
   damageElement: "Physical",
   type: "DPS",
   attackPercentBuffs: [],

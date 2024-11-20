@@ -13,15 +13,15 @@ import { WeaponMatrixSets } from "./weapon-matrix-sets";
 
 /** A weapon (with its equipped matrices) that exists within a `Team` */
 export class Weapon implements Persistable<WeaponDto> {
-  public definition: WeaponDefinition;
-  public stars: number;
-  public matrixSets: WeaponMatrixSets;
-
   public constructor(definition: WeaponDefinition) {
     this.definition = definition;
     this.stars = 0;
     this.matrixSets = new WeaponMatrixSets();
   }
+
+  public definition: WeaponDefinition;
+  public stars: number;
+  public matrixSets: WeaponMatrixSets;
 
   public get id() {
     return this.definition.id;
@@ -50,8 +50,8 @@ export class Weapon implements Persistable<WeaponDto> {
     return this.definition.damageElement;
   }
 
-  public get calculationElements() {
-    return this.definition.calculationElements;
+  public get gearCalculationElements() {
+    return this.definition.gearResonanceElements;
   }
 
   public get type() {

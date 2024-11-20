@@ -1,13 +1,13 @@
-import type { BuffId } from "../../../../definitions/types/buff/buff-ability";
-import type { BuffRegistry } from "../buff-registry";
-import type { ActiveBuff } from "./active-buff";
+import type {BuffId} from "../../../../definitions/types/buff/buff-ability";
+import type {HasActiveBuffs} from "../has-active-buffs";
+import type {ActiveBuff} from "./active-buff";
 
-/** All currently active buffs at the current tick */
+/** All currently active buffs */
 export class ActiveBuffs {
-  public constructor(private readonly buffRegistry: BuffRegistry) {}
+  public constructor(private readonly source: HasActiveBuffs) {}
 
   public get items(): ActiveBuff[] {
-    return this.buffRegistry.getActiveBuffs();
+    return this.source.getActiveBuffs();
   }
 
   public hasBuff(id: BuffId) {
@@ -18,8 +18,8 @@ export class ActiveBuffs {
     return this.items.flatMap((currentBuff) => currentBuff.baseAttackBuffs);
   }
 
-  public getAttackBuffs() {
-    return this.items.flatMap((currentBuff) => currentBuff.attackBuffs);
+  public getAttackPercentBuffs() {
+    return this.items.flatMap((currentBuff) => currentBuff.attackPercentBuffs);
   }
 
   public getElementalDamageBuffs() {

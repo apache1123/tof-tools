@@ -5,7 +5,7 @@ export const mimi = {
   displayName: "Huang (Mimi)",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
-  calculationElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "Defense",
   attackPercentBuffs: [

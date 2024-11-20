@@ -7,7 +7,7 @@ export const nolaPhysicalFlame = {
   displayName: "Nola (Physical-Flame)",
   elementalIcon: "Physical-Flame",
   resonanceElements: ["Physical", "Flame"],
-  calculationElements: ["Physical", "Flame"],
+  gearResonanceElements: ["Physical", "Flame"],
   damageElement: "Physical",
   attackPercentBuffs: [
     ...nolaBase.attackPercentBuffs,

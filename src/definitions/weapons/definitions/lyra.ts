@@ -5,7 +5,7 @@ export const lyra = {
   displayName: "Lyra",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
-  calculationElements: ["Physical"],
+  gearResonanceElements: ["Physical"],
   damageElement: "Physical",
   type: "Support",
   attackPercentBuffs: [

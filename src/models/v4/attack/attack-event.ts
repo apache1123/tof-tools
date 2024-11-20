@@ -8,7 +8,6 @@ import type { Weapon } from "../../weapon";
 import { AbilityEvent } from "../ability/ability-event";
 import type { AbilityId } from "../ability/ability-id";
 import type { AbilityUpdatesResource } from "../ability/ability-updates-resource";
-import type { AttackHitCount } from "../attack/attack-hit-count";
 import type { BaseDamageModifiers } from "../damage-modifiers/base-damage-modifiers";
 import type { BaseDamageModifiersDefinition } from "../damage-modifiers/base-damage-modifiers-definition";
 import type { FinalDamageModifiers } from "../damage-modifiers/final-damage-modifiers";
@@ -19,6 +18,7 @@ import type { CurrentResources } from "../resource/current-resource/current-reso
 import type { CurrentTick } from "../tick/current-tick";
 import type { Tick } from "../tick/tick";
 import type { TimeInterval } from "../time-interval/time-interval";
+import type { AttackHitCount } from "./attack-hit-count";
 import type { AttackEventDto } from "./dtos/attack-event-dto";
 
 export class AttackEvent
@@ -61,12 +61,13 @@ export class AttackEvent
       .forEach((time) => {
         const attackHit: AttackHit = {
           time,
-          elementalType: this.elementalType,
+          damageElement: this.elementalType,
           baseDamageModifiers: this.getBaseDamageModifiersPerHit(),
           finalDamageModifiers: this.getFinalDamageModifiersPerHit(),
           attackId: this.abilityId,
           attackType: this.type,
-          weapon: this.weapon,
+          weaponId: this.weapon.id,
+          applyAllBuffs: false,
         };
 
         this.eventManager.publishAttackHit(attackHit);

@@ -5,7 +5,7 @@ export const gnonno = {
   displayName: "Gnonno",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
-  calculationElements: ["Physical"],
+  gearResonanceElements: ["Physical"],
   damageElement: "Physical",
   type: "DPS",
   attackPercentBuffs: [

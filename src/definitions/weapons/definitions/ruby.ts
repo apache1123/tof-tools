@@ -5,7 +5,7 @@ export const ruby = {
   displayName: "Ruby",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "DPS",
   attackPercentBuffs: [

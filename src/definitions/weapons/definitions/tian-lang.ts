@@ -5,7 +5,7 @@ export const tianLang = {
   displayName: "Tian Lang",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
-  calculationElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "DPS",
   attackPercentBuffs: [

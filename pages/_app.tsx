@@ -15,8 +15,6 @@ import { migrateStatesToLatestVersion } from "../src/states/migrations/state-mig
 import {
   changelogState,
   changelogStateKey,
-  gearComparerState,
-  gearComparerStateKey,
   loadoutsState,
   loadoutsStateKey,
   relicsState,
@@ -42,7 +40,7 @@ export default function MyApp(props: MyAppProps) {
   useLocalStoragePersistence(changelogState, changelogStateKey);
   useLocalStoragePersistence(userStatsState, userStatsStateKey);
   useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
-  useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
+  // useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
   useLocalStoragePersistence(relicsState, relicsStateKey);
 
   BigNumber.config({ DECIMAL_PLACES: 4 });

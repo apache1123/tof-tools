@@ -15,6 +15,8 @@ export class DamageBuff extends Buff {
   }
 
   public override canApplyTo(attackHit: AttackHit): boolean {
+    if (attackHit.applyAllBuffs) return true;
+
     const {
       finalDamageModifiers: { canOnlyBeBuffedByTitans },
     } = attackHit;
@@ -22,7 +24,7 @@ export class DamageBuff extends Buff {
     return (
       (!canOnlyBeBuffedByTitans || this.source === "titan") &&
       (!this.restrictedTo.weapon ||
-        this.restrictedTo.weapon === attackHit.weapon.id) &&
+        this.restrictedTo.weapon === attackHit.weaponId) &&
       (!this.restrictedTo.attackType ||
         this.restrictedTo.attackType === attackHit.attackType) &&
       (!this.restrictedTo.attacks ||

@@ -1,4 +1,5 @@
 import type { WeaponElementalType } from "../../../../definitions/elemental-type";
+import type { BaseAttackBuff as BaseAttackBuffDefinition } from "../../../../definitions/types/buff/base-attack-buff";
 import type { BuffId } from "../../../../definitions/types/buff/buff-ability";
 import type { AttackHit } from "../../event/messages/attack-hit";
 import { Buff } from "../buff";
@@ -12,7 +13,16 @@ export class BaseAttackBuff extends Buff {
     super(id, value);
   }
 
+  public static create(
+    definition: BaseAttackBuffDefinition,
+    id: BuffId,
+  ): BaseAttackBuff[] {
+    return definition.elementalTypes.map(
+      (element) => new BaseAttackBuff(id, definition.value, element),
+    );
+  }
+
   public override canApplyTo(attackHit: AttackHit): boolean {
-    return this.elementalType === attackHit.elementalType;
+    return this.elementalType === attackHit.damageElement;
   }
 }

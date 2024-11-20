@@ -5,7 +5,7 @@ export const merylIronheart = {
   displayName: "Meryl Ironheart",
   elementalIcon: "Volt-Frost",
   resonanceElements: ["Volt", "Frost"],
-  calculationElements: ["Volt", "Frost"],
+  gearResonanceElements: ["Volt", "Frost"],
   damageElement: "Volt",
   type: "Defense",
   attackPercentBuffs: [

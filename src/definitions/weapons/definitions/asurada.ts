@@ -5,7 +5,7 @@ export const asurada = {
   displayName: "Asurada",
   elementalIcon: "Flame-Physical",
   resonanceElements: ["Flame", "Physical"],
-  calculationElements: ["Flame", "Physical"],
+  gearResonanceElements: ["Flame", "Physical"],
   damageElement: "Flame",
   type: "DPS",
   attackPercentBuffs: [

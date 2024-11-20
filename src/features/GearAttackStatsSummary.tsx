@@ -7,7 +7,7 @@ import {
   NumericStringPercentage2dp,
 } from "../components/NumericString/NumericString";
 import type { CoreElementalType } from "../definitions/elemental-type";
-import type { Gear } from "../models/gear";
+import type { Gear } from "../models/gear/gear";
 import { userStatsState } from "../states/states";
 import { calculateCritRatePercentFromFlat } from "../utils/stat-calculation-utils";
 

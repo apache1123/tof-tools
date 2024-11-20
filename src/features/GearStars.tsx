@@ -3,7 +3,7 @@ import { Box, Tooltip } from "@mui/material";
 import groupBy from "lodash.groupby";
 
 import { GearStarsSelector } from "../components/GearStarsSelector/GearStarsSelector";
-import type { Gear } from "../models/gear";
+import type { Gear } from "../models/gear/gear";
 
 export interface GearStarsProps {
   gearSnap: Gear;

@@ -1,17 +1,17 @@
-import { useSnapshot } from "valtio";
-
-import type { GearSet } from "../../models/gear-set";
-import { loadoutsState } from "../../states/states";
-import { GearSetStatSummary } from "../GearSetStatSummary";
-
-export function LoadoutGearSetStatSummary() {
-  const {
-    selectedLoadout: { gearSet, elementalType },
-  } = useSnapshot(loadoutsState);
-  return (
-    <GearSetStatSummary
-      gearSetSnap={gearSet as GearSet}
-      elementalType={elementalType}
-    />
-  );
-}
+// import { useSnapshot } from "valtio";
+//
+// import type { GearSet } from "../../models/gear-set/gear-set";
+// import { loadoutsState } from "../../states/states";
+// import { GearSetStatSummary } from "../GearSetStatSummary";
+//
+// export function LoadoutGearSetStatSummary() {
+//   const {
+//     selectedLoadout: { gearSet, elementalType },
+//   } = useSnapshot(loadoutsState);
+//   return (
+//     <GearSetStatSummary
+//       gearSetSnap={gearSet as GearSet}
+//       elementalType={elementalType}
+//     />
+//   );
+// }

@@ -5,7 +5,7 @@ export const fiona = {
   displayName: "Fiona",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
-  calculationElements: ["Altered"],
+  gearResonanceElements: [],
   damageElement: "Altered",
   type: "Support",
   attackPercentBuffs: [

@@ -5,7 +5,7 @@ export const fenrir = {
   displayName: "Fenrir",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
-  calculationElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "DPS",
   attackPercentBuffs: [

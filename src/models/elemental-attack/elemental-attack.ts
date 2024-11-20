@@ -1,14 +1,18 @@
 import BigNumber from "bignumber.js";
 
+import type { WeaponElementalType } from "../../definitions/elemental-type";
 import type { Dto } from "../dto";
 import type { Persistable } from "../persistable";
 
 export class ElementalAttack implements Persistable<ElementalAttackDto> {
   private _baseAttack = 0;
-
   private _totalAttack = 0;
 
-  public constructor(baseAttack: number, totalAttack: number) {
+  public constructor(
+    public readonly element: WeaponElementalType,
+    baseAttack: number,
+    totalAttack: number,
+  ) {
     this.baseAttack = baseAttack;
     this.totalAttack = totalAttack;
   }

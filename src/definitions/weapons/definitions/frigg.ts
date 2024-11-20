@@ -5,7 +5,7 @@ export const frigg = {
   displayName: "Frigg",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
-  calculationElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "DPS",
   attackPercentBuffs: [

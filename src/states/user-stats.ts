@@ -1,19 +1,19 @@
 import { maxCharacterLevel } from "../definitions/character-level";
 import type { CoreElementalType } from "../definitions/elemental-type";
 import type { DataById } from "../models/data";
+import type { ElementalUserStatsDto } from "../models/deprecated/elemental-user-stats";
 import type { Dto } from "../models/dto";
-import type { ElementalUserStatsDto } from "../models/elemental-user-stats";
 import type { Persistable } from "../models/persistable";
-import type { UserStats } from "../models/user-stats";
+import type { CharacterInfo } from "../models/v4/character/character-info";
 
 export class UserStatsState
-  implements UserStats, Persistable<UserStatsStateDtoV2>
+  implements CharacterInfo, Persistable<UserStatsStateDtoV2>
 {
-  public characterLevel: number;
-
   public constructor() {
     this.characterLevel = maxCharacterLevel;
   }
+
+  public characterLevel: number;
 
   public copyFromDto(dto: UserStatsStateDtoV2): void {
     const { characterLevel } = dto;

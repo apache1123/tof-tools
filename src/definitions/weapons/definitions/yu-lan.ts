@@ -5,7 +5,7 @@ export const yuLan = {
   displayName: "Yu Lan",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
-  calculationElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "DPS",
   attackPercentBuffs: [

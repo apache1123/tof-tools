@@ -5,7 +5,7 @@ export const crow = {
   displayName: "Crow",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
-  calculationElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "DPS",
   attackPercentBuffs: [],

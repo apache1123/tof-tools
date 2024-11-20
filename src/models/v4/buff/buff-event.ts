@@ -6,7 +6,7 @@ import type { EventManager } from "../event/event-manager";
 import type { CurrentTick } from "../tick/current-tick";
 import type { TimeInterval } from "../time-interval/time-interval";
 import type { ActiveBuff } from "./active-buff/active-buff";
-import type { AttackBuff } from "./attack-buff/attack-buff";
+import type { AttackPercentBuff } from "./attack-percent-buff/attack-percent-buff";
 import type { BaseAttackBuff } from "./base-attack-buff/base-attack-buff";
 import type { CritDamageBuff } from "./crit-damage-buff/crit-damage-buff";
 import type { BuffEventDto } from "./dtos/buff-event-dto";
@@ -26,7 +26,7 @@ export class BuffEvent
     eventManager: EventManager,
     currentTick: CurrentTick,
     public readonly baseAttackBuffs: BaseAttackBuff[],
-    public readonly attackBuffs: AttackBuff[],
+    public readonly attackPercentBuffs: AttackPercentBuff[],
     public readonly elementalDamageBuffs: ElementalDamageBuff[],
     public readonly finalDamageBuffs: FinalDamageBuff[],
     public readonly critRateBuffs: CritDamageBuff[],

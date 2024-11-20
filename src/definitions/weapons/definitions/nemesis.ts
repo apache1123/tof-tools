@@ -5,7 +5,7 @@ export const nemesis = {
   displayName: "Nemesis",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
-  calculationElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "Support",
   attackPercentBuffs: [

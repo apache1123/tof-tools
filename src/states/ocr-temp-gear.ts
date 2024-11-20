@@ -2,7 +2,7 @@ import { createWorker, type Worker } from "tesseract.js";
 import { proxy } from "valtio";
 import { devtools } from "valtio/utils";
 
-import { Gear } from "../models/gear";
+import { Gear } from "../models/gear/gear";
 import type { GearType } from "../models/gear-type";
 
 export interface OcrState {

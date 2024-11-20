@@ -5,7 +5,7 @@ export const zero = {
   displayName: "Zero",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "Support",
   attackPercentBuffs: [

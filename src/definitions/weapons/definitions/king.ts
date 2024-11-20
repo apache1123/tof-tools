@@ -5,7 +5,7 @@ export const king = {
   displayName: "King",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "DPS",
   attackPercentBuffs: [],

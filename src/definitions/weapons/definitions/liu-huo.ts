@@ -5,7 +5,7 @@ export const liuHuo = {
   displayName: "Liu Huo",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "DPS",
   attackPercentBuffs: [

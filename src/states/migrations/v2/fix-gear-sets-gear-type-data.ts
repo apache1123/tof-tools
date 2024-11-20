@@ -1,9 +1,9 @@
-import { nanoid } from "nanoid";
+import {nanoid} from "nanoid";
 
-import type { GearName } from "../../../definitions/gear-types";
-import type { GearSetDtoV2 } from "../../../models/gear-set";
-import type { GearComparerStateDto } from "../../gear-comparer";
-import type { LoadoutsStateDto } from "../../loadouts";
+import type {GearName} from "../../../definitions/gear-types";
+import type {GearSetDtoV2} from "../../../models/gear-set/gear-set";
+import type {GearComparerStateDto} from "../../gear-comparer";
+import type {LoadoutsStateDtoV1} from "../../loadouts";
 
 /** Data fix for potential issue with gear sets gear type data that may have been introduced in 3.0.0.
  *
@@ -20,7 +20,7 @@ export function fixGearSetsGearTypeData() {
   const gearComparerStateJson = localStorage.getItem("gearComparer");
 
   const loadoutsState = loadoutsStateJson
-    ? (JSON.parse(loadoutsStateJson) as LoadoutsStateDto)
+    ? (JSON.parse(loadoutsStateJson) as LoadoutsStateDtoV1)
     : undefined;
   const gearComparerState = gearComparerStateJson
     ? (JSON.parse(gearComparerStateJson) as GearComparerStateDto)

@@ -6,7 +6,7 @@ import {
   NumericStringPercentage2dp,
 } from "../components/NumericString/NumericString";
 import type { CoreElementalType } from "../definitions/elemental-type";
-import type { GearSet } from "../models/gear-set";
+import type { GearSet } from "../models/gear-set/gear-set";
 
 export interface GearSetStatSummaryProps {
   gearSetSnap: GearSet;
@@ -62,7 +62,9 @@ export function GearSetStatSummary({
           <Typography>Crit</Typography>
           <Box>
             <ElementalStyledText elementalType={elementalType}>
-              <NumericStringInteger value={gearSetSnap.getTotalCritFlat()} />
+              <NumericStringInteger
+                value={gearSetSnap.getTotalCritRateFlat()}
+              />
             </ElementalStyledText>
           </Box>
         </Box>
@@ -72,7 +74,7 @@ export function GearSetStatSummary({
           <Box>
             <ElementalStyledText elementalType={elementalType}>
               <NumericStringPercentage2dp
-                value={gearSetSnap.getTotalCritPercent()}
+                value={gearSetSnap.getTotalCritRatePercent()}
               />
             </ElementalStyledText>
           </Box>

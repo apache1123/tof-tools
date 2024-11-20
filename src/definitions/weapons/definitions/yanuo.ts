@@ -5,7 +5,7 @@ export const yanuo = {
   displayName: "Yanuo",
   elementalIcon: "Frost-Volt",
   resonanceElements: ["Frost", "Volt"],
-  calculationElements: ["Frost", "Volt"],
+  gearResonanceElements: ["Frost", "Volt"],
   damageElement: "Frost",
   type: "DPS",
   attackPercentBuffs: [

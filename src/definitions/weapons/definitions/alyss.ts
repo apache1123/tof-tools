@@ -5,7 +5,7 @@ export const alyss = {
   displayName: "Alyss",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
-  calculationElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "DPS",
   attackPercentBuffs: [

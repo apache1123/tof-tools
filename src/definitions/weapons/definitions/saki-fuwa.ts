@@ -5,7 +5,7 @@ export const sakiFuwa = {
   displayName: "Saki Fuwa",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
-  calculationElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "DPS",
   attackPercentBuffs: [

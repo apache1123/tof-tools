@@ -2,27 +2,27 @@ import { weaponDefinitions } from "../../../../definitions/weapons/weapon-defini
 import { Weapon } from "../../../weapon";
 import { EventManager } from "../../event/event-manager";
 import { CurrentTick } from "../../tick/current-tick";
-import { ActiveWeapon } from "../active-weapon";
 import { ActiveWeaponTimeline } from "../active-weapon-timeline";
+import { CombatSimulatorActiveWeapon } from "../combat-simulator-active-weapon";
 
 let weapons: Weapon[];
 let timeline: ActiveWeaponTimeline;
 let eventManager: EventManager;
 let currentTick: CurrentTick;
 
-let activeWeapon: ActiveWeapon;
+let activeWeapon: CombatSimulatorActiveWeapon;
 
 const weapon1 = new Weapon(weaponDefinitions.byId["Fenrir"]);
 const weapon2 = new Weapon(weaponDefinitions.byId["Huang (Mimi)"]);
 const weapon3 = new Weapon(weaponDefinitions.byId["Anka"]);
 
-describe("Active weapon", () => {
+describe("Switchable active weapon", () => {
   beforeEach(() => {
     weapons = [weapon1, weapon2, weapon3];
     timeline = new ActiveWeaponTimeline(10000);
     eventManager = new EventManager();
     currentTick = new CurrentTick(0, 1000, eventManager);
-    activeWeapon = new ActiveWeapon(
+    activeWeapon = new CombatSimulatorActiveWeapon(
       weapons,
       timeline,
       eventManager,

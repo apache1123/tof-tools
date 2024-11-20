@@ -5,7 +5,7 @@ export const cocoritter = {
   displayName: "Cocoritter",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
-  calculationElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "Support",
   attackPercentBuffs: [

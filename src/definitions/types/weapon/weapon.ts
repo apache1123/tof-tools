@@ -13,6 +13,7 @@ import type {
 } from "../../../models/weapon-buff-definition";
 import type {
   FusionWeaponElementalType,
+  GearResonanceElements,
   WeaponElementalType,
 } from "../../elemental-type";
 import type { WeaponName } from "../../weapons/weapon-definitions";
@@ -30,8 +31,10 @@ export interface Weapon {
    * E.g. For Yan Miao, her weapon is considered to be both Physical and Flame to trigger Physical resonance and Flame resonance, but deals (mainly) physical damage.
    */
   resonanceElements: WeaponElementalType[];
-  /** When calculating this weapon's damage, use the highest value out of these elements for base ATK, ATK%, DMG% respectively - e.g. "Volt-Frost Fusion"/"Fusion of Mass and Flame" */
-  calculationElements: WeaponElementalType[];
+  /** When calculating this weapon's damage, use the highest value out of these elements for gear base ATK, gear ATK%, gear element DMG% respectively - e.g. "Volt-Frost Fusion"/"Fusion of Mass and Flame".
+   *
+   * **For gear stats only. Does not apply to buffs etc.** */
+  gearResonanceElements: GearResonanceElements;
   /** The default element the weapon deals damage in when it is on field */
   damageElement: WeaponElementalType;
   type: WeaponType;

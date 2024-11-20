@@ -18,7 +18,7 @@ import {
 import type { GearName } from "../definitions/gear-types";
 import { gearTypesLookup } from "../definitions/gear-types";
 import { statTypesLookup } from "../definitions/stat-types";
-import { Gear } from "../models/gear";
+import { Gear } from "../models/gear/gear";
 import type { GearType } from "../models/gear-type";
 import { RandomStat } from "../models/random-stat";
 import type { StatType } from "../models/stat-type";
@@ -36,9 +36,10 @@ import {
 import { GearPiece } from "./GearPiece";
 
 export interface GearOCRModalProps {
-  onFinalizeGear?(gear: Gear): void;
   enforceGearType?: GearName;
   iconButton?: boolean;
+
+  onFinalizeGear?(gear: Gear): void;
 }
 
 const unableToParseGearTypeError = () => (
@@ -281,7 +282,7 @@ function getGearFromOCR(text: string): Gear | undefined {
         const hasPercentage = firstWordAfterRandomStatName.includes("%");
 
         // e.g. 'Physical Resistance +7.87%' has to be matched to 'Physical Resistance %', not 'Physical Resistance'
-        if (hasPercentage !== !!randomStatType.isPercentageBased) continue;
+        if (hasPercentage !== randomStatType.isPercentageBased) continue;
 
         // Percentage values are in the format '+7.8%' (string)
         // Non-percentage values are in the format '+4,125'

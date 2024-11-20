@@ -5,7 +5,7 @@ export const rei = {
   displayName: "Rei",
   elementalIcon: "Volt-Frost",
   resonanceElements: ["Volt", "Frost"],
-  calculationElements: ["Volt", "Frost"],
+  gearResonanceElements: ["Volt", "Frost"],
   damageElement: "Volt",
   type: "DPS",
   attackPercentBuffs: [

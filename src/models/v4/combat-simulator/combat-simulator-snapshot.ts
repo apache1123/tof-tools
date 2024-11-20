@@ -1,12 +1,12 @@
 import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
-import type { LoadoutDto } from "../../loadout";
+import type { LoadoutDtoV1 } from "../../loadout/loadout";
 import type { AttackDto } from "../attack/dtos/attack-dto";
 import type { BuffDto } from "../buff/dtos/buff-dto";
 import type { DamageSummaryDto } from "../damage-summary/dtos/damage-summary-dto";
 import type { ResourceDto } from "../resource/dtos/resource-dto";
 
 export interface CombatSimulatorSnapshot {
-  loadout: LoadoutDto;
+  loadout: LoadoutDtoV1;
   weaponAttacks: WeaponAttackSnapshot[];
   passiveAttacks: AttackDto[];
   buffs: BuffDto[];

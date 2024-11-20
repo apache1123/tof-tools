@@ -5,7 +5,7 @@ export const nanYin = {
   displayName: "Nan Yin",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
-  calculationElements: ["Altered"],
+  gearResonanceElements: [],
   damageElement: "Altered",
   type: "DPS",
   attackPercentBuffs: [

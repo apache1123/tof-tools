@@ -5,7 +5,7 @@ export const rubilia = {
   displayName: "Rubilia",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
-  calculationElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "DPS",
   attackPercentBuffs: [

@@ -6,7 +6,7 @@ export const nolaBase = {
   iconWeaponName: "Nola",
   elementalIcon: "Altered",
   resonanceElements: [],
-  calculationElements: [],
+  gearResonanceElements: [],
   damageElement: "Altered",
   type: "DPS",
   attackPercentBuffs: [

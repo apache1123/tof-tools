@@ -1,6 +1,6 @@
 import type {
-  CoreElementalType,
   StatTypeElementalType,
+  WeaponElementalType,
 } from "../definitions/elemental-type";
 import type { StatName, StatRole } from "../definitions/stat-types";
 
@@ -22,8 +22,15 @@ export interface StatType {
 
 export function isElementalAttackFlat(
   statType: StatType,
-  elementalType: CoreElementalType,
+  elementalType: WeaponElementalType,
 ) {
+  if (elementalType === "Altered")
+    return (
+      statType.role === "Attack" &&
+      statType.elementalType === "Altered" &&
+      statType.id === "Altered Attack"
+    );
+
   return (
     statType.role === "Attack" &&
     (statType.elementalType === elementalType ||
@@ -33,8 +40,11 @@ export function isElementalAttackFlat(
 
 export function isElementalAttackPercent(
   statType: StatType,
-  elementalType: CoreElementalType,
+  elementalType: WeaponElementalType,
 ) {
+  if (elementalType === "Altered")
+    throw new Error("Altered attack % is not valid");
+
   return (
     statType.role === "Attack %" &&
     (statType.elementalType === elementalType ||
@@ -52,10 +62,43 @@ export function isCritPercent(statType: StatType) {
 
 export function isElementalDamagePercent(
   statType: StatType,
-  elementalType: CoreElementalType,
+  elementalType: WeaponElementalType,
 ) {
+  if (elementalType === "Altered")
+    throw new Error("Altered damage % is not valid");
+
   return (
     statType.role === "Damage %" &&
+    (statType.elementalType === elementalType ||
+      statType.elementalType === "All")
+  );
+}
+
+export function isHpFlat(statType: StatType) {
+  return statType.role === "HP" && statType.id === "HP";
+}
+
+export function isHpPercent(statType: StatType) {
+  return statType.role === "HP %" && statType.id === "HP %";
+}
+
+export function isResistanceFlat(
+  statType: StatType,
+  elementalType: WeaponElementalType,
+) {
+  return (
+    statType.role === "Resistance" &&
+    (statType.elementalType === elementalType ||
+      statType.elementalType === "All")
+  );
+}
+
+export function isResistancePercent(
+  statType: StatType,
+  elementalType: WeaponElementalType,
+) {
+  return (
+    statType.role === "Resistance %" &&
     (statType.elementalType === elementalType ||
       statType.elementalType === "All")
   );

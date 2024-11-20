@@ -103,7 +103,7 @@ export class AbilityTrigger implements EventSubscriber {
     if (
       this.triggerOnAttackHit &&
       (this.triggerOnAttackHit.any ||
-        this.triggerOnAttackHit.ofWeapon === attackHit.weapon.id)
+        this.triggerOnAttackHit.ofWeapon === attackHit.weaponId)
     )
       this.triggerAbility();
   }

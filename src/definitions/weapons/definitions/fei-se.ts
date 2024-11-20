@@ -5,7 +5,7 @@ export const feiSe = {
   displayName: "Fei Se",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "DPS",
   attackPercentBuffs: [

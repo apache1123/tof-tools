@@ -7,7 +7,7 @@ export const nolaAltered = {
   displayName: "Nola (Altered)",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
-  calculationElements: ["Altered"],
+  gearResonanceElements: [],
   damageElement: "Altered",
   attackPercentBuffs: [...nolaBase.attackPercentBuffs],
   critRateBuffs: [...nolaBase.critRateBuffs],

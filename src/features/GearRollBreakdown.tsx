@@ -3,7 +3,7 @@ import pluralize from "pluralize";
 import { Fragment } from "react";
 
 import { NumericStringPercentage } from "../components/NumericString/NumericString";
-import { type Gear } from "../models/gear";
+import { type Gear } from "../models/gear/gear";
 
 export interface GearRollBreakdownProps {
   gearSnap: Gear;

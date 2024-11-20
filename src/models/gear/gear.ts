@@ -2,53 +2,52 @@ import BigNumber from "bignumber.js";
 import groupBy from "lodash.groupby";
 import { nanoid } from "nanoid";
 
-import { prioritizedAugmentationStatTypesLookup } from "../definitions/augmentation-stats";
-import type { CoreElementalType } from "../definitions/elemental-type";
+import { prioritizedAugmentationStatTypesLookup } from "../../definitions/augmentation-stats";
+import type {
+  CoreElementalType,
+  WeaponElementalType,
+} from "../../definitions/elemental-type";
 import {
   augmentStatsPullUpFactor1,
   augmentStatsPullUpFactor2,
   augmentStatsPullUpFactor3,
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
-} from "../definitions/gear";
-import type { GearName } from "../definitions/gear-types";
-import { gearTypesLookup } from "../definitions/gear-types";
-import type { StatName } from "../definitions/stat-types";
-import { statTypesLookup } from "../definitions/stat-types";
-import { filterOutUndefined } from "../utils/array-utils";
-import { cartesian } from "../utils/cartesian-utils";
-import { sum } from "../utils/math-utils";
-import { keysOf } from "../utils/object-utils";
-import type { AugmentStatDto } from "./augment-stat";
-import { AugmentStat } from "./augment-stat";
-import type { Dto } from "./dto";
+} from "../../definitions/gear";
+import type { GearName } from "../../definitions/gear-types";
+import { gearTypesLookup } from "../../definitions/gear-types";
+import type { StatName } from "../../definitions/stat-types";
+import { statTypesLookup } from "../../definitions/stat-types";
+import { filterOutUndefined } from "../../utils/array-utils";
+import { cartesian } from "../../utils/cartesian-utils";
+import { sum } from "../../utils/math-utils";
+import { keysOf } from "../../utils/object-utils";
+import type { AugmentStatDto } from "../augment-stat";
+import { AugmentStat } from "../augment-stat";
+import type { Dto } from "../dto";
 import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
-} from "./gear-random-stat-roll-combinations";
-import type { GearStatDifference } from "./gear-stat-difference";
-import type { GearType } from "./gear-type";
-import type { Persistable } from "./persistable";
-import type { RandomStatDto } from "./random-stat";
-import { RandomStat } from "./random-stat";
-import type { StatType } from "./stat-type";
+} from "../gear-random-stat-roll-combinations";
+import type { GearStatDifference } from "../gear-stat-difference";
+import type { GearType } from "../gear-type";
+import type { Persistable } from "../persistable";
+import type { RandomStatDto } from "../random-stat";
+import { RandomStat } from "../random-stat";
+import type { StatType } from "../stat-type";
 import {
   isCritFlat,
   isCritPercent,
   isElementalAttackFlat,
   isElementalAttackPercent,
   isElementalDamagePercent,
-} from "./stat-type";
+  isHpFlat,
+  isHpPercent,
+  isResistanceFlat,
+  isResistancePercent,
+} from "../stat-type";
 
 export class Gear implements Persistable<GearDto> {
-  private _id: string;
-  private _type: GearType;
-  private _stars: number;
-  private _isAugmented: boolean;
-
-  public randomStats: (RandomStat | undefined)[];
-  public augmentStats: AugmentStat[];
-
   public constructor(type: GearType) {
     this._id = nanoid();
     this._type = type;
@@ -58,6 +57,13 @@ export class Gear implements Persistable<GearDto> {
     this.resetRandomStats();
     this.augmentStats = [];
   }
+
+  public randomStats: (RandomStat | undefined)[];
+  public augmentStats: AugmentStat[];
+  private _id: string;
+  private _type: GearType;
+  private _stars: number;
+  private _isAugmented: boolean;
 
   public get id() {
     return this._id;
@@ -75,15 +81,11 @@ export class Gear implements Persistable<GearDto> {
       this._stars = stars;
     }
   }
-  public getPossibleStars(): number[] {
-    return Object.keys(
-      groupBy(this.getRandomStatRollCombinations(), (x) => x.stars),
-    ).map((x) => +x);
-  }
 
   public get isAugmented(): boolean {
     return this._isAugmented;
   }
+
   public set isAugmented(value: boolean) {
     if (this._isAugmented === value) return;
 
@@ -95,14 +97,143 @@ export class Gear implements Persistable<GearDto> {
     }
   }
 
-  public getTotalAttackFlat(elementalType: CoreElementalType): number {
+  /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
+  public static calculateStatDifference(
+    baseGear: Gear,
+    newGear: Gear,
+  ): GearStatDifference {
+    return {
+      elementalAttackFlats: {
+        Altered: getAttackFlatDifference("Altered"),
+        Flame: getAttackFlatDifference("Flame"),
+        Frost: getAttackFlatDifference("Frost"),
+        Physical: getAttackFlatDifference("Physical"),
+        Volt: getAttackFlatDifference("Volt"),
+      },
+      elementalAttackPercents: {
+        Flame: getAttackPercentDifference("Flame"),
+        Frost: getAttackPercentDifference("Frost"),
+        Physical: getAttackPercentDifference("Physical"),
+        Volt: getAttackPercentDifference("Volt"),
+      },
+      elementalDamagePercents: {
+        Flame: getDamagePercentDifference("Flame"),
+        Frost: getDamagePercentDifference("Frost"),
+        Physical: getDamagePercentDifference("Physical"),
+        Volt: getDamagePercentDifference("Volt"),
+      },
+      critRateFlat: BigNumber(newGear.getTotalCritFlat())
+        .minus(baseGear.getTotalCritFlat())
+        .toNumber(),
+      critRatePercent: BigNumber(newGear.getTotalCritPercent())
+        .minus(baseGear.getTotalCritPercent())
+        .toNumber(),
+      hpFlat: BigNumber(newGear.getTotalHpFlat())
+        .minus(baseGear.getTotalHpFlat())
+        .toNumber(),
+      hpPercent: BigNumber(newGear.getTotalHpPercent())
+        .minus(baseGear.getTotalHpPercent())
+        .toNumber(),
+      elementalResistanceFlats: {
+        Altered: getResistanceFlatDifference("Altered"),
+        Flame: getResistanceFlatDifference("Flame"),
+        Frost: getResistanceFlatDifference("Frost"),
+        Physical: getResistanceFlatDifference("Physical"),
+        Volt: getResistanceFlatDifference("Volt"),
+      },
+      elementalResistancePercents: {
+        Altered: getResistancePercentDifference("Altered"),
+        Flame: getResistancePercentDifference("Flame"),
+        Frost: getResistancePercentDifference("Frost"),
+        Physical: getResistancePercentDifference("Physical"),
+        Volt: getResistancePercentDifference("Volt"),
+      },
+    };
+
+    function getAttackFlatDifference(element: WeaponElementalType): number {
+      return BigNumber(newGear.getTotalAttackFlat(element))
+        .minus(baseGear.getTotalAttackFlat(element))
+        .toNumber();
+    }
+
+    function getAttackPercentDifference(element: CoreElementalType): number {
+      return BigNumber(newGear.getTotalAttackPercent(element))
+        .minus(baseGear.getTotalAttackPercent(element))
+        .toNumber();
+    }
+
+    function getDamagePercentDifference(element: CoreElementalType): number {
+      return BigNumber(newGear.getTotalElementalDamagePercent(element))
+        .minus(baseGear.getTotalElementalDamagePercent(element))
+        .toNumber();
+    }
+
+    function getResistanceFlatDifference(element: WeaponElementalType): number {
+      return BigNumber(newGear.getTotalResistanceFlat(element))
+        .minus(baseGear.getTotalResistanceFlat(element))
+        .toNumber();
+    }
+
+    function getResistancePercentDifference(
+      element: WeaponElementalType,
+    ): number {
+      return BigNumber(newGear.getTotalResistancePercent(element))
+        .minus(baseGear.getTotalResistancePercent(element))
+        .toNumber();
+    }
+  }
+
+  /**  Copy all gear properties over except for the id, as long as the gear's type is the same */
+  public static copy(from: Gear, to: Gear) {
+    if (from.type.id !== to.type.id) return;
+
+    to.stars = from.stars;
+
+    to.randomStats = [];
+    from.randomStats.forEach((fromRandomStat, index) => {
+      if (fromRandomStat) {
+        if (to.randomStats[index]) {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          RandomStat.copy(fromRandomStat, to.randomStats[index]!);
+        } else {
+          const newStat = new RandomStat(fromRandomStat.type);
+          RandomStat.copy(fromRandomStat, newStat);
+          to.randomStats[index] = newStat;
+        }
+      } else {
+        to.randomStats[index] = undefined;
+      }
+    });
+
+    to.augmentStats = [];
+    from.augmentStats.forEach((fromAugmentStat, index) => {
+      if (to.augmentStats[index]) {
+        AugmentStat.copy(fromAugmentStat, to.augmentStats[index]);
+      } else {
+        const newStat = new AugmentStat(fromAugmentStat.type);
+        AugmentStat.copy(fromAugmentStat, newStat);
+        to.augmentStats[index] = newStat;
+      }
+    });
+
+    to.isAugmented = from.isAugmented;
+  }
+
+  public getPossibleStars(): number[] {
+    return Object.keys(
+      groupBy(this.getRandomStatRollCombinations(), (x) => x.stars),
+    ).map((x) => +x);
+  }
+
+  /** Returns total attack flat value for an element which will include ele atk flat + atk flat. Except for altered attack, which will not include atk flat */
+  public getTotalAttackFlat(elementalType: WeaponElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isElementalAttackFlat,
     );
   }
 
-  public getTotalAttackPercent(elementalType: CoreElementalType): number {
+  public getTotalAttackPercent(elementalType: WeaponElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isElementalAttackPercent,
@@ -118,11 +249,31 @@ export class Gear implements Persistable<GearDto> {
   }
 
   public getTotalElementalDamagePercent(
-    elementalType: CoreElementalType,
+    elementalType: WeaponElementalType,
   ): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isElementalDamagePercent,
+    );
+  }
+
+  public getTotalHpFlat(): number {
+    return this.additiveSumStatValues(isHpFlat);
+  }
+
+  public getTotalHpPercent(): number {
+    return this.additiveSumStatValues(isHpPercent);
+  }
+
+  /** Returns total resistance flat value for an element which will include ele resistance flat + resistance flat */
+  public getTotalResistanceFlat(elementalType: WeaponElementalType): number {
+    return this.additiveSumElementalStatValues(elementalType, isResistanceFlat);
+  }
+
+  public getTotalResistancePercent(elementalType: WeaponElementalType): number {
+    return this.additiveSumElementalStatValues(
+      elementalType,
+      isResistancePercent,
     );
   }
 
@@ -350,129 +501,6 @@ export class Gear implements Persistable<GearDto> {
     }
   }
 
-  // Additively sum up all random stat & augment stat values based on a stat type condition
-  private additiveSumStatValues(
-    predicate: (statType: StatType) => boolean,
-  ): number {
-    return sum(
-      ...this.randomStats.concat(this.augmentStats).map((stat) => {
-        if (!stat) return 0;
-
-        const statType = stat.type;
-        return predicate(statType) ? stat.totalValue : 0;
-      }),
-    ).toNumber();
-  }
-
-  // Additively sum up all random stat & augment values based on a stat type & elemental type condition
-  private additiveSumElementalStatValues(
-    elementalType: CoreElementalType,
-    predicate: (
-      statType: StatType,
-      elementalType: CoreElementalType,
-    ) => boolean,
-  ): number {
-    return sum(
-      ...this.randomStats.concat(this.augmentStats).map((stat) => {
-        if (!stat) return 0;
-
-        const statType = stat.type;
-        return predicate(statType, elementalType) ? stat.totalValue : 0;
-      }),
-    ).toNumber();
-  }
-
-  private resetRandomStats() {
-    this.randomStats = [...Array(this._type.numberOfRandomStats)].map(
-      () => undefined,
-    );
-  }
-
-  private resetRandomStatsAugment() {
-    for (const randomStat of this.randomStats) {
-      if (randomStat) {
-        randomStat.augmentIncreaseValue = 0;
-      }
-    }
-  }
-
-  /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
-  public static calculateStatDifference(
-    baseGear: Gear,
-    newGear: Gear,
-  ): GearStatDifference {
-    return {
-      flameAttack: BigNumber(newGear.getTotalAttackFlat("Flame"))
-        .minus(baseGear.getTotalAttackFlat("Flame"))
-        .toNumber(),
-      frostAttack: BigNumber(newGear.getTotalAttackFlat("Frost"))
-        .minus(baseGear.getTotalAttackFlat("Frost"))
-        .toNumber(),
-      physicalAttack: BigNumber(newGear.getTotalAttackFlat("Physical"))
-        .minus(baseGear.getTotalAttackFlat("Physical"))
-        .toNumber(),
-      voltAttack: BigNumber(newGear.getTotalAttackFlat("Volt"))
-        .minus(baseGear.getTotalAttackFlat("Volt"))
-        .toNumber(),
-      critFlat: BigNumber(newGear.getTotalCritFlat())
-        .minus(baseGear.getTotalCritFlat())
-        .toNumber(),
-      critPercent: BigNumber(newGear.getTotalCritPercent())
-        .minus(baseGear.getTotalCritPercent())
-        .toNumber(),
-      flameDamage: BigNumber(newGear.getTotalElementalDamagePercent("Flame"))
-        .minus(baseGear.getTotalElementalDamagePercent("Flame"))
-        .toNumber(),
-      frostDamage: BigNumber(newGear.getTotalElementalDamagePercent("Frost"))
-        .minus(baseGear.getTotalElementalDamagePercent("Frost"))
-        .toNumber(),
-      physicalDamage: BigNumber(
-        newGear.getTotalElementalDamagePercent("Physical"),
-      )
-        .minus(baseGear.getTotalElementalDamagePercent("Physical"))
-        .toNumber(),
-      voltDamage: BigNumber(newGear.getTotalElementalDamagePercent("Volt"))
-        .minus(baseGear.getTotalElementalDamagePercent("Volt"))
-        .toNumber(),
-    };
-  }
-
-  /**  Copy all gear properties over except for the id, as long as the gear's type is the same */
-  public static copy(from: Gear, to: Gear) {
-    if (from.type.id !== to.type.id) return;
-
-    to.stars = from.stars;
-
-    to.randomStats = [];
-    from.randomStats.forEach((fromRandomStat, index) => {
-      if (fromRandomStat) {
-        if (to.randomStats[index]) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          RandomStat.copy(fromRandomStat, to.randomStats[index]!);
-        } else {
-          const newStat = new RandomStat(fromRandomStat.type);
-          RandomStat.copy(fromRandomStat, newStat);
-          to.randomStats[index] = newStat;
-        }
-      } else {
-        to.randomStats[index] = undefined;
-      }
-    });
-
-    to.augmentStats = [];
-    from.augmentStats.forEach((fromAugmentStat, index) => {
-      if (to.augmentStats[index]) {
-        AugmentStat.copy(fromAugmentStat, to.augmentStats[index]);
-      } else {
-        const newStat = new AugmentStat(fromAugmentStat.type);
-        AugmentStat.copy(fromAugmentStat, newStat);
-        to.augmentStats[index] = newStat;
-      }
-    });
-
-    to.isAugmented = from.isAugmented;
-  }
-
   public copyFromDto(dto: GearDto): void {
     const {
       id,
@@ -519,6 +547,52 @@ export class Gear implements Persistable<GearDto> {
       isAugmented,
       version: 1,
     };
+  }
+
+  // Additively sum up all random stat & augment stat values based on a stat type condition
+  private additiveSumStatValues(
+    predicate: (statType: StatType) => boolean,
+  ): number {
+    return sum(
+      ...this.randomStats.concat(this.augmentStats).map((stat) => {
+        if (!stat) return 0;
+
+        const statType = stat.type;
+        return predicate(statType) ? stat.totalValue : 0;
+      }),
+    ).toNumber();
+  }
+
+  // Additively sum up all random stat & augment values based on a stat type & elemental type condition
+  private additiveSumElementalStatValues(
+    elementalType: WeaponElementalType,
+    predicate: (
+      statType: StatType,
+      elementalType: WeaponElementalType,
+    ) => boolean,
+  ): number {
+    return sum(
+      ...this.randomStats.concat(this.augmentStats).map((stat) => {
+        if (!stat) return 0;
+
+        const statType = stat.type;
+        return predicate(statType, elementalType) ? stat.totalValue : 0;
+      }),
+    ).toNumber();
+  }
+
+  private resetRandomStats() {
+    this.randomStats = [...Array(this._type.numberOfRandomStats)].map(
+      () => undefined,
+    );
+  }
+
+  private resetRandomStatsAugment() {
+    for (const randomStat of this.randomStats) {
+      if (randomStat) {
+        randomStat.augmentIncreaseValue = 0;
+      }
+    }
   }
 }
 

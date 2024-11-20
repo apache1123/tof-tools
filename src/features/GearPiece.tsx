@@ -16,7 +16,7 @@ import type { ReactNode } from "react";
 
 import { GearTypeIcon } from "../components/GearTypeIcon/GearTypeIcon";
 import type { CoreElementalType } from "../definitions/elemental-type";
-import type { Gear } from "../models/gear";
+import type { Gear } from "../models/gear/gear";
 import { getPossibleRandomStatTypes } from "../models/gear-type";
 import { RandomStat } from "../models/random-stat";
 import { GearAttackStatsSummary } from "./GearAttackStatsSummary";

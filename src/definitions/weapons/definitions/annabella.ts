@@ -5,7 +5,7 @@ export const annabella = {
   displayName: "Annabella",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "DPS",
   attackPercentBuffs: [

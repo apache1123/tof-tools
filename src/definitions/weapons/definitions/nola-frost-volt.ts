@@ -7,7 +7,7 @@ export const nolaFrostVolt = {
   displayName: "Nola (Frost-Volt)",
   elementalIcon: "Frost-Volt",
   resonanceElements: ["Frost", "Volt"],
-  calculationElements: ["Frost", "Volt"],
+  gearResonanceElements: ["Frost", "Volt"],
   damageElement: "Frost",
   attackPercentBuffs: [
     ...nolaBase.attackPercentBuffs,

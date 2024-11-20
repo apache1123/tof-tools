@@ -5,7 +5,7 @@ export const claudia = {
   displayName: "Claudia",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
-  calculationElements: ["Physical"],
+  gearResonanceElements: ["Physical"],
   damageElement: "Physical",
   type: "DPS",
   attackPercentBuffs: [

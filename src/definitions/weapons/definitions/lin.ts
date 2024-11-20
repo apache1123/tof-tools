@@ -5,7 +5,7 @@ export const lin = {
   displayName: "Lin",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
-  calculationElements: ["Altered"],
+  gearResonanceElements: [],
   damageElement: "Altered",
   type: "DPS",
   attackPercentBuffs: [

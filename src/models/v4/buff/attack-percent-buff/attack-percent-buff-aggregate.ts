@@ -1,9 +1,9 @@
 import type { WeaponElementalType } from "../../../../definitions/elemental-type";
 import { sum } from "../../../../utils/math-utils";
-import type { AttackBuff } from "./attack-buff";
+import type { AttackPercentBuff } from "./attack-percent-buff";
 
-export class AttackBuffAggregate {
-  public constructor(private readonly attackBuff: AttackBuff[]) {}
+export class AttackPercentBuffAggregate {
+  public constructor(private readonly attackBuff: AttackPercentBuff[]) {}
 
   public getAggregatedResult(): AttackBuffAggregatedResult {
     const attackPercentByElement: Record<WeaponElementalType, number> = {

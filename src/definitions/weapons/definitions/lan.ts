@@ -5,7 +5,7 @@ export const lan = {
   displayName: "Lan",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
-  calculationElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "Defense",
   attackPercentBuffs: [
