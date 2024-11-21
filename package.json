@@ -15,7 +15,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@catppuccin/palette": "^0.1.8",
+    "@catppuccin/palette": "^1.7.1",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@emotion/server": "^11.11.0",

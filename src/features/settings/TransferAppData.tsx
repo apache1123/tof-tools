@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import { type ChangeEvent, useState } from "react";
 
 import { useAutoHideSnackbar } from "../../components/Snackbar/useAutoHideSnackbar";
@@ -11,23 +11,21 @@ export function TransferAppData() {
   const [hasMadeBackup, setHasMadeBackup] = useState(false);
 
   return (
-    <Box>
-      <Typography variant="h5" component="h2" mb={1}>
+    <Paper elevation={0} sx={{ p: 2 }}>
+      <Typography variant="h5" component="h2" mb={2}>
         Export/Import app data
       </Typography>
-      <Paper sx={{ p: 2 }}>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <ExportAppData />
-          <ImportAppData />
-          {!hasMadeBackup && (
-            <Typography variant="subtitle2" color="warning.main">
-              Please press <b>Export</b> to save a backup first before doing an{" "}
-              <b>Import</b>
-            </Typography>
-          )}
-        </Stack>
-      </Paper>
-    </Box>
+      <Stack direction="row" spacing={1} alignItems="center">
+        <ExportAppData />
+        <ImportAppData />
+        {!hasMadeBackup && (
+          <Typography variant="subtitle2" color="warning.main">
+            Please press <b>Export</b> to save a backup first before doing an{" "}
+            <b>Import</b>
+          </Typography>
+        )}
+      </Stack>
+    </Paper>
   );
 
   function ExportAppData() {

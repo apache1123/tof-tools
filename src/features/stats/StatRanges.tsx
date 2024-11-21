@@ -1,5 +1,4 @@
 import {
-  Box,
   Paper,
   Table,
   TableBody,
@@ -19,11 +18,11 @@ import { statTypesLookup } from "../../definitions/stat-types";
 
 export function StatRanges() {
   return (
-    <Box>
-      <Typography variant="h5" mb={1}>
+    <Paper elevation={0}>
+      <Typography variant="h5" mb={2}>
         Stat ranges
       </Typography>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table size="small" aria-label="stat-ranges-table">
           <TableHead>
             <TableRow>
@@ -98,7 +97,7 @@ export function StatRanges() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </Paper>
   );
 }
 

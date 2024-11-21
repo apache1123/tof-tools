@@ -2,7 +2,6 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import MapRoundedIcon from "@mui/icons-material/MapRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import {
-  Container,
   List,
   ListItemButton,
   ListItemIcon,
@@ -62,21 +61,19 @@ export default function LinksPage() {
         <title>Useful Links | Tower of Fantasy Tools</title>
       </Head>
 
-      <Container maxWidth="lg" sx={{ p: 3 }}>
-        <Paper sx={{ p: 2 }}>
-          <List>
-            {links.map(({ title, description, href, icon }, index) => (
-              <ListItemButton key={index} href={href} target="_blank">
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText
-                  primary={<Typography color="primary">{title}</Typography>}
-                  secondary={description}
-                />
-              </ListItemButton>
-            ))}
-          </List>
-        </Paper>
-      </Container>
+      <Paper>
+        <List>
+          {links.map(({ title, description, href, icon }, index) => (
+            <ListItemButton key={index} href={href} target="_blank">
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText
+                primary={<Typography color="primary">{title}</Typography>}
+                secondary={description}
+              />
+            </ListItemButton>
+          ))}
+        </List>
+      </Paper>
     </>
   );
 }

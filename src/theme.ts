@@ -1,4 +1,4 @@
-import { labels } from "@catppuccin/palette";
+import { flavors } from "@catppuccin/palette";
 import { pink } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 import { Roboto } from "next/font/google";
@@ -10,7 +10,8 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
-const catppuccinFlavor = "macchiato";
+const catppuccinFlavor = flavors.macchiato;
+const { colors } = catppuccinFlavor;
 
 // Create a theme instance.
 let theme = createTheme({
@@ -19,69 +20,105 @@ let theme = createTheme({
   palette: {
     mode: "dark",
     background: {
-      default: labels.base[catppuccinFlavor].hex,
-      paper: labels.surface0[catppuccinFlavor].hex,
+      default: colors.base.hex,
     },
     text: {
-      primary: labels.text[catppuccinFlavor].hex,
-      secondary: labels.subtext0[catppuccinFlavor].hex,
+      primary: colors.text.hex,
+      secondary: colors.subtext0.hex,
     },
+    common: {
+      white: colors.text.hex,
+      black: colors.mantle.hex,
+    },
+    divider: colors.overlay0.hex,
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
+  },
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        elevation: 0,
+        sx: { p: 2 },
+      },
+      styleOverrides: {
+        elevation0: {
+          background: colors.base.hex,
+        },
+        elevation1: {
+          background: colors.surface0.hex,
+        },
+        elevation2: {
+          background: colors.surface1.hex,
+        },
+        elevation3: {
+          background: colors.surface2.hex,
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        input: {
+          backgroundColor: colors.surface0.hex,
+        },
+      },
+    },
   },
 });
 
 theme = createTheme(theme, {
   palette: {
+    secondaryBackground: {
+      default: colors.mantle.hex,
+    },
     error: theme.palette.augmentColor({
       color: {
-        main: labels.red[catppuccinFlavor].hex,
+        main: colors.red.hex,
       },
     }),
     info: theme.palette.augmentColor({
       color: {
-        main: labels.blue[catppuccinFlavor].hex,
+        main: colors.blue.hex,
       },
     }),
     primary: theme.palette.augmentColor({
       color: {
-        main: labels.teal[catppuccinFlavor].hex,
+        main: colors.teal.hex,
       },
     }),
     secondary: theme.palette.augmentColor({
       color: {
-        main: labels.pink[catppuccinFlavor].hex,
+        main: colors.pink.hex,
       },
     }),
     success: theme.palette.augmentColor({
       color: {
-        main: labels.green[catppuccinFlavor].hex,
+        main: colors.green.hex,
       },
     }),
     warning: theme.palette.augmentColor({
       color: {
-        main: labels.flamingo[catppuccinFlavor].hex,
+        main: colors.flamingo.hex,
       },
     }),
     flame: theme.palette.augmentColor({
       color: {
-        main: labels.peach[catppuccinFlavor].hex,
+        main: colors.peach.hex,
       },
     }),
     frost: theme.palette.augmentColor({
       color: {
-        main: labels.sky[catppuccinFlavor].hex,
+        main: colors.sky.hex,
       },
     }),
     physical: theme.palette.augmentColor({
       color: {
-        main: labels.yellow[catppuccinFlavor].hex,
+        main: colors.yellow.hex,
       },
     }),
     volt: theme.palette.augmentColor({
       color: {
-        main: labels.mauve[catppuccinFlavor].hex,
+        main: colors.mauve.hex,
       },
     }),
     titan: theme.palette.augmentColor({
@@ -94,6 +131,7 @@ theme = createTheme(theme, {
 
 declare module "@mui/material/styles" {
   interface PaletteOptions {
+    secondaryBackground: PaletteOptions["background"];
     flame: PaletteOptions["primary"];
     frost: PaletteOptions["primary"];
     physical: PaletteOptions["primary"];
@@ -102,6 +140,7 @@ declare module "@mui/material/styles" {
   }
 
   interface Palette {
+    secondaryBackground: Palette["background"];
     flame: Palette["primary"];
     frost: Palette["primary"];
     physical: Palette["primary"];
