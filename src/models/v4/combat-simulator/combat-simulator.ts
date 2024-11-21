@@ -18,14 +18,14 @@ import { AbilityTrigger } from "../ability/ability-trigger";
 import type { AbilityTriggerOptions } from "../ability/ability-trigger-options";
 import { ActiveWeaponTimeline } from "../active-weapon/active-weapon-timeline";
 import { CombatSimulatorActiveWeapon } from "../active-weapon/combat-simulator-active-weapon";
+import { AttackAbilities } from "../attack/attack-abilities";
 import { AttackAbility } from "../attack/attack-ability";
-import { AttackRegistry } from "../attack/attack-registry";
 import { AttackTimeline } from "../attack/attack-timeline";
 import { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-buff";
 import { BaseAttackBuff } from "../buff/base-attack-buff/base-attack-buff";
+import { BuffAbilities } from "../buff/buff-abilities";
 import { BuffAbility } from "../buff/buff-ability";
-import { BuffRegistry } from "../buff/buff-registry";
 import type { BuffSource } from "../buff/buff-source";
 import { BuffTimeline } from "../buff/buff-timeline";
 import { CritDamageBuff } from "../buff/crit-damage-buff/crit-damage-buff";
@@ -33,20 +33,20 @@ import { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
 import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { FinalDamageBuff } from "../buff/final-damage-buff/final-damage-buff";
 import { UtilizedBuffs } from "../buff/utilized-buffs";
-import { Character } from "../character/character";
-import type { CharacterInfo } from "../character/character-info";
+import type { Character } from "../character/character";
+import { CombatCharacter } from "../character/combat-character";
 import { Charge } from "../charge/charge";
 import { DamageRecord } from "../damage-record/damage-record";
 import { DamageRecordTimeline } from "../damage-record/damage-record-timeline";
 import { EventManager } from "../event/event-manager";
 import type { EventSubscriber } from "../event/event-subscriber";
-import { Registry } from "../registry/registry";
 import type { Relics } from "../relics/relics";
+import { Repository } from "../repository/repository";
 import { CurrentResources } from "../resource/current-resource/current-resources";
 import { Resource } from "../resource/resource";
 import type { ResourceDefinition } from "../resource/resource-definition";
-import { ResourceRegistry } from "../resource/resource-registry";
 import { ResourceRequirements } from "../resource/resource-requirements";
+import { Resources } from "../resource/resources";
 import { ResourceTimeline } from "../resource-timeline/resource-timeline";
 import type { Target } from "../target/target";
 import { ElementalWeaponRequirements } from "../team/elemental-weapon-requirements";
@@ -59,8 +59,8 @@ import type { CombatSimulatorOptions } from "./combat-simulator-options";
 
 export class CombatSimulator {
   public constructor(
+    character: Character,
     loadout: Loadout,
-    characterInfo: CharacterInfo,
     relics: Relics,
     options: CombatSimulatorOptions,
   ) {
@@ -115,7 +115,7 @@ export class CombatSimulator {
         createResource(resourceDefinition),
       ),
     );
-    this.resources = new ResourceRegistry(charge, [
+    this.resources = new Resources(charge, [
       dodge,
       endurance,
       ...customResources,
@@ -174,7 +174,7 @@ export class CombatSimulator {
 
     const abilityTriggers: AbilityTrigger[] = [];
 
-    this.attacks = new AttackRegistry([]);
+    this.attackAbilities = new AttackAbilities([]);
     for (const weapon of weapons) {
       for (const definition of weapon.attackDefinitions) {
         const attack = new AttackAbility(
@@ -199,7 +199,7 @@ export class CombatSimulator {
           this.activeWeapon,
           this.currentResources,
         );
-        this.attacks.add(attack);
+        this.attackAbilities.add(attack);
 
         abilityTriggers.push(createAbilityTrigger(attack, definition));
       }
@@ -226,7 +226,7 @@ export class CombatSimulator {
       { source: "relic", abilityDefinitions: relics.passiveRelicBuffs },
     ];
 
-    this.buffs = new BuffRegistry([]);
+    this.buffAbilities = new BuffAbilities([]);
     for (const { source, abilityDefinitions } of buffAbilityDefinitions) {
       for (const abilityDef of abilityDefinitions) {
         const { id } = abilityDef;
@@ -280,16 +280,16 @@ export class CombatSimulator {
           critRateBuffs,
           critDamageBuffs,
         );
-        this.buffs.add(buffAbility);
+        this.buffAbilities.add(buffAbility);
 
         abilityTriggers.push(createAbilityTrigger(buffAbility, abilityDef));
       }
     }
 
-    this.activeBuffs = new ActiveBuffs(this.buffs);
+    this.activeBuffs = new ActiveBuffs(this.buffAbilities);
 
-    this.character = new Character(
-      characterInfo,
+    this.character = new CombatCharacter(
+      character,
       loadout,
       this.activeBuffs,
       this.activeWeapon,
@@ -308,8 +308,8 @@ export class CombatSimulator {
 
     this.eventSubscribers.push(
       ...this.resources.items,
-      ...this.attacks.items,
-      ...this.buffs.items,
+      ...this.attackAbilities.items,
+      ...this.buffAbilities.items,
       ...abilityTriggers,
       this.damageRecord,
     );
@@ -320,18 +320,21 @@ export class CombatSimulator {
   private readonly team: Team;
   private readonly currentTick: CurrentTick;
   private readonly activeWeapon: CombatSimulatorActiveWeapon;
-  private readonly resources: ResourceRegistry;
+  private readonly resources: Resources;
   private readonly currentResources: CurrentResources;
-  private readonly attacks: AttackRegistry;
-  private readonly buffs: BuffRegistry;
+  private readonly attackAbilities: AttackAbilities;
+  private readonly buffAbilities: BuffAbilities;
   private readonly activeBuffs: ActiveBuffs;
-  private readonly character: Character;
+  private readonly character: CombatCharacter;
   private readonly damageRecord: DamageRecord;
   private readonly eventSubscribers: EventSubscriber[] = [];
   private hasBegunCombat = false;
 
-  private get abilities(): Registry<Ability> {
-    return new Registry([...this.attacks.items, ...this.buffs.items]);
+  private get abilities(): Repository<Ability> {
+    return new Repository([
+      ...this.attackAbilities.items,
+      ...this.buffAbilities.items,
+    ]);
   }
 
   public beginCombat() {
@@ -357,7 +360,7 @@ export class CombatSimulator {
   }
 
   public getAvailableAttacks(): AttackId[] {
-    return this.attacks.items
+    return this.attackAbilities.items
       .filter((attack) => attack.canPlayerTrigger())
       .map((attack) => attack.id);
   }
@@ -372,7 +375,7 @@ export class CombatSimulator {
 
   /** Advance and process ticks until there are no ongoing foreground attacks */
   private finishOngoingForegroundAttacks() {
-    while (this.attacks.hasOngoingForegroundAttack()) {
+    while (this.attackAbilities.hasOngoingForegroundAttack()) {
       this.advanceTick();
     }
   }

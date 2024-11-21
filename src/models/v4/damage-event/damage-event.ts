@@ -7,7 +7,7 @@ import type { Buff } from "../buff/buff";
 import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { ElementalDamageBuffAggregate } from "../buff/elemental-damage-buff/elemental-damage-buff-aggregate";
 import { FinalDamageBuffAggregate } from "../buff/final-damage-buff/final-damage-buff-aggregate";
-import type { Character } from "../character/character";
+import type { CombatCharacter } from "../character/combat-character";
 import { Damage } from "../damage/damage";
 import type { AttackHit } from "../event/messages/attack-hit";
 import type { Target } from "../target/target";
@@ -15,7 +15,7 @@ import type { Target } from "../target/target";
 export class DamageEvent {
   public constructor(
     private readonly attackHit: AttackHit,
-    private readonly character: Character,
+    private readonly character: CombatCharacter,
     private readonly target: Target,
     private readonly activeBuffs: ActiveBuffs,
   ) {}

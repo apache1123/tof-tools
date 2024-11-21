@@ -20,12 +20,12 @@ import type { GearComparerGearsStateDto } from "../../deprecated/gear-comparer-g
 import type { GearComparerOptionsStateDto } from "../../deprecated/gear-comparer-options";
 import type { GearSetsStateDto } from "../../deprecated/gear-sets";
 import type { TeamsStateDto } from "../../deprecated/teams";
-import type { GearComparerStateDto } from "../../gear-comparer";
-import type { LoadoutsStateDtoV1 } from "../../loadouts";
 import type {
   UserStatsStateDtoV1,
   UserStatsStateDtoV2,
-} from "../../user-stats";
+} from "../../deprecated/user-stats";
+import type { GearComparerStateDto } from "../../gear-comparer";
+import type { LoadoutsStateDtoV1 } from "../../loadouts";
 
 export function migrateTeamsGearSetsStatsToLoadouts() {
   const userStatsKey = "userStats";

@@ -20,8 +20,8 @@ import { CritDamageBuff } from "../v4/buff/crit-damage-buff/crit-damage-buff";
 import { CritRateBuff } from "../v4/buff/crit-rate-buff/crit-rate-buff";
 import { ElementalDamageBuff } from "../v4/buff/elemental-damage-buff/elemental-damage-buff";
 import { FinalDamageBuff } from "../v4/buff/final-damage-buff/final-damage-buff";
-import { Character } from "../v4/character/character";
-import type { CharacterInfo } from "../v4/character/character-info";
+import type { Character } from "../v4/character/character";
+import { CombatCharacter } from "../v4/character/combat-character";
 import { DamageEvent } from "../v4/damage-event/damage-event";
 import type { AttackHit } from "../v4/event/messages/attack-hit";
 import type { Target } from "../v4/target/target";
@@ -36,8 +36,8 @@ import { GearCompareBuffAbilityRequirements } from "./gear-compare-buff-ability-
 export class GearCompare {
   /** Start a gear compare with a loadout as the basis */
   public constructor(
+    private readonly character: Character,
     private readonly basisLoadout: Loadout,
-    private readonly characterInfo: CharacterInfo,
   ) {
     this.target = { resistance: 0 };
 
@@ -146,8 +146,8 @@ export class GearCompare {
   /** The damage for the given element. Used as a basis for comparing gear */
   public getDamageBasis(element: WeaponElementalType): number {
     // Simulate a dummy attack hit to get the damage to use as the basis
-    const character = new Character(
-      this.characterInfo,
+    const character = new CombatCharacter(
+      this.character,
       this.basisLoadout,
       this.activeBuffs,
       this.activeWeapon,
@@ -187,8 +187,8 @@ export class GearCompare {
     tempLoadout.replaceGear(substituteGear);
 
     // Simulate a dummy attack hit using the temp gear set to calculate how much it is relative to the basis damage
-    const tempCharacter = new Character(
-      this.characterInfo,
+    const tempCharacter = new CombatCharacter(
+      this.character,
       tempLoadout,
       this.activeBuffs,
       this.activeWeapon,

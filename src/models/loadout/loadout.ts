@@ -1,27 +1,28 @@
 import BigNumber from "bignumber.js";
-import {nanoid} from "nanoid";
+import { nanoid } from "nanoid";
 
-import {defaultCritDamagePercent} from "../../definitions/damage-formula";
-import type {CoreElementalType, WeaponElementalType,} from "../../definitions/elemental-type";
-import type {SimulacrumName} from "../../definitions/simulacrum-traits";
-import {simulacrumTraits} from "../../definitions/simulacrum-traits";
-import {keysOf} from "../../utils/object-utils";
-import type {LoadoutStatsDto} from "../deprecated/loadout-stats";
-import type {Dto} from "../dto";
-import type {ElementalAttackFlatsDto} from "../elemental-attack-flats";
-import {ElementalAttackFlats} from "../elemental-attack-flats";
-import {Gear} from "../gear/gear";
-import type {GearSet, GearSetDtoV2} from "../gear-set/gear-set";
-import type {Persistable} from "../persistable";
-import type {Team, TeamDto} from "../team/team";
-import type {CharacterInfo} from "../v4/character/character-info";
-import type {SimulacrumTrait} from "../v4/simulacrum-trait";
+import { defaultCritDamagePercent } from "../../definitions/damage-formula";
+import type {
+  CoreElementalType,
+  WeaponElementalType,
+} from "../../definitions/elemental-type";
+import type { SimulacrumName } from "../../definitions/simulacrum-traits";
+import { simulacrumTraits } from "../../definitions/simulacrum-traits";
+import { keysOf } from "../../utils/object-utils";
+import type { LoadoutStatsDto } from "../deprecated/loadout-stats";
+import type { Dto } from "../dto";
+import type { ElementalAttackFlatsDto } from "../elemental-attack-flats";
+import { ElementalAttackFlats } from "../elemental-attack-flats";
+import { Gear } from "../gear/gear";
+import type { GearSet, GearSetDtoV2 } from "../gear-set/gear-set";
+import type { Persistable } from "../persistable";
+import type { Team, TeamDto } from "../team/team";
+import type { SimulacrumTrait } from "../v4/simulacrum-trait";
 
 /** A loadout is a preset combination of weapons & matrices (team), gear set, trait etc. */
 export class Loadout implements Persistable<LoadoutDtoV2> {
   public constructor(
     public name: string,
-    public readonly characterInfo: CharacterInfo,
     public team: Team,
     public gearSet: GearSet,
   ) {
@@ -81,12 +82,7 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
   }
 
   public static createCopy(loadout: Loadout): Loadout {
-    const copy = new Loadout(
-      loadout.name,
-      loadout.characterInfo,
-      loadout.team,
-      loadout.gearSet,
-    );
+    const copy = new Loadout(loadout.name, loadout.team, loadout.gearSet);
     copy.useOverrideStats = loadout.useOverrideStats;
     copy.overrideElementalAttackFlats = ElementalAttackFlats.createCopy(
       loadout.overrideElementalAttackFlats,

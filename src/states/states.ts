@@ -2,23 +2,28 @@ import { proxy } from "valtio";
 import { devtools } from "valtio/utils";
 
 import { ChangelogState } from "./changelog";
+import { CharactersState } from "./characters";
 // import { GearComparerState } from "./gear-comparer";
-import { LoadoutsState } from "./loadouts";
+// import { LoadoutsState } from "./loadouts";
 import { RelicsState } from "./relics";
 // import { RollSimulatorState } from "./roll-simulator";
-import { UserStatsState } from "./user-stats";
 
 export const changelogState = proxy(new ChangelogState());
 export const changelogStateKey = "changelog";
 devtools(changelogState, { name: "changelog" });
 
-export const userStatsState = proxy(new UserStatsState());
-export const userStatsStateKey = "userStats";
-devtools(userStatsState, { name: userStatsStateKey });
+export const charactersState = proxy(new CharactersState([]));
+charactersState.addDefaultCharacter();
+export const charactersStateKey = "characters";
+devtools(charactersState, { name: charactersStateKey });
 
-export const loadoutsState = proxy(new LoadoutsState(userStatsState));
-export const loadoutsStateKey = "loadouts";
-devtools(loadoutsState, { name: loadoutsStateKey });
+// export const userStatsState = proxy(new UserStatsState());
+// export const userStatsStateKey = "userStats";
+// devtools(userStatsState, { name: userStatsStateKey });
+
+// export const loadoutsState = proxy(new LoadoutsState(userStatsState));
+// export const loadoutsStateKey = "loadouts";
+// devtools(loadoutsState, { name: loadoutsStateKey });
 
 // export const gearComparerState = proxy(new GearComparerState(loadoutsState));
 // export const gearComparerStateKey = "gearComparer";

@@ -1,6 +1,6 @@
 import type { ActiveBuffs } from "../../buff/active-buff/active-buffs";
 import { UtilizedBuffs } from "../../buff/utilized-buffs";
-import type { Character } from "../../character/character";
+import type { CombatCharacter } from "../../character/combat-character";
 import { EventManager } from "../../event/event-manager";
 import type { Target } from "../../target/target";
 import { CurrentTick } from "../../tick/current-tick";
@@ -13,7 +13,7 @@ let currentTick: CurrentTick;
 let eventManager: EventManager;
 let target: Target;
 let activeBuffs: ActiveBuffs;
-let character: Character;
+let character: CombatCharacter;
 
 let sut: DamageRecord;
 
@@ -25,6 +25,6 @@ describe("Damage record", () => {
     currentTick = new CurrentTick(0, 1000, eventManager);
     target = { resistance: 0.4 };
     // activeBuffs = new ActiveBuffs();
-    // character = new Character();
+    // character = new CombatCharacter();
   });
 });

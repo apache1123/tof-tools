@@ -15,12 +15,10 @@ import { migrateStatesToLatestVersion } from "../src/states/migrations/state-mig
 import {
   changelogState,
   changelogStateKey,
-  loadoutsState,
-  loadoutsStateKey,
+  charactersState,
+  charactersStateKey,
   relicsState,
   relicsStateKey,
-  userStatsState,
-  userStatsStateKey,
 } from "../src/states/states";
 import theme from "../src/theme";
 import Layout from "./_layout";
@@ -38,8 +36,8 @@ export default function MyApp(props: MyAppProps) {
   });
 
   useLocalStoragePersistence(changelogState, changelogStateKey);
-  useLocalStoragePersistence(userStatsState, userStatsStateKey);
-  useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
+  useLocalStoragePersistence(charactersState, charactersStateKey);
+  // useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
   // useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
   useLocalStoragePersistence(relicsState, relicsStateKey);
 

@@ -1,17 +1,17 @@
-import type {Serializable} from "../../persistable";
-import type {ActiveBuffs} from "../buff/active-buff/active-buffs";
-import type {Buff} from "../buff/buff";
-import type {UtilizedBuffs} from "../buff/utilized-buffs";
-import type {Character} from "../character/character";
-import {DamageEvent} from "../damage-event/damage-event";
-import type {EventManager} from "../event/event-manager";
-import type {EventSubscriber} from "../event/event-subscriber";
-import type {AttackHit} from "../event/messages/attack-hit";
-import type {Target} from "../target/target";
-import type {CurrentTick} from "../tick/current-tick";
-import {DamageRecordEvent} from "./damage-record-event";
-import type {DamageRecordTimeline} from "./damage-record-timeline";
-import type {DamageRecordDto} from "./dtos/damage-record-dto";
+import type { Serializable } from "../../persistable";
+import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
+import type { Buff } from "../buff/buff";
+import type { UtilizedBuffs } from "../buff/utilized-buffs";
+import type { CombatCharacter } from "../character/combat-character";
+import { DamageEvent } from "../damage-event/damage-event";
+import type { EventManager } from "../event/event-manager";
+import type { EventSubscriber } from "../event/event-subscriber";
+import type { AttackHit } from "../event/messages/attack-hit";
+import type { Target } from "../target/target";
+import type { CurrentTick } from "../tick/current-tick";
+import { DamageRecordEvent } from "./damage-record-event";
+import type { DamageRecordTimeline } from "./damage-record-timeline";
+import type { DamageRecordDto } from "./dtos/damage-record-dto";
 
 /** A record (timeline) of damages during combat */
 export class DamageRecord
@@ -21,7 +21,7 @@ export class DamageRecord
     private readonly timeline: DamageRecordTimeline,
     private readonly currentTick: CurrentTick,
     private readonly eventManager: EventManager,
-    private readonly character: Character,
+    private readonly character: CombatCharacter,
     private readonly target: Target,
     private readonly activeBuffs: ActiveBuffs,
     private readonly utilizedBuffs: UtilizedBuffs,

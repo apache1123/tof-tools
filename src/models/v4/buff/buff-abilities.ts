@@ -1,10 +1,10 @@
-import { Registry } from "../registry/registry";
+import { Repository } from "../repository/repository";
 import type { ActiveBuff } from "./active-buff/active-buff";
 import type { BuffAbility } from "./buff-ability";
 import type { HasActiveBuffs } from "./has-active-buffs";
 
-export class BuffRegistry
-  extends Registry<BuffAbility>
+export class BuffAbilities
+  extends Repository<BuffAbility>
   implements HasActiveBuffs
 {
   public getActiveBuffs(): ActiveBuff[] {

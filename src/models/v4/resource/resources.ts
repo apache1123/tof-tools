@@ -1,8 +1,8 @@
 import type { Charge } from "../charge/charge";
-import { Registry } from "../registry/registry";
+import { Repository } from "../repository/repository";
 import type { Resource } from "./resource";
 
-export class ResourceRegistry extends Registry<Resource> {
+export class Resources extends Repository<Resource> {
   public constructor(
     public readonly charge: Charge,
     otherResources: Resource[],
