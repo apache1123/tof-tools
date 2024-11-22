@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 import { Header } from "../src/layout/Header/Header";
 import { Sidebar } from "../src/layout/Sidebar/Sidebar";
+import { Main } from "next/document";
 
 type LayoutProps = { children: ReactNode };
 
@@ -15,47 +16,48 @@ type LayoutProps = { children: ReactNode };
 
 export const drawerWidth = 260;
 
-const Main = styled("main", {
-  shouldForwardProp: (prop) => prop !== "open" && prop !== "theme",
-})<{ open: boolean }>(({ theme, open }) => ({
-  backgroundColor: theme.palette.secondaryBackground.default,
-  width: "100%",
-  minHeight: "calc(100vh - 74px)",
-  flexGrow: 1,
-  padding: "20px",
-  marginTop: "74px",
-  marginRight: "0px",
-  borderRadius: "12px",
-  borderBottomLeftRadius: 0,
-  borderBottomRightRadius: 0,
-  transition: theme.transitions.create(
-    "margin",
-    open
-      ? {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }
-      : {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        },
-  ),
-  [theme.breakpoints.up("md")]: {
-    marginLeft: open ? 0 : -drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-  },
-  [theme.breakpoints.down("md")]: {
-    marginLeft: "0px",
-    width: `calc(100% - ${drawerWidth}px)`,
-    padding: "16px",
-  },
-  [theme.breakpoints.down("sm")]: {
-    marginLeft: "0px",
-    width: `calc(100% - ${drawerWidth}px)`,
-    padding: "16px",
-    marginRight: "10px",
-  },
-}));
+// function Main({ open }: PropsWithChildren<{ open: boolean }>) {
+//
+//   return <main
+//     backgroundColor: theme.palette.secondaryBackground.default,
+//   width: "100%",
+//     minHeight: "calc(100vh - 74px)",
+//     flexGrow: 1,
+//     padding: "20px",
+//     marginTop: "74px",
+//     marginRight: "0px",
+//     borderRadius: "12px",
+//     borderBottomLeftRadius: 0,
+//     borderBottomRightRadius: 0,
+//     transition: theme.transitions.create(
+//     "margin",
+//     open
+//       ? {
+//         easing: theme.transitions.easing.easeOut,
+//         duration: theme.transitions.duration.enteringScreen,
+//       }
+//       : {
+//         easing: theme.transitions.easing.sharp,
+//         duration: theme.transitions.duration.leavingScreen,
+//       },
+//   ),
+//     [theme.breakpoints.up("md")]: {
+//     marginLeft: open ? 0 : -drawerWidth,
+//       width: `calc(100% - ${drawerWidth}px)`,
+//   },
+//   [theme.breakpoints.down("md")]: {
+//     marginLeft: "0px",
+//       width: `calc(100% - ${drawerWidth}px)`,
+//       padding: "16px",
+//   },
+//   [theme.breakpoints.down("sm")]: {
+//     marginLeft: "0px",
+//       width: `calc(100% - ${drawerWidth}px)`,
+//       padding: "16px",
+//       marginRight: "10px",
+//   },
+//   ></main>;
+// }
 
 export default function Layout({ children }: LayoutProps) {
   const theme = useTheme();
@@ -69,6 +71,46 @@ export default function Layout({ children }: LayoutProps) {
   const handleDrawerToggle = () => {
     setDrawerIsOpen((state) => !state);
   };
+
+  const Main = styled("main")<{ open: boolean }>(({ open }) => ({
+    backgroundColor: theme.palette.secondaryBackground.default,
+    width: "100%",
+    minHeight: "calc(100vh - 74px)",
+    flexGrow: 1,
+    padding: "20px",
+    marginTop: "74px",
+    marginRight: "0px",
+    borderRadius: "12px",
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    transition: theme.transitions.create(
+      "margin",
+      open
+        ? {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }
+        : {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          },
+    ),
+    [theme.breakpoints.up("md")]: {
+      marginLeft: open ? 0 : -drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "0px",
+      width: `calc(100% - ${drawerWidth}px)`,
+      padding: "16px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "0px",
+      width: `calc(100% - ${drawerWidth}px)`,
+      padding: "16px",
+      marginRight: "10px",
+    },
+  }));
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -91,7 +133,7 @@ export default function Layout({ children }: LayoutProps) {
         onDrawerToggle={handleDrawerToggle}
       />
 
-      <Main theme={theme} open={drawerIsOpen}>
+      <Main open={drawerIsOpen}>
         {/*<Paper elevation={0} sx={{ height: "100%", p: 2 }}>*/}
         {children}
         {/*</Paper>*/}

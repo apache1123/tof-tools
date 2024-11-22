@@ -1,6 +1,6 @@
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import { Paper, Stack, Tooltip, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid2";
 import Image from "next/image";
 import { proxy, useSnapshot } from "valtio";
 
@@ -41,7 +41,7 @@ export function StatMaxAugmentIncrease() {
         </Tooltip>
       </Stack>
       <Grid container spacing={2}>
-        <Grid xs={12} sm={6} md={4}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           {statSnap && statState ? (
             <StatEditor
               possibleStatTypes={possibleStatTypes}
@@ -57,7 +57,7 @@ export function StatMaxAugmentIncrease() {
             />
           )}
         </Grid>
-        <Grid xs={12}>
+        <Grid size={12}>
           <Typography>
             Max augment increase value:{" "}
             {statSnap ? (

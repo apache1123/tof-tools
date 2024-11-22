@@ -1,5 +1,5 @@
 // import { Divider, Stack, Typography } from "@mui/material";
-// import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from "@mui/material/Grid2";
 // import { useSnapshot } from "valtio";
 //
 // import { ElementalStyledText } from "../../components/ElementalStyledText/ElementalStyledText";
@@ -27,7 +27,7 @@
 //         Weapons & matrices buffs included in calculations
 //       </Typography>
 //       <Grid container spacing={4}>
-//         <Grid xs={12} sm={6} md={4}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
 //           <Divider sx={{ my: 1 }}>
 //             <Typography fontWeight="bold">
 //               Attack % buffs total{" "}
@@ -56,7 +56,7 @@
 //           </Stack>
 //         </Grid>
 //
-//         <Grid xs={12} sm={6} md={4}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
 //           <Divider sx={{ my: 1 }}>
 //             <Typography fontWeight="bold">
 //               Crit rate % buffs total{" "}
@@ -86,7 +86,7 @@
 //           </Stack>
 //         </Grid>
 //
-//         <Grid xs={12} sm={6} md={4}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
 //           <Divider sx={{ my: 1 }}>
 //             <Typography fontWeight="bold">
 //               Crit damage % buffs total{" "}
@@ -116,7 +116,7 @@
 //           </Stack>
 //         </Grid>
 //
-//         <Grid xs={12} sm={6} md={4}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
 //           <Typography fontWeight="bold">
 //             Elemental / Weapon resonance
 //           </Typography>

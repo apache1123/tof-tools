@@ -1,5 +1,5 @@
 // import { Link } from "@mui/material";
-// import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from "@mui/material/Grid2";
 // import { useSnapshot } from "valtio";
 //
 // import { LoadoutSelector as LoadoutSelectorComponent } from "../../components/LoadoutSelector/LoadoutSelector";
@@ -14,7 +14,7 @@
 //   return (
 //     <>
 //       <Grid container spacing={1}>
-//         <Grid xs={12} sm={6} md={4} lg={3}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
 //           <LoadoutSelectorComponent
 //             loadoutList={loadoutList}
 //             selectedLoadout={selectedLoadout}

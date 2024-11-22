@@ -67,7 +67,13 @@ export default function LinksPage() {
             <ListItemButton key={index} href={href} target="_blank">
               <ListItemIcon>{icon}</ListItemIcon>
               <ListItemText
-                primary={<Typography color="primary">{title}</Typography>}
+                primary={
+                  <Typography
+                    sx={{ color: (theme) => theme.palette.primary.main }}
+                  >
+                    {title}
+                  </Typography>
+                }
                 secondary={description}
               />
             </ListItemButton>

@@ -1,5 +1,5 @@
 // import { Box, Tooltip, Typography } from "@mui/material";
-// import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from "@mui/material/Grid2";
 // import Image from "next/image";
 // import { useSnapshot } from "valtio";
 //
@@ -35,7 +35,7 @@
 //       </Typography>
 //
 //       <Grid container spacing={2}>
-//         <Grid xs={12} sm={6} md={4} lg={3}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
 //           <NumericInput
 //             id="base-attack"
 //             label={"Base attack" + (elementalType ? ` (${elementalType})` : "")}
@@ -62,7 +62,7 @@
 //                   <Typography
 //                     variant="inherit"
 //                     component="span"
-//                     color="info.main"
+//                     sx={{ color: (theme) => theme.palette.info.main }}
 //                   >
 //                     This is <b>NOT</b> your elemental attack value you see on
 //                     the Wanderer screen.{" "}
@@ -76,7 +76,7 @@
 //             }
 //           />
 //         </Grid>
-//         <Grid xs={12} sm={6} md={4} lg={3}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
 //           <NumericInput
 //             id="crit-flat"
 //             label="Crit"
@@ -104,7 +104,7 @@
 //             }
 //           />
 //         </Grid>
-//         <Grid xs={12} sm={6} md={4} lg={3}>
+//         <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
 //           <NumericInput
 //             id="char-level"
 //             label="Wanderer level"

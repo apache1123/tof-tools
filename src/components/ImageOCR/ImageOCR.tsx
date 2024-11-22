@@ -35,9 +35,10 @@ export const ImageOCR = ({
   ) : (
     <Stack alignItems="center">
       <Skeleton variant="rounded" width={400} height={20} animation="wave" />
-      <Typography color="info.main">
+      <Typography sx={{ color: (theme) => theme.palette.info.main }}>
+        {" "}
         This may take a little while to load... Try reloading the page if it is
-        taking too long
+        taking too long{" "}
       </Typography>
     </Stack>
   );

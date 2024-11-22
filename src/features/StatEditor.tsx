@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid2";
 import type { ReactNode } from "react";
 
 import type { NumericInputProps } from "../components/NumericInput/NumericInput";
@@ -58,7 +58,11 @@ export const StatEditor = ({
             onChange={(value) => {
               statState.augmentIncreaseValue = value;
             }}
-            label={<Typography color="titan.main">Increase</Typography>}
+            label={
+              <Typography sx={{ color: (theme) => theme.palette.titan.main }}>
+                Increase
+              </Typography>
+            }
             aria-label="stat-augment-increase-value-input"
           />
         )
@@ -71,7 +75,11 @@ export const StatEditor = ({
             onChange={(value) => {
               statState.totalValue = value;
             }}
-            label={<Typography color="titan.main">Total</Typography>}
+            label={
+              <Typography sx={{ color: (theme) => theme.palette.titan.main }}>
+                Total
+              </Typography>
+            }
             aria-label="stat-total-value-input"
           />
         )
@@ -107,7 +115,11 @@ export const EmptyStatEditor = ({
         isAugmented && (
           <NumericInput
             disabled
-            label={<Typography color="titan.main">Increase</Typography>}
+            label={
+              <Typography sx={{ color: (theme) => theme.palette.titan.main }}>
+                Increase
+              </Typography>
+            }
           />
         )
       }
@@ -115,7 +127,11 @@ export const EmptyStatEditor = ({
         isAugmented && (
           <NumericInput
             disabled
-            label={<Typography color="titan.main">Total</Typography>}
+            label={
+              <Typography sx={{ color: (theme) => theme.palette.titan.main }}>
+                Total
+              </Typography>
+            }
           />
         )
       }
@@ -179,7 +195,7 @@ function Layout({
         justifyContent="space-between"
         alignItems="end"
       >
-        <Grid xs>
+        <Grid size="grow">
           <Stack direction="row" spacing={1} alignItems="center">
             <Box maxWidth={40} display="flex" alignItems="center">
               {typeIcon}
@@ -187,11 +203,11 @@ function Layout({
             {typeSelector}
           </Stack>
         </Grid>
-        <Grid xs={inputWidth}>{valueInput}</Grid>
+        <Grid size={inputWidth}>{valueInput}</Grid>
         {augmentIncreaseValueInput && (
-          <Grid xs={inputWidth}>{augmentIncreaseValueInput}</Grid>
+          <Grid size={inputWidth}>{augmentIncreaseValueInput}</Grid>
         )}
-        {totalValueInput && <Grid xs={inputWidth}>{totalValueInput}</Grid>}
+        {totalValueInput && <Grid size={inputWidth}>{totalValueInput}</Grid>}
       </Grid>
     </Box>
   );

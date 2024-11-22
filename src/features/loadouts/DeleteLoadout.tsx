@@ -21,7 +21,7 @@
 //         iconButton
 //         modalTitle="Delete loadout"
 //         modalContent={
-//           <Typography color="error">
+//           <Typography sx={{ color: (theme) => theme.palette.error.main }}>
 //             This will permanently delete this loadout. Continue?
 //           </Typography>
 //         }

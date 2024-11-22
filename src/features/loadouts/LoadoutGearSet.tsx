@@ -1,4 +1,4 @@
-// import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from "@mui/material/Grid2";
 // import { useSnapshot } from "valtio";
 //
 // import { gearTypesLookup } from "../../definitions/gear-types";
@@ -26,7 +26,7 @@
 //         if (!gearSnap || !gearState) return null;
 //
 //         return (
-//           <Grid key={gearTypeId} xs={12} sm={6} md={4} lg={3}>
+//           <Grid key={gearTypeId} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
 //             <LoadoutGear gearSnap={gearSnap} gearState={gearState} />
 //           </Grid>
 //         );

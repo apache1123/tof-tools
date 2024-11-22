@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid2";
 import Image from "next/image";
 
 import type { Changelog } from "../models/changelog";
@@ -115,7 +115,7 @@ export const changelog: Changelog = [
           are treated the same here.
         </Typography>
         <Grid container spacing={1}>
-          <Grid xs="auto">
+          <Grid size="auto">
             <Image
               src="/changelog/titan-1.png"
               alt="titan-example-1"
@@ -123,7 +123,7 @@ export const changelog: Changelog = [
               height={190}
             />
           </Grid>
-          <Grid xs="auto">
+          <Grid size="auto">
             <Image
               src="/changelog/titan-2.png"
               alt="titan-example-2"

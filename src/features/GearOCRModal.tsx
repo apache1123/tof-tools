@@ -1,5 +1,5 @@
 // import { Box, Typography } from "@mui/material";
-// import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from "@mui/material/Grid2";
 // import BigNumber from "bignumber.js";
 // import a from "indefinite";
 // import Image from "next/image";
@@ -97,10 +97,9 @@
 //       modalContent={
 //         <>
 //           <Grid container>
-//             <Grid xs></Grid>
+//             <Grid size="grow"></Grid>
 //             <Grid
-//               xs={12}
-//               md={8}
+//               size={{ xs: 12, md: 8 }}
 //               display="flex"
 //               justifyContent="center"
 //               alignItems="center"
@@ -110,7 +109,7 @@
 //                 onImageURLChange={handleImageURLChange}
 //               />
 //             </Grid>
-//             <Grid xs></Grid>
+//             <Grid size="grow"></Grid>
 //           </Grid>
 //           <Box textAlign="center" mb={3}>
 //             <Typography variant="caption">
@@ -120,7 +119,7 @@
 //           </Box>
 //
 //           <Grid container spacing={3} mb={3}>
-//             <Grid xs={12} sm={6}>
+//             <Grid size={{ xs: 12, sm: 6 }}>
 //               {imageURL && (
 //                 // TODO: Fix this sizing
 //                 <Image
@@ -132,8 +131,7 @@
 //               )}
 //             </Grid>
 //             <Grid
-//               xs={12}
-//               sm={6}
+//               size={{ xs:12, sm:6 }}
 //               display="flex"
 //               flexDirection="column"
 //               justifyContent="center"
@@ -141,7 +139,7 @@
 //             >
 //               {errorMessage && (
 //                 <Box>
-//                   <Typography color="error" textAlign="center">
+//                   <Typography sx={{ color: (theme) => theme.palette.error.main }} textAlign="center">
 //                     {errorMessage}
 //                   </Typography>
 //                 </Box>

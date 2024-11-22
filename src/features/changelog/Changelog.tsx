@@ -55,7 +55,12 @@ export function Changelog() {
                     <Typography
                       variant="h6"
                       component="div"
-                      color={isImportant ? "error" : "primary"}
+                      sx={{
+                        color: (theme) =>
+                          isImportant
+                            ? theme.palette.error.main
+                            : theme.palette.primary.main,
+                      }}
                     >
                       {title}
                     </Typography>

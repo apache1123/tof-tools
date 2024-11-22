@@ -19,7 +19,10 @@ export function TransferAppData() {
         <ExportAppData />
         <ImportAppData />
         {!hasMadeBackup && (
-          <Typography variant="subtitle2" color="warning.main">
+          <Typography
+            variant="subtitle2"
+            sx={{ color: (theme) => theme.palette.warning.main }}
+          >
             Please press <b>Export</b> to save a backup first before doing an{" "}
             <b>Import</b>
           </Typography>

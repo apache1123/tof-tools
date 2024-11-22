@@ -108,7 +108,7 @@
 //
 //   return (
 //     <Box>
-//       <Typography color="info.main" gutterBottom>
+//       <Typography sx={{ color: (theme) => theme.palette.info.main }} gutterBottom>
 //         Can&apos;t determine the number of stars{" "}
 //         <strong>(either {possibleStars.join(" or ")} stars)</strong>. Select it
 //         below to continue

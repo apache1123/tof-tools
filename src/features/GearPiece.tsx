@@ -10,7 +10,7 @@
 //   Switch,
 //   Typography,
 // } from "@mui/material";
-// import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from "@mui/material/Grid2";
 // import Image from "next/image";
 // import type { ReactNode } from "react";
 //
@@ -143,7 +143,7 @@
 //                     </Typography>
 //                     {gearSnap.stars !== 5 &&
 //                     gearSnap.getPossibleStars().length > 1 ? (
-//                       <Typography color="info.main" gutterBottom>
+//                       <Typography sx={{ color: (theme) => theme.palette.info.main }} gutterBottom>
 //                         Can&apos;t determine the number of stars{" "}
 //                         <strong>
 //                           (either {gearSnap.getPossibleStars().join(" or ")}{" "}
@@ -154,7 +154,7 @@
 //                     ) : gearSnap.stars !== 5 &&
 //                       gearSnap.getPossibleStars().length === 1 &&
 //                       gearSnap.getPossibleStars()[0] !== 5 ? (
-//                       <Typography color="info.main" gutterBottom>
+//                       <Typography sx={{ color: (theme) => theme.palette.info.main }} gutterBottom>
 //                         Can&apos;t calculate max titan stat values if gear is
 //                         not at 5 star
 //                       </Typography>
@@ -165,11 +165,11 @@
 //                       />
 //                     ) : (
 //                       <Box>
-//                         <Typography color="info.main">
+//                         <Typography sx={{ color: (theme) => theme.palette.info.main }}>
 //                           Can&apos;t calculate max titan stat values if gear is
 //                           not at 5 star.
 //                         </Typography>
-//                         <Typography color="info.main" mt={2} gutterBottom>
+//                         <Typography sx={{ color: (theme) => theme.palette.info.main }} mt={2} gutterBottom>
 //                           If the gear is already augmented/at titan, use the
 //                           original 5 star values (found on the augment screen)
 //                         </Typography>
@@ -222,7 +222,7 @@
 //             {titanToggle}
 //           </Stack>
 //         </Grid>
-//         <Grid xs display="flex" flexDirection="column" justifyContent="center">
+//         <Grid size="grow" display="flex" flexDirection="column" justifyContent="center">
 //           {typeSelector}
 //           <Box mt={1}>{starsSelector}</Box>
 //         </Grid>

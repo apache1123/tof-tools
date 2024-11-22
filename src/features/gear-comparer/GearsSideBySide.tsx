@@ -1,5 +1,5 @@
 // import { Box, Typography } from "@mui/material";
-// import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from "@mui/material/Grid2";
 // import { useSnapshot } from "valtio";
 //
 // import { gearComparerState } from "../../states/states";
@@ -31,7 +31,7 @@
 //
 //   return (
 //     <Grid container spacing={3}>
-//       <Grid xs={12} md={6}>
+//       <Grid size={{ xs: 12, md: 6 }}>
 //         <Typography variant="h5" mb={1}>
 //           Current gear in loadout
 //         </Typography>
@@ -46,7 +46,7 @@
 //           }
 //         />
 //       </Grid>
-//       <Grid xs={12} md={6}>
+//       <Grid size={{ xs: 12, md: 6 }}>
 //         <Box display="flex" justifyContent="space-between">
 //           <Typography variant="h5" mb={1}>
 //             New gear

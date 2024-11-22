@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Stack, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid2";
 import pluralize from "pluralize";
 
 import type { RandomStat } from "../../models/random-stat";
@@ -23,10 +23,10 @@ export function GearRollSimulatorStat({
 
   return (
     <Grid container display="flex" alignItems="center">
-      <Grid xs={12}>
+      <Grid size={12}>
         <Typography fontWeight="bold">{displayName}:</Typography>
       </Grid>
-      <Grid xs={4}>
+      <Grid size={4}>
         <Stack direction="row" spacing={2}>
           <Typography>{statSnap.valueString}</Typography>
           <Typography fontStyle="italic">
@@ -34,7 +34,7 @@ export function GearRollSimulatorStat({
           </Typography>
         </Stack>
       </Grid>
-      <Grid xs={8}>
+      <Grid size={8}>
         <ButtonGroup size="small" disabled={!canRoll}>
           <Button
             onClick={() => {
