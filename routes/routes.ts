@@ -21,7 +21,7 @@ export const routes = {
     path: "/gear-comparer",
   },
   stats: {
-    label: "Stats stuff",
+    label: "Stats",
     path: "/stats",
   },
   settings: {

@@ -30,7 +30,10 @@ let theme = createTheme({
       white: colors.text.hex,
       black: colors.mantle.hex,
     },
-    divider: colors.overlay0.hex,
+    divider: colors.surface0.hex,
+  },
+  shape: {
+    borderRadius: 8,
   },
   typography: {
     fontFamily: roboto.style.fontFamily,

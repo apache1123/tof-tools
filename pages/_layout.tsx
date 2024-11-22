@@ -20,10 +20,10 @@ const Main = styled("main", {
 })<{ open: boolean }>(({ theme, open }) => ({
   backgroundColor: theme.palette.secondaryBackground.default,
   width: "100%",
-  minHeight: "calc(100vh - 64px)",
+  minHeight: "calc(100vh - 74px)",
   flexGrow: 1,
   padding: "20px",
-  marginTop: "64px",
+  marginTop: "74px",
   marginRight: "0px",
   borderRadius: "12px",
   borderBottomLeftRadius: 0,
@@ -81,10 +81,7 @@ export default function Layout({ children }: LayoutProps) {
           p: 0,
         }}
       >
-        <Toolbar
-          // disableGutters
-          sx={{ justifyContent: { xs: "space-between" } }}
-        >
+        <Toolbar sx={{ justifyContent: { xs: "space-between" }, py: 0.5 }}>
           <Header onDrawerToggle={handleDrawerToggle} />
         </Toolbar>
       </AppBar>

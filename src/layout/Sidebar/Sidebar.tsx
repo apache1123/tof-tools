@@ -3,7 +3,8 @@ import { useTheme } from "@mui/material/styles";
 import * as React from "react";
 
 import { drawerWidth } from "../../../pages/_layout";
-import { Logo } from "../Logo/Logo";
+import { LogoWithTitle } from "../Logo/LogoWithTitle";
+import { MenuList } from "./MenuList/MenuList";
 
 // Referenced from https://github.com/codedthemes/berry-free-react-admin-template
 
@@ -32,7 +33,7 @@ export function Sidebar({ drawerIsOpen, onDrawerToggle }: SidebarProps) {
             background: theme.palette.background.default,
             borderRight: "none",
             [theme.breakpoints.up("md")]: {
-              top: "64px",
+              top: "74px",
             },
           },
         }}
@@ -40,10 +41,11 @@ export function Sidebar({ drawerIsOpen, onDrawerToggle }: SidebarProps) {
         color="inherit"
       >
         <>
-          <Box sx={{ display: { xs: "block", md: "none" } }}>
-            <Logo />
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <LogoWithTitle />
           </Box>
         </>
+        <MenuList />
       </Drawer>
     </Box>
   );
