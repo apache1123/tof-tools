@@ -1,3 +1,7 @@
+export default function Stub() {
+  return <></>;
+}
+
 // import { Container } from "@mui/material";
 // import Head from "next/head";
 // import { useEffect } from "react";

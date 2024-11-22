@@ -1,3 +1,7 @@
+export default function Stub() {
+  return <></>;
+}
+
 // import { Container, TextareaAutosize } from "@mui/material";
 // import Head from "next/head";
 // import { useEffect, useState } from "react";
