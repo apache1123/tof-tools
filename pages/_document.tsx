@@ -2,6 +2,7 @@ import createEmotionServer from "@emotion/server/create-instance";
 import type { AppType } from "next/app";
 import type { DocumentContext, DocumentProps } from "next/document";
 import Document, { Head, Html, Main, NextScript } from "next/document";
+import type { JSX } from "react";
 import * as React from "react";
 
 import createEmotionCache from "../src/createEmotionCache";

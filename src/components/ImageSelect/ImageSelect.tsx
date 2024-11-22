@@ -62,7 +62,7 @@ export const ImageSelect = ({
   onSelectedImageChange,
   onSelectedImageURLChange,
 }: ImageSelectProps) => {
-  const selectedImageURL = useRef<string>();
+  const selectedImageURL = useRef<string>(undefined);
 
   // This is an empty component because useBatchAddListener has to be used in a child component
   const ImageSelectHandler = () => {

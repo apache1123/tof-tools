@@ -3,7 +3,7 @@
   "version": "3.19.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8080",
+    "dev": "next dev --turbopack -p 8080",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -37,10 +37,10 @@
     "indefinite": "^2.5.1",
     "lodash.groupby": "^4.6.0",
     "nanoid": "^4.0.2",
-    "next": "14.2.3",
+    "next": "15.0.3",
     "pluralize": "^8.0.0",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-number-format": "^5.4.2",
     "tesseract.js": "^4.1.4",
     "utility-types": "^3.11.0",
@@ -62,11 +62,11 @@
     "@types/lodash.groupby": "^4.6.9",
     "@types/node": "20.2.5",
     "@types/pluralize": "^0.0.33",
-    "@types/react": "18.3.12",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint": "8.41.0",
-    "eslint-config-next": "13.4.4",
+    "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -80,5 +80,10 @@
     "storybook": "^8.4.5",
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1"
+    }
   }
 }
