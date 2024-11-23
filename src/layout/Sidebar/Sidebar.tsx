@@ -6,6 +6,7 @@ import { drawerWidth } from "../../../pages/_layout";
 import { LogoWithTitle } from "../Logo/LogoWithTitle";
 import { MenuList } from "./MenuList/MenuList";
 import { CharacterSelector } from "./CharacterSelector/CharacterSelector";
+import { Scrollbar } from "../../components/Scrollbar/Scrollbar";
 
 // Referenced from https://github.com/codedthemes/berry-free-react-admin-template
 
@@ -46,8 +47,16 @@ export function Sidebar({ drawerIsOpen, onDrawerToggle }: SidebarProps) {
           <Box sx={{ display: { xs: "flex", md: "none" }, mb: 2 }}>
             <LogoWithTitle />
           </Box>
+
           <CharacterSelector sx={{ mb: 2 }} />
-          <MenuList />
+
+          <Scrollbar
+            sx={{
+              height: matchUpMd ? "calc(100vh - 163px)" : "calc(100vh - 183px)",
+            }}
+          >
+            <MenuList />
+          </Scrollbar>
         </>
       </Drawer>
     </Box>
