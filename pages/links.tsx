@@ -61,7 +61,7 @@ export default function LinksPage() {
         <title>Useful Links | Tower of Fantasy Tools</title>
       </Head>
 
-      <Paper>
+      <Paper sx={{ p: 1 }}>
         <List>
           {links.map(({ title, description, href, icon }, index) => (
             <ListItemButton key={index} href={href} target="_blank">

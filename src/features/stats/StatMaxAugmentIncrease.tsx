@@ -21,7 +21,7 @@ export function StatMaxAugmentIncrease() {
   const { stat: statSnap } = useSnapshot(state);
 
   return (
-    <Paper elevation={0}>
+    <Paper elevation={0} sx={{ p: 2 }}>
       <Stack direction="row" spacing={1} alignItems="center" mb={2}>
         <Typography variant="h5">
           Calculate max augment(titan) increase for stat

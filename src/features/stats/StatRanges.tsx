@@ -18,7 +18,7 @@ import { statTypesLookup } from "../../definitions/stat-types";
 
 export function StatRanges() {
   return (
-    <Paper elevation={0}>
+    <Paper elevation={0} sx={{ p: 2 }}>
       <Typography variant="h5" mb={2}>
         Stat ranges
       </Typography>

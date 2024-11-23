@@ -35,6 +35,7 @@ export function Sidebar({ drawerIsOpen, onDrawerToggle }: SidebarProps) {
             [theme.breakpoints.up("md")]: {
               top: "74px",
             },
+            p: 2,
           },
         }}
         ModalProps={{ keepMounted: true }}

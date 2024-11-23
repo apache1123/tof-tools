@@ -42,7 +42,6 @@ let theme = createTheme({
     MuiPaper: {
       defaultProps: {
         elevation: 0,
-        sx: { p: 2 },
       },
       styleOverrides: {
         elevation0: {

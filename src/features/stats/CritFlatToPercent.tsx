@@ -20,7 +20,7 @@ export function CritFlatToPercent() {
   );
 
   return (
-    <Paper elevation={0}>
+    <Paper elevation={0} sx={{ p: 2 }}>
       <Stack direction="row" spacing={1} alignItems="center" mb={2}>
         <Typography variant="h5">Calculate crit rate % from crit</Typography>
       </Stack>
