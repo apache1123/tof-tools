@@ -4,11 +4,11 @@ import type { NavGroupModel } from "./NavGroup/NavGroup";
 export const menuItems: NavGroupModel[] = [
   {
     id: "character",
-    title: "Character",
+    title: "Wanderer",
     children: [
       {
         id: "character-info",
-        title: "Character Info",
+        title: "Wanderer Info",
         path: "/",
       },
       {

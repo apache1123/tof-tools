@@ -5,6 +5,7 @@ import * as React from "react";
 import { drawerWidth } from "../../../pages/_layout";
 import { LogoWithTitle } from "../Logo/LogoWithTitle";
 import { MenuList } from "./MenuList/MenuList";
+import { CharacterSelector } from "./CharacterSelector/CharacterSelector";
 
 // Referenced from https://github.com/codedthemes/berry-free-react-admin-template
 
@@ -42,11 +43,12 @@ export function Sidebar({ drawerIsOpen, onDrawerToggle }: SidebarProps) {
         color="inherit"
       >
         <>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" }, mb: 2 }}>
             <LogoWithTitle />
           </Box>
+          <CharacterSelector sx={{ mb: 2 }} />
+          <MenuList />
         </>
-        <MenuList />
       </Drawer>
     </Box>
   );

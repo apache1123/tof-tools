@@ -21,6 +21,7 @@ let theme = createTheme({
     mode: "dark",
     background: {
       default: colors.base.hex,
+      paper: colors.base.hex,
     },
     text: {
       primary: colors.text.hex,

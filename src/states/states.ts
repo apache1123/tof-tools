@@ -2,18 +2,17 @@ import { proxy } from "valtio";
 import { devtools } from "valtio/utils";
 
 import { ChangelogState } from "./changelog";
-import { CharactersState } from "./characters";
 // import { GearComparerState } from "./gear-comparer";
 // import { LoadoutsState } from "./loadouts";
 import { RelicsState } from "./relics";
+import { createInitialCharactersState } from "./characters/create-initial-characters-state";
 // import { RollSimulatorState } from "./roll-simulator";
 
 export const changelogState = proxy(new ChangelogState());
 export const changelogStateKey = "changelog";
 devtools(changelogState, { name: "changelog" });
 
-export const charactersState = proxy(new CharactersState([]));
-charactersState.addDefaultCharacter();
+export const charactersState = proxy(createInitialCharactersState());
 export const charactersStateKey = "characters";
 devtools(charactersState, { name: charactersStateKey });
 

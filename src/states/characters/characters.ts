@@ -1,8 +1,8 @@
-import type { Dto } from "../models/dto";
-import type { Persistable } from "../models/persistable";
-import type { CharacterDto } from "../models/v4/character/character";
-import { Character } from "../models/v4/character/character";
-import { SelectableRepository } from "../models/v4/repository/selectable-repository";
+import type { Dto } from "../../models/dto";
+import type { Persistable } from "../../models/persistable";
+import type { CharacterDto } from "../../models/v4/character/character";
+import { Character } from "../../models/v4/character/character";
+import { SelectableRepository } from "../../models/v4/repository/selectable-repository";
 
 export class CharactersState
   extends SelectableRepository<Character>
@@ -10,8 +10,15 @@ export class CharactersState
 {
   public addDefaultCharacter() {
     const character = new Character();
-    character.name = "Default character";
+    character.name = "Default wanderer";
     this.add(character);
+  }
+
+  public selectFirstCharacter() {
+    const firstCharacter = this.items[0];
+    if (firstCharacter) {
+      this.selected = firstCharacter;
+    }
   }
 
   public copyFromDto(dto: CharactersStateDto): void {
