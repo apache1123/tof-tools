@@ -1,13 +1,11 @@
-import type { Dto } from "../../models/dto";
-import type { Persistable } from "../../models/persistable";
 import type { CharacterDto } from "../../models/v4/character/character";
 import { Character } from "../../models/v4/character/character";
-import { SelectableRepository } from "../../models/v4/repository/selectable-repository";
+import { SelectablePersistableRepository } from "../repository/selectable-persistable-repository";
 
-export class CharactersState
-  extends SelectableRepository<Character>
-  implements Persistable<CharactersStateDto>
-{
+export class CharactersState extends SelectablePersistableRepository<
+  Character,
+  CharacterDto
+> {
   public addDefaultCharacter() {
     const character = new Character();
     character.name = "Default wanderer";
@@ -21,34 +19,7 @@ export class CharactersState
     }
   }
 
-  public copyFromDto(dto: CharactersStateDto): void {
-    const { items, selectedId } = dto;
-
-    this.clear();
-    this.addItems(
-      items.map((item) => {
-        const character = new Character();
-        character.copyFromDto(item);
-        return character;
-      }),
-    );
-
-    this.selected = selectedId ? this.find(selectedId) : undefined;
+  protected override createItemFromDto(): Character {
+    return new Character();
   }
-
-  public toDto(): CharactersStateDto {
-    const { items, selected } = this;
-
-    return {
-      items: items.map((item) => item.toDto()),
-      selectedId: selected?.id,
-      version: 1,
-    };
-  }
-}
-
-export interface CharactersStateDto extends Dto {
-  items: CharacterDto[];
-  selectedId: string | undefined;
-  version: 1;
 }
