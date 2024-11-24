@@ -11,8 +11,9 @@ import { WeaponMatrixSetsEditor } from "./WeaponMatrixSetsEditor";
 export interface WeaponEditorProps {
   weaponSnap: Weapon;
   weaponState: Weapon;
-  onClearWeapon(): void;
   ["data-testid"]?: string;
+
+  onClearWeapon(): void;
 }
 
 export function WeaponEditor({
@@ -35,9 +36,11 @@ export function WeaponEditor({
         <WeaponDefinitionSelector
           selectedWeaponDefinition={weaponDefinition}
           onChange={(definition) => {
-            definition
-              ? (weaponState.definition = definition)
-              : onClearWeapon();
+            if (definition) {
+              weaponState.definition = definition;
+            } else {
+              onClearWeapon();
+            }
           }}
         />
       }
@@ -61,8 +64,9 @@ export function WeaponEditor({
 }
 
 export interface EmptyWeaponEditorProps {
-  onWeaponDefinitionChange(weaponDefinition: WeaponDefinition): void;
   ["data-testid"]?: string;
+
+  onWeaponDefinitionChange(weaponDefinition: WeaponDefinition): void;
 }
 
 export function EmptyWeaponEditor({
@@ -76,7 +80,7 @@ export function EmptyWeaponEditor({
         <WeaponDefinitionSelector
           selectedWeaponDefinition={undefined}
           onChange={(definition) => {
-            definition && onWeaponDefinitionChange(definition);
+            if (definition) onWeaponDefinitionChange(definition);
           }}
         />
       }

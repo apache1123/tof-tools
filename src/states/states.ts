@@ -2,10 +2,10 @@ import { proxy } from "valtio";
 import { devtools } from "valtio/utils";
 
 import { ChangelogState } from "./changelog";
+import { createInitialCharactersState } from "./characters/create-initial-characters-state";
 // import { GearComparerState } from "./gear-comparer";
 // import { LoadoutsState } from "./loadouts";
 import { RelicsState } from "./relics";
-import { createInitialCharactersState } from "./characters/create-initial-characters-state";
 // import { RollSimulatorState } from "./roll-simulator";
 
 export const changelogState = proxy(new ChangelogState());

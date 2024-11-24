@@ -1,5 +1,6 @@
 import InfoIcon from "@mui/icons-material/Info";
-import { SxProps, Tooltip } from "@mui/material";
+import type { SxProps} from "@mui/material";
+import { Tooltip } from "@mui/material";
 
 export interface ComingSoonIconProps {
   sx?: SxProps;

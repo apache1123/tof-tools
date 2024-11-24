@@ -1,7 +1,11 @@
 import "simplebar-react/dist/simplebar.min.css";
-import SimpleBar, { Props as SimpleBarProps } from "simplebar-react";
-import { forwardRef, ReactNode } from "react";
-import { Box, SxProps } from "@mui/material";
+
+import type { SxProps } from "@mui/material";
+import { Box } from "@mui/material";
+import type { ReactNode } from "react";
+import { forwardRef } from "react";
+import type { Props as SimpleBarProps } from "simplebar-react";
+import SimpleBar from "simplebar-react";
 
 export interface ScrollbarProps extends SimpleBarProps {
   sx?: SxProps;
@@ -24,3 +28,4 @@ export const Scrollbar = forwardRef<HTMLDivElement, ScrollbarProps>(
     </Box>
   ),
 );
+Scrollbar.displayName = "Scrollbar";

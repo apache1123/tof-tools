@@ -18,7 +18,7 @@ export function useLocalStoragePersistence<TObjectDto extends Dto>(
 ) {
   useEffect(() => {
     if (localStorage.getItem(key)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+       
       proxyState.copyFromDto(JSON.parse(localStorage.getItem(key)!));
     }
 

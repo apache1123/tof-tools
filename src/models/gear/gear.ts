@@ -193,7 +193,7 @@ export class Gear implements Persistable<GearDto> {
     from.randomStats.forEach((fromRandomStat, index) => {
       if (fromRandomStat) {
         if (to.randomStats[index]) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+           
           RandomStat.copy(fromRandomStat, to.randomStats[index]!);
         } else {
           const newStat = new RandomStat(fromRandomStat.type);

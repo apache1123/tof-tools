@@ -34,7 +34,7 @@ export function migrateStatesToLatestVersion() {
 function getStateMigrationsState(): StateMigrationsState {
   return localStorage.getItem(stateMigrationsStateKey)
     ? (JSON.parse(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+         
         localStorage.getItem(stateMigrationsStateKey)!,
       ) as StateMigrationsState)
     : { version: 1 };

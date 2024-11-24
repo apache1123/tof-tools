@@ -82,7 +82,7 @@ export function TransferAppData() {
           let data: unknown;
           try {
             data = JSON.parse(reader.result as string);
-          } catch (error) {
+          } catch {
             showSnackbar("Invalid file", { severity: "error" });
             return;
           }

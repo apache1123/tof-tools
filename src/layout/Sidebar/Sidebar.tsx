@@ -3,10 +3,10 @@ import { useTheme } from "@mui/material/styles";
 import * as React from "react";
 
 import { drawerWidth } from "../../../pages/_layout";
-import { LogoWithTitle } from "../Logo/LogoWithTitle";
-import { MenuList } from "./MenuList/MenuList";
-import { CharacterSelector } from "./CharacterSelector/CharacterSelector";
 import { Scrollbar } from "../../components/Scrollbar/Scrollbar";
+import { LogoWithTitle } from "../Logo/LogoWithTitle";
+import { CharacterSelector } from "./CharacterSelector/CharacterSelector";
+import { MenuList } from "./MenuList/MenuList";
 
 // Referenced from https://github.com/codedthemes/berry-free-react-admin-template
 
