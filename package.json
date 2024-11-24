@@ -14,6 +14,9 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@catppuccin/palette": "^1.7.1",
     "@emotion/cache": "^11.11.0",
