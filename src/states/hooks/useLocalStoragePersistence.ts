@@ -18,7 +18,6 @@ export function useLocalStoragePersistence<TObjectDto extends Dto>(
 ) {
   useEffect(() => {
     if (localStorage.getItem(key)) {
-       
       proxyState.copyFromDto(JSON.parse(localStorage.getItem(key)!));
     }
 

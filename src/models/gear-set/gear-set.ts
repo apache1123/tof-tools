@@ -10,56 +10,75 @@ import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
 import type { DataById } from "../data";
 import type { Dto } from "../dto";
-import type { GearDto } from "../gear/gear";
+import type { GearDtoV1, GearDtoV2 } from "../gear/gear";
 import { Gear } from "../gear/gear";
 import type { Persistable } from "../persistable";
+import type { CharacterId } from "../v4/character/character";
 
-export class GearSet implements Persistable<GearSetDtoV2> {
-  public constructor(gears: DataById<GearName, Gear>) {
+export class GearSet implements Persistable<GearSetDtoV3> {
+  public constructor(
+    gears: DataById<GearName, Gear>,
+    characterId: CharacterId,
+  ) {
     this._id = nanoid();
+    this._characterId = characterId;
     this._gearsByTypeId = gears;
   }
 
   private _id: string;
+  private _characterId: CharacterId;
   private readonly _gearsByTypeId: DataById<GearName, Gear>;
 
   public get id() {
     return this._id;
   }
 
+  public get characterId(): CharacterId {
+    return this._characterId;
+  }
+
   /** Creates an empty GearSet */
-  public static create(): GearSet {
-    return new GearSet({
-      Helmet: new Gear(gearTypesLookup.byId.Helmet),
-      Eyepiece: new Gear(gearTypesLookup.byId.Eyepiece),
-      Spaulders: new Gear(gearTypesLookup.byId.Spaulders),
-      Gloves: new Gear(gearTypesLookup.byId.Gloves),
-      Bracers: new Gear(gearTypesLookup.byId.Bracers),
-      Armor: new Gear(gearTypesLookup.byId.Armor),
-      "Combat Engine": new Gear(gearTypesLookup.byId["Combat Engine"]),
-      Belt: new Gear(gearTypesLookup.byId.Belt),
-      Legguards: new Gear(gearTypesLookup.byId.Legguards),
-      Boots: new Gear(gearTypesLookup.byId.Boots),
-      Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton),
-      Microreactor: new Gear(gearTypesLookup.byId.Microreactor),
-    });
+  public static create(characterId: CharacterId): GearSet {
+    return new GearSet(
+      {
+        Helmet: new Gear(gearTypesLookup.byId.Helmet, characterId),
+        Eyepiece: new Gear(gearTypesLookup.byId.Eyepiece, characterId),
+        Spaulders: new Gear(gearTypesLookup.byId.Spaulders, characterId),
+        Gloves: new Gear(gearTypesLookup.byId.Gloves, characterId),
+        Bracers: new Gear(gearTypesLookup.byId.Bracers, characterId),
+        Armor: new Gear(gearTypesLookup.byId.Armor, characterId),
+        "Combat Engine": new Gear(
+          gearTypesLookup.byId["Combat Engine"],
+          characterId,
+        ),
+        Belt: new Gear(gearTypesLookup.byId.Belt, characterId),
+        Legguards: new Gear(gearTypesLookup.byId.Legguards, characterId),
+        Boots: new Gear(gearTypesLookup.byId.Boots, characterId),
+        Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton, characterId),
+        Microreactor: new Gear(gearTypesLookup.byId.Microreactor, characterId),
+      },
+      characterId,
+    );
   }
 
   public static createCopy(gearSet: GearSet): GearSet {
-    return new GearSet({
-      Helmet: gearSet.getGearByType("Helmet"),
-      Eyepiece: gearSet.getGearByType("Eyepiece"),
-      Spaulders: gearSet.getGearByType("Spaulders"),
-      Gloves: gearSet.getGearByType("Gloves"),
-      Bracers: gearSet.getGearByType("Bracers"),
-      Armor: gearSet.getGearByType("Armor"),
-      "Combat Engine": gearSet.getGearByType("Combat Engine"),
-      Belt: gearSet.getGearByType("Belt"),
-      Legguards: gearSet.getGearByType("Legguards"),
-      Boots: gearSet.getGearByType("Boots"),
-      Exoskeleton: gearSet.getGearByType("Exoskeleton"),
-      Microreactor: gearSet.getGearByType("Microreactor"),
-    });
+    return new GearSet(
+      {
+        Helmet: gearSet.getGearByType("Helmet"),
+        Eyepiece: gearSet.getGearByType("Eyepiece"),
+        Spaulders: gearSet.getGearByType("Spaulders"),
+        Gloves: gearSet.getGearByType("Gloves"),
+        Bracers: gearSet.getGearByType("Bracers"),
+        Armor: gearSet.getGearByType("Armor"),
+        "Combat Engine": gearSet.getGearByType("Combat Engine"),
+        Belt: gearSet.getGearByType("Belt"),
+        Legguards: gearSet.getGearByType("Legguards"),
+        Boots: gearSet.getGearByType("Boots"),
+        Exoskeleton: gearSet.getGearByType("Exoskeleton"),
+        Microreactor: gearSet.getGearByType("Microreactor"),
+      },
+      gearSet.characterId,
+    );
   }
 
   public getGearByType(typeId: GearName) {
@@ -124,26 +143,27 @@ export class GearSet implements Persistable<GearSetDtoV2> {
     );
   }
 
-  public copyFromDto(dto: GearSetDtoV2): void {
-    const { id, gearsByTypeId } = dto;
+  public copyFromDto(dto: GearSetDtoV3): void {
+    const { id, characterId, gearsByTypeId } = dto;
 
     this._id = id;
+    this._characterId = characterId;
 
     keysOf(gearsByTypeId).forEach((typeId) => {
       const gearDto = gearsByTypeId[typeId];
       const gearType = gearTypesLookup.byId[gearDto.typeId];
-      const gear = new Gear(gearType);
+      const gear = new Gear(gearType, characterId);
       gear.copyFromDto(gearDto);
       this._gearsByTypeId[typeId] = gear;
     });
   }
 
-  public toDto(): GearSetDtoV2 {
-    const { id, _gearsByTypeId } = this;
+  public toDto(): GearSetDtoV3 {
+    const { id, characterId, _gearsByTypeId } = this;
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const gearDtosByTypeId: DataById<GearName, GearDto> = {};
+    const gearDtosByTypeId: DataById<GearName, GearDtoV2> = {};
     keysOf(_gearsByTypeId).forEach((typeId) => {
       const gear = _gearsByTypeId[typeId];
       gearDtosByTypeId[typeId] = gear.toDto();
@@ -151,8 +171,9 @@ export class GearSet implements Persistable<GearSetDtoV2> {
 
     return {
       id,
+      characterId,
       gearsByTypeId: gearDtosByTypeId,
-      version: 2,
+      version: 3,
     };
   }
 
@@ -168,17 +189,25 @@ export class GearSet implements Persistable<GearSetDtoV2> {
   }
 }
 
+export interface GearSetDtoV3 extends Dto {
+  id: string;
+  characterId: string;
+  gearsByTypeId: DataById<GearName, GearDtoV2>;
+  version: 3;
+}
+
+/** @deprecated Introduced Character. Gear set must belong to a Character now */
+export interface GearSetDtoV2 extends Dto {
+  id: string;
+  gearsByTypeId: DataById<GearName, GearDtoV1>;
+  version: 2;
+}
+
 /** @deprecated Name, ElementalType moved to Loadout */
 export interface GearSetDtoV1 extends Dto {
   id: string;
   name: string;
-  gearsByTypeId: DataById<GearName, GearDto>;
+  gearsByTypeId: DataById<GearName, GearDtoV1>;
   elementalType: CoreElementalType | undefined;
   version: 1;
-}
-
-export interface GearSetDtoV2 extends Dto {
-  id: string;
-  gearsByTypeId: DataById<GearName, GearDto>;
-  version: 2;
 }

@@ -2,7 +2,10 @@ import { nanoid } from "nanoid";
 
 import { maxCharacterLevel } from "../../../definitions/character-level";
 import type { Dto } from "../../dto";
+import type { Id } from "../../identifiable";
 import type { Persistable } from "../../persistable";
+
+export type CharacterId = Id;
 
 /** Represent the game character's metadata, such as level, name, and inventory */
 export class Character implements Persistable<CharacterDto> {
@@ -13,10 +16,10 @@ export class Character implements Persistable<CharacterDto> {
   }
 
   public name: string;
-  private _id: string;
+  private _id: CharacterId;
   private _level: number;
 
-  public get id() {
+  public get id(): CharacterId {
     return this._id;
   }
 

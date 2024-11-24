@@ -5,7 +5,7 @@ import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
 import type { CoreElementalType } from "../../../definitions/elemental-type";
 import type { GearName } from "../../../definitions/gear-types";
 import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
-import type { GearDto } from "../../../models/gear/gear";
+import type { GearDtoV1 } from "../../../models/gear/gear";
 import type {
   GearSetDtoV1,
   GearSetDtoV2,
@@ -287,7 +287,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newGear(typeId: GearName): GearDto {
+  function newGear(typeId: GearName): GearDtoV1 {
     return {
       id: nanoid(),
       typeId,
@@ -299,7 +299,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newGearFromOld(oldGear: GearDto): GearDto {
+  function newGearFromOld(oldGear: GearDtoV1): GearDtoV1 {
     return {
       id: nanoid(),
       typeId: oldGear.typeId,

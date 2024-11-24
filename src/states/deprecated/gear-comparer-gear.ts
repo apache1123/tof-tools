@@ -1,9 +1,9 @@
-import type {Dto} from "../../models/dto";
-import type {GearDto} from "../../models/gear/gear";
+import type { Dto } from "../../models/dto";
+import type { GearDtoV1 } from "../../models/gear/gear";
 
 /** @deprecated Migrated when switching to Loadouts */
 export type GearComparerGearsStateDto = Record<
   "GearA" | "GearB",
-  GearDto | undefined
+  GearDtoV1 | undefined
 > &
   Dto;

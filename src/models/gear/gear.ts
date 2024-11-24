@@ -46,10 +46,16 @@ import {
   isResistanceFlat,
   isResistancePercent,
 } from "../stat-type";
+import type { CharacterId } from "../v4/character/character";
 
-export class Gear implements Persistable<GearDto> {
-  public constructor(type: GearType) {
+export class Gear implements Persistable<GearDtoV2> {
+  /**
+   * @param type The type of the gear
+   * @param characterId The id of the character the gear belongs to
+   * */
+  public constructor(type: GearType, characterId: CharacterId) {
     this._id = nanoid();
+    this._characterId = characterId;
     this._type = type;
     this._stars = 0;
     this._isAugmented = false;
@@ -61,12 +67,17 @@ export class Gear implements Persistable<GearDto> {
   public randomStats: (RandomStat | undefined)[];
   public augmentStats: AugmentStat[];
   private _id: string;
+  private _characterId: CharacterId;
   private _type: GearType;
   private _stars: number;
   private _isAugmented: boolean;
 
   public get id() {
     return this._id;
+  }
+
+  public get characterId(): CharacterId {
+    return this._characterId;
   }
 
   public get type() {
@@ -183,7 +194,8 @@ export class Gear implements Persistable<GearDto> {
     }
   }
 
-  /**  Copy all gear properties over except for the id, as long as the gear's type is the same */
+  /**  Copy all gear properties over except for the id, as long as the gear's type is the same.
+   * This does not change the character the gear belongs to */
   public static copy(from: Gear, to: Gear) {
     if (from.type.id !== to.type.id) return;
 
@@ -193,7 +205,6 @@ export class Gear implements Persistable<GearDto> {
     from.randomStats.forEach((fromRandomStat, index) => {
       if (fromRandomStat) {
         if (to.randomStats[index]) {
-           
           RandomStat.copy(fromRandomStat, to.randomStats[index]!);
         } else {
           const newStat = new RandomStat(fromRandomStat.type);
@@ -340,7 +351,7 @@ export class Gear implements Persistable<GearDto> {
       return undefined;
     }
 
-    const maxTitanGear = new Gear(this.type);
+    const maxTitanGear = new Gear(this.type, this._characterId);
     Gear.copy(this, maxTitanGear);
 
     const gearStatRollCombinations =
@@ -501,10 +512,11 @@ export class Gear implements Persistable<GearDto> {
     }
   }
 
-  public copyFromDto(dto: GearDto): void {
+  public copyFromDto(dto: GearDtoV2): void {
     const {
       id,
       typeId,
+      characterId,
       stars,
       randomStats: randomStatDtos,
       augmentStats: augmentStatDtos,
@@ -513,6 +525,7 @@ export class Gear implements Persistable<GearDto> {
 
     const gearType = gearTypesLookup.byId[typeId];
     this._id = id;
+    this._characterId = characterId;
     this._type = gearType;
     this.stars = stars;
     this.isAugmented = !!isAugmented;
@@ -536,16 +549,25 @@ export class Gear implements Persistable<GearDto> {
     });
   }
 
-  public toDto(): GearDto {
-    const { id, type, stars, randomStats, augmentStats, isAugmented } = this;
+  public toDto(): GearDtoV2 {
+    const {
+      id,
+      characterId,
+      type,
+      stars,
+      randomStats,
+      augmentStats,
+      isAugmented,
+    } = this;
     return {
       id,
+      characterId,
       typeId: type.id,
       stars,
       randomStats: randomStats.map((randomStat) => randomStat?.toDto()),
       augmentStats: augmentStats.map((augmentStat) => augmentStat.toDto()),
       isAugmented,
-      version: 1,
+      version: 2,
     };
   }
 
@@ -596,7 +618,8 @@ export class Gear implements Persistable<GearDto> {
   }
 }
 
-export interface GearDto extends Dto {
+/** @deprecated Introduced Character. Gear must belong to a Character now */
+export interface GearDtoV1 extends Dto {
   id: string;
   typeId: GearName;
   stars: number;
@@ -604,4 +627,15 @@ export interface GearDto extends Dto {
   augmentStats?: AugmentStatDto[];
   isAugmented?: boolean;
   version: 1;
+}
+
+export interface GearDtoV2 extends Dto {
+  id: string;
+  typeId: GearName;
+  characterId: string;
+  stars: number;
+  randomStats: (RandomStatDto | undefined)[];
+  augmentStats?: AugmentStatDto[];
+  isAugmented?: boolean;
+  version: 2;
 }

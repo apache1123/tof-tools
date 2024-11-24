@@ -14,19 +14,22 @@ import type { Dto } from "../dto";
 import type { ElementalAttackFlatsDto } from "../elemental-attack-flats";
 import { ElementalAttackFlats } from "../elemental-attack-flats";
 import { Gear } from "../gear/gear";
-import type { GearSet, GearSetDtoV2 } from "../gear-set/gear-set";
+import type { GearSet, GearSetDtoV2, GearSetDtoV3 } from "../gear-set/gear-set";
 import type { Persistable } from "../persistable";
 import type { Team, TeamDto } from "../team/team";
+import type { CharacterId } from "../v4/character/character";
 import type { SimulacrumTrait } from "../v4/simulacrum-trait";
 
 /** A loadout is a preset combination of weapons & matrices (team), gear set, trait etc. */
 export class Loadout implements Persistable<LoadoutDtoV2> {
   public constructor(
     public name: string,
+    characterId: CharacterId,
     public team: Team,
     public gearSet: GearSet,
   ) {
     this._id = nanoid();
+    this._characterId = characterId;
     this.useOverrideStats = false;
     this.overrideElementalAttackFlats = ElementalAttackFlats.create();
   }
@@ -36,11 +39,16 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
   public simulacrumTrait: SimulacrumTrait | undefined;
 
   private _id: string;
+  private _characterId: CharacterId;
   private overrideElementalAttackFlats: ElementalAttackFlats;
   private _overrideCritRateFlat = 0;
 
   public get id() {
     return this._id;
+  }
+
+  public get characterId(): CharacterId {
+    return this._characterId;
   }
 
   /** The effective crit rate flat to use, depending on if stats are being overridden or not */
@@ -82,7 +90,12 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
   }
 
   public static createCopy(loadout: Loadout): Loadout {
-    const copy = new Loadout(loadout.name, loadout.team, loadout.gearSet);
+    const copy = new Loadout(
+      loadout.name,
+      loadout._characterId,
+      loadout.team,
+      loadout.gearSet,
+    );
     copy.useOverrideStats = loadout.useOverrideStats;
     copy.overrideElementalAttackFlats = ElementalAttackFlats.createCopy(
       loadout.overrideElementalAttackFlats,
@@ -153,6 +166,7 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
   public copyFromDto(dto: LoadoutDtoV2): void {
     const {
       id,
+      characterId,
       name,
       team,
       gearSet,
@@ -163,6 +177,7 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
     } = dto;
 
     this._id = id;
+    this._characterId = characterId;
     this.name = name;
     this.team.copyFromDto(team);
     this.gearSet.copyFromDto(gearSet);
@@ -177,6 +192,7 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
   public toDto(): LoadoutDtoV2 {
     const {
       id,
+      characterId,
       name,
       team,
       gearSet,
@@ -188,6 +204,7 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
 
     return {
       id,
+      characterId,
       name,
       team: team.toDto(),
       gearSet: gearSet.toDto(),
@@ -200,6 +217,19 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
   }
 }
 
+export interface LoadoutDtoV2 extends Dto {
+  id: string;
+  characterId: string;
+  name: string;
+  team: TeamDto;
+  gearSet: GearSetDtoV3;
+  simulacrumTraitId: SimulacrumName | undefined;
+  useOverrideStats: boolean;
+  overrideElementalAttackFlats: ElementalAttackFlatsDto;
+  overrideCritRateFlat: number;
+  version: 2;
+}
+
 /** @deprecated */
 export interface LoadoutDtoV1 extends Dto {
   id: string;
@@ -210,16 +240,4 @@ export interface LoadoutDtoV1 extends Dto {
   loadoutStats: LoadoutStatsDto;
   simulacrumTraitId: SimulacrumName | undefined;
   version: 1;
-}
-
-export interface LoadoutDtoV2 extends Dto {
-  id: string;
-  name: string;
-  team: TeamDto;
-  gearSet: GearSetDtoV2;
-  simulacrumTraitId: SimulacrumName | undefined;
-  useOverrideStats: boolean;
-  overrideElementalAttackFlats: ElementalAttackFlatsDto;
-  overrideCritRateFlat: number;
-  version: 2;
 }

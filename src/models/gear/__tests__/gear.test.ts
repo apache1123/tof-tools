@@ -10,7 +10,7 @@ let sut: Gear;
 describe("Gear", () => {
   beforeEach(() => {
     gearType = gearTypesLookup.byId["Eyepiece"];
-    sut = new Gear(gearType);
+    sut = new Gear(gearType, "characterId");
   });
 
   describe("can return total stat value of a stat type", () => {

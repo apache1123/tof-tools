@@ -170,7 +170,7 @@ export class GearCompare {
     element: WeaponElementalType,
   ): number {
     return this.getSubstituteGearValue(
-      new Gear(gearTypesLookup.byId[gearTypeId]), // Empty gear of the same type
+      new Gear(gearTypesLookup.byId[gearTypeId], this.character.id), // Empty gear of the same type
       element,
     );
   }
