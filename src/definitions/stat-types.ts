@@ -79,6 +79,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Altered Attack"]: {
       id: "Altered Attack",
       displayName: "Altered Attack",
+      shortDisplayName: "Altered ATK",
       inGameName: "Altered Attack",
       role: "Attack",
       elementalType: "Altered",
@@ -93,6 +94,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Altered Resistance"]: {
       id: "Altered Resistance",
       displayName: "Altered Resistance",
+      shortDisplayName: "Altered RES",
       inGameName: "Altered Resistance",
       role: "Resistance",
       elementalType: "Altered",
@@ -107,6 +109,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Altered Resistance %"]: {
       id: "Altered Resistance %",
       displayName: "Altered Resistance %",
+      shortDisplayName: "Altered RES",
       inGameName: "Altered Resistance",
       role: "Resistance %",
       elementalType: "Altered",
@@ -121,6 +124,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Attack"]: {
       id: "Attack",
       displayName: "Attack",
+      shortDisplayName: "ATK",
       inGameName: "Attack",
       role: "Attack",
       elementalType: "All",
@@ -135,6 +139,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Crit"]: {
       id: "Crit",
       displayName: "Crit",
+      shortDisplayName: "Crit",
       inGameName: "Crit",
       role: "Crit",
       elementalType: "All",
@@ -149,6 +154,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Crit Rate %"]: {
       id: "Crit Rate %",
       displayName: "Crit Rate %",
+      shortDisplayName: "Crit Rate",
       inGameName: "Crit Rate",
       role: "Crit %",
       elementalType: "All",
@@ -163,6 +169,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Flame Attack"]: {
       id: "Flame Attack",
       displayName: "Flame Attack",
+      shortDisplayName: "Flame ATK",
       inGameName: "Flame Attack",
       role: "Attack",
       elementalType: "Flame",
@@ -177,6 +184,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Flame Attack %"]: {
       id: "Flame Attack %",
       displayName: "Flame Attack %",
+      shortDisplayName: "Flame ATK",
       inGameName: "Flame Attack",
       role: "Attack %",
       elementalType: "Flame",
@@ -191,6 +199,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Flame Damage %"]: {
       id: "Flame Damage %",
       displayName: "Flame Damage %",
+      shortDisplayName: "Flame DMG",
       inGameName: "Flame Damage",
       role: "Damage %",
       elementalType: "Flame",
@@ -205,6 +214,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Flame Resistance"]: {
       id: "Flame Resistance",
       displayName: "Flame Resistance",
+      shortDisplayName: "Flame RES",
       inGameName: "Flame Resistance",
       role: "Resistance",
       elementalType: "Flame",
@@ -219,6 +229,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Flame Resistance %"]: {
       id: "Flame Resistance %",
       displayName: "Flame Resistance %",
+      shortDisplayName: "Flame RES",
       inGameName: "Flame Resistance",
       role: "Resistance %",
       elementalType: "Flame",
@@ -233,6 +244,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Frost Attack"]: {
       id: "Frost Attack",
       displayName: "Frost Attack",
+      shortDisplayName: "Frost ATK",
       inGameName: "Frost Attack",
       role: "Attack",
       elementalType: "Frost",
@@ -247,6 +259,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Frost Attack %"]: {
       id: "Frost Attack %",
       displayName: "Frost Attack %",
+      shortDisplayName: "Frost ATK",
       inGameName: "Frost Attack",
       role: "Attack %",
       elementalType: "Frost",
@@ -261,6 +274,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Frost Damage %"]: {
       id: "Frost Damage %",
       displayName: "Frost Damage %",
+      shortDisplayName: "Frost DMG",
       inGameName: "Frost Damage",
       role: "Damage %",
       elementalType: "Frost",
@@ -275,6 +289,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Frost Resistance"]: {
       id: "Frost Resistance",
       displayName: "Frost Resistance",
+      shortDisplayName: "Frost RES",
       inGameName: "Frost Resistance",
       role: "Resistance",
       elementalType: "Frost",
@@ -289,6 +304,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Frost Resistance %"]: {
       id: "Frost Resistance %",
       displayName: "Frost Resistance %",
+      shortDisplayName: "Frost RES",
       inGameName: "Frost Resistance",
       role: "Resistance %",
       elementalType: "Frost",
@@ -303,6 +319,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["HP"]: {
       id: "HP",
       displayName: "HP",
+      shortDisplayName: "HP",
       inGameName: "HP",
       role: "HP",
       elementalType: "None",
@@ -317,6 +334,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["HP %"]: {
       id: "HP %",
       displayName: "HP %",
+      shortDisplayName: "HP",
       inGameName: "HP",
       role: "HP %",
       elementalType: "None",
@@ -331,6 +349,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Physical Attack"]: {
       id: "Physical Attack",
       displayName: "Physical Attack",
+      shortDisplayName: "Physical ATK",
       inGameName: "Physical Attack",
       role: "Attack",
       elementalType: "Physical",
@@ -345,6 +364,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Physical Attack %"]: {
       id: "Physical Attack %",
       displayName: "Physical Attack %",
+      shortDisplayName: "Physical ATK",
       inGameName: "Physical Attack",
       role: "Attack %",
       elementalType: "Physical",
@@ -359,6 +379,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Physical Damage %"]: {
       id: "Physical Damage %",
       displayName: "Physical Damage %",
+      shortDisplayName: "Physical DMG",
       inGameName: "Physical Damage",
       role: "Damage %",
       elementalType: "Physical",
@@ -373,6 +394,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Physical Resistance"]: {
       id: "Physical Resistance",
       displayName: "Physical Resistance",
+      shortDisplayName: "Physical RES",
       inGameName: "Physical Resistance",
       role: "Resistance",
       elementalType: "Physical",
@@ -387,6 +409,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Physical Resistance %"]: {
       id: "Physical Resistance %",
       displayName: "Physical Resistance %",
+      shortDisplayName: "Physical RES",
       inGameName: "Physical Resistance",
       role: "Resistance %",
       elementalType: "Physical",
@@ -401,6 +424,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Resistance"]: {
       id: "Resistance",
       displayName: "Resistance",
+      shortDisplayName: "RES",
       inGameName: "Resistance",
       role: "Resistance",
       elementalType: "All",
@@ -415,6 +439,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Volt Attack"]: {
       id: "Volt Attack",
       displayName: "Volt Attack",
+      shortDisplayName: "Volt ATK",
       inGameName: "Volt Attack",
       role: "Attack",
       elementalType: "Volt",
@@ -429,6 +454,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Volt Attack %"]: {
       id: "Volt Attack %",
       displayName: "Volt Attack %",
+      shortDisplayName: "Volt ATK",
       inGameName: "Volt Attack",
       role: "Attack %",
       elementalType: "Volt",
@@ -443,6 +469,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Volt Damage %"]: {
       id: "Volt Damage %",
       displayName: "Volt Damage %",
+      shortDisplayName: "Volt DMG",
       inGameName: "Volt Damage",
       role: "Damage %",
       elementalType: "Volt",
@@ -457,6 +484,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Volt Resistance"]: {
       id: "Volt Resistance",
       displayName: "Volt Resistance",
+      shortDisplayName: "Volt RES",
       inGameName: "Volt Resistance",
       role: "Resistance",
       elementalType: "Volt",
@@ -471,6 +499,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
     ["Volt Resistance %"]: {
       id: "Volt Resistance %",
       displayName: "Volt Resistance %",
+      shortDisplayName: "Volt RES",
       inGameName: "Volt Resistance",
       role: "Resistance %",
       elementalType: "Volt",

@@ -7,6 +7,7 @@ import type { StatName, StatRole } from "../definitions/stat-types";
 export interface StatType {
   id: StatName;
   displayName: string;
+  shortDisplayName: string;
   inGameName: string;
   role: StatRole;
   elementalType: StatTypeElementalType;
