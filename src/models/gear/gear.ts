@@ -18,7 +18,6 @@ import type { GearName } from "../../definitions/gear-types";
 import { gearTypesLookup } from "../../definitions/gear-types";
 import type { StatName } from "../../definitions/stat-types";
 import { statTypesLookup } from "../../definitions/stat-types";
-import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
@@ -60,11 +59,10 @@ export class Gear implements Persistable<GearDtoV2> {
     this._stars = 0;
     this._isAugmented = false;
     this.randomStats = [];
-    this.resetRandomStats();
     this.augmentStats = [];
   }
 
-  public randomStats: (RandomStat | undefined)[];
+  public randomStats: RandomStat[];
   public augmentStats: AugmentStat[];
   private _id: string;
   private _characterId: CharacterId;
@@ -203,16 +201,12 @@ export class Gear implements Persistable<GearDtoV2> {
 
     to.randomStats = [];
     from.randomStats.forEach((fromRandomStat, index) => {
-      if (fromRandomStat) {
-        if (to.randomStats[index]) {
-          RandomStat.copy(fromRandomStat, to.randomStats[index]!);
-        } else {
-          const newStat = new RandomStat(fromRandomStat.type);
-          RandomStat.copy(fromRandomStat, newStat);
-          to.randomStats[index] = newStat;
-        }
+      if (to.randomStats[index]) {
+        RandomStat.copy(fromRandomStat, to.randomStats[index]!);
       } else {
-        to.randomStats[index] = undefined;
+        const newStat = new RandomStat(fromRandomStat.type);
+        RandomStat.copy(fromRandomStat, newStat);
+        to.randomStats[index] = newStat;
       }
     });
 
@@ -288,18 +282,18 @@ export class Gear implements Persistable<GearDtoV2> {
     );
   }
 
-  public getRandomStatRollCombinations() {
+  public getRandomStatRollCombinations(): GearRandomStatRollCombinations[] {
     const allRandomStatsWithRollCombinations = this.randomStats.map(
       (randomStat) =>
-        randomStat
-          ? randomStat.getRollCombinations().map(
-              (rollCombination): RandomStatRollCombination => ({
-                randomStatId: randomStat.type.id,
-                rollCombination,
-              }),
-            )
-          : [],
+        randomStat.getRollCombinations().map(
+          (rollCombination): RandomStatRollCombination => ({
+            randomStatId: randomStat.type.id,
+            rollCombination,
+          }),
+        ),
     );
+
+    if (allRandomStatsWithRollCombinations.length === 0) return [];
 
     const allPossibleCombinations: RandomStatRollCombination[][] = cartesian(
       allRandomStatsWithRollCombinations,
@@ -399,7 +393,7 @@ export class Gear implements Persistable<GearDtoV2> {
         if (
           maxTitanGear.augmentStats.length < maxNumOfAugmentStats &&
           !maxTitanGear.randomStats.some(
-            (randomStat) => randomStat?.type.id === statName,
+            (randomStat) => randomStat.type.id === statName,
           ) &&
           !maxTitanGear.augmentStats.some(
             (augmentStat) => augmentStat.type.id === statName,
@@ -411,7 +405,7 @@ export class Gear implements Persistable<GearDtoV2> {
       });
     }
 
-    function setMaxAugmentIncrease(stats: (RandomStat | undefined)[]) {
+    function setMaxAugmentIncrease(stats: RandomStat[]) {
       stats.forEach((stat) => {
         if (stat) {
           stat.augmentIncreaseValue = stat.getMaxAugmentIncrease();
@@ -420,12 +414,12 @@ export class Gear implements Persistable<GearDtoV2> {
     }
 
     function pullUpStatsValueIfApplicable() {
-      const randomStatsAndTypes = filterOutUndefined(
-        maxTitanGear.randomStats,
-      ).map((randomStat) => ({
-        randomStat,
-        statType: randomStat.type,
-      }));
+      const randomStatsAndTypes = maxTitanGear.randomStats.map(
+        (randomStat) => ({
+          randomStat,
+          statType: randomStat.type,
+        }),
+      );
 
       const randomStatsAndTypesByRole = groupBy(
         randomStatsAndTypes,
@@ -489,7 +483,7 @@ export class Gear implements Persistable<GearDtoV2> {
 
       // Similar "pull-up" happens with augment stats, but each augment stat will always be 95%.
       const valueWithAugmentOfHighestStat = maxTitanGear.randomStats.find(
-        (randomStat) => randomStat?.type.id === highestStatName,
+        (randomStat) => randomStat.type.id === highestStatName,
       )?.totalValue;
       maxTitanGear.augmentStats.forEach((augmentStat) => {
         const statType = augmentStat.type;
@@ -530,7 +524,7 @@ export class Gear implements Persistable<GearDtoV2> {
     this.stars = stars;
     this.isAugmented = !!isAugmented;
 
-    this.resetRandomStats();
+    this.randomStats = [];
     randomStatDtos.forEach((randomStatDto, i) => {
       if (randomStatDto) {
         const statType = statTypesLookup.byId[randomStatDto.typeId];
@@ -564,7 +558,7 @@ export class Gear implements Persistable<GearDtoV2> {
       characterId,
       typeId: type.id,
       stars,
-      randomStats: randomStats.map((randomStat) => randomStat?.toDto()),
+      randomStats: randomStats.map((randomStat) => randomStat.toDto()),
       augmentStats: augmentStats.map((augmentStat) => augmentStat.toDto()),
       isAugmented,
       version: 2,
@@ -603,12 +597,6 @@ export class Gear implements Persistable<GearDtoV2> {
     ).toNumber();
   }
 
-  private resetRandomStats() {
-    this.randomStats = [...Array(this._type.numberOfRandomStats)].map(
-      () => undefined,
-    );
-  }
-
   private resetRandomStatsAugment() {
     for (const randomStat of this.randomStats) {
       if (randomStat) {
@@ -616,6 +604,17 @@ export class Gear implements Persistable<GearDtoV2> {
       }
     }
   }
+}
+
+export interface GearDtoV2 extends Dto {
+  id: string;
+  typeId: GearName;
+  characterId: string;
+  stars: number;
+  randomStats: RandomStatDto[];
+  augmentStats?: AugmentStatDto[];
+  isAugmented?: boolean;
+  version: 2;
 }
 
 /** @deprecated Introduced Character. Gear must belong to a Character now */
@@ -627,15 +626,4 @@ export interface GearDtoV1 extends Dto {
   augmentStats?: AugmentStatDto[];
   isAugmented?: boolean;
   version: 1;
-}
-
-export interface GearDtoV2 extends Dto {
-  id: string;
-  typeId: GearName;
-  characterId: string;
-  stars: number;
-  randomStats: (RandomStatDto | undefined)[];
-  augmentStats?: AugmentStatDto[];
-  isAugmented?: boolean;
-  version: 2;
 }
