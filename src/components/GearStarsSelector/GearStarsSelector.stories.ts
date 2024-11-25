@@ -12,3 +12,17 @@ export default meta;
 type Story = StoryObj<typeof GearStarsSelector>;
 
 export const Initial: Story = {};
+
+export const ReadOnly: Story = {
+  args: {
+    stars: 2,
+    readOnly: true,
+  },
+};
+
+export const Small: Story = {
+  args: {
+    stars: 3,
+    size: "small",
+  },
+};

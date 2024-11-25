@@ -1,16 +1,20 @@
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Box, Tooltip } from "@mui/material";
 import groupBy from "lodash.groupby";
+import { useSnapshot } from "valtio";
 
-import { GearStarsSelector } from "../components/GearStarsSelector/GearStarsSelector";
-import type { Gear } from "../models/gear/gear";
+import type { Gear } from "../../models/gear/gear";
+import { GearStarsSelector } from "../GearStarsSelector/GearStarsSelector";
 
 export interface GearStarsProps {
-  gearSnap: Gear;
-  gearState: Gear;
+  gear: Gear;
+  readOnly?: boolean;
 }
 
-export function GearStars({ gearSnap, gearState }: GearStarsProps) {
+export function GearStars({ gear, readOnly }: GearStarsProps) {
+  const gearSnap = useSnapshot(gear);
+  const { stars } = gearSnap;
+
   const randomStatRollCombinations = gearSnap.getRandomStatRollCombinations();
 
   const possibleStars = Object.keys(
@@ -21,16 +25,18 @@ export function GearStars({ gearSnap, gearState }: GearStarsProps) {
     <Box>
       <GearStarsSelector
         stars={
-          gearSnap.stars ||
+          stars ||
           (randomStatRollCombinations.length === 1
             ? randomStatRollCombinations[0].stars
             : 0)
         }
         onStarsChange={(stars) => {
-          gearState.stars = stars;
+          gear.stars = stars;
         }}
+        readOnly={readOnly}
+        size="small"
       />
-      {gearSnap.stars === 0 && randomStatRollCombinations.length > 1 && (
+      {stars === 0 && randomStatRollCombinations.length > 1 && (
         <Tooltip
           title={
             <>
