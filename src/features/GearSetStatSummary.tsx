@@ -1,10 +1,10 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 
-import { ElementalStyledText } from "../components/ElementalStyledText/ElementalStyledText";
+import { ElementalStyledText } from "../components/presentational/ElementalStyledText/ElementalStyledText";
 import {
   NumericStringInteger,
   NumericStringPercentage2dp,
-} from "../components/NumericString/NumericString";
+} from "../components/presentational/NumericString/NumericString";
 import type { CoreElementalType } from "../definitions/elemental-type";
 import type { GearSet } from "../models/gear-set/gear-set";
 

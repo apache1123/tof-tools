@@ -2,7 +2,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-import { RandomSticker } from "../../components/RandomSticker/RandomSticker";
+import { RandomSticker } from "../../components/presentational/RandomSticker/RandomSticker";
 import { LogoWithTitle } from "../Logo/LogoWithTitle";
 
 export interface HeaderProps {

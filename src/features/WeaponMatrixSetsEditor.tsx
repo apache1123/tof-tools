@@ -4,9 +4,9 @@ import { useState } from "react";
 import {
   MatrixSet2pcDefinitionSelector,
   MatrixSet4pcDefinitionSelector,
-} from "../components/MatrixSetDefinitionSelector/MatrixSetDefinitionSelector";
-import { MatrixSetPiecesSelector } from "../components/MatrixSetPiecesSelector/MatrixSetPiecesSelector";
-import { MatrixStarsSelector } from "../components/MatrixStarsSelector/MatrixStarsSelector";
+} from "../components/presentational/MatrixSetDefinitionSelector/MatrixSetDefinitionSelector";
+import { MatrixSetPiecesSelector } from "../components/presentational/MatrixSetPiecesSelector/MatrixSetPiecesSelector";
+import { MatrixStarsSelector } from "../components/presentational/MatrixStarsSelector/MatrixStarsSelector";
 import { MatrixSet } from "../models/matrix-set";
 import { type MatrixSetPieces } from "../models/matrix-set-definition";
 import type { WeaponMatrixSets } from "../models/weapon-matrix-sets";

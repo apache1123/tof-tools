@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles";
 import * as React from "react";
 
 import { drawerWidth } from "../../../pages/_layout";
-import { Scrollbar } from "../../components/Scrollbar/Scrollbar";
+import { Scrollbar } from "../../components/presentational/Scrollbar/Scrollbar";
 import { LogoWithTitle } from "../Logo/LogoWithTitle";
 import { CharacterSelector } from "./CharacterSelector/CharacterSelector";
 import { MenuList } from "./MenuList/MenuList";

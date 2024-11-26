@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 import type { ReactNode } from "react";
 
-import { WeaponDefinitionSelector } from "../components/WeaponDefinitionSelector/WeaponDefinitionSelector";
-import { WeaponIcon } from "../components/WeaponIcon/WeaponIcon";
-import { WeaponStarsSelector } from "../components/WeaponStarsSelector/WeaponStarsSelector";
+import { WeaponDefinitionSelector } from "../components/presentational/WeaponDefinitionSelector/WeaponDefinitionSelector";
+import { WeaponIcon } from "../components/presentational/WeaponIcon/WeaponIcon";
+import { WeaponStarsSelector } from "../components/presentational/WeaponStarsSelector/WeaponStarsSelector";
 import type { Weapon as WeaponDefinition } from "../definitions/types/weapon/weapon";
 import type { Weapon } from "../models/weapon";
 import { WeaponMatrixSetsEditor } from "./WeaponMatrixSetsEditor";

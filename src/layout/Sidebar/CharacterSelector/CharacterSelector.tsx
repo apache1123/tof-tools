@@ -1,8 +1,7 @@
 // Referenced from https://github.com/minimal-ui-kit/material-kit-react
 
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
-import type {
-  ButtonBaseProps} from "@mui/material";
+import type { ButtonBaseProps } from "@mui/material";
 import {
   Box,
   MenuItem,
@@ -15,7 +14,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { ComingSoonIcon } from "../../../components/ComingSoonIcon/ComingSoonIcon";
+import { ComingSoonIcon } from "../../../components/presentational/ComingSoonIcon/ComingSoonIcon";
 import type { Character } from "../../../models/v4/character/character";
 import { charactersState } from "../../../states/states";
 

@@ -13,7 +13,7 @@ import BigNumber from "bignumber.js";
 import {
   NumericStringInteger,
   NumericStringPercentage2dp,
-} from "../../components/NumericString/NumericString";
+} from "../../components/presentational/NumericString/NumericString";
 import { statTypesLookup } from "../../definitions/stat-types";
 
 export function StatRanges() {
