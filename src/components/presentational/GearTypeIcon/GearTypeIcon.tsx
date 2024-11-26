@@ -6,20 +6,28 @@ import { normalCaseToKebabCase } from "../../../utils/string-utils";
 
 export interface GearTypeIconProps {
   gearName: GearName | undefined;
-  isTitan?: boolean;
   size?: number;
+  isTitan?: boolean;
+  monochromeBlack?: boolean;
+  monochromeWhite?: boolean;
 }
 
 export const GearTypeIcon = ({
   gearName,
-  isTitan = false,
   size = 80,
+  isTitan = false,
+  monochromeBlack,
+  monochromeWhite,
 }: GearTypeIconProps) => {
   if (gearName) {
     const imageName = normalCaseToKebabCase(gearName);
     const imagePath = isTitan
       ? `/icons/gear/titan/${imageName}.png`
-      : `/icons/gear/${imageName}.png`;
+      : monochromeBlack
+        ? `/icons/gear/monochrome/black/${imageName}.png`
+        : monochromeWhite
+          ? `/icons/gear/monochrome/white/${imageName}.png`
+          : `/icons/gear/${imageName}.png`;
 
     return (
       <Image
