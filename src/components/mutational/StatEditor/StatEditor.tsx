@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import type { ReactNode } from "react";
+import { useSnapshot } from "valtio";
 
 import type { RandomStat } from "../../../models/random-stat";
 import type { StatType } from "../../../models/stat-type";
@@ -11,18 +12,17 @@ import { StatTypeIcon } from "../../presentational/StatTypeIcon/StatTypeIcon";
 import { StatTypeSelector } from "../../presentational/StatTypeSelector/StatTypeSelector";
 
 export interface StatEditorProps {
-  statSnap: RandomStat;
   statState: RandomStat;
   possibleStatTypes: StatType[];
   isAugmented: boolean;
 }
 
 export const StatEditor = ({
-  statSnap,
   statState,
   possibleStatTypes = [],
   isAugmented,
 }: StatEditorProps) => {
+  const statSnap = useSnapshot(statState) as RandomStat;
   const statType = statSnap.type;
 
   return (
