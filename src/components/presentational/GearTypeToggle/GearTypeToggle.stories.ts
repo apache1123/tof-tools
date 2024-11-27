@@ -24,3 +24,19 @@ export const Multiple: Story = {
     exclusive: false,
   },
 };
+
+export const ExclusiveEnforceAtLeastOne: Story = {
+  args: {
+    values: ["Eyepiece"],
+    exclusive: true,
+    enforceAtLeastOne: true,
+  },
+};
+
+export const MultipleEnforceAtLeastOne: Story = {
+  args: {
+    values: ["Eyepiece"],
+    exclusive: false,
+    enforceAtLeastOne: true,
+  },
+};
