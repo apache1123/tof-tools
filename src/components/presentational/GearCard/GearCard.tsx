@@ -19,13 +19,14 @@ export function GearCard({ gear, onClick }: GearCardProps) {
         onClick={() => {
           if (onClick) onClick(gear);
         }}
+        sx={{ height: "100%", display: "flex", alignItems: "flex-start" }}
       >
         <Stack spacing={1}>
           {/* Header - type and stars */}
           <Stack
             direction="row"
             spacing={1}
-            sx={{ mr: 1, alignItems: "center" }}
+            sx={{ pr: 1, alignItems: "center" }}
           >
             <GearTypeIcon gearName={type.id} isTitan={isAugmented} />
             <GearStars gear={gear} readOnly />
