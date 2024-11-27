@@ -16,5 +16,6 @@ export const Initial: Story = {
     weaponName: "Nola",
     size: 100,
     elementalIcon: "Flame-Physical",
+    weaponType: "DPS",
   },
 };
