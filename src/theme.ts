@@ -86,12 +86,12 @@ theme = createTheme(theme, {
     }),
     primary: theme.palette.augmentColor({
       color: {
-        main: colors.teal.hex,
+        main: colors.flamingo.hex,
       },
     }),
     secondary: theme.palette.augmentColor({
       color: {
-        main: colors.pink.hex,
+        main: colors.lavender.hex,
       },
     }),
     success: theme.palette.augmentColor({
@@ -101,7 +101,7 @@ theme = createTheme(theme, {
     }),
     warning: theme.palette.augmentColor({
       color: {
-        main: colors.flamingo.hex,
+        main: colors.yellow.hex,
       },
     }),
     flame: theme.palette.augmentColor({

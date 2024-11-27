@@ -8,7 +8,10 @@ export function LogoWithTitle() {
       <Link href="/public" underline="none" sx={{ mt: "6px" }}>
         <Logo />
       </Link>
-      <Typography variant="h6" ml={1.5}>
+      <Typography
+        variant="h6"
+        sx={{ ml: 1.5, color: (theme) => theme.palette.primary.main }}
+      >
         ToF Tools
       </Typography>
     </Box>
