@@ -1,11 +1,11 @@
 import type { Identifiable } from "../../identifiable";
 
 export class Repository<T extends Identifiable> {
-  public constructor(items: T[]) {
-    this.addItems(items);
+  public constructor() {
+    this._items = new Map<string, T>();
   }
 
-  private readonly _items = new Map<string, T>();
+  protected _items: Map<string, T>;
 
   public get items() {
     return [...this._items.values()];

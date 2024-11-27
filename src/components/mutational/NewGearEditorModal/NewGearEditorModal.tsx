@@ -15,12 +15,14 @@ export interface NewGearEditorModalProps {
   characterId: string;
   open: boolean;
   onConfirm(gear: Gear): void;
+  onCancel(): void;
 }
 
 export function NewGearEditorModal({
   characterId,
   open,
   onConfirm,
+  onCancel,
 }: NewGearEditorModalProps) {
   const { newGear } = useSnapshot(state);
 
@@ -57,6 +59,7 @@ export function NewGearEditorModal({
           state.newGear = undefined;
         }
       }}
+      onClose={onCancel}
       maxWidth={false}
       fullWidth
     />

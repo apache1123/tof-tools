@@ -17,6 +17,8 @@ import {
   changelogStateKey,
   charactersState,
   charactersStateKey,
+  gearsState,
+  gearsStateKey,
   relicsState,
   relicsStateKey,
 } from "../src/states/states";
@@ -37,6 +39,7 @@ export default function MyApp(props: MyAppProps) {
 
   useLocalStoragePersistence(changelogState, changelogStateKey);
   useLocalStoragePersistence(charactersState, charactersStateKey);
+  useLocalStoragePersistence(gearsState, gearsStateKey);
   // useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
   // useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
   useLocalStoragePersistence(relicsState, relicsStateKey);

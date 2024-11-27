@@ -7,6 +7,7 @@ export class Resources extends Repository<Resource> {
     public readonly charge: Charge,
     otherResources: Resource[],
   ) {
-    super([charge, ...otherResources]);
+    super();
+    this.addItems([charge, ...otherResources]);
   }
 }

@@ -39,12 +39,14 @@ export function GearEditor({ gearState }: GearEditorProps) {
 
             return randomStat ? (
               <StatEditor
+                key={i}
                 statState={randomStat}
                 possibleStatTypes={possibleStatTypes}
                 isAugmented={isAugmented}
               />
             ) : (
               <EmptyStatEditor
+                key={i}
                 possibleStatTypes={possibleStatTypes}
                 onStatTypeChange={(statType) => {
                   gearState.randomStats[i] = new RandomStat(statType);

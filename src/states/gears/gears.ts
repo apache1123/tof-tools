@@ -5,17 +5,18 @@ import type { CharactersState } from "../characters/characters";
 import { PersistableRepository } from "../repository/persistable-repository";
 
 export class GearsState extends PersistableRepository<Gear, GearDtoV2> {
-  public constructor(
-    items: Gear[],
-    private readonly charactersState: CharactersState,
-  ) {
-    super(items);
+  public constructor(private readonly charactersState: CharactersState) {
+    super();
   }
 
   public getCurrentCharacterGears(): Gear[] {
     return this.items.filter(
       (gear) => gear.characterId === this.charactersState.selected?.id,
     );
+  }
+
+  public displayedGears(): Gear[] {
+    return this.getCurrentCharacterGears();
   }
 
   protected override createItemFromDto(itemDto: GearDtoV2): Gear {

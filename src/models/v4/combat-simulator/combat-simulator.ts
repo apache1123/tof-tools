@@ -174,7 +174,7 @@ export class CombatSimulator {
 
     const abilityTriggers: AbilityTrigger[] = [];
 
-    this.attackAbilities = new AttackAbilities([]);
+    this.attackAbilities = new AttackAbilities();
     for (const weapon of weapons) {
       for (const definition of weapon.attackDefinitions) {
         const attack = new AttackAbility(
@@ -226,7 +226,7 @@ export class CombatSimulator {
       { source: "relic", abilityDefinitions: relics.passiveRelicBuffs },
     ];
 
-    this.buffAbilities = new BuffAbilities([]);
+    this.buffAbilities = new BuffAbilities();
     for (const { source, abilityDefinitions } of buffAbilityDefinitions) {
       for (const abilityDef of abilityDefinitions) {
         const { id } = abilityDef;
@@ -331,10 +331,12 @@ export class CombatSimulator {
   private hasBegunCombat = false;
 
   private get abilities(): Repository<Ability> {
-    return new Repository([
+    const abilities = new Repository<Ability>();
+    abilities.addItems([
       ...this.attackAbilities.items,
       ...this.buffAbilities.items,
     ]);
+    return abilities;
   }
 
   public beginCombat() {

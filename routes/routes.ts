@@ -4,6 +4,10 @@ export interface Route {
 }
 
 export const routes = {
+  gears: {
+    label: "Gears",
+    path: "/gears",
+  },
   damageCalculator: {
     label: "Damage Calculator",
     path: "/damage-calculator",

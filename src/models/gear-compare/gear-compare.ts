@@ -63,7 +63,7 @@ export class GearCompare {
       { source: "team", abilityDefinitions: teamBuffs },
     ];
 
-    this.buffAbilities = new GearCompareBuffAbilities([]);
+    this.buffAbilities = new GearCompareBuffAbilities();
     for (const { source, abilityDefinitions } of buffAbilityDefinitions) {
       for (const abilityDef of abilityDefinitions) {
         const { id } = abilityDef;

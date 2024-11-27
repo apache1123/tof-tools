@@ -3,6 +3,7 @@ import { devtools } from "valtio/utils";
 
 import { ChangelogState } from "./changelog";
 import { createInitialCharactersState } from "./characters/create-initial-characters-state";
+import { GearsState } from "./gears/gears";
 // import { GearComparerState } from "./gear-comparer";
 // import { LoadoutsState } from "./loadouts";
 import { RelicsState } from "./relics";
@@ -15,6 +16,10 @@ devtools(changelogState, { name: "changelog" });
 export const charactersState = proxy(createInitialCharactersState());
 export const charactersStateKey = "characters";
 devtools(charactersState, { name: charactersStateKey });
+
+export const gearsState = proxy(new GearsState(charactersState));
+export const gearsStateKey = "gears";
+devtools(gearsState, { name: gearsStateKey });
 
 // export const userStatsState = proxy(new UserStatsState());
 // export const userStatsStateKey = "userStats";

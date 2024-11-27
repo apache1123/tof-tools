@@ -1,3 +1,5 @@
+import { proxyMap } from "valtio/utils";
+
 import type { Dto } from "../../models/dto";
 import type { Identifiable } from "../../models/identifiable";
 import type { Persistable } from "../../models/persistable";
@@ -10,6 +12,11 @@ export abstract class PersistableRepository<
   extends Repository<TItem>
   implements Persistable<PersistableRepositoryDto<TItemDto>>
 {
+  public constructor() {
+    super();
+    this._items = proxyMap();
+  }
+
   public copyFromDto(dto: PersistableRepositoryDto<TItemDto>): void {
     this.clear();
     this.addItems(
