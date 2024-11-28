@@ -1,4 +1,11 @@
-import { Box, Card, CardActionArea, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import type { Gear } from "../../../models/gear/gear";
 import { GearStars } from "../GearStars/GearStars";
@@ -21,34 +28,36 @@ export function GearCard({ gear, onClick }: GearCardProps) {
         }}
         sx={{ height: "100%", display: "flex", alignItems: "flex-start" }}
       >
-        <Stack spacing={1}>
-          {/* Header - type and stars */}
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{ pr: 1, alignItems: "center" }}
-          >
-            <GearTypeIcon gearName={type.id} isTitan={isAugmented} />
-            <GearStars gear={gear} readOnly />
-          </Stack>
+        <CardContent sx={{ p: 0 }}>
+          <Stack spacing={1}>
+            {/* Header - type and stars */}
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ pr: 1, alignItems: "center" }}
+            >
+              <GearTypeIcon gearName={type.id} isTitan={isAugmented} />
+              <GearStars gear={gear} readOnly />
+            </Stack>
 
-          {/* Random stats */}
-          <Box sx={{ p: 1 }}>
-            {randomStats.length ? (
-              <Stack spacing={1}>
-                <>
-                  {randomStats.map((randomStat, i) => (
-                    <RandomStatDisplay key={i} randomStat={randomStat} />
-                  ))}
-                </>
-              </Stack>
-            ) : (
-              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-                No random stats
-              </Typography>
-            )}
-          </Box>
-        </Stack>
+            {/* Random stats */}
+            <Box sx={{ p: 1 }}>
+              {randomStats.length ? (
+                <Stack spacing={1}>
+                  <>
+                    {randomStats.map((randomStat, i) => (
+                      <RandomStatDisplay key={i} randomStat={randomStat} />
+                    ))}
+                  </>
+                </Stack>
+              ) : (
+                <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                  No random stats
+                </Typography>
+              )}
+            </Box>
+          </Stack>
+        </CardContent>
       </CardActionArea>
     </Card>
   );
