@@ -14,7 +14,7 @@ import { RandomStatDisplay } from "../RandomStatDisplay/RandomStatDisplay";
 
 export interface GearCardProps {
   gear: Gear;
-  onClick?: (gear: Gear) => void;
+  onClick?: () => void;
 }
 
 export function GearCard({ gear, onClick }: GearCardProps) {
@@ -24,7 +24,7 @@ export function GearCard({ gear, onClick }: GearCardProps) {
     <Card sx={{ width: "fit-content" }}>
       <CardActionArea
         onClick={() => {
-          if (onClick) onClick(gear);
+          if (onClick) onClick();
         }}
         sx={{ height: "100%", display: "flex", alignItems: "flex-start" }}
       >

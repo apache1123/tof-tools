@@ -2,9 +2,11 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { GearEditorModal } from "../../components/mutational/GearEditorModal/GearEditorModal";
 import { NewGearEditorModal } from "../../components/mutational/NewGearEditorModal/NewGearEditorModal";
 import { GearFilter } from "../../components/presentational/GearFilter/GearFilter";
 import { GearList } from "../../components/presentational/GearList/GearList";
+import type { Gear } from "../../models/gear/gear";
 import type { GearsState } from "../../states/gears/gears-state";
 import { charactersState, gearsState } from "../../states/states";
 
@@ -14,6 +16,7 @@ export function Gears() {
   const { filter } = gearsSnap;
 
   const [isAddingNewGear, setIsAddingNewGear] = useState(false);
+  const [editingGear, setEditingGear] = useState<Gear | undefined>(undefined);
 
   return (
     selectedCharacter && (
@@ -34,7 +37,15 @@ export function Gears() {
             Add new gear
           </Button>
 
-          <GearList gears={gearsSnap.displayedGears()} />
+          <GearList
+            gears={gearsSnap.displayedGears()}
+            onClick={(id) => {
+              const gearState = gearsState.find(id);
+              if (gearState) {
+                setEditingGear(gearState);
+              }
+            }}
+          />
         </Stack>
 
         <NewGearEditorModal
@@ -48,6 +59,16 @@ export function Gears() {
             setIsAddingNewGear(false);
           }}
         />
+
+        {editingGear && (
+          <GearEditorModal
+            open={!!editingGear}
+            gearState={editingGear}
+            onClose={() => {
+              setEditingGear(undefined);
+            }}
+          />
+        )}
       </>
     )
   );

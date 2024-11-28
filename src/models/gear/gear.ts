@@ -30,6 +30,7 @@ import type {
 } from "../gear-random-stat-roll-combinations";
 import type { GearStatDifference } from "../gear-stat-difference";
 import type { GearType } from "../gear-type";
+import type { Id } from "../identifiable";
 import type { Persistable } from "../persistable";
 import type { RandomStatDto } from "../random-stat";
 import { RandomStat } from "../random-stat";
@@ -46,6 +47,8 @@ import {
   isResistancePercent,
 } from "../stat-type";
 import type { CharacterId } from "../v4/character/character";
+
+export type GearId = Id;
 
 export class Gear implements Persistable<GearDtoV2> {
   /**
@@ -64,13 +67,13 @@ export class Gear implements Persistable<GearDtoV2> {
 
   public randomStats: RandomStat[];
   public augmentStats: AugmentStat[];
-  private _id: string;
+  private _id: GearId;
   private _characterId: CharacterId;
   private _type: GearType;
   private _stars: number;
   private _isAugmented: boolean;
 
-  public get id() {
+  public get id(): GearId {
     return this._id;
   }
 
