@@ -57,6 +57,7 @@ export function StyledModal({
       aria-describedby={ariaModalDescription}
     >
       {modalTitle && <DialogTitle>{modalTitle}</DialogTitle>}
+      {!modalTitle && !hideClose && <DialogTitle></DialogTitle>}
       {!hideClose && (
         <IconButton
           aria-label="close"
