@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const plotti = {
   id: "Plotti",
-  displayName: "Plotti",
+  simulacrumDisplayName: "Plotti",
+  weaponDisplayName: "EP-7000 Skyfire",
   elementalIcon: "Flame-Physical",
   resonanceElements: ["Flame", "Physical"],
   gearResonanceElements: ["Flame", "Physical"],

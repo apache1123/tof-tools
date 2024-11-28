@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const nanYin = {
   id: "Nan Yin",
-  displayName: "Nan Yin",
+  simulacrumDisplayName: "Nan Yin",
+  weaponDisplayName: "Purple Bamboo",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
   gearResonanceElements: [],

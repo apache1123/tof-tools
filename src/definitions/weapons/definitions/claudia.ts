@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const claudia = {
   id: "Claudia",
-  displayName: "Claudia",
+  simulacrumDisplayName: "Claudia",
+  weaponDisplayName: "Guren Blade",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
   gearResonanceElements: ["Physical"],

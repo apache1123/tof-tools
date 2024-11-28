@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const rubilia = {
   id: "Rubilia",
-  displayName: "Rubilia",
+  simulacrumDisplayName: "Rubilia",
+  weaponDisplayName: "Lost Art",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
   gearResonanceElements: ["Volt"],

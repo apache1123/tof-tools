@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const roslyn = {
   id: "Roslyn",
-  displayName: "Roslyn",
+  simulacrumDisplayName: "Roslyn",
+  weaponDisplayName: "Calm Waves",
   elementalIcon: "Frost-Volt",
   resonanceElements: ["Frost", "Volt"],
   gearResonanceElements: ["Frost", "Volt"],

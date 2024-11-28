@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const gnonno = {
   id: "Gnonno",
-  displayName: "Gnonno",
+  simulacrumDisplayName: "Gnonno",
+  weaponDisplayName: "Mini Hurricane",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
   gearResonanceElements: ["Physical"],

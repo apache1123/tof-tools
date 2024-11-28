@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const fenrir = {
   id: "Fenrir",
-  displayName: "Fenrir",
+  simulacrumDisplayName: "Fenrir",
+  weaponDisplayName: "Gleipnir",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
   gearResonanceElements: ["Volt"],

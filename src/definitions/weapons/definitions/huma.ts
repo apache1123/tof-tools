@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const huma = {
   id: "Huma",
-  displayName: "Huma",
+  simulacrumDisplayName: "Huma",
+  weaponDisplayName: "Molten Shield V2",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
   gearResonanceElements: ["Flame"],

@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const yanuo = {
   id: "Yanuo",
-  displayName: "Yanuo",
+  simulacrumDisplayName: "Yanuo",
+  weaponDisplayName: "Wicked",
   elementalIcon: "Frost-Volt",
   resonanceElements: ["Frost", "Volt"],
   gearResonanceElements: ["Frost", "Volt"],

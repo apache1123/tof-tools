@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const nolaBase = {
   id: "Nola",
-  displayName: "Nola",
+  simulacrumDisplayName: "Nola",
+  weaponDisplayName: "Rumble",
   iconWeaponName: "Nola",
   elementalIcon: "Altered",
   resonanceElements: [],

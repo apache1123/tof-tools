@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const tianLang = {
   id: "Tian Lang",
-  displayName: "Tian Lang",
+  simulacrumDisplayName: "Tian Lang",
+  weaponDisplayName: "Thunderbreaker",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
   gearResonanceElements: ["Volt"],

@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const crow = {
   id: "Crow",
-  displayName: "Crow",
+  simulacrumDisplayName: "Crow",
+  weaponDisplayName: "Thunderblades",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
   gearResonanceElements: ["Volt"],

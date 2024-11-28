@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const umi = {
   id: "Umi",
-  displayName: "Umi",
+  simulacrumDisplayName: "Umi",
+  weaponDisplayName: "Mobius",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
   gearResonanceElements: ["Physical"],

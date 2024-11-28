@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const tsubasa = {
   id: "Tsubasa",
-  displayName: "Tsubasa",
+  simulacrumDisplayName: "Tsubasa",
+  weaponDisplayName: "Icewind Arrow",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

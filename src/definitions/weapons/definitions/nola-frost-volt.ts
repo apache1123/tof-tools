@@ -4,7 +4,8 @@ import { nolaBase } from "./nola-base";
 export const nolaFrostVolt = {
   ...nolaBase,
   id: "Nola (Frost-Volt)",
-  displayName: "Nola (Frost-Volt)",
+  simulacrumDisplayName: "Nola (Frost-Volt)",
+  weaponDisplayName: "Rumble (Frost-Volt)",
   elementalIcon: "Frost-Volt",
   resonanceElements: ["Frost", "Volt"],
   gearResonanceElements: ["Frost", "Volt"],

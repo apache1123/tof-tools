@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const shiro = {
   id: "Shiro",
-  displayName: "Shiro",
+  simulacrumDisplayName: "Shiro",
+  weaponDisplayName: "Chakram of the Seas",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
   gearResonanceElements: ["Physical"],

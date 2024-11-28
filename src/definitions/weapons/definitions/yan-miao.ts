@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const yanMiao = {
   id: "Yan Miao",
-  displayName: "Yan Miao",
+  simulacrumDisplayName: "Yan Miao",
+  weaponDisplayName: "Equilibrium",
   elementalIcon: "Physical-Flame",
   resonanceElements: ["Physical", "Flame"],
   gearResonanceElements: ["Physical", "Flame"],

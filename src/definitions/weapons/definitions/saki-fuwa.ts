@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const sakiFuwa = {
   id: "Saki Fuwa",
-  displayName: "Saki Fuwa",
+  simulacrumDisplayName: "Saki Fuwa",
+  weaponDisplayName: "Heartstream",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

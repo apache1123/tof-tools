@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const mingJing = {
   id: "Ming Jing",
-  displayName: "Ming Jing (Zeke)",
+  simulacrumDisplayName: "Ming Jing (Zeke)",
+  weaponDisplayName: "Onyx Tortoise",
   elementalIcon: "Physical-Flame",
   resonanceElements: ["Physical", "Flame"],
   gearResonanceElements: ["Physical", "Flame"],

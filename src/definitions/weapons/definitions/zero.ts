@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const zero = {
   id: "Zero",
-  displayName: "Zero",
+  simulacrumDisplayName: "Zero",
+  weaponDisplayName: "Negating Cube",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
   gearResonanceElements: ["Flame"],

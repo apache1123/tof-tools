@@ -4,7 +4,8 @@ import { nolaBase } from "./nola-base";
 export const nolaFlamePhysical = {
   ...nolaBase,
   id: "Nola (Flame-Physical)",
-  displayName: "Nola (Flame-Physical)",
+  simulacrumDisplayName: "Nola (Flame-Physical)",
+  weaponDisplayName: "Rumble (Flame-Physical)",
   elementalIcon: "Flame-Physical",
   resonanceElements: ["Flame", "Physical"],
   gearResonanceElements: ["Flame", "Physical"],

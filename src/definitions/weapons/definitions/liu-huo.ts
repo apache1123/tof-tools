@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const liuHuo = {
   id: "Liu Huo",
-  displayName: "Liu Huo",
+  simulacrumDisplayName: "Liu Huo",
+  weaponDisplayName: "Pine Comet",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
   gearResonanceElements: ["Flame"],

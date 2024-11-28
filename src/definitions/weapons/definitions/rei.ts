@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const rei = {
   id: "Rei",
-  displayName: "Rei",
+  simulacrumDisplayName: "Rei",
+  weaponDisplayName: "Salvation",
   elementalIcon: "Volt-Frost",
   resonanceElements: ["Volt", "Frost"],
   gearResonanceElements: ["Volt", "Frost"],

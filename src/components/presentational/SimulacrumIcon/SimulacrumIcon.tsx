@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import type { SimulacrumName } from "../../../definitions/simulacrum-traits";
+import type { SimulacrumName } from "../../../definitions/simulacra/simulacrum-name";
 import { normalCaseToKebabCase } from "../../../utils/string-utils";
 
 export interface SimulacrumIconProps {

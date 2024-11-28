@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const cocoritter = {
   id: "Cocoritter",
-  displayName: "Cocoritter",
+  simulacrumDisplayName: "Cocoritter",
+  weaponDisplayName: "Absolute Zero",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

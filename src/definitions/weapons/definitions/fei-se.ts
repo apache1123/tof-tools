@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const feiSe = {
   id: "Fei Se",
-  displayName: "Fei Se",
+  simulacrumDisplayName: "Fei Se",
+  weaponDisplayName: "Endless Bloom",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
   gearResonanceElements: ["Flame"],

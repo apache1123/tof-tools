@@ -1,4 +1,5 @@
 import type { Data } from "../../models/data";
+import type { SimulacrumName } from "../simulacra/simulacrum-name";
 import type { WeaponDefinition } from "../types/weapon/weapon-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
@@ -53,57 +54,12 @@ import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
 export type WeaponName =
-  | "Alyss"
-  | "Anka"
-  | "Annabella"
-  | "Asuka"
-  | "Asurada"
-  | "Brevey"
-  | "Claudia"
-  | "Cobalt-B"
-  | "Cocoritter"
-  | "Crow"
-  | "Fei Se"
-  | "Fenrir"
-  | "Fiona"
-  | "Frigg"
-  | "Gnonno"
-  | "Huang (Mimi)"
-  | "Huma"
-  | "Icarus"
-  | "Ji Yu"
-  | "King"
-  | "Lan"
-  | "Lin"
-  | "Ling Han"
-  | "Liu Huo"
-  | "Lyra"
-  | "Meryl"
-  | "Meryl Ironheart"
-  | "Ming Jing"
-  | "Nan Yin"
-  | "Nemesis"
-  | "Nola"
+  | SimulacrumName
   | "Nola (Altered)"
   | "Nola (Flame-Physical)"
   | "Nola (Frost-Volt)"
   | "Nola (Physical-Flame)"
-  | "Nola (Volt-Frost)"
-  | "Plotti"
-  | "Rei"
-  | "Roslyn"
-  | "Rubilia"
-  | "Ruby"
-  | "Saki Fuwa"
-  | "Samir"
-  | "Shiro"
-  | "Tian Lang"
-  | "Tsubasa"
-  | "Umi"
-  | "Yan Miao"
-  | "Yanuo"
-  | "Yu Lan"
-  | "Zero";
+  | "Nola (Volt-Frost)";
 
 export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   allIds: [

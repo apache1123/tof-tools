@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const frigg = {
   id: "Frigg",
-  displayName: "Frigg",
+  simulacrumDisplayName: "Frigg",
+  weaponDisplayName: "Balmung",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

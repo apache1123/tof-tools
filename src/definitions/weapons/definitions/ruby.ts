@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const ruby = {
   id: "Ruby",
-  displayName: "Ruby",
+  simulacrumDisplayName: "Ruby",
+  weaponDisplayName: "Spark",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
   gearResonanceElements: ["Flame"],

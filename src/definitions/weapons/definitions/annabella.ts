@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const annabella = {
   id: "Annabella",
-  displayName: "Annabella",
+  simulacrumDisplayName: "Annabella",
+  weaponDisplayName: "Clover Cross",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
   gearResonanceElements: ["Flame"],

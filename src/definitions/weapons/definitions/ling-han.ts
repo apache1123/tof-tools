@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const lingHan = {
   id: "Ling Han",
-  displayName: "Ling Han",
+  simulacrumDisplayName: "Ling Han",
+  weaponDisplayName: "Alabaster Tiger",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

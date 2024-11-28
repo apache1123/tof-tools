@@ -4,7 +4,7 @@ import { nolaBase } from "./nola-base";
 export const nolaAltered = {
   ...nolaBase,
   id: "Nola (Altered)",
-  displayName: "Nola (Altered)",
+  simulacrumDisplayName: "Nola (Altered)",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
   gearResonanceElements: [],

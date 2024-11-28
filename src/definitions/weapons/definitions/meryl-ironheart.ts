@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const merylIronheart = {
   id: "Meryl Ironheart",
-  displayName: "Meryl Ironheart",
+  simulacrumDisplayName: "Meryl Ironheart",
+  weaponDisplayName: "Siege Edge",
   elementalIcon: "Volt-Frost",
   resonanceElements: ["Volt", "Frost"],
   gearResonanceElements: ["Volt", "Frost"],

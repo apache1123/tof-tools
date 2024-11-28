@@ -1,15 +1,6 @@
-import type { Data } from "../models/data";
-import type { SimulacrumTrait } from "../models/v4/simulacrum-trait";
-import type { WeaponName } from "./weapons/weapon-definitions";
-
-export type SimulacrumName = Exclude<
-  WeaponName,
-  | "Nola (Altered)"
-  | "Nola (Flame-Physical)"
-  | "Nola (Frost-Volt)"
-  | "Nola (Physical-Flame)"
-  | "Nola (Volt-Frost)"
->;
+import type { Data } from "../../models/data";
+import type { SimulacrumTrait } from "../../models/v4/simulacrum-trait";
+import type { SimulacrumName } from "./simulacrum-name";
 
 export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
   allIds: [

@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const nemesis = {
   id: "Nemesis",
-  displayName: "Nemesis",
+  simulacrumDisplayName: "Nemesis",
+  weaponDisplayName: "Venus",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
   gearResonanceElements: ["Volt"],

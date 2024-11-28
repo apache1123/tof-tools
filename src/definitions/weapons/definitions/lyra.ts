@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const lyra = {
   id: "Lyra",
-  displayName: "Lyra",
+  simulacrumDisplayName: "Lyra",
+  weaponDisplayName: "Vesper",
   elementalIcon: "Physical",
   resonanceElements: ["Physical"],
   gearResonanceElements: ["Physical"],

@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const king = {
   id: "King",
-  displayName: "King",
+  simulacrumDisplayName: "King",
+  weaponDisplayName: "Scythe of the Crow",
   elementalIcon: "Flame",
   resonanceElements: ["Flame"],
   gearResonanceElements: ["Flame"],

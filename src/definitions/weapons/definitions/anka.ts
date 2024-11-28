@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const anka = {
   id: "Anka",
-  displayName: "Anka",
+  simulacrumDisplayName: "Anka",
+  weaponDisplayName: "Poppin' Stick",
   elementalIcon: "Physical-Flame",
   resonanceElements: ["Physical", "Flame"],
   gearResonanceElements: ["Physical", "Flame"],

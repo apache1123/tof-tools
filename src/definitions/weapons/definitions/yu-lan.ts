@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const yuLan = {
   id: "Yu Lan",
-  displayName: "Yu Lan",
+  simulacrumDisplayName: "Yu Lan",
+  weaponDisplayName: "Unity",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

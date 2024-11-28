@@ -32,8 +32,12 @@ export class Weapon implements Persistable<WeaponDtoV2> {
     return this._characterId;
   }
 
-  public get displayName() {
-    return this.definition.displayName;
+  public get simulacrumDisplayName() {
+    return this.definition.simulacrumDisplayName;
+  }
+
+  public get weaponDisplayName() {
+    return this.definition.weaponDisplayName;
   }
 
   public get stars() {

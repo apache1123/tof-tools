@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const brevey = {
   id: "Brevey",
-  displayName: "Brevey",
+  simulacrumDisplayName: "Brevey",
+  weaponDisplayName: "Pactcrest ☆ Metz",
   elementalIcon: "Volt-Frost",
   resonanceElements: ["Volt", "Frost"],
   gearResonanceElements: ["Volt", "Frost"],

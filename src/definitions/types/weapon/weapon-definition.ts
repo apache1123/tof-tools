@@ -22,7 +22,10 @@ import type { WeaponType } from "../../weapons/weapon-type";
 
 export interface WeaponDefinition {
   id: WeaponName;
-  displayName: string;
+  /** This is the name of the simulacrum the weapon is related to, as the weapon is usually referred to by the simulacrum name instead of the actual name of the weapon */
+  simulacrumDisplayName: string;
+  /** The actual name of the weapon, e.g. Shadoweave for Lin */
+  weaponDisplayName: string;
   /** Optional. The weapon's icon will be inferred from the id if not provided */
   iconWeaponName?: WeaponName;
   /** For displaying the weapon's elemental type icon */

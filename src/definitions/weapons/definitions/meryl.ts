@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const meryl = {
   id: "Meryl",
-  displayName: "Meryl",
+  simulacrumDisplayName: "Meryl",
+  weaponDisplayName: "Rosy Edge",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

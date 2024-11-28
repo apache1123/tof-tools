@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const icarus = {
   id: "Icarus",
-  displayName: "Icarus",
+  simulacrumDisplayName: "Icarus",
+  weaponDisplayName: "Precious One",
   elementalIcon: "Frost",
   resonanceElements: ["Frost"],
   gearResonanceElements: ["Frost"],

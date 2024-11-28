@@ -22,7 +22,7 @@ export const WeaponDefinitionSelector = ({
   return (
     <Autocomplete
       options={options}
-      getOptionLabel={(option) => option.displayName}
+      getOptionLabel={(option) => option.simulacrumDisplayName}
       renderInput={(params) => (
         <TextField {...params} label="Select weapon" variant="standard" />
       )}

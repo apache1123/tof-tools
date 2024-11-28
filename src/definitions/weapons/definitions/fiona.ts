@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const fiona = {
   id: "Fiona",
-  displayName: "Fiona",
+  simulacrumDisplayName: "Fiona",
+  weaponDisplayName: "Moonstar Bracelet",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
   gearResonanceElements: [],

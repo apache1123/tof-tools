@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const jiYu = {
   id: "Ji Yu",
-  displayName: "Ji Yu",
+  simulacrumDisplayName: "Ji Yu",
+  weaponDisplayName: "Freeflow",
   elementalIcon: "Flame-Physical",
   resonanceElements: ["Flame", "Physical"],
   gearResonanceElements: ["Flame", "Physical"],

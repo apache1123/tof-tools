@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const lin = {
   id: "Lin",
-  displayName: "Lin",
+  simulacrumDisplayName: "Lin",
+  weaponDisplayName: "Shadoweave",
   elementalIcon: "Altered",
   resonanceElements: ["Altered"],
   gearResonanceElements: [],

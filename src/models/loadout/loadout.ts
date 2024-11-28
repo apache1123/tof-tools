@@ -6,8 +6,8 @@ import type {
   CoreElementalType,
   WeaponElementalType,
 } from "../../definitions/elemental-type";
-import type { SimulacrumName } from "../../definitions/simulacrum-traits";
-import { simulacrumTraits } from "../../definitions/simulacrum-traits";
+import type { SimulacrumName } from "../../definitions/simulacra/simulacrum-name";
+import { simulacrumTraits } from "../../definitions/simulacra/simulacrum-traits";
 import { keysOf } from "../../utils/object-utils";
 import type { LoadoutStatsDto } from "../deprecated/loadout-stats";
 import type { Dto } from "../dto";

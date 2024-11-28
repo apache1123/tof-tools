@@ -2,7 +2,8 @@ import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const samir = {
   id: "Samir",
-  displayName: "Samir",
+  simulacrumDisplayName: "Samir",
+  weaponDisplayName: "Dual EM Stars",
   elementalIcon: "Volt",
   resonanceElements: ["Volt"],
   gearResonanceElements: ["Volt"],
