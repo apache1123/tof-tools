@@ -1,10 +1,15 @@
 import { weaponDefinitions } from "../../../../definitions/weapons/weapon-definitions";
-import { Weapon } from "../../../weapon";
+import { Weapon } from "../../../weapon/weapon";
+import type { CharacterId } from "../../character/character";
 import { EventManager } from "../../event/event-manager";
 import { CurrentTick } from "../../tick/current-tick";
 import { ActiveWeaponTimeline } from "../active-weapon-timeline";
 import { CombatSimulatorActiveWeapon } from "../combat-simulator-active-weapon";
 
+let characterId: CharacterId;
+let weapon1: Weapon;
+let weapon2: Weapon;
+let weapon3: Weapon;
 let weapons: Weapon[];
 let timeline: ActiveWeaponTimeline;
 let eventManager: EventManager;
@@ -12,12 +17,12 @@ let currentTick: CurrentTick;
 
 let activeWeapon: CombatSimulatorActiveWeapon;
 
-const weapon1 = new Weapon(weaponDefinitions.byId["Fenrir"]);
-const weapon2 = new Weapon(weaponDefinitions.byId["Huang (Mimi)"]);
-const weapon3 = new Weapon(weaponDefinitions.byId["Anka"]);
-
 describe("Switchable active weapon", () => {
   beforeEach(() => {
+    characterId = "characterId";
+    weapon1 = new Weapon(weaponDefinitions.byId["Fenrir"], characterId);
+    weapon2 = new Weapon(weaponDefinitions.byId["Huang (Mimi)"], characterId);
+    weapon3 = new Weapon(weaponDefinitions.byId["Anka"], characterId);
     weapons = [weapon1, weapon2, weapon3];
     timeline = new ActiveWeaponTimeline(10000);
     eventManager = new EventManager();

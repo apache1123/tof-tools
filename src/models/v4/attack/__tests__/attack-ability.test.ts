@@ -3,12 +3,13 @@ import { mock } from "jest-mock-extended";
 
 import type { AttackType } from "../../../../definitions/attack-type";
 import { weaponDefinitions } from "../../../../definitions/weapons/weapon-definitions";
-import { Weapon } from "../../../weapon";
+import { Weapon } from "../../../weapon/weapon";
 import type { AbilityId } from "../../ability/ability-id";
 import type { AbilityRequirements } from "../../ability/ability-requirements";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
 import { ActiveWeaponTimeline } from "../../active-weapon/active-weapon-timeline";
 import { CombatSimulatorActiveWeapon } from "../../active-weapon/combat-simulator-active-weapon";
+import type { CharacterId } from "../../character/character";
 import type { BaseDamageModifiersDefinition } from "../../damage-modifiers/base-damage-modifiers-definition";
 import type { FinalDamageModifiersDefinition } from "../../damage-modifiers/final-damage-modifiers-definition";
 import { EventManager } from "../../event/event-manager";
@@ -29,6 +30,7 @@ let updatesResources: AbilityUpdatesResource[];
 let timeline: AttackTimeline;
 let eventManager: EventManager;
 let currentTick: CurrentTick;
+let characterId: CharacterId;
 let weapon: Weapon;
 let elementalType: AttackElementalType;
 let type: AttackType;
@@ -57,7 +59,8 @@ describe("Attack ability", () => {
     timeline = new AttackTimeline(100000);
     eventManager = new EventManager();
     currentTick = new CurrentTick(0, 1000, eventManager);
-    weapon = new Weapon(weaponDefinitions.byId["Huang (Mimi)"]);
+    characterId = "characterId";
+    weapon = new Weapon(weaponDefinitions.byId["Huang (Mimi)"], characterId);
     elementalType = { defaultElementalType: "Altered" };
     type = "normal";
     isForegroundAttack = true;
@@ -65,7 +68,7 @@ describe("Attack ability", () => {
     finalDamageModifiers = mock<FinalDamageModifiersDefinition>();
     hitCount = mock<AttackHitCount>();
     doesNotTriggerEvents = false;
-    anotherWeapon = new Weapon(weaponDefinitions.byId["Meryl"]);
+    anotherWeapon = new Weapon(weaponDefinitions.byId["Meryl"], characterId);
     activeWeapon = new CombatSimulatorActiveWeapon(
       [weapon, anotherWeapon],
       new ActiveWeaponTimeline(100000),
@@ -136,7 +139,9 @@ describe("Attack ability", () => {
 
     describe("When the attack is a foreground attack and the attack's weapon is not the active weapon", () => {
       beforeEach(() => {
-        activeWeapon.switchTo(new Weapon(weaponDefinitions.byId["Meryl"]));
+        activeWeapon.switchTo(
+          new Weapon(weaponDefinitions.byId["Meryl"], characterId),
+        );
         currentTick.advance(); // Active weapon takes effect at the next tick
       });
 
@@ -216,7 +221,9 @@ describe("Attack ability", () => {
 
       describe("The attack's weapon is not the active weapon", () => {
         beforeEach(() => {
-          activeWeapon.switchTo(new Weapon(weaponDefinitions.byId["Meryl"]));
+          activeWeapon.switchTo(
+            new Weapon(weaponDefinitions.byId["Meryl"], characterId),
+          );
           currentTick.advance(); // Active weapon takes effect at the next tick
         });
 

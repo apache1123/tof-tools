@@ -4,7 +4,7 @@ import type { AttackType } from "../../../definitions/attack-type";
 import type { WeaponElementalType } from "../../../definitions/elemental-type";
 import { oneSecondDuration } from "../../../utils/time-utils";
 import type { Serializable } from "../../persistable";
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import { AbilityEvent } from "../ability/ability-event";
 import type { AbilityId } from "../ability/ability-id";
 import type { AbilityUpdatesResource } from "../ability/ability-updates-resource";

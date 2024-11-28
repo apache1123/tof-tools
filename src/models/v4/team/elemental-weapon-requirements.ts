@@ -38,7 +38,7 @@ export class ElementalWeaponRequirements implements Requirements {
     if (notElementalWeaponRequirement) {
       const numOfNotElementalTypeWeapons = weapons.filter(
         (weapon) =>
-          !weapon.definition.resonanceElements.includes(
+          !weapon.resonanceElements.includes(
             notElementalWeaponRequirement.notElement,
           ),
       ).length;

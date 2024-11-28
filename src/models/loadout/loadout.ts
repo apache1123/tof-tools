@@ -16,7 +16,7 @@ import { ElementalAttackFlats } from "../elemental-attack-flats";
 import { Gear } from "../gear/gear";
 import type { GearSet, GearSetDtoV2, GearSetDtoV3 } from "../gear-set/gear-set";
 import type { Persistable } from "../persistable";
-import type { Team, TeamDto } from "../team/team";
+import type { Team, TeamDtoV1, TeamDtoV2 } from "../team/team";
 import type { CharacterId } from "../v4/character/character";
 import type { SimulacrumTrait } from "../v4/simulacrum-trait";
 
@@ -221,7 +221,7 @@ export interface LoadoutDtoV2 extends Dto {
   id: string;
   characterId: string;
   name: string;
-  team: TeamDto;
+  team: TeamDtoV2;
   gearSet: GearSetDtoV3;
   simulacrumTraitId: SimulacrumName | undefined;
   useOverrideStats: boolean;
@@ -235,7 +235,7 @@ export interface LoadoutDtoV1 extends Dto {
   id: string;
   name: string;
   elementalType: CoreElementalType;
-  team: TeamDto;
+  team: TeamDtoV1;
   gearSet: GearSetDtoV2;
   loadoutStats: LoadoutStatsDto;
   simulacrumTraitId: SimulacrumName | undefined;

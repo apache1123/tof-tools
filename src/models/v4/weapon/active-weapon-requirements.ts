@@ -1,5 +1,5 @@
 import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import type { Requirements } from "../requirements/requirements";
 
 export class ActiveWeaponRequirements implements Requirements {

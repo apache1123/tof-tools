@@ -13,8 +13,8 @@ import type {
 import type { LoadoutDtoV1 } from "../../../models/loadout/loadout";
 import type { MatrixSetDto } from "../../../models/matrix-set";
 import type { RandomStatDto } from "../../../models/random-stat";
-import type { TeamDto } from "../../../models/team/team";
-import type { WeaponDto } from "../../../models/weapon";
+import type { TeamDtoV1 } from "../../../models/team/team";
+import type { WeaponDtoV1 } from "../../../models/weapon/weapon";
 import { filterOutUndefined } from "../../../utils/array-utils";
 import type { GearComparerGearsStateDto } from "../../deprecated/gear-comparer-gear";
 import type { GearComparerOptionsStateDto } from "../../deprecated/gear-comparer-options";
@@ -341,7 +341,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
       : undefined;
   }
 
-  function newTeamFromOld(oldTeam: TeamDto): TeamDto {
+  function newTeamFromOld(oldTeam: TeamDtoV1): TeamDtoV1 {
     const weapon1 = oldTeam.weapon1
       ? newWeaponFromOld(oldTeam.weapon1)
       : undefined;
@@ -363,7 +363,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newWeaponFromOld(oldWeapon: WeaponDto): WeaponDto {
+  function newWeaponFromOld(oldWeapon: WeaponDtoV1): WeaponDtoV1 {
     return {
       definitionId: oldWeapon.definitionId,
       stars: oldWeapon.stars,

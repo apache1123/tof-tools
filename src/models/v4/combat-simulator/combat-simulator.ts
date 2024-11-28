@@ -11,7 +11,7 @@ import type { AttackId } from "../../../definitions/types/attack/attack-ability"
 import type { BuffAbility as BuffAbilityDefinition } from "../../../definitions/types/buff/buff-ability";
 import type { Loadout } from "../../loadout/loadout";
 import type { Team } from "../../team/team";
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import type { Ability } from "../ability/ability";
 import { AbilityRequirements } from "../ability/ability-requirements";
 import { AbilityTrigger } from "../ability/ability-trigger";
@@ -111,7 +111,7 @@ export class CombatSimulator {
     const dodge = createResource(dodgeResourceDefinition);
     const endurance = createResource(enduranceDefinition);
     const customResources = team.weapons.flatMap((weapon) =>
-      weapon.resources.map((resourceDefinition) =>
+      weapon.resourceDefinitions.map((resourceDefinition) =>
         createResource(resourceDefinition),
       ),
     );
@@ -211,15 +211,16 @@ export class CombatSimulator {
     }[] = [
       {
         source: "weapon",
-        abilityDefinitions: weapons.flatMap((weapon) => weapon.buffs),
+        abilityDefinitions: weapons.flatMap((weapon) => weapon.buffDefinitions),
       },
       {
         source: "matrix",
-        abilityDefinitions: weapons.flatMap((weapon) =>
-          weapon.matrixSets
-            .getMatrixSets()
-            .flatMap((matrixSet) => matrixSet.buffs),
-        ),
+        abilityDefinitions: [], // TODO:
+        //   weapons.flatMap((weapon) =>
+        //   weapon.matrixSets
+        //     .getMatrixSets()
+        //     .flatMap((matrixSet) => matrixSet.buffs),
+        // ),
       },
       { source: "team", abilityDefinitions: teamBuffs },
       { source: "simulacra", abilityDefinitions: simulacrumTrait?.buffs ?? [] },

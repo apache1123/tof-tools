@@ -1,4 +1,4 @@
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import { Timeline } from "../timeline/timeline";
 import type { WeaponSwitchCooldownEvent } from "./weapon-switch-cooldown-event";
 

@@ -1,6 +1,6 @@
 import { weaponSwitchCooldownDuration } from "../../../definitions/active-weapon";
 import { consoleErrorDev } from "../../../utils/dev-utils";
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import type { EventManager } from "../event/event-manager";
 import type { CurrentTick } from "../tick/current-tick";
 import { TimeInterval } from "../time-interval/time-interval";

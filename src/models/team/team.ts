@@ -1,6 +1,3 @@
-import groupBy from "lodash.groupby";
-
-import type { ElementalResonance } from "../../definitions/elemental-resonance";
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 import { getWeaponDefinition } from "../../definitions/types/weapon/weapon";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
@@ -8,10 +5,15 @@ import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance
 import { filterOutUndefined } from "../../utils/array-utils";
 import type { Dto } from "../dto";
 import type { Persistable } from "../persistable";
-import type { WeaponDto } from "../weapon";
-import { Weapon } from "../weapon";
+import type { Character } from "../v4/character/character";
+import type { WeaponDtoV1, WeaponDtoV2 } from "../weapon/weapon";
+import { Weapon } from "../weapon/weapon";
 
-export class Team implements Persistable<TeamDto> {
+type WeaponSlot = Weapon | undefined;
+
+export class Team implements Persistable<TeamDtoV2> {
+  public constructor(private readonly character: Character) {}
+
   public weapon1: WeaponSlot;
   public weapon2: WeaponSlot;
   public weapon3: WeaponSlot;
@@ -22,37 +24,16 @@ export class Team implements Persistable<TeamDto> {
   }
   /** Returns all equipped weapon names */
   public get weaponNames(): WeaponName[] {
-    return this.weapons.map((weapon) => weapon.definition.id);
+    return this.weapons.map((weapon) => weapon.id);
   }
   /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
   public get weaponElementalTypes(): WeaponElementalType[] {
-    return this.weapons.flatMap(
-      (weapon) => weapon.definition.resonanceElements,
-    );
-  }
-
-  // TODO: remove this when old buff definitions are replaced by v4 buff definitions
-  /** This returns the presumed elemental resonance(s), depending on the number of weapons of each element. However, whether or not to activate elemental resonance buff(s) will depend on if the weapons themselves have the buff(s) available. */
-  public get elementalResonances(): ElementalResonance[] {
-    const elementalTypes = this.weapons.flatMap(
-      (weapon) => weapon.definition.resonanceElements,
-    );
-
-    const elementalTypeGroups = groupBy(elementalTypes);
-    const elementalResonances = (
-      Object.keys(elementalTypeGroups) as WeaponElementalType[]
-    ).flatMap((elementalType) =>
-      (elementalTypeGroups[elementalType]?.length ?? 0) > 1
-        ? elementalType
-        : [],
-    );
-
-    return elementalResonances.length ? elementalResonances : ["None"];
+    return this.weapons.flatMap((weapon) => weapon.resonanceElements);
   }
 
   public get weaponResonance(): WeaponResonance {
     const weaponTypes = this.weapons.flatMap((weapon) => {
-      return weapon.definition.type;
+      return weapon.type;
     });
 
     if (weaponTypes.filter((type) => type === "DPS").length > 1)
@@ -71,26 +52,26 @@ export class Team implements Persistable<TeamDto> {
     return "None";
   }
 
-  public copyFromDto(dto: TeamDto): void {
+  public copyFromDto(dto: TeamDtoV2): void {
     const {
       weapon1: weapon1Dto,
       weapon2: weapon2Dto,
       weapon3: weapon3Dto,
     } = dto;
 
+    const getWeaponFromDto = (weaponDto: WeaponDtoV2): Weapon => {
+      const weaponDefinition = getWeaponDefinition(weaponDto.definitionId);
+      const weapon = new Weapon(weaponDefinition, this.character.id);
+      weapon.copyFromDto(weaponDto);
+      return weapon;
+    };
+
     this.weapon1 = weapon1Dto ? getWeaponFromDto(weapon1Dto) : undefined;
     this.weapon2 = weapon2Dto ? getWeaponFromDto(weapon2Dto) : undefined;
     this.weapon3 = weapon3Dto ? getWeaponFromDto(weapon3Dto) : undefined;
-
-    function getWeaponFromDto(weaponDto: WeaponDto): Weapon {
-      const weaponDefinition = getWeaponDefinition(weaponDto.definitionId);
-      const weapon = new Weapon(weaponDefinition);
-      weapon.copyFromDto(weaponDto);
-      return weapon;
-    }
   }
 
-  public toDto(): TeamDto {
+  public toDto(): TeamDtoV2 {
     const { weapon1, weapon2, weapon3, weapons } = this;
 
     return {
@@ -98,18 +79,29 @@ export class Team implements Persistable<TeamDto> {
       weapon2: weapon2?.toDto(),
       weapon3: weapon3?.toDto(),
       weapons: weapons.map((weapon) => weapon.toDto()),
-      version: 1,
+      version: 2,
     };
   }
 }
 
-export interface TeamDto extends Dto {
-  weapon1: WeaponSlotDto;
-  weapon2: WeaponSlotDto;
-  weapon3: WeaponSlotDto;
-  weapons: WeaponDto[];
+export interface TeamDtoV2 extends Dto {
+  weapon1: WeaponSlotDtoV2;
+  weapon2: WeaponSlotDtoV2;
+  weapon3: WeaponSlotDtoV2;
+  weapons: WeaponDtoV2[];
+  version: 2;
+}
+
+/** @deprecated Deprecated during v4 rewrite */
+export interface TeamDtoV1 extends Dto {
+  weapon1: WeaponSlotDtoV1;
+  weapon2: WeaponSlotDtoV1;
+  weapon3: WeaponSlotDtoV1;
+  weapons: WeaponDtoV1[];
   version: 1;
 }
 
-type WeaponSlot = Weapon | undefined;
-type WeaponSlotDto = WeaponDto | undefined;
+type WeaponSlotDtoV2 = WeaponDtoV2 | undefined;
+
+/** @deprecated Deprecated during v4 rewrite */
+type WeaponSlotDtoV1 = WeaponDtoV1 | undefined;

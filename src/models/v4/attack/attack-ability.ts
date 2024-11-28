@@ -1,6 +1,6 @@
 import type { AttackType } from "../../../definitions/attack-type";
 import type { Serializable } from "../../persistable";
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import { Ability } from "../ability/ability";
 import type { AbilityId } from "../ability/ability-id";
 import type { AbilityRequirements } from "../ability/ability-requirements";

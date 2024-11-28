@@ -1,4 +1,4 @@
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import type { ActiveWeapon } from "./active-weapon";
 
 export class GearComparerActiveWeapon implements ActiveWeapon {

@@ -28,7 +28,7 @@ import type { Target } from "../v4/target/target";
 import { ElementalWeaponRequirements } from "../v4/team/elemental-weapon-requirements";
 import { TeamRequirements } from "../v4/team/team-requirements";
 import { WeaponResonanceRequirements } from "../v4/team/weapon-resonance-requirements";
-import { Weapon } from "../weapon";
+import { Weapon } from "../weapon/weapon";
 import { GearCompareBuffAbilities } from "./gear-compare-buff-abilities";
 import { GearCompareBuffAbility } from "./gear-compare-buff-ability";
 import { GearCompareBuffAbilityRequirements } from "./gear-compare-buff-ability-requirements";
@@ -50,15 +50,16 @@ export class GearCompare {
     }[] = [
       {
         source: "weapon",
-        abilityDefinitions: weapons.flatMap((weapon) => weapon.buffs),
+        abilityDefinitions: weapons.flatMap((weapon) => weapon.buffDefinitions),
       },
       {
         source: "matrix",
-        abilityDefinitions: weapons.flatMap((weapon) =>
-          weapon.matrixSets
-            .getMatrixSets()
-            .flatMap((matrixSet) => matrixSet.buffs),
-        ),
+        abilityDefinitions: [], // TODO:
+        //   weapons.flatMap((weapon) =>
+        //   weapon.matrixSets
+        //     .getMatrixSets()
+        //     .flatMap((matrixSet) => matrixSet.buffs),
+        // ),
       },
       { source: "team", abilityDefinitions: teamBuffs },
     ];
@@ -217,7 +218,7 @@ export class GearCompare {
     // It doesn't matter what weapon is used as long as the element of the attack hit matches and all buffs apply
     const weapon = this.basisLoadout.team.weapons.length
       ? this.basisLoadout.team.weapons[0]
-      : new Weapon(weaponDefinitions.byId["Cocoritter"]);
+      : new Weapon(weaponDefinitions.byId["Cocoritter"], this.character.id);
 
     // Use a mock attack hit that matches the element and applies all buffs
     return {

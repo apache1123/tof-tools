@@ -4,7 +4,7 @@ import { mock } from "jest-mock-extended";
 import type { AttackType } from "../../../../definitions/attack-type";
 import type { WeaponElementalType } from "../../../../definitions/elemental-type";
 import type { Weapon as WeaponDefinition } from "../../../../definitions/types/weapon/weapon";
-import { Weapon } from "../../../weapon";
+import { Weapon } from "../../../weapon/weapon";
 import type { AbilityId } from "../../ability/ability-id";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
 import type { BaseDamageModifiersDefinition } from "../../damage-modifiers/base-damage-modifiers-definition";
@@ -60,7 +60,7 @@ describe("Attack event", () => {
     finalDamageModifiersDefinition = {};
     type = "normal";
     hitCount = { numberOfHitsFixed: 3 };
-    weapon = new Weapon({ id: "Meryl" } as WeaponDefinition);
+    weapon = new Weapon({ id: "Meryl" } as WeaponDefinition, "characterId");
 
     resetSut();
   });

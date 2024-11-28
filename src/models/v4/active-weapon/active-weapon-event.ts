@@ -1,4 +1,4 @@
-import type { Weapon } from "../../weapon";
+import type { Weapon } from "../../weapon/weapon";
 import type { TimeInterval } from "../time-interval/time-interval";
 import { TimelineEvent } from "../timeline/timeline-event";
 

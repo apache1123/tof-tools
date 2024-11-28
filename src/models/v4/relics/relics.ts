@@ -7,8 +7,6 @@ import type { Persistable } from "../../persistable";
 import type { RelicBuffDefinition } from "./relic-buff-definition";
 
 export class Relics implements Persistable<RelicsDto> {
-  private readonly _relicStars: DataById<RelicName, number>;
-
   public constructor() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore all keys set below
@@ -18,14 +16,10 @@ export class Relics implements Persistable<RelicsDto> {
     });
   }
 
+  private readonly _relicStars: DataById<RelicName, number>;
+
   public get relicStars(): Readonly<DataById<RelicName, number>> {
     return this._relicStars;
-  }
-  public setRelicStars(relicName: RelicName, stars: number) {
-    this._relicStars[relicName] = Math.min(
-      Math.max(Math.floor(stars), 0),
-      maxRelicStars,
-    );
   }
 
   /** Activated "passive relic dmg buffs" from all relics  */
@@ -49,6 +43,13 @@ export class Relics implements Persistable<RelicsDto> {
       }
       return [];
     });
+  }
+
+  public setRelicStars(relicName: RelicName, stars: number) {
+    this._relicStars[relicName] = Math.min(
+      Math.max(Math.floor(stars), 0),
+      maxRelicStars,
+    );
   }
 
   public setAllRelicsToMaxStars() {

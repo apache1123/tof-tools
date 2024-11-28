@@ -5,7 +5,7 @@ import { routes } from "../../../routes/routes";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponBreakpointStars } from "../../definitions/weapons/weapon-stars";
 import type { CombatSimulatorSnapshot } from "../../models/v4/combat-simulator/combat-simulator-snapshot";
-import type { WeaponDto } from "../../models/weapon";
+import type { WeaponDtoV1 } from "../../models/weapon/weapon";
 import { toShortNumberFormat } from "../../utils/locale-utils";
 
 export interface SimulatorResult {
@@ -25,7 +25,7 @@ export interface CombatSimulatorResultComparisonProps {
 function starsToString(stars: number) {
   return `${stars} ⭐`;
 }
-function weaponsToString(weapons: WeaponDto[]) {
+function weaponsToString(weapons: WeaponDtoV1[]) {
   // TODO: should the dto return a display name
   return weapons
     .map((weapon) => `${weapon.definitionId} ${starsToString(weapon.stars)}`)
