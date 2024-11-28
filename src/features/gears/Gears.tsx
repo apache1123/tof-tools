@@ -17,23 +17,25 @@ export function Gears() {
 
   return (
     selectedCharacter && (
-      <Stack sx={{ gap: 2 }}>
-        <GearFilter
-          filter={filter}
-          onChange={(filter) => {
-            gearsState.filter = filter;
-          }}
-        />
-        <Button
-          variant="contained"
-          onClick={() => {
-            setIsAddingNewGear(true);
-          }}
-        >
-          Add new gear
-        </Button>
+      <>
+        <Stack sx={{ gap: 2 }}>
+          <GearFilter
+            filter={filter}
+            onChange={(filter) => {
+              gearsState.filter = filter;
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={() => {
+              setIsAddingNewGear(true);
+            }}
+          >
+            Add new gear
+          </Button>
 
-        <GearList gears={gearsSnap.displayedGears()} />
+          <GearList gears={gearsSnap.displayedGears()} />
+        </Stack>
 
         <NewGearEditorModal
           characterId={selectedCharacter.id}
@@ -46,7 +48,7 @@ export function Gears() {
             setIsAddingNewGear(false);
           }}
         />
-      </Stack>
+      </>
     )
   );
 }
