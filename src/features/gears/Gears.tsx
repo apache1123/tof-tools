@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio";
 import { NewGearEditorModal } from "../../components/mutational/NewGearEditorModal/NewGearEditorModal";
 import { GearFilter } from "../../components/presentational/GearFilter/GearFilter";
 import { GearList } from "../../components/presentational/GearList/GearList";
-import type { GearsState } from "../../states/gears/gears";
+import type { GearsState } from "../../states/gears/gears-state";
 import { charactersState, gearsState } from "../../states/states";
 
 export function Gears() {

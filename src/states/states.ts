@@ -3,7 +3,7 @@ import { devtools } from "valtio/utils";
 
 import { ChangelogState } from "./changelog";
 import { createInitialCharactersState } from "./characters/create-initial-characters-state";
-import { GearsState } from "./gears/gears";
+import { GearsState } from "./gears/gears-state";
 // import { GearComparerState } from "./gear-comparer";
 // import { LoadoutsState } from "./loadouts";
 import { RelicsState } from "./relics";

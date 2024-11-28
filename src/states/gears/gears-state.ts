@@ -2,7 +2,7 @@ import { gearTypesLookup } from "../../definitions/gear-types";
 import type { GearDtoV2 } from "../../models/gear/gear";
 import { Gear } from "../../models/gear/gear";
 import type { Persistable } from "../../models/persistable";
-import type { CharactersState } from "../characters/characters";
+import type { CharactersState } from "../characters/characters-state";
 import type { PersistableRepositoryDto } from "../repository/persistable-repository";
 import { PersistableRepository } from "../repository/persistable-repository";
 import type { GearFilter } from "./gear-filter";

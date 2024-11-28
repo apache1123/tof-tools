@@ -1,4 +1,4 @@
-import { CharactersState } from "./characters";
+import { CharactersState } from "./characters-state";
 
 export function createInitialCharactersState() {
   const charactersState = new CharactersState();
