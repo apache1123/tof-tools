@@ -17,3 +17,7 @@ const weapon = new Weapon(weaponDefinitions.byId["King"], "characterId");
 export const Default: Story = {
   args: { weapon },
 };
+
+export const CustomWidth: Story = {
+  args: { weapon, sx: { width: 380 } },
+};
