@@ -78,6 +78,10 @@ export class Weapon implements Persistable<WeaponDtoV2> {
     return this.definition.type;
   }
 
+  public get elementalIcon() {
+    return this.definition.elementalIcon;
+  }
+
   /** Resources that can be activated for this weapon */
   public get resourceDefinitions() {
     return this.definition.resources.filter((resourceDefinition) =>

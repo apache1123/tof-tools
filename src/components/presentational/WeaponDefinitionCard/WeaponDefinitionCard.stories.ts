@@ -14,9 +14,9 @@ type Story = StoryObj<typeof WeaponDefinitionCard>;
 
 const definition = weaponDefinitions.byId["King"];
 export const Default: Story = {
-  args: { definition },
+  args: { ...definition },
 };
 
 export const CustomWidth: Story = {
-  args: { definition, sx: { width: 300 } },
+  args: { ...definition, sx: { width: 300 } },
 };

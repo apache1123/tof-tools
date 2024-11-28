@@ -4,6 +4,7 @@ import { maxNumOfWeaponStars } from "../../../definitions/weapons/weapon-stars";
 
 export interface WeaponStarsSelectorProps {
   stars: number;
+  readOnly?: boolean;
   disabled?: boolean;
 
   onStarsChange?(value: number): void;
@@ -11,6 +12,7 @@ export interface WeaponStarsSelectorProps {
 
 export function WeaponStarsSelector({
   stars,
+  readOnly,
   onStarsChange,
   disabled,
 }: WeaponStarsSelectorProps) {
@@ -21,6 +23,7 @@ export function WeaponStarsSelector({
         if (onStarsChange) onStarsChange(value ?? 0);
       }}
       max={maxNumOfWeaponStars}
+      readOnly={readOnly}
       disabled={disabled}
     />
   );

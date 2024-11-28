@@ -1,25 +1,22 @@
 import type { SxProps } from "@mui/material";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Card, CardActionArea, CardContent } from "@mui/material";
 
-import type { WeaponDefinition } from "../../../definitions/types/weapon/weapon-definition";
-import { ElementalTypeIcon } from "../ElementalTypeIcon/ElementalTypeIcon";
-import { WeaponIcon } from "../WeaponIcon/WeaponIcon";
-import { WeaponTypeIcon } from "../WeaponTypeIcon/WeaponTypeIcon";
+import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionCardContentProps } from "./WeaponDefinitionCardContent";
+import { WeaponDefinitionCardContent } from "./WeaponDefinitionCardContent";
 
-export interface WeaponDefinitionCardProps {
-  definition: WeaponDefinition;
+export interface WeaponDefinitionCardProps
+  extends WeaponDefinitionCardContentProps {
   sx?: SxProps;
-  onClick?(definition: WeaponDefinition): void;
+  onClick?(id: WeaponName): void;
 }
 
 export function WeaponDefinitionCard({
-  definition,
+  id,
+  weaponDisplayName,
+  simulacrumDisplayName,
+  elementalIcon,
+  type,
   sx,
   onClick,
 }: WeaponDefinitionCardProps) {
@@ -27,7 +24,7 @@ export function WeaponDefinitionCard({
     <Card sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
         onClick={() => {
-          if (onClick) onClick(definition);
+          if (onClick) onClick(id);
         }}
         sx={{
           height: "100%",
@@ -37,28 +34,13 @@ export function WeaponDefinitionCard({
         }}
       >
         <CardContent sx={{ p: 0 }}>
-          <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
-            <WeaponIcon weaponName={definition.id} />
-
-            <Stack sx={{ pr: 2 }}>
-              <Typography variant="body1">
-                {definition.weaponDisplayName}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                gutterBottom
-                sx={{ color: (theme) => theme.palette.text.secondary }}
-              >
-                {definition.simulacrumDisplayName}
-              </Typography>
-
-              <Stack direction="row">
-                <ElementalTypeIcon elementalType={definition.elementalIcon} />
-                <WeaponTypeIcon type={definition.type} />
-              </Stack>
-            </Stack>
-          </Stack>
+          <WeaponDefinitionCardContent
+            id={id}
+            weaponDisplayName={weaponDisplayName}
+            simulacrumDisplayName={simulacrumDisplayName}
+            elementalIcon={elementalIcon}
+            type={type}
+          />
         </CardContent>
       </CardActionArea>
     </Card>
