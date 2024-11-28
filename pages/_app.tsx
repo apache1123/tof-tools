@@ -21,6 +21,8 @@ import {
   gearsStateKey,
   relicsState,
   relicsStateKey,
+  weaponsState,
+  weaponsStateKey,
 } from "../src/states/states";
 import theme from "../src/theme";
 import Layout from "./_layout";
@@ -40,6 +42,7 @@ export default function MyApp(props: MyAppProps) {
   useLocalStoragePersistence(changelogState, changelogStateKey);
   useLocalStoragePersistence(charactersState, charactersStateKey);
   useLocalStoragePersistence(gearsState, gearsStateKey);
+  useLocalStoragePersistence(weaponsState, weaponsStateKey);
   // useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
   // useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
   useLocalStoragePersistence(relicsState, relicsStateKey);

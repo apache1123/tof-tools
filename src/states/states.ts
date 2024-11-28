@@ -7,6 +7,7 @@ import { GearsState } from "./gears/gears-state";
 // import { GearComparerState } from "./gear-comparer";
 // import { LoadoutsState } from "./loadouts";
 import { RelicsState } from "./relics";
+import { WeaponsState } from "./weapons/weapons-state";
 // import { RollSimulatorState } from "./roll-simulator";
 
 export const changelogState = proxy(new ChangelogState());
@@ -21,9 +22,9 @@ export const gearsState = proxy(new GearsState(charactersState));
 export const gearsStateKey = "gears";
 devtools(gearsState, { name: gearsStateKey });
 
-// export const userStatsState = proxy(new UserStatsState());
-// export const userStatsStateKey = "userStats";
-// devtools(userStatsState, { name: userStatsStateKey });
+export const weaponsState = proxy(new WeaponsState(charactersState));
+export const weaponsStateKey = "weapons";
+devtools(weaponsState, { name: weaponsStateKey });
 
 // export const loadoutsState = proxy(new LoadoutsState(userStatsState));
 // export const loadoutsStateKey = "loadouts";
