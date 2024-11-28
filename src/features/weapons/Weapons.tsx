@@ -33,7 +33,15 @@ export function Weapons() {
           >
             Add weapon
           </Button>
-          <WeaponList weapons={weaponsSnap.getCurrentCharacterWeapons()} />
+          <WeaponList
+            weapons={weaponsSnap.getCurrentCharacterWeapons()}
+            onClick={(id) => {
+              const weaponState = weaponsState.find(id);
+              if (weaponState) {
+                setEditingWeapon(weaponState);
+              }
+            }}
+          />
         </Stack>
 
         <WeaponDefinitionSelectorModal

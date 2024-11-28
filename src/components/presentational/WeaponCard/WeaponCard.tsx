@@ -8,7 +8,7 @@ import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector"
 export interface WeaponCardProps {
   weapon: Weapon;
   sx?: SxProps;
-  onClick?(weapon: Weapon): void;
+  onClick?(): void;
 }
 
 export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
@@ -26,7 +26,7 @@ export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
     <Card sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
         onClick={() => {
-          if (onClick) onClick(weapon);
+          if (onClick) onClick();
         }}
         sx={{
           height: "100%",
