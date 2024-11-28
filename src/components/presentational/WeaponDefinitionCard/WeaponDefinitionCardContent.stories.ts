@@ -16,3 +16,7 @@ const definition = weaponDefinitions.byId["King"];
 export const Default: Story = {
   args: { ...definition },
 };
+
+export const NolaVariation: Story = {
+  args: { ...weaponDefinitions.byId["Nola (Volt-Frost)"] },
+};

@@ -14,6 +14,7 @@ export function WeaponCard({ weapon, onClick }: WeaponCardProps) {
     id,
     weaponDisplayName,
     simulacrumDisplayName,
+    iconWeaponName,
     elementalIcon,
     type,
     stars,
@@ -33,6 +34,7 @@ export function WeaponCard({ weapon, onClick }: WeaponCardProps) {
               id={id}
               weaponDisplayName={weaponDisplayName}
               simulacrumDisplayName={simulacrumDisplayName}
+              iconWeaponName={iconWeaponName}
               elementalIcon={elementalIcon}
               type={type}
             />

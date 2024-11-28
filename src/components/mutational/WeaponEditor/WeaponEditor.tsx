@@ -14,6 +14,7 @@ export function WeaponEditor({ weaponState }: WeaponEditorProps) {
     id,
     weaponDisplayName,
     simulacrumDisplayName,
+    iconWeaponName,
     elementalIcon,
     type,
     stars,
@@ -25,6 +26,7 @@ export function WeaponEditor({ weaponState }: WeaponEditorProps) {
         id={id}
         weaponDisplayName={weaponDisplayName}
         simulacrumDisplayName={simulacrumDisplayName}
+        iconWeaponName={iconWeaponName}
         elementalIcon={elementalIcon}
         type={type}
       />

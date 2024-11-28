@@ -40,6 +40,10 @@ export class Weapon implements Persistable<WeaponDtoV2> {
     return this.definition.weaponDisplayName;
   }
 
+  public get iconWeaponName() {
+    return this.definition.iconWeaponName;
+  }
+
   public get stars() {
     return this._stars;
   }
