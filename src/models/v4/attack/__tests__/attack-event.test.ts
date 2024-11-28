@@ -3,7 +3,7 @@ import { mock } from "jest-mock-extended";
 
 import type { AttackType } from "../../../../definitions/attack-type";
 import type { WeaponElementalType } from "../../../../definitions/elemental-type";
-import type { Weapon as WeaponDefinition } from "../../../../definitions/types/weapon/weapon";
+import type { WeaponDefinition } from "../../../../definitions/types/weapon/weapon-definition";
 import { Weapon } from "../../../weapon/weapon";
 import type { AbilityId } from "../../ability/ability-id";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";

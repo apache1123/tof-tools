@@ -1,4 +1,4 @@
-import type { Weapon } from "../../types/weapon/weapon";
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const mimi = {
   id: "Huang (Mimi)",
@@ -30,4 +30,4 @@ export const mimi = {
   discharges: [],
   buffs: [],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

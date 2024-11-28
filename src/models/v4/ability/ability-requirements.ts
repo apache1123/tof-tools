@@ -1,4 +1,4 @@
-import type { BuffId } from "../../../definitions/types/buff/buff-ability";
+import type { BuffId } from "../../../definitions/types/buff/buff-ability-definition";
 import type { Team } from "../../team/team";
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";

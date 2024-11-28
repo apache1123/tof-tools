@@ -1,4 +1,4 @@
-import type { BuffAbility as BuffAbilityDefinition } from "../definitions/types/buff/buff-ability";
+import type { BuffAbilityDefinition } from "../definitions/types/buff/buff-ability-definition";
 import type { Dto } from "./dto";
 import type { MatrixSetName } from "./matrix-set-definition";
 import {
@@ -9,13 +9,13 @@ import type { Persistable } from "./persistable";
 import { hasMetStarRequirement } from "./v4/star-requirement";
 
 export class MatrixSet implements Persistable<MatrixSetDto> {
-  public definition: MatrixSetDefinition;
-  public stars: number;
-
   public constructor(definition: MatrixSetDefinition) {
     this.definition = definition;
     this.stars = 0;
   }
+
+  public definition: MatrixSetDefinition;
+  public stars: number;
 
   public get definitionId() {
     return this.definition.id;

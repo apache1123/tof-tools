@@ -1,6 +1,6 @@
-import type {BuffId} from "../../../../definitions/types/buff/buff-ability";
-import type {HasActiveBuffs} from "../has-active-buffs";
-import type {ActiveBuff} from "./active-buff";
+import type { BuffId } from "../../../../definitions/types/buff/buff-ability-definition";
+import type { HasActiveBuffs } from "../has-active-buffs";
+import type { ActiveBuff } from "./active-buff";
 
 /** All currently active buffs */
 export class ActiveBuffs {

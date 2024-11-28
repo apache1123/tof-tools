@@ -5,10 +5,10 @@ import {
 } from "../../../definitions/resources";
 import { teamBuffs } from "../../../definitions/team-buffs";
 import { tickDuration } from "../../../definitions/tick";
-import type { Ability as AbilityDefinition } from "../../../definitions/types/ability/ability";
-import type { AbilityRequirements as AbilityRequirementsDefinition } from "../../../definitions/types/ability/ability-requirements";
-import type { AttackId } from "../../../definitions/types/attack/attack-ability";
-import type { BuffAbility as BuffAbilityDefinition } from "../../../definitions/types/buff/buff-ability";
+import type { AbilityDefinition } from "../../../definitions/types/ability/ability-definition";
+import type { AbilityRequirementsDefinition } from "../../../definitions/types/ability/ability-requirements-definition";
+import type { AttackId } from "../../../definitions/types/attack/attack-ability-definition";
+import type { BuffAbilityDefinition as BuffAbilityDefinition } from "../../../definitions/types/buff/buff-ability-definition";
 import type { Loadout } from "../../loadout/loadout";
 import type { Team } from "../../team/team";
 import type { Weapon } from "../../weapon/weapon";

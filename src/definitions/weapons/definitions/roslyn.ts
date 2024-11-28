@@ -1,4 +1,4 @@
-import type { Weapon } from "../../types/weapon/weapon";
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const roslyn = {
   id: "Roslyn",
@@ -56,4 +56,4 @@ export const roslyn = {
   discharges: [],
   buffs: [],
   resources: [],
-} as const satisfies Weapon;
+} as const satisfies WeaponDefinition;

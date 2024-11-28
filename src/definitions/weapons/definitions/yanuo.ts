@@ -1,4 +1,4 @@
-import type { Weapon } from "../../types/weapon/weapon";
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const yanuo = {
   id: "Yanuo",
@@ -42,4 +42,4 @@ export const yanuo = {
   discharges: [],
   buffs: [],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

@@ -1,6 +1,6 @@
 import type { WeaponElementalType } from "../../../../definitions/elemental-type";
-import type { BaseAttackBuff as BaseAttackBuffDefinition } from "../../../../definitions/types/buff/base-attack-buff";
-import type { BuffId } from "../../../../definitions/types/buff/buff-ability";
+import type { BaseAttackBuffDefinition as BaseAttackBuffDefinition } from "../../../../definitions/types/buff/base-attack-buff-definition";
+import type { BuffId } from "../../../../definitions/types/buff/buff-ability-definition";
 import type { AttackHit } from "../../event/messages/attack-hit";
 import { Buff } from "../buff";
 

@@ -1,8 +1,8 @@
 import type { AbilityUpdatesResource } from "../../../models/v4/ability/ability-updates-resource";
-import type { AbilityRequirements } from "./ability-requirements";
+import type { AbilityRequirementsDefinition } from "./ability-requirements-definition";
 import type { AbilityTriggeredBy } from "./ability-triggered-by";
 
-export interface Ability {
+export interface AbilityDefinition {
   id: string;
   displayName: string;
   /** The minimum amount of time between ability events */
@@ -12,7 +12,7 @@ export interface Ability {
   duration?: number;
 
   /** The requirements the ability must meet to be triggered/remain active */
-  requirements: AbilityRequirements;
+  requirements: AbilityRequirementsDefinition;
 
   /** Can be directly triggered by player input */
   canBePlayerTriggered: boolean;

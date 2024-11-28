@@ -1,4 +1,4 @@
-import type { Weapon } from "../../types/weapon/weapon";
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 import { nolaBase } from "./nola-base";
 
 export const nolaFlamePhysical = {
@@ -46,4 +46,4 @@ export const nolaFlamePhysical = {
   discharges: [...nolaBase.discharges],
   buffs: [...nolaBase.buffs],
   resources: [...nolaBase.resources],
-} as const satisfies Weapon;
+} as const satisfies WeaponDefinition;

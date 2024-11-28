@@ -1,8 +1,8 @@
-import type { AttackAbility } from "../../definitions/types/attack/attack-ability";
+import type { AttackAbilityDefinition } from "../../definitions/types/attack/attack-ability-definition";
 import {
   getWeaponDefinition,
-  type Weapon as WeaponDefinition,
-} from "../../definitions/types/weapon/weapon";
+  type WeaponDefinition,
+} from "../../definitions/types/weapon/weapon-definition";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import { maxNumOfWeaponStars } from "../../definitions/weapons/weapon-stars";
 import type { Dto } from "../dto";
@@ -43,7 +43,7 @@ export class Weapon implements Persistable<WeaponDtoV2> {
     this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfWeaponStars);
   }
 
-  public get attackDefinitions(): AttackAbility[] {
+  public get attackDefinitions(): AttackAbilityDefinition[] {
     const { normalAttacks, dodgeAttacks, skills, discharges } = this.definition;
     return [...normalAttacks, ...dodgeAttacks, ...skills, ...discharges].filter(
       (attackDefinition) =>

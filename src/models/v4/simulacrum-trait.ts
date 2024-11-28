@@ -1,10 +1,10 @@
 import type { SimulacrumName } from "../../definitions/simulacrum-traits";
-import type { BuffAbility } from "../../definitions/types/buff/buff-ability";
+import type { BuffAbilityDefinition } from "../../definitions/types/buff/buff-ability-definition";
 
 export interface SimulacrumTrait {
   id: SimulacrumName;
   displayName: string;
-  buffs: BuffAbility[];
+  buffs: BuffAbilityDefinition[];
 
   remarks?: string;
 }

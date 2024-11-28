@@ -1,6 +1,6 @@
-import type { BuffAbility } from "./types/buff/buff-ability";
+import type { BuffAbilityDefinition } from "./types/buff/buff-ability-definition";
 
-export const teamBuffs: BuffAbility[] = [
+export const teamBuffs: BuffAbilityDefinition[] = [
   {
     id: "volt-resonance",
     displayName: "Volt Resonance",

@@ -1,5 +1,5 @@
 import type { Data } from "../../models/data";
-import type { Weapon } from "../types/weapon/weapon";
+import type { WeaponDefinition } from "../types/weapon/weapon-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
 import { annabella } from "./definitions/annabella";
@@ -105,7 +105,7 @@ export type WeaponName =
   | "Yu Lan"
   | "Zero";
 
-export const weaponDefinitions: Data<WeaponName, Weapon> = {
+export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   allIds: [
     "Alyss",
     "Anka",

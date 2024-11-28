@@ -4,7 +4,7 @@
 // import { WeaponDefinitionSelector } from "../components/presentational/WeaponDefinitionSelector/WeaponDefinitionSelector";
 // import { WeaponIcon } from "../components/presentational/WeaponIcon/WeaponIcon";
 // import { WeaponStarsSelector } from "../components/presentational/WeaponStarsSelector/WeaponStarsSelector";
-// import type { Weapon as WeaponDefinition } from "../definitions/types/weapon/weapon";
+// import type { WeaponDefinition } from "../definitions/types/weapon/weapon-definition";
 // import type { Weapon } from "../models/weapon/weapon";
 // import { WeaponMatrixSetsEditor } from "./WeaponMatrixSetsEditor";
 //

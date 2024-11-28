@@ -1,4 +1,4 @@
-import type { BuffId } from "../../../definitions/types/buff/buff-ability";
+import type { BuffId } from "../../../definitions/types/buff/buff-ability-definition";
 import type { AttackHit } from "../event/messages/attack-hit";
 
 export abstract class Buff {

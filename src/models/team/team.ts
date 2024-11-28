@@ -1,5 +1,5 @@
 import type { WeaponElementalType } from "../../definitions/elemental-type";
-import { getWeaponDefinition } from "../../definitions/types/weapon/weapon";
+import { getWeaponDefinition } from "../../definitions/types/weapon/weapon-definition";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";

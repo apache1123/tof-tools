@@ -1,6 +1,6 @@
 import type { AttackType } from "../../../../definitions/attack-type";
 import type { WeaponElementalType } from "../../../../definitions/elemental-type";
-import type { AttackId } from "../../../../definitions/types/attack/attack-ability";
+import type { AttackId } from "../../../../definitions/types/attack/attack-ability-definition";
 import type { WeaponName } from "../../../../definitions/weapons/weapon-definitions";
 import type { BaseDamageModifiers } from "../../damage-modifiers/base-damage-modifiers";
 import type { FinalDamageModifiers } from "../../damage-modifiers/final-damage-modifiers";

@@ -1,6 +1,6 @@
 import type { WeaponElementalType } from "../../../../definitions/elemental-type";
-import type { AttackBuff as AttackBuffDefinition } from "../../../../definitions/types/buff/attack-buff";
-import type { BuffId } from "../../../../definitions/types/buff/buff-ability";
+import type { AttackPercentBuffDefinition } from "../../../../definitions/types/buff/attack-percent-buff-definition";
+import type { BuffId } from "../../../../definitions/types/buff/buff-ability-definition";
 import type { AttackHit } from "../../event/messages/attack-hit";
 import { Buff } from "../buff";
 
@@ -14,7 +14,7 @@ export class AttackPercentBuff extends Buff {
   }
 
   public static create(
-    definition: AttackBuffDefinition,
+    definition: AttackPercentBuffDefinition,
     id: BuffId,
   ): AttackPercentBuff[] {
     return definition.elementalTypes.map(

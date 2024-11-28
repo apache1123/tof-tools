@@ -1,7 +1,7 @@
-import type { AttackAbility } from "../../../definitions/types/attack/attack-ability";
+import type { AttackAbilityDefinition } from "../../../definitions/types/attack/attack-ability-definition";
 import type { WeaponStarRequirement } from "./weapon-star-requirement";
 
-export interface WeaponAttackDefinition extends AttackAbility {
+export interface WeaponAttackDefinition extends AttackAbilityDefinition {
   starRequirement: WeaponStarRequirement;
 }
 

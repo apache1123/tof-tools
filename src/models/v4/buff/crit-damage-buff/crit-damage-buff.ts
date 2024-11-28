@@ -1,5 +1,5 @@
-import type { BuffId } from "../../../../definitions/types/buff/buff-ability";
-import type { CritDamageBuff as CritDamageBuffDefinition } from "../../../../definitions/types/buff/crit-damage-buff";
+import type { BuffId } from "../../../../definitions/types/buff/buff-ability-definition";
+import type { CritDamageBuffDefinition as CritDamageBuffDefinition } from "../../../../definitions/types/buff/crit-damage-buff-definition";
 import { Buff } from "../buff";
 
 export class CritDamageBuff extends Buff {

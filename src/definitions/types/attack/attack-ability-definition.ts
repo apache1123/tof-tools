@@ -4,11 +4,11 @@ import type { AttackHitCount } from "../../../models/v4/attack/attack-hit-count"
 import type { BaseDamageModifiersDefinition } from "../../../models/v4/damage-modifiers/base-damage-modifiers-definition";
 import type { FinalDamageModifiersDefinition } from "../../../models/v4/damage-modifiers/final-damage-modifiers-definition";
 import type { AttackType } from "../../attack-type";
-import type { Ability } from "../ability/ability";
+import type { AbilityDefinition } from "../ability/ability-definition";
 
 export type AttackId = AbilityId;
 
-export interface AttackAbility extends Ability {
+export interface AttackAbilityDefinition extends AbilityDefinition {
   id: AttackId;
   type: AttackType;
   elementalType: AttackElementalType;

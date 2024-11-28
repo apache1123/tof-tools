@@ -1,5 +1,5 @@
 import type { AttackType } from "../../../../definitions/attack-type";
-import type { AttackId } from "../../../../definitions/types/attack/attack-ability";
+import type { AttackId } from "../../../../definitions/types/attack/attack-ability-definition";
 import type { WeaponName } from "../../../../definitions/weapons/weapon-definitions";
 
 export interface DamageBuffRestrictedTo {

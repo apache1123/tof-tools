@@ -20,7 +20,7 @@ import type { WeaponName } from "../../weapons/weapon-definitions";
 import { weaponDefinitions } from "../../weapons/weapon-definitions";
 import type { WeaponType } from "../../weapons/weapon-type";
 
-export interface Weapon {
+export interface WeaponDefinition {
   id: WeaponName;
   displayName: string;
   /** Optional. The weapon's icon will be inferred from the id if not provided */
@@ -54,6 +54,6 @@ export interface Weapon {
   resources: WeaponResourceDefinition[];
 }
 
-export function getWeaponDefinition(id: WeaponName): Weapon {
+export function getWeaponDefinition(id: WeaponName): WeaponDefinition {
   return weaponDefinitions.byId[id];
 }
