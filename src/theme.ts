@@ -66,6 +66,13 @@ let theme = createTheme({
         },
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          background: colors.mantle.hex,
+        },
+      },
+    },
   },
 });
 
