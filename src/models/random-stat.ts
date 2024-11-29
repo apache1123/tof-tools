@@ -11,17 +11,16 @@ import { zeroRollCombination } from "./random-stat-roll-combination";
 import { type StatType } from "./stat-type";
 
 export class RandomStat implements Persistable<RandomStatDto> {
-  private _type: StatType;
-
-  public value: number;
-  public augmentIncreaseValue: number;
-
   public constructor(type: StatType) {
     this._type = type;
     this.value = 0;
     this.resetValueToDefault();
     this.augmentIncreaseValue = 0;
   }
+
+  public value: number;
+  public augmentIncreaseValue: number;
+  private _type: StatType;
 
   public get type(): StatType {
     return this._type;
@@ -71,6 +70,12 @@ export class RandomStat implements Persistable<RandomStatDto> {
       : toIntegerString(value);
   }
 
+  public static copy(from: RandomStat, to: RandomStat) {
+    to.type = from.type;
+    to.value = from.value;
+    to.augmentIncreaseValue = from.augmentIncreaseValue;
+  }
+
   public resetValueToDefault() {
     const { randomStatDefaultValue } = this.type;
     this.value = randomStatDefaultValue;
@@ -92,8 +97,7 @@ export class RandomStat implements Persistable<RandomStatDto> {
     const averageRollValue = BigNumber(randomStatMinRollValue)
       .plus(randomStatMaxRollValue)
       .dividedBy(2);
-    const newValue = averageRollValue.plus(value).toNumber();
-    this.value = newValue;
+    this.value = averageRollValue.plus(value).toNumber();
   }
 
   public addOneMaxRoll() {
@@ -101,8 +105,7 @@ export class RandomStat implements Persistable<RandomStatDto> {
       value,
       type: { randomStatMaxRollValue },
     } = this;
-    const newValue = BigNumber(value).plus(randomStatMaxRollValue).toNumber();
-    this.value = newValue;
+    this.value = BigNumber(value).plus(randomStatMaxRollValue).toNumber();
   }
 
   public getRollCombinations(): RollCombination[] {
@@ -116,7 +119,7 @@ export class RandomStat implements Persistable<RandomStatDto> {
     } = this;
     if (!value) return [];
 
-    if (value === randomStatDefaultValue) {
+    if (value <= randomStatDefaultValue) {
       return [zeroRollCombination()];
     }
 
@@ -169,12 +172,6 @@ export class RandomStat implements Persistable<RandomStatDto> {
     }
 
     return combinations;
-  }
-
-  public static copy(from: RandomStat, to: RandomStat) {
-    to.type = from.type;
-    to.value = from.value;
-    to.augmentIncreaseValue = from.augmentIncreaseValue;
   }
 
   public copyFromDto(dto: RandomStatDto): void {
