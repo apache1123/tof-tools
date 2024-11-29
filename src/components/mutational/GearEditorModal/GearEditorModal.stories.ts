@@ -18,7 +18,10 @@ type Story = StoryObj<typeof GearEditorModal>;
 
 const gear = proxy(new Gear(gearTypesLookup.byId["Eyepiece"], "characterId"));
 gear.stars = 3;
-gear.randomStats = [new RandomStat(statTypesLookup.byId["Physical Attack %"])];
+gear.setRandomStat(
+  0,
+  new RandomStat(statTypesLookup.byId["Physical Attack %"]),
+);
 export const Default: Story = {
   args: { gearState: gear },
 };

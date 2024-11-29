@@ -45,9 +45,12 @@ export function GearCard({ gear, onClick }: GearCardProps) {
               {randomStats.length ? (
                 <Stack spacing={1}>
                   <>
-                    {randomStats.map((randomStat, i) => (
-                      <RandomStatDisplay key={i} randomStat={randomStat} />
-                    ))}
+                    {randomStats.map(
+                      (randomStat, i) =>
+                        randomStat && (
+                          <RandomStatDisplay key={i} randomStat={randomStat} />
+                        ),
+                    )}
                   </>
                 </Stack>
               ) : (

@@ -17,11 +17,12 @@ type Story = StoryObj<typeof GearCard>;
 
 const gear = new Gear(gearTypesLookup.byId["Eyepiece"], "characterId");
 gear.stars = 3;
-gear.randomStats.push(new RandomStat(statTypesLookup.byId["Attack"]));
-gear.randomStats.push(
+gear.setRandomStat(0, new RandomStat(statTypesLookup.byId["Attack"]));
+gear.setRandomStat(
+  1,
   new RandomStat(statTypesLookup.byId["Physical Attack %"]),
 );
-gear.randomStats.push(new RandomStat(statTypesLookup.byId["Frost Damage %"]));
+gear.setRandomStat(2, new RandomStat(statTypesLookup.byId["Frost Damage %"]));
 export const Default: Story = {
   args: {
     gear,

@@ -34,7 +34,7 @@ export function GearEditor({ gearState }: GearEditorProps) {
       </Stack>
       <Stack gap={1}>
         {[...Array(defaultNumOfRandomStats)].map((_, i) => {
-          const randomStat = gearState.randomStats[i];
+          const randomStat = gearState.getRandomStat(i);
 
           return randomStat ? (
             <StatEditor
@@ -48,7 +48,7 @@ export function GearEditor({ gearState }: GearEditorProps) {
               key={i}
               possibleStatTypes={possibleStatTypes}
               onStatTypeChange={(statType) => {
-                gearState.randomStats[i] = new RandomStat(statType);
+                gearState.setRandomStat(i, new RandomStat(statType));
               }}
               isAugmented={isAugmented}
             />

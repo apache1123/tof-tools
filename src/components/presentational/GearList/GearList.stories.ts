@@ -26,14 +26,16 @@ function generateGears() {
   for (let i = 0; i < 5; i++) {
     const gear = new Gear(gearTypesLookup.byId["Eyepiece"], "characterId");
     gear.stars = 3;
-    gear.randomStats.push(new RandomStat(statTypesLookup.byId["Attack"]));
-    gear.randomStats.push(
+    gear.setRandomStat(0, new RandomStat(statTypesLookup.byId["Attack"]));
+    gear.setRandomStat(
+      1,
       new RandomStat(statTypesLookup.byId["Physical Attack %"]),
     );
-    gear.randomStats.push(
+    gear.setRandomStat(
+      2,
       new RandomStat(statTypesLookup.byId["Frost Damage %"]),
     );
-    gear.randomStats.push(new RandomStat(statTypesLookup.byId["HP"]));
+    gear.setRandomStat(3, new RandomStat(statTypesLookup.byId["HP"]));
     gears.push(gear);
   }
   return gears;

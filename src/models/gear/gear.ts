@@ -11,6 +11,7 @@ import {
   augmentStatsPullUpFactor1,
   augmentStatsPullUpFactor2,
   augmentStatsPullUpFactor3,
+  defaultNumOfRandomStats,
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
 } from "../../definitions/gear";
@@ -18,6 +19,7 @@ import type { GearName } from "../../definitions/gear-types";
 import { gearTypesLookup } from "../../definitions/gear-types";
 import type { StatName } from "../../definitions/stat-types";
 import { statTypesLookup } from "../../definitions/stat-types";
+import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
@@ -50,6 +52,9 @@ import type { CharacterId } from "../v4/character/character";
 
 export type GearId = Id;
 
+type RandomStatSlot = RandomStat | undefined;
+type AugmentStatSlot = AugmentStat | undefined;
+
 export class Gear implements Persistable<GearDtoV2> {
   /**
    * @param type The type of the gear
@@ -61,12 +66,12 @@ export class Gear implements Persistable<GearDtoV2> {
     this._type = type;
     this._stars = 0;
     this._isAugmented = false;
-    this.randomStats = [];
-    this.augmentStats = [];
+    this._randomStats = [];
+    this._augmentStats = [];
   }
 
-  public randomStats: RandomStat[];
-  public augmentStats: AugmentStat[];
+  private _randomStats: RandomStatSlot[];
+  private _augmentStats: AugmentStatSlot[];
   private _id: GearId;
   private _characterId: CharacterId;
   private _type: GearType;
@@ -107,6 +112,14 @@ export class Gear implements Persistable<GearDtoV2> {
     if (!value) {
       this.resetRandomStatsAugment();
     }
+  }
+
+  public get randomStats(): ReadonlyArray<RandomStatSlot> {
+    return this._randomStats;
+  }
+
+  public get augmentStats(): ReadonlyArray<AugmentStatSlot> {
+    return this._augmentStats;
   }
 
   /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
@@ -202,29 +215,45 @@ export class Gear implements Persistable<GearDtoV2> {
 
     to.stars = from.stars;
 
-    to.randomStats = [];
+    to._randomStats = [];
     from.randomStats.forEach((fromRandomStat, index) => {
-      if (to.randomStats[index]) {
-        RandomStat.copy(fromRandomStat, to.randomStats[index]!);
-      } else {
+      if (fromRandomStat) {
         const newStat = new RandomStat(fromRandomStat.type);
         RandomStat.copy(fromRandomStat, newStat);
-        to.randomStats[index] = newStat;
+        to.setRandomStat(index, newStat);
       }
     });
 
-    to.augmentStats = [];
+    to._augmentStats = [];
     from.augmentStats.forEach((fromAugmentStat, index) => {
-      if (to.augmentStats[index]) {
-        AugmentStat.copy(fromAugmentStat, to.augmentStats[index]);
-      } else {
+      if (fromAugmentStat) {
         const newStat = new AugmentStat(fromAugmentStat.type);
         AugmentStat.copy(fromAugmentStat, newStat);
-        to.augmentStats[index] = newStat;
+        to.setAugmentStat(index, newStat);
       }
     });
 
     to.isAugmented = from.isAugmented;
+  }
+
+  public getRandomStat(index: number): RandomStatSlot {
+    return this._randomStats[index];
+  }
+  public setRandomStat(index: number, randomStat: RandomStatSlot) {
+    if (index < 0 || index >= defaultNumOfRandomStats)
+      throw new Error("Invalid random stat index");
+
+    this._randomStats[index] = randomStat;
+  }
+
+  public getAugmentStat(index: number): AugmentStatSlot {
+    return this.augmentStats[index];
+  }
+  public setAugmentStat(index: number, augmentStat: AugmentStatSlot) {
+    if (index < 0 || index >= maxNumOfAugmentStats)
+      throw new Error("Invalid augment stat index");
+
+    this._augmentStats[index] = augmentStat;
   }
 
   public getPossibleStars(): number[] {
@@ -286,14 +315,15 @@ export class Gear implements Persistable<GearDtoV2> {
   }
 
   public getRandomStatRollCombinations(): GearRandomStatRollCombinations[] {
-    const allRandomStatsWithRollCombinations = this.randomStats.map(
-      (randomStat) =>
-        randomStat.getRollCombinations().map(
-          (rollCombination): RandomStatRollCombination => ({
-            randomStatId: randomStat.type.id,
-            rollCombination,
-          }),
-        ),
+    const allRandomStatsWithRollCombinations = filterOutUndefined(
+      this.randomStats,
+    ).map((randomStat) =>
+      randomStat.getRollCombinations().map(
+        (rollCombination): RandomStatRollCombination => ({
+          randomStatId: randomStat.type.id,
+          rollCombination,
+        }),
+      ),
     );
 
     if (allRandomStatsWithRollCombinations.length === 0) return [];
@@ -382,8 +412,8 @@ export class Gear implements Persistable<GearDtoV2> {
     fillAugmentStatsIfPossible(prioritizedStatNames);
     fillAugmentStatsIfPossible(fallbackStatNames);
 
-    setMaxAugmentIncrease(maxTitanGear.randomStats);
-    setMaxAugmentIncrease(maxTitanGear.augmentStats);
+    setMaxAugmentIncrease(maxTitanGear._randomStats);
+    setMaxAugmentIncrease(maxTitanGear._augmentStats);
 
     pullUpStatsValueIfApplicable();
 
@@ -396,19 +426,21 @@ export class Gear implements Persistable<GearDtoV2> {
         if (
           maxTitanGear.augmentStats.length < maxNumOfAugmentStats &&
           !maxTitanGear.randomStats.some(
-            (randomStat) => randomStat.type.id === statName,
+            (randomStat) => randomStat?.type.id === statName,
           ) &&
           !maxTitanGear.augmentStats.some(
-            (augmentStat) => augmentStat.type.id === statName,
+            (augmentStat) => augmentStat?.type.id === statName,
           )
         ) {
           const statType = statTypesLookup.byId[statName];
-          maxTitanGear.augmentStats.push(new AugmentStat(statType));
+          maxTitanGear._augmentStats.push(new AugmentStat(statType));
         }
       });
     }
 
-    function setMaxAugmentIncrease(stats: RandomStat[]) {
+    function setMaxAugmentIncrease(
+      stats: RandomStatSlot[] | AugmentStatSlot[],
+    ) {
       stats.forEach((stat) => {
         if (stat) {
           stat.augmentIncreaseValue = stat.getMaxAugmentIncrease();
@@ -417,12 +449,12 @@ export class Gear implements Persistable<GearDtoV2> {
     }
 
     function pullUpStatsValueIfApplicable() {
-      const randomStatsAndTypes = maxTitanGear.randomStats.map(
-        (randomStat) => ({
-          randomStat,
-          statType: randomStat.type,
-        }),
-      );
+      const randomStatsAndTypes = filterOutUndefined(
+        maxTitanGear.randomStats,
+      ).map((randomStat) => ({
+        randomStat,
+        statType: randomStat.type,
+      }));
 
       const randomStatsAndTypesByRole = groupBy(
         randomStatsAndTypes,
@@ -486,9 +518,11 @@ export class Gear implements Persistable<GearDtoV2> {
 
       // Similar "pull-up" happens with augment stats, but each augment stat will always be 95%.
       const valueWithAugmentOfHighestStat = maxTitanGear.randomStats.find(
-        (randomStat) => randomStat.type.id === highestStatName,
+        (randomStat) => randomStat?.type.id === highestStatName,
       )?.totalValue;
       maxTitanGear.augmentStats.forEach((augmentStat) => {
+        if (!augmentStat) return;
+
         const statType = augmentStat.type;
         if (
           valueWithAugmentOfHighestStat &&
@@ -527,22 +561,24 @@ export class Gear implements Persistable<GearDtoV2> {
     this.stars = stars;
     this.isAugmented = !!isAugmented;
 
-    this.randomStats = [];
+    this._randomStats = [];
     randomStatDtos.forEach((randomStatDto, i) => {
       if (randomStatDto) {
         const statType = statTypesLookup.byId[randomStatDto.typeId];
         const randomStat = new RandomStat(statType);
         randomStat.copyFromDto(randomStatDto);
-        this.randomStats[i] = randomStat;
+        this.setRandomStat(i, randomStat);
       }
     });
 
-    this.augmentStats = [];
+    this._augmentStats = [];
     augmentStatDtos?.forEach((augmentStatDto, i) => {
-      const statType = statTypesLookup.byId[augmentStatDto.typeId];
-      const augmentStat = new AugmentStat(statType);
-      augmentStat.copyFromDto(augmentStatDto);
-      this.augmentStats[i] = augmentStat;
+      if (augmentStatDto) {
+        const statType = statTypesLookup.byId[augmentStatDto.typeId];
+        const augmentStat = new AugmentStat(statType);
+        augmentStat.copyFromDto(augmentStatDto);
+        this.setAugmentStat(i, augmentStat);
+      }
     });
   }
 
@@ -561,8 +597,8 @@ export class Gear implements Persistable<GearDtoV2> {
       characterId,
       typeId: type.id,
       stars,
-      randomStats: randomStats.map((randomStat) => randomStat.toDto()),
-      augmentStats: augmentStats.map((augmentStat) => augmentStat.toDto()),
+      randomStats: randomStats.map((randomStat) => randomStat?.toDto()),
+      augmentStats: augmentStats.map((augmentStat) => augmentStat?.toDto()),
       isAugmented,
       version: 2,
     };
@@ -614,8 +650,8 @@ export interface GearDtoV2 extends Dto {
   typeId: GearName;
   characterId: string;
   stars: number;
-  randomStats: RandomStatDto[];
-  augmentStats?: AugmentStatDto[];
+  randomStats: (RandomStatDto | undefined)[];
+  augmentStats?: (AugmentStatDto | undefined)[];
   isAugmented?: boolean;
   version: 2;
 }
