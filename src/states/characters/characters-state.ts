@@ -1,5 +1,5 @@
-import type { CharacterDto } from "../../models/v4/character/character";
-import { Character } from "../../models/v4/character/character";
+import type { CharacterDto } from "../../models/character/character";
+import { Character } from "../../models/character/character";
 import { SelectablePersistableRepository } from "../repository/selectable-persistable-repository";
 
 export class CharactersState extends SelectablePersistableRepository<

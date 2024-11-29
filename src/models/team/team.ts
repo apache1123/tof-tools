@@ -3,9 +3,9 @@ import { getWeaponDefinition } from "../../definitions/types/weapon/weapon-defin
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
+import type { Character } from "../character/character";
 import type { Dto } from "../dto";
 import type { Persistable } from "../persistable";
-import type { Character } from "../v4/character/character";
 import type { WeaponDtoV1, WeaponDtoV2 } from "../weapon/weapon";
 import { Weapon } from "../weapon/weapon";
 

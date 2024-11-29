@@ -10,8 +10,8 @@ import {
 } from "../../components/mutational/StatEditor/StatEditor";
 import { NumericStringPercentage2dp } from "../../components/presentational/NumericString/NumericString";
 import { statTypesLookup } from "../../definitions/stat-types";
-import { RandomStat } from "../../models/random-stat";
-import type { StatType } from "../../models/stat-type";
+import { RandomStat } from "../../models/gear/random-stat";
+import type { StatType } from "../../models/gear/stat-type";
 
 const possibleStatTypes = statTypesLookup.allIds.map(
   (id) => statTypesLookup.byId[id],

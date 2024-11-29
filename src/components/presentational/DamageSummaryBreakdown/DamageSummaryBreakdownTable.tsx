@@ -1,8 +1,8 @@
 import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
 
-import type { DamageDto } from "../../../models/v4/damage-summary/dtos/damage-dto";
-import type { DamageSummaryDto } from "../../../models/v4/damage-summary/dtos/damage-summary-dto";
+import type { DamageDto } from "../../../models/damage-summary/dtos/damage-dto";
+import type { DamageSummaryDto } from "../../../models/damage-summary/dtos/damage-summary-dto";
 import { toShortNumberFormat } from "../../../utils/locale-utils";
 
 export interface DamageSummaryBreakdownTableProps {

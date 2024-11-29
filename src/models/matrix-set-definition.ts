@@ -2,12 +2,12 @@ import {
   type MatrixSetBaseName,
   matrixSetDefinitionsLookup,
 } from "../definitions/matrix-set-definitions";
+import type { MatrixBuffDefinition } from "./matrix/matrix-buff-definition";
 import type {
   MatrixSetAttackPercentBuffDefinition,
   MatrixSetCritDamageBuffDefinition,
   MatrixSetCritRateBuffDefinition,
 } from "./matrix-set-buff-definition";
-import type { MatrixBuffDefinition } from "./v4/matrix/matrix-buff-definition";
 
 export type MatrixSetPieces = 2 | 4;
 export const matrixSet2pcIdSuffix = "2pc";

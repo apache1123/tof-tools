@@ -8,7 +8,7 @@ import type {
 import { Timeline } from "@xzdarcy/react-timeline-editor";
 import { useRef } from "react";
 
-import type { CombatSimulatorSnapshot } from "../../models/v4/combat-simulator/combat-simulator-snapshot";
+import type { CombatSimulatorSnapshot } from "../../models/combat-simulator/combat-simulator-snapshot";
 import { AttackBuffEventRenderer } from "./AttackBuffEventRenderer";
 import { AttackEventRenderer } from "./AttackEventRenderer";
 import { CombatSimulatorTimelineScaleRenderer } from "./CombatSimulatorTimelineScaleRenderer";

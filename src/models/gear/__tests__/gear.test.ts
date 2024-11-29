@@ -1,8 +1,8 @@
 import { gearTypesLookup } from "../../../definitions/gear-types";
 import { statTypesLookup } from "../../../definitions/stat-types";
-import type { GearType } from "../../gear-type";
-import { RandomStat } from "../../random-stat";
 import { Gear } from "../gear";
+import type { GearType } from "../gear-type";
+import { RandomStat } from "../random-stat";
 
 let gearType: GearType;
 let sut: Gear;

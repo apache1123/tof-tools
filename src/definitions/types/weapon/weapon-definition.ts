@@ -3,9 +3,9 @@ import type {
   DodgeAttackDefinition,
   NormalAttackDefinition,
   SkillAttackDefinition,
-} from "../../../models/v4/weapon/weapon-attack-definition";
-import type { WeaponBuffDefinition } from "../../../models/v4/weapon/weapon-buff-definition";
-import type { WeaponResourceDefinition } from "../../../models/v4/weapon/weapon-resource-definition";
+} from "../../../models/weapon/weapon-attack-definition";
+import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
+import type { WeaponResourceDefinition } from "../../../models/weapon/weapon-resource-definition";
 import type {
   WeaponAttackPercentBuffDefinition,
   WeaponCritDamageBuffDefinition,
@@ -41,8 +41,12 @@ export interface WeaponDefinition {
   /** The default element the weapon deals damage in when it is on field */
   damageElement: WeaponElementalType;
   type: WeaponType;
+  // TODO: Remove below after v4 transition
+  /** @deprecated */
   attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
+  /** @deprecated */
   critRateBuffs: WeaponCritRateBuffDefinition[];
+  /** @deprecated */
   critDamageBuffs: WeaponCritDamageBuffDefinition[];
 
   /** v4 below */

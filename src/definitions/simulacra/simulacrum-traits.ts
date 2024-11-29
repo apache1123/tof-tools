@@ -1,5 +1,5 @@
 import type { Data } from "../../models/data";
-import type { SimulacrumTrait } from "../../models/v4/simulacrum-trait";
+import type { SimulacrumTrait } from "../../models/simulacrum-trait";
 import type { SimulacrumName } from "./simulacrum-name";
 
 export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {

@@ -1,4 +1,4 @@
-import type { ResourceDefinition } from "../models/v4/resource/resource-definition";
+import type { ResourceDefinition } from "../models/resource/resource-definition";
 
 export const chargeResourceId = "weapon-charge";
 /** The amount of charge units of 2 full charges */

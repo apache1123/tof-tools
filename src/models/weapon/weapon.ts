@@ -5,12 +5,12 @@ import {
 } from "../../definitions/types/weapon/weapon-definition";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import { maxNumOfWeaponStars } from "../../definitions/weapons/weapon-stars";
+import type { CharacterId } from "../character/character";
 import type { Dto } from "../dto";
 import type { Persistable } from "../persistable";
-import type { CharacterId } from "../v4/character/character";
-import { hasMetStarRequirement } from "../v4/star-requirement";
-import type { WeaponStarRequirement } from "../v4/weapon/weapon-star-requirement";
+import { hasMetStarRequirement } from "../star-requirement";
 import type { WeaponMatrixSetsDto } from "../weapon-matrix-sets";
+import type { WeaponStarRequirement } from "./weapon-star-requirement";
 
 /** A weapon a character owns */
 export class Weapon implements Persistable<WeaponDtoV2> {

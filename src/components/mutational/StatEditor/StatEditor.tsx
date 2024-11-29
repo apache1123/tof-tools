@@ -3,8 +3,8 @@ import Grid from "@mui/material/Unstable_Grid2";
 import type { ReactNode } from "react";
 import { useSnapshot } from "valtio";
 
-import type { RandomStat } from "../../../models/random-stat";
-import type { StatType } from "../../../models/stat-type";
+import type { RandomStat } from "../../../models/gear/random-stat";
+import type { StatType } from "../../../models/gear/stat-type";
 import type { NumericInputProps } from "../../presentational/NumericInput/NumericInput";
 import { NumericInput } from "../../presentational/NumericInput/NumericInput";
 import { PercentageNumericInput } from "../../presentational/NumericInput/PercentageNumericInput";

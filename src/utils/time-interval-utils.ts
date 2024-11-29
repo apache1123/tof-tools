@@ -1,4 +1,4 @@
-import type { TimeInterval } from "../models/v4/time-interval/time-interval";
+import type { TimeInterval } from "../models/time-interval/time-interval";
 
 /** Returns how many units of time of overlap two intervals of time have */
 export function calculateOverlapDuration(

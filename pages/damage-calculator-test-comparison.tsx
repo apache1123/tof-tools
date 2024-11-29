@@ -9,7 +9,7 @@ import rei5Snapshot from "../simulator-results/rei/rei5-brevey6-nanyin0.json";
 import rei6Snapshot from "../simulator-results/rei/rei6-brevey6-nanyin0.json";
 import type { BreakpointComparisonGroup } from "../src/features/combat-simulator/CombatSimulatorResultBreakpointComparison";
 import { CombatSimulatorResultBreakpointComparison } from "../src/features/combat-simulator/CombatSimulatorResultBreakpointComparison";
-import type { CombatSimulatorSnapshot } from "../src/models/v4/combat-simulator/combat-simulator-snapshot";
+import type { CombatSimulatorSnapshot } from "../src/models/combat-simulator/combat-simulator-snapshot";
 
 const breakpointComparisonGroups: BreakpointComparisonGroup[] = [
   {

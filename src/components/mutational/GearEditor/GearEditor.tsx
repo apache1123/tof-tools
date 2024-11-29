@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { defaultNumOfRandomStats } from "../../../definitions/gear";
 import { statTypesLookup } from "../../../definitions/stat-types";
 import type { Gear } from "../../../models/gear/gear";
-import { RandomStat } from "../../../models/random-stat";
+import { RandomStat } from "../../../models/gear/random-stat";
 import { GearStars } from "../../presentational/GearStars/GearStars";
 import { GearTypeIcon } from "../../presentational/GearTypeIcon/GearTypeIcon";
 import { EmptyStatEditor, StatEditor } from "../StatEditor/StatEditor";

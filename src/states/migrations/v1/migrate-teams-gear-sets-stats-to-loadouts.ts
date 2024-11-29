@@ -6,13 +6,13 @@ import type { CoreElementalType } from "../../../definitions/elemental-type";
 import type { GearName } from "../../../definitions/gear-types";
 import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
 import type { GearDtoV1 } from "../../../models/gear/gear";
+import type { RandomStatDto } from "../../../models/gear/random-stat";
 import type {
   GearSetDtoV1,
   GearSetDtoV2,
 } from "../../../models/gear-set/gear-set";
 import type { LoadoutDtoV1 } from "../../../models/loadout/loadout";
 import type { MatrixSetDto } from "../../../models/matrix-set";
-import type { RandomStatDto } from "../../../models/random-stat";
 import type { TeamDtoV1 } from "../../../models/team/team";
 import type { WeaponDtoV1 } from "../../../models/weapon/weapon";
 import { filterOutUndefined } from "../../../utils/array-utils";

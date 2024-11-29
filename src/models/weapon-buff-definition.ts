@@ -2,6 +2,8 @@ import type { ElementalResonance } from "../definitions/elemental-resonance";
 import type { WeaponElementalType } from "../definitions/elemental-type";
 import type { WeaponResonance } from "../definitions/weapons/weapon-resonance";
 
+// TODO: Remove below after v4 transition
+/** @deprecated */
 export interface WeaponBuffDefinition {
   id: string;
   displayName: string;
@@ -24,10 +26,13 @@ export interface WeaponBuffDefinition {
   }[];
 }
 
+/** @deprecated */
 export interface WeaponAttackPercentBuffDefinition
   extends WeaponBuffDefinition {
   elementalTypes: WeaponElementalType[];
 }
 
+/** @deprecated */
 export type WeaponCritRateBuffDefinition = WeaponBuffDefinition;
+/** @deprecated */
 export type WeaponCritDamageBuffDefinition = WeaponBuffDefinition;

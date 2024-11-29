@@ -3,7 +3,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { styled } from "@mui/material/styles";
 
 import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
-import type { DamageSummaryDto } from "../../../models/v4/damage-summary/dtos/damage-summary-dto";
+import type { DamageSummaryDto } from "../../../models/damage-summary/dtos/damage-summary-dto";
 import { toPercentageString } from "../../../utils/number-utils";
 
 export interface DamageSummaryBreakdownSideBarProps {

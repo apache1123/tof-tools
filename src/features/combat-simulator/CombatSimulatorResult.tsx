@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import { DamageSummaryBreakdown } from "../../components/presentational/DamageSummaryBreakdown/DamageSummaryBreakdown";
 import { MatrixDisplay } from "../../components/presentational/MatrixDisplay/MatrixDisplay";
 import { WeaponDisplay } from "../../components/presentational/WeaponDisplay/WeaponDisplay";
-import type { CombatSimulatorSnapshot } from "../../models/v4/combat-simulator/combat-simulator-snapshot";
+import type { CombatSimulatorSnapshot } from "../../models/combat-simulator/combat-simulator-snapshot";
 import { CombatSimulatorTimeline } from "./CombatSimulatorTimeline";
 
 export interface CombatSimulatorResultProps {

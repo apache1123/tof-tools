@@ -1,5 +1,5 @@
 import type { Data } from "../models/data";
-import type { StatType } from "../models/stat-type";
+import type { StatType } from "../models/gear/stat-type";
 
 export type StatName =
   | "Altered Attack"

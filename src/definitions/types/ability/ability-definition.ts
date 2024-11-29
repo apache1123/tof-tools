@@ -1,4 +1,4 @@
-import type { AbilityUpdatesResource } from "../../../models/v4/ability/ability-updates-resource";
+import type { AbilityUpdatesResource } from "../../../models/ability/ability-updates-resource";
 import type { AbilityRequirementsDefinition } from "./ability-requirements-definition";
 import type { AbilityTriggeredBy } from "./ability-triggered-by";
 

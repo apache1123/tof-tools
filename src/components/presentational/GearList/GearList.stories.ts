@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { gearTypesLookup } from "../../../definitions/gear-types";
 import { statTypesLookup } from "../../../definitions/stat-types";
 import { Gear } from "../../../models/gear/gear";
-import { RandomStat } from "../../../models/random-stat";
+import { RandomStat } from "../../../models/gear/random-stat";
 import { GearList } from "./GearList";
 
 const meta: Meta<typeof GearList> = {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import type { StatType } from "../../../models/stat-type";
+import type { StatType } from "../../../models/gear/stat-type";
 import { StatTypeSelector } from "./StatTypeSelector";
 
 const meta: Meta<typeof StatTypeSelector> = {

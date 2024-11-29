@@ -1,5 +1,5 @@
 import type { Data } from "../models/data";
-import type { GearType } from "../models/gear-type";
+import type { GearType } from "../models/gear/gear-type";
 
 export type GearName =
   | "Helmet"

@@ -1,4 +1,4 @@
-import { TimeInterval } from "../../models/v4/time-interval/time-interval";
+import { TimeInterval } from "../../models/time-interval/time-interval";
 import {
   calculateOverlapDuration,
   getLatestTimeInterval,

@@ -3,7 +3,7 @@ import { proxyMap } from "valtio/utils";
 import type { Dto } from "../../models/dto";
 import type { Identifiable } from "../../models/identifiable";
 import type { Persistable } from "../../models/persistable";
-import { Repository } from "../../models/v4/repository/repository";
+import { Repository } from "../../models/repository/repository";
 
 export abstract class PersistableRepository<
     TItem extends Identifiable & Persistable<TItemDto>,

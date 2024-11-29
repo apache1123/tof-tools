@@ -4,7 +4,7 @@ import { proxy } from "valtio";
 import { gearTypesLookup } from "../../../definitions/gear-types";
 import { statTypesLookup } from "../../../definitions/stat-types";
 import { Gear } from "../../../models/gear/gear";
-import { RandomStat } from "../../../models/random-stat";
+import { RandomStat } from "../../../models/gear/random-stat";
 import { GearEditor } from "./GearEditor";
 
 const meta: Meta<typeof GearEditor> = {

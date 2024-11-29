@@ -1,4 +1,4 @@
-import type { ResourceId } from "../../../models/v4/resource/resource-definition";
+import type { ResourceId } from "../../../models/resource/resource-definition";
 import type { WeaponElementalType } from "../../elemental-type";
 import type { WeaponName } from "../../weapons/weapon-definitions";
 import type { WeaponResonance } from "../../weapons/weapon-resonance";

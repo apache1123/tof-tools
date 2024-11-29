@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { ComingSoonIcon } from "../../../components/presentational/ComingSoonIcon/ComingSoonIcon";
-import type { Character } from "../../../models/v4/character/character";
+import type { Character } from "../../../models/character/character";
 import { charactersState } from "../../../states/states";
 
 export type CharacterSelectorProps = ButtonBaseProps;

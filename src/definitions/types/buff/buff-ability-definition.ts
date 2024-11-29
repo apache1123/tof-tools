@@ -1,5 +1,5 @@
-import type { AbilityId } from "../../../models/v4/ability/ability-id";
-import type { MiscellaneousBuff } from "../../../models/v4/buff/miscellaneous-buff";
+import type { AbilityId } from "../../../models/ability/ability-id";
+import type { MiscellaneousBuff } from "../../../models/buff/miscellaneous-buff";
 import type { AbilityDefinition } from "../ability/ability-definition";
 import type { AttackPercentBuffDefinition } from "./attack-percent-buff-definition";
 import type { BaseAttackBuffDefinition } from "./base-attack-buff-definition";

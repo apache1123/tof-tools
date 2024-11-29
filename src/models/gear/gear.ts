@@ -23,20 +23,21 @@ import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { AugmentStatDto } from "../augment-stat";
-import { AugmentStat } from "../augment-stat";
+import type { CharacterId } from "../character/character";
 import type { Dto } from "../dto";
+import type { Id } from "../identifiable";
+import type { Persistable } from "../persistable";
+import type { AugmentStatDto } from "./augment-stat";
+import { AugmentStat } from "./augment-stat";
 import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
-} from "../gear-random-stat-roll-combinations";
-import type { GearStatDifference } from "../gear-stat-difference";
-import type { GearType } from "../gear-type";
-import type { Id } from "../identifiable";
-import type { Persistable } from "../persistable";
-import type { RandomStatDto } from "../random-stat";
-import { RandomStat } from "../random-stat";
-import type { StatType } from "../stat-type";
+} from "./gear-random-stat-roll-combinations";
+import type { GearStatDifference } from "./gear-stat-difference";
+import type { GearType } from "./gear-type";
+import type { RandomStatDto } from "./random-stat";
+import { RandomStat } from "./random-stat";
+import type { StatType } from "./stat-type";
 import {
   isCritFlat,
   isCritPercent,
@@ -47,8 +48,7 @@ import {
   isHpPercent,
   isResistanceFlat,
   isResistancePercent,
-} from "../stat-type";
-import type { CharacterId } from "../v4/character/character";
+} from "./stat-type";
 
 export type GearId = Id;
 

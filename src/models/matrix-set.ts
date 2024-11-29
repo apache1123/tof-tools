@@ -6,7 +6,7 @@ import {
   type MatrixSetDefinition,
 } from "./matrix-set-definition";
 import type { Persistable } from "./persistable";
-import { hasMetStarRequirement } from "./v4/star-requirement";
+import { hasMetStarRequirement } from "./star-requirement";
 
 export class MatrixSet implements Persistable<MatrixSetDto> {
   public constructor(definition: MatrixSetDefinition) {

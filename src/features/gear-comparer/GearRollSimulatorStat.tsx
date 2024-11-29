@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import pluralize from "pluralize";
 
-import type { RandomStat } from "../../models/random-stat";
+import type { RandomStat } from "../../models/gear/random-stat";
 
 export interface GearRollSimulatorStatProps {
   statSnap: RandomStat;

@@ -1,12 +1,12 @@
-import type { AbilityId } from "../v4/ability/ability-id";
-import type { ActiveBuff } from "../v4/buff/active-buff/active-buff";
-import type { AttackPercentBuff } from "../v4/buff/attack-percent-buff/attack-percent-buff";
-import type { BaseAttackBuff } from "../v4/buff/base-attack-buff/base-attack-buff";
-import type { CritDamageBuff } from "../v4/buff/crit-damage-buff/crit-damage-buff";
-import type { CritRateBuff } from "../v4/buff/crit-rate-buff/crit-rate-buff";
-import type { ElementalDamageBuff } from "../v4/buff/elemental-damage-buff/elemental-damage-buff";
-import type { FinalDamageBuff } from "../v4/buff/final-damage-buff/final-damage-buff";
-import type { HasActiveBuffs } from "../v4/buff/has-active-buffs";
+import type { AbilityId } from "../ability/ability-id";
+import type { ActiveBuff } from "../buff/active-buff/active-buff";
+import type { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-buff";
+import type { BaseAttackBuff } from "../buff/base-attack-buff/base-attack-buff";
+import type { CritDamageBuff } from "../buff/crit-damage-buff/crit-damage-buff";
+import type { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
+import type { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
+import type { FinalDamageBuff } from "../buff/final-damage-buff/final-damage-buff";
+import type { HasActiveBuffs } from "../buff/has-active-buffs";
 import type { GearCompareBuffAbilityRequirements } from "./gear-compare-buff-ability-requirements";
 
 export class GearCompareBuffAbility implements HasActiveBuffs {

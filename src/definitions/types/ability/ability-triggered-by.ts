@@ -1,5 +1,5 @@
-import type { AbilityId } from "../../../models/v4/ability/ability-id";
-import type { ResourceId } from "../../../models/v4/resource/resource-definition";
+import type { AbilityId } from "../../../models/ability/ability-id";
+import type { ResourceId } from "../../../models/resource/resource-definition";
 import type { WeaponName } from "../../weapons/weapon-definitions";
 
 export interface AbilityTriggeredBy {

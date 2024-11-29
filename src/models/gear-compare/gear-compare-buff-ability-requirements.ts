@@ -1,6 +1,6 @@
+import type { Requirements } from "../requirements/requirements";
 import type { Team } from "../team/team";
-import type { Requirements } from "../v4/requirements/requirements";
-import type { TeamRequirements } from "../v4/team/team-requirements";
+import type { TeamRequirements } from "../team/team-requirements";
 
 export class GearCompareBuffAbilityRequirements implements Requirements {
   public constructor(

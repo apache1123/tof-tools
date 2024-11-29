@@ -8,12 +8,12 @@ import type { GearName } from "../../definitions/gear-types";
 import { gearTypesLookup } from "../../definitions/gear-types";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
+import type { CharacterId } from "../character/character";
 import type { DataById } from "../data";
 import type { Dto } from "../dto";
 import type { GearDtoV1, GearDtoV2 } from "../gear/gear";
 import { Gear } from "../gear/gear";
 import type { Persistable } from "../persistable";
-import type { CharacterId } from "../v4/character/character";
 
 export class GearSet implements Persistable<GearSetDtoV3> {
   public constructor(

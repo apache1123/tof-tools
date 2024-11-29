@@ -9,6 +9,7 @@ import type {
 import type { SimulacrumName } from "../../definitions/simulacra/simulacrum-name";
 import { simulacrumTraits } from "../../definitions/simulacra/simulacrum-traits";
 import { keysOf } from "../../utils/object-utils";
+import type { CharacterId } from "../character/character";
 import type { LoadoutStatsDto } from "../deprecated/loadout-stats";
 import type { Dto } from "../dto";
 import type { ElementalAttackFlatsDto } from "../elemental-attack-flats";
@@ -16,9 +17,8 @@ import { ElementalAttackFlats } from "../elemental-attack-flats";
 import { Gear } from "../gear/gear";
 import type { GearSet, GearSetDtoV2, GearSetDtoV3 } from "../gear-set/gear-set";
 import type { Persistable } from "../persistable";
+import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team, TeamDtoV1, TeamDtoV2 } from "../team/team";
-import type { CharacterId } from "../v4/character/character";
-import type { SimulacrumTrait } from "../v4/simulacrum-trait";
 
 /** A loadout is a preset combination of weapons & matrices (team), gear set, trait etc. */
 export class Loadout implements Persistable<LoadoutDtoV2> {

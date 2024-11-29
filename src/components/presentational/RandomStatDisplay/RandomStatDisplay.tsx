@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import type { RandomStat } from "../../../models/random-stat";
+import type { RandomStat } from "../../../models/gear/random-stat";
 import {
   toSignedPercentageString1dp,
   toSignedString,
