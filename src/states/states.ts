@@ -4,6 +4,7 @@ import { devtools } from "valtio/utils";
 import { ChangelogState } from "./changelog";
 import { createInitialCharactersState } from "./characters/create-initial-characters-state";
 import { GearsState } from "./gears/gears-state";
+import { MatricesState } from "./matrices/matrices-state";
 // import { GearComparerState } from "./gear-comparer";
 // import { LoadoutsState } from "./loadouts";
 import { RelicsState } from "./relics";
@@ -25,6 +26,10 @@ devtools(gearsState, { name: gearsStateKey });
 export const weaponsState = proxy(new WeaponsState(charactersState));
 export const weaponsStateKey = "weapons";
 devtools(weaponsState, { name: weaponsStateKey });
+
+export const matricesState = proxy(new MatricesState(charactersState));
+export const matricesStateKey = "matrices";
+devtools(matricesState, { name: matricesStateKey });
 
 // export const loadoutsState = proxy(new LoadoutsState(userStatsState));
 // export const loadoutsStateKey = "loadouts";

@@ -19,8 +19,8 @@ import {
   charactersStateKey,
   gearsState,
   gearsStateKey,
-  relicsState,
-  relicsStateKey,
+  matricesState,
+  matricesStateKey,
   weaponsState,
   weaponsStateKey,
 } from "../src/states/states";
@@ -43,9 +43,8 @@ export default function MyApp(props: MyAppProps) {
   useLocalStoragePersistence(charactersState, charactersStateKey);
   useLocalStoragePersistence(gearsState, gearsStateKey);
   useLocalStoragePersistence(weaponsState, weaponsStateKey);
-  // useLocalStoragePersistence(loadoutsState, loadoutsStateKey);
-  // useLocalStoragePersistence(gearComparerState, gearComparerStateKey);
-  useLocalStoragePersistence(relicsState, relicsStateKey);
+  useLocalStoragePersistence(matricesState, matricesStateKey);
+  // useLocalStoragePersistence(relicsState, relicsStateKey);
 
   BigNumber.config({ DECIMAL_PLACES: 4 });
 
