@@ -11,32 +11,4 @@ export default meta;
 
 type Story = StoryObj<typeof GearTypeToggle>;
 
-export const Exclusive: Story = {
-  args: {
-    values: ["Eyepiece"],
-    exclusive: true,
-  },
-};
-
-export const Multiple: Story = {
-  args: {
-    values: ["Eyepiece", "Armor"],
-    exclusive: false,
-  },
-};
-
-export const ExclusiveEnforceAtLeastOne: Story = {
-  args: {
-    values: ["Eyepiece"],
-    exclusive: true,
-    enforceAtLeastOne: true,
-  },
-};
-
-export const MultipleEnforceAtLeastOne: Story = {
-  args: {
-    values: ["Eyepiece"],
-    exclusive: false,
-    enforceAtLeastOne: true,
-  },
-};
+export const Default: Story = { args: { values: ["Eyepiece"] } };

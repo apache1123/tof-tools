@@ -1,8 +1,9 @@
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton } from "@mui/material";
 
 import type { GearName } from "../../../definitions/gear-types";
 import { gearTypesLookup } from "../../../definitions/gear-types";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
+import { ToggleButtonGroup } from "../ToggleButtonGroup/ToggleButtonGroup";
 
 const gearNames = gearTypesLookup.allIds;
 
@@ -27,18 +28,11 @@ export function GearTypeToggle({
   return (
     <ToggleButtonGroup
       color="primary"
-      value={exclusive ? values[0] : values}
+      value={values}
       exclusive={exclusive}
+      enforceAtLeastOne={enforceAtLeastOne}
       onChange={(_, value) => {
-        if (onChange) {
-          if (
-            enforceAtLeastOne &&
-            ((exclusive && !value) || (!exclusive && value.length === 0))
-          )
-            return;
-
-          onChange(exclusive ? (value === null ? [] : [value]) : value);
-        }
+        if (onChange) onChange(value);
       }}
       aria-label="Gear Types"
       sx={{ flexWrap: "wrap" }}
