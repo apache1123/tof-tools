@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { matrixSetDefinitionsLookup } from "../../../definitions/matrix-set-definitions";
+import { matrixSetDefinitionsLookup } from "../../../definitions/matrices/matrix-set-definitions";
 import { MatrixSet4pcDefinitionSelector } from "./MatrixSetDefinitionSelector";
 
 const meta: Meta<typeof MatrixSet4pcDefinitionSelector> = {

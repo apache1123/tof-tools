@@ -15,7 +15,7 @@ export interface BuffAbilityDefinition extends AbilityDefinition {
   maxStacks: number;
 
   baseAttackBuffs?: BaseAttackBuffDefinition[];
-  attackBuffs?: AttackPercentBuffDefinition[];
+  attackPercentBuffs?: AttackPercentBuffDefinition[];
   elementalDamageBuffs?: ElementalDamageBuffDefinition[];
   finalDamageBuffs?: FinalDamageBuffDefinition[];
   critRateBuffs?: CritRateBuffDefinition[];

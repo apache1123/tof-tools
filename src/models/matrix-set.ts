@@ -6,7 +6,6 @@ import {
   type MatrixSetDefinition,
 } from "./matrix-set-definition";
 import type { Persistable } from "./persistable";
-import { hasMetStarRequirement } from "./star-requirement";
 
 export class MatrixSet implements Persistable<MatrixSetDto> {
   public constructor(definition: MatrixSetDefinition) {
@@ -34,23 +33,23 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
     return this.definition.buffs.map<BuffAbilityDefinition>(
       (buffDefinition) => ({
         ...buffDefinition,
-        attackBuffs: [
-          ...(buffDefinition.attackBuffs ?? []),
-          ...(buffDefinition.attackBuffsWithStarRequirement?.filter(
-            (attackBuffWithStarRequirement) =>
-              hasMetStarRequirement(attackBuffWithStarRequirement, this.stars),
-          ) ?? []),
+        attackPercentBuffs: [
+          ...(buffDefinition.attackPercentBuffs ?? []),
+          // ...(buffDefinition.attackBuffsWithStarRequirement?.filter(
+          //   (attackBuffWithStarRequirement) =>
+          //     hasMetStarRequirement(attackBuffWithStarRequirement, this.stars),
+          // ) ?? []),
         ],
         // TODO: ? Other buffs?
         critDamageBuffs: [
           ...(buffDefinition.critDamageBuffs ?? []),
-          ...(buffDefinition.critDamageBuffsWithStarRequirement?.filter(
-            (critDamageBuffWithStarRequirement) =>
-              hasMetStarRequirement(
-                critDamageBuffWithStarRequirement,
-                this.stars,
-              ),
-          ) ?? []),
+          // ...(buffDefinition.critDamageBuffsWithStarRequirement?.filter(
+          //   (critDamageBuffWithStarRequirement) =>
+          //     hasMetStarRequirement(
+          //       critDamageBuffWithStarRequirement,
+          //       this.stars,
+          //     ),
+          // ) ?? []),
         ],
       }),
     );

@@ -3,7 +3,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import {
   matrixSet2pcLabel,
   matrixSet4pcLabel,
-} from "../../../definitions/matrix-set-definitions";
+} from "../../../definitions/matrices/matrix-set-definitions";
 import type { MatrixSetPieces } from "../../../models/matrix-set-definition";
 
 export interface MatrixSetPiecesSelectorProps {

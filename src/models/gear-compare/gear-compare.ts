@@ -74,8 +74,8 @@ export class GearCompare {
             BaseAttackBuff.create(baseAttackBuffDef, id),
           ) ?? [];
 
-        const attackBuffs =
-          abilityDef.attackBuffs?.flatMap((attackBuffDef) =>
+        const attackPercentBuffs =
+          abilityDef.attackPercentBuffs?.flatMap((attackBuffDef) =>
             AttackPercentBuff.create(attackBuffDef, id),
           ) ?? [];
 
@@ -105,7 +105,7 @@ export class GearCompare {
           createRequirements(abilityDef.requirements),
           abilityDef.maxStacks,
           baseAttackBuffs,
-          attackBuffs,
+          attackPercentBuffs,
           elementalDamageBuffs,
           finalDamageBuffs,
           critRateBuffs,

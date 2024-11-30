@@ -5,7 +5,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     id: "volt-resonance",
     displayName: "Volt Resonance",
     description: "+15% volt ATK when equipping 2 or more volt weapons",
-    attackBuffs: [
+    attackPercentBuffs: [
       {
         value: 0.15,
         elementalTypes: ["Volt"],
@@ -28,7 +28,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     id: "frost-resonance",
     displayName: "Frost Resonance",
     description: "+15% frost ATK when equipping 2 or more frost weapons",
-    attackBuffs: [
+    attackPercentBuffs: [
       {
         value: 0.15,
         elementalTypes: ["Frost"],

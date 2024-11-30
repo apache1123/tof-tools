@@ -1,8 +1,8 @@
 import {
   type MatrixSetBaseName,
   matrixSetDefinitionsLookup,
-} from "../definitions/matrix-set-definitions";
-import type { MatrixBuffDefinition } from "./matrix/matrix-buff-definition";
+} from "../definitions/matrices/matrix-set-definitions";
+import type { MatrixBuffDefinition } from "../definitions/types/matrix/matrix-buff-definition";
 import type {
   MatrixSetAttackPercentBuffDefinition,
   MatrixSetCritDamageBuffDefinition,

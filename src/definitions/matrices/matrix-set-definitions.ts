@@ -1,10 +1,10 @@
-import type { DataAllIds, DataById } from "../models/data";
+import type { DataAllIds, DataById } from "../../models/data";
 import type {
   MatrixSet2pcName,
   MatrixSet4pcName,
   MatrixSetDefinition,
-} from "../models/matrix-set-definition";
-import type { WeaponName } from "./weapons/weapon-definitions";
+} from "../../models/matrix-set-definition";
+import type { WeaponName } from "../weapons/weapon-definitions";
 
 export const matrixSet2pcLabel = "2pc";
 export const matrixSet4pcLabel = "4pc";
@@ -442,44 +442,7 @@ export const matrixSetDefinitionsLookup: DataById<
     ],
     critRateBuffs: [],
     critDamageBuffs: [],
-    buffs: [
-      {
-        id: "jiyu-2pc-atk-buff",
-        displayName: "Ji Yu 2pc - Flame atk buff",
-        description: "Increase flame ATK by 20% / 22% / 24% / 26%",
-        requirements: {},
-        canBePlayerTriggered: false,
-        triggeredBy: { combatStart: true },
-        maxStacks: 1,
-        cooldown: 0,
-        attackBuffsWithStarRequirement: [
-          {
-            value: 0.2,
-            elementalTypes: ["Flame"],
-            minStarRequirement: 0,
-            maxStarRequirement: 0,
-          },
-          {
-            value: 0.22,
-            elementalTypes: ["Flame"],
-            minStarRequirement: 1,
-            maxStarRequirement: 1,
-          },
-          {
-            value: 0.24,
-            elementalTypes: ["Flame"],
-            minStarRequirement: 2,
-            maxStarRequirement: 2,
-          },
-          {
-            value: 0.26,
-            elementalTypes: ["Flame"],
-            minStarRequirement: 3,
-            maxStarRequirement: 3,
-          },
-        ],
-      },
-    ],
+    buffs: [],
   },
   "King 2pc": {
     id: "King 2pc",
