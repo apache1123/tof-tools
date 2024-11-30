@@ -154,3 +154,10 @@ export const matrixDefinitions: Data<MatrixName, MatrixDefinition> = {
     Zero: zero,
   },
 };
+
+export function getMatrixDefinition(name: MatrixName) {
+  const matrixDefinition = matrixDefinitions.byId[name];
+  if (!matrixDefinition)
+    throw new Error(`Cannot find matrix definition ${name}`);
+  return matrixDefinition;
+}
