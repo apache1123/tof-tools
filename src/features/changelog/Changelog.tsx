@@ -12,7 +12,7 @@ import { Typography } from "@mui/material";
 import { gt } from "@suchipi/femver";
 import { useSnapshot } from "valtio";
 
-import { ButtonModal } from "../../components/presentational/Modal/ButtonModal";
+import { ButtonModal } from "../../components/presentational/common/Modal/ButtonModal";
 import { changelog } from "../../definitions/changelog";
 import { changelogState } from "../../states/states";
 

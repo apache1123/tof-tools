@@ -2,9 +2,9 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { proxy, useSnapshot } from "valtio";
 
-import { WeaponEditorModal } from "../../components/mutational/WeaponEditorModal/WeaponEditorModal";
-import { WeaponDefinitionSelectorModal } from "../../components/presentational/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
-import { WeaponList } from "../../components/presentational/WeaponList/WeaponList";
+import { WeaponEditorModal } from "../../components/mutational/weapon/WeaponEditorModal/WeaponEditorModal";
+import { WeaponDefinitionSelectorModal } from "../../components/presentational/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
+import { WeaponList } from "../../components/presentational/weapon/WeaponList/WeaponList";
 import { Weapon } from "../../models/weapon/weapon";
 import { charactersState, weaponsState } from "../../states/states";
 

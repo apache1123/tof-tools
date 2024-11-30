@@ -1,8 +1,8 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { useSnapshot } from "valtio";
 
-import { RelicIcon } from "../../components/presentational/RelicIcon/RelicIcon";
-import { RelicStarsSelector } from "../../components/presentational/RelicStarsSelector/RelicStarsSelector";
+import { RelicIcon } from "../../components/presentational/relic/RelicIcon/RelicIcon";
+import { RelicStarsSelector } from "../../components/presentational/relic/RelicStarsSelector/RelicStarsSelector";
 import type { RelicName } from "../../definitions/relics";
 import {
   metaDamageRelics,

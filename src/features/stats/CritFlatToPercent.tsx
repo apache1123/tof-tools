@@ -1,8 +1,8 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { proxy, useSnapshot } from "valtio";
 
-import { NumericInput } from "../../components/presentational/NumericInput/NumericInput";
-import { NumericStringPercentage2dp } from "../../components/presentational/NumericString/NumericString";
+import { NumericInput } from "../../components/presentational/common/NumericInput/NumericInput";
+import { NumericStringPercentage2dp } from "../../components/presentational/common/NumericString/NumericString";
 import { maxCharacterLevel } from "../../definitions/character-level";
 import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-utils";
 

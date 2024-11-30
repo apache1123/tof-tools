@@ -2,10 +2,10 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { GearEditorModal } from "../../components/mutational/GearEditorModal/GearEditorModal";
-import { NewGearEditorModal } from "../../components/mutational/NewGearEditorModal/NewGearEditorModal";
-import { GearFilter } from "../../components/presentational/GearFilter/GearFilter";
-import { GearList } from "../../components/presentational/GearList/GearList";
+import { GearEditorModal } from "../../components/mutational/gear/GearEditorModal/GearEditorModal";
+import { NewGearEditorModal } from "../../components/mutational/gear/NewGearEditorModal/NewGearEditorModal";
+import { GearFilter } from "../../components/presentational/gear/GearFilter/GearFilter";
+import { GearList } from "../../components/presentational/gear/GearList/GearList";
 import type { Gear } from "../../models/gear/gear";
 import type { GearsState } from "../../states/gears/gears-state";
 import { charactersState, gearsState } from "../../states/states";

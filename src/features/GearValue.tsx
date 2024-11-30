@@ -1,6 +1,6 @@
 import { Paper, Typography } from "@mui/material";
 
-import { NumericStringPercentage2dp } from "../components/presentational/NumericString/NumericString";
+import { NumericStringPercentage2dp } from "../components/presentational/common/NumericString/NumericString";
 import { getComparisonColor } from "../utils/color-utils";
 
 export interface GearValueProps {
