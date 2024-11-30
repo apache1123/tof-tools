@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 
 import { maxNumOfMatrixStars } from "../../definitions/matrices/matrix";
-import type { MatrixName } from "../../definitions/matrices/matrix-definitions";
+import type { MatrixDefinitionId } from "../../definitions/matrices/matrix-definitions";
 import { getMatrixDefinition } from "../../definitions/matrices/matrix-definitions";
 import { getMatrixType } from "../../definitions/matrices/matrix-type";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
@@ -80,7 +80,7 @@ export interface MatrixDto extends Dto {
   id: string;
   characterId: string;
   typeId: MatrixTypeId;
-  definitionId: MatrixName;
+  definitionId: MatrixDefinitionId;
   stars: number;
   version: 1;
 }

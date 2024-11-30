@@ -22,7 +22,7 @@ export function MatrixDisplay({
       <Stack direction="row" spacing={-11}>
         {[...Array(pieces)].map((_, index) => (
           <MatrixIcon
-            matrixName={matrixName}
+            matrixDefinitionId={matrixName}
             displayName={displayName}
             key={index}
           />

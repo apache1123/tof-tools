@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { getMatrixSetDefinition } from "../../../models/matrix-set-definition";
+import { getMatrixDefinition } from "../../../definitions/matrices/matrix-definitions";
 import { MatrixIcon } from "./MatrixIcon";
 
 const meta: Meta<typeof MatrixIcon> = {
@@ -12,10 +12,10 @@ const meta: Meta<typeof MatrixIcon> = {
 export default meta;
 type Story = StoryObj<typeof MatrixIcon>;
 
-const { id, displayName } = getMatrixSetDefinition("Alyss 4pc");
+const { id, displayName } = getMatrixDefinition("Alyss");
 export const Default: Story = {
   args: {
-    matrixName: id,
+    matrixDefinitionId: id,
     displayName,
   },
 };

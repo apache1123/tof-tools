@@ -1,8 +1,8 @@
-import type { MatrixName } from "../../matrices/matrix-definitions";
+import type { MatrixDefinitionId } from "../../matrices/matrix-definitions";
 import type { MatrixBuffDefinition } from "./matrix-buff-definition";
 
 export interface MatrixDefinition {
-  id: MatrixName;
+  id: MatrixDefinitionId;
   displayName: string;
   buffs: MatrixBuffDefinition[];
 }

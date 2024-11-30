@@ -1,37 +1,26 @@
 import Image from "next/image";
 
-import {
-  matrixSet2pcIdSuffix,
-  matrixSet4pcIdSuffix,
-  type MatrixSetName,
-} from "../../../models/matrix-set-definition";
+import type { MatrixDefinitionId } from "../../../definitions/matrices/matrix-definitions";
+import { normalCaseToKebabCase } from "../../../utils/string-utils";
 
 export interface MatrixIconProps {
-  matrixName: MatrixSetName;
+  matrixDefinitionId: MatrixDefinitionId;
   displayName: string;
   size?: number;
 }
 
 export const MatrixIcon = ({
-  matrixName,
+  matrixDefinitionId,
   displayName,
   size = 100,
 }: MatrixIconProps) => {
-  const suffixRegex = new RegExp(
-    `(${matrixSet2pcIdSuffix}|${matrixSet4pcIdSuffix})`,
-    "g",
-  );
-  const imageName = matrixName
-    .toLowerCase()
-    .replaceAll(suffixRegex, "")
-    .trimEnd()
-    .replaceAll(" ", "-");
+  const imageName = normalCaseToKebabCase(matrixDefinitionId);
   const imagePath = `/icons/matrices/${imageName}.webp`;
 
   return (
     <Image
       src={imagePath}
-      alt={matrixName}
+      alt={matrixDefinitionId}
       title={displayName}
       width={size}
       height={size}

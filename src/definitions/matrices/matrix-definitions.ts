@@ -50,9 +50,9 @@ import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
-export type MatrixName = SimulacrumName | "Haboela" | "Scylla";
+export type MatrixDefinitionId = SimulacrumName | "Haboela" | "Scylla";
 
-export const matrixDefinitions: Data<MatrixName, MatrixDefinition> = {
+export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
   allIds: [
     "Alyss",
     "Anka",
@@ -155,9 +155,8 @@ export const matrixDefinitions: Data<MatrixName, MatrixDefinition> = {
   },
 };
 
-export function getMatrixDefinition(name: MatrixName) {
-  const matrixDefinition = matrixDefinitions.byId[name];
-  if (!matrixDefinition)
-    throw new Error(`Cannot find matrix definition ${name}`);
+export function getMatrixDefinition(id: MatrixDefinitionId) {
+  const matrixDefinition = matrixDefinitions.byId[id];
+  if (!matrixDefinition) throw new Error(`Cannot find matrix definition ${id}`);
   return matrixDefinition;
 }
