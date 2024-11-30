@@ -160,3 +160,7 @@ export function getMatrixDefinition(id: MatrixDefinitionId) {
   if (!matrixDefinition) throw new Error(`Cannot find matrix definition ${id}`);
   return matrixDefinition;
 }
+
+export function getAllMatrixDefinitions() {
+  return matrixDefinitions.allIds.map((id) => matrixDefinitions.byId[id]);
+}

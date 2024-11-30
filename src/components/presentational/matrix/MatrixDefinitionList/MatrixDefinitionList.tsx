@@ -1,12 +1,11 @@
 import { Stack } from "@mui/material";
 
-import type { MatrixDefinitionId } from "../../../../definitions/matrices/matrix-definitions";
 import type { MatrixDefinition } from "../../../../definitions/types/matrix/matrix-definition";
 import { MatrixDefinitionCard } from "../MatrixDefinitionCard/MatrixDefinitionCard";
 
 export interface MatrixDefinitionListProps {
   matrixDefinitions: MatrixDefinition[];
-  onClick?(definitionId: MatrixDefinitionId): void;
+  onClick?(definition: MatrixDefinition): void;
 }
 
 export function MatrixDefinitionList({
@@ -23,7 +22,7 @@ export function MatrixDefinitionList({
             definitionId={id}
             displayName={displayName}
             onClick={() => {
-              if (onClick) onClick(id);
+              if (onClick) onClick(matrixDefinition);
             }}
           />
         );

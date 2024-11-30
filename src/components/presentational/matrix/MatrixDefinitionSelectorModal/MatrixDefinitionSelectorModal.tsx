@@ -2,7 +2,6 @@ import { Stack } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
-import type { MatrixDefinitionId } from "../../../../definitions/matrices/matrix-definitions";
 import type { MatrixDefinition } from "../../../../definitions/types/matrix/matrix-definition";
 import { StyledModal } from "../../common/Modal/StyledModal";
 import { MatrixDefinitionList } from "../MatrixDefinitionList/MatrixDefinitionList";
@@ -10,13 +9,15 @@ import { MatrixDefinitionList } from "../MatrixDefinitionList/MatrixDefinitionLi
 export interface MatrixDefinitionSelectorModalProps {
   open: boolean;
   matrixDefinitions: MatrixDefinition[];
-  onSelect(id: MatrixDefinitionId): void;
+  title?: string;
+  onSelect(definition: MatrixDefinition): void;
   onCancel(): void;
 }
 
 export function MatrixDefinitionSelectorModal({
   open,
   matrixDefinitions,
+  title,
   onSelect,
   onCancel,
 }: MatrixDefinitionSelectorModalProps) {
@@ -29,6 +30,7 @@ export function MatrixDefinitionSelectorModal({
   return (
     <StyledModal
       open={open}
+      modalTitle={title}
       modalContent={
         <Stack sx={{ gap: 2 }}>
           <TextField

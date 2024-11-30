@@ -1,9 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
-import type { MatrixDefinitionId } from "../../../../definitions/matrices/matrix-definitions";
 import type { MatrixDefinition } from "../../../../definitions/types/matrix/matrix-definition";
-import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
+import type { MatrixType } from "../../../../models/matrix/matrix-type";
 import { StyledModal } from "../../common/Modal/StyledModal";
 import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
 import { MatrixPiecesIcon } from "../MatrixPiecesIcon/MatrixPiecesIcon";
@@ -14,12 +13,12 @@ export interface NewMatrixModalProps {
   definition: MatrixDefinition;
   open: boolean;
   onConfirm({
-    definitionId,
-    typeIds,
+    definition,
+    types,
     stars,
   }: {
-    definitionId: MatrixDefinitionId;
-    typeIds: MatrixTypeId[];
+    definition: MatrixDefinition;
+    types: MatrixType[];
     stars: number;
   }): void;
   onCancel(): void;
@@ -31,13 +30,13 @@ export function NewMatrixModal({
   onConfirm,
   onCancel,
 }: NewMatrixModalProps) {
-  const [typeIds, setTypeIds] = useState<MatrixTypeId[]>([]);
+  const [types, setTypes] = useState<MatrixType[]>([]);
   const [stars, setStars] = useState(0);
 
   return (
     <StyledModal
       open={open}
-      modalTitle="Add new matrices"
+      modalTitle="Add matrix"
       modalContent={
         <Stack sx={{ gap: 2, alignItems: "center" }}>
           <Box sx={{ my: -4 }}>
@@ -51,18 +50,18 @@ export function NewMatrixModal({
           <Box>
             <Typography gutterBottom>Add one or multiple pieces:</Typography>
             <MatrixTypeToggle
-              values={typeIds}
+              values={types}
               enforceAtLeastOne
-              onChange={setTypeIds}
+              onChange={setTypes}
             />
           </Box>
 
-          {!!typeIds.length && (
+          {!!types.length && (
             <Stack sx={{ gap: 1, alignItems: "center" }}>
               <MatrixPiecesIcon
                 definitionId={definition.id}
                 displayName={definition.displayName}
-                pieces={typeIds.length}
+                pieces={types.length}
               />
               <MatrixStarsSelector stars={stars} onStarsChange={setStars} />
             </Stack>
@@ -71,11 +70,11 @@ export function NewMatrixModal({
       }
       showConfirm
       showCancel
-      isConfirmDisabled={typeIds.length === 0}
+      isConfirmDisabled={types.length === 0}
       onConfirm={() => {
         onConfirm({
-          definitionId: definition.id,
-          typeIds,
+          definition: definition,
+          types,
           stars,
         });
       }}
