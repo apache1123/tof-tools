@@ -4,23 +4,23 @@ import type { MatrixDefinitionId } from "../../../definitions/matrices/matrix-de
 import { normalCaseToKebabCase } from "../../../utils/string-utils";
 
 export interface MatrixIconProps {
-  matrixDefinitionId: MatrixDefinitionId;
+  definitionId: MatrixDefinitionId;
   displayName: string;
   size?: number;
 }
 
 export const MatrixIcon = ({
-  matrixDefinitionId,
+  definitionId,
   displayName,
   size = 100,
 }: MatrixIconProps) => {
-  const imageName = normalCaseToKebabCase(matrixDefinitionId);
+  const imageName = normalCaseToKebabCase(definitionId);
   const imagePath = `/icons/matrices/${imageName}.webp`;
 
   return (
     <Image
       src={imagePath}
-      alt={matrixDefinitionId}
+      alt={definitionId}
       title={displayName}
       width={size}
       height={size}
