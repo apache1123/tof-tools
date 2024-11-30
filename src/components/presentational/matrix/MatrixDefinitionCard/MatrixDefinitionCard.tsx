@@ -1,13 +1,7 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Card, CardActionArea, CardContent } from "@mui/material";
 
 import type { MatrixDefinitionId } from "../../../../definitions/matrices/matrix-definitions";
-import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
+import { MatrixDefinitionCardContent } from "./MatrixDefinitionCardContent";
 
 export interface MatrixDefinitionCardProps {
   definitionId: MatrixDefinitionId;
@@ -28,14 +22,11 @@ export function MatrixDefinitionCard({
         }}
       >
         <CardContent sx={{ p: 0 }}>
-          <Stack sx={{ pb: 1, gap: 1, alignItems: "center" }}>
-            <MatrixIcon
-              definitionId={definitionId}
-              displayName={displayName}
-              size={180}
-            />
-            <Typography sx={{ mt: -4 }}>{displayName}</Typography>
-          </Stack>
+          <MatrixDefinitionCardContent
+            definitionId={definitionId}
+            displayName={displayName}
+            sx={{ pb: 1 }}
+          />
         </CardContent>
       </CardActionArea>
     </Card>

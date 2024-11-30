@@ -44,6 +44,10 @@ export class Matrix implements Persistable<MatrixDto> {
     return this._type;
   }
 
+  public get definitionId() {
+    return this.definition.id;
+  }
+
   public get displayName() {
     return this.definition.displayName;
   }

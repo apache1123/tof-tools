@@ -43,7 +43,12 @@ export function MatrixTypeToggle({
     >
       {matrixTypes.map(({ id, displayName }) => (
         <ToggleButton key={id} value={id} sx={{ p: 0.5 }}>
-          <MatrixTypeIcon id={id} displayName={displayName} size={size} />
+          <MatrixTypeIcon
+            id={id}
+            displayName={displayName}
+            variant="large"
+            size={size}
+          />
         </ToggleButton>
       ))}
     </ToggleButtonGroup>
