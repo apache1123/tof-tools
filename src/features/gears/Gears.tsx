@@ -8,10 +8,12 @@ import { GearFilter } from "../../components/presentational/gear/GearFilter/Gear
 import { GearList } from "../../components/presentational/gear/GearList/GearList";
 import type { Gear } from "../../models/gear/gear";
 import type { GearsState } from "../../states/gears/gears-state";
-import { charactersState, gearsState } from "../../states/states";
+import { gearsState } from "../../states/states";
+import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 
 export function Gears() {
-  const { selected: selectedCharacter } = useSnapshot(charactersState);
+  const { selectedCharacterSnap } = useSelectedCharacter();
+
   const gearsSnap = useSnapshot(gearsState) as GearsState;
   const { filter } = gearsSnap;
 
@@ -19,7 +21,7 @@ export function Gears() {
   const [editingGear, setEditingGear] = useState<Gear | undefined>(undefined);
 
   return (
-    selectedCharacter && (
+    selectedCharacterSnap && (
       <>
         <Stack sx={{ gap: 2 }}>
           <GearFilter
@@ -49,7 +51,7 @@ export function Gears() {
         </Stack>
 
         <NewGearEditorModal
-          characterId={selectedCharacter.id}
+          characterId={selectedCharacterSnap.id}
           open={isAddingNewGear}
           onConfirm={(gear) => {
             gearsState.add(gear);

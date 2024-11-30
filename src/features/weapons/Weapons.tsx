@@ -6,12 +6,12 @@ import { WeaponEditorModal } from "../../components/mutational/weapon/WeaponEdit
 import { WeaponDefinitionSelectorModal } from "../../components/presentational/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
 import { WeaponList } from "../../components/presentational/weapon/WeaponList/WeaponList";
 import { Weapon } from "../../models/weapon/weapon";
-import { charactersState, weaponsState } from "../../states/states";
+import { weaponsState } from "../../states/states";
+import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 
 export function Weapons() {
-  const charactersSnap = useSnapshot(charactersState);
-  const selectedCharacterState = charactersState.selected;
-  const selectedCharacterSnap = charactersSnap.selected;
+  const { selectedCharacterState, selectedCharacterSnap } =
+    useSelectedCharacter();
 
   const weaponsSnap = useSnapshot(weaponsState);
 
