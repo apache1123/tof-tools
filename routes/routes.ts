@@ -12,6 +12,10 @@ export const routes = {
     label: "Weapons",
     path: "/weapons",
   },
+  matrices: {
+    label: "Matrices",
+    path: "/matrices",
+  },
   damageCalculator: {
     label: "Damage Calculator",
     path: "/damage-calculator",

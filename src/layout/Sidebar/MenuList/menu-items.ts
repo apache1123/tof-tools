@@ -22,6 +22,11 @@ export const menuItems: NavGroupModel[] = [
         path: routes.weapons.path,
       },
       {
+        id: "matrices",
+        title: routes.matrices.label,
+        path: routes.matrices.path,
+      },
+      {
         id: "loadouts",
         title: routes.loadouts.label,
         path: routes.loadouts.path,
