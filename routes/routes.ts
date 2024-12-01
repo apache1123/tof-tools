@@ -5,8 +5,8 @@ export interface Route {
 
 export const routes = {
   gears: {
-    label: "Gears",
-    path: "/gears",
+    label: "Gear",
+    path: "/gear",
   },
   weapons: {
     label: "Weapons",
