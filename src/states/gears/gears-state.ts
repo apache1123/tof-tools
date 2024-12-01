@@ -13,10 +13,7 @@ export class GearsState
 {
   public constructor(private readonly charactersState: CharactersState) {
     super();
-
-    this.filter = {
-      gearNames: [],
-    };
+    this.filter = this.getFilterInitialState();
   }
 
   public filter: GearFilter;
@@ -27,7 +24,7 @@ export class GearsState
     );
   }
 
-  public displayedGears(): Gear[] {
+  public getFilteredGears(): Gear[] {
     return this.getCurrentCharacterGears().filter((gear) => {
       const { gearNames } = this.filter;
       if (gearNames.length) {
@@ -39,9 +36,7 @@ export class GearsState
   }
 
   public resetFilter() {
-    this.filter = {
-      gearNames: [],
-    };
+    this.filter = this.getFilterInitialState();
   }
 
   public override copyFromDto(dto: GearsStateDto) {
@@ -56,6 +51,12 @@ export class GearsState
   protected override createItemFromDto(itemDto: GearDtoV2): Gear {
     const { typeId, characterId } = itemDto;
     return new Gear(gearTypesLookup.byId[typeId], characterId);
+  }
+
+  private getFilterInitialState(): GearFilter {
+    return {
+      gearNames: [],
+    };
   }
 }
 

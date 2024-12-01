@@ -54,7 +54,7 @@ export function Gears() {
           }
           items={
             <GearList
-              gears={gearsSnap.displayedGears()}
+              gears={gearsSnap.getFilteredGears()}
               onClick={(id) => {
                 const gearState = gearsState.find(id);
                 if (gearState) {
