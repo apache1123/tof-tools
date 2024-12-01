@@ -38,6 +38,12 @@ export class GearsState
     });
   }
 
+  public resetFilter() {
+    this.filter = {
+      gearNames: [],
+    };
+  }
+
   public override copyFromDto(dto: GearsStateDto) {
     super.copyFromDto(dto);
     this.filter = dto.filter;

@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Button } from "@mui/material";
 import { useState } from "react";
 import { proxy, useSnapshot } from "valtio";
 
@@ -8,6 +8,7 @@ import { WeaponList } from "../../components/presentational/weapon/WeaponList/We
 import { Weapon } from "../../models/weapon/weapon";
 import { weaponsState } from "../../states/states";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
+import { InventoryLayout } from "../common/InventoryLayout";
 
 export function Weapons() {
   const { selectedCharacterState, selectedCharacterSnap } =
@@ -24,25 +25,30 @@ export function Weapons() {
     selectedCharacterSnap &&
     selectedCharacterState && (
       <>
-        <Stack sx={{ gap: 2 }}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setIsAddingWeapon(true);
-            }}
-          >
-            Add weapon
-          </Button>
-          <WeaponList
-            weapons={weaponsSnap.getCurrentCharacterWeapons()}
-            onClick={(id) => {
-              const weaponState = weaponsState.find(id);
-              if (weaponState) {
-                setEditingWeapon(weaponState);
-              }
-            }}
-          />
-        </Stack>
+        <InventoryLayout
+          filter={undefined}
+          actions={
+            <Button
+              variant="contained"
+              onClick={() => {
+                setIsAddingWeapon(true);
+              }}
+            >
+              Add weapon
+            </Button>
+          }
+          items={
+            <WeaponList
+              weapons={weaponsSnap.getCurrentCharacterWeapons()}
+              onClick={(id) => {
+                const weaponState = weaponsState.find(id);
+                if (weaponState) {
+                  setEditingWeapon(weaponState);
+                }
+              }}
+            />
+          }
+        />
 
         <WeaponDefinitionSelectorModal
           open={isAddingWeapon}

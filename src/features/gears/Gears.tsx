@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Button } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
@@ -10,6 +10,8 @@ import type { Gear } from "../../models/gear/gear";
 import type { GearsState } from "../../states/gears/gears-state";
 import { gearsState } from "../../states/states";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
+import { FilterLayout } from "../common/FilterLayout";
+import { InventoryLayout } from "../common/InventoryLayout";
 
 export function Gears() {
   const { selectedCharacterSnap } = useSelectedCharacter();
@@ -23,32 +25,45 @@ export function Gears() {
   return (
     selectedCharacterSnap && (
       <>
-        <Stack sx={{ gap: 2 }}>
-          <GearFilter
-            filter={filter}
-            onChange={(filter) => {
-              gearsState.filter = filter;
-            }}
-          />
-          <Button
-            variant="contained"
-            onClick={() => {
-              setIsAddingNewGear(true);
-            }}
-          >
-            Add new gear
-          </Button>
-
-          <GearList
-            gears={gearsSnap.displayedGears()}
-            onClick={(id) => {
-              const gearState = gearsState.find(id);
-              if (gearState) {
-                setEditingGear(gearState);
+        <InventoryLayout
+          filter={
+            <FilterLayout
+              title="Gear Filter"
+              filterContent={
+                <GearFilter
+                  filter={filter}
+                  onChange={(filter) => {
+                    gearsState.filter = filter;
+                  }}
+                />
               }
-            }}
-          />
-        </Stack>
+              onResetFilter={() => {
+                gearsState.resetFilter();
+              }}
+            />
+          }
+          actions={
+            <Button
+              variant="contained"
+              onClick={() => {
+                setIsAddingNewGear(true);
+              }}
+            >
+              Add new gear
+            </Button>
+          }
+          items={
+            <GearList
+              gears={gearsSnap.displayedGears()}
+              onClick={(id) => {
+                const gearState = gearsState.find(id);
+                if (gearState) {
+                  setEditingGear(gearState);
+                }
+              }}
+            />
+          }
+        />
 
         <NewGearEditorModal
           characterId={selectedCharacterSnap.id}

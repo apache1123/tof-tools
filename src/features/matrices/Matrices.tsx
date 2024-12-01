@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Button } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
@@ -10,6 +10,7 @@ import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-def
 import { Matrix } from "../../models/matrix/matrix";
 import { matricesState } from "../../states/states";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
+import { InventoryLayout } from "../common/InventoryLayout";
 
 export function Matrices() {
   const { selectedCharacterState, selectedCharacterSnap } =
@@ -26,17 +27,22 @@ export function Matrices() {
     selectedCharacterSnap &&
     selectedCharacterState && (
       <>
-        <Stack sx={{ gap: 2 }}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setIsAddingMatrix(true);
-            }}
-          >
-            Add matrix
-          </Button>
-          <MatrixList matrices={matricesSnap.getCurrentCharacterMatrices()} />
-        </Stack>
+        <InventoryLayout
+          filter={undefined}
+          actions={
+            <Button
+              variant="contained"
+              onClick={() => {
+                setIsAddingMatrix(true);
+              }}
+            >
+              Add matrix
+            </Button>
+          }
+          items={
+            <MatrixList matrices={matricesSnap.getCurrentCharacterMatrices()} />
+          }
+        />
 
         <MatrixDefinitionSelectorModal
           open={isAddingMatrix && !selectedDefinition}
