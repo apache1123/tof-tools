@@ -168,3 +168,10 @@ export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     Zero: zero,
   },
 };
+
+export function getWeaponDefinition(name: WeaponName) {
+  const weaponDefinition = weaponDefinitions.byId[name];
+  if (!weaponDefinition)
+    throw new Error(`Cannot find weapon definition ${name}`);
+  return weaponDefinition;
+}

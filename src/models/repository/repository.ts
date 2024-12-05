@@ -1,4 +1,4 @@
-import type { Identifiable } from "../identifiable";
+import type { Id, Identifiable } from "../identifiable";
 
 export class Repository<T extends Identifiable> {
   public constructor() {
@@ -11,7 +11,7 @@ export class Repository<T extends Identifiable> {
     return [...this._items.values()];
   }
 
-  public find(id: string) {
+  public find(id: Id) {
     return this._items.get(id);
   }
 
@@ -19,7 +19,7 @@ export class Repository<T extends Identifiable> {
     this._items.set(item.id, item);
   }
 
-  public remove(id: string) {
+  public remove(id: Id) {
     this._items.delete(id);
   }
 

@@ -5,16 +5,29 @@ import { proxy, useSnapshot } from "valtio";
 import { WeaponEditorModal } from "../../components/mutational/weapon/WeaponEditorModal/WeaponEditorModal";
 import { WeaponDefinitionSelectorModal } from "../../components/presentational/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
 import { WeaponList } from "../../components/presentational/weapon/WeaponList/WeaponList";
+import { db } from "../../db/reactive-local-storage-db";
+import type { Repository } from "../../db/repository/types/repository";
+import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions";
 import { Weapon } from "../../models/weapon/weapon";
-import { weaponsState } from "../../states/states";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
 
 export function Weapons() {
-  const { selectedCharacterState, selectedCharacterSnap } =
-    useSelectedCharacter();
+  const { selectedCharacterProxy } = useSelectedCharacter();
 
-  const weaponsSnap = useSnapshot(weaponsState);
+  const weaponRepoProxy = db.get("weapons");
+  const weaponRepo = useSnapshot(weaponRepoProxy) as Repository<Weapon>;
+  const weapons = selectedCharacterProxy
+    ? weaponRepo.filter(
+        (weapon) => weapon.characterId === selectedCharacterProxy.id,
+      )
+    : [];
+
+  const unusedWeaponDefinitions = weaponDefinitions.allIds
+    .filter((id) => {
+      return !weapons.some((weapon) => weapon.id === id);
+    })
+    .map((id) => weaponDefinitions.byId[id]);
 
   const [isAddingWeapon, setIsAddingWeapon] = useState(false);
   const [editingWeapon, setEditingWeapon] = useState<Weapon | undefined>(
@@ -22,8 +35,7 @@ export function Weapons() {
   );
 
   return (
-    selectedCharacterSnap &&
-    selectedCharacterState && (
+    selectedCharacterProxy && (
       <>
         <InventoryLayout
           filter={undefined}
@@ -39,11 +51,11 @@ export function Weapons() {
           }
           items={
             <WeaponList
-              weapons={weaponsSnap.getCurrentCharacterWeapons()}
+              weapons={weapons}
               onClick={(id) => {
-                const weaponState = weaponsState.find(id);
-                if (weaponState) {
-                  setEditingWeapon(weaponState);
+                const weaponProxy = weaponRepoProxy.find(id);
+                if (weaponProxy) {
+                  setEditingWeapon(weaponProxy);
                 }
               }}
             />
@@ -52,12 +64,12 @@ export function Weapons() {
 
         <WeaponDefinitionSelectorModal
           open={isAddingWeapon}
-          weaponDefinitions={weaponsSnap.getCanAddWeaponDefinitions()}
+          weaponDefinitions={unusedWeaponDefinitions}
           onSelect={(weaponDefinition) => {
             const weapon = proxy(
-              new Weapon(weaponDefinition, selectedCharacterSnap.id),
+              new Weapon(weaponDefinition, selectedCharacterProxy),
             );
-            weaponsState.add(weapon);
+            weaponRepoProxy.add(weapon);
 
             setIsAddingWeapon(false);
             setEditingWeapon(weapon);

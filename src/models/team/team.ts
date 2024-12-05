@@ -1,17 +1,14 @@
+import type { Dto } from "../../db/repository/dto";
 import type { WeaponElementalType } from "../../definitions/elemental-type";
-import { getWeaponDefinition } from "../../definitions/types/weapon/weapon-definition";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
 import type { Character } from "../character/character";
-import type { Dto } from "../dto";
-import type { Persistable } from "../persistable";
-import type { WeaponDtoV1, WeaponDtoV2 } from "../weapon/weapon";
-import { Weapon } from "../weapon/weapon";
+import type { Weapon, WeaponDtoV1, WeaponDtoV2 } from "../weapon/weapon";
 
 type WeaponSlot = Weapon | undefined;
 
-export class Team implements Persistable<TeamDtoV2> {
+export class Team {
   public constructor(private readonly character: Character) {}
 
   public weapon1: WeaponSlot;
@@ -52,36 +49,36 @@ export class Team implements Persistable<TeamDtoV2> {
     return "None";
   }
 
-  public copyFromDto(dto: TeamDtoV2): void {
-    const {
-      weapon1: weapon1Dto,
-      weapon2: weapon2Dto,
-      weapon3: weapon3Dto,
-    } = dto;
-
-    const getWeaponFromDto = (weaponDto: WeaponDtoV2): Weapon => {
-      const weaponDefinition = getWeaponDefinition(weaponDto.definitionId);
-      const weapon = new Weapon(weaponDefinition, this.character.id);
-      weapon.copyFromDto(weaponDto);
-      return weapon;
-    };
-
-    this.weapon1 = weapon1Dto ? getWeaponFromDto(weapon1Dto) : undefined;
-    this.weapon2 = weapon2Dto ? getWeaponFromDto(weapon2Dto) : undefined;
-    this.weapon3 = weapon3Dto ? getWeaponFromDto(weapon3Dto) : undefined;
-  }
-
-  public toDto(): TeamDtoV2 {
-    const { weapon1, weapon2, weapon3, weapons } = this;
-
-    return {
-      weapon1: weapon1?.toDto(),
-      weapon2: weapon2?.toDto(),
-      weapon3: weapon3?.toDto(),
-      weapons: weapons.map((weapon) => weapon.toDto()),
-      version: 2,
-    };
-  }
+  // public copyFromDto(dto: TeamDtoV2): void {
+  //   const {
+  //     weapon1: weapon1Dto,
+  //     weapon2: weapon2Dto,
+  //     weapon3: weapon3Dto,
+  //   } = dto;
+  //
+  //   const getWeaponFromDto = (weaponDto: WeaponDtoV2): Weapon => {
+  //     const weaponDefinition = getWeaponDefinition(weaponDto.definitionId);
+  //     const weapon = new Weapon(weaponDefinition, this.character.id);
+  //     weapon.copyFromDto(weaponDto);
+  //     return weapon;
+  //   };
+  //
+  //   this.weapon1 = weapon1Dto ? getWeaponFromDto(weapon1Dto) : undefined;
+  //   this.weapon2 = weapon2Dto ? getWeaponFromDto(weapon2Dto) : undefined;
+  //   this.weapon3 = weapon3Dto ? getWeaponFromDto(weapon3Dto) : undefined;
+  // }
+  //
+  // public toDto(): TeamDtoV2 {
+  //   const { weapon1, weapon2, weapon3, weapons } = this;
+  //
+  //   return {
+  //     weapon1: weapon1?.toDto(),
+  //     weapon2: weapon2?.toDto(),
+  //     weapon3: weapon3?.toDto(),
+  //     weapons: weapons.map((weapon) => weapon.toDto()),
+  //     version: 2,
+  //   };
+  // }
 }
 
 export interface TeamDtoV2 extends Dto {

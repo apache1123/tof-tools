@@ -1,4 +1,4 @@
-import type { Dto } from "../../dto";
+import type { Dto } from "../../../db/repository/dto";
 
 export interface TimelineEventDto extends Dto {
   startTime: number;

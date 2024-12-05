@@ -15,15 +15,22 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { ComingSoonIcon } from "../../../components/presentational/common/ComingSoonIcon/ComingSoonIcon";
-import type { Character } from "../../../models/character/character";
-import { charactersState } from "../../../states/states";
+import { db } from "../../../db/reactive-local-storage-db";
+import { useSelectedCharacter } from "../../../features/characters/useSelectedCharacter";
+import type { CharacterId } from "../../../models/character/character";
+import { characterState } from "../../../states/character/character-state";
 
 export type CharacterSelectorProps = ButtonBaseProps;
 
 export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
-  const characters = useSnapshot(charactersState);
-  function handleChangeCharacter(character: Character) {
-    charactersState.selected = character;
+  const characterRepository = db.get("characters");
+  const { items } = useSnapshot(characterRepository);
+
+  const { selectedCharacterId, selectedCharacterProxy } =
+    useSelectedCharacter();
+
+  function handleChangeCharacter(id: CharacterId) {
+    characterState.selectedId = id;
     handleClosePopover();
   }
 
@@ -59,7 +66,7 @@ export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
           }}
         >
           <Typography variant="body2" fontWeight="bold">
-            {characters.selected?.name}
+            {selectedCharacterProxy?.name}
           </Typography>
         </Box>
 
@@ -72,14 +79,14 @@ export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
         onClose={handleClosePopover}
       >
         <MenuList sx={{ width: 210, p: 0.5 }}>
-          {characters.items.map((character, i) => {
-            const isSelected = character.id === characters.selected?.id;
+          {items.map((character) => {
+            const isSelected = character.id === selectedCharacterId;
 
             return (
               <MenuItem
                 key={character.id}
                 selected={isSelected}
-                onClick={() => handleChangeCharacter(charactersState.items[i])}
+                onClick={() => handleChangeCharacter(character.id)}
                 sx={{ typography: "body2" }}
               >
                 <Typography

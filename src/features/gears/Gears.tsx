@@ -6,24 +6,41 @@ import { GearEditorModal } from "../../components/mutational/gear/GearEditorModa
 import { NewGearEditorModal } from "../../components/mutational/gear/NewGearEditorModal/NewGearEditorModal";
 import { GearFilter } from "../../components/presentational/gear/GearFilter/GearFilter";
 import { GearList } from "../../components/presentational/gear/GearList/GearList";
+import { db } from "../../db/reactive-local-storage-db";
 import type { Gear } from "../../models/gear/gear";
-import type { GearsState } from "../../states/gears/gears-state";
-import { gearsState } from "../../states/states";
+import type { GearState } from "../../states/gear/gear-state";
+import { gearState } from "../../states/gear/gear-state";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 
 export function Gears() {
-  const { selectedCharacterSnap } = useSelectedCharacter();
+  const { selectedCharacterId, selectedCharacterProxy } =
+    useSelectedCharacter();
 
-  const gearsSnap = useSnapshot(gearsState) as GearsState;
+  const gearRepoProxy = db.get("gears");
+  const gearRepo = useSnapshot(gearRepoProxy);
+
+  const gearsSnap = useSnapshot(gearState) as GearState;
   const { filter } = gearsSnap;
+
+  const filteredGears = gearRepo.filter((gear) => {
+    if (gear.characterId !== selectedCharacterId) return false;
+
+    const { gearNames } = filter;
+    if (gearNames.length) {
+      return gearNames.includes(gear.type.id);
+    }
+
+    return true;
+  });
 
   const [isAddingNewGear, setIsAddingNewGear] = useState(false);
   const [editingGear, setEditingGear] = useState<Gear | undefined>(undefined);
 
   return (
-    selectedCharacterSnap && (
+    selectedCharacterId &&
+    selectedCharacterProxy && (
       <>
         <InventoryLayout
           filter={
@@ -33,12 +50,12 @@ export function Gears() {
                 <GearFilter
                   filter={filter}
                   onChange={(filter) => {
-                    gearsState.filter = filter;
+                    gearState.filter = filter;
                   }}
                 />
               }
               onResetFilter={() => {
-                gearsState.resetFilter();
+                gearState.resetFilter();
               }}
             />
           }
@@ -54,9 +71,9 @@ export function Gears() {
           }
           items={
             <GearList
-              gears={gearsSnap.getFilteredGears()}
+              gears={filteredGears}
               onClick={(id) => {
-                const gearState = gearsState.find(id);
+                const gearState = gearRepoProxy.find(id);
                 if (gearState) {
                   setEditingGear(gearState);
                 }
@@ -66,10 +83,10 @@ export function Gears() {
         />
 
         <NewGearEditorModal
-          characterId={selectedCharacterSnap.id}
+          characterProxy={selectedCharacterProxy}
           open={isAddingNewGear}
           onConfirm={(gear) => {
-            gearsState.add(gear);
+            gearRepoProxy.add(gear);
             setIsAddingNewGear(false);
           }}
           onCancel={() => {

@@ -1,4 +1,4 @@
-import type { Dto } from "../../dto";
+import type { Dto } from "../../../db/repository/dto";
 import type { DamageDto } from "./damage-dto";
 
 export interface WeaponDamageSummaryDto extends Dto {

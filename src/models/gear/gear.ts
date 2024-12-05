@@ -15,19 +15,14 @@ import {
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
 } from "../../definitions/gear";
-import type { GearName } from "../../definitions/gear-types";
-import { gearTypesLookup } from "../../definitions/gear-types";
 import type { StatName } from "../../definitions/stat-types";
 import { statTypesLookup } from "../../definitions/stat-types";
 import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { CharacterId } from "../character/character";
-import type { Dto } from "../dto";
+import type { Character, CharacterId } from "../character/character";
 import type { Id } from "../identifiable";
-import type { Persistable } from "../persistable";
-import type { AugmentStatDto } from "./augment-stat";
 import { AugmentStat } from "./augment-stat";
 import type {
   GearRandomStatRollCombinations,
@@ -35,7 +30,6 @@ import type {
 } from "./gear-random-stat-roll-combinations";
 import type { GearStatDifference } from "./gear-stat-difference";
 import type { GearType } from "./gear-type";
-import type { RandomStatDto } from "./random-stat";
 import { RandomStat } from "./random-stat";
 import type { StatType } from "./stat-type";
 import {
@@ -55,39 +49,40 @@ export type GearId = Id;
 type RandomStatSlot = RandomStat | undefined;
 type AugmentStatSlot = AugmentStat | undefined;
 
-export class Gear implements Persistable<GearDtoV2> {
+export class Gear {
   /**
    * @param type The type of the gear
-   * @param characterId The id of the character the gear belongs to
+   * @param character The character the gear belongs to
+   * @param id Overriding id
    * */
-  public constructor(type: GearType, characterId: CharacterId) {
-    this._id = nanoid();
-    this._characterId = characterId;
+  public constructor(type: GearType, character: Character, id?: GearId) {
+    this._id = id ?? nanoid();
     this._type = type;
+    this._character = character;
     this._stars = 0;
     this._isAugmented = false;
     this._randomStats = [];
     this._augmentStats = [];
   }
 
-  private _randomStats: RandomStatSlot[];
-  private _augmentStats: AugmentStatSlot[];
-  private _id: GearId;
-  private _characterId: CharacterId;
-  private _type: GearType;
+  private readonly _id: GearId;
+  private readonly _type: GearType;
+  private readonly _character: Character;
   private _stars: number;
+  private _randomStats: RandomStatSlot[];
   private _isAugmented: boolean;
+  private _augmentStats: AugmentStatSlot[];
 
   public get id(): GearId {
     return this._id;
   }
 
-  public get characterId(): CharacterId {
-    return this._characterId;
-  }
-
   public get type() {
     return this._type;
+  }
+
+  public get characterId(): CharacterId {
+    return this._character.id;
   }
 
   public get stars() {
@@ -97,6 +92,10 @@ export class Gear implements Persistable<GearDtoV2> {
     if (stars >= 0 && stars <= maxNumOfRandomStatRolls) {
       this._stars = stars;
     }
+  }
+
+  public get randomStats(): ReadonlyArray<RandomStatSlot> {
+    return this._randomStats;
   }
 
   public get isAugmented(): boolean {
@@ -112,10 +111,6 @@ export class Gear implements Persistable<GearDtoV2> {
     if (!value) {
       this.resetRandomStatsAugment();
     }
-  }
-
-  public get randomStats(): ReadonlyArray<RandomStatSlot> {
-    return this._randomStats;
   }
 
   public get augmentStats(): ReadonlyArray<AugmentStatSlot> {
@@ -378,7 +373,7 @@ export class Gear implements Persistable<GearDtoV2> {
       return undefined;
     }
 
-    const maxTitanGear = new Gear(this.type, this._characterId);
+    const maxTitanGear = new Gear(this.type, this._character);
     Gear.copy(this, maxTitanGear);
 
     const gearStatRollCombinations =
@@ -543,67 +538,6 @@ export class Gear implements Persistable<GearDtoV2> {
     }
   }
 
-  public copyFromDto(dto: GearDtoV2): void {
-    const {
-      id,
-      typeId,
-      characterId,
-      stars,
-      randomStats: randomStatDtos,
-      augmentStats: augmentStatDtos,
-      isAugmented,
-    } = dto;
-
-    const gearType = gearTypesLookup.byId[typeId];
-    this._id = id;
-    this._characterId = characterId;
-    this._type = gearType;
-    this.stars = stars;
-    this.isAugmented = !!isAugmented;
-
-    this._randomStats = [];
-    randomStatDtos.forEach((randomStatDto, i) => {
-      if (randomStatDto) {
-        const statType = statTypesLookup.byId[randomStatDto.typeId];
-        const randomStat = new RandomStat(statType);
-        randomStat.copyFromDto(randomStatDto);
-        this.setRandomStat(i, randomStat);
-      }
-    });
-
-    this._augmentStats = [];
-    augmentStatDtos?.forEach((augmentStatDto, i) => {
-      if (augmentStatDto) {
-        const statType = statTypesLookup.byId[augmentStatDto.typeId];
-        const augmentStat = new AugmentStat(statType);
-        augmentStat.copyFromDto(augmentStatDto);
-        this.setAugmentStat(i, augmentStat);
-      }
-    });
-  }
-
-  public toDto(): GearDtoV2 {
-    const {
-      id,
-      characterId,
-      type,
-      stars,
-      randomStats,
-      augmentStats,
-      isAugmented,
-    } = this;
-    return {
-      id,
-      characterId,
-      typeId: type.id,
-      stars,
-      randomStats: randomStats.map((randomStat) => randomStat?.toDto()),
-      augmentStats: augmentStats.map((augmentStat) => augmentStat?.toDto()),
-      isAugmented,
-      version: 2,
-    };
-  }
-
   // Additively sum up all random stat & augment stat values based on a stat type condition
   private additiveSumStatValues(
     predicate: (statType: StatType) => boolean,
@@ -643,26 +577,4 @@ export class Gear implements Persistable<GearDtoV2> {
       }
     }
   }
-}
-
-export interface GearDtoV2 extends Dto {
-  id: string;
-  typeId: GearName;
-  characterId: string;
-  stars: number;
-  randomStats: (RandomStatDto | undefined)[];
-  augmentStats?: (AugmentStatDto | undefined)[];
-  isAugmented?: boolean;
-  version: 2;
-}
-
-/** @deprecated Introduced Character. Gear must belong to a Character now */
-export interface GearDtoV1 extends Dto {
-  id: string;
-  typeId: GearName;
-  stars: number;
-  randomStats: (RandomStatDto | undefined)[];
-  augmentStats?: AugmentStatDto[];
-  isAugmented?: boolean;
-  version: 1;
 }

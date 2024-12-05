@@ -1,13 +1,9 @@
+import type { Dto } from "../db/repository/dto";
 import type { BuffAbilityDefinition } from "../definitions/types/buff/buff-ability-definition";
-import type { Dto } from "./dto";
 import type { MatrixSetName } from "./matrix-set-definition";
-import {
-  getMatrixSetDefinition,
-  type MatrixSetDefinition,
-} from "./matrix-set-definition";
-import type { Persistable } from "./persistable";
+import { type MatrixSetDefinition } from "./matrix-set-definition";
 
-export class MatrixSet implements Persistable<MatrixSetDto> {
+export class MatrixSet {
   public constructor(definition: MatrixSetDefinition) {
     this.definition = definition;
     this.stars = 0;
@@ -55,22 +51,22 @@ export class MatrixSet implements Persistable<MatrixSetDto> {
     );
   }
 
-  public copyFromDto(dto: MatrixSetDto): void {
-    const { definitionId, stars } = dto;
-
-    this.definition = getMatrixSetDefinition(definitionId);
-    this.stars = stars;
-  }
-
-  public toDto(): MatrixSetDto {
-    const { definitionId, stars } = this;
-
-    return {
-      definitionId,
-      stars,
-      version: 1,
-    };
-  }
+  // public copyFromDto(dto: MatrixSetDto): void {
+  //   const { definitionId, stars } = dto;
+  //
+  //   this.definition = getMatrixSetDefinition(definitionId);
+  //   this.stars = stars;
+  // }
+  //
+  // public toDto(): MatrixSetDto {
+  //   const { definitionId, stars } = this;
+  //
+  //   return {
+  //     definitionId,
+  //     stars,
+  //     version: 1,
+  //   };
+  // }
 }
 
 export interface MatrixSetDto extends Dto {

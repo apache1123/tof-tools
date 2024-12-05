@@ -2,6 +2,7 @@ import { initializeChangelogState } from "./v1/initialize-changelog-state";
 import { migrateTeamsGearSetsStatsToLoadouts } from "./v1/migrate-teams-gear-sets-stats-to-loadouts";
 import { fixGearSetsGearTypeData } from "./v2/fix-gear-sets-gear-type-data";
 
+// TODO:
 /** Migrations needed to ensure that the user's data "state" (the serialized DTO data stored in localStorage) is valid with the latest defined schema before it is used in the app.
  *
  * This needs to be done when a DTO has changed in a backwards incompatible way:

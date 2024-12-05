@@ -1,7 +1,7 @@
+import type { Dto } from "../../../db/repository/dto";
 import type { AttackDto } from "../../attack/dtos/attack-dto";
 import type { BuffDto } from "../../buff/dtos/buff-dto";
 import type { DamageRecordDto } from "../../damage-record/dtos/damage-record-dto";
-import type { Dto } from "../../dto";
 import type { LoadoutDtoV1 } from "../../loadout/loadout";
 import type { ResourceDto } from "../../resource/dtos/resource-dto";
 

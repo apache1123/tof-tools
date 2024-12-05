@@ -1,13 +1,9 @@
 import BigNumber from "bignumber.js";
 
+import type { Dto } from "../../db/repository/dto";
 import type { WeaponElementalType } from "../../definitions/elemental-type";
-import type { Dto } from "../dto";
-import type { Persistable } from "../persistable";
 
-export class ElementalAttack implements Persistable<ElementalAttackDto> {
-  private _baseAttack = 0;
-  private _totalAttack = 0;
-
+export class ElementalAttack {
   public constructor(
     public readonly element: WeaponElementalType,
     baseAttack: number,
@@ -16,6 +12,9 @@ export class ElementalAttack implements Persistable<ElementalAttackDto> {
     this.baseAttack = baseAttack;
     this.totalAttack = totalAttack;
   }
+
+  private _baseAttack = 0;
+  private _totalAttack = 0;
 
   public get baseAttack(): number {
     return this._baseAttack;
@@ -41,22 +40,22 @@ export class ElementalAttack implements Persistable<ElementalAttackDto> {
     return attackPercent.gt(0) ? attackPercent.toNumber() : 0;
   }
 
-  public copyFromDto(dto: ElementalAttackDto): void {
-    const { baseAttack, totalAttack } = dto;
-
-    this.baseAttack = baseAttack;
-    this.totalAttack = totalAttack;
-  }
-
-  public toDto(): ElementalAttackDto {
-    const { baseAttack, totalAttack } = this;
-
-    return {
-      baseAttack,
-      totalAttack,
-      version: 1,
-    };
-  }
+  // public copyFromDto(dto: ElementalAttackDto): void {
+  //   const { baseAttack, totalAttack } = dto;
+  //
+  //   this.baseAttack = baseAttack;
+  //   this.totalAttack = totalAttack;
+  // }
+  //
+  // public toDto(): ElementalAttackDto {
+  //   const { baseAttack, totalAttack } = this;
+  //
+  //   return {
+  //     baseAttack,
+  //     totalAttack,
+  //     version: 1,
+  //   };
+  // }
 }
 
 export interface ElementalAttackDto extends Dto {

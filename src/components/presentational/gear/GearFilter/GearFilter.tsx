@@ -1,4 +1,4 @@
-import type { GearFilter } from "../../../../states/gears/gear-filter";
+import type { GearFilter } from "../../../../states/gear/gear-filter";
 import { GearTypeToggle } from "../GearTypeToggle/GearTypeToggle";
 
 export interface GearFilterProps {

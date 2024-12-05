@@ -1,4 +1,4 @@
-import type {Dto} from "../dto";
+import type { Dto } from "../../db/repository/dto";
 
 /** @deprecated migrated to using Loadouts */
 export interface ElementalUserStatsDto extends Dto {

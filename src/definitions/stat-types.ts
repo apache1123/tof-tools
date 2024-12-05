@@ -513,3 +513,9 @@ export const statTypesLookup: Data<StatName, StatType> = {
     },
   },
 };
+
+export function getStatType(name: StatName) {
+  const statType = statTypesLookup.byId[name];
+  if (!statType) throw new Error(`Cannot find stat type ${name}`);
+  return statType;
+}

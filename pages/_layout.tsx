@@ -92,14 +92,13 @@ export default function Layout({ children }: LayoutProps) {
       />
 
       <Main theme={theme} open={drawerIsOpen}>
-        {/*<Paper elevation={0} sx={{ height: "100%", p: 2 }}>*/}
         {children}
-        {/*</Paper>*/}
       </Main>
+
+      {/*<Changelog />*/}
 
       {/*<Stack mt={5} spacing={1} alignItems="center">*/}
       {/*  <RandomSticker />*/}
-      {/*  <Changelog />*/}
       {/*  <Box textAlign="center">*/}
       {/*    <Typography variant="body2">*/}
       {/*      Questions? Find me on discord @apache1123, or submit an issue in the*/}

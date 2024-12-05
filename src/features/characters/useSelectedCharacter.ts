@@ -1,13 +1,19 @@
 import { useSnapshot } from "valtio/index";
 
-import type { Character } from "../../models/character/character";
-import { charactersState } from "../../states/states";
+import { db } from "../../db/reactive-local-storage-db";
+import { characterState } from "../../states/character/character-state";
 
 export function useSelectedCharacter() {
-  const snap = useSnapshot(charactersState);
+  const characterRepository = db.get("characters");
+
+  const { selectedId } = useSnapshot(characterState);
+
+  const selectedCharacterProxy = selectedId
+    ? characterRepository.find(selectedId)
+    : undefined;
 
   return {
-    selectedCharacterState: charactersState.selected,
-    selectedCharacterSnap: snap.selected as Character | undefined,
+    selectedCharacterId: selectedId,
+    selectedCharacterProxy,
   };
 }

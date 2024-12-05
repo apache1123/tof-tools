@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-definitions";
 import { MatrixFilter } from "./MatrixFilter";
 
 const meta: Meta<typeof MatrixFilter> = {
@@ -13,5 +12,5 @@ export default meta;
 type Story = StoryObj<typeof MatrixFilter>;
 
 export const Default: Story = {
-  args: { filter: { definitions: [getMatrixDefinition("Alyss")] } },
+  args: { filter: { definitionIds: ["Alyss"] } },
 };

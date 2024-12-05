@@ -1,19 +1,15 @@
 import BigNumber from "bignumber.js";
 
 import { maxNumOfRandomStatRolls } from "../../definitions/gear";
-import type { StatName } from "../../definitions/stat-types";
-import { statTypesLookup } from "../../definitions/stat-types";
 import {
   toIntegerString,
   toPercentageString2dp,
 } from "../../utils/number-utils";
-import type { Dto } from "../dto";
-import type { Persistable } from "../persistable";
 import type { RollCombination } from "./random-stat-roll-combination";
 import { zeroRollCombination } from "./random-stat-roll-combination";
 import { type StatType } from "./stat-type";
 
-export class RandomStat implements Persistable<RandomStatDto> {
+export class RandomStat {
   public constructor(type: StatType) {
     this._type = type;
     this.value = 0;
@@ -176,29 +172,4 @@ export class RandomStat implements Persistable<RandomStatDto> {
 
     return combinations;
   }
-
-  public copyFromDto(dto: RandomStatDto): void {
-    const { typeId, value, augmentIncreaseValue } = dto;
-
-    this.type = statTypesLookup.byId[typeId];
-    this.value = value;
-    this.augmentIncreaseValue = augmentIncreaseValue ?? 0;
-  }
-
-  public toDto(): RandomStatDto {
-    const { type, value, augmentIncreaseValue } = this;
-    return {
-      typeId: type.id,
-      value,
-      augmentIncreaseValue,
-      version: 1,
-    };
-  }
-}
-
-export interface RandomStatDto extends Dto {
-  typeId: StatName;
-  value: number;
-  augmentIncreaseValue?: number;
-  version: 1;
 }

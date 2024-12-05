@@ -1,10 +1,14 @@
-import type { ChangelogStateDto } from "../../changelog";
+import { stateKeyPrefix } from "../../../constants/persistence";
+import type { ChangelogState } from "../../changelog/changelog";
+import { changelogStateKey } from "../../changelog/changelog";
 
 export function initializeChangelogState() {
-  const changelogState: ChangelogStateDto = {
+  const changelogState: ChangelogState = {
     lastSeenChangelogSemver: "1.0.0",
-    version: 1,
   };
 
-  localStorage.setItem("changelog", JSON.stringify(changelogState));
+  localStorage.setItem(
+    `${stateKeyPrefix}${changelogStateKey}`,
+    JSON.stringify(changelogState),
+  );
 }

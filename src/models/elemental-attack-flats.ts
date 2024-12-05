@@ -1,11 +1,8 @@
+import type { Dto } from "../db/repository/dto";
 import type { WeaponElementalType } from "../definitions/elemental-type";
 import type { DataById } from "./data";
-import type { Dto } from "./dto";
-import type { Persistable } from "./persistable";
 
-export class ElementalAttackFlats
-  implements Persistable<ElementalAttackFlatsDto>
-{
+export class ElementalAttackFlats {
   public constructor(values: DataById<WeaponElementalType, number>) {
     this.values = values;
   }
@@ -42,16 +39,16 @@ export class ElementalAttackFlats
     this.values[element] = value;
   }
 
-  public copyFromDto(dto: ElementalAttackFlatsDto): void {
-    this.values = dto.values;
-  }
-
-  public toDto(): ElementalAttackFlatsDto {
-    return {
-      values: this.values,
-      version: 1,
-    };
-  }
+  // public copyFromDto(dto: ElementalAttackFlatsDto): void {
+  //   this.values = dto.values;
+  // }
+  //
+  // public toDto(): ElementalAttackFlatsDto {
+  //   return {
+  //     values: this.values,
+  //     version: 1,
+  //   };
+  // }
 }
 
 export interface ElementalAttackFlatsDto extends Dto {

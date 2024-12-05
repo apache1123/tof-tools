@@ -331,3 +331,9 @@ export const gearTypesLookup: Data<GearName, GearType> = {
     },
   },
 };
+
+export function getGearType(name: GearName) {
+  const GearType = gearTypesLookup.byId[name];
+  if (!GearType) throw new Error(`Cannot find gear type ${name}`);
+  return GearType;
+}

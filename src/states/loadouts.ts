@@ -118,7 +118,7 @@
 //   }
 // }
 //
-import type { Dto } from "../models/dto";
+import type { Dto } from "../db/repository/dto";
 import type {
   Loadout,
   LoadoutDtoV1,

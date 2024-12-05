@@ -1,5 +1,5 @@
+import type { Dto } from "../../../db/repository/dto";
 import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
-import type { Dto } from "../../dto";
 import type { DamageDto } from "./damage-dto";
 import type { WeaponDamageSummaryDto } from "./weapon-damage-summary-dto";
 

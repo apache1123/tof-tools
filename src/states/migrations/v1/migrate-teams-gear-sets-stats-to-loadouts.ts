@@ -1,12 +1,12 @@
 import { nanoid } from "nanoid";
 
+import type { GearDtoV1 } from "../../../db/repositories/gear/deprecated/dto";
+import type { RandomStatDto } from "../../../db/repositories/gear/random-stat-dto";
 import { maxCharacterLevel } from "../../../definitions/character-level";
 import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
 import type { CoreElementalType } from "../../../definitions/elemental-type";
 import type { GearName } from "../../../definitions/gear-types";
 import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
-import type { GearDtoV1 } from "../../../models/gear/gear";
-import type { RandomStatDto } from "../../../models/gear/random-stat";
 import type {
   GearSetDtoV1,
   GearSetDtoV2,

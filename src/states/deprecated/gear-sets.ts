@@ -1,6 +1,6 @@
-import type {Data} from "../../models/data";
-import type {Dto} from "../../models/dto";
-import type {GearSetDtoV1} from "../../models/gear-set/gear-set";
+import type { Dto } from "../../db/repository/dto";
+import type { Data } from "../../models/data";
+import type { GearSetDtoV1 } from "../../models/gear-set/gear-set";
 
 /** @deprecated GearSets replaced by Loadouts */
 export interface GearSetsStateDto extends Dto {

@@ -1,35 +1,51 @@
+import type { Dto } from "../../db/repository/dto";
 import type { AttackAbilityDefinition } from "../../definitions/types/attack/attack-ability-definition";
-import {
-  getWeaponDefinition,
-  type WeaponDefinition,
-} from "../../definitions/types/weapon/weapon-definition";
+import { type WeaponDefinition } from "../../definitions/types/weapon/weapon-definition";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import { maxNumOfWeaponStars } from "../../definitions/weapons/weapon-stars";
-import type { CharacterId } from "../character/character";
-import type { Dto } from "../dto";
-import type { Persistable } from "../persistable";
+import type { Character, CharacterId } from "../character/character";
+import { MatrixSlots } from "../matrix/matrix-slots";
 import { hasMetStarRequirement } from "../star-requirement";
 import type { WeaponMatrixSetsDto } from "../weapon-matrix-sets";
 import type { WeaponStarRequirement } from "./weapon-star-requirement";
 
 /** A weapon a character owns */
-export class Weapon implements Persistable<WeaponDtoV2> {
-  public constructor(definition: WeaponDefinition, characterId: CharacterId) {
-    this._characterId = characterId;
+export class Weapon {
+  public constructor(definition: WeaponDefinition, character: Character) {
+    this._character = character;
     this.definition = definition;
     this._stars = 0;
+    this._matrixSlots = new MatrixSlots();
   }
 
-  private _characterId: CharacterId;
-  private definition: WeaponDefinition;
+  private readonly _character: Character;
+  private readonly definition: WeaponDefinition;
   private _stars: number;
+
+  public get stars() {
+    return this._stars;
+  }
+
+  public set stars(value: number) {
+    this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfWeaponStars);
+  }
+
+  private _matrixSlots: MatrixSlots;
+
+  public get matrixSlots() {
+    return this._matrixSlots;
+  }
 
   public get id() {
     return this.definition.id;
   }
 
   public get characterId(): CharacterId {
-    return this._characterId;
+    return this._character.id;
+  }
+
+  public get definitionId() {
+    return this.definition.id;
   }
 
   public get simulacrumDisplayName() {
@@ -42,13 +58,6 @@ export class Weapon implements Persistable<WeaponDtoV2> {
 
   public get iconWeaponName() {
     return this.definition.iconWeaponName;
-  }
-
-  public get stars() {
-    return this._stars;
-  }
-  public set stars(value: number) {
-    this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfWeaponStars);
   }
 
   public get attackDefinitions(): AttackAbilityDefinition[] {
@@ -91,25 +100,6 @@ export class Weapon implements Persistable<WeaponDtoV2> {
     return this.definition.resources.filter((resourceDefinition) =>
       this.hasMetStarRequirement(resourceDefinition.starRequirement),
     );
-  }
-
-  public copyFromDto(dto: WeaponDtoV2): void {
-    const { definitionId, characterId, stars } = dto;
-
-    this.definition = getWeaponDefinition(definitionId);
-    this._characterId = characterId;
-    this.stars = stars;
-  }
-
-  public toDto(): WeaponDtoV2 {
-    const { definition, characterId, stars } = this;
-
-    return {
-      definitionId: definition.id,
-      characterId,
-      stars,
-      version: 2,
-    };
   }
 
   private hasMetStarRequirement(requirement: WeaponStarRequirement) {

@@ -1,5 +1,8 @@
 import { nanoid } from "nanoid";
 
+import type { GearDtoV1 } from "../../db/repositories/gear/deprecated/dto";
+import type { GearDtoV2 } from "../../db/repositories/gear/gear-dto";
+import type { Dto } from "../../db/repository/dto";
 import type {
   CoreElementalType,
   WeaponElementalType,
@@ -8,25 +11,19 @@ import type { GearName } from "../../definitions/gear-types";
 import { gearTypesLookup } from "../../definitions/gear-types";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { CharacterId } from "../character/character";
+import type { Character, CharacterId } from "../character/character";
 import type { DataById } from "../data";
-import type { Dto } from "../dto";
-import type { GearDtoV1, GearDtoV2 } from "../gear/gear";
 import { Gear } from "../gear/gear";
-import type { Persistable } from "../persistable";
 
-export class GearSet implements Persistable<GearSetDtoV3> {
-  public constructor(
-    gears: DataById<GearName, Gear>,
-    characterId: CharacterId,
-  ) {
+export class GearSet {
+  public constructor(gears: DataById<GearName, Gear>, character: Character) {
     this._id = nanoid();
-    this._characterId = characterId;
+    this._character = character;
     this._gearsByTypeId = gears;
   }
 
-  private _id: string;
-  private _characterId: CharacterId;
+  private readonly _id: string;
+  private readonly _character: Character;
   private readonly _gearsByTypeId: DataById<GearName, Gear>;
 
   public get id() {
@@ -34,30 +31,30 @@ export class GearSet implements Persistable<GearSetDtoV3> {
   }
 
   public get characterId(): CharacterId {
-    return this._characterId;
+    return this._character.id;
   }
 
   /** Creates an empty GearSet */
-  public static create(characterId: CharacterId): GearSet {
+  public static create(character: Character): GearSet {
     return new GearSet(
       {
-        Helmet: new Gear(gearTypesLookup.byId.Helmet, characterId),
-        Eyepiece: new Gear(gearTypesLookup.byId.Eyepiece, characterId),
-        Spaulders: new Gear(gearTypesLookup.byId.Spaulders, characterId),
-        Gloves: new Gear(gearTypesLookup.byId.Gloves, characterId),
-        Bracers: new Gear(gearTypesLookup.byId.Bracers, characterId),
-        Armor: new Gear(gearTypesLookup.byId.Armor, characterId),
+        Helmet: new Gear(gearTypesLookup.byId.Helmet, character),
+        Eyepiece: new Gear(gearTypesLookup.byId.Eyepiece, character),
+        Spaulders: new Gear(gearTypesLookup.byId.Spaulders, character),
+        Gloves: new Gear(gearTypesLookup.byId.Gloves, character),
+        Bracers: new Gear(gearTypesLookup.byId.Bracers, character),
+        Armor: new Gear(gearTypesLookup.byId.Armor, character),
         "Combat Engine": new Gear(
           gearTypesLookup.byId["Combat Engine"],
-          characterId,
+          character,
         ),
-        Belt: new Gear(gearTypesLookup.byId.Belt, characterId),
-        Legguards: new Gear(gearTypesLookup.byId.Legguards, characterId),
-        Boots: new Gear(gearTypesLookup.byId.Boots, characterId),
-        Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton, characterId),
-        Microreactor: new Gear(gearTypesLookup.byId.Microreactor, characterId),
+        Belt: new Gear(gearTypesLookup.byId.Belt, character),
+        Legguards: new Gear(gearTypesLookup.byId.Legguards, character),
+        Boots: new Gear(gearTypesLookup.byId.Boots, character),
+        Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton, character),
+        Microreactor: new Gear(gearTypesLookup.byId.Microreactor, character),
       },
-      characterId,
+      character,
     );
   }
 
@@ -77,7 +74,7 @@ export class GearSet implements Persistable<GearSetDtoV3> {
         Exoskeleton: gearSet.getGearByType("Exoskeleton"),
         Microreactor: gearSet.getGearByType("Microreactor"),
       },
-      gearSet.characterId,
+      gearSet._character,
     );
   }
 
@@ -143,39 +140,39 @@ export class GearSet implements Persistable<GearSetDtoV3> {
     );
   }
 
-  public copyFromDto(dto: GearSetDtoV3): void {
-    const { id, characterId, gearsByTypeId } = dto;
-
-    this._id = id;
-    this._characterId = characterId;
-
-    keysOf(gearsByTypeId).forEach((typeId) => {
-      const gearDto = gearsByTypeId[typeId];
-      const gearType = gearTypesLookup.byId[gearDto.typeId];
-      const gear = new Gear(gearType, characterId);
-      gear.copyFromDto(gearDto);
-      this._gearsByTypeId[typeId] = gear;
-    });
-  }
-
-  public toDto(): GearSetDtoV3 {
-    const { id, characterId, _gearsByTypeId } = this;
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const gearDtosByTypeId: DataById<GearName, GearDtoV2> = {};
-    keysOf(_gearsByTypeId).forEach((typeId) => {
-      const gear = _gearsByTypeId[typeId];
-      gearDtosByTypeId[typeId] = gear.toDto();
-    });
-
-    return {
-      id,
-      characterId,
-      gearsByTypeId: gearDtosByTypeId,
-      version: 3,
-    };
-  }
+  // public copyFromDto(dto: GearSetDtoV3): void {
+  //   const { id, characterId, gearsByTypeId } = dto;
+  //
+  //   this._id = id;
+  //   this._characterId = characterId;
+  //
+  //   keysOf(gearsByTypeId).forEach((typeId) => {
+  //     const gearDto = gearsByTypeId[typeId];
+  //     const gearType = gearTypesLookup.byId[gearDto.typeId];
+  //     const gear = new Gear(gearType, characterId);
+  //     gear.copyFromDto(gearDto);
+  //     this._gearsByTypeId[typeId] = gear;
+  //   });
+  // }
+  //
+  // public toDto(): GearSetDtoV3 {
+  //   const { id, characterId, _gearsByTypeId } = this;
+  //
+  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //   // @ts-ignore
+  //   const gearDtosByTypeId: DataById<GearName, GearDtoV2> = {};
+  //   keysOf(_gearsByTypeId).forEach((typeId) => {
+  //     const gear = _gearsByTypeId[typeId];
+  //     gearDtosByTypeId[typeId] = gear.toDto();
+  //   });
+  //
+  //   return {
+  //     id,
+  //     characterId,
+  //     gearsByTypeId: gearDtosByTypeId,
+  //     version: 3,
+  //   };
+  // }
 
   private additiveSumStatValueOfAllGears(
     statSelector: (gear: Gear) => number,

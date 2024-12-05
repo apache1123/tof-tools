@@ -1,27 +1,25 @@
 import BigNumber from "bignumber.js";
 import { nanoid } from "nanoid";
 
+import type { Dto } from "../../db/repository/dto";
 import { defaultCritDamagePercent } from "../../definitions/damage-formula";
 import type {
   CoreElementalType,
   WeaponElementalType,
 } from "../../definitions/elemental-type";
 import type { SimulacrumName } from "../../definitions/simulacra/simulacrum-name";
-import { simulacrumTraits } from "../../definitions/simulacra/simulacrum-traits";
 import { keysOf } from "../../utils/object-utils";
 import type { CharacterId } from "../character/character";
 import type { LoadoutStatsDto } from "../deprecated/loadout-stats";
-import type { Dto } from "../dto";
 import type { ElementalAttackFlatsDto } from "../elemental-attack-flats";
 import { ElementalAttackFlats } from "../elemental-attack-flats";
 import { Gear } from "../gear/gear";
 import type { GearSet, GearSetDtoV2, GearSetDtoV3 } from "../gear-set/gear-set";
-import type { Persistable } from "../persistable";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team, TeamDtoV1, TeamDtoV2 } from "../team/team";
 
 /** A loadout is a preset combination of weapons & matrices (team), gear set, trait etc. */
-export class Loadout implements Persistable<LoadoutDtoV2> {
+export class Loadout {
   public constructor(
     public name: string,
     characterId: CharacterId,
@@ -163,58 +161,58 @@ export class Loadout implements Persistable<LoadoutDtoV2> {
       .toNumber();
   }
 
-  public copyFromDto(dto: LoadoutDtoV2): void {
-    const {
-      id,
-      characterId,
-      name,
-      team,
-      gearSet,
-      simulacrumTraitId,
-      useOverrideStats,
-      overrideElementalAttackFlats,
-      overrideCritRateFlat,
-    } = dto;
-
-    this._id = id;
-    this._characterId = characterId;
-    this.name = name;
-    this.team.copyFromDto(team);
-    this.gearSet.copyFromDto(gearSet);
-    this.simulacrumTrait = simulacrumTraitId
-      ? simulacrumTraits.byId[simulacrumTraitId]
-      : undefined;
-    this.useOverrideStats = useOverrideStats;
-    this.overrideElementalAttackFlats.copyFromDto(overrideElementalAttackFlats);
-    this.overrideCritRateFlat = overrideCritRateFlat;
-  }
-
-  public toDto(): LoadoutDtoV2 {
-    const {
-      id,
-      characterId,
-      name,
-      team,
-      gearSet,
-      simulacrumTrait,
-      useOverrideStats,
-      overrideElementalAttackFlats,
-      overrideCritRateFlat,
-    } = this;
-
-    return {
-      id,
-      characterId,
-      name,
-      team: team.toDto(),
-      gearSet: gearSet.toDto(),
-      simulacrumTraitId: simulacrumTrait?.id,
-      useOverrideStats,
-      overrideElementalAttackFlats: overrideElementalAttackFlats.toDto(),
-      overrideCritRateFlat,
-      version: 2,
-    };
-  }
+  // public copyFromDto(dto: LoadoutDtoV2): void {
+  //   const {
+  //     id,
+  //     characterId,
+  //     name,
+  //     team,
+  //     gearSet,
+  //     simulacrumTraitId,
+  //     useOverrideStats,
+  //     overrideElementalAttackFlats,
+  //     overrideCritRateFlat,
+  //   } = dto;
+  //
+  //   this._id = id;
+  //   this._characterId = characterId;
+  //   this.name = name;
+  //   this.team.copyFromDto(team);
+  //   this.gearSet.copyFromDto(gearSet);
+  //   this.simulacrumTrait = simulacrumTraitId
+  //     ? simulacrumTraits.byId[simulacrumTraitId]
+  //     : undefined;
+  //   this.useOverrideStats = useOverrideStats;
+  //   this.overrideElementalAttackFlats.copyFromDto(overrideElementalAttackFlats);
+  //   this.overrideCritRateFlat = overrideCritRateFlat;
+  // }
+  //
+  // public toDto(): LoadoutDtoV2 {
+  //   const {
+  //     id,
+  //     characterId,
+  //     name,
+  //     team,
+  //     gearSet,
+  //     simulacrumTrait,
+  //     useOverrideStats,
+  //     overrideElementalAttackFlats,
+  //     overrideCritRateFlat,
+  //   } = this;
+  //
+  //   return {
+  //     id,
+  //     characterId,
+  //     name,
+  //     team: team.toDto(),
+  //     gearSet: gearSet.toDto(),
+  //     simulacrumTraitId: simulacrumTrait?.id,
+  //     useOverrideStats,
+  //     overrideElementalAttackFlats: overrideElementalAttackFlats.toDto(),
+  //     overrideCritRateFlat,
+  //     version: 2,
+  //   };
+  // }
 }
 
 export interface LoadoutDtoV2 extends Dto {

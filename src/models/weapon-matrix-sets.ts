@@ -1,5 +1,5 @@
+import type { Dto } from "../db/repository/dto";
 import { filterOutUndefined } from "../utils/array-utils";
-import type { Dto } from "./dto";
 import type { MatrixSetDto } from "./matrix-set";
 import { MatrixSet } from "./matrix-set";
 import type {
@@ -11,9 +11,8 @@ import {
   getMatrixSet4pcTo2pcName,
   getMatrixSetDefinition,
 } from "./matrix-set-definition";
-import type { Persistable } from "./persistable";
 
-export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
+export class WeaponMatrixSets {
   private _matrixSet4pc: MatrixSet | undefined;
   private _matrixSet2pc1: MatrixSet | undefined;
   private _matrixSet2pc2: MatrixSet | undefined;
@@ -114,42 +113,42 @@ export class WeaponMatrixSets implements Persistable<WeaponMatrixSetsDto> {
     }
   }
 
-  public copyFromDto(dto: WeaponMatrixSetsDto): void {
-    const {
-      matrixSet4pc: matrixSet4pcDto,
-      matrixSet2pc1: matrixSet2pc1Dto,
-      matrixSet2pc2: matrixSet2pc2Dto,
-    } = dto;
-
-    this._matrixSet4pc = matrixSet4pcDto
-      ? getMatrixSetFromDto(matrixSet4pcDto)
-      : undefined;
-    this._matrixSet2pc1 = matrixSet2pc1Dto
-      ? getMatrixSetFromDto(matrixSet2pc1Dto)
-      : undefined;
-    this._matrixSet2pc2 = matrixSet2pc2Dto
-      ? getMatrixSetFromDto(matrixSet2pc2Dto)
-      : undefined;
-
-    function getMatrixSetFromDto(matrixSetDto: MatrixSetDto): MatrixSet {
-      const matrixSet = new MatrixSet(
-        getMatrixSetDefinition(matrixSetDto.definitionId),
-      );
-      matrixSet.copyFromDto(matrixSetDto);
-      return matrixSet;
-    }
-  }
-
-  public toDto(): WeaponMatrixSetsDto {
-    const { matrixSet4pc, matrixSet2pc1, matrixSet2pc2 } = this;
-
-    return {
-      matrixSet4pc: matrixSet4pc?.toDto(),
-      matrixSet2pc1: matrixSet2pc1?.toDto(),
-      matrixSet2pc2: matrixSet2pc2?.toDto(),
-      version: 1,
-    };
-  }
+  // public copyFromDto(dto: WeaponMatrixSetsDto): void {
+  //   const {
+  //     matrixSet4pc: matrixSet4pcDto,
+  //     matrixSet2pc1: matrixSet2pc1Dto,
+  //     matrixSet2pc2: matrixSet2pc2Dto,
+  //   } = dto;
+  //
+  //   this._matrixSet4pc = matrixSet4pcDto
+  //     ? getMatrixSetFromDto(matrixSet4pcDto)
+  //     : undefined;
+  //   this._matrixSet2pc1 = matrixSet2pc1Dto
+  //     ? getMatrixSetFromDto(matrixSet2pc1Dto)
+  //     : undefined;
+  //   this._matrixSet2pc2 = matrixSet2pc2Dto
+  //     ? getMatrixSetFromDto(matrixSet2pc2Dto)
+  //     : undefined;
+  //
+  //   function getMatrixSetFromDto(matrixSetDto: MatrixSetDto): MatrixSet {
+  //     const matrixSet = new MatrixSet(
+  //       getMatrixSetDefinition(matrixSetDto.definitionId),
+  //     );
+  //     matrixSet.copyFromDto(matrixSetDto);
+  //     return matrixSet;
+  //   }
+  // }
+  //
+  // public toDto(): WeaponMatrixSetsDto {
+  //   const { matrixSet4pc, matrixSet2pc1, matrixSet2pc2 } = this;
+  //
+  //   return {
+  //     matrixSet4pc: matrixSet4pc?.toDto(),
+  //     matrixSet2pc1: matrixSet2pc1?.toDto(),
+  //     matrixSet2pc2: matrixSet2pc2?.toDto(),
+  //     version: 1,
+  //   };
+  // }
 }
 
 export interface WeaponMatrixSetsDto extends Dto {

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { gearTypesLookup } from "../../../../definitions/gear-types";
 import { statTypesLookup } from "../../../../definitions/stat-types";
+import { Character } from "../../../../models/character/character";
 import { Gear } from "../../../../models/gear/gear";
 import { RandomStat } from "../../../../models/gear/random-stat";
 import { GearList } from "./GearList";
@@ -24,7 +25,7 @@ export const Default: Story = {
 function generateGears() {
   const gears: Gear[] = [];
   for (let i = 0; i < 5; i++) {
-    const gear = new Gear(gearTypesLookup.byId["Eyepiece"], "characterId");
+    const gear = new Gear(gearTypesLookup.byId["Eyepiece"], new Character());
     gear.stars = 3;
     gear.setRandomStat(0, new RandomStat(statTypesLookup.byId["Attack"]));
     gear.setRandomStat(

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-definitions";
 import { getMatrixType } from "../../../../definitions/matrices/matrix-type";
+import { Character } from "../../../../models/character/character";
 import { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixCard } from "./MatrixCard";
 
@@ -17,7 +18,7 @@ type Story = StoryObj<typeof MatrixCard>;
 const matrix = new Matrix(
   getMatrixType("mind"),
   getMatrixDefinition("Alyss"),
-  "characterId",
+  new Character(),
 );
 matrix.stars = 2;
 export const Default: Story = {

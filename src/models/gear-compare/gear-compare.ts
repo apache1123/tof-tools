@@ -171,7 +171,7 @@ export class GearCompare {
     element: WeaponElementalType,
   ): number {
     return this.getSubstituteGearValue(
-      new Gear(gearTypesLookup.byId[gearTypeId], this.character.id), // Empty gear of the same type
+      new Gear(gearTypesLookup.byId[gearTypeId], this.character), // Empty gear of the same type
       element,
     );
   }
@@ -218,7 +218,7 @@ export class GearCompare {
     // It doesn't matter what weapon is used as long as the element of the attack hit matches and all buffs apply
     const weapon = this.basisLoadout.team.weapons.length
       ? this.basisLoadout.team.weapons[0]
-      : new Weapon(weaponDefinitions.byId["Cocoritter"], this.character.id);
+      : new Weapon(weaponDefinitions.byId["Cocoritter"], this.character);
 
     // Use a mock attack hit that matches the element and applies all buffs
     return {

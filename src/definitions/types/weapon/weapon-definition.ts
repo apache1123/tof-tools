@@ -17,7 +17,6 @@ import type {
   WeaponElementalType,
 } from "../../elemental-type";
 import type { WeaponName } from "../../weapons/weapon-definitions";
-import { weaponDefinitions } from "../../weapons/weapon-definitions";
 import type { WeaponType } from "../../weapons/weapon-type";
 
 export interface WeaponDefinition {
@@ -59,8 +58,4 @@ export interface WeaponDefinition {
   buffs: WeaponBuffDefinition[];
 
   resources: WeaponResourceDefinition[];
-}
-
-export function getWeaponDefinition(id: WeaponName): WeaponDefinition {
-  return weaponDefinitions.byId[id];
 }

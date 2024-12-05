@@ -2,11 +2,9 @@ import type { RelicName } from "../../definitions/relics";
 import { maxRelicStars, relicsLookup } from "../../definitions/relics";
 import { keysOf } from "../../utils/object-utils";
 import type { DataById } from "../data";
-import type { Dto } from "../dto";
-import type { Persistable } from "../persistable";
 import type { RelicBuffDefinition } from "./relic-buff-definition";
 
-export class Relics implements Persistable<RelicsDto> {
+export class Relics {
   public constructor() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore all keys set below
@@ -58,25 +56,25 @@ export class Relics implements Persistable<RelicsDto> {
     });
   }
 
-  public copyFromDto(dto: RelicsDto): void {
-    const { relicStars } = dto;
-    // Need to assign each relic individually as the relics in the user's data may not match what is available, e.g. as more relics are added (or removed, unlikely)
-    keysOf(relicStars).forEach((relicName) => {
-      if (this._relicStars[relicName] !== undefined) {
-        this._relicStars[relicName] = relicStars[relicName];
-      }
-    });
-  }
-
-  public toDto(): RelicsDto {
-    const { _relicStars: _relicStars } = this;
-    return {
-      relicStars: _relicStars,
-      version: 1,
-    };
-  }
+  // public copyFromDto(dto: RelicsDto): void {
+  //   const { relicStars } = dto;
+  //   // Need to assign each relic individually as the relics in the user's data may not match what is available, e.g. as more relics are added (or removed, unlikely)
+  //   keysOf(relicStars).forEach((relicName) => {
+  //     if (this._relicStars[relicName] !== undefined) {
+  //       this._relicStars[relicName] = relicStars[relicName];
+  //     }
+  //   });
+  // }
+  //
+  // public toDto(): RelicsDto {
+  //   const { _relicStars: _relicStars } = this;
+  //   return {
+  //     relicStars: _relicStars,
+  //     version: 1,
+  //   };
+  // }
 }
 
-export interface RelicsDto extends Dto {
-  relicStars: DataById<RelicName, number>;
-}
+// export interface RelicsDto extends Dto {
+//   relicStars: DataById<RelicName, number>;
+// }

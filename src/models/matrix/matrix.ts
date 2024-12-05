@@ -1,35 +1,31 @@
 import { nanoid } from "nanoid";
 
 import { maxNumOfMatrixStars } from "../../definitions/matrices/matrix";
-import type { MatrixDefinitionId } from "../../definitions/matrices/matrix-definitions";
-import { getMatrixDefinition } from "../../definitions/matrices/matrix-definitions";
-import { getMatrixType } from "../../definitions/matrices/matrix-type";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
-import type { CharacterId } from "../character/character";
-import type { Dto } from "../dto";
+import type { Character } from "../character/character";
 import type { Id } from "../identifiable";
-import type { Persistable } from "../persistable";
-import type { MatrixType, MatrixTypeId } from "./matrix-type";
+import type { MatrixType } from "./matrix-type";
 
 export type MatrixId = Id;
 
-export class Matrix implements Persistable<MatrixDto> {
+export class Matrix {
   public constructor(
     type: MatrixType,
     definition: MatrixDefinition,
-    characterId: CharacterId,
+    character: Character,
+    id?: MatrixId,
   ) {
-    this._id = nanoid();
+    this._id = id ?? nanoid();
     this._type = type;
     this.definition = definition;
-    this._characterId = characterId;
+    this._character = character;
     this._stars = 0;
   }
 
-  private _id: MatrixId;
-  private _characterId: string;
-  private _type: MatrixType;
-  private definition: MatrixDefinition;
+  private readonly _id: MatrixId;
+  private readonly _character: Character;
+  private readonly _type: MatrixType;
+  private readonly definition: MatrixDefinition;
   private _stars: number;
 
   public get id() {
@@ -37,7 +33,7 @@ export class Matrix implements Persistable<MatrixDto> {
   }
 
   public get characterId(): string {
-    return this._characterId;
+    return this._character.id;
   }
 
   public get type(): MatrixType {
@@ -58,33 +54,4 @@ export class Matrix implements Persistable<MatrixDto> {
   public set stars(value: number) {
     this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfMatrixStars);
   }
-
-  public copyFromDto(dto: MatrixDto): void {
-    const { id, characterId, typeId, definitionId, stars } = dto;
-    this._id = id;
-    this._characterId = characterId;
-    this._type = getMatrixType(typeId);
-    this.definition = getMatrixDefinition(definitionId);
-    this.stars = stars;
-  }
-  public toDto(): MatrixDto {
-    const { id, characterId, type, definition, stars } = this;
-    return {
-      id,
-      characterId,
-      typeId: type.id,
-      definitionId: definition.id,
-      stars,
-      version: 1,
-    };
-  }
-}
-
-export interface MatrixDto extends Dto {
-  id: string;
-  characterId: string;
-  typeId: MatrixTypeId;
-  definitionId: MatrixDefinitionId;
-  stars: number;
-  version: 1;
 }

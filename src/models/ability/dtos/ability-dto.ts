@@ -1,4 +1,4 @@
-import type { Dto } from "../../dto";
+import type { Dto } from "../../../db/repository/dto";
 import type { TimelineDto } from "../../timeline/dtos/timeline-dto";
 import type { AbilityId } from "../ability-id";
 

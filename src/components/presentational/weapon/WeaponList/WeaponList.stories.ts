@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { weaponDefinitions } from "../../../../definitions/weapons/weapon-definitions";
+import { Character } from "../../../../models/character/character";
 import { Weapon } from "../../../../models/weapon/weapon";
 import { WeaponList } from "./WeaponList";
 
@@ -20,7 +21,7 @@ function generateWeapons() {
   for (let i = 0; i < 5; i++) {
     const weapon = new Weapon(
       weaponDefinitions.byId[weaponDefinitions.allIds[i]],
-      "characterId",
+      new Character(),
     );
     weapons.push(weapon);
   }
