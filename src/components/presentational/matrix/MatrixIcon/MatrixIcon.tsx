@@ -21,14 +21,19 @@ export const MatrixIcon = ({
   const imageName = normalCaseToKebabCase(definitionId);
   const imagePath = `/icons/matrices/${imageName}.webp`;
 
+  // Manipulate the placement of the image as the default matrix images have way too much padding. The result should be the image fitting inside the specified sized container with minimal margins
+  const imageSize = size * 1.4;
+  const imageOffset = (imageSize - size) / -2;
+
   return (
-    <Box sx={sx}>
+    <Box sx={{ width: size, height: size, position: "relative", ...sx }}>
       <Image
         src={imagePath}
         alt={definitionId}
         title={displayName}
-        width={size}
-        height={size}
+        width={imageSize}
+        height={imageSize}
+        style={{ position: "absolute", top: imageOffset, left: imageOffset }}
       />
     </Box>
   );

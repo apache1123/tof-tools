@@ -1,5 +1,5 @@
 import type { SxProps } from "@mui/material";
-import { Box, Card, CardActionArea, CardContent, Stack } from "@mui/material";
+import { Card, CardActionArea, CardContent, Stack } from "@mui/material";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixDefinitionCardContent } from "../MatrixDefinitionCard/MatrixDefinitionCardContent";
@@ -8,11 +8,21 @@ import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
 export interface MatrixCardProps {
   matrix: Matrix;
+  showName?: boolean;
+  showTypeIcon?: boolean;
+  matrixIconSize?: number;
   onClick?: () => void;
   sx?: SxProps;
 }
 
-export function MatrixCard({ matrix, onClick, sx }: MatrixCardProps) {
+export function MatrixCard({
+  matrix,
+  showName = true,
+  showTypeIcon = true,
+  matrixIconSize = 100,
+  onClick,
+  sx,
+}: MatrixCardProps) {
   return (
     <Card sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
@@ -26,21 +36,22 @@ export function MatrixCard({ matrix, onClick, sx }: MatrixCardProps) {
         }}
       >
         <CardContent sx={{ p: 0 }}>
-          <Stack sx={{ gap: 2, alignItems: "center" }}>
-            <Box sx={{ position: "relative" }}>
-              <MatrixDefinitionCardContent
-                definitionId={matrix.definitionId}
-                displayName={matrix.displayName}
-              />
-              <MatrixTypeIcon
-                id={matrix.type.id}
-                displayName={matrix.type.displayName}
-                size={40}
-                sx={{ position: "absolute", right: 5, bottom: 30 }}
-              />
-            </Box>
-
-            <MatrixStarsSelector stars={matrix.stars} readOnly sx={{ mb: 2 }} />
+          {showTypeIcon && (
+            <MatrixTypeIcon
+              id={matrix.type.id}
+              displayName={matrix.type.displayName}
+              size={30}
+              sx={{ mt: 0.5, ml: 0.5 }}
+            />
+          )}
+          <Stack sx={{ m: 1, mt: 0, gap: 1, alignItems: "center" }}>
+            <MatrixDefinitionCardContent
+              definitionId={matrix.definitionId}
+              displayName={matrix.displayName}
+              showName={showName}
+              iconSize={matrixIconSize}
+            />
+            <MatrixStarsSelector stars={matrix.stars} readOnly />
           </Stack>
         </CardContent>
       </CardActionArea>

@@ -21,7 +21,7 @@ export function MatrixDefinitionCard({
           if (onClick) onClick(definitionId);
         }}
       >
-        <CardContent sx={{ p: 0 }}>
+        <CardContent sx={{ p: 1 }}>
           <MatrixDefinitionCardContent
             definitionId={definitionId}
             displayName={displayName}

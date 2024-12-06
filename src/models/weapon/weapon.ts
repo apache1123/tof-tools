@@ -21,20 +21,7 @@ export class Weapon {
   private readonly _character: Character;
   private readonly definition: WeaponDefinition;
   private _stars: number;
-
-  public get stars() {
-    return this._stars;
-  }
-
-  public set stars(value: number) {
-    this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfWeaponStars);
-  }
-
-  private _matrixSlots: MatrixSlots;
-
-  public get matrixSlots() {
-    return this._matrixSlots;
-  }
+  private readonly _matrixSlots: MatrixSlots;
 
   public get id() {
     return this.definition.id;
@@ -100,6 +87,18 @@ export class Weapon {
     return this.definition.resources.filter((resourceDefinition) =>
       this.hasMetStarRequirement(resourceDefinition.starRequirement),
     );
+  }
+
+  public get stars() {
+    return this._stars;
+  }
+
+  public set stars(value: number) {
+    this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfWeaponStars);
+  }
+
+  public get matrixSlots() {
+    return this._matrixSlots;
   }
 
   private hasMetStarRequirement(requirement: WeaponStarRequirement) {

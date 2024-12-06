@@ -21,6 +21,11 @@ const matrix = new Matrix(
   new Character(),
 );
 matrix.stars = 2;
+
 export const Default: Story = {
   args: { matrix },
+};
+
+export const WithoutName: Story = {
+  args: { matrix, showName: false },
 };

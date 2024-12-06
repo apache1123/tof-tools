@@ -6,7 +6,7 @@ export class MatrixSlot {
     this._acceptsType = acceptsType;
   }
 
-  private _acceptsType: MatrixType;
+  private readonly _acceptsType: MatrixType;
   private _matrix: Matrix | undefined = undefined;
 
   public get acceptsType() {

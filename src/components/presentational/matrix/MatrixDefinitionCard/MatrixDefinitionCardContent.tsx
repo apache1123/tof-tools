@@ -7,22 +7,27 @@ import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
 export interface MatrixDefinitionCardContentProps {
   definitionId: MatrixDefinitionId;
   displayName: string;
+  showName?: boolean;
+  iconSize?: number;
   sx?: SxProps;
 }
 
 export function MatrixDefinitionCardContent({
   definitionId,
   displayName,
+  showName = true,
+  iconSize = 100,
   sx,
 }: MatrixDefinitionCardContentProps) {
   return (
-    <Stack sx={{ gap: 1, alignItems: "center", ...sx }}>
+    <Stack sx={{ gap: 0.5, alignItems: "center", ...sx }}>
       <MatrixIcon
         definitionId={definitionId}
         displayName={displayName}
-        size={180}
+        size={iconSize}
       />
-      <Typography sx={{ mt: -4 }}>{displayName}</Typography>
+
+      {showName && <Typography>{displayName}</Typography>}
     </Stack>
   );
 }
