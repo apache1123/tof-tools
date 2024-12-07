@@ -1,5 +1,5 @@
 import { getAllMatrixDefinitions } from "../../../../definitions/matrices/matrix-definitions";
-import type { MatrixFilter } from "../../../../states/matrix/matrix-filter";
+import type { MatrixFilter } from "../../../../models/matrix/matrix-filter";
 import { MatrixDefinitionAutocomplete } from "../MatrixDefinitionAutocomplete/MatrixDefinitionAutocomplete";
 
 export interface MatrixFilterProps {
@@ -7,7 +7,7 @@ export interface MatrixFilterProps {
   onChange(filter: MatrixFilter): void;
 }
 
-export function MatrixFilter({ filter, onChange }: MatrixFilterProps) {
+export function MatrixFilterSelector({ filter, onChange }: MatrixFilterProps) {
   const allDefinitions = getAllMatrixDefinitions();
 
   return (

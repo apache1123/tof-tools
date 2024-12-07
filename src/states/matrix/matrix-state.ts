@@ -1,6 +1,7 @@
 import { proxy } from "valtio";
 
-import type { MatrixFilter } from "./matrix-filter";
+import type { MatrixFilter } from "../../models/matrix/matrix-filter";
+import { getEmptyMatrixFilter } from "../../models/matrix/matrix-filter";
 
 export interface MatrixState {
   filter: MatrixFilter;
@@ -8,16 +9,10 @@ export interface MatrixState {
 }
 
 export const matrixState = proxy<MatrixState>({
-  filter: getInitialFilter(),
+  filter: getEmptyMatrixFilter(),
   resetFilter() {
-    this.filter = getInitialFilter();
+    this.filter = getEmptyMatrixFilter();
   },
 });
 
 export const matrixStateKey = "matrices";
-
-function getInitialFilter(): MatrixFilter {
-  return {
-    definitionIds: [],
-  };
-}

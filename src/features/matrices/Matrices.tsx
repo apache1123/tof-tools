@@ -3,13 +3,14 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { MatrixDefinitionSelectorModal } from "../../components/presentational/matrix/MatrixDefinitionSelectorModal/MatrixDefinitionSelectorModal";
-import { MatrixFilter } from "../../components/presentational/matrix/MatrixFilter/MatrixFilter";
+import { MatrixFilterSelector } from "../../components/presentational/matrix/MatrixFilterSelector/MatrixFilterSelector";
 import { MatrixList } from "../../components/presentational/matrix/MatrixList/MatrixList";
 import { NewMatrixModal } from "../../components/presentational/matrix/NewMatrixModal/NewMatrixModal";
 import { db } from "../../db/reactive-local-storage-db";
 import { getAllMatrixDefinitions } from "../../definitions/matrices/matrix-definitions";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
 import { Matrix } from "../../models/matrix/matrix";
+import { getFilteredMatrices } from "../../models/matrix/matrix-filter";
 import type { MatrixState } from "../../states/matrix/matrix-state";
 import { matrixState } from "../../states/matrix/matrix-state";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
@@ -25,16 +26,14 @@ export function Matrices() {
 
   const { filter } = useSnapshot(matrixState) as MatrixState;
 
-  const filteredMatrices = matrixRepoSnap.filter((matrix) => {
-    if (matrix.characterId !== selectedCharacterId) return false;
+  const selectedCharacterMatrices = matrixRepoSnap.filter(
+    (matrix) => matrix.characterId !== selectedCharacterId,
+  );
 
-    const { definitionIds } = filter;
-    if (definitionIds.length) {
-      return definitionIds.includes(matrix.definitionId);
-    }
-
-    return true;
-  });
+  const filteredMatrices = getFilteredMatrices(
+    selectedCharacterMatrices,
+    filter,
+  );
 
   const [isAddingMatrix, setIsAddingMatrix] = useState(false);
   const [selectedDefinition, setSelectedDefinition] = useState<
@@ -50,7 +49,7 @@ export function Matrices() {
             <FilterLayout
               title="Matrix Filter"
               filterContent={
-                <MatrixFilter
+                <MatrixFilterSelector
                   filter={filter}
                   onChange={(filter) => {
                     matrixState.filter = filter;
