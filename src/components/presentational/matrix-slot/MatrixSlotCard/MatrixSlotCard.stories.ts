@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { getMatrixDefinition } from "../../../definitions/matrices/matrix-definitions";
-import { getMatrixType } from "../../../definitions/matrices/matrix-type";
-import { Character } from "../../../models/character/character";
-import { Matrix } from "../../../models/matrix/matrix";
+import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-definitions";
+import { getMatrixType } from "../../../../definitions/matrices/matrix-type";
+import { Character } from "../../../../models/character/character";
+import { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixSlotCard } from "./MatrixSlotCard";
 
 const meta: Meta<typeof MatrixSlotCard> = {

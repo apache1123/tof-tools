@@ -23,5 +23,7 @@ export class MatrixSlot {
         `Matrix of type ${value.type} cannot be set in a slot that accepts ${this._acceptsType}`,
       );
     }
+
+    this._matrix = value;
   }
 }

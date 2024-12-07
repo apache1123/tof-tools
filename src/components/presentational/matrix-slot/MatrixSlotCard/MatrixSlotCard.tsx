@@ -2,10 +2,10 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import type { SxProps } from "@mui/material";
 import { Button, Card, CardContent, CardHeader } from "@mui/material";
 
-import type { Matrix } from "../../../models/matrix/matrix";
-import type { MatrixType } from "../../../models/matrix/matrix-type";
-import { MatrixCard } from "../matrix/MatrixCard/MatrixCard";
-import { MatrixTypeIcon } from "../matrix/MatrixTypeIcon/MatrixTypeIcon";
+import type { Matrix } from "../../../../models/matrix/matrix";
+import type { MatrixType } from "../../../../models/matrix/matrix-type";
+import { MatrixCard } from "../../matrix/MatrixCard/MatrixCard";
+import { MatrixTypeIcon } from "../../matrix/MatrixTypeIcon/MatrixTypeIcon";
 
 export interface MatrixSlotCardProps {
   type: MatrixType;
@@ -56,6 +56,7 @@ export function MatrixSlotCard({
             showName={false}
             showTypeIcon={false}
             matrixIconSize={100}
+            onClick={onClick}
           />
         ) : (
           <Button sx={{ width: "100%", height: "100%" }} onClick={onClick}>
