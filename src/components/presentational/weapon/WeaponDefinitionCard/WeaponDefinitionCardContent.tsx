@@ -14,6 +14,7 @@ export interface WeaponDefinitionCardContentProps {
   iconWeaponName?: WeaponName;
   elementalIcon: FusionWeaponElementalType;
   type: WeaponType;
+  iconSize?: number;
 }
 
 export function WeaponDefinitionCardContent({
@@ -23,10 +24,11 @@ export function WeaponDefinitionCardContent({
   iconWeaponName,
   elementalIcon,
   type,
+  iconSize,
 }: WeaponDefinitionCardContentProps) {
   return (
     <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
-      <WeaponIcon weaponName={iconWeaponName ?? id} />
+      <WeaponIcon weaponName={iconWeaponName ?? id} size={iconSize} />
 
       <Stack sx={{ pr: 2 }}>
         <Typography variant="body1">{weaponDisplayName}</Typography>

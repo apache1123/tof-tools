@@ -8,15 +8,23 @@ export interface WeaponEditorModalProps extends WeaponEditorProps {
 }
 
 export function WeaponEditorModal({
-  weaponState,
+  weaponProxy,
+  allMatricesProxy,
   open,
   onClose,
 }: WeaponEditorModalProps) {
   return (
     <StyledModal
       open={open}
-      modalContent={<WeaponEditor weaponState={weaponState} />}
+      modalContent={
+        <WeaponEditor
+          weaponProxy={weaponProxy}
+          allMatricesProxy={allMatricesProxy}
+        />
+      }
       onClose={onClose}
+      maxWidth={false}
+      fullWidth
     />
   );
 }

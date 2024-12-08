@@ -18,9 +18,9 @@ export class MatrixSlot {
   }
 
   public set matrix(value: Matrix | undefined) {
-    if (value && value.type !== this._acceptsType) {
+    if (value && value.type.id !== this._acceptsType.id) {
       throw new Error(
-        `Matrix of type ${value.type} cannot be set in a slot that accepts ${this._acceptsType}`,
+        `Matrix of type ${value.type.id} cannot be set in a slot that accepts ${this._acceptsType.id}`,
       );
     }
 

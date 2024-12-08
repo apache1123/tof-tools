@@ -1,4 +1,5 @@
-import { ref, subscribe } from "valtio";
+import { captureException } from "@sentry/nextjs";
+import { proxy, ref, subscribe } from "valtio";
 import { proxyMap } from "valtio/utils";
 
 import { repositoryKeyPrefix } from "../../constants/persistence";
@@ -24,7 +25,7 @@ export abstract class ValtioRepository<
   public type = "valtio" as const;
 
   public get items() {
-    return [...this._items.values()];
+    return proxy([...this._items.values()]);
   }
 
   public find(id: Id) {
@@ -32,7 +33,7 @@ export abstract class ValtioRepository<
   }
 
   public filter(predicate: (item: TItem) => boolean): TItem[] {
-    return this.items.filter(predicate);
+    return proxy(this.items.filter(predicate));
   }
 
   public add(item: TItem) {
@@ -60,7 +61,14 @@ export abstract class ValtioRepository<
     const data = this.storage.getItem(this.persistenceKey);
     if (data) {
       const dtos = JSON.parse(data) as TItemDto[];
-      this.addItems(dtos.map((dto) => this.dtoToItem(dto)));
+
+      for (const dto of dtos) {
+        try {
+          this.add(this.dtoToItem(dto));
+        } catch (error) {
+          captureException(error);
+        }
+      }
     }
   }
 

@@ -11,9 +11,11 @@ import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions"
 import { Weapon } from "../../models/weapon/weapon";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { useMatrices } from "../matrices/useMatrices";
 
 export function Weapons() {
-  const { selectedCharacterProxy } = useSelectedCharacter();
+  const { selectedCharacterProxy, selectedCharacterId } =
+    useSelectedCharacter();
 
   const weaponRepoProxy = db.get("weapons");
   const weaponRepo = useSnapshot(weaponRepoProxy) as Repository<Weapon>;
@@ -28,6 +30,8 @@ export function Weapons() {
       return !weapons.some((weapon) => weapon.id === id);
     })
     .map((id) => weaponDefinitions.byId[id]);
+
+  const { matricesProxy } = useMatrices(selectedCharacterId);
 
   const [isAddingWeapon, setIsAddingWeapon] = useState(false);
   const [editingWeapon, setEditingWeapon] = useState<Weapon | undefined>(
@@ -85,7 +89,8 @@ export function Weapons() {
             onClose={() => {
               setEditingWeapon(undefined);
             }}
-            weaponState={editingWeapon}
+            weaponProxy={editingWeapon}
+            allMatricesProxy={matricesProxy}
           />
         )}
       </>

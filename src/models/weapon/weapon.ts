@@ -21,7 +21,7 @@ export class Weapon {
   private readonly _character: Character;
   private readonly definition: WeaponDefinition;
   private _stars: number;
-  private readonly _matrixSlots: MatrixSlots;
+  private _matrixSlots: MatrixSlots;
 
   public get id() {
     return this.definition.id;
@@ -99,6 +99,9 @@ export class Weapon {
 
   public get matrixSlots() {
     return this._matrixSlots;
+  }
+  public set matrixSlots(value: MatrixSlots) {
+    this._matrixSlots = value;
   }
 
   private hasMetStarRequirement(requirement: WeaponStarRequirement) {

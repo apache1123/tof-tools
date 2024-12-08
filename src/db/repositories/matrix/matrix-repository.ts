@@ -1,8 +1,9 @@
 import { getMatrixDefinition } from "../../../definitions/matrices/matrix-definitions";
 import { getMatrixType } from "../../../definitions/matrices/matrix-type";
 import { Matrix } from "../../../models/matrix/matrix";
+import { DeserializationError } from "../../error/deserialization-error";
 import { ValtioRepository } from "../../repository/valtio-repository";
-import type { MatrixDto } from "./matrix-dto";
+import type { MatrixDto } from "./dtos/matrix-dto";
 
 export class MatrixRepository extends ValtioRepository<Matrix, MatrixDto> {
   protected override itemToDto(item: Matrix): MatrixDto {
@@ -22,7 +23,10 @@ export class MatrixRepository extends ValtioRepository<Matrix, MatrixDto> {
 
     const character = this.db.get("characters").find(characterId);
     if (!character) {
-      throw new Error(`Character not found for matrix ${id}`);
+      throw new DeserializationError(
+        `Character not found for matrix ${id}`,
+        dto,
+      );
     }
 
     const matrix = new Matrix(

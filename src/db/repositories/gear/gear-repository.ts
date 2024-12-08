@@ -2,6 +2,7 @@ import { getGearType } from "../../../definitions/gear-types";
 import { getStatType } from "../../../definitions/stat-types";
 import { Gear } from "../../../models/gear/gear";
 import { RandomStat } from "../../../models/gear/random-stat";
+import { DeserializationError } from "../../error/deserialization-error";
 import { ValtioRepository } from "../../repository/valtio-repository";
 import type { GearDtoV2 } from "./gear-dto";
 import type { RandomStatDto } from "./random-stat-dto";
@@ -56,8 +57,9 @@ export class GearRepository extends ValtioRepository<Gear, GearDtoV2> {
 
     const character = this.db.get("characters").find(characterId);
     if (!character)
-      throw new Error(
+      throw new DeserializationError(
         `Character with Id ${characterId} not found when creating gear`,
+        dto,
       );
 
     const gear = new Gear(getGearType(typeId), character, id);

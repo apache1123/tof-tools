@@ -16,24 +16,19 @@ import { matrixState } from "../../states/matrix/matrix-state";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { useMatrices } from "./useMatrices";
 
 export function Matrices() {
   const { selectedCharacterId, selectedCharacterProxy } =
     useSelectedCharacter();
 
   const matrixRepoProxy = db.get("matrices");
-  const matrixRepoSnap = useSnapshot(matrixRepoProxy);
+
+  const { matricesSnap } = useMatrices(selectedCharacterId);
 
   const { filter } = useSnapshot(matrixState) as MatrixState;
 
-  const selectedCharacterMatrices = matrixRepoSnap.filter(
-    (matrix) => matrix.characterId !== selectedCharacterId,
-  );
-
-  const filteredMatrices = getFilteredMatrices(
-    selectedCharacterMatrices,
-    filter,
-  );
+  const filteredMatrices = getFilteredMatrices(matricesSnap, filter);
 
   const [isAddingMatrix, setIsAddingMatrix] = useState(false);
   const [selectedDefinition, setSelectedDefinition] = useState<

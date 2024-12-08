@@ -23,8 +23,8 @@ export function MatrixSlotCard({
   return (
     <Card
       sx={{
-        width: 150,
-        height: 200,
+        width: 130,
+        height: 190,
         display: "flex",
         flexDirection: "column",
         ...sx,
@@ -45,6 +45,7 @@ export function MatrixSlotCard({
           width: "100%",
           height: "100%",
           pt: 0,
+          px: 1,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

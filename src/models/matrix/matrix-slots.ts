@@ -3,8 +3,8 @@ import { MatrixSlot } from "./matrix-slot";
 import type { MatrixTypeId } from "./matrix-type";
 
 export class MatrixSlots {
-  public constructor() {
-    this._slots = {
+  public constructor(slots?: Record<MatrixTypeId, MatrixSlot>) {
+    this._slots = slots ?? {
       mind: initializeMatrixSlot("mind"),
       memory: initializeMatrixSlot("memory"),
       belief: initializeMatrixSlot("belief"),
