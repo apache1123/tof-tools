@@ -9,9 +9,9 @@ export interface GearFilterProps {
 export function GearFilter({ filter, onChange }: GearFilterProps) {
   return (
     <GearTypeToggle
-      values={filter.gearNames}
-      onChange={(gearNames) => {
-        onChange({ ...filter, gearNames });
+      values={filter.gearTypeIds}
+      onChange={(gearTypeIds) => {
+        onChange({ ...filter, gearTypeIds });
       }}
     />
   );

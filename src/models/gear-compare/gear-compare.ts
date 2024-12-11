@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 
 import type { WeaponElementalType } from "../../definitions/elemental-type";
-import type { GearName } from "../../definitions/gear-types";
+import type { GearTypeId } from "../../definitions/gear-types";
 import { gearTypesLookup } from "../../definitions/gear-types";
 import { teamBuffs } from "../../definitions/team-buffs";
 import type { AbilityRequirementsDefinition } from "../../definitions/types/ability/ability-requirements-definition";
@@ -167,7 +167,7 @@ export class GearCompare {
    * a.k.a. the damage increase with vs without that piece of gear
    */
   public getGearValue(
-    gearTypeId: GearName,
+    gearTypeId: GearTypeId,
     element: WeaponElementalType,
   ): number {
     return this.getSubstituteGearValue(

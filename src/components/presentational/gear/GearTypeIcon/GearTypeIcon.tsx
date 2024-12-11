@@ -1,11 +1,11 @@
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import Image from "next/image";
 
-import type { GearName } from "../../../../definitions/gear-types";
+import type { GearTypeId } from "../../../../definitions/gear-types";
 import { normalCaseToKebabCase } from "../../../../utils/string-utils";
 
 export interface GearTypeIconProps {
-  gearName: GearName | undefined;
+  id: GearTypeId | undefined;
   size?: number;
   isTitan?: boolean;
   monochromeBlack?: boolean;
@@ -13,14 +13,14 @@ export interface GearTypeIconProps {
 }
 
 export const GearTypeIcon = ({
-  gearName,
+  id,
   size = 80,
   isTitan = false,
   monochromeBlack,
   monochromeWhite,
 }: GearTypeIconProps) => {
-  if (gearName) {
-    const imageName = normalCaseToKebabCase(gearName);
+  if (id) {
+    const imageName = normalCaseToKebabCase(id);
     const imagePath = isTitan
       ? `/icons/gear/titan/${imageName}.png`
       : monochromeBlack
@@ -32,8 +32,8 @@ export const GearTypeIcon = ({
     return (
       <Image
         src={imagePath}
-        alt={gearName}
-        title={gearName}
+        alt={id}
+        title={id}
         width={size}
         height={size}
       ></Image>

@@ -1,5 +1,5 @@
-import type { GearName } from "../../definitions/gear-types";
+import type { GearTypeId } from "../../definitions/gear-types";
 
 export interface GearFilter {
-  gearNames: GearName[];
+  gearTypeIds: GearTypeId[];
 }

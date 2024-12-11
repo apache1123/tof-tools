@@ -1,9 +1,9 @@
-import {nanoid} from "nanoid";
+import { nanoid } from "nanoid";
 
-import type {GearName} from "../../../definitions/gear-types";
-import type {GearSetDtoV2} from "../../../models/gear-set/gear-set";
-import type {GearComparerStateDto} from "../../gear-comparer";
-import type {LoadoutsStateDtoV1} from "../../loadouts";
+import type { GearTypeId } from "../../../definitions/gear-types";
+import type { GearSetDtoV2 } from "../../../models/gear-set/gear-set";
+import type { GearComparerStateDto } from "../../gear-comparer";
+import type { LoadoutsStateDtoV1 } from "../../loadouts";
 
 /** Data fix for potential issue with gear sets gear type data that may have been introduced in 3.0.0.
  *
@@ -41,11 +41,11 @@ export function fixGearSetsGearTypeData() {
   gearSets.forEach((gearSet) => {
     const gearsByTypeId = gearSet.gearsByTypeId;
     Object.keys(gearsByTypeId).forEach((gearTypeId) => {
-      const gear = gearsByTypeId[gearTypeId as GearName];
+      const gear = gearsByTypeId[gearTypeId as GearTypeId];
       if (gear?.typeId !== gearTypeId) {
-        gearsByTypeId[gearTypeId as GearName] = {
+        gearsByTypeId[gearTypeId as GearTypeId] = {
           id: nanoid(),
-          typeId: gearTypeId as GearName,
+          typeId: gearTypeId as GearTypeId,
           stars: 0,
           randomStats: [undefined, undefined, undefined, undefined],
           augmentStats: [],

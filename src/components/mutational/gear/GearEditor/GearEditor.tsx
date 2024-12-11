@@ -24,7 +24,7 @@ export function GearEditor({ gearState }: GearEditorProps) {
   return (
     <Stack gap={2}>
       <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
-        <GearTypeIcon gearName={type.id} isTitan={isAugmented} />
+        <GearTypeIcon id={type.id} isTitan={isAugmented} />
         <GearStars
           gear={gearSnap}
           onStarsChange={(stars) => {

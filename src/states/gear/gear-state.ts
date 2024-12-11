@@ -18,6 +18,6 @@ export const gearStateKey = "gears";
 
 function getInitialFilter(): GearFilter {
   return {
-    gearNames: [],
+    gearTypeIds: [],
   };
 }

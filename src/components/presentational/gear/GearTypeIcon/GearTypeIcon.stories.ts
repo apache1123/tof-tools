@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof GearTypeIcon>;
 
 export const Default: Story = {
-  args: { gearName: "Eyepiece" },
+  args: { id: "Eyepiece" },
 };
 
 export const Unknown: Story = {
@@ -20,13 +20,13 @@ export const Unknown: Story = {
 };
 
 export const Titan: Story = {
-  args: { gearName: "Eyepiece", isTitan: true },
+  args: { id: "Eyepiece", isTitan: true },
 };
 
 export const MonochromeBlack: Story = {
-  args: { gearName: "Eyepiece", monochromeBlack: true },
+  args: { id: "Eyepiece", monochromeBlack: true },
 };
 
 export const MonochromeWhite: Story = {
-  args: { gearName: "Eyepiece", monochromeWhite: true },
+  args: { id: "Eyepiece", monochromeWhite: true },
 };

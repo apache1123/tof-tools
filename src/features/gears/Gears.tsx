@@ -26,9 +26,9 @@ export function Gears() {
   const filteredGears = gearRepo.filter((gear) => {
     if (gear.characterId !== selectedCharacterId) return false;
 
-    const { gearNames } = filter;
-    if (gearNames.length) {
-      return gearNames.includes(gear.type.id);
+    const { gearTypeIds } = filter;
+    if (gearTypeIds.length) {
+      return gearTypeIds.includes(gear.type.id);
     }
 
     return true;

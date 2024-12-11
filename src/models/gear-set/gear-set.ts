@@ -7,7 +7,7 @@ import type {
   CoreElementalType,
   WeaponElementalType,
 } from "../../definitions/elemental-type";
-import type { GearName } from "../../definitions/gear-types";
+import type { GearTypeId } from "../../definitions/gear-types";
 import { gearTypesLookup } from "../../definitions/gear-types";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
@@ -17,7 +17,7 @@ import { Gear } from "../gear/gear";
 
 export class GearSet {
   public constructor(
-    gears: DataById<GearName, Gear>,
+    gears: DataById<GearTypeId, Gear>,
     characterId: CharacterId,
   ) {
     this._id = nanoid();
@@ -27,7 +27,7 @@ export class GearSet {
 
   public readonly characterId: CharacterId;
   private readonly _id: string;
-  private readonly _gearsByTypeId: DataById<GearName, Gear>;
+  private readonly _gearsByTypeId: DataById<GearTypeId, Gear>;
 
   public get id() {
     return this._id;
@@ -77,7 +77,7 @@ export class GearSet {
     );
   }
 
-  public getGearByType(typeId: GearName) {
+  public getGearByType(typeId: GearTypeId) {
     return this._gearsByTypeId[typeId];
   }
 
@@ -188,14 +188,14 @@ export class GearSet {
 export interface GearSetDtoV3 extends Dto {
   id: string;
   characterId: string;
-  gearsByTypeId: DataById<GearName, GearDtoV2>;
+  gearsByTypeId: DataById<GearTypeId, GearDtoV2>;
   version: 3;
 }
 
 /** @deprecated Introduced Character. Gear set must belong to a Character now */
 export interface GearSetDtoV2 extends Dto {
   id: string;
-  gearsByTypeId: DataById<GearName, GearDtoV1>;
+  gearsByTypeId: DataById<GearTypeId, GearDtoV1>;
   version: 2;
 }
 
@@ -203,7 +203,7 @@ export interface GearSetDtoV2 extends Dto {
 export interface GearSetDtoV1 extends Dto {
   id: string;
   name: string;
-  gearsByTypeId: DataById<GearName, GearDtoV1>;
+  gearsByTypeId: DataById<GearTypeId, GearDtoV1>;
   elementalType: CoreElementalType | undefined;
   version: 1;
 }

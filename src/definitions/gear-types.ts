@@ -1,7 +1,7 @@
 import type { Data } from "../models/data";
 import type { GearType } from "../models/gear/gear-type";
 
-export type GearName =
+export type GearTypeId =
   | "Helmet"
   | "Eyepiece"
   | "Spaulders"
@@ -19,7 +19,7 @@ export type GearVersion =
   | "1.0" // Gear introduced in 1.0, start of game
   | "2.0"; // Gear introduced in 2.0, a.k.a "Vera gear"
 
-export const gearTypesLookup: Data<GearName, GearType> = {
+export const gearTypesLookup: Data<GearTypeId, GearType> = {
   allIds: [
     "Helmet",
     "Eyepiece",
@@ -332,8 +332,8 @@ export const gearTypesLookup: Data<GearName, GearType> = {
   },
 };
 
-export function getGearType(name: GearName) {
-  const GearType = gearTypesLookup.byId[name];
-  if (!GearType) throw new Error(`Cannot find gear type ${name}`);
+export function getGearType(id: GearTypeId) {
+  const GearType = gearTypesLookup.byId[id];
+  if (!GearType) throw new Error(`Cannot find gear type ${id}`);
   return GearType;
 }

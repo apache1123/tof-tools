@@ -36,7 +36,7 @@ export function GearCard({ gear, onClick }: GearCardProps) {
               spacing={1}
               sx={{ pr: 1, alignItems: "center" }}
             >
-              <GearTypeIcon gearName={type.id} isTitan={isAugmented} />
+              <GearTypeIcon id={type.id} isTitan={isAugmented} />
               <GearStars gear={gear} readOnly />
             </Stack>
 

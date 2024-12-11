@@ -5,7 +5,7 @@ import type { RandomStatDto } from "../../../db/repositories/gear/random-stat-dt
 import { maxCharacterLevel } from "../../../definitions/character-level";
 import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
 import type { CoreElementalType } from "../../../definitions/elemental-type";
-import type { GearName } from "../../../definitions/gear-types";
+import type { GearTypeId } from "../../../definitions/gear-types";
 import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
 import type {
   GearSetDtoV1,
@@ -287,7 +287,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newGear(typeId: GearName): GearDtoV1 {
+  function newGear(typeId: GearTypeId): GearDtoV1 {
     return {
       id: nanoid(),
       typeId,

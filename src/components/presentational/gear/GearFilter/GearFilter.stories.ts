@@ -12,5 +12,5 @@ export default meta;
 type Story = StoryObj<typeof GearFilter>;
 
 export const Default: Story = {
-  args: { filter: { gearNames: ["Eyepiece", "Exoskeleton"] } },
+  args: { filter: { gearTypeIds: ["Eyepiece", "Exoskeleton"] } },
 };

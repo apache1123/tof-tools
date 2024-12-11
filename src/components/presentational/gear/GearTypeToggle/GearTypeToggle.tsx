@@ -1,21 +1,21 @@
 import { ToggleButton } from "@mui/material";
 
-import type { GearName } from "../../../../definitions/gear-types";
+import type { GearTypeId } from "../../../../definitions/gear-types";
 import { gearTypesLookup } from "../../../../definitions/gear-types";
 import { ToggleButtonGroup } from "../../common/ToggleButtonGroup/ToggleButtonGroup";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
-const gearNames = gearTypesLookup.allIds;
+const gearTypeIds = gearTypesLookup.allIds;
 
 export interface GearTypeToggleProps {
-  /** Array of selected gear names. When exclusive is false, this will be one in the array. When exclusive is true, there can be multiple. */
-  values: GearName[];
+  /** Array of selected gear type ids. When exclusive is false, this will be one in the array. When exclusive is true, there can be multiple. */
+  values: GearTypeId[];
   exclusive?: boolean;
   /** Enforce at least one gear type to be selected (except at initial state) i.e. cannot deselect all gear types. */
   enforceAtLeastOne?: boolean;
   size?: number;
-  /** @param values - Array of selected gear name(s) (or empty array if none). */
-  onChange?: (values: GearName[]) => void;
+  /** @param values - Array of selected gear ids (or empty array if none). */
+  onChange?: (values: GearTypeId[]) => void;
 }
 
 export function GearTypeToggle({
@@ -37,9 +37,9 @@ export function GearTypeToggle({
       aria-label="Gear Types"
       sx={{ flexWrap: "wrap" }}
     >
-      {gearNames.map((gearName) => (
-        <ToggleButton key={gearName} value={gearName}>
-          <GearTypeIcon gearName={gearName} monochromeWhite size={size} />
+      {gearTypeIds.map((id) => (
+        <ToggleButton key={id} value={id}>
+          <GearTypeIcon id={id} monochromeWhite size={size} />
         </ToggleButton>
       ))}
     </ToggleButtonGroup>

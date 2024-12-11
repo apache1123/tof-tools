@@ -58,11 +58,11 @@
 // }
 //
 import type { Dto } from "../db/repository/dto";
-import type { GearName } from "../definitions/gear-types";
+import type { GearTypeId } from "../definitions/gear-types";
 import type { GearSetDtoV2 } from "../models/gear-set/gear-set";
 
 export interface GearComparerStateDto extends Dto {
-  selectedGearTypeId: GearName;
+  selectedGearTypeId: GearTypeId;
   replacementGearGearSet: GearSetDtoV2;
   version: 1;
 }
