@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { proxy, useSnapshot } from "valtio";
 
 import { gearTypesLookup } from "../../../../definitions/gear-types";
-import type { Character } from "../../../../models/character/character";
+import type { CharacterId } from "../../../../models/character/character";
 import { Gear } from "../../../../models/gear/gear";
 import { StyledModal } from "../../../presentational/common/Modal/StyledModal";
 import { GearTypeToggle } from "../../../presentational/gear/GearTypeToggle/GearTypeToggle";
@@ -13,14 +13,14 @@ const state = proxy<{ newGear: Gear | undefined }>({
 });
 
 export interface NewGearEditorModalProps {
-  characterProxy: Character;
+  characterId: CharacterId;
   open: boolean;
   onConfirm(gear: Gear): void;
   onCancel(): void;
 }
 
 export function NewGearEditorModal({
-  characterProxy,
+  characterId,
   open,
   onConfirm,
   onCancel,
@@ -41,7 +41,7 @@ export function NewGearEditorModal({
               if (gearTypes[0]) {
                 state.newGear = new Gear(
                   gearTypesLookup.byId[gearTypes[0]],
-                  characterProxy,
+                  characterId,
                 );
               } else {
                 state.newGear = undefined;

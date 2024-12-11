@@ -3,13 +3,13 @@ import type { WeaponElementalType } from "../../definitions/elemental-type";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
-import type { Character } from "../character/character";
+import type { CharacterId } from "../character/character";
 import type { Weapon, WeaponDtoV1, WeaponDtoV2 } from "../weapon/weapon";
 
 type WeaponSlot = Weapon | undefined;
 
 export class Team {
-  public constructor(private readonly character: Character) {}
+  public constructor(public readonly characterId: CharacterId) {}
 
   public weapon1: WeaponSlot;
   public weapon2: WeaponSlot;

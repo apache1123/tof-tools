@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { gearTypesLookup } from "../../../../definitions/gear-types";
-import { Character } from "../../../../models/character/character";
 import { Gear } from "../../../../models/gear/gear";
 import { GearStars } from "./GearStars";
 
@@ -14,7 +13,7 @@ export default meta;
 
 type Story = StoryObj<typeof GearStars>;
 
-const gear = new Gear(gearTypesLookup.byId["Eyepiece"], new Character());
+const gear = new Gear(gearTypesLookup.byId["Eyepiece"], "characterId");
 gear.stars = 3;
 
 export const Default: Story = {

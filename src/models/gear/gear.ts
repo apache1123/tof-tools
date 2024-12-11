@@ -21,7 +21,7 @@ import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { Character, CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character";
 import type { Id } from "../identifiable";
 import { AugmentStat } from "./augment-stat";
 import type {
@@ -52,22 +52,22 @@ type AugmentStatSlot = AugmentStat | undefined;
 export class Gear {
   /**
    * @param type The type of the gear
-   * @param character The character the gear belongs to
+   * @param characterId The character the gear belongs to
    * @param id Overriding id
    * */
-  public constructor(type: GearType, character: Character, id?: GearId) {
+  public constructor(type: GearType, characterId: CharacterId, id?: GearId) {
     this._id = id ?? nanoid();
     this._type = type;
-    this._character = character;
+    this.characterId = characterId;
     this._stars = 0;
     this._isAugmented = false;
     this._randomStats = [];
     this._augmentStats = [];
   }
 
+  public readonly characterId: CharacterId;
   private readonly _id: GearId;
   private readonly _type: GearType;
-  private readonly _character: Character;
   private _stars: number;
   private _randomStats: RandomStatSlot[];
   private _isAugmented: boolean;
@@ -79,10 +79,6 @@ export class Gear {
 
   public get type() {
     return this._type;
-  }
-
-  public get characterId(): CharacterId {
-    return this._character.id;
   }
 
   public get stars() {
@@ -373,7 +369,7 @@ export class Gear {
       return undefined;
     }
 
-    const maxTitanGear = new Gear(this.type, this._character);
+    const maxTitanGear = new Gear(this.type, this.characterId);
     Gear.copy(this, maxTitanGear);
 
     const gearStatRollCombinations =

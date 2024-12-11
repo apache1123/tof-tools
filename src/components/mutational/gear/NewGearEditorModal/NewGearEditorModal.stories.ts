@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Character } from "../../../../models/character/character";
 import { NewGearEditorModal } from "./NewGearEditorModal";
 
 const meta: Meta<typeof NewGearEditorModal> = {
@@ -13,5 +12,5 @@ export default meta;
 type Story = StoryObj<typeof NewGearEditorModal>;
 
 export const Default: Story = {
-  args: { characterProxy: new Character() },
+  args: { characterId: "characterId" },
 };

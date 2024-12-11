@@ -15,8 +15,7 @@ import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 
 export function Gears() {
-  const { selectedCharacterId, selectedCharacterProxy } =
-    useSelectedCharacter();
+  const { selectedCharacterId } = useSelectedCharacter();
 
   const gearRepoProxy = db.get("gears");
   const gearRepo = useSnapshot(gearRepoProxy);
@@ -39,8 +38,7 @@ export function Gears() {
   const [editingGear, setEditingGear] = useState<Gear | undefined>(undefined);
 
   return (
-    selectedCharacterId &&
-    selectedCharacterProxy && (
+    selectedCharacterId && (
       <>
         <InventoryLayout
           filter={
@@ -83,7 +81,7 @@ export function Gears() {
         />
 
         <NewGearEditorModal
-          characterProxy={selectedCharacterProxy}
+          characterId={selectedCharacterId}
           open={isAddingNewGear}
           onConfirm={(gear) => {
             gearRepoProxy.add(gear);

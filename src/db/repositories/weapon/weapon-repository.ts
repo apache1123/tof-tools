@@ -1,7 +1,6 @@
 import { getWeaponDefinition } from "../../../definitions/weapons/weapon-definitions";
 import { Weapon } from "../../../models/weapon/weapon";
 import type { Db } from "../../db";
-import { DeserializationError } from "../../error/deserialization-error";
 import { ValtioRepository } from "../../repository/valtio-repository";
 import type { DbStorage } from "../../storage/db-storage";
 import {
@@ -29,15 +28,7 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDtoV2> {
   protected override dtoToItem(dto: WeaponDtoV2): Weapon {
     const { definitionId, characterId, stars, matrixSlots } = dto;
 
-    const character = this.db.get("characters").find(characterId);
-    if (!character) {
-      throw new DeserializationError(
-        `Character with Id ${characterId} not found when creating weapon`,
-        dto,
-      );
-    }
-
-    const weapon = new Weapon(getWeaponDefinition(definitionId), character);
+    const weapon = new Weapon(getWeaponDefinition(definitionId), characterId);
     weapon.stars = stars;
     weapon.matrixSlots = dtoToMatrixSlots(matrixSlots, this.db.get("matrices"));
 

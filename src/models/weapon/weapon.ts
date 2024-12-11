@@ -3,7 +3,7 @@ import type { AttackAbilityDefinition } from "../../definitions/types/attack/att
 import { type WeaponDefinition } from "../../definitions/types/weapon/weapon-definition";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import { maxNumOfWeaponStars } from "../../definitions/weapons/weapon-stars";
-import type { Character, CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character";
 import { MatrixSlots } from "../matrix/matrix-slots";
 import { hasMetStarRequirement } from "../star-requirement";
 import type { WeaponMatrixSetsDto } from "../weapon-matrix-sets";
@@ -11,24 +11,20 @@ import type { WeaponStarRequirement } from "./weapon-star-requirement";
 
 /** A weapon a character owns */
 export class Weapon {
-  public constructor(definition: WeaponDefinition, character: Character) {
-    this._character = character;
+  public constructor(definition: WeaponDefinition, characterId: CharacterId) {
+    this.characterId = characterId;
     this.definition = definition;
     this._stars = 0;
     this._matrixSlots = new MatrixSlots();
   }
 
-  private readonly _character: Character;
+  public readonly characterId: CharacterId;
   private readonly definition: WeaponDefinition;
   private _stars: number;
   private _matrixSlots: MatrixSlots;
 
   public get id() {
     return this.definition.id;
-  }
-
-  public get characterId(): CharacterId {
-    return this._character.id;
   }
 
   public get definitionId() {

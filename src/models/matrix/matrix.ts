@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 
 import { maxNumOfMatrixStars } from "../../definitions/matrices/matrix";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
-import type { Character } from "../character/character";
+import type { CharacterId } from "../character/character";
 import type { Id } from "../identifiable";
 import type { MatrixType } from "./matrix-type";
 
@@ -12,33 +12,21 @@ export class Matrix {
   public constructor(
     type: MatrixType,
     definition: MatrixDefinition,
-    character: Character,
+    characterId: CharacterId,
     id?: MatrixId,
   ) {
-    this._id = id ?? nanoid();
-    this._type = type;
+    this.id = id ?? nanoid();
+    this.type = type;
     this.definition = definition;
-    this._character = character;
+    this.characterId = characterId;
     this._stars = 0;
   }
 
-  private readonly _id: MatrixId;
-  private readonly _character: Character;
-  private readonly _type: MatrixType;
+  public readonly id: MatrixId;
+  public readonly characterId: CharacterId;
+  public readonly type: MatrixType;
   private readonly definition: MatrixDefinition;
   private _stars: number;
-
-  public get id() {
-    return this._id;
-  }
-
-  public get characterId(): string {
-    return this._character.id;
-  }
-
-  public get type(): MatrixType {
-    return this._type;
-  }
 
   public get definitionId() {
     return this.definition.id;

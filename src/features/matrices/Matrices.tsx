@@ -19,8 +19,7 @@ import { InventoryLayout } from "../common/InventoryLayout";
 import { useMatrices } from "./useMatrices";
 
 export function Matrices() {
-  const { selectedCharacterId, selectedCharacterProxy } =
-    useSelectedCharacter();
+  const { selectedCharacterId } = useSelectedCharacter();
 
   const matrixRepoProxy = db.get("matrices");
 
@@ -36,8 +35,7 @@ export function Matrices() {
   >(undefined);
 
   return (
-    selectedCharacterId &&
-    selectedCharacterProxy && (
+    selectedCharacterId && (
       <>
         <InventoryLayout
           filter={
@@ -89,7 +87,7 @@ export function Matrices() {
                 const matrix = new Matrix(
                   type,
                   definition,
-                  selectedCharacterProxy,
+                  selectedCharacterId,
                 );
                 matrix.stars = stars;
                 matrixRepoProxy.add(matrix);

@@ -14,15 +14,12 @@ import { InventoryLayout } from "../common/InventoryLayout";
 import { useMatrices } from "../matrices/useMatrices";
 
 export function Weapons() {
-  const { selectedCharacterProxy, selectedCharacterId } =
-    useSelectedCharacter();
+  const { selectedCharacterId } = useSelectedCharacter();
 
   const weaponRepoProxy = db.get("weapons");
   const weaponRepo = useSnapshot(weaponRepoProxy) as Repository<Weapon>;
-  const weapons = selectedCharacterProxy
-    ? weaponRepo.filter(
-        (weapon) => weapon.characterId === selectedCharacterProxy.id,
-      )
+  const weapons = selectedCharacterId
+    ? weaponRepo.filter((weapon) => weapon.characterId === selectedCharacterId)
     : [];
 
   const unusedWeaponDefinitions = weaponDefinitions.allIds
@@ -39,7 +36,7 @@ export function Weapons() {
   );
 
   return (
-    selectedCharacterProxy && (
+    selectedCharacterId && (
       <>
         <InventoryLayout
           filter={undefined}
@@ -71,7 +68,7 @@ export function Weapons() {
           weaponDefinitions={unusedWeaponDefinitions}
           onSelect={(weaponDefinition) => {
             const weapon = proxy(
-              new Weapon(weaponDefinition, selectedCharacterProxy),
+              new Weapon(weaponDefinition, selectedCharacterId),
             );
             weaponRepoProxy.add(weapon);
 

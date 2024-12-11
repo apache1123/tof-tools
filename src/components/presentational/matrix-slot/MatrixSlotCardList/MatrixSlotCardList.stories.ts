@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-definitions";
 import { getMatrixType } from "../../../../definitions/matrices/matrix-type";
-import { Character } from "../../../../models/character/character";
 import { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixSlots } from "../../../../models/matrix/matrix-slots";
 import { MatrixSlotCardList } from "./MatrixSlotCardList";
@@ -20,7 +19,7 @@ const matrixSlots = new MatrixSlots();
 matrixSlots.getSlot("belief").matrix = new Matrix(
   getMatrixType("belief"),
   getMatrixDefinition("Alyss"),
-  new Character(),
+  "characterId",
 );
 
 export const Default: Story = {

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { gearTypesLookup } from "../../../../definitions/gear-types";
 import { statTypesLookup } from "../../../../definitions/stat-types";
-import { Character } from "../../../../models/character/character";
 import { Gear } from "../../../../models/gear/gear";
 import { RandomStat } from "../../../../models/gear/random-stat";
 import { GearCard } from "./GearCard";
@@ -16,9 +15,9 @@ export default meta;
 
 type Story = StoryObj<typeof GearCard>;
 
-const character = new Character();
+const characterId = "characterId";
 
-const gear = new Gear(gearTypesLookup.byId["Eyepiece"], character);
+const gear = new Gear(gearTypesLookup.byId["Eyepiece"], characterId);
 gear.stars = 3;
 gear.setRandomStat(0, new RandomStat(statTypesLookup.byId["Attack"]));
 gear.setRandomStat(
@@ -32,7 +31,7 @@ export const Default: Story = {
   },
 };
 
-const titanGear = new Gear(gearTypesLookup.byId["Eyepiece"], character);
+const titanGear = new Gear(gearTypesLookup.byId["Eyepiece"], characterId);
 titanGear.isAugmented = true;
 export const Titan: Story = {
   args: {

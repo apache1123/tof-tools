@@ -11,50 +11,49 @@ import type { GearName } from "../../definitions/gear-types";
 import { gearTypesLookup } from "../../definitions/gear-types";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { Character, CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character";
 import type { DataById } from "../data";
 import { Gear } from "../gear/gear";
 
 export class GearSet {
-  public constructor(gears: DataById<GearName, Gear>, character: Character) {
+  public constructor(
+    gears: DataById<GearName, Gear>,
+    characterId: CharacterId,
+  ) {
     this._id = nanoid();
-    this._character = character;
+    this.characterId = characterId;
     this._gearsByTypeId = gears;
   }
 
+  public readonly characterId: CharacterId;
   private readonly _id: string;
-  private readonly _character: Character;
   private readonly _gearsByTypeId: DataById<GearName, Gear>;
 
   public get id() {
     return this._id;
   }
 
-  public get characterId(): CharacterId {
-    return this._character.id;
-  }
-
   /** Creates an empty GearSet */
-  public static create(character: Character): GearSet {
+  public static create(characterId: CharacterId): GearSet {
     return new GearSet(
       {
-        Helmet: new Gear(gearTypesLookup.byId.Helmet, character),
-        Eyepiece: new Gear(gearTypesLookup.byId.Eyepiece, character),
-        Spaulders: new Gear(gearTypesLookup.byId.Spaulders, character),
-        Gloves: new Gear(gearTypesLookup.byId.Gloves, character),
-        Bracers: new Gear(gearTypesLookup.byId.Bracers, character),
-        Armor: new Gear(gearTypesLookup.byId.Armor, character),
+        Helmet: new Gear(gearTypesLookup.byId.Helmet, characterId),
+        Eyepiece: new Gear(gearTypesLookup.byId.Eyepiece, characterId),
+        Spaulders: new Gear(gearTypesLookup.byId.Spaulders, characterId),
+        Gloves: new Gear(gearTypesLookup.byId.Gloves, characterId),
+        Bracers: new Gear(gearTypesLookup.byId.Bracers, characterId),
+        Armor: new Gear(gearTypesLookup.byId.Armor, characterId),
         "Combat Engine": new Gear(
           gearTypesLookup.byId["Combat Engine"],
-          character,
+          characterId,
         ),
-        Belt: new Gear(gearTypesLookup.byId.Belt, character),
-        Legguards: new Gear(gearTypesLookup.byId.Legguards, character),
-        Boots: new Gear(gearTypesLookup.byId.Boots, character),
-        Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton, character),
-        Microreactor: new Gear(gearTypesLookup.byId.Microreactor, character),
+        Belt: new Gear(gearTypesLookup.byId.Belt, characterId),
+        Legguards: new Gear(gearTypesLookup.byId.Legguards, characterId),
+        Boots: new Gear(gearTypesLookup.byId.Boots, characterId),
+        Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton, characterId),
+        Microreactor: new Gear(gearTypesLookup.byId.Microreactor, characterId),
       },
-      character,
+      characterId,
     );
   }
 
@@ -74,7 +73,7 @@ export class GearSet {
         Exoskeleton: gearSet.getGearByType("Exoskeleton"),
         Microreactor: gearSet.getGearByType("Microreactor"),
       },
-      gearSet._character,
+      gearSet.characterId,
     );
   }
 

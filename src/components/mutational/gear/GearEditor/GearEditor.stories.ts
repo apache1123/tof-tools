@@ -3,7 +3,6 @@ import { proxy } from "valtio";
 
 import { gearTypesLookup } from "../../../../definitions/gear-types";
 import { statTypesLookup } from "../../../../definitions/stat-types";
-import { Character } from "../../../../models/character/character";
 import { Gear } from "../../../../models/gear/gear";
 import { RandomStat } from "../../../../models/gear/random-stat";
 import { GearEditor } from "./GearEditor";
@@ -17,7 +16,9 @@ export default meta;
 
 type Story = StoryObj<typeof GearEditor>;
 
-const gear = proxy(new Gear(gearTypesLookup.byId["Eyepiece"], new Character()));
+const characterId = "characterId";
+
+const gear = proxy(new Gear(gearTypesLookup.byId["Eyepiece"], characterId));
 gear.stars = 3;
 gear.setRandomStat(
   0,
@@ -30,7 +31,7 @@ export const Default: Story = {
 };
 
 const titanGear = proxy(
-  new Gear(gearTypesLookup.byId["Eyepiece"], new Character()),
+  new Gear(gearTypesLookup.byId["Eyepiece"], characterId),
 );
 Gear.copy(gear, titanGear);
 titanGear.isAugmented = true;
