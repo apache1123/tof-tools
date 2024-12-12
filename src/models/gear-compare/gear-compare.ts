@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 import type { GearTypeId } from "../../definitions/gear-types";
-import { gearTypesLookup } from "../../definitions/gear-types";
+import { getGearType } from "../../definitions/gear-types";
 import { teamBuffs } from "../../definitions/team-buffs";
 import type { AbilityRequirementsDefinition } from "../../definitions/types/ability/ability-requirements-definition";
 import type { BuffAbilityDefinition as BuffAbilityDefinition } from "../../definitions/types/buff/buff-ability-definition";
@@ -22,7 +22,7 @@ import { CombatCharacter } from "../character/combat-character";
 import { DamageEvent } from "../damage-event/damage-event";
 import type { AttackHit } from "../event/messages/attack-hit";
 import { Gear } from "../gear/gear";
-import { GearSet } from "../gear-set/gear-set";
+import { GearSet } from "../gear/gear-set";
 import { Loadout } from "../loadout/loadout";
 import type { Target } from "../target/target";
 import { ElementalWeaponRequirements } from "../team/elemental-weapon-requirements";
@@ -171,7 +171,7 @@ export class GearCompare {
     element: WeaponElementalType,
   ): number {
     return this.getSubstituteGearValue(
-      new Gear(gearTypesLookup.byId[gearTypeId], this.character.id), // Empty gear of the same type
+      new Gear(getGearType(gearTypeId), this.character.id), // Empty gear of the same type
       element,
     );
   }

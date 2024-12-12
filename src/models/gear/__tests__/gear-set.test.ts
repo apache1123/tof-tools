@@ -1,9 +1,9 @@
-import { gearTypesLookup } from "../../../definitions/gear-types";
+import { getGearType } from "../../../definitions/gear-types";
 import { statTypesLookup } from "../../../definitions/stat-types";
 import type { CharacterId } from "../../character/character";
-import { Gear } from "../../gear/gear";
-import { RandomStat } from "../../gear/random-stat";
+import { Gear } from "../gear";
 import { GearSet } from "../gear-set";
+import { RandomStat } from "../random-stat";
 
 let characterId: CharacterId;
 
@@ -64,51 +64,54 @@ describe("Gear set", () => {
     );
     flameResistancePercent.value = 0.4;
 
-    const helmet = new Gear(gearTypesLookup.byId.Helmet, characterId);
+    const helmet = new Gear(getGearType("Helmet"), characterId);
     helmet.setRandomStat(0, flameAttackFlat1);
     helmet.setRandomStat(1, hpFlat);
     helmet.setRandomStat(2, flameResistanceFlat);
 
-    const eyepiece = new Gear(gearTypesLookup.byId.Eyepiece, characterId);
+    const eyepiece = new Gear(getGearType("Eyepiece"), characterId);
     eyepiece.setRandomStat(0, alteredAttackFlat);
     eyepiece.setRandomStat(1, critRatePercent);
     eyepiece.setRandomStat(2, hpPercent1);
     eyepiece.setRandomStat(3, flameResistancePercent);
 
-    const spaulders = new Gear(gearTypesLookup.byId.Spaulders, characterId);
+    const spaulders = new Gear(getGearType("Spaulders"), characterId);
     spaulders.setRandomStat(0, flameAttackFlat2);
 
-    const gloves = new Gear(gearTypesLookup.byId.Gloves, characterId);
+    const gloves = new Gear(getGearType("Gloves"), characterId);
     gloves.setRandomStat(0, critRateFlat);
 
-    const bracers = new Gear(gearTypesLookup.byId.Bracers, characterId);
+    const bracers = new Gear(getGearType("Bracers"), characterId);
     bracers.setRandomStat(0, attackFlat);
 
-    const combatEngine = new Gear(
-      gearTypesLookup.byId["Combat Engine"],
-      characterId,
-    );
+    const combatEngine = new Gear(getGearType("Combat Engine"), characterId);
     combatEngine.setRandomStat(0, flameAttackPercent);
     combatEngine.setRandomStat(1, flameDamagePercent);
     combatEngine.setRandomStat(2, hpPercent2);
 
-    sut = new GearSet(
-      {
-        Helmet: helmet,
-        Eyepiece: eyepiece,
-        Spaulders: spaulders,
-        Gloves: gloves,
-        Bracers: bracers,
-        Armor: new Gear(gearTypesLookup.byId.Armor, characterId),
-        "Combat Engine": combatEngine,
-        Belt: new Gear(gearTypesLookup.byId.Belt, characterId),
-        Legguards: new Gear(gearTypesLookup.byId.Legguards, characterId),
-        Boots: new Gear(gearTypesLookup.byId.Boots, characterId),
-        Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton, characterId),
-        Microreactor: new Gear(gearTypesLookup.byId.Microreactor, characterId),
-      },
-      characterId,
-    );
+    sut = new GearSet();
+
+    sut.getSlot("Helmet").gear = helmet;
+    sut.getSlot("Eyepiece").gear = eyepiece;
+    sut.getSlot("Spaulders").gear = spaulders;
+    sut.getSlot("Gloves").gear = gloves;
+    sut.getSlot("Bracers").gear = bracers;
+    sut.getSlot("Combat Engine").gear = combatEngine;
+
+    // sut = new GearSet({
+    //   Helmet: helmet,
+    //   Eyepiece: eyepiece,
+    //   Spaulders: spaulders,
+    //   Gloves: gloves,
+    //   Bracers: bracers,
+    //   Armor: new Gear(getGearType("Armor"), characterId),
+    //   "Combat Engine": combatEngine,
+    //   Belt: new Gear(getGearType("Belt"), characterId),
+    //   Legguards: new Gear(getGearType("Legguards"), characterId),
+    //   Boots: new Gear(getGearType("Boots"), characterId),
+    //   Exoskeleton: new Gear(getGearType("Exoskeleton"), characterId),
+    //   Microreactor: new Gear(getGearType("Microreactor"), characterId),
+    // });
   });
 
   describe("returning total value of stat type for a gear set", () => {

@@ -19,7 +19,7 @@ export type GearVersion =
   | "1.0" // Gear introduced in 1.0, start of game
   | "2.0"; // Gear introduced in 2.0, a.k.a "Vera gear"
 
-export const gearTypesLookup: Data<GearTypeId, GearType> = {
+const gearTypesLookup: Data<GearTypeId, GearType> = {
   allIds: [
     "Helmet",
     "Eyepiece",
@@ -330,10 +330,14 @@ export const gearTypesLookup: Data<GearTypeId, GearType> = {
       version: "2.0",
     },
   },
-};
+} as const;
 
 export function getGearType(id: GearTypeId) {
-  const GearType = gearTypesLookup.byId[id];
-  if (!GearType) throw new Error(`Cannot find gear type ${id}`);
-  return GearType;
+  const gearType = gearTypesLookup.byId[id];
+  if (!gearType) throw new Error(`Cannot find gear type ${id}`);
+  return gearType;
+}
+
+export function getGearTypeOrder() {
+  return gearTypesLookup.allIds;
 }

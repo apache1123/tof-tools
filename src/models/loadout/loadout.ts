@@ -14,7 +14,7 @@ import type { LoadoutStatsDto } from "../deprecated/loadout-stats";
 import type { ElementalAttackFlatsDto } from "../elemental-attack-flats";
 import { ElementalAttackFlats } from "../elemental-attack-flats";
 import { Gear } from "../gear/gear";
-import type { GearSet, GearSetDtoV2, GearSetDtoV3 } from "../gear-set/gear-set";
+import type { GearSet, GearSetDtoV2, GearSetDtoV3 } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team, TeamDtoV1, TeamDtoV2 } from "../team/team";
 
@@ -141,8 +141,12 @@ export class Loadout {
 
   /** Replaces the piece of gear in the gear set with the new piece of gear and updates the stats if applicable */
   public replaceGear(gear: Gear) {
-    const oldGear = this.gearSet.getGearByType(gear.type.id);
-    this.gearSet.setGear(gear);
+    const gearSlot = this.gearSet.getSlot(gear.type.id);
+    const oldGear = gearSlot.gear;
+
+    if (!oldGear) return;
+
+    gearSlot.gear = gear;
 
     const gearStatDifference = Gear.calculateStatDifference(oldGear, gear);
 

@@ -213,8 +213,8 @@
 //       (containsString(line, goldGearNamePrefix) ||
 //         containsString(line, titanGearNamePrefix))
 //     ) {
-//       const sortedGearTypes = gearTypesLookup.allIds
-//         .map((id) => gearTypesLookup.byId[id])
+//       const sortedGearTypes = getGearTypeOrder()
+//         .map((id) => getGearType(id))
 //         // Sort by inGameName length to aid OCR
 //         // e.g. 'Super eyepiece' should be matched after 'Eyepiece' to overwrite the 'Eyepiece' match
 //         .sort((a, b) => a.inGameName.length - b.inGameName.length);

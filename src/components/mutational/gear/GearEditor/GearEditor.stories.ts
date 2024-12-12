@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { proxy } from "valtio";
 
-import { gearTypesLookup } from "../../../../definitions/gear-types";
+import { getGearType } from "../../../../definitions/gear-types";
 import { statTypesLookup } from "../../../../definitions/stat-types";
 import { Gear } from "../../../../models/gear/gear";
 import { RandomStat } from "../../../../models/gear/random-stat";
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof GearEditor>;
 
 const characterId = "characterId";
 
-const gear = proxy(new Gear(gearTypesLookup.byId["Eyepiece"], characterId));
+const gear = proxy(new Gear(getGearType("Eyepiece"), characterId));
 gear.stars = 3;
 gear.setRandomStat(
   0,
@@ -30,9 +30,7 @@ export const Default: Story = {
   args: { gearState: gear },
 };
 
-const titanGear = proxy(
-  new Gear(gearTypesLookup.byId["Eyepiece"], characterId),
-);
+const titanGear = proxy(new Gear(getGearType("Eyepiece"), characterId));
 Gear.copy(gear, titanGear);
 titanGear.isAugmented = true;
 export const Titan: Story = {

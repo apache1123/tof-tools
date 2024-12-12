@@ -20,7 +20,7 @@
 //
 //   return (
 //     <Grid container spacing={3}>
-//       {gearTypesLookup.allIds.map((gearTypeId) => {
+//       {getGearTypeOrder().map((gearTypeId) => {
 //         const gearSnap = gearSetSnap.getGearByType(gearTypeId);
 //         const gearState = gearSetState.getGearByType(gearTypeId);
 //         if (!gearSnap || !gearState) return null;

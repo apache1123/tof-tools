@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import { proxy, useSnapshot } from "valtio";
 
-import { gearTypesLookup } from "../../../../definitions/gear-types";
+import { getGearType } from "../../../../definitions/gear-types";
 import type { CharacterId } from "../../../../models/character/character";
 import { Gear } from "../../../../models/gear/gear";
 import { StyledModal } from "../../../presentational/common/Modal/StyledModal";
@@ -40,7 +40,7 @@ export function NewGearEditorModal({
             onChange={(gearTypes) => {
               if (gearTypes[0]) {
                 state.newGear = new Gear(
-                  gearTypesLookup.byId[gearTypes[0]],
+                  getGearType(gearTypes[0]),
                   characterId,
                 );
               } else {

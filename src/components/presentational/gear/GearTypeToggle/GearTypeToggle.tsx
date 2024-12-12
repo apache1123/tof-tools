@@ -1,11 +1,11 @@
 import { ToggleButton } from "@mui/material";
 
 import type { GearTypeId } from "../../../../definitions/gear-types";
-import { gearTypesLookup } from "../../../../definitions/gear-types";
+import { getGearTypeOrder } from "../../../../definitions/gear-types";
 import { ToggleButtonGroup } from "../../common/ToggleButtonGroup/ToggleButtonGroup";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
-const gearTypeIds = gearTypesLookup.allIds;
+const gearTypeIds = getGearTypeOrder();
 
 export interface GearTypeToggleProps {
   /** Array of selected gear type ids. When exclusive is false, this will be one in the array. When exclusive is true, there can be multiple. */

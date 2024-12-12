@@ -24,8 +24,8 @@
 //   } = useSnapshot(gearComparerState) as GearComparerState;
 //   const gearState = gearComparerState.replacementGear;
 //
-//   const gearTypeSelectorOptions = gearTypesLookup.allIds.map((id) => ({
-//     gearType: gearTypesLookup.byId[id],
+//   const gearTypeSelectorOptions = getGearTypeOrder().map((id) => ({
+//     gearType: getGearType(id),
 //     isTitan: replacementGearGearSet.getGearByType(id).isAugmented,
 //   }));
 //

@@ -1,6 +1,9 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 
-import { gearTypesLookup } from "../../../../definitions/gear-types";
+import {
+  getGearType,
+  getGearTypeOrder,
+} from "../../../../definitions/gear-types";
 import type { GearType } from "../../../../models/gear/gear-type";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
@@ -14,8 +17,8 @@ export interface GearTypeSelectorProps {
   onChange?(value: GearType): void;
 }
 
-const defaultOptions: Option[] = gearTypesLookup.allIds.map((id) => ({
-  gearType: gearTypesLookup.byId[id],
+const defaultOptions: Option[] = getGearTypeOrder().map((id) => ({
+  gearType: getGearType(id),
   isTitan: false,
 }));
 

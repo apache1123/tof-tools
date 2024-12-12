@@ -59,7 +59,7 @@
 //
 import type { Dto } from "../db/repository/dto";
 import type { GearTypeId } from "../definitions/gear-types";
-import type { GearSetDtoV2 } from "../models/gear-set/gear-set";
+import type { GearSetDtoV2 } from "../models/gear/gear-set";
 
 export interface GearComparerStateDto extends Dto {
   selectedGearTypeId: GearTypeId;

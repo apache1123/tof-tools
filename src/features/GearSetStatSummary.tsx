@@ -6,7 +6,7 @@ import {
 } from "../components/presentational/common/NumericString/NumericString";
 import { ElementalStyledText } from "../components/presentational/elemental/ElementalStyledText/ElementalStyledText";
 import type { CoreElementalType } from "../definitions/elemental-type";
-import type { GearSet } from "../models/gear-set/gear-set";
+import type { GearSet } from "../models/gear/gear-set";
 
 export interface GearSetStatSummaryProps {
   gearSetSnap: GearSet;

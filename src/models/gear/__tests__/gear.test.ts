@@ -1,4 +1,4 @@
-import { gearTypesLookup } from "../../../definitions/gear-types";
+import { getGearType } from "../../../definitions/gear-types";
 import { statTypesLookup } from "../../../definitions/stat-types";
 import { Gear } from "../gear";
 import type { GearType } from "../gear-type";
@@ -9,7 +9,7 @@ let sut: Gear;
 
 describe("Gear", () => {
   beforeEach(() => {
-    gearType = gearTypesLookup.byId["Eyepiece"];
+    gearType = getGearType("Eyepiece");
     sut = new Gear(gearType, "characterId");
   });
 

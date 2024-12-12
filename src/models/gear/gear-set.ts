@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-
 import type { GearDtoV1 } from "../../db/repositories/gear/deprecated/dto";
 import type { GearDtoV2 } from "../../db/repositories/gear/gear-dto";
 import type { Dto } from "../../db/repository/dto";
@@ -8,81 +6,56 @@ import type {
   WeaponElementalType,
 } from "../../definitions/elemental-type";
 import type { GearTypeId } from "../../definitions/gear-types";
-import { gearTypesLookup } from "../../definitions/gear-types";
+import { getGearType, getGearTypeOrder } from "../../definitions/gear-types";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { CharacterId } from "../character/character";
 import type { DataById } from "../data";
-import { Gear } from "../gear/gear";
+import type { Gear } from "./gear";
+import { GearSlot } from "./gear-slot";
 
 export class GearSet {
-  public constructor(
-    gears: DataById<GearTypeId, Gear>,
-    characterId: CharacterId,
-  ) {
-    this._id = nanoid();
-    this.characterId = characterId;
-    this._gearsByTypeId = gears;
+  public constructor() {
+    this.slots = {
+      Helmet: initializeGearSlot("Helmet"),
+      Eyepiece: initializeGearSlot("Eyepiece"),
+      Spaulders: initializeGearSlot("Spaulders"),
+      Gloves: initializeGearSlot("Gloves"),
+      Bracers: initializeGearSlot("Bracers"),
+      Armor: initializeGearSlot("Armor"),
+      "Combat Engine": initializeGearSlot("Combat Engine"),
+      Belt: initializeGearSlot("Belt"),
+      Legguards: initializeGearSlot("Legguards"),
+      Boots: initializeGearSlot("Boots"),
+      Exoskeleton: initializeGearSlot("Exoskeleton"),
+      Microreactor: initializeGearSlot("Microreactor"),
+    };
+
+    function initializeGearSlot(typeId: GearTypeId) {
+      return new GearSlot(getGearType(typeId));
+    }
   }
 
-  public readonly characterId: CharacterId;
-  private readonly _id: string;
-  private readonly _gearsByTypeId: DataById<GearTypeId, Gear>;
-
-  public get id() {
-    return this._id;
-  }
-
-  /** Creates an empty GearSet */
-  public static create(characterId: CharacterId): GearSet {
-    return new GearSet(
-      {
-        Helmet: new Gear(gearTypesLookup.byId.Helmet, characterId),
-        Eyepiece: new Gear(gearTypesLookup.byId.Eyepiece, characterId),
-        Spaulders: new Gear(gearTypesLookup.byId.Spaulders, characterId),
-        Gloves: new Gear(gearTypesLookup.byId.Gloves, characterId),
-        Bracers: new Gear(gearTypesLookup.byId.Bracers, characterId),
-        Armor: new Gear(gearTypesLookup.byId.Armor, characterId),
-        "Combat Engine": new Gear(
-          gearTypesLookup.byId["Combat Engine"],
-          characterId,
-        ),
-        Belt: new Gear(gearTypesLookup.byId.Belt, characterId),
-        Legguards: new Gear(gearTypesLookup.byId.Legguards, characterId),
-        Boots: new Gear(gearTypesLookup.byId.Boots, characterId),
-        Exoskeleton: new Gear(gearTypesLookup.byId.Exoskeleton, characterId),
-        Microreactor: new Gear(gearTypesLookup.byId.Microreactor, characterId),
-      },
-      characterId,
-    );
-  }
+  private readonly slots: Record<GearTypeId, GearSlot>;
 
   public static createCopy(gearSet: GearSet): GearSet {
-    return new GearSet(
-      {
-        Helmet: gearSet.getGearByType("Helmet"),
-        Eyepiece: gearSet.getGearByType("Eyepiece"),
-        Spaulders: gearSet.getGearByType("Spaulders"),
-        Gloves: gearSet.getGearByType("Gloves"),
-        Bracers: gearSet.getGearByType("Bracers"),
-        Armor: gearSet.getGearByType("Armor"),
-        "Combat Engine": gearSet.getGearByType("Combat Engine"),
-        Belt: gearSet.getGearByType("Belt"),
-        Legguards: gearSet.getGearByType("Legguards"),
-        Boots: gearSet.getGearByType("Boots"),
-        Exoskeleton: gearSet.getGearByType("Exoskeleton"),
-        Microreactor: gearSet.getGearByType("Microreactor"),
-      },
-      gearSet.characterId,
-    );
+    const copy = new GearSet();
+
+    for (const slot of gearSet.getSlots()) {
+      const gear = slot.gear;
+      if (gear) {
+        copy.getSlot(gear.type.id).gear = gear;
+      }
+    }
+
+    return copy;
   }
 
-  public getGearByType(typeId: GearTypeId) {
-    return this._gearsByTypeId[typeId];
+  public getSlot(typeId: GearTypeId) {
+    return this.slots[typeId];
   }
 
-  public setGear(gear: Gear) {
-    this._gearsByTypeId[gear.type.id] = gear;
+  public getSlots() {
+    return getGearTypeOrder().map((typeId) => this.slots[typeId]);
   }
 
   public getTotalAttackFlat(element: WeaponElementalType): number {
@@ -139,6 +112,18 @@ export class GearSet {
     );
   }
 
+  private additiveSumStatValueOfAllGears(
+    statSelector: (gear: Gear) => number,
+  ): number {
+    return sum(
+      ...keysOf(this.slots).map((typeId) => {
+        const slot = this.getSlot(typeId);
+        const gear = slot.gear;
+        return gear ? statSelector(gear) : 0;
+      }),
+    ).toNumber();
+  }
+
   // public copyFromDto(dto: GearSetDtoV3): void {
   //   const { id, characterId, gearsByTypeId } = dto;
   //
@@ -147,7 +132,7 @@ export class GearSet {
   //
   //   keysOf(gearsByTypeId).forEach((typeId) => {
   //     const gearDto = gearsByTypeId[typeId];
-  //     const gearType = gearTypesLookup.byId[gearDto.typeId];
+  //     const gearType = getGearType(gearDto.typeId);
   //     const gear = new Gear(gearType, characterId);
   //     gear.copyFromDto(gearDto);
   //     this._gearsByTypeId[typeId] = gear;
@@ -172,17 +157,6 @@ export class GearSet {
   //     version: 3,
   //   };
   // }
-
-  private additiveSumStatValueOfAllGears(
-    statSelector: (gear: Gear) => number,
-  ): number {
-    return sum(
-      ...keysOf(this._gearsByTypeId).map((typeId) => {
-        const gear = this.getGearByType(typeId);
-        return gear ? statSelector(gear) : 0;
-      }),
-    ).toNumber();
-  }
 }
 
 export interface GearSetDtoV3 extends Dto {
