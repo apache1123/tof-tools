@@ -1,4 +1,4 @@
-import type { SxProps } from "@mui/material";
+import type { CardProps, SxProps } from "@mui/material";
 import { Card, CardActionArea, CardContent, Stack } from "@mui/material";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
@@ -12,6 +12,7 @@ export interface MatrixCardProps {
   showTypeIcon?: boolean;
   matrixIconSize?: number;
   onClick?: () => void;
+  elevation?: CardProps["elevation"];
   sx?: SxProps;
 }
 
@@ -21,10 +22,11 @@ export function MatrixCard({
   showTypeIcon = true,
   matrixIconSize = 100,
   onClick,
+  elevation,
   sx,
 }: MatrixCardProps) {
   return (
-    <Card sx={{ width: "fit-content", ...sx }}>
+    <Card elevation={elevation} sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
         onClick={() => {
           if (onClick) onClick();

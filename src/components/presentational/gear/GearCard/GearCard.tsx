@@ -1,3 +1,4 @@
+import type { CardProps, SxProps } from "@mui/material";
 import {
   Box,
   Card,
@@ -15,20 +16,27 @@ import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 export interface GearCardProps {
   gear: Gear;
   onClick?: () => void;
+  elevation?: CardProps["elevation"];
+  sx?: SxProps;
 }
 
-export function GearCard({ gear, onClick }: GearCardProps) {
+export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
   const { type, isAugmented, randomStats } = gear;
 
   return (
-    <Card sx={{ width: "fit-content" }}>
+    <Card elevation={elevation} sx={{ width: 190, ...sx }}>
       <CardActionArea
         onClick={() => {
           if (onClick) onClick();
         }}
-        sx={{ height: "100%", display: "flex", alignItems: "flex-start" }}
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "flex-start",
+        }}
       >
-        <CardContent sx={{ p: 0 }}>
+        <CardContent sx={{ width: "100%", p: 0 }}>
           <Stack spacing={1}>
             {/* Header - type and stars */}
             <Stack
