@@ -16,16 +16,15 @@ export function GearSlotCard({ type, gear, onClick }: GearSlotCardProps) {
   return (
     <Card sx={{ width: 200 }}>
       <CardHeader
-        avatar={
-          !gear && <GearTypeIcon id={type.id} size={40} monochromeWhite />
-        }
-        sx={{ p: 0, pt: 0.5, pl: 0.5 }}
+        avatar={<GearTypeIcon id={type.id} size={40} monochromeWhite />}
+        title={type.displayName}
+        sx={{ p: 1 }}
       />
       <CardContent
         sx={{
           width: "100%",
           px: 1,
-          py: 2,
+          pt: 0,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
