@@ -7,6 +7,7 @@ import type {
   CoreElementalType,
   WeaponElementalType,
 } from "../../definitions/elemental-type";
+import { weaponElementalTypes } from "../../definitions/elemental-type";
 import {
   augmentStatsPullUpFactor1,
   augmentStatsPullUpFactor2,
@@ -20,6 +21,7 @@ import { statTypesLookup } from "../../definitions/stat-types";
 import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
+import { getItemWithHighestNumber } from "../../utils/number-utils";
 import { keysOf } from "../../utils/object-utils";
 import type { CharacterId } from "../character/character";
 import type { Id } from "../identifiable";
@@ -29,6 +31,7 @@ import type {
   RandomStatRollCombination,
 } from "./gear-random-stat-roll-combinations";
 import type { GearStatDifference } from "./gear-stat-difference";
+import type { GearSummaryStat } from "./gear-summary-stat";
 import type { GearType } from "./gear-type";
 import { RandomStat } from "./random-stat";
 import type { StatType } from "./stat-type";
@@ -111,6 +114,10 @@ export class Gear {
 
   public get augmentStats(): ReadonlyArray<AugmentStatSlot> {
     return this._augmentStats;
+  }
+
+  public get allStats(): ReadonlyArray<RandomStatSlot | AugmentStatSlot> {
+    return this._randomStats.concat(this._augmentStats);
   }
 
   /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
@@ -303,6 +310,91 @@ export class Gear {
       elementalType,
       isResistancePercent,
     );
+  }
+
+  public getHighestAttackFlat(): {
+    element: WeaponElementalType;
+    value: number;
+  } {
+    const attackFlats = weaponElementalTypes.map((element) => ({
+      element,
+      value: this.getTotalAttackFlat(element),
+    }));
+    return getItemWithHighestNumber(attackFlats, (x) => x.value);
+  }
+
+  public getHighestAttackPercent(): {
+    element: WeaponElementalType;
+    value: number;
+  } {
+    const attackPercents = weaponElementalTypes.map((element) => ({
+      element,
+      value: this.getTotalAttackPercent(element),
+    }));
+    return getItemWithHighestNumber(attackPercents, (x) => x.value);
+  }
+
+  public getHighestDamagePercent(): {
+    element: WeaponElementalType;
+    value: number;
+  } {
+    const damagePercents = weaponElementalTypes.map((element) => ({
+      element,
+      value: this.getTotalElementalDamagePercent(element),
+    }));
+    return getItemWithHighestNumber(damagePercents, (x) => x.value);
+  }
+
+  public getSummaryStats(): GearSummaryStat[] {
+    const result: GearSummaryStat[] = [];
+
+    const highestAttackFlat = this.getHighestAttackFlat();
+    if (highestAttackFlat.value !== 0) {
+      const { element, value } = highestAttackFlat;
+      result.push({
+        type: "attackFlat",
+        element,
+        value,
+      });
+    }
+
+    const highestAttackPercent = this.getHighestAttackPercent();
+    if (highestAttackPercent.value !== 0) {
+      const { element, value } = highestAttackPercent;
+      result.push({
+        type: "attackPercent",
+        value,
+        element,
+      });
+    }
+
+    const highestDamagePercent = this.getHighestDamagePercent();
+    if (highestDamagePercent.value !== 0) {
+      const { element, value } = highestDamagePercent;
+      result.push({
+        type: "damagePercent",
+        value,
+        element,
+      });
+    }
+
+    const totalCritFlat = this.getTotalCritFlat();
+    if (totalCritFlat !== 0) {
+      result.push({
+        type: "critRateFlat",
+        value: totalCritFlat,
+      });
+    }
+
+    const totalCritPercent = this.getTotalCritPercent();
+    if (totalCritPercent !== 0) {
+      result.push({
+        type: "critRatePercent",
+        value: totalCritPercent,
+      });
+    }
+
+    return result;
   }
 
   public getRandomStatRollCombinations(): GearRandomStatRollCombinations[] {

@@ -7,6 +7,7 @@ import type {
 } from "../../definitions/elemental-type";
 import { weaponElementalTypes } from "../../definitions/elemental-type";
 import { sum } from "../../utils/math-utils";
+import { getHighestNumber } from "../../utils/number-utils";
 import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-utils";
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
@@ -158,8 +159,8 @@ export class CombatCharacter {
   }
 
   private getHighestLoadoutBaseAttack(elements: GearResonanceElements) {
-    return Math.max(
-      ...elements.map((element) => this.getLoadoutBaseAttack(element)),
+    return getHighestNumber(
+      elements.map((element) => this.getLoadoutBaseAttack(element)),
     );
   }
 
@@ -186,8 +187,8 @@ export class CombatCharacter {
   }
 
   private getHighestLoadoutAttackPercent(elements: GearResonanceElements) {
-    return Math.max(
-      ...elements.map((element) => this.getLoadoutAttackPercent(element)),
+    return getHighestNumber(
+      elements.map((element) => this.getLoadoutAttackPercent(element)),
     );
   }
 
@@ -198,8 +199,8 @@ export class CombatCharacter {
   private getHighestLoadoutElementalDamagePercent(
     elements: GearResonanceElements,
   ) {
-    return Math.max(
-      ...elements.map((element) => this.loadout.getDamagePercent(element)),
+    return getHighestNumber(
+      elements.map((element) => this.loadout.getDamagePercent(element)),
     );
   }
 

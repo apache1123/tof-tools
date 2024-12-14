@@ -43,9 +43,6 @@ export function isElementalAttackPercent(
   statType: StatType,
   elementalType: WeaponElementalType,
 ) {
-  if (elementalType === "Altered")
-    throw new Error("Altered attack % is not valid");
-
   return (
     statType.role === "Attack %" &&
     (statType.elementalType === elementalType ||
@@ -65,9 +62,6 @@ export function isElementalDamagePercent(
   statType: StatType,
   elementalType: WeaponElementalType,
 ) {
-  if (elementalType === "Altered")
-    throw new Error("Altered damage % is not valid");
-
   return (
     statType.role === "Damage %" &&
     (statType.elementalType === elementalType ||
