@@ -12,7 +12,6 @@ export interface StatType {
   role: StatRole;
   elementalType: StatTypeElementalType;
   isPercentageBased: boolean;
-  iconImageName: string;
   randomStatDefaultValue: number;
   randomStatMinRollValue: number;
   randomStatMaxRollValue: number;

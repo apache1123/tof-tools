@@ -24,7 +24,7 @@ export function RandomStatDisplay({ randomStat }: RandomStatDisplayProps) {
       }}
     >
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <StatTypeIcon statType={type} />
+        <StatTypeIcon role={type.role} element={type.elementalType} />
         <Typography variant="inherit">{type.shortDisplayName}</Typography>
       </Stack>
       <Typography variant="inherit">

@@ -28,7 +28,11 @@ export const StatEditor = ({
   return (
     <Layout
       typeIcon={
-        <StatTypeIcon statType={statType} size={isAugmented ? 20 : 30} />
+        <StatTypeIcon
+          role={statType.role}
+          element={statType.elementalType}
+          size={isAugmented ? 20 : 30}
+        />
       }
       typeSelector={
         <StatTypeSelector
@@ -92,7 +96,7 @@ export const EmptyStatEditor = ({
 }: EmptyStatEditorProps) => {
   return (
     <Layout
-      typeIcon={<StatTypeIcon statType={undefined} />}
+      typeIcon={<StatTypeIcon role={undefined} element={undefined} />}
       typeSelector={
         <StatTypeSelector
           selectedStatType={undefined}
