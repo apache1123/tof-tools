@@ -1,4 +1,6 @@
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import type { SxProps } from "@mui/material";
+import { Box } from "@mui/material";
 import Image from "next/image";
 
 import type { GearTypeId } from "../../../../definitions/gear-types";
@@ -10,6 +12,7 @@ export interface GearTypeIconProps {
   isTitan?: boolean;
   monochromeBlack?: boolean;
   monochromeWhite?: boolean;
+  sx?: SxProps;
 }
 
 export const GearTypeIcon = ({
@@ -18,26 +21,35 @@ export const GearTypeIcon = ({
   isTitan = false,
   monochromeBlack,
   monochromeWhite,
+  sx,
 }: GearTypeIconProps) => {
-  if (id) {
-    const imageName = normalCaseToKebabCase(id);
-    const imagePath = isTitan
-      ? `/icons/gear/titan/${imageName}.png`
-      : monochromeBlack
-        ? `/icons/gear/monochrome/black/${imageName}.png`
-        : monochromeWhite
-          ? `/icons/gear/monochrome/white/${imageName}.png`
-          : `/icons/gear/${imageName}.png`;
+  function Icon() {
+    if (id) {
+      const imageName = normalCaseToKebabCase(id);
+      const imagePath = isTitan
+        ? `/icons/gear/titan/${imageName}.png`
+        : monochromeBlack
+          ? `/icons/gear/monochrome/black/${imageName}.png`
+          : monochromeWhite
+            ? `/icons/gear/monochrome/white/${imageName}.png`
+            : `/icons/gear/${imageName}.png`;
 
-    return (
-      <Image
-        src={imagePath}
-        alt={id}
-        title={id}
-        width={size}
-        height={size}
-      ></Image>
-    );
+      return (
+        <Image
+          src={imagePath}
+          alt={id}
+          title={id}
+          width={size}
+          height={size}
+        ></Image>
+      );
+    }
+    return <QuestionMarkIcon width={size} height={size} />;
   }
-  return <QuestionMarkIcon width={size} height={size} />;
+
+  return (
+    <Box sx={{ width: size, height: size, ...sx }}>
+      <Icon />
+    </Box>
+  );
 };

@@ -58,6 +58,10 @@ export class GearSet {
     return getGearTypeOrder().map((typeId) => this.slots[typeId]);
   }
 
+  public getGears() {
+    return this.getSlots().flatMap((slot) => (slot.gear ? [slot.gear] : []));
+  }
+
   public getTotalAttackFlat(element: WeaponElementalType): number {
     return this.additiveSumStatValueOfAllGears((gear) =>
       gear.getTotalAttackFlat(element),

@@ -1,12 +1,10 @@
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { StatTypeElementalType } from "../../definitions/elemental-type";
+import type { StatRole } from "../../definitions/stat-types";
 
 export interface GearSummaryStat {
-  type:
-    | "attackFlat"
-    | "attackPercent"
-    | "critRateFlat"
-    | "critRatePercent"
-    | "damagePercent";
+  role: StatRole;
+  element: StatTypeElementalType;
+  displayName: string;
   value: number;
-  element?: WeaponElementalType;
+  isPercentageBased: boolean;
 }

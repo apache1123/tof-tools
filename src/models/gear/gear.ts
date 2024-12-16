@@ -352,9 +352,11 @@ export class Gear {
     if (highestAttackFlat.value !== 0) {
       const { element, value } = highestAttackFlat;
       result.push({
-        type: "attackFlat",
+        role: "Attack",
         element,
+        displayName: "ATK",
         value,
+        isPercentageBased: false,
       });
     }
 
@@ -362,9 +364,11 @@ export class Gear {
     if (highestAttackPercent.value !== 0) {
       const { element, value } = highestAttackPercent;
       result.push({
-        type: "attackPercent",
-        value,
+        role: "Attack %",
         element,
+        displayName: "ATK",
+        value,
+        isPercentageBased: true,
       });
     }
 
@@ -372,25 +376,33 @@ export class Gear {
     if (highestDamagePercent.value !== 0) {
       const { element, value } = highestDamagePercent;
       result.push({
-        type: "damagePercent",
-        value,
+        role: "Damage %",
         element,
+        displayName: "DMG",
+        value,
+        isPercentageBased: true,
       });
     }
 
     const totalCritFlat = this.getTotalCritFlat();
     if (totalCritFlat !== 0) {
       result.push({
-        type: "critRateFlat",
+        role: "Crit",
+        element: "All",
+        displayName: "Crit",
         value: totalCritFlat,
+        isPercentageBased: false,
       });
     }
 
     const totalCritPercent = this.getTotalCritPercent();
     if (totalCritPercent !== 0) {
       result.push({
-        type: "critRatePercent",
+        role: "Crit %",
+        element: "All",
+        displayName: "Crit",
         value: totalCritPercent,
+        isPercentageBased: true,
       });
     }
 

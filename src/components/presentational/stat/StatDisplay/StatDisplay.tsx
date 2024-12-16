@@ -14,6 +14,7 @@ export interface StatDisplayProps {
   displayName: string;
   value: number;
   isPercentageBased: boolean;
+  iconSize?: number;
 }
 
 export function StatDisplay({
@@ -22,6 +23,7 @@ export function StatDisplay({
   displayName,
   value,
   isPercentageBased,
+  iconSize,
 }: StatDisplayProps) {
   return (
     <Stack
@@ -33,7 +35,7 @@ export function StatDisplay({
       }}
     >
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <StatTypeIcon role={typeRole} element={element} />
+        <StatTypeIcon role={typeRole} element={element} size={iconSize} />
         <Typography variant="inherit">{displayName}</Typography>
       </Stack>
       <Typography variant="inherit">

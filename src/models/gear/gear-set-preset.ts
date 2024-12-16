@@ -7,11 +7,15 @@ import { GearSet } from "./gear-set";
 export type GearPresetId = Id;
 
 export class GearSetPreset {
-  public constructor(characterId: CharacterId, id?: GearPresetId) {
+  public constructor(
+    characterId: CharacterId,
+    id?: GearPresetId,
+    gearSet?: GearSet,
+  ) {
     this.id = id ?? nanoid();
     this.characterId = characterId;
     this.name = "";
-    this.gearSet = new GearSet();
+    this.gearSet = gearSet ?? new GearSet();
   }
 
   public readonly id: GearPresetId;
