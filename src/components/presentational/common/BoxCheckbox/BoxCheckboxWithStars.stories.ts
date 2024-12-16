@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BoxCheckboxWithStars } from "./BoxCheckboxWithStars";
 
 const meta: Meta<typeof BoxCheckboxWithStars> = {
-  title: "Box Checkbox with Stars",
   component: BoxCheckboxWithStars,
   tags: ["autodocs"],
 };

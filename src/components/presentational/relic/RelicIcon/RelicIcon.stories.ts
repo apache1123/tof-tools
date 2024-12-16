@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { RelicIcon } from "./RelicIcon";
 
 const meta: Meta<typeof RelicIcon> = {
-  title: "Relic Icon",
   component: RelicIcon,
   tags: ["autodocs"],
 };

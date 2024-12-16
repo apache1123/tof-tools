@@ -4,7 +4,6 @@ import { getMatrixType } from "../../../../definitions/matrices/matrix-type";
 import { MatrixTypeToggle } from "./MatrixTypeToggle";
 
 const meta: Meta<typeof MatrixTypeToggle> = {
-  title: "Matrix Type Toggle",
   component: MatrixTypeToggle,
   tags: ["autodocs"],
 };

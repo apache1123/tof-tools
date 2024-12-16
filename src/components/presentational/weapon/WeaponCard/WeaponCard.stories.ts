@@ -8,7 +8,6 @@ import { Weapon } from "../../../../models/weapon/weapon";
 import { WeaponCard } from "./WeaponCard";
 
 const meta: Meta<typeof WeaponCard> = {
-  title: "Weapon Card",
   component: WeaponCard,
   tags: ["autodocs"],
 };

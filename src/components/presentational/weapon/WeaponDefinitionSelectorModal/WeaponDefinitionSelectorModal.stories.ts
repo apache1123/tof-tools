@@ -4,7 +4,6 @@ import { weaponDefinitions } from "../../../../definitions/weapons/weapon-defini
 import { WeaponDefinitionSelectorModal } from "./WeaponDefinitionSelectorModal";
 
 const meta: Meta<typeof WeaponDefinitionSelectorModal> = {
-  title: "Weapon Definition Selector Modal",
   component: WeaponDefinitionSelectorModal,
   tags: ["autodocs"],
 };

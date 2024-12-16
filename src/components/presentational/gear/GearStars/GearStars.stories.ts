@@ -5,7 +5,6 @@ import { Gear } from "../../../../models/gear/gear";
 import { GearStars } from "./GearStars";
 
 const meta: Meta<typeof GearStars> = {
-  title: "Gear Stars",
   component: GearStars,
   tags: ["autodocs"],
 };

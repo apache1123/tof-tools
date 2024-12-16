@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ElementalTypeIcon } from "./ElementalTypeIcon";
 
 const meta: Meta<typeof ElementalTypeIcon> = {
-  title: "Elemental Type Icon",
   component: ElementalTypeIcon,
   tags: ["autodocs"],
 };

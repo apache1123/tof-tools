@@ -6,7 +6,6 @@ import { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixCard } from "./MatrixCard";
 
 const meta: Meta<typeof MatrixCard> = {
-  title: "Matrix Card",
   component: MatrixCard,
   tags: ["autodocs"],
 };

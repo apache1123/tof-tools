@@ -4,7 +4,6 @@ import { matrixSetDefinitionsLookup } from "../../../../definitions/matrices/mat
 import { MatrixSet2pcDefinitionSelector } from "./MatrixSetDefinitionSelector";
 
 const meta: Meta<typeof MatrixSet2pcDefinitionSelector> = {
-  title: "Matrix Set 2pc Definition Selector",
   component: MatrixSet2pcDefinitionSelector,
   tags: ["autodocs"],
 };

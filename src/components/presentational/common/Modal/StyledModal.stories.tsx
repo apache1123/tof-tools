@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StyledModal } from "./StyledModal";
 
 const meta: Meta<typeof StyledModal> = {
-  title: "Styled Modal",
   component: StyledModal,
   tags: ["autodocs"],
 };

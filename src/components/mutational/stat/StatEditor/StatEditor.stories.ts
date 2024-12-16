@@ -6,7 +6,6 @@ import { RandomStat } from "../../../../models/gear/random-stat";
 import { StatEditor } from "./StatEditor";
 
 const meta: Meta<typeof StatEditor> = {
-  title: "Stat Editor",
   component: StatEditor,
   tags: ["autodocs"],
 };

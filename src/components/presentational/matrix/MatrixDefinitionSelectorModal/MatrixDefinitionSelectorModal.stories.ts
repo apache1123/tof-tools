@@ -4,7 +4,6 @@ import { matrixDefinitions } from "../../../../definitions/matrices/matrix-defin
 import { MatrixDefinitionSelectorModal } from "./MatrixDefinitionSelectorModal";
 
 const meta: Meta<typeof MatrixDefinitionSelectorModal> = {
-  title: "Matrix Definition Selector Modal",
   component: MatrixDefinitionSelectorModal,
   tags: ["autodocs"],
 };

@@ -4,7 +4,6 @@ import { matrixDefinitions } from "../../../../definitions/matrices/matrix-defin
 import { MatrixDefinitionList } from "./MatrixDefinitionList";
 
 const meta: Meta<typeof MatrixDefinitionList> = {
-  title: "Matrix Definition List",
   component: MatrixDefinitionList,
   tags: ["autodocs"],
 };

@@ -4,7 +4,6 @@ import type { StatType } from "../../../../models/gear/stat-type";
 import { StatTypeSelector } from "./StatTypeSelector";
 
 const meta: Meta<typeof StatTypeSelector> = {
-  title: "Stat Type Selector",
   component: StatTypeSelector,
   tags: ["autodocs"],
 };

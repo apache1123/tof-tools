@@ -5,7 +5,6 @@ import { Weapon } from "../../../../models/weapon/weapon";
 import { WeaponList } from "./WeaponList";
 
 const meta: Meta<typeof WeaponList> = {
-  title: "Weapon List",
   component: WeaponList,
   tags: ["autodocs"],
 };

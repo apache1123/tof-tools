@@ -6,7 +6,6 @@ import { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixSlotIcon } from "./MatrixSlotIcon";
 
 const meta: Meta<typeof MatrixSlotIcon> = {
-  title: "Matrix Slot Icon",
   component: MatrixSlotIcon,
   tags: ["autodocs"],
 };

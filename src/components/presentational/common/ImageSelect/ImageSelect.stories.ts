@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ImageSelect } from "./ImageSelect";
 
 const meta: Meta<typeof ImageSelect> = {
-  title: "Image Select",
   component: ImageSelect,
   tags: ["autodocs"],
 };

@@ -4,7 +4,6 @@ import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-def
 import { MatrixDefinitionCard } from "./MatrixDefinitionCard";
 
 const meta: Meta<typeof MatrixDefinitionCard> = {
-  title: "Matrix Definition Card",
   component: MatrixDefinitionCard,
   tags: ["autodocs"],
 };

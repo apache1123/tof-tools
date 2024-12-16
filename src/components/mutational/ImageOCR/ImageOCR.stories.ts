@@ -3,7 +3,6 @@
 // import { ImageOCR } from "./ImageOCR";
 //
 // const meta: Meta<typeof ImageOCR> = {
-//   title: "Image OCR",
 //   component: ImageOCR,
 //   tags: ["autodocs"],
 // };

@@ -6,7 +6,6 @@ import { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixList } from "./MatrixList";
 
 const meta: Meta<typeof MatrixList> = {
-  title: "Matrix List",
   component: MatrixList,
   tags: ["autodocs"],
 };

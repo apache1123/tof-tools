@@ -6,7 +6,6 @@ import { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixSelectorModal } from "./MatrixSelectorModal";
 
 const meta: Meta<typeof MatrixSelectorModal> = {
-  title: "Matrix Selector Modal",
   component: MatrixSelectorModal,
   tags: ["autodocs"],
 };

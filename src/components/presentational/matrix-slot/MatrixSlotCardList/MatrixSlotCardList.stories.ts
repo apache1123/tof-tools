@@ -7,7 +7,6 @@ import { MatrixSlots } from "../../../../models/matrix/matrix-slots";
 import { MatrixSlotCardList } from "./MatrixSlotCardList";
 
 const meta: Meta<typeof MatrixSlotCardList> = {
-  title: "Matrix Slot Card List",
   component: MatrixSlotCardList,
   tags: ["autodocs"],
 };

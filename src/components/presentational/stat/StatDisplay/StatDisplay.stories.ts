@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StatDisplay } from "./StatDisplay";
 
 const meta: Meta<typeof StatDisplay> = {
-  title: "Stat Display",
   component: StatDisplay,
   tags: ["autodocs"],
 };

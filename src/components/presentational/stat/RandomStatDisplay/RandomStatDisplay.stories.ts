@@ -5,7 +5,6 @@ import { RandomStat } from "../../../../models/gear/random-stat";
 import { RandomStatDisplay } from "./RandomStatDisplay";
 
 const meta: Meta<typeof RandomStatDisplay> = {
-  title: "Random Stat Display",
   component: RandomStatDisplay,
   tags: ["autodocs"],
 };

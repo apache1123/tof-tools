@@ -8,7 +8,6 @@ import { RandomStat } from "../../../../models/gear/random-stat";
 import { GearEditorModal } from "./GearEditorModal";
 
 const meta: Meta<typeof GearEditorModal> = {
-  title: "Gear Editor Modal",
   component: GearEditorModal,
   tags: ["autodocs"],
 };

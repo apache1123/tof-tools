@@ -9,7 +9,6 @@ import { Weapon } from "../../../../models/weapon/weapon";
 import { WeaponEditor } from "./WeaponEditor";
 
 const meta: Meta<typeof WeaponEditor> = {
-  title: "Weapon Editor",
   component: WeaponEditor,
   tags: ["autodocs"],
 };

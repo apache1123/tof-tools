@@ -4,7 +4,6 @@ import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-def
 import { MatrixPiecesIcon } from "./MatrixPiecesIcon";
 
 const meta: Meta<typeof MatrixPiecesIcon> = {
-  title: "Matrix Pieces Icon",
   component: MatrixPiecesIcon,
   tags: ["autodocs"],
 };

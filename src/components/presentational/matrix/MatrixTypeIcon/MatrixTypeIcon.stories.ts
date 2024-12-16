@@ -4,7 +4,6 @@ import { matrixTypes } from "../../../../definitions/matrices/matrix-type";
 import { MatrixTypeIcon } from "./MatrixTypeIcon";
 
 const meta: Meta<typeof MatrixTypeIcon> = {
-  title: "Matrix Type Icon",
   component: MatrixTypeIcon,
   tags: ["autodocs"],
 };

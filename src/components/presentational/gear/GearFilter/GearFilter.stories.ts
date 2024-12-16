@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { GearFilter } from "./GearFilter";
 
 const meta: Meta<typeof GearFilter> = {
-  title: "Gear Filter",
   component: GearFilter,
   tags: ["autodocs"],
 };

@@ -4,7 +4,6 @@ import { weaponDefinitions } from "../../../../definitions/weapons/weapon-defini
 import { WeaponDefinitionList } from "./WeaponDefinitionList";
 
 const meta: Meta<typeof WeaponDefinitionList> = {
-  title: "Weapon Definition List",
   component: WeaponDefinitionList,
   tags: ["autodocs"],
 };

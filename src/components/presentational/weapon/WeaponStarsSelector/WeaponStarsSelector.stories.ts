@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WeaponStarsSelector } from "./WeaponStarsSelector";
 
 const meta: Meta<typeof WeaponStarsSelector> = {
-  title: "Weapon Stars Selector",
   component: WeaponStarsSelector,
   tags: ["autodocs"],
 };

@@ -8,7 +8,6 @@ import type { GearType } from "../../../../models/gear/gear-type";
 import { GearTypeSelector } from "./GearTypeSelector";
 
 const meta: Meta<typeof GearTypeSelector> = {
-  title: "Gear Type Selector",
   component: GearTypeSelector,
   tags: ["autodocs"],
 };

@@ -4,7 +4,6 @@ import { getAllMatrixDefinitions } from "../../../../definitions/matrices/matrix
 import { MatrixDefinitionAutocomplete } from "./MatrixDefinitionAutocomplete";
 
 const meta: Meta<typeof MatrixDefinitionAutocomplete> = {
-  title: "Matrix Definition Autocomplete",
   component: MatrixDefinitionAutocomplete,
   tags: ["autodocs"],
 };

@@ -4,7 +4,6 @@ import { weaponDefinitions } from "../../../../definitions/weapons/weapon-defini
 import { WeaponDefinitionCardContent } from "./WeaponDefinitionCardContent";
 
 const meta: Meta<typeof WeaponDefinitionCardContent> = {
-  title: "Weapon Definition Card Content",
   component: WeaponDefinitionCardContent,
   tags: ["autodocs"],
 };

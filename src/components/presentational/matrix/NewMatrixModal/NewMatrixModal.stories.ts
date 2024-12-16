@@ -4,7 +4,6 @@ import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-def
 import { NewMatrixModal } from "./NewMatrixModal";
 
 const meta: Meta<typeof NewMatrixModal> = {
-  title: "New Matrix Modal",
   component: NewMatrixModal,
   tags: ["autodocs"],
 };

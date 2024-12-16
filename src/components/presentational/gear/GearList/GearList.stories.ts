@@ -7,7 +7,6 @@ import { RandomStat } from "../../../../models/gear/random-stat";
 import { GearList } from "./GearList";
 
 const meta: Meta<typeof GearList> = {
-  title: "Gear List",
   component: GearList,
   tags: ["autodocs"],
 };
