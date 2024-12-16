@@ -1,11 +1,5 @@
-import { Stack, Typography } from "@mui/material";
-
 import type { RandomStat } from "../../../../models/gear/random-stat";
-import {
-  toSignedPercentageString1dp,
-  toSignedString,
-} from "../../../../utils/number-utils";
-import { StatTypeIcon } from "../StatTypeIcon/StatTypeIcon";
+import { StatDisplay } from "../StatDisplay/StatDisplay";
 
 export interface RandomStatDisplayProps {
   randomStat: RandomStat;
@@ -15,23 +9,12 @@ export function RandomStatDisplay({ randomStat }: RandomStatDisplayProps) {
   const { type, totalValue } = randomStat;
 
   return (
-    <Stack
-      direction="row"
-      spacing={1}
-      sx={{
-        alignItems: "center",
-        typography: "body2",
-      }}
-    >
-      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <StatTypeIcon role={type.role} element={type.elementalType} />
-        <Typography variant="inherit">{type.shortDisplayName}</Typography>
-      </Stack>
-      <Typography variant="inherit">
-        {type.isPercentageBased
-          ? toSignedPercentageString1dp(totalValue)
-          : toSignedString(totalValue)}
-      </Typography>
-    </Stack>
+    <StatDisplay
+      typeRole={type.role}
+      element={type.elementalType}
+      displayName={type.shortDisplayName}
+      value={totalValue}
+      isPercentageBased={type.isPercentageBased}
+    />
   );
 }
