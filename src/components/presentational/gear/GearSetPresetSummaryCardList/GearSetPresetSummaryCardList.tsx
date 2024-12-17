@@ -1,11 +1,14 @@
 import { Stack } from "@mui/material";
 
-import type { GearSetPreset } from "../../../../models/gear/gear-set-preset";
+import type {
+  GearSetPreset,
+  GearSetPresetId,
+} from "../../../../models/gear/gear-set-preset";
 import { GearSetPresetSummaryCard } from "../GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 
 export interface GearSetPresetSummaryCardList {
   presets: GearSetPreset[];
-  onClick?(): void;
+  onClick?(id: GearSetPresetId): void;
 }
 
 export function GearSetPresetSummaryCardList({
@@ -18,7 +21,9 @@ export function GearSetPresetSummaryCardList({
         <GearSetPresetSummaryCard
           key={preset.id}
           preset={preset}
-          onClick={onClick}
+          onClick={() => {
+            if (onClick) onClick(preset.id);
+          }}
         />
       ))}
     </Stack>

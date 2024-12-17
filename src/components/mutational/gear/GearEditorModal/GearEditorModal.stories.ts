@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { proxy } from "valtio";
 
-import { getGearType } from "../../../../definitions/gear-types";
-import { statTypesLookup } from "../../../../definitions/stat-types";
-import { Gear } from "../../../../models/gear/gear";
-import { RandomStat } from "../../../../models/gear/random-stat";
+import { exampleEyepiece } from "../../../__fixtures__/gear";
 import { GearEditorModal } from "./GearEditorModal";
 
 const meta: Meta<typeof GearEditorModal> = {
@@ -15,12 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof GearEditorModal>;
 
-const gear = proxy(new Gear(getGearType("Eyepiece"), "characterId"));
-gear.stars = 3;
-gear.setRandomStat(
-  0,
-  new RandomStat(statTypesLookup.byId["Physical Attack %"]),
-);
+const gear = proxy(exampleEyepiece);
 export const Default: Story = {
   args: { gearState: gear },
 };

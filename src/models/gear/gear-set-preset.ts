@@ -4,12 +4,12 @@ import type { CharacterId } from "../character/character";
 import type { Id } from "../identifiable";
 import { GearSet } from "./gear-set";
 
-export type GearPresetId = Id;
+export type GearSetPresetId = Id;
 
 export class GearSetPreset {
   public constructor(
     characterId: CharacterId,
-    id?: GearPresetId,
+    id?: GearSetPresetId,
     gearSet?: GearSet,
   ) {
     this.id = id ?? nanoid();
@@ -18,7 +18,7 @@ export class GearSetPreset {
     this.gearSet = gearSet ?? new GearSet();
   }
 
-  public readonly id: GearPresetId;
+  public readonly id: GearSetPresetId;
   public readonly characterId: CharacterId;
   public name: string;
   public readonly gearSet: GearSet;

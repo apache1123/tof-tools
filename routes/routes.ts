@@ -8,6 +8,10 @@ export const routes = {
     label: "Gear",
     path: "/gear",
   },
+  gearSetPresets: {
+    label: "Gear Presets",
+    path: "/gear-presets",
+  },
   weapons: {
     label: "Weapons",
     path: "/weapons",

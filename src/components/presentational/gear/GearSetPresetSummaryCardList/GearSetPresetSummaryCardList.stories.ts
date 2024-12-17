@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { GearSetPreset } from "../../../../models/gear/gear-set-preset";
-import { exampleGearSet } from "../__fixtures__/gear-set";
+import { exampleGearSet } from "../../../__fixtures__/gear-set";
 import { GearSetPresetSummaryCardList } from "./GearSetPresetSummaryCardList";
 
 const meta: Meta<typeof GearSetPresetSummaryCardList> = {

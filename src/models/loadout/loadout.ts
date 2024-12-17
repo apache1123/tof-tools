@@ -1,6 +1,8 @@
 import BigNumber from "bignumber.js";
 import { nanoid } from "nanoid";
 
+import type { GearSetDtoV2 } from "../../db/repositories/gear/deprecated/gear-set-dto";
+import type { GearSetDto } from "../../db/repositories/gear/dtos/gear-set-dto";
 import type { Dto } from "../../db/repository/dto";
 import { defaultCritDamagePercent } from "../../definitions/damage-formula";
 import type {
@@ -14,7 +16,7 @@ import type { LoadoutStatsDto } from "../deprecated/loadout-stats";
 import type { ElementalAttackFlatsDto } from "../elemental-attack-flats";
 import { ElementalAttackFlats } from "../elemental-attack-flats";
 import { Gear } from "../gear/gear";
-import type { GearSet, GearSetDtoV2, GearSetDtoV3 } from "../gear/gear-set";
+import type { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team, TeamDtoV1, TeamDtoV2 } from "../team/team";
 
@@ -224,7 +226,7 @@ export interface LoadoutDtoV2 extends Dto {
   characterId: string;
   name: string;
   team: TeamDtoV2;
-  gearSet: GearSetDtoV3;
+  gearSet: GearSetDto;
   simulacrumTraitId: SimulacrumName | undefined;
   useOverrideStats: boolean;
   overrideElementalAttackFlats: ElementalAttackFlatsDto;

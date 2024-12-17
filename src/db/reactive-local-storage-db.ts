@@ -4,6 +4,8 @@ import type { Identifiable } from "../models/identifiable";
 import type { Db, RepositoryKey, RepositoryMap } from "./db";
 import { CharacterRepository } from "./repositories/character/character-repository";
 import { GearRepository } from "./repositories/gear/gear-repository";
+import { GearSetPresetRepository } from "./repositories/gear/gear-set-preset-repository";
+import { GearSetRepository } from "./repositories/gear/gear-set-repository";
 import { MatrixRepository } from "./repositories/matrix/matrix-repository";
 import { WeaponRepository } from "./repositories/weapon/weapon-repository";
 import { StubRepository } from "./repository/stub-repository";
@@ -17,6 +19,8 @@ export class ReactiveLocalStorageDb implements Db {
   > = proxy({
     characters: new StubRepository(),
     gears: new StubRepository(),
+    gearSets: new StubRepository(),
+    gearSetPresets: new StubRepository(),
     matrices: new StubRepository(),
     weapons: new StubRepository(),
   });
@@ -55,6 +59,10 @@ export class ReactiveLocalStorageDb implements Db {
         return new CharacterRepository(key, storage, this);
       case "gears":
         return new GearRepository(key, storage, this);
+      case "gearSets":
+        return new GearSetRepository(key, storage, this);
+      case "gearSetPresets":
+        return new GearSetPresetRepository(key, storage, this);
       case "matrices":
         return new MatrixRepository(key, storage, this);
       case "weapons":

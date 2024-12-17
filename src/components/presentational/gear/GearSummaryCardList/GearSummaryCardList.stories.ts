@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { exampleGearSet } from "../__fixtures__/gear-set";
+import { exampleGearSet } from "../../../__fixtures__/gear-set";
 import { GearSummaryCardList } from "./GearSummaryCardList";
 
 const meta: Meta<typeof GearSummaryCardList> = {

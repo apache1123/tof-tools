@@ -195,7 +195,13 @@ describe("Gear", () => {
       sut.setRandomStat(1, allAttack);
 
       expect(sut.getSummaryStats()).toIncludeSameMembers<GearSummaryStat>([
-        { type: "attackFlat", element: "Flame", value: 700 },
+        {
+          role: "Attack",
+          element: "Flame",
+          displayName: "ATK",
+          value: 700,
+          isPercentageBased: false,
+        },
       ]);
     });
 
@@ -214,7 +220,13 @@ describe("Gear", () => {
       sut.setRandomStat(2, frostAttack);
 
       expect(sut.getSummaryStats()).toIncludeSameMembers<GearSummaryStat>([
-        { type: "attackFlat", element: "Frost", value: 800 },
+        {
+          role: "Attack",
+          element: "Frost",
+          displayName: "ATK",
+          value: 800,
+          isPercentageBased: false,
+        },
       ]);
     });
 
@@ -227,7 +239,13 @@ describe("Gear", () => {
       sut.setRandomStat(1, frost);
 
       expect(sut.getSummaryStats()).toIncludeSameMembers<GearSummaryStat>([
-        { type: "attackPercent", element: "Frost", value: 0.3 },
+        {
+          role: "Attack %",
+          element: "Frost",
+          displayName: "ATK",
+          value: 0.3,
+          isPercentageBased: true,
+        },
       ]);
     });
 
@@ -240,7 +258,13 @@ describe("Gear", () => {
       sut.setRandomStat(1, frost);
 
       expect(sut.getSummaryStats()).toIncludeSameMembers<GearSummaryStat>([
-        { type: "damagePercent", element: "Frost", value: 0.3 },
+        {
+          role: "Damage %",
+          element: "Frost",
+          displayName: "DMG",
+          value: 0.3,
+          isPercentageBased: true,
+        },
       ]);
     });
 
@@ -260,10 +284,34 @@ describe("Gear", () => {
       sut.setRandomStat(3, frostAttackPercent);
 
       expect(sut.getSummaryStats()).toIncludeSameMembers<GearSummaryStat>([
-        { type: "critRateFlat", value: 500 },
-        { type: "critRatePercent", value: 0.2 },
-        { type: "attackFlat", element: "Flame", value: 200 },
-        { type: "attackPercent", element: "Frost", value: 0.3 },
+        {
+          role: "Attack",
+          element: "Flame",
+          displayName: "ATK",
+          value: 200,
+          isPercentageBased: false,
+        },
+        {
+          role: "Attack %",
+          element: "Frost",
+          displayName: "ATK",
+          value: 0.3,
+          isPercentageBased: true,
+        },
+        {
+          role: "Crit",
+          element: "All",
+          displayName: "Crit",
+          value: 500,
+          isPercentageBased: false,
+        },
+        {
+          role: "Crit %",
+          element: "All",
+          displayName: "Crit",
+          value: 0.2,
+          isPercentageBased: true,
+        },
       ]);
     });
   });

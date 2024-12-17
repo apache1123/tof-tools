@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 
+import type { GearSetDtoV2 } from "../../../db/repositories/gear/deprecated/gear-set-dto";
 import type { GearTypeId } from "../../../definitions/gear-types";
-import type { GearSetDtoV2 } from "../../../models/gear/gear-set";
 import type { GearComparerStateDto } from "../../gear-comparer";
 import type { LoadoutsStateDtoV1 } from "../../loadouts";
 

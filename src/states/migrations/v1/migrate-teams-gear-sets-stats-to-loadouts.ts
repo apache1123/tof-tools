@@ -1,13 +1,16 @@
 import { nanoid } from "nanoid";
 
-import type { GearDtoV1 } from "../../../db/repositories/gear/deprecated/dto";
-import type { RandomStatDto } from "../../../db/repositories/gear/random-stat-dto";
+import type { GearDtoV1 } from "../../../db/repositories/gear/deprecated/gear-dto";
+import type {
+  GearSetDtoV1,
+  GearSetDtoV2,
+} from "../../../db/repositories/gear/deprecated/gear-set-dto";
+import type { RandomStatDto } from "../../../db/repositories/gear/dtos/random-stat-dto";
 import { maxCharacterLevel } from "../../../definitions/character-level";
 import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
 import type { CoreElementalType } from "../../../definitions/elemental-type";
 import type { GearTypeId } from "../../../definitions/gear-types";
 import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
-import type { GearSetDtoV1, GearSetDtoV2 } from "../../../models/gear/gear-set";
 import type { LoadoutDtoV1 } from "../../../models/loadout/loadout";
 import type { MatrixSetDto } from "../../../models/matrix-set";
 import type { TeamDtoV1 } from "../../../models/team/team";

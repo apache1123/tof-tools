@@ -1,20 +1,19 @@
-import type { GearDtoV1 } from "../../db/repositories/gear/deprecated/dto";
-import type { GearDtoV2 } from "../../db/repositories/gear/gear-dto";
-import type { Dto } from "../../db/repository/dto";
-import type {
-  CoreElementalType,
-  WeaponElementalType,
-} from "../../definitions/elemental-type";
+import { nanoid } from "nanoid";
+
+import type { WeaponElementalType } from "../../definitions/elemental-type";
 import type { GearTypeId } from "../../definitions/gear-types";
 import { getGearType, getGearTypeOrder } from "../../definitions/gear-types";
 import { sum } from "../../utils/math-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { DataById } from "../data";
+import type { Id } from "../identifiable";
 import type { Gear } from "./gear";
 import { GearSlot } from "./gear-slot";
 
+export type GearSetId = Id;
+
 export class GearSet {
-  public constructor() {
+  public constructor(id?: GearSetId) {
+    this.id = id ?? nanoid();
     this.slots = {
       Helmet: initializeGearSlot("Helmet"),
       Eyepiece: initializeGearSlot("Eyepiece"),
@@ -35,6 +34,7 @@ export class GearSet {
     }
   }
 
+  public readonly id: GearSetId;
   private readonly slots: Record<GearTypeId, GearSlot>;
 
   public static createCopy(gearSet: GearSet): GearSet {
@@ -127,61 +127,4 @@ export class GearSet {
       }),
     ).toNumber();
   }
-
-  // public copyFromDto(dto: GearSetDtoV3): void {
-  //   const { id, characterId, gearsByTypeId } = dto;
-  //
-  //   this._id = id;
-  //   this._characterId = characterId;
-  //
-  //   keysOf(gearsByTypeId).forEach((typeId) => {
-  //     const gearDto = gearsByTypeId[typeId];
-  //     const gearType = getGearType(gearDto.typeId);
-  //     const gear = new Gear(gearType, characterId);
-  //     gear.copyFromDto(gearDto);
-  //     this._gearsByTypeId[typeId] = gear;
-  //   });
-  // }
-  //
-  // public toDto(): GearSetDtoV3 {
-  //   const { id, characterId, _gearsByTypeId } = this;
-  //
-  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //   // @ts-ignore
-  //   const gearDtosByTypeId: DataById<GearName, GearDtoV2> = {};
-  //   keysOf(_gearsByTypeId).forEach((typeId) => {
-  //     const gear = _gearsByTypeId[typeId];
-  //     gearDtosByTypeId[typeId] = gear.toDto();
-  //   });
-  //
-  //   return {
-  //     id,
-  //     characterId,
-  //     gearsByTypeId: gearDtosByTypeId,
-  //     version: 3,
-  //   };
-  // }
-}
-
-export interface GearSetDtoV3 extends Dto {
-  id: string;
-  characterId: string;
-  gearsByTypeId: DataById<GearTypeId, GearDtoV2>;
-  version: 3;
-}
-
-/** @deprecated Introduced Character. Gear set must belong to a Character now */
-export interface GearSetDtoV2 extends Dto {
-  id: string;
-  gearsByTypeId: DataById<GearTypeId, GearDtoV1>;
-  version: 2;
-}
-
-/** @deprecated Name, ElementalType moved to Loadout */
-export interface GearSetDtoV1 extends Dto {
-  id: string;
-  name: string;
-  gearsByTypeId: DataById<GearTypeId, GearDtoV1>;
-  elementalType: CoreElementalType | undefined;
-  version: 1;
 }
