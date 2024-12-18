@@ -19,6 +19,6 @@ export class GearSetPresetRepository extends ValtioRepository<
   }
 
   protected override dtoToItem(dto: GearSetPresetDto): GearSetPreset {
-    return dtoToGearSetPreset(dto, this.db.get("gearSets"));
+    return dtoToGearSetPreset(dto, this.db.get("gears"));
   }
 }

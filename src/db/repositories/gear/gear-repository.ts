@@ -8,10 +8,10 @@ export class GearRepository extends ValtioRepository<Gear, GearDto> {
   protected override cleanUpRelatedEntitiesOnItemRemoval(
     removedItemId: Id,
   ): void {
-    // Remove the deleted gear from gear sets
-    this.db.init(["gearSets"]);
-    this.db.get("gearSets").items.forEach((gearSet) => {
-      gearSet.getSlots().forEach((slot) => {
+    // Remove the deleted gear from gear sets (in gear set presets)
+    this.db.init(["gearSetPresets"]);
+    this.db.get("gearSetPresets").items.forEach((gearSetPreset) => {
+      gearSetPreset.gearSet.getSlots().forEach((slot) => {
         if (slot.gear?.id === removedItemId) {
           slot.gear = undefined;
         }

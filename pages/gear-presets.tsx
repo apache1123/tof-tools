@@ -6,7 +6,7 @@ import { GearSetPresets } from "../src/features/gear-set-presets/GearSetPresets"
 
 export default function GearPresetsPage() {
   useEffect(() => {
-    db.init(["characters", "gears", "gearSets", "gearSetPresets"]);
+    db.init(["characters", "gears", "gearSetPresets"]);
   }, []);
 
   return (

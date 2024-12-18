@@ -30,8 +30,6 @@ export function GearSetPresets() {
     ? gearSetPresetRepoProxy.find(editingPresetId)
     : undefined;
 
-  const gearSetRepoProxy = db.get("gearSets");
-
   const gearRepoProxy = db.get("gears");
   const allGearsProxy = gearRepoProxy.filter((gear) => {
     return gear.characterId === selectedCharacterId;
@@ -48,8 +46,6 @@ export function GearSetPresets() {
               onClick={() => {
                 const newPreset = new GearSetPreset(selectedCharacterId);
                 newPreset.name = "Gear Preset";
-
-                gearSetRepoProxy.add(newPreset.gearSet);
                 gearSetPresetRepoProxy.add(newPreset);
 
                 setEditingPresetId(newPreset.id);

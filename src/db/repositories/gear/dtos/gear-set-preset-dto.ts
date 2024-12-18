@@ -1,14 +1,15 @@
-import type { GearSet, GearSetId } from "../../../../models/gear/gear-set";
+import type { Gear } from "../../../../models/gear/gear";
 import { GearSetPreset } from "../../../../models/gear/gear-set-preset";
-import { DeserializationError } from "../../../error/deserialization-error";
 import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
+import type { GearSetDto } from "./gear-set-dto";
+import { dtoToGearSet, gearSetToDto } from "./gear-set-dto";
 
 export interface GearSetPresetDto extends Dto {
   id: string;
   characterId: string;
   name: string;
-  gearSetId: GearSetId;
+  gearSet: GearSetDto;
   version: 1;
 }
 
@@ -20,25 +21,18 @@ export function gearSetPresetToDto(
     id,
     characterId,
     name,
-    gearSetId: gearSet.id,
+    gearSet: gearSetToDto(gearSet),
     version: 1,
   };
 }
 
 export function dtoToGearSetPreset(
   dto: GearSetPresetDto,
-  gearSetRepository: Repository<GearSet>,
+  gearRepository: Repository<Gear>,
 ): GearSetPreset {
-  const { id, characterId, name, gearSetId } = dto;
+  const { id, characterId, name } = dto;
 
-  const gearSet = gearSetRepository.find(gearSetId);
-  if (!gearSet) {
-    throw new DeserializationError(
-      `GearSet with id ${gearSetId} not found`,
-      dto,
-    );
-  }
-
+  const gearSet = dtoToGearSet(dto.gearSet, gearRepository);
   const preset = new GearSetPreset(characterId, id, gearSet);
   preset.name = name;
   return preset;
