@@ -2,6 +2,7 @@ import { getMatrixType } from "../../../../definitions/matrices/matrix-type";
 import type { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixSlot } from "../../../../models/matrix/matrix-slot";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
+import { logException } from "../../../../utils/exception-utils";
 import { DeserializationError } from "../../../error/deserialization-error";
 import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
@@ -31,11 +32,12 @@ export function dtoToMatrixSlot(
 
   if (matrixId) {
     const matrix = matrixRepository.find(matrixId);
+
     if (!matrix) {
-      throw new DeserializationError(
-        `Matrix with id ${matrixId} not found`,
-        dto,
+      logException(
+        new DeserializationError(`Matrix with id ${matrixId} not found`, dto),
       );
+      return matrixSlot;
     }
 
     matrixSlot.matrix = matrix;

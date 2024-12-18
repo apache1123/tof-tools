@@ -1,9 +1,9 @@
-import { captureException } from "@sentry/nextjs";
 import { proxy, ref, subscribe } from "valtio";
 import { proxyMap } from "valtio/utils";
 
 import { repositoryKeyPrefix } from "../../constants/persistence";
 import type { Id, Identifiable } from "../../models/identifiable";
+import { logException } from "../../utils/exception-utils";
 import type { Db } from "../db";
 import type { DbStorage } from "../storage/db-storage";
 import type { Dto } from "./dto";
@@ -66,7 +66,7 @@ export abstract class ValtioRepository<
         try {
           this.add(this.dtoToItem(dto));
         } catch (error) {
-          captureException(error);
+          logException(error);
         }
       }
     }

@@ -2,6 +2,7 @@ import type { GearTypeId } from "../../../../definitions/gear-types";
 import { getGearType } from "../../../../definitions/gear-types";
 import type { Gear, GearId } from "../../../../models/gear/gear";
 import { GearSlot } from "../../../../models/gear/gear-slot";
+import { logException } from "../../../../utils/exception-utils";
 import { DeserializationError } from "../../../error/deserialization-error";
 import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
@@ -30,8 +31,12 @@ export function dtoToGearSlot(
 
   if (gearId) {
     const gear = gearRepository.find(gearId);
+
     if (!gear) {
-      throw new DeserializationError(`Gear with id ${gearId} not found`, dto);
+      logException(
+        new DeserializationError(`Gear with id ${gearId} not found`, dto),
+      );
+      return gearSlot;
     }
 
     gearSlot.gear = gear;
