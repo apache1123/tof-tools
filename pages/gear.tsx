@@ -8,7 +8,7 @@ import { useLocalStoragePersistence } from "../src/states/hooks/useLocalStorageP
 
 export default function GearPage() {
   useEffect(() => {
-    db.init(["characters", "gears"]);
+    db.init(["characters", "gears", "gearSetPresets"]);
   }, []);
 
   useLocalStoragePersistence(gearStateKey, gearState);

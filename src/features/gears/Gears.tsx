@@ -96,7 +96,13 @@ export function Gears() {
           <GearEditorModal
             open={!!editingGear}
             gearState={editingGear}
+            itemName={editingGear.type.displayName}
             onClose={() => {
+              setEditingGear(undefined);
+            }}
+            showDelete
+            onDelete={() => {
+              gearRepoProxy.remove(editingGear.id);
               setEditingGear(undefined);
             }}
           />

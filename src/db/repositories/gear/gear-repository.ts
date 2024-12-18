@@ -9,7 +9,6 @@ export class GearRepository extends ValtioRepository<Gear, GearDto> {
     removedItemId: Id,
   ): void {
     // Remove the deleted gear from gear sets (in gear set presets)
-    this.db.init(["gearSetPresets"]);
     this.db.get("gearSetPresets").items.forEach((gearSetPreset) => {
       gearSetPreset.gearSet.getSlots().forEach((slot) => {
         if (slot.gear?.id === removedItemId) {
