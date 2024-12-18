@@ -14,6 +14,11 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDtoV2> {
     super(key, storage, db);
   }
 
+  protected override cleanUpRelatedEntitiesOnItemRemoval(): void {
+    // TODO: This will need to remove the weapon from a team once the team repo is set up
+    return;
+  }
+
   protected override itemToDto(item: Weapon): WeaponDtoV2 {
     const { definitionId, characterId, stars, matrixSlots } = item;
     return {

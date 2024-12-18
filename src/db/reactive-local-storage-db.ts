@@ -29,6 +29,7 @@ export class ReactiveLocalStorageDb implements Db {
    * There are several caveats to this implementation at the moment, however -
    * - This will throw if we try to initialize a repository that depends on another repository that has not been initialized yet. In which case try to reverse the order of initialization.
    * - This also implicitly means that there cannot be circular dependencies between repositories.
+   * - By default, the repositories are initialized as a stub repository to not cause errors during SSR. This means that this init needs to be called when it is guaranteed that the code is running in the browser (e.g. in a `useEffect` hook, or any-time after initial load) to ensure the repositories are properly initialized with user data
    *
    * This can be improved in the future, but eh it will do for now, and errors should be caught in development */
   public init<T extends RepositoryKey>(keys: T[]): void {

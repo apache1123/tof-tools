@@ -10,6 +10,10 @@ export class GearSetPresetRepository extends ValtioRepository<
   GearSetPreset,
   GearSetPresetDto
 > {
+  protected override cleanUpRelatedEntitiesOnItemRemoval(): void {
+    return;
+  }
+
   protected override itemToDto(item: GearSetPreset): GearSetPresetDto {
     return gearSetPresetToDto(item);
   }

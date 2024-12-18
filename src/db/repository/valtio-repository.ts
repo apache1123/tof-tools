@@ -48,6 +48,7 @@ export abstract class ValtioRepository<
 
   public remove(id: Id) {
     this._items.delete(id);
+    this.cleanUpRelatedEntitiesOnItemRemoval(id);
   }
 
   public save(): void {
@@ -91,6 +92,11 @@ export abstract class ValtioRepository<
   public unsubscribeToChanges(): void {
     this._unsubscribe?.();
   }
+
+  /** Called when an item is removed. To be used to clean up/remove related entities of the item that is being removed. Foreign key relationships etc. */
+  protected abstract cleanUpRelatedEntitiesOnItemRemoval(
+    removedItemId: Id,
+  ): void;
 
   protected abstract itemToDto(item: TItem): TItemDto;
 
