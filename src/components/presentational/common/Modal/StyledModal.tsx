@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import type { DialogProps } from "@mui/material";
+import type { ButtonProps, DialogProps } from "@mui/material";
 import {
   Button,
   Dialog,
@@ -16,9 +16,12 @@ export interface StyledModalProps {
   modalContent?: ReactNode;
   modalTitle?: ReactNode;
   showConfirm?: boolean;
+  confirmButtonProps?: ButtonProps;
   showCancel?: boolean;
+  cancelButtonProps?: ButtonProps;
   /** Close button (an 'x') is always shown on the top right, unless explicitly set, for accessibility. A close button is also shown on the bottom right along with it, unless a 'Cancel' button is already shown. */
   hideClose?: boolean;
+  closeButtonProps?: ButtonProps;
   isConfirmDisabled?: boolean;
   /** Custom actions on the bottom left of the modal */
   leftActions?: ReactNode;
@@ -36,8 +39,11 @@ export function StyledModal({
   modalTitle,
   modalContent,
   showConfirm,
+  confirmButtonProps,
   showCancel,
+  cancelButtonProps,
   hideClose,
+  closeButtonProps,
   isConfirmDisabled,
   onConfirm,
   onClose,
@@ -85,7 +91,12 @@ export function StyledModal({
 
           <Stack direction="row" sx={{ gap: 0.5, alignItems: "end" }}>
             {showCancel && (
-              <Button onClick={onClose} variant="outlined" sx={{ ml: 1 }}>
+              <Button
+                onClick={onClose}
+                variant="outlined"
+                sx={{ ml: 1 }}
+                {...cancelButtonProps}
+              >
                 Cancel
               </Button>
             )}
@@ -94,12 +105,15 @@ export function StyledModal({
                 onClick={onConfirm}
                 disabled={isConfirmDisabled}
                 variant="contained"
+                {...confirmButtonProps}
               >
                 Confirm
               </Button>
             )}
             {!hideClose && !showCancel && (
-              <Button onClick={onClose}>Close</Button>
+              <Button onClick={onClose} {...closeButtonProps}>
+                Close
+              </Button>
             )}
           </Stack>
         </DialogActions>

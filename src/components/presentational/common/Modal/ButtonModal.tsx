@@ -1,5 +1,5 @@
-import type { Theme } from "@mui/material";
-import { Button, IconButton, type SxProps, Tooltip } from "@mui/material";
+import type { ButtonProps, IconButtonProps } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import { type ReactNode, useState } from "react";
 
 import type { StyledModalProps } from "./StyledModal";
@@ -9,10 +9,9 @@ export interface ButtonModalProps extends Omit<StyledModalProps, "open"> {
   buttonText?: ReactNode;
   icon?: ReactNode;
   iconButton?: boolean;
-  disabled?: boolean;
   openByDefault?: boolean;
-  buttonSx?: SxProps<Theme>;
-  ["aria-label"]?: string;
+  buttonProps?: ButtonProps;
+  iconButtonProps?: IconButtonProps;
 }
 
 export function ButtonModal({
@@ -21,10 +20,9 @@ export function ButtonModal({
   onClose,
   icon,
   iconButton,
-  disabled,
   openByDefault,
-  "aria-label": ariaLabel,
-  buttonSx,
+  buttonProps,
+  iconButtonProps,
   ...rest
 }: ButtonModalProps) {
   const [open, setOpen] = useState(openByDefault ?? false);
@@ -45,23 +43,16 @@ export function ButtonModal({
     <>
       {iconButton && icon ? (
         <Tooltip title={buttonText} placement="right">
-          <IconButton
-            onClick={handleOpen}
-            color="primary"
-            disabled={disabled}
-            aria-label={ariaLabel}
-          >
+          <IconButton onClick={handleOpen} color="primary" {...iconButtonProps}>
             {icon}
           </IconButton>
         </Tooltip>
       ) : (
         <Button
           onClick={handleOpen}
-          variant="text"
+          variant="outlined"
           startIcon={icon}
-          disabled={disabled}
-          sx={buttonSx}
-          aria-label={ariaLabel}
+          {...buttonProps}
         >
           {buttonText}
         </Button>

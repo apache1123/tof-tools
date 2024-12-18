@@ -1,15 +1,15 @@
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Button } from "@mui/material";
-
+import { DeleteButtonWithConfirm } from "../DeleteButtonWithConfirm/DeleteButtonWithConfirm";
 import type { StyledModalProps } from "./StyledModal";
 import { StyledModal } from "./StyledModal";
 
 export interface EditorModalProps extends StyledModalProps {
+  itemName?: string;
   showDelete?: boolean;
   onDelete?(): void;
 }
 
 export function EditorModal({
+  itemName,
   showDelete,
   onDelete,
   ...rest
@@ -18,16 +18,12 @@ export function EditorModal({
     <StyledModal
       leftActions={
         showDelete && (
-          <Button
-            startIcon={<DeleteForeverIcon />}
-            variant="outlined"
-            color="error"
-            onClick={() => {
+          <DeleteButtonWithConfirm
+            itemName={itemName ?? "this item"}
+            onDelete={() => {
               if (onDelete) onDelete();
             }}
-          >
-            Delete
-          </Button>
+          />
         )
       }
       {...rest}
