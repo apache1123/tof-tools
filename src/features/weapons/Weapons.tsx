@@ -88,6 +88,12 @@ export function Weapons() {
             }}
             weaponProxy={editingWeapon}
             allMatricesProxy={matricesProxy}
+            itemName={editingWeapon.weaponDisplayName}
+            showDelete
+            onDelete={() => {
+              weaponRepoProxy.remove(editingWeapon.id);
+              setEditingWeapon(undefined);
+            }}
           />
         )}
       </>
