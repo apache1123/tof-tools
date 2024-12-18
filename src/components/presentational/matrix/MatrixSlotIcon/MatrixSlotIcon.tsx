@@ -3,8 +3,8 @@ import { Card } from "@mui/material";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
 import type { MatrixType } from "../../../../models/matrix/matrix-type";
-import { MatrixIcon } from "../../matrix/MatrixIcon/MatrixIcon";
-import { MatrixTypeIcon } from "../../matrix/MatrixTypeIcon/MatrixTypeIcon";
+import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
+import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
 export interface MatrixSlotIconProps {
   type: MatrixType;

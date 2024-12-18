@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader } from "@mui/material";
 import type { Matrix } from "../../../../models/matrix/matrix";
 import type { MatrixType } from "../../../../models/matrix/matrix-type";
 import { AddButton } from "../../common/AddButton/AddButton";
-import { MatrixCard } from "../../matrix/MatrixCard/MatrixCard";
-import { MatrixTypeIcon } from "../../matrix/MatrixTypeIcon/MatrixTypeIcon";
+import { MatrixCard } from "../MatrixCard/MatrixCard";
+import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
 export interface MatrixSlotCardProps {
   type: MatrixType;

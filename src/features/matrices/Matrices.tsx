@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { MatrixEditorModal } from "../../components/mutational/matrix/MatrixEditorModal/MatrixEditorModal";
 import { MatrixDefinitionSelectorModal } from "../../components/presentational/matrix/MatrixDefinitionSelectorModal/MatrixDefinitionSelectorModal";
 import { MatrixFilterSelector } from "../../components/presentational/matrix/MatrixFilterSelector/MatrixFilterSelector";
 import { MatrixList } from "../../components/presentational/matrix/MatrixList/MatrixList";
@@ -26,13 +27,16 @@ export function Matrices() {
   const { matricesSnap } = useMatrices(selectedCharacterId);
 
   const { filter } = useSnapshot(matrixState) as MatrixState;
-
   const filteredMatrices = getFilteredMatrices(matricesSnap, filter);
 
   const [isAddingMatrix, setIsAddingMatrix] = useState(false);
-  const [selectedDefinition, setSelectedDefinition] = useState<
+  const [addingDefinition, setAddingDefinition] = useState<
     MatrixDefinition | undefined
   >(undefined);
+
+  const [editingMatrix, setEditingMatrix] = useState<Matrix | undefined>(
+    undefined,
+  );
 
   return (
     selectedCharacterId && (
@@ -64,24 +68,32 @@ export function Matrices() {
               Add matrix
             </Button>
           }
-          items={<MatrixList matrices={filteredMatrices} />}
+          items={
+            <MatrixList
+              matrices={filteredMatrices}
+              onClick={(id) => {
+                const matrixProxy = matrixRepoProxy.find(id);
+                if (matrixProxy) setEditingMatrix(matrixProxy);
+              }}
+            />
+          }
         />
 
         <MatrixDefinitionSelectorModal
-          open={isAddingMatrix && !selectedDefinition}
+          open={isAddingMatrix && !addingDefinition}
           matrixDefinitions={getAllMatrixDefinitions()}
           title="Add matrix"
-          onSelect={setSelectedDefinition}
+          onSelect={setAddingDefinition}
           onCancel={() => {
-            setSelectedDefinition(undefined);
+            setAddingDefinition(undefined);
             setIsAddingMatrix(false);
           }}
         />
 
-        {selectedDefinition && (
+        {addingDefinition && (
           <NewMatrixModal
-            definition={selectedDefinition}
-            open={isAddingMatrix && !!selectedDefinition}
+            definition={addingDefinition}
+            open={isAddingMatrix && !!addingDefinition}
             onConfirm={({ definition, types, stars }) => {
               for (const type of types) {
                 const matrix = new Matrix(
@@ -93,12 +105,29 @@ export function Matrices() {
                 matrixRepoProxy.add(matrix);
               }
 
-              setSelectedDefinition(undefined);
+              setAddingDefinition(undefined);
               setIsAddingMatrix(false);
             }}
             onCancel={() => {
-              setSelectedDefinition(undefined);
+              setAddingDefinition(undefined);
             }}
+          />
+        )}
+
+        {editingMatrix && (
+          <MatrixEditorModal
+            open={!!editingMatrix}
+            matrixProxy={editingMatrix}
+            itemName={editingMatrix.displayName}
+            onClose={() => {
+              setEditingMatrix(undefined);
+            }}
+            showDelete
+            onDelete={() => {
+              matrixRepoProxy.remove(editingMatrix.id);
+              setEditingMatrix(undefined);
+            }}
+            fullWidth
           />
         )}
       </>

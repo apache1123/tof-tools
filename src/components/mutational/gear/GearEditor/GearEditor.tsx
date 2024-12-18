@@ -10,36 +10,36 @@ import { GearTypeIcon } from "../../../presentational/gear/GearTypeIcon/GearType
 import { EmptyStatEditor, StatEditor } from "../../stat/StatEditor/StatEditor";
 
 export interface GearEditorProps {
-  gearState: Gear;
+  gearProxy: Gear;
 }
 
 const possibleStatTypes = statTypesLookup.allIds.map(
   (statTypeId) => statTypesLookup.byId[statTypeId],
 );
 
-export function GearEditor({ gearState }: GearEditorProps) {
-  const gearSnap = useSnapshot(gearState) as Gear;
-  const { type, isAugmented } = gearSnap;
+export function GearEditor({ gearProxy }: GearEditorProps) {
+  const gear = useSnapshot(gearProxy) as Gear;
+  const { type, isAugmented } = gear;
 
   return (
     <Stack gap={2}>
       <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
         <GearTypeIcon id={type.id} isTitan={isAugmented} />
         <GearStars
-          gear={gearSnap}
+          gear={gear}
           onStarsChange={(stars) => {
-            gearState.stars = stars;
+            gearProxy.stars = stars;
           }}
         />
       </Stack>
       <Stack gap={1}>
         {[...Array(defaultNumOfRandomStats)].map((_, i) => {
-          const randomStat = gearState.getRandomStat(i);
+          const randomStat = gearProxy.getRandomStat(i);
 
           return randomStat ? (
             <StatEditor
               key={i}
-              statState={randomStat}
+              statProxy={randomStat}
               possibleStatTypes={possibleStatTypes}
               isAugmented={isAugmented}
             />
@@ -48,7 +48,7 @@ export function GearEditor({ gearState }: GearEditorProps) {
               key={i}
               possibleStatTypes={possibleStatTypes}
               onStatTypeChange={(statType) => {
-                gearState.setRandomStat(i, new RandomStat(statType));
+                gearProxy.setRandomStat(i, new RandomStat(statType));
               }}
               isAugmented={isAugmented}
             />

@@ -20,7 +20,7 @@ const possibleStatTypes = statTypesLookup.allIds.map(
 const state = proxy<{ stat: RandomStat | undefined }>({ stat: undefined });
 
 export function StatMaxAugmentIncrease() {
-  const { stat: statState } = state;
+  const { stat: statProxy } = state;
   const { stat: statSnap } = useSnapshot(state);
 
   return (
@@ -45,10 +45,10 @@ export function StatMaxAugmentIncrease() {
       </Stack>
       <Grid container spacing={2}>
         <Grid xs={12} sm={6} md={4}>
-          {statSnap && statState ? (
+          {statSnap && statProxy ? (
             <StatEditor
               possibleStatTypes={possibleStatTypes}
-              statState={statState}
+              statProxy={statProxy}
               isAugmented={false}
             />
           ) : (

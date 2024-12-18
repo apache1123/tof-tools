@@ -13,12 +13,12 @@ export default meta;
 
 type Story = StoryObj<typeof StatEditor>;
 
-const statState = proxy(
+const statProxy = proxy(
   new RandomStat(statTypesLookup.byId["Physical Attack %"]),
 );
 export const Default: Story = {
   args: {
-    statState,
+    statProxy,
     possibleStatTypes: statTypesLookup.allIds.map(
       (statTypeId) => statTypesLookup.byId[statTypeId],
     ),

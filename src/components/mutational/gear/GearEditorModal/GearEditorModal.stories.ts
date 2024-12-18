@@ -12,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof GearEditorModal>;
 
-const gear = proxy(exampleEyepiece);
+const gearProxy = proxy(exampleEyepiece);
 export const Default: Story = {
-  args: { gearState: gear },
+  args: { gearProxy },
 };

@@ -71,9 +71,9 @@ export function Gears() {
             <GearList
               gears={filteredGears}
               onClick={(id) => {
-                const gearState = gearRepoProxy.find(id);
-                if (gearState) {
-                  setEditingGear(gearState);
+                const gearProxy = gearRepoProxy.find(id);
+                if (gearProxy) {
+                  setEditingGear(gearProxy);
                 }
               }}
             />
@@ -95,7 +95,7 @@ export function Gears() {
         {editingGear && (
           <GearEditorModal
             open={!!editingGear}
-            gearState={editingGear}
+            gearProxy={editingGear}
             itemName={editingGear.type.displayName}
             onClose={() => {
               setEditingGear(undefined);

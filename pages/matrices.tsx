@@ -8,7 +8,7 @@ import { matrixState, matrixStateKey } from "../src/states/matrix/matrix-state";
 
 export default function MatricesPage() {
   useEffect(() => {
-    db.init(["characters", "matrices"]);
+    db.init(["characters", "matrices", "weapons"]);
   }, []);
 
   useLocalStoragePersistence(matrixStateKey, matrixState);

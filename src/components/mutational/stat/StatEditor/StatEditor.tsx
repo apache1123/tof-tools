@@ -12,43 +12,44 @@ import { StatTypeIcon } from "../../../presentational/stat/StatTypeIcon/StatType
 import { StatTypeSelector } from "../../../presentational/stat/StatTypeSelector/StatTypeSelector";
 
 export interface StatEditorProps {
-  statState: RandomStat;
+  statProxy: RandomStat;
   possibleStatTypes: StatType[];
   isAugmented: boolean;
 }
 
 export const StatEditor = ({
-  statState,
+  statProxy,
   possibleStatTypes = [],
   isAugmented,
 }: StatEditorProps) => {
-  const statSnap = useSnapshot(statState) as RandomStat;
-  const statType = statSnap.type;
+  const { type, value, augmentIncreaseValue, totalValue } = useSnapshot(
+    statProxy,
+  ) as RandomStat;
 
   return (
     <Layout
       typeIcon={
         <StatTypeIcon
-          role={statType.role}
-          element={statType.elementalType}
+          role={type.role}
+          element={type.elementalType}
           size={isAugmented ? 20 : 30}
         />
       }
       typeSelector={
         <StatTypeSelector
-          selectedStatType={statType}
+          selectedStatType={type}
           possibleStatTypes={possibleStatTypes}
           onChange={(statType) => {
-            statState.type = statType;
+            statProxy.type = statType;
           }}
         />
       }
       valueInput={
         <StatInput
-          isPercentageBased={statType.isPercentageBased}
-          value={statSnap.value}
+          isPercentageBased={type.isPercentageBased}
+          value={value}
           onChange={(value) => {
-            statState.value = value;
+            statProxy.value = value;
           }}
           label={isAugmented ? "Base" : undefined}
           aria-label="stat-value-input"
@@ -57,10 +58,10 @@ export const StatEditor = ({
       augmentIncreaseValueInput={
         isAugmented && (
           <StatInput
-            isPercentageBased={statType.isPercentageBased}
-            value={statSnap.augmentIncreaseValue}
+            isPercentageBased={type.isPercentageBased}
+            value={augmentIncreaseValue}
             onChange={(value) => {
-              statState.augmentIncreaseValue = value;
+              statProxy.augmentIncreaseValue = value;
             }}
             label={<Typography color="titan.main">Increase</Typography>}
             aria-label="stat-augment-increase-value-input"
@@ -70,10 +71,10 @@ export const StatEditor = ({
       totalValueInput={
         isAugmented && (
           <StatInput
-            isPercentageBased={statType.isPercentageBased}
-            value={statSnap.totalValue}
+            isPercentageBased={type.isPercentageBased}
+            value={totalValue}
             onChange={(value) => {
-              statState.totalValue = value;
+              statProxy.totalValue = value;
             }}
             label={<Typography color="titan.main">Total</Typography>}
             aria-label="stat-total-value-input"

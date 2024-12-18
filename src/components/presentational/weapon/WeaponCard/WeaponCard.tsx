@@ -2,7 +2,7 @@ import type { SxProps } from "@mui/material";
 import { Card, CardActionArea, CardContent, Stack } from "@mui/material";
 
 import type { Weapon } from "../../../../models/weapon/weapon";
-import { MatrixSlotIcon } from "../../matrix-slot/MatrixSlotIcon/MatrixSlotIcon";
+import { MatrixSlotIcon } from "../../matrix/MatrixSlotIcon/MatrixSlotIcon";
 import { WeaponDefinitionCardContent } from "../WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector";
 

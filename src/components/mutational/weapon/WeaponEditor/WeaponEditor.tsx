@@ -6,7 +6,7 @@ import type { Matrix } from "../../../../models/matrix/matrix";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
 import type { Weapon } from "../../../../models/weapon/weapon";
 import { MatrixSelectorModal } from "../../../presentational/matrix/MatrixSelectorModal/MatrixSelectorModal";
-import { MatrixSlotCardList } from "../../../presentational/matrix-slot/MatrixSlotCardList/MatrixSlotCardList";
+import { MatrixSlotCardList } from "../../../presentational/matrix/MatrixSlotCardList/MatrixSlotCardList";
 import { WeaponDefinitionCardContent } from "../../../presentational/weapon/WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../../../presentational/weapon/WeaponStarsSelector/WeaponStarsSelector";
 

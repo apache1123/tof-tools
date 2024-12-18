@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-definitions";
-import { getMatrixType } from "../../../../definitions/matrices/matrix-type";
-import { Matrix } from "../../../../models/matrix/matrix";
+import { exampleMatrix } from "../../../__fixtures__/matrix";
 import { MatrixCard } from "./MatrixCard";
 
 const meta: Meta<typeof MatrixCard> = {
@@ -13,12 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof MatrixCard>;
 
-const matrix = new Matrix(
-  getMatrixType("mind"),
-  getMatrixDefinition("Alyss"),
-  "characterId",
-);
-matrix.stars = 2;
+const matrix = exampleMatrix;
 
 export const Default: Story = {
   args: { matrix },

@@ -48,7 +48,7 @@ export function NewGearEditorModal({
               }
             }}
           />
-          {newGear && state.newGear && <GearEditor gearState={state.newGear} />}
+          {newGear && state.newGear && <GearEditor gearProxy={state.newGear} />}
         </Stack>
       }
       showConfirm

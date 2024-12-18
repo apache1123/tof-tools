@@ -10,7 +10,6 @@ export class MatrixRepository extends ValtioRepository<Matrix, MatrixDto> {
     removedItemId: Id,
   ): void {
     // Remove the matrix from the weapon slots
-    this.db.init(["weapons"]);
     this.db.get("weapons").items.forEach((weapon) => {
       weapon.matrixSlots.getSlots().forEach((slot) => {
         if (slot.matrix?.id === removedItemId) {

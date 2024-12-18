@@ -12,13 +12,13 @@ export default meta;
 
 type Story = StoryObj<typeof GearEditor>;
 
-const gear = proxy(exampleEyepiece);
+const gearProxy = proxy(exampleEyepiece);
 export const Default: Story = {
-  args: { gearState: gear },
+  args: { gearProxy },
 };
 
-const titanGear = proxy(exampleGloves);
-titanGear.isAugmented = true;
+const titanGearProxy = proxy(exampleGloves);
+titanGearProxy.isAugmented = true;
 export const Titan: Story = {
-  args: { gearState: titanGear },
+  args: { gearProxy: titanGearProxy },
 };
