@@ -71,10 +71,16 @@ export function GearSetPresets() {
               setEditingPresetId(undefined);
             }}
             presetProxy={editingPresetProxy}
+            itemName={editingPresetProxy.name}
             allGearsProxy={allGearsProxy}
             characterId={selectedCharacterId}
             onAddGear={(gear) => {
               gearRepoProxy.add(gear);
+            }}
+            showDelete
+            onDelete={() => {
+              gearSetPresetRepoProxy.remove(editingPresetProxy.id);
+              setEditingPresetId(undefined);
             }}
           />
         )}

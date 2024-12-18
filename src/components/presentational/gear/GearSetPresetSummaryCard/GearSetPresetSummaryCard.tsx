@@ -20,6 +20,13 @@ export function GearSetPresetSummaryCard({
         onClick={() => {
           if (onClick) onClick();
         }}
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+        }}
       >
         <CardHeader title={preset.name} />
         <CardContent>
