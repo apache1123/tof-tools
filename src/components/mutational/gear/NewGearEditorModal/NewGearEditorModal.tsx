@@ -4,7 +4,7 @@ import { proxy, useSnapshot } from "valtio";
 import { getGearType } from "../../../../definitions/gear-types";
 import type { CharacterId } from "../../../../models/character/character";
 import { Gear } from "../../../../models/gear/gear";
-import { StyledModal } from "../../../presentational/common/Modal/StyledModal";
+import { EditorModal } from "../../../presentational/common/Modal/EditorModal";
 import { GearTypeToggle } from "../../../presentational/gear/GearTypeToggle/GearTypeToggle";
 import { GearEditor } from "../GearEditor/GearEditor";
 
@@ -28,7 +28,7 @@ export function NewGearEditorModal({
   const { newGear } = useSnapshot(state);
 
   return (
-    <StyledModal
+    <EditorModal
       open={open}
       modalTitle="Add new gear"
       modalContent={

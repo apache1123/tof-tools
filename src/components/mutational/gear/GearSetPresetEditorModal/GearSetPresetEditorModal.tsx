@@ -1,25 +1,23 @@
-import { StyledModal } from "../../../presentational/common/Modal/StyledModal";
+import type { EditorModalProps } from "../../../presentational/common/Modal/EditorModal";
+import { EditorModal } from "../../../presentational/common/Modal/EditorModal";
 import type { GearSetPresetEditorProps } from "../GearSetPresetEditor/GearSetPresetEditor";
 import { GearSetPresetEditor } from "../GearSetPresetEditor/GearSetPresetEditor";
 
 export interface GearSetPresetEditorModalProps
-  extends GearSetPresetEditorProps {
-  open: boolean;
-  onClose(): void;
-}
+  extends GearSetPresetEditorProps,
+    EditorModalProps {}
 
 export function GearSetPresetEditorModal({
-  open,
-  onClose,
+  maxWidth = false,
+  fullWidth = true,
   ...props
 }: GearSetPresetEditorModalProps) {
   return (
-    <StyledModal
-      open={open}
+    <EditorModal
       modalContent={<GearSetPresetEditor {...props} />}
-      onClose={onClose}
-      maxWidth={false}
-      fullWidth
+      maxWidth={maxWidth}
+      fullWidth={fullWidth}
+      {...props}
     />
   );
 }

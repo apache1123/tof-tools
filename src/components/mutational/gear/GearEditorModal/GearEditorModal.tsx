@@ -1,22 +1,12 @@
-import { StyledModal } from "../../../presentational/common/Modal/StyledModal";
+import type { EditorModalProps } from "../../../presentational/common/Modal/EditorModal";
+import { EditorModal } from "../../../presentational/common/Modal/EditorModal";
 import type { GearEditorProps } from "../GearEditor/GearEditor";
 import { GearEditor } from "../GearEditor/GearEditor";
 
-export interface GearEditorModalProps extends GearEditorProps {
-  open: boolean;
-  onClose: () => void;
-}
+export interface GearEditorModalProps
+  extends GearEditorProps,
+    EditorModalProps {}
 
-export function GearEditorModal({
-  gearState,
-  open,
-  onClose,
-}: GearEditorModalProps) {
-  return (
-    <StyledModal
-      open={open}
-      modalContent={<GearEditor gearState={gearState} />}
-      onClose={onClose}
-    />
-  );
+export function GearEditorModal({ ...props }: GearEditorModalProps) {
+  return <EditorModal modalContent={<GearEditor {...props} />} {...props} />;
 }

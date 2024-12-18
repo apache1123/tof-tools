@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { StyledModal } from "./StyledModal";
@@ -10,10 +11,33 @@ export default meta;
 
 type Story = StoryObj<typeof StyledModal>;
 
+const modalTitle = "Modal Title";
+
 export const Default: Story = {
   args: {
-    modalTitle: "Modal Title",
+    modalTitle,
     modalContent: ModalContent(),
+    showConfirm: true,
+    showCancel: true,
+    hideClose: false,
+    fullWidth: true,
+  },
+};
+
+export const WithLeftActions: Story = {
+  args: {
+    modalTitle,
+    modalContent: ModalContent(),
+
+    leftActions: (
+      <>
+        <Button>Action</Button>
+        <Button>Another action</Button>
+      </>
+    ),
+    fullWidth: true,
+    showConfirm: true,
+    showCancel: true,
   },
 };
 
