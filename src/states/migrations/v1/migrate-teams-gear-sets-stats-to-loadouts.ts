@@ -6,6 +6,7 @@ import type {
   GearSetDtoV2,
 } from "../../../db/repositories/gear/deprecated/gear-set-dto";
 import type { RandomStatDto } from "../../../db/repositories/gear/dtos/random-stat-dto";
+import type { WeaponDtoV1 } from "../../../db/repositories/weapon/deprecated/weapon-dto";
 import { maxCharacterLevel } from "../../../definitions/character-level";
 import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
 import type { CoreElementalType } from "../../../definitions/elemental-type";
@@ -14,7 +15,6 @@ import type { ElementalAttackDto } from "../../../models/elemental-attack/elemen
 import type { LoadoutDtoV1 } from "../../../models/loadout/loadout";
 import type { MatrixSetDto } from "../../../models/matrix-set";
 import type { TeamDtoV1 } from "../../../models/team/team";
-import type { WeaponDtoV1 } from "../../../models/weapon/weapon";
 import { filterOutUndefined } from "../../../utils/array-utils";
 import type { GearComparerGearsStateDto } from "../../deprecated/gear-comparer-gear";
 import type { GearComparerOptionsStateDto } from "../../deprecated/gear-comparer-options";

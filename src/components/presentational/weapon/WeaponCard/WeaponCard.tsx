@@ -14,7 +14,7 @@ export interface WeaponCardProps {
 
 export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
   const {
-    id,
+    definitionId,
     weaponDisplayName,
     simulacrumDisplayName,
     iconWeaponName,
@@ -40,7 +40,7 @@ export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
         <CardContent sx={{ p: 0 }}>
           <Stack sx={{ gap: 1, alignItems: "flex-start", pb: 2 }}>
             <WeaponDefinitionCardContent
-              id={id}
+              id={definitionId}
               weaponDisplayName={weaponDisplayName}
               simulacrumDisplayName={simulacrumDisplayName}
               iconWeaponName={iconWeaponName}

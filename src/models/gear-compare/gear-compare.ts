@@ -234,7 +234,7 @@ export class GearCompare {
         resourceAmountMultiplier: 1,
       },
       finalDamageModifiers: { canOnlyBeBuffedByTitans: false },
-      weaponId: weapon.id,
+      weaponId: weapon.definitionId,
       attackId: "",
       attackType: "normal",
     };

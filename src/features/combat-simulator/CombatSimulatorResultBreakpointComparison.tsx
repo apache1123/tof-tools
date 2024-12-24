@@ -2,10 +2,10 @@ import { BarChart, cheerfulFiestaPalette } from "@mui/x-charts";
 import { useRouter } from "next/router";
 
 import { routes } from "../../../routes/routes";
+import type { WeaponDtoV1 } from "../../db/repositories/weapon/deprecated/weapon-dto";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponBreakpointStars } from "../../definitions/weapons/weapon-stars";
 import type { CombatSimulatorSnapshot } from "../../models/combat-simulator/combat-simulator-snapshot";
-import type { WeaponDtoV1 } from "../../models/weapon/weapon";
 import { toShortNumberFormat } from "../../utils/locale-utils";
 
 export interface SimulatorResult {

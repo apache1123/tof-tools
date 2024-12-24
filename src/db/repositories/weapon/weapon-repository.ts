@@ -7,9 +7,9 @@ import {
   dtoToMatrixSlots,
   matrixSlotsToDto,
 } from "../matrix/dtos/matrix-slots-dto";
-import type { WeaponDtoV2 } from "./weapon-dto";
+import type { WeaponDto } from "./weapon-dto";
 
-export class WeaponRepository extends ValtioRepository<Weapon, WeaponDtoV2> {
+export class WeaponRepository extends ValtioRepository<Weapon, WeaponDto> {
   public constructor(key: string, storage: DbStorage, db: Db) {
     super(key, storage, db);
   }
@@ -19,9 +19,10 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDtoV2> {
     return;
   }
 
-  protected override itemToDto(item: Weapon): WeaponDtoV2 {
-    const { definitionId, characterId, stars, matrixSlots } = item;
+  protected override itemToDto(item: Weapon): WeaponDto {
+    const { id, definitionId, characterId, stars, matrixSlots } = item;
     return {
+      id,
       definitionId,
       characterId,
       stars,
@@ -30,12 +31,16 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDtoV2> {
     };
   }
 
-  protected override dtoToItem(dto: WeaponDtoV2): Weapon {
-    const { definitionId, characterId, stars, matrixSlots } = dto;
+  protected override dtoToItem(dto: WeaponDto): Weapon {
+    const { id, definitionId, characterId, stars, matrixSlots } = dto;
 
-    const weapon = new Weapon(getWeaponDefinition(definitionId), characterId);
+    const weapon = new Weapon(
+      getWeaponDefinition(definitionId),
+      characterId,
+      id,
+      dtoToMatrixSlots(matrixSlots, this.db.get("matrices")),
+    );
     weapon.stars = stars;
-    weapon.matrixSlots = dtoToMatrixSlots(matrixSlots, this.db.get("matrices"));
 
     return weapon;
   }

@@ -1,31 +1,36 @@
-import type { Dto } from "../../db/repository/dto";
+import { nanoid } from "nanoid";
+
 import type { AttackAbilityDefinition } from "../../definitions/types/attack/attack-ability-definition";
 import { type WeaponDefinition } from "../../definitions/types/weapon/weapon-definition";
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import { maxNumOfWeaponStars } from "../../definitions/weapons/weapon-stars";
 import type { CharacterId } from "../character/character";
+import type { Id } from "../identifiable";
 import { MatrixSlots } from "../matrix/matrix-slots";
 import { hasMetStarRequirement } from "../star-requirement";
-import type { WeaponMatrixSetsDto } from "../weapon-matrix-sets";
 import type { WeaponStarRequirement } from "./weapon-star-requirement";
+
+export type WeaponId = Id;
 
 /** A weapon a character owns */
 export class Weapon {
-  public constructor(definition: WeaponDefinition, characterId: CharacterId) {
+  public constructor(
+    definition: WeaponDefinition,
+    characterId: CharacterId,
+    id?: WeaponId,
+    matrixSlots?: MatrixSlots,
+  ) {
+    this.id = id ?? nanoid();
     this.characterId = characterId;
     this.definition = definition;
     this._stars = 0;
-    this._matrixSlots = new MatrixSlots();
+    this.matrixSlots = matrixSlots ?? new MatrixSlots();
   }
 
+  public readonly id: WeaponId;
   public readonly characterId: CharacterId;
+  public readonly matrixSlots: MatrixSlots;
   private readonly definition: WeaponDefinition;
   private _stars: number;
-  private _matrixSlots: MatrixSlots;
-
-  public get id() {
-    return this.definition.id;
-  }
 
   public get definitionId() {
     return this.definition.id;
@@ -93,29 +98,7 @@ export class Weapon {
     this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfWeaponStars);
   }
 
-  public get matrixSlots() {
-    return this._matrixSlots;
-  }
-  public set matrixSlots(value: MatrixSlots) {
-    this._matrixSlots = value;
-  }
-
   private hasMetStarRequirement(requirement: WeaponStarRequirement) {
     return hasMetStarRequirement(requirement, this.stars);
   }
-}
-
-export interface WeaponDtoV2 extends Dto {
-  definitionId: WeaponName;
-  characterId: string;
-  stars: number;
-  version: 2;
-}
-
-/** @deprecated Weapon must now belong to a character and does not contain matrices */
-export interface WeaponDtoV1 extends Dto {
-  definitionId: WeaponName;
-  stars: number;
-  matrixSets: WeaponMatrixSetsDto;
-  version: 1;
 }

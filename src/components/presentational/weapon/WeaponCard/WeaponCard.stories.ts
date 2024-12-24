@@ -16,7 +16,11 @@ export default meta;
 type Story = StoryObj<typeof WeaponCard>;
 
 const characterId = "characterId";
-const weapon = new Weapon(weaponDefinitions.byId["King"], characterId);
+const weapon = new Weapon(
+  weaponDefinitions.byId["King"],
+  characterId,
+  undefined,
+);
 
 export const Default: Story = {
   args: { weapon },
@@ -29,6 +33,7 @@ export const CustomWidth: Story = {
 const weaponWithMatrices = new Weapon(
   weaponDefinitions.byId["King"],
   characterId,
+  undefined,
 );
 weaponWithMatrices.matrixSlots.getSlot("mind").matrix = new Matrix(
   getMatrixType("mind"),

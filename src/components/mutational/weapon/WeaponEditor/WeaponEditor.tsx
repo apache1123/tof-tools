@@ -20,7 +20,7 @@ export function WeaponEditor({
   allMatricesProxy,
 }: WeaponEditorProps) {
   const {
-    id,
+    definitionId,
     weaponDisplayName,
     simulacrumDisplayName,
     iconWeaponName,
@@ -43,7 +43,7 @@ export function WeaponEditor({
     <>
       <Stack sx={{ gap: 2, alignItems: "center" }}>
         <WeaponDefinitionCardContent
-          id={id}
+          id={definitionId}
           weaponDisplayName={weaponDisplayName}
           simulacrumDisplayName={simulacrumDisplayName}
           iconWeaponName={iconWeaponName}

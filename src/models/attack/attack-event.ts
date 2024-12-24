@@ -66,7 +66,7 @@ export class AttackEvent
           finalDamageModifiers: this.getFinalDamageModifiersPerHit(),
           attackId: this.abilityId,
           attackType: this.type,
-          weaponId: this.weapon.id,
+          weaponId: this.weapon.definitionId,
           applyAllBuffs: false,
         };
 

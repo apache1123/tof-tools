@@ -2,7 +2,8 @@ import type { WeaponName } from "../../../definitions/weapons/weapon-definitions
 import type { Dto } from "../../repository/dto";
 import type { MatrixSlotsDto } from "../matrix/dtos/matrix-slots-dto";
 
-export interface WeaponDtoV2 extends Dto {
+export interface WeaponDto extends Dto {
+  id: string;
   definitionId: WeaponName;
   characterId: string;
   stars: number;

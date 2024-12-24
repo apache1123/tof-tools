@@ -1,10 +1,12 @@
+import type { WeaponDtoV1 } from "../../db/repositories/weapon/deprecated/weapon-dto";
+import type { WeaponDto } from "../../db/repositories/weapon/weapon-dto";
 import type { Dto } from "../../db/repository/dto";
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
 import type { CharacterId } from "../character/character";
-import type { Weapon, WeaponDtoV1, WeaponDtoV2 } from "../weapon/weapon";
+import type { Weapon } from "../weapon/weapon";
 
 type WeaponSlot = Weapon | undefined;
 
@@ -21,7 +23,7 @@ export class Team {
   }
   /** Returns all equipped weapon names */
   public get weaponNames(): WeaponName[] {
-    return this.weapons.map((weapon) => weapon.id);
+    return this.weapons.map((weapon) => weapon.definitionId);
   }
   /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
   public get weaponElementalTypes(): WeaponElementalType[] {
@@ -85,7 +87,7 @@ export interface TeamDtoV2 extends Dto {
   weapon1: WeaponSlotDtoV2;
   weapon2: WeaponSlotDtoV2;
   weapon3: WeaponSlotDtoV2;
-  weapons: WeaponDtoV2[];
+  weapons: WeaponDto[];
   version: 2;
 }
 
@@ -98,7 +100,7 @@ export interface TeamDtoV1 extends Dto {
   version: 1;
 }
 
-type WeaponSlotDtoV2 = WeaponDtoV2 | undefined;
+type WeaponSlotDtoV2 = WeaponDto | undefined;
 
 /** @deprecated Deprecated during v4 rewrite */
 type WeaponSlotDtoV1 = WeaponDtoV1 | undefined;

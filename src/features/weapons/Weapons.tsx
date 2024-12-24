@@ -24,7 +24,7 @@ export function Weapons() {
 
   const unusedWeaponDefinitions = weaponDefinitions.allIds
     .filter((id) => {
-      return !weapons.some((weapon) => weapon.id === id);
+      return !weapons.some((weapon) => weapon.definitionId === id);
     })
     .map((id) => weaponDefinitions.byId[id]);
 
@@ -68,7 +68,7 @@ export function Weapons() {
           weaponDefinitions={unusedWeaponDefinitions}
           onSelect={(weaponDefinition) => {
             const weapon = proxy(
-              new Weapon(weaponDefinition, selectedCharacterId),
+              new Weapon(weaponDefinition, selectedCharacterId, undefined),
             );
             weaponRepoProxy.add(weapon);
 

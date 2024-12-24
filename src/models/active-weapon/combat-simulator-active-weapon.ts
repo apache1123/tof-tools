@@ -31,7 +31,9 @@ export class CombatSimulatorActiveWeapon implements ActiveWeapon {
 
   public switchTo(weapon: Weapon) {
     if (!this.getWeaponsToSwitchTo().includes(weapon)) {
-      consoleErrorDev(`Weapon ${weapon.id} cannot be switched to`);
+      consoleErrorDev(
+        `Weapon ${weapon.id} (${weapon.definitionId}) cannot be switched to`,
+      );
       return;
     }
 

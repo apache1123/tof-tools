@@ -20,6 +20,7 @@ function generateWeapons() {
     const weapon = new Weapon(
       weaponDefinitions.byId[weaponDefinitions.allIds[i]],
       "characterId",
+      undefined,
     );
     weapons.push(weapon);
   }
