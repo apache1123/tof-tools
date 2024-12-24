@@ -2,16 +2,16 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { proxy, useSnapshot } from "valtio";
 
-import { WeaponEditorModal } from "../../components/mutational/weapon/WeaponEditorModal/WeaponEditorModal";
 import { WeaponDefinitionSelectorModal } from "../../components/presentational/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
 import { WeaponList } from "../../components/presentational/weapon/WeaponList/WeaponList";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Repository } from "../../db/repository/types/repository";
 import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponId } from "../../models/weapon/weapon";
 import { Weapon } from "../../models/weapon/weapon";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { useMatrices } from "../matrices/useMatrices";
+import { EditWeapon } from "./EditWeapon";
 
 export function Weapons() {
   const { selectedCharacterId } = useSelectedCharacter();
@@ -28,10 +28,8 @@ export function Weapons() {
     })
     .map((id) => weaponDefinitions.byId[id]);
 
-  const { matricesProxy } = useMatrices(selectedCharacterId);
-
   const [isAddingWeapon, setIsAddingWeapon] = useState(false);
-  const [editingWeapon, setEditingWeapon] = useState<Weapon | undefined>(
+  const [editingWeaponId, setEditingWeaponId] = useState<WeaponId | undefined>(
     undefined,
   );
 
@@ -54,10 +52,7 @@ export function Weapons() {
             <WeaponList
               weapons={weapons}
               onClick={(id) => {
-                const weaponProxy = weaponRepoProxy.find(id);
-                if (weaponProxy) {
-                  setEditingWeapon(weaponProxy);
-                }
+                setEditingWeaponId(id);
               }}
             />
           }
@@ -73,26 +68,18 @@ export function Weapons() {
             weaponRepoProxy.add(weapon);
 
             setIsAddingWeapon(false);
-            setEditingWeapon(weapon);
+            setEditingWeaponId(weapon.id);
           }}
           onCancel={() => {
             setIsAddingWeapon(false);
           }}
         />
 
-        {editingWeapon && (
-          <WeaponEditorModal
-            open={!!editingWeapon}
-            onClose={() => {
-              setEditingWeapon(undefined);
-            }}
-            weaponProxy={editingWeapon}
-            allMatricesProxy={matricesProxy}
-            itemName={editingWeapon.weaponDisplayName}
-            showDelete
-            onDelete={() => {
-              weaponRepoProxy.remove(editingWeapon.id);
-              setEditingWeapon(undefined);
+        {editingWeaponId && (
+          <EditWeapon
+            id={editingWeaponId}
+            onFinishEdit={() => {
+              setEditingWeaponId(undefined);
             }}
           />
         )}
