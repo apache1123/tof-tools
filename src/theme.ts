@@ -10,7 +10,7 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
-const catppuccinFlavor = flavors.macchiato;
+const catppuccinFlavor = flavors.frappe;
 const { colors } = catppuccinFlavor;
 
 // Create a theme instance.
