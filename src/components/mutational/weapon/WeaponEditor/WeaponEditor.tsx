@@ -58,7 +58,7 @@ export function WeaponEditor({
           }}
         />
         <MatrixSlotCardList
-          matrixSlots={matrixSlots}
+          matrixSlots={matrixSlots.getSlots()}
           onClick={(matrixSlot) => {
             setAddingMatrixTypeId(matrixSlot.acceptsType.id);
           }}
