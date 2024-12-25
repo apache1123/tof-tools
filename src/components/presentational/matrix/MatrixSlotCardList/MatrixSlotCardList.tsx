@@ -5,12 +5,14 @@ import { MatrixSlotCard } from "../MatrixSlotCard/MatrixSlotCard";
 
 export interface MatrixSlotListProps {
   matrixSlots: MatrixSlot[];
-  onClick?(matrixSlot: MatrixSlot): void;
+  onClick(matrixSlot: MatrixSlot): void;
+  onRemove(matrixSlot: MatrixSlot): void;
 }
 
 export function MatrixSlotCardList({
   matrixSlots,
   onClick,
+  onRemove,
 }: MatrixSlotListProps) {
   return (
     <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
@@ -20,9 +22,10 @@ export function MatrixSlotCardList({
           type={slot.acceptsType}
           matrix={slot.matrix}
           onClick={() => {
-            if (onClick) {
-              onClick(slot);
-            }
+            onClick(slot);
+          }}
+          onRemove={() => {
+            onRemove(slot);
           }}
         />
       ))}

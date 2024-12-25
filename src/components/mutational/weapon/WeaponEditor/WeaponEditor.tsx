@@ -68,6 +68,10 @@ export function WeaponEditor({
           onClick={(matrixSlot) => {
             setAddingMatrixTypeId(matrixSlot.acceptsType.id);
           }}
+          onRemove={(matrixSlot) => {
+            weaponProxy.matrixSlots.getSlot(matrixSlot.acceptsType.id).matrix =
+              undefined;
+          }}
         />
         <WeaponMatrixPresetsEditor
           weaponProxy={weaponProxy}
