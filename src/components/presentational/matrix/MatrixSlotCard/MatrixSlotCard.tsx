@@ -1,16 +1,15 @@
-import type { SxProps } from "@mui/material";
 import { Card, CardContent, CardHeader } from "@mui/material";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
 import type { MatrixType } from "../../../../models/matrix/matrix-type";
-import { AddButton } from "../../common/AddButton/AddButton";
+import type { HasSxProps } from "../../../helpers/has-sx-props";
+import { AddToSlotButton } from "../../common/AddToSlotButton/AddToSlotButton";
 import { MatrixCard } from "../MatrixCard/MatrixCard";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
-export interface MatrixSlotCardProps {
+export interface MatrixSlotCardProps extends HasSxProps {
   type: MatrixType;
   matrix: Matrix | undefined;
-  sx?: SxProps;
   onClick?(): void;
 }
 
@@ -61,7 +60,7 @@ export function MatrixSlotCard({
             onClick={onClick}
           />
         ) : (
-          <AddButton
+          <AddToSlotButton
             onClick={() => {
               if (onClick) {
                 onClick();

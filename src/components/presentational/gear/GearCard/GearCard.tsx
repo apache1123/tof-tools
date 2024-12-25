@@ -1,4 +1,3 @@
-import type { CardProps, SxProps } from "@mui/material";
 import {
   Box,
   Card,
@@ -9,15 +8,15 @@ import {
 } from "@mui/material";
 
 import type { Gear } from "../../../../models/gear/gear";
+import type { HasElevationProp } from "../../../helpers/has-elevation-prop";
+import type { HasSxProps } from "../../../helpers/has-sx-props";
 import { RandomStatDisplay } from "../../stat/RandomStatDisplay/RandomStatDisplay";
 import { GearStars } from "../GearStars/GearStars";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
-export interface GearCardProps {
+export interface GearCardProps extends HasSxProps, HasElevationProp {
   gear: Gear;
   onClick?: () => void;
-  elevation?: CardProps["elevation"];
-  sx?: SxProps;
 }
 
 export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {

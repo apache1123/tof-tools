@@ -15,7 +15,7 @@ export function DeleteButtonWithConfirm({
 }: DeleteButtonWithConfirmProps) {
   return (
     <ButtonModal
-      buttonText="Delete"
+      buttonContent="Delete"
       icon={<DeleteForeverIcon />}
       buttonProps={{ color: "error" }}
       modalContent={

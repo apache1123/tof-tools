@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@mui/material";
 
 import type { Gear } from "../../../../models/gear/gear";
 import type { GearType } from "../../../../models/gear/gear-type";
-import { AddButton } from "../../common/AddButton/AddButton";
+import { AddToSlotButton } from "../../common/AddToSlotButton/AddToSlotButton";
 import { GearCard } from "../GearCard/GearCard";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
@@ -33,7 +33,7 @@ export function GearSlotCard({ type, gear, onClick }: GearSlotCardProps) {
         {gear ? (
           <GearCard gear={gear} elevation={1} onClick={onClick} />
         ) : (
-          <AddButton
+          <AddToSlotButton
             onClick={() => {
               if (onClick) {
                 onClick();

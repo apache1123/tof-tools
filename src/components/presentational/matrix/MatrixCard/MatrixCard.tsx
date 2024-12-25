@@ -1,19 +1,18 @@
-import type { CardProps, SxProps } from "@mui/material";
 import { Card, CardActionArea, CardContent, Stack } from "@mui/material";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
+import type { HasElevationProp } from "../../../helpers/has-elevation-prop";
+import type { HasSxProps } from "../../../helpers/has-sx-props";
 import { MatrixDefinitionCardContent } from "../MatrixDefinitionCard/MatrixDefinitionCardContent";
 import { MatrixStarsSelector } from "../MatrixStarsSelector/MatrixStarsSelector";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
-export interface MatrixCardProps {
+export interface MatrixCardProps extends HasSxProps, HasElevationProp {
   matrix: Matrix;
   showName?: boolean;
   showTypeIcon?: boolean;
   matrixIconSize?: number;
   onClick?: () => void;
-  elevation?: CardProps["elevation"];
-  sx?: SxProps;
 }
 
 export function MatrixCard({

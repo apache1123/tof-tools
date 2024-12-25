@@ -1,12 +1,11 @@
-import type { CardProps } from "@mui/material";
 import { Stack } from "@mui/material";
 
 import type { Gear } from "../../../../models/gear/gear";
+import type { HasElevationProp } from "../../../helpers/has-elevation-prop";
 import { GearSummaryCard } from "../GearSummaryCard/GearSummaryCard";
 
-export interface GearSummaryCardListProps {
+export interface GearSummaryCardListProps extends HasElevationProp {
   gears: Gear[];
-  elevation?: CardProps["elevation"];
 }
 
 export function GearSummaryCardList({

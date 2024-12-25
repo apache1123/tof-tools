@@ -31,7 +31,7 @@ export function Changelog() {
   return (
     <ButtonModal
       openByDefault={hasUnseenChangelog}
-      buttonText="Changelog"
+      buttonContent="Changelog"
       modalTitle="Changelog"
       modalContent={
         <Timeline

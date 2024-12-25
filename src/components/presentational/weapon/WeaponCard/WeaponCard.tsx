@@ -1,14 +1,13 @@
-import type { SxProps } from "@mui/material";
 import { Card, CardActionArea, CardContent, Stack } from "@mui/material";
 
 import type { Weapon } from "../../../../models/weapon/weapon";
-import { MatrixSlotIcon } from "../../matrix/MatrixSlotIcon/MatrixSlotIcon";
+import type { HasSxProps } from "../../../helpers/has-sx-props";
+import { MatrixSlotIconList } from "../../matrix/MatrixSlotIconList/MatrixSlotIconList";
 import { WeaponDefinitionCardContent } from "../WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector";
 
-export interface WeaponCardProps {
+export interface WeaponCardProps extends HasSxProps {
   weapon: Weapon;
-  sx?: SxProps;
   onClick?(): void;
 }
 
@@ -50,16 +49,7 @@ export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
 
             <Stack sx={{ px: 2, gap: 1 }}>
               <WeaponStarsSelector stars={stars} readOnly />
-              <Stack direction="row" sx={{ gap: 0.5 }}>
-                {matrixSlots.getSlots().map((slot) => (
-                  <MatrixSlotIcon
-                    key={slot.acceptsType.id}
-                    type={slot.acceptsType}
-                    matrix={slot.matrix}
-                    elevation={1}
-                  />
-                ))}
-              </Stack>
+              <MatrixSlotIconList matrixSlots={matrixSlots.getSlots()} />
             </Stack>
           </Stack>
         </CardContent>

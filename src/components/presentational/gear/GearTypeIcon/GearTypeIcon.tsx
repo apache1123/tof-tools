@@ -1,18 +1,17 @@
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import type { SxProps } from "@mui/material";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
 import type { GearTypeId } from "../../../../definitions/gear-types";
 import { normalCaseToKebabCase } from "../../../../utils/string-utils";
+import type { HasSxProps } from "../../../helpers/has-sx-props";
 
-export interface GearTypeIconProps {
+export interface GearTypeIconProps extends HasSxProps {
   id: GearTypeId | undefined;
   size?: number;
   isTitan?: boolean;
   monochromeBlack?: boolean;
   monochromeWhite?: boolean;
-  sx?: SxProps;
 }
 
 export const GearTypeIcon = ({

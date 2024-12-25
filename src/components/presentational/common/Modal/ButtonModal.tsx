@@ -1,21 +1,18 @@
-import type { ButtonProps, IconButtonProps } from "@mui/material";
-import { Button, IconButton, Tooltip } from "@mui/material";
 import { type ReactNode, useState } from "react";
 
+import { Button, type ButtonProps } from "../Button/Button";
 import type { StyledModalProps } from "./StyledModal";
 import { StyledModal } from "./StyledModal";
 
-export interface ButtonModalProps extends Omit<StyledModalProps, "open"> {
-  buttonText?: ReactNode;
-  icon?: ReactNode;
-  iconButton?: boolean;
+export interface ButtonModalProps
+  extends Omit<StyledModalProps, "open">,
+    Omit<ButtonProps, "children"> {
+  buttonContent?: ReactNode;
   openByDefault?: boolean;
-  buttonProps?: ButtonProps;
-  iconButtonProps?: IconButtonProps;
 }
 
 export function ButtonModal({
-  buttonText,
+  buttonContent,
   onConfirm,
   onClose,
   icon,
@@ -41,22 +38,16 @@ export function ButtonModal({
 
   return (
     <>
-      {iconButton && icon ? (
-        <Tooltip title={buttonText} placement="right">
-          <IconButton onClick={handleOpen} color="primary" {...iconButtonProps}>
-            {icon}
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Button
-          onClick={handleOpen}
-          variant="outlined"
-          startIcon={icon}
-          {...buttonProps}
-        >
-          {buttonText}
-        </Button>
-      )}
+      <Button
+        icon={icon}
+        iconButton={iconButton}
+        buttonProps={buttonProps}
+        iconButtonProps={iconButtonProps}
+        onClick={handleOpen}
+      >
+        {buttonContent}
+      </Button>
+
       <StyledModal
         {...rest}
         open={open}

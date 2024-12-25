@@ -1,16 +1,15 @@
-import type { SxProps } from "@mui/material";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
 import { normalCaseToKebabCase } from "../../../../utils/string-utils";
+import type { HasSxProps } from "../../../helpers/has-sx-props";
 
-export interface MatrixTypeIconProps {
+export interface MatrixTypeIconProps extends HasSxProps {
   id: MatrixTypeId;
   displayName: string;
   variant?: "small" | "large";
   size?: number;
-  sx?: SxProps;
 }
 
 export function MatrixTypeIcon({

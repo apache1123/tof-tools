@@ -1,10 +1,9 @@
 import InfoIcon from "@mui/icons-material/Info";
-import type { SxProps} from "@mui/material";
 import { Tooltip } from "@mui/material";
 
-export interface ComingSoonIconProps {
-  sx?: SxProps;
-}
+import type { HasSxProps } from "../../../helpers/has-sx-props";
+
+export type ComingSoonIconProps = HasSxProps;
 
 export function ComingSoonIcon({ sx }: ComingSoonIconProps) {
   return (

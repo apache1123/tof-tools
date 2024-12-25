@@ -1,17 +1,16 @@
-import type { CardProps, SxProps } from "@mui/material";
 import { Card } from "@mui/material";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
 import type { MatrixType } from "../../../../models/matrix/matrix-type";
+import type { HasElevationProp } from "../../../helpers/has-elevation-prop";
+import type { HasSxProps } from "../../../helpers/has-sx-props";
 import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
-export interface MatrixSlotIconProps {
+export interface MatrixSlotIconProps extends HasSxProps, HasElevationProp {
   type: MatrixType;
   matrix?: Matrix;
   size?: number;
-  sx?: SxProps;
-  elevation?: CardProps["elevation"];
 }
 
 export function MatrixSlotIcon({
