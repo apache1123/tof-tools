@@ -1,4 +1,5 @@
 import { getWeaponDefinition } from "../../../definitions/weapons/weapon-definitions";
+import type { Id } from "../../../models/identifiable";
 import { Weapon } from "../../../models/weapon/weapon";
 import type { Db } from "../../db";
 import { ValtioRepository } from "../../repository/valtio-repository";
@@ -14,9 +15,16 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDto> {
     super(key, storage, db);
   }
 
-  protected override cleanUpRelatedEntitiesOnItemRemoval(): void {
-    // TODO: This will need to remove the weapon from a team once the team repo is set up
-    return;
+  protected override cleanUpRelatedEntitiesOnItemRemoval(
+    removedItemId: Id,
+  ): void {
+    // Remove matrix presets that reference the removed weapon
+    const matrixPresetRepo = this.db.get("matrixPresets");
+    matrixPresetRepo.items.forEach((preset) => {
+      if (preset.weaponId === removedItemId) {
+        matrixPresetRepo.remove(preset.id);
+      }
+    });
   }
 
   protected override itemToDto(item: Weapon): WeaponDto {
