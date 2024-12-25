@@ -3,21 +3,27 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
+import type { MatrixPreset } from "../../../../models/matrix/matrix-preset";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
 import type { Weapon } from "../../../../models/weapon/weapon";
 import { MatrixSelectorModal } from "../../../presentational/matrix/MatrixSelectorModal/MatrixSelectorModal";
 import { MatrixSlotCardList } from "../../../presentational/matrix/MatrixSlotCardList/MatrixSlotCardList";
 import { WeaponDefinitionCardContent } from "../../../presentational/weapon/WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../../../presentational/weapon/WeaponStarsSelector/WeaponStarsSelector";
+import { WeaponMatrixPresetsEditor } from "../WeaponMatrixPresetsEditor/WeaponMatrixPresetsEditor";
 
 export interface WeaponEditorProps {
   weaponProxy: Weapon;
-  allMatricesProxy: Matrix[];
+  allMatrixProxies: Matrix[];
+  matrixPresetProxies: MatrixPreset[];
+  onAddPreset(): void;
 }
 
 export function WeaponEditor({
   weaponProxy,
-  allMatricesProxy,
+  allMatrixProxies,
+  matrixPresetProxies,
+  onAddPreset,
 }: WeaponEditorProps) {
   const {
     definitionId,
@@ -34,7 +40,7 @@ export function WeaponEditor({
     MatrixTypeId | undefined
   >(undefined);
 
-  const allMatrices = useSnapshot(allMatricesProxy) as Matrix[];
+  const allMatrices = useSnapshot(allMatrixProxies) as Matrix[];
   const filteredMatrices = addingMatrixTypeId
     ? allMatrices.filter((matrix) => matrix.type.id === addingMatrixTypeId)
     : [];
@@ -63,13 +69,18 @@ export function WeaponEditor({
             setAddingMatrixTypeId(matrixSlot.acceptsType.id);
           }}
         />
+        <WeaponMatrixPresetsEditor
+          weaponProxy={weaponProxy}
+          matrixPresetProxies={matrixPresetProxies}
+          onAdd={onAddPreset}
+        />
       </Stack>
 
       <MatrixSelectorModal
         open={!!addingMatrixTypeId}
         matrices={filteredMatrices}
         onSelect={(matrix) => {
-          const matrixProxy = allMatricesProxy.find(
+          const matrixProxy = allMatrixProxies.find(
             (matrixProxy) => matrixProxy.id === matrix.id,
           );
           if (!matrixProxy) throw new Error("Matrix not found");

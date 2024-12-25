@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { exampleMatrix } from "../../../__fixtures__/matrix";
+import { exampleMatrix1 } from "../../../__fixtures__/matrix";
 import { MatrixCard } from "./MatrixCard";
 
 const meta: Meta<typeof MatrixCard> = {
@@ -11,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof MatrixCard>;
 
-const matrix = exampleMatrix;
+const matrix = exampleMatrix1;
 
 export const Default: Story = {
   args: { matrix },

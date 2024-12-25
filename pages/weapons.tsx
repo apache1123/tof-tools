@@ -6,7 +6,7 @@ import { Weapons } from "../src/features/weapons/Weapons";
 
 export default function WeaponsPage() {
   useEffect(() => {
-    db.init(["characters", "matrices", "weapons"]);
+    db.init(["characters", "matrices", "weapons", "matrixPresets"]);
   }, []);
 
   return (

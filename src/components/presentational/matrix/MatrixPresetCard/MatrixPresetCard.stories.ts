@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { exampleMatrixPreset } from "../../../__fixtures__/matrix-preset";
+import { exampleMatrixPreset1 } from "../../../__fixtures__/matrix-preset";
 import { MatrixPresetCard } from "./MatrixPresetCard";
 
 const meta: Meta<typeof MatrixPresetCard> = {
@@ -12,5 +12,5 @@ export default meta;
 type Story = StoryObj<typeof MatrixPresetCard>;
 
 export const Default: Story = {
-  args: { matrixSlots: exampleMatrixPreset.matrixSlots.getSlots() },
+  args: { matrixSlots: exampleMatrixPreset1.matrixSlots.getSlots() },
 };

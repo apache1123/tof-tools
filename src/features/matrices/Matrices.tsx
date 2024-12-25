@@ -24,10 +24,10 @@ export function Matrices() {
 
   const matrixRepoProxy = db.get("matrices");
 
-  const { matricesSnap } = useMatrices(selectedCharacterId);
+  const { matrixSnaps } = useMatrices(selectedCharacterId);
 
   const { filter } = useSnapshot(matrixState) as MatrixState;
-  const filteredMatrices = getFilteredMatrices(matricesSnap, filter);
+  const filteredMatrices = getFilteredMatrices(matrixSnaps, filter);
 
   const [isAddingMatrix, setIsAddingMatrix] = useState(false);
   const [addingDefinition, setAddingDefinition] = useState<

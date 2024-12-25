@@ -9,12 +9,12 @@ export function useMatrices(selectedCharacterId: CharacterId | undefined) {
   const matrixRepoProxy = db.get("matrices");
   const matrixRepoSnap = useSnapshot(matrixRepoProxy);
 
-  const matricesProxy = matrixRepoProxy.filter(filterByCharacter);
-  const matricesSnap = matrixRepoSnap.filter(filterByCharacter);
+  const matrixProxies = matrixRepoProxy.filter(filterByCharacter);
+  const matrixSnaps = matrixRepoSnap.filter(filterByCharacter);
 
   return {
-    matricesProxy,
-    matricesSnap,
+    matrixProxies,
+    matrixSnaps,
   };
 
   function filterByCharacter(matrix: Matrix) {

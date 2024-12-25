@@ -26,4 +26,11 @@ export class MatrixSlots {
     const { mind, memory, belief, emotion } = this._slots;
     return [mind, memory, belief, emotion];
   }
+
+  /** Equip the matrix (or empty) from each slot of the given slots to this */
+  public equipMatricesFrom(slots: MatrixSlots) {
+    for (const slot of slots.getSlots()) {
+      this.getSlot(slot.acceptsType.id).matrix = slot.matrix;
+    }
+  }
 }
