@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { weaponDefinitions } from "../../../../definitions/weapons/weapon-definitions";
+import { getWeaponDefinition } from "../../../../definitions/weapons/weapon-definitions";
 import { WeaponDefinitionCard } from "./WeaponDefinitionCard";
 
 const meta: Meta<typeof WeaponDefinitionCard> = {
@@ -11,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof WeaponDefinitionCard>;
 
-const definition = weaponDefinitions.byId["King"];
+const definition = getWeaponDefinition("King");
 export const Default: Story = {
   args: { ...definition },
 };

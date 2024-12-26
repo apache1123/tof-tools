@@ -23,11 +23,11 @@ export default function Stub() {
 //   useEffect(() => {
 //     const loadout = getLoadoutWithDefaultStats("Volt");
 //
-//     const weapon1 = new Weapon(weaponDefinitions.byId["Brevey"]);
+//     const weapon1 = new Weapon(getWeaponDefinition("Brevey"));
 //     weapon1.stars = 6;
-//     const weapon2 = new Weapon(weaponDefinitions.byId["Rei"]);
+//     const weapon2 = new Weapon(getWeaponDefinition("Rei"));
 //     weapon2.stars = 5;
-//     const weapon3 = new Weapon(weaponDefinitions.byId["Nan Yin"]);
+//     const weapon3 = new Weapon(getWeaponDefinition("Nan Yin"));
 //
 //     loadout.team.weapon1 = weapon1;
 //     loadout.team.weapon2 = weapon2;

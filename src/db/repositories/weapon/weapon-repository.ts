@@ -8,7 +8,7 @@ import {
   dtoToMatrixSlots,
   matrixSlotsToDto,
 } from "../matrix/dtos/matrix-slots-dto";
-import type { WeaponDto } from "./weapon-dto";
+import type { WeaponDto } from "./dtos/weapon-dto";
 
 export class WeaponRepository extends ValtioRepository<Weapon, WeaponDto> {
   public constructor(key: string, storage: DbStorage, db: Db) {
@@ -24,6 +24,16 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDto> {
       if (preset.weaponId === removedItemId) {
         matrixPresetRepo.remove(preset.id);
       }
+    });
+
+    // Remove the weapon reference from any teams that use this deleted weapon
+    const teamRepo = this.db.get("teams");
+    teamRepo.items.forEach((team) => {
+      team.weaponSlots.forEach((slot) => {
+        if (slot.weapon?.id === removedItemId) {
+          slot.weapon = undefined;
+        }
+      });
     });
   }
 

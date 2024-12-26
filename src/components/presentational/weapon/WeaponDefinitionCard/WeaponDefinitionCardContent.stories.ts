@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { weaponDefinitions } from "../../../../definitions/weapons/weapon-definitions";
+import { getWeaponDefinition } from "../../../../definitions/weapons/weapon-definitions";
 import { WeaponDefinitionCardContent } from "./WeaponDefinitionCardContent";
 
 const meta: Meta<typeof WeaponDefinitionCardContent> = {
@@ -11,11 +11,11 @@ export default meta;
 
 type Story = StoryObj<typeof WeaponDefinitionCardContent>;
 
-const definition = weaponDefinitions.byId["King"];
+const definition = getWeaponDefinition("King");
 export const Default: Story = {
   args: { ...definition },
 };
 
 export const NolaVariation: Story = {
-  args: { ...weaponDefinitions.byId["Nola (Volt-Frost)"] },
+  args: { ...getWeaponDefinition("Nola (Volt-Frost)") },
 };

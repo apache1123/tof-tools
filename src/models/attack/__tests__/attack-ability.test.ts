@@ -2,7 +2,7 @@ import type { MockProxy } from "jest-mock-extended";
 import { mock } from "jest-mock-extended";
 
 import type { AttackType } from "../../../definitions/attack-type";
-import { weaponDefinitions } from "../../../definitions/weapons/weapon-definitions";
+import { getWeaponDefinition } from "../../../definitions/weapons/weapon-definitions";
 import type { AbilityId } from "../../ability/ability-id";
 import type { AbilityRequirements } from "../../ability/ability-requirements";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
@@ -60,7 +60,7 @@ describe("Attack ability", () => {
     eventManager = new EventManager();
     currentTick = new CurrentTick(0, 1000, eventManager);
     characterId = "characterId";
-    weapon = new Weapon(weaponDefinitions.byId["Huang (Mimi)"], characterId);
+    weapon = new Weapon(getWeaponDefinition("Huang (Mimi)"), characterId);
     elementalType = { defaultElementalType: "Altered" };
     type = "normal";
     isForegroundAttack = true;
@@ -68,7 +68,7 @@ describe("Attack ability", () => {
     finalDamageModifiers = mock<FinalDamageModifiersDefinition>();
     hitCount = mock<AttackHitCount>();
     doesNotTriggerEvents = false;
-    anotherWeapon = new Weapon(weaponDefinitions.byId["Meryl"], characterId);
+    anotherWeapon = new Weapon(getWeaponDefinition("Meryl"), characterId);
     activeWeapon = new CombatSimulatorActiveWeapon(
       [weapon, anotherWeapon],
       new ActiveWeaponTimeline(100000),
@@ -140,7 +140,7 @@ describe("Attack ability", () => {
     describe("When the attack is a foreground attack and the attack's weapon is not the active weapon", () => {
       beforeEach(() => {
         activeWeapon.switchTo(
-          new Weapon(weaponDefinitions.byId["Meryl"], characterId),
+          new Weapon(getWeaponDefinition("Meryl"), characterId),
         );
         currentTick.advance(); // Active weapon takes effect at the next tick
       });
@@ -222,7 +222,7 @@ describe("Attack ability", () => {
       describe("The attack's weapon is not the active weapon", () => {
         beforeEach(() => {
           activeWeapon.switchTo(
-            new Weapon(weaponDefinitions.byId["Meryl"], characterId),
+            new Weapon(getWeaponDefinition("Meryl"), characterId),
           );
           currentTick.advance(); // Active weapon takes effect at the next tick
         });

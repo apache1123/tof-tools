@@ -6,7 +6,7 @@ import { WeaponDefinitionSelectorModal } from "../../components/presentational/w
 import { WeaponList } from "../../components/presentational/weapon/WeaponList/WeaponList";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Repository } from "../../db/repository/types/repository";
-import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions";
+import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponId } from "../../models/weapon/weapon";
 import { Weapon } from "../../models/weapon/weapon";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
@@ -22,11 +22,10 @@ export function Weapons() {
     ? weaponRepo.filter((weapon) => weapon.characterId === selectedCharacterId)
     : [];
 
-  const unusedWeaponDefinitions = weaponDefinitions.allIds
-    .filter((id) => {
-      return !weapons.some((weapon) => weapon.definitionId === id);
-    })
-    .map((id) => weaponDefinitions.byId[id]);
+  const unusedWeaponDefinitions = getAllWeaponDefinitions().filter(
+    (definition) =>
+      !weapons.some((weapon) => weapon.definitionId === definition.id),
+  );
 
   const [isAddingWeapon, setIsAddingWeapon] = useState(false);
   const [editingWeaponId, setEditingWeaponId] = useState<WeaponId | undefined>(

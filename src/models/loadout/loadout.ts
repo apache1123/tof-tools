@@ -3,6 +3,8 @@ import { nanoid } from "nanoid";
 
 import type { GearSetDtoV2 } from "../../db/repositories/gear/deprecated/gear-set-dto";
 import type { GearSetDto } from "../../db/repositories/gear/dtos/gear-set-dto";
+import type { TeamDtoV1 } from "../../db/repositories/team/deprecated/team-dto";
+import type { TeamDto } from "../../db/repositories/team/team-dto";
 import type { Dto } from "../../db/repository/dto";
 import { defaultCritDamagePercent } from "../../definitions/damage-formula";
 import type {
@@ -18,7 +20,7 @@ import { ElementalAttackFlats } from "../elemental-attack-flats";
 import { Gear } from "../gear/gear";
 import type { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
-import type { Team, TeamDtoV1, TeamDtoV2 } from "../team/team";
+import type { Team } from "../team/team";
 
 /** A loadout is a preset combination of weapons & matrices (team), gear set, trait etc. */
 export class Loadout {
@@ -225,7 +227,7 @@ export interface LoadoutDtoV2 extends Dto {
   id: string;
   characterId: string;
   name: string;
-  team: TeamDtoV2;
+  team: TeamDto;
   gearSet: GearSetDto;
   simulacrumTraitId: SimulacrumName | undefined;
   useOverrideStats: boolean;

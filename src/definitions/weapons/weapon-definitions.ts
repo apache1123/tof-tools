@@ -61,7 +61,7 @@ export type WeaponName =
   | "Nola (Physical-Flame)"
   | "Nola (Volt-Frost)";
 
-export const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
+const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   allIds: [
     "Alyss",
     "Anka",
@@ -174,4 +174,8 @@ export function getWeaponDefinition(name: WeaponName) {
   if (!weaponDefinition)
     throw new Error(`Cannot find weapon definition ${name}`);
   return weaponDefinition;
+}
+
+export function getAllWeaponDefinitions() {
+  return weaponDefinitions.allIds.map((id) => getWeaponDefinition(id));
 }

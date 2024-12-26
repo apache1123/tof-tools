@@ -6,7 +6,7 @@ import { getGearType } from "../../definitions/gear-types";
 import { teamBuffs } from "../../definitions/team-buffs";
 import type { AbilityRequirementsDefinition } from "../../definitions/types/ability/ability-requirements-definition";
 import type { BuffAbilityDefinition as BuffAbilityDefinition } from "../../definitions/types/buff/buff-ability-definition";
-import { weaponDefinitions } from "../../definitions/weapons/weapon-definitions";
+import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import { GearComparerActiveWeapon } from "../active-weapon/gear-comparer-active-weapon";
 import { ActiveBuffs } from "../buff/active-buff/active-buffs";
@@ -218,7 +218,7 @@ export class GearCompare {
     // It doesn't matter what weapon is used as long as the element of the attack hit matches and all buffs apply
     const weapon = this.basisLoadout.team.weapons.length
       ? this.basisLoadout.team.weapons[0]
-      : new Weapon(weaponDefinitions.byId["Cocoritter"], this.character.id);
+      : new Weapon(getWeaponDefinition("Cocoritter"), this.character.id);
 
     // Use a mock attack hit that matches the element and applies all buffs
     return {

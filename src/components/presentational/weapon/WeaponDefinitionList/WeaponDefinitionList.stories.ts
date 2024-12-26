@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { weaponDefinitions } from "../../../../definitions/weapons/weapon-definitions";
+import { getAllWeaponDefinitions } from "../../../../definitions/weapons/weapon-definitions";
 import { WeaponDefinitionList } from "./WeaponDefinitionList";
 
 const meta: Meta<typeof WeaponDefinitionList> = {
@@ -12,9 +12,5 @@ export default meta;
 type Story = StoryObj<typeof WeaponDefinitionList>;
 
 export const Default: Story = {
-  args: {
-    weaponDefinitions: weaponDefinitions.allIds.map(
-      (id) => weaponDefinitions.byId[id],
-    ),
-  },
+  args: { weaponDefinitions: getAllWeaponDefinitions() },
 };
