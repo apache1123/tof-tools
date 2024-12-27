@@ -1,15 +1,15 @@
 import { nanoid } from "nanoid";
 
 import type { Id } from "../identifiable";
-import type { WeaponId } from "../weapon/weapon";
-import { MatrixSlots } from "./matrix-slots";
+import { MatrixSlots } from "../matrix/matrix-slots";
+import type { WeaponId } from "./weapon";
 
-export type MatrixPresetId = Id;
+export type WeaponPresetId = Id;
 
-export class MatrixPreset {
+export class WeaponPreset {
   public constructor(
     weaponId: WeaponId,
-    id?: MatrixPresetId,
+    id?: WeaponPresetId,
     matrixSlots?: MatrixSlots,
   ) {
     this.id = id ?? nanoid();
@@ -17,7 +17,7 @@ export class MatrixPreset {
     this.matrixSlots = matrixSlots ?? new MatrixSlots();
   }
 
-  public readonly id: MatrixPresetId;
+  public readonly id: WeaponPresetId;
   public readonly weaponId: WeaponId;
   public readonly matrixSlots: MatrixSlots;
 }

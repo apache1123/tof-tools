@@ -2,9 +2,9 @@ import type { Character } from "../models/character/character";
 import type { Gear } from "../models/gear/gear";
 import type { GearSetPreset } from "../models/gear/gear-set-preset";
 import type { Matrix } from "../models/matrix/matrix";
-import type { MatrixPreset } from "../models/matrix/matrix-preset";
 import type { Team } from "../models/team/team";
 import type { Weapon } from "../models/weapon/weapon";
+import type { WeaponPreset } from "../models/weapon/weapon-preset";
 import type { Repository } from "./repository/types/repository";
 
 export interface RepositoryMap {
@@ -13,7 +13,7 @@ export interface RepositoryMap {
   gearSetPresets: Repository<GearSetPreset>;
   matrices: Repository<Matrix>;
   weapons: Repository<Weapon>;
-  matrixPresets: Repository<MatrixPreset>;
+  weaponPresets: Repository<WeaponPreset>;
   teams: Repository<Team>;
 }
 

@@ -18,11 +18,11 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDto> {
   protected override cleanUpRelatedEntitiesOnItemRemoval(
     removedItemId: Id,
   ): void {
-    // Remove matrix presets that reference the removed weapon
-    const matrixPresetRepo = this.db.get("matrixPresets");
-    matrixPresetRepo.items.forEach((preset) => {
+    // Remove weapon presets that reference the removed weapon
+    const weaponPresetRepo = this.db.get("weaponPresets");
+    weaponPresetRepo.items.forEach((preset) => {
       if (preset.weaponId === removedItemId) {
-        matrixPresetRepo.remove(preset.id);
+        weaponPresetRepo.remove(preset.id);
       }
     });
 

@@ -4,20 +4,20 @@ import { Card, Stack } from "@mui/material";
 import type { MatrixSlot } from "../../../../models/matrix/matrix-slot";
 import type { HasSxProps } from "../../../helpers/has-sx-props";
 import { Button } from "../../common/Button/Button";
-import { MatrixSlotIconList } from "../MatrixSlotIconList/MatrixSlotIconList";
+import { MatrixSlotIconList } from "../../matrix/MatrixSlotIconList/MatrixSlotIconList";
 
-export interface MatrixPresetCardProps extends HasSxProps {
+export interface WeaponPresetCardProps extends HasSxProps {
   matrixSlots: MatrixSlot[];
   onSave?(): void;
   onUse?(): void;
 }
 
-export function MatrixPresetCard({
+export function WeaponPresetCard({
   matrixSlots,
   onSave,
   onUse,
   sx,
-}: MatrixPresetCardProps) {
+}: WeaponPresetCardProps) {
   return (
     <Card sx={{ width: "fit-content", p: 2, ...sx }}>
       <Stack sx={{ gap: 1 }}>

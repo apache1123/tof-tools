@@ -1,19 +1,22 @@
 import type { Matrix } from "../../../../models/matrix/matrix";
-import { MatrixPreset } from "../../../../models/matrix/matrix-preset";
+import { WeaponPreset } from "../../../../models/weapon/weapon-preset";
 import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
-import type { MatrixSlotsDto } from "./matrix-slots-dto";
-import { dtoToMatrixSlots, matrixSlotsToDto } from "./matrix-slots-dto";
+import type { MatrixSlotsDto } from "../../matrix/dtos/matrix-slots-dto";
+import {
+  dtoToMatrixSlots,
+  matrixSlotsToDto,
+} from "../../matrix/dtos/matrix-slots-dto";
 
-export interface MatrixPresetDto extends Dto {
+export interface WeaponPresetDto extends Dto {
   id: string;
   weaponId: string;
   matrixSlots: MatrixSlotsDto;
   version: 1;
 }
 
-export function matrixPresetToDto(matrixPreset: MatrixPreset): MatrixPresetDto {
-  const { id, weaponId, matrixSlots } = matrixPreset;
+export function weaponPresetToDto(weaponPreset: WeaponPreset): WeaponPresetDto {
+  const { id, weaponId, matrixSlots } = weaponPreset;
   return {
     id,
     weaponId,
@@ -22,12 +25,12 @@ export function matrixPresetToDto(matrixPreset: MatrixPreset): MatrixPresetDto {
   };
 }
 
-export function dtoToMatrixPreset(
-  dto: MatrixPresetDto,
+export function dtoToWeaponPreset(
+  dto: WeaponPresetDto,
   matrixRepository: Repository<Matrix>,
-): MatrixPreset {
+): WeaponPreset {
   const { id, weaponId, matrixSlots } = dto;
-  return new MatrixPreset(
+  return new WeaponPreset(
     weaponId,
     id,
     dtoToMatrixSlots(matrixSlots, matrixRepository),

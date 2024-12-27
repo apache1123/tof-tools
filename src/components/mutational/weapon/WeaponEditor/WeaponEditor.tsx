@@ -3,26 +3,26 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
-import type { MatrixPreset } from "../../../../models/matrix/matrix-preset";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
 import type { Weapon } from "../../../../models/weapon/weapon";
+import type { WeaponPreset } from "../../../../models/weapon/weapon-preset";
 import { MatrixSelectorModal } from "../../../presentational/matrix/MatrixSelectorModal/MatrixSelectorModal";
 import { MatrixSlotCardList } from "../../../presentational/matrix/MatrixSlotCardList/MatrixSlotCardList";
 import { WeaponDefinitionCardContent } from "../../../presentational/weapon/WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../../../presentational/weapon/WeaponStarsSelector/WeaponStarsSelector";
-import { WeaponMatrixPresetsEditor } from "../WeaponMatrixPresetsEditor/WeaponMatrixPresetsEditor";
+import { WeaponPresetsEditor } from "../WeaponPresetsEditor/WeaponPresetsEditor";
 
 export interface WeaponEditorProps {
   weaponProxy: Weapon;
   allMatrixProxies: Matrix[];
-  matrixPresetProxies: MatrixPreset[];
+  weaponPresetProxies: WeaponPreset[];
   onAddPreset(): void;
 }
 
 export function WeaponEditor({
   weaponProxy,
   allMatrixProxies,
-  matrixPresetProxies,
+  weaponPresetProxies,
   onAddPreset,
 }: WeaponEditorProps) {
   const {
@@ -73,9 +73,9 @@ export function WeaponEditor({
               undefined;
           }}
         />
-        <WeaponMatrixPresetsEditor
+        <WeaponPresetsEditor
           weaponProxy={weaponProxy}
-          matrixPresetProxies={matrixPresetProxies}
+          weaponPresetProxies={weaponPresetProxies}
           onAdd={onAddPreset}
         />
       </Stack>
