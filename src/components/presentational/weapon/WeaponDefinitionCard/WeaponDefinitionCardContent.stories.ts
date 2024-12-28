@@ -19,3 +19,7 @@ export const Default: Story = {
 export const NolaVariation: Story = {
   args: { ...getWeaponDefinition("Nola (Volt-Frost)") },
 };
+
+export const WithoutDescription: Story = {
+  args: { ...definition, showWeaponDescription: false },
+};

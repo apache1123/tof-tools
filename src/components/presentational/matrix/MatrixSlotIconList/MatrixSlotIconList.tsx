@@ -5,13 +5,14 @@ import type { MatrixSlotIconProps } from "../MatrixSlotIcon/MatrixSlotIcon";
 import { MatrixSlotIcon } from "../MatrixSlotIcon/MatrixSlotIcon";
 
 export interface MatrixSlotIconListProps
-  extends Pick<MatrixSlotIconProps, "size"> {
+  extends Pick<MatrixSlotIconProps, "width" | "height"> {
   matrixSlots: MatrixSlot[];
 }
 
 export function MatrixSlotIconList({
   matrixSlots,
-  size,
+  width,
+  height,
 }: MatrixSlotIconListProps) {
   return (
     <Stack direction="row" sx={{ gap: 0.5 }}>
@@ -20,7 +21,8 @@ export function MatrixSlotIconList({
           key={slot.acceptsType.id}
           type={slot.acceptsType}
           matrix={slot.matrix}
-          size={size}
+          width={width}
+          height={height}
           elevation={1}
         />
       ))}

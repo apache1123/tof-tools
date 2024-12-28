@@ -1,28 +1,14 @@
-import { Card, CardActionArea, CardContent, Stack } from "@mui/material";
+import { Card, CardActionArea, CardContent } from "@mui/material";
 
-import type { Weapon } from "../../../../models/weapon/weapon";
 import type { HasSxProps } from "../../../helpers/has-sx-props";
-import { MatrixSlotIconList } from "../../matrix/MatrixSlotIconList/MatrixSlotIconList";
-import { WeaponDefinitionCardContent } from "../WeaponDefinitionCard/WeaponDefinitionCardContent";
-import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector";
+import type { WeaponCardContentProps } from "./WeaponCardContent";
+import { WeaponCardContent } from "./WeaponCardContent";
 
-export interface WeaponCardProps extends HasSxProps {
-  weapon: Weapon;
+export interface WeaponCardProps extends WeaponCardContentProps, HasSxProps {
   onClick?(): void;
 }
 
 export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
-  const {
-    definitionId,
-    weaponDisplayName,
-    simulacrumDisplayName,
-    iconWeaponName,
-    elementalIcon,
-    type,
-    stars,
-    matrixSlots,
-  } = weapon;
-
   return (
     <Card sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
@@ -36,22 +22,8 @@ export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
           alignItems: "flex-start",
         }}
       >
-        <CardContent sx={{ p: 0 }}>
-          <Stack sx={{ gap: 1, alignItems: "flex-start", pb: 2 }}>
-            <WeaponDefinitionCardContent
-              id={definitionId}
-              weaponDisplayName={weaponDisplayName}
-              simulacrumDisplayName={simulacrumDisplayName}
-              iconWeaponName={iconWeaponName}
-              elementalIcon={elementalIcon}
-              type={type}
-            />
-
-            <Stack sx={{ px: 2, gap: 1 }}>
-              <WeaponStarsSelector stars={stars} readOnly />
-              <MatrixSlotIconList matrixSlots={matrixSlots.getSlots()} />
-            </Stack>
-          </Stack>
+        <CardContent sx={{ p: 2, pt: 0 }}>
+          <WeaponCardContent weapon={weapon} />
         </CardContent>
       </CardActionArea>
     </Card>

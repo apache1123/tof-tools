@@ -15,6 +15,7 @@ export interface WeaponDefinitionCardContentProps {
   elementalIcon: FusionWeaponElementalType;
   type: WeaponType;
   iconSize?: number;
+  showWeaponDescription?: boolean;
 }
 
 export function WeaponDefinitionCardContent({
@@ -25,27 +26,30 @@ export function WeaponDefinitionCardContent({
   elementalIcon,
   type,
   iconSize,
+  showWeaponDescription = true,
 }: WeaponDefinitionCardContentProps) {
   return (
     <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
       <WeaponIcon weaponName={iconWeaponName ?? id} size={iconSize} />
 
-      <Stack sx={{ pr: 2 }}>
-        <Typography variant="body1">{weaponDisplayName}</Typography>
+      {showWeaponDescription && (
+        <Stack sx={{ pr: 2 }}>
+          <Typography variant="body1">{weaponDisplayName}</Typography>
 
-        <Typography
-          variant="body2"
-          gutterBottom
-          sx={{ color: (theme) => theme.palette.text.secondary }}
-        >
-          {simulacrumDisplayName}
-        </Typography>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{ color: (theme) => theme.palette.text.secondary }}
+          >
+            {simulacrumDisplayName}
+          </Typography>
 
-        <Stack direction="row">
-          <ElementalTypeIcon elementalType={elementalIcon} />
-          <WeaponTypeIcon type={type} />
+          <Stack direction="row">
+            <ElementalTypeIcon elementalType={elementalIcon} />
+            <WeaponTypeIcon type={type} />
+          </Stack>
         </Stack>
-      </Stack>
+      )}
     </Stack>
   );
 }

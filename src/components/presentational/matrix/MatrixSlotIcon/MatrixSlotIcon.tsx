@@ -1,30 +1,33 @@
-import { Card } from "@mui/material";
+import { Card, Stack } from "@mui/material";
 
 import type { Matrix } from "../../../../models/matrix/matrix";
 import type { MatrixType } from "../../../../models/matrix/matrix-type";
 import type { HasElevationProp } from "../../../helpers/has-elevation-prop";
 import type { HasSxProps } from "../../../helpers/has-sx-props";
 import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
+import { MatrixStarsSelector } from "../MatrixStarsSelector/MatrixStarsSelector";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
 export interface MatrixSlotIconProps extends HasSxProps, HasElevationProp {
   type: MatrixType;
   matrix?: Matrix;
-  size?: number;
+  width?: number;
+  height?: number;
 }
 
 export function MatrixSlotIcon({
   type,
   matrix,
-  size = 50,
+  width = 70,
+  height = 90,
   sx,
   elevation,
 }: MatrixSlotIconProps) {
   return (
     <Card
       sx={{
-        width: size,
-        height: size,
+        width,
+        height,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -32,19 +35,24 @@ export function MatrixSlotIcon({
       }}
       elevation={elevation}
     >
-      {matrix ? (
-        <MatrixIcon
-          definitionId={matrix.definitionId}
-          displayName={matrix.displayName}
-          size={size * 0.9}
-        />
-      ) : (
-        <MatrixTypeIcon
-          id={type.id}
-          displayName={type.displayName}
-          size={size * 0.7}
-        />
-      )}
+      <Stack sx={{ justifyContent: "center", alignItems: "center" }}>
+        {matrix ? (
+          <>
+            <MatrixIcon
+              definitionId={matrix.definitionId}
+              displayName={matrix.displayName}
+              size={width * 0.9}
+            />
+            <MatrixStarsSelector stars={matrix.stars} size="small" readOnly />
+          </>
+        ) : (
+          <MatrixTypeIcon
+            id={type.id}
+            displayName={type.displayName}
+            size={width * 0.6}
+          />
+        )}
+      </Stack>
     </Card>
   );
 }
