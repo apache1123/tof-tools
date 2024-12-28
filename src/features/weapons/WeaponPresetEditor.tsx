@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { CardList } from "../../components/common/CardList/CardList";
 import type { EditorModalProps } from "../../components/common/Modal/EditorModal";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { MatrixSelectorModal } from "../../components/matrix/MatrixSelectorModal/MatrixSelectorModal";
-import { MatrixSlotCardList } from "../../components/matrix/MatrixSlotCardList/MatrixSlotCardList";
+import { MatrixSlotCard } from "../../components/matrix/MatrixSlotCard/MatrixSlotCard";
 import type { Matrix } from "../../models/matrix/matrix";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
@@ -34,17 +35,23 @@ export function WeaponPresetEditor({
     <EditorModal
       modalContent={
         <>
-          <MatrixSlotCardList
-            matrixSlots={matrixSlots.getSlots()}
-            onClick={(matrixSlot) => {
-              setAddingMatrixTypeId(matrixSlot.acceptsType.id);
-            }}
-            onRemove={(matrixSlot) => {
-              weaponPresetProxy.matrixSlots.getSlot(
-                matrixSlot.acceptsType.id,
-              ).matrix = undefined;
-            }}
-          />
+          <CardList>
+            {matrixSlots.getSlots().map((slot) => (
+              <MatrixSlotCard
+                key={slot.acceptsType.id}
+                type={slot.acceptsType}
+                matrix={slot.matrix}
+                onClick={() => {
+                  setAddingMatrixTypeId(slot.acceptsType.id);
+                }}
+                onRemove={() => {
+                  weaponPresetProxy.matrixSlots.getSlot(
+                    slot.acceptsType.id,
+                  ).matrix = undefined;
+                }}
+              />
+            ))}
+          </CardList>
 
           <MatrixSelectorModal
             open={!!addingMatrixTypeId}
@@ -64,6 +71,7 @@ export function WeaponPresetEditor({
           />
         </>
       }
+      maxWidth={false}
       {...props}
     />
   );

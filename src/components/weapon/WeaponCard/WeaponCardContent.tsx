@@ -3,7 +3,8 @@ import { Stack } from "@mui/material";
 import type { MatrixSlot } from "../../../models/matrix/matrix-slot";
 import type { Weapon } from "../../../models/weapon/weapon";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
-import { MatrixSlotIconList } from "../../matrix/MatrixSlotIconList/MatrixSlotIconList";
+import { CardList } from "../../common/CardList/CardList";
+import { MatrixSlotIcon } from "../../matrix/MatrixSlotIcon/MatrixSlotIcon";
 import { WeaponDefinitionCardContent } from "../WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector";
 
@@ -44,7 +45,18 @@ export function WeaponCardContent({
         <WeaponStarsSelector stars={stars} size="small" readOnly />
       </Stack>
 
-      {matrixSlots && <MatrixSlotIconList matrixSlots={matrixSlots} />}
+      {matrixSlots && (
+        <CardList gap={0.5}>
+          {matrixSlots.map((slot) => (
+            <MatrixSlotIcon
+              key={slot.acceptsType.id}
+              type={slot.acceptsType}
+              matrix={slot.matrix}
+              elevation={1}
+            />
+          ))}
+        </CardList>
+      )}
     </Stack>
   );
 }

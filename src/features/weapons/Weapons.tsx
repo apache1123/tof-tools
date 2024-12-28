@@ -2,8 +2,8 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { proxy, useSnapshot } from "valtio";
 
+import { WeaponCard } from "../../components/weapon/WeaponCard/WeaponCard";
 import { WeaponDefinitionSelectorModal } from "../../components/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
-import { WeaponList } from "../../components/weapon/WeaponList/WeaponList";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Repository } from "../../db/repository/types/repository";
 import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";
@@ -47,14 +47,16 @@ export function Weapons() {
               Add weapon
             </Button>
           }
-          items={
-            <WeaponList
-              weapons={weapons}
-              onClick={(id) => {
-                setEditingWeaponId(id);
+          items={weapons.map((weapon) => (
+            <WeaponCard
+              key={weapon.id}
+              weapon={weapon}
+              onClick={() => {
+                setEditingWeaponId(weapon.id);
               }}
+              sx={{ width: 280 }}
             />
-          }
+          ))}
         />
 
         <WeaponDefinitionSelectorModal

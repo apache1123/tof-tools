@@ -46,6 +46,8 @@ export function EditWeapon({ id, onFinishEdit }: EditWeaponProps) {
           weaponRepo.remove(weaponProxy.id);
           onFinishEdit?.();
         }}
+        maxWidth={false}
+        fullWidth
       />
     )
   );

@@ -1,7 +1,8 @@
 import { Card, CardActionArea, CardContent, CardHeader } from "@mui/material";
 
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
-import { GearSummaryCardList } from "../GearSummaryCardList/GearSummaryCardList";
+import { CardList } from "../../common/CardList/CardList";
+import { GearSummaryCard } from "../GearSummaryCard/GearSummaryCard";
 
 export interface GearSetPresetSummaryCardProps {
   preset: GearSetPreset;
@@ -30,7 +31,11 @@ export function GearSetPresetSummaryCard({
       >
         <CardHeader title={preset.name} />
         <CardContent>
-          <GearSummaryCardList gears={gears} elevation={1} />
+          <CardList direction="column" gap={0.5}>
+            {gears.map((gear) => (
+              <GearSummaryCard key={gear.id} gear={gear} elevation={1} />
+            ))}
+          </CardList>
         </CardContent>
       </CardActionArea>
     </Card>

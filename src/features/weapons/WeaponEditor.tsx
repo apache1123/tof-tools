@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { Button } from "../../components/common/Button/Button";
+import { CardList } from "../../components/common/CardList/CardList";
 import { WeaponDefinitionCardContent } from "../../components/weapon/WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponPresetCard } from "../../components/weapon/WeaponPresetCard/WeaponPresetCard";
 import { WeaponStarsSelector } from "../../components/weapon/WeaponStarsSelector/WeaponStarsSelector";
@@ -73,7 +74,7 @@ export function WeaponEditor({
             Add preset
           </Button>
 
-          <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
+          <CardList>
             {weaponPresets.map((weaponPreset) => {
               return (
                 <WeaponPresetCard
@@ -96,7 +97,7 @@ export function WeaponEditor({
                 />
               );
             })}
-          </Stack>
+          </CardList>
         </Box>
       </Box>
 

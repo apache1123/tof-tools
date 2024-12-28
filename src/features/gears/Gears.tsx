@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { GearCard } from "../../components/gear/GearCard/GearCard";
 import { GearFilter } from "../../components/gear/GearFilter/GearFilter";
-import { GearList } from "../../components/gear/GearList/GearList";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Gear } from "../../models/gear/gear";
 import type { GearState } from "../../states/gear/gear-state";
@@ -68,17 +68,18 @@ export function Gears() {
               Add new gear
             </Button>
           }
-          items={
-            <GearList
-              gears={filteredGears}
-              onClick={(id) => {
-                const gearProxy = gearRepoProxy.find(id);
+          items={filteredGears.map((gear) => (
+            <GearCard
+              key={gear.id}
+              gear={gear}
+              onClick={() => {
+                const gearProxy = gearRepoProxy.find(gear.id);
                 if (gearProxy) {
                   setEditingGear(gearProxy);
                 }
               }}
             />
-          }
+          ))}
         />
 
         <NewGearEditorModal

@@ -1,6 +1,8 @@
 import { Paper, Stack } from "@mui/material";
 import type React from "react";
 
+import { CardList } from "../../components/common/CardList/CardList";
+
 export interface InventoryLayoutProps {
   filter: React.ReactNode;
   actions: React.ReactNode;
@@ -19,7 +21,8 @@ export function InventoryLayout({
         {filter && <Paper sx={{ p: 2 }}>{filter}</Paper>}
         {actions}
       </Stack>
-      {items}
+
+      <CardList>{items}</CardList>
     </Stack>
   );
 }

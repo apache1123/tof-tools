@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { MatrixCard } from "../../components/matrix/MatrixCard/MatrixCard";
 import { MatrixDefinitionSelectorModal } from "../../components/matrix/MatrixDefinitionSelectorModal/MatrixDefinitionSelectorModal";
 import { MatrixFilterSelector } from "../../components/matrix/MatrixFilterSelector/MatrixFilterSelector";
-import { MatrixList } from "../../components/matrix/MatrixList/MatrixList";
 import { NewMatrixModal } from "../../components/matrix/NewMatrixModal/NewMatrixModal";
 import { db } from "../../db/reactive-local-storage-db";
 import { getAllMatrixDefinitions } from "../../definitions/matrices/matrix-definitions";
@@ -69,15 +69,16 @@ export function Matrices() {
               Add matrix
             </Button>
           }
-          items={
-            <MatrixList
-              matrices={filteredMatrices}
-              onClick={(id) => {
-                const matrixProxy = matrixRepoProxy.find(id);
+          items={filteredMatrices.map((matrix) => (
+            <MatrixCard
+              key={matrix.id}
+              matrix={matrix}
+              onClick={() => {
+                const matrixProxy = matrixRepoProxy.find(matrix.id);
                 if (matrixProxy) setEditingMatrix(matrixProxy);
               }}
             />
-          }
+          ))}
         />
 
         <MatrixDefinitionSelectorModal

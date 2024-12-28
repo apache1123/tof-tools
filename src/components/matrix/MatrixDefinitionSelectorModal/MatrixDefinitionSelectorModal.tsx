@@ -3,8 +3,9 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
 import type { MatrixDefinition } from "../../../definitions/types/matrix/matrix-definition";
+import { CardList } from "../../common/CardList/CardList";
 import { StyledModal } from "../../common/Modal/StyledModal";
-import { MatrixDefinitionList } from "../MatrixDefinitionList/MatrixDefinitionList";
+import { MatrixDefinitionCard } from "../MatrixDefinitionCard/MatrixDefinitionCard";
 
 export interface MatrixDefinitionSelectorModalProps {
   open: boolean;
@@ -41,10 +42,16 @@ export function MatrixDefinitionSelectorModal({
             size="small"
             sx={{ width: 200 }}
           />
-          <MatrixDefinitionList
-            matrixDefinitions={filteredMatrixDefinitions}
-            onClick={onSelect}
-          />
+          <CardList>
+            {filteredMatrixDefinitions.map((definition) => (
+              <MatrixDefinitionCard
+                key={definition.id}
+                definitionId={definition.id}
+                displayName={definition.displayName}
+                onClick={() => onSelect(definition)}
+              />
+            ))}
+          </CardList>
         </Stack>
       }
       showCancel

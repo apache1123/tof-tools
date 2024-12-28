@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { InventoryLayout } from "../../../features/common/InventoryLayout";
 import type { Gear, GearId } from "../../../models/gear/gear";
 import { StyledModal } from "../../common/Modal/StyledModal";
-import { GearList } from "../GearList/GearList";
+import { GearCard } from "../GearCard/GearCard";
 
 export interface GearSelectorModalProps {
   open: boolean;
@@ -36,7 +36,13 @@ export function GearSelectorModal({
               Add gear
             </Button>
           }
-          items={<GearList gears={gears} onClick={onSelect} />}
+          items={gears.map((gear) => (
+            <GearCard
+              key={gear.id}
+              gear={gear}
+              onClick={() => onSelect(gear.id)}
+            />
+          ))}
         />
       }
       showCancel

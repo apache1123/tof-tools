@@ -3,8 +3,9 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
 import type { WeaponDefinition } from "../../../definitions/types/weapon/weapon-definition";
+import { CardList } from "../../common/CardList/CardList";
 import { StyledModal } from "../../common/Modal/StyledModal";
-import { WeaponDefinitionList } from "../WeaponDefinitionList/WeaponDefinitionList";
+import { WeaponDefinitionCard } from "../WeaponDefinitionCard/WeaponDefinitionCard";
 
 export interface WeaponDefinitionSelectorModalProps {
   open: boolean;
@@ -44,12 +45,35 @@ export const WeaponDefinitionSelectorModal = ({
             size="small"
             sx={{ width: 200 }}
           />
-          <WeaponDefinitionList
-            weaponDefinitions={filteredWeaponDefinitions}
-            onClick={(weaponDefinition) => {
-              onSelect(weaponDefinition);
-            }}
-          />
+
+          <CardList>
+            {filteredWeaponDefinitions.map((definition) => {
+              const {
+                id,
+                weaponDisplayName,
+                simulacrumDisplayName,
+                iconWeaponName,
+                elementalIcon,
+                type,
+              } = definition;
+
+              return (
+                <WeaponDefinitionCard
+                  key={id}
+                  id={id}
+                  weaponDisplayName={weaponDisplayName}
+                  simulacrumDisplayName={simulacrumDisplayName}
+                  iconWeaponName={iconWeaponName}
+                  elementalIcon={elementalIcon}
+                  type={type}
+                  onClick={() => {
+                    onSelect(definition);
+                  }}
+                  sx={{ width: 280 }}
+                />
+              );
+            })}
+          </CardList>
         </Stack>
       }
       showCancel

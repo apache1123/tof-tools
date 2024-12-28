@@ -9,8 +9,8 @@ import {
   getFilteredMatrices,
 } from "../../../models/matrix/matrix-filter";
 import { StyledModal } from "../../common/Modal/StyledModal";
+import { MatrixCard } from "../MatrixCard/MatrixCard";
 import { MatrixFilterSelector } from "../MatrixFilterSelector/MatrixFilterSelector";
-import { MatrixList } from "../MatrixList/MatrixList";
 
 export interface MatrixSelectorModalProps {
   open: boolean;
@@ -44,17 +44,18 @@ export function MatrixSelectorModal({
             />
           }
           actions={undefined}
-          items={
-            <MatrixList
-              matrices={filteredMatrices}
-              onClick={(id) => {
+          items={filteredMatrices.map((matrix) => (
+            <MatrixCard
+              key={matrix.id}
+              matrix={matrix}
+              onClick={() => {
                 const matrix = filteredMatrices.find(
-                  (matrix) => matrix.id === id,
+                  (matrix) => matrix.id === matrix.id,
                 );
                 if (matrix) onSelect(matrix);
               }}
             />
-          }
+          ))}
         />
       }
       showCancel

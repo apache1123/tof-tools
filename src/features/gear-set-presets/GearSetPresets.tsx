@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
-import { GearSetPresetSummaryCardList } from "../../components/gear/GearSetPresetSummaryCardList/GearSetPresetSummaryCardList";
+import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Repository } from "../../db/repository/types/repository";
 import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
@@ -55,14 +55,15 @@ export function GearSetPresets() {
               Add gear preset
             </Button>
           }
-          items={
-            <GearSetPresetSummaryCardList
-              presets={presets}
-              onClick={(id) => {
-                setEditingPresetId(id);
+          items={presets.map((preset) => (
+            <GearSetPresetSummaryCard
+              key={preset.id}
+              preset={preset}
+              onClick={() => {
+                setEditingPresetId(preset.id);
               }}
             />
-          }
+          ))}
         />
 
         {editingPresetProxy && (

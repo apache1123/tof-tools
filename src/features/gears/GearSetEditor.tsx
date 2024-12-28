@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { CardList } from "../../components/common/CardList/CardList";
 import { GearSelectorModal } from "../../components/gear/GearSelectorModal/GearSelectorModal";
-import { GearSlotCardList } from "../../components/gear/GearSlotCardList/GearSlotCardList";
+import { GearSlotCard } from "../../components/gear/GearSlotCard/GearSlotCard";
 import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character";
 import type { Gear } from "../../models/gear/gear";
@@ -36,12 +37,18 @@ export function GearSetEditor({
 
   return (
     <>
-      <GearSlotCardList
-        gearSlots={gearSet.getSlots()}
-        onClick={(gearSlot) => {
-          setEditingGearSlotTypeId(gearSlot.acceptsType.id);
-        }}
-      />
+      <CardList>
+        {gearSet.getSlots().map((slot) => (
+          <GearSlotCard
+            key={slot.acceptsType.id}
+            type={slot.acceptsType}
+            gear={slot.gear}
+            onClick={() => {
+              setEditingGearSlotTypeId(slot.acceptsType.id);
+            }}
+          />
+        ))}
+      </CardList>
 
       <GearSelectorModal
         open={!!editingGearSlotTypeId}
