@@ -3,8 +3,8 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import {
   NumericStringInteger,
   NumericStringPercentage2dp,
-} from "../components/presentational/common/NumericString/NumericString";
-import { ElementalStyledText } from "../components/presentational/elemental/ElementalStyledText/ElementalStyledText";
+} from "../components/common/NumericString/NumericString";
+import { ElementalStyledText } from "../components/elemental/ElementalStyledText/ElementalStyledText";
 import type { CoreElementalType } from "../definitions/elemental-type";
 import type { GearSet } from "../models/gear/gear-set";
 

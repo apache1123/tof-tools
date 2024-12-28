@@ -2,10 +2,9 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { GearEditorModal } from "../../components/mutational/gear/GearEditorModal/GearEditorModal";
-import { NewGearEditorModal } from "../../components/mutational/gear/NewGearEditorModal/NewGearEditorModal";
-import { GearFilter } from "../../components/presentational/gear/GearFilter/GearFilter";
-import { GearList } from "../../components/presentational/gear/GearList/GearList";
+import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { GearFilter } from "../../components/gear/GearFilter/GearFilter";
+import { GearList } from "../../components/gear/GearList/GearList";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Gear } from "../../models/gear/gear";
 import type { GearState } from "../../states/gear/gear-state";
@@ -13,6 +12,8 @@ import { gearState } from "../../states/gear/gear-state";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { GearEditor } from "./GearEditor";
+import { NewGearEditorModal } from "./NewGearEditorModal";
 
 export function Gears() {
   const { selectedCharacterId } = useSelectedCharacter();
@@ -93,9 +94,9 @@ export function Gears() {
         />
 
         {editingGear && (
-          <GearEditorModal
+          <EditorModal
             open={!!editingGear}
-            gearProxy={editingGear}
+            modalContent={<GearEditor gearProxy={editingGear} />}
             itemName={editingGear.type.displayName}
             onClose={() => {
               setEditingGear(undefined);

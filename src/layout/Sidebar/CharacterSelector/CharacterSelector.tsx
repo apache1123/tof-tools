@@ -14,7 +14,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { ComingSoonIcon } from "../../../components/presentational/common/ComingSoonIcon/ComingSoonIcon";
+import { ComingSoonIcon } from "../../../components/common/ComingSoonIcon/ComingSoonIcon";
 import { db } from "../../../db/reactive-local-storage-db";
 import { useSelectedCharacter } from "../../../features/characters/useSelectedCharacter";
 import type { CharacterId } from "../../../models/character/character";

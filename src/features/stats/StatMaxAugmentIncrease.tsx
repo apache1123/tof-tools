@@ -4,14 +4,11 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 import { proxy, useSnapshot } from "valtio";
 
-import {
-  EmptyStatEditor,
-  StatEditor,
-} from "../../components/mutational/stat/StatEditor/StatEditor";
-import { NumericStringPercentage2dp } from "../../components/presentational/common/NumericString/NumericString";
+import { NumericStringPercentage2dp } from "../../components/common/NumericString/NumericString";
 import { statTypesLookup } from "../../definitions/stat-types";
 import { RandomStat } from "../../models/gear/random-stat";
 import type { StatType } from "../../models/gear/stat-type";
+import { EmptyStatEditor, StatEditor } from "./StatEditor";
 
 const possibleStatTypes = statTypesLookup.allIds.map(
   (id) => statTypesLookup.byId[id],

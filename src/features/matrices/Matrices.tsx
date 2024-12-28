@@ -2,11 +2,11 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { MatrixEditorModal } from "../../components/mutational/matrix/MatrixEditorModal/MatrixEditorModal";
-import { MatrixDefinitionSelectorModal } from "../../components/presentational/matrix/MatrixDefinitionSelectorModal/MatrixDefinitionSelectorModal";
-import { MatrixFilterSelector } from "../../components/presentational/matrix/MatrixFilterSelector/MatrixFilterSelector";
-import { MatrixList } from "../../components/presentational/matrix/MatrixList/MatrixList";
-import { NewMatrixModal } from "../../components/presentational/matrix/NewMatrixModal/NewMatrixModal";
+import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { MatrixDefinitionSelectorModal } from "../../components/matrix/MatrixDefinitionSelectorModal/MatrixDefinitionSelectorModal";
+import { MatrixFilterSelector } from "../../components/matrix/MatrixFilterSelector/MatrixFilterSelector";
+import { MatrixList } from "../../components/matrix/MatrixList/MatrixList";
+import { NewMatrixModal } from "../../components/matrix/NewMatrixModal/NewMatrixModal";
 import { db } from "../../db/reactive-local-storage-db";
 import { getAllMatrixDefinitions } from "../../definitions/matrices/matrix-definitions";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
@@ -17,6 +17,7 @@ import { matrixState } from "../../states/matrix/matrix-state";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { MatrixEditor } from "./MatrixEditor";
 import { useMatrices } from "./useMatrices";
 
 export function Matrices() {
@@ -115,9 +116,9 @@ export function Matrices() {
         )}
 
         {editingMatrix && (
-          <MatrixEditorModal
+          <EditorModal
+            modalContent={<MatrixEditor matrixProxy={editingMatrix} />}
             open={!!editingMatrix}
-            matrixProxy={editingMatrix}
             itemName={editingMatrix.displayName}
             onClose={() => {
               setEditingMatrix(undefined);

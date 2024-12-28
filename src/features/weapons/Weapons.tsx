@@ -2,8 +2,8 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { proxy, useSnapshot } from "valtio";
 
-import { WeaponDefinitionSelectorModal } from "../../components/presentational/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
-import { WeaponList } from "../../components/presentational/weapon/WeaponList/WeaponList";
+import { WeaponDefinitionSelectorModal } from "../../components/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
+import { WeaponList } from "../../components/weapon/WeaponList/WeaponList";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Repository } from "../../db/repository/types/repository";
 import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";

@@ -1,9 +1,10 @@
-import { WeaponEditorModal } from "../../components/mutational/weapon/WeaponEditorModal/WeaponEditorModal";
+import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { db } from "../../db/reactive-local-storage-db";
 import type { WeaponId } from "../../models/weapon/weapon";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { useMatrices } from "../matrices/useMatrices";
+import { WeaponEditor } from "./WeaponEditor";
 
 export interface EditWeaponProps {
   id: WeaponId;
@@ -24,22 +25,26 @@ export function EditWeapon({ id, onFinishEdit }: EditWeaponProps) {
 
   return (
     weaponProxy && (
-      <WeaponEditorModal
+      <EditorModal
+        modalContent={
+          <WeaponEditor
+            weaponProxy={weaponProxy}
+            allMatrixProxies={matrixProxies}
+            weaponPresetProxies={weaponPresetProxies}
+            onAddPreset={() => {
+              weaponPresetRepo.add(new WeaponPreset(id));
+            }}
+          />
+        }
         open={!!weaponProxy}
         onClose={() => {
           onFinishEdit?.();
         }}
-        weaponProxy={weaponProxy}
-        allMatrixProxies={matrixProxies}
         itemName={weaponProxy.weaponDisplayName}
         showDelete
         onDelete={() => {
           weaponRepo.remove(weaponProxy.id);
           onFinishEdit?.();
-        }}
-        weaponPresetProxies={weaponPresetProxies}
-        onAddPreset={() => {
-          db.get("weaponPresets").add(new WeaponPreset(id));
         }}
       />
     )

@@ -1,7 +1,7 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { type ChangeEvent, useState } from "react";
 
-import { useAutoHideSnackbar } from "../../components/presentational/common/Snackbar/useAutoHideSnackbar";
+import { useAutoHideSnackbar } from "../../components/common/Snackbar/useAutoHideSnackbar";
 import { localStoragePersistenceState } from "../../states/hooks/useLocalStoragePersistence";
 import type { StateMigrationsState } from "../../states/migrations/state-migrations-state";
 import { stateMigrationsStateKey } from "../../states/migrations/state-migrations-state";

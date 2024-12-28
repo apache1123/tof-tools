@@ -2,14 +2,15 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { GearSetPresetEditorModal } from "../../components/mutational/gear/GearSetPresetEditorModal/GearSetPresetEditorModal";
-import { GearSetPresetSummaryCardList } from "../../components/presentational/gear/GearSetPresetSummaryCardList/GearSetPresetSummaryCardList";
+import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { GearSetPresetSummaryCardList } from "../../components/gear/GearSetPresetSummaryCardList/GearSetPresetSummaryCardList";
 import { db } from "../../db/reactive-local-storage-db";
 import type { Repository } from "../../db/repository/types/repository";
 import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
 import { GearSetPreset } from "../../models/gear/gear-set-preset";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { GearSetPresetEditor } from "../gears/GearSetPresetEditor";
 
 export function GearSetPresets() {
   const { selectedCharacterId } = useSelectedCharacter();
@@ -65,23 +66,29 @@ export function GearSetPresets() {
         />
 
         {editingPresetProxy && (
-          <GearSetPresetEditorModal
+          <EditorModal
+            modalContent={
+              <GearSetPresetEditor
+                presetProxy={editingPresetProxy}
+                allGearsProxy={allGearsProxy}
+                characterId={selectedCharacterId}
+                onAddGear={(gear) => {
+                  gearRepoProxy.add(gear);
+                }}
+              />
+            }
             open={!!editingPresetId}
             onClose={() => {
               setEditingPresetId(undefined);
             }}
-            presetProxy={editingPresetProxy}
             itemName={editingPresetProxy.name}
-            allGearsProxy={allGearsProxy}
-            characterId={selectedCharacterId}
-            onAddGear={(gear) => {
-              gearRepoProxy.add(gear);
-            }}
             showDelete
             onDelete={() => {
               gearSetPresetRepoProxy.remove(editingPresetProxy.id);
               setEditingPresetId(undefined);
             }}
+            maxWidth={false}
+            fullWidth
           />
         )}
       </>
