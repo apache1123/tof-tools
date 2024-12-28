@@ -16,6 +16,15 @@ export class MatrixRepository extends ValtioRepository<Matrix, MatrixDto> {
         }
       });
     });
+
+    // Remove the matrix from weapon presets
+    this.db.get("weaponPresets").items.forEach((preset) => {
+      preset.matrixSlots.getSlots().forEach((slot) => {
+        if (slot.matrix?.id === removedItemId) {
+          slot.matrix = undefined;
+        }
+      });
+    });
   }
 
   protected override itemToDto(item: Matrix): MatrixDto {
