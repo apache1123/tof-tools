@@ -5,9 +5,9 @@ import type {
 import { Button as MuiButton, IconButton, Tooltip } from "@mui/material";
 import type { PropsWithChildren, ReactNode } from "react";
 
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 
-export interface ButtonProps extends PropsWithChildren, HasSxProps {
+export interface ButtonProps extends PropsWithChildren, PropsWithSx {
   icon?: ReactNode;
   /** Use an icon button instead of a regular button */
   iconButton?: boolean;

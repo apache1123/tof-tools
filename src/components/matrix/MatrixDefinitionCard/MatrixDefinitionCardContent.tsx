@@ -1,10 +1,10 @@
 import { Stack, Typography } from "@mui/material";
 
 import type { MatrixDefinitionId } from "../../../definitions/matrices/matrix-definitions";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { MatrixIcon } from "../MatrixIcon/MatrixIcon";
 
-export interface MatrixDefinitionCardContentProps extends HasSxProps {
+export interface MatrixDefinitionCardContentProps extends PropsWithSx {
   definitionId: MatrixDefinitionId;
   displayName: string;
   showName?: boolean;

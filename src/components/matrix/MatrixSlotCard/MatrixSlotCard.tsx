@@ -3,13 +3,13 @@ import { Card, CardContent, CardHeader } from "@mui/material";
 
 import type { Matrix } from "../../../models/matrix/matrix";
 import type { MatrixType } from "../../../models/matrix/matrix-type";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { AddToSlotButton } from "../../common/AddToSlotButton/AddToSlotButton";
 import { Button } from "../../common/Button/Button";
 import { MatrixCard } from "../MatrixCard/MatrixCard";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
-export interface MatrixSlotCardProps extends HasSxProps {
+export interface MatrixSlotCardProps extends PropsWithSx {
   type: MatrixType;
   matrix: Matrix | undefined;
   onClick(): void;

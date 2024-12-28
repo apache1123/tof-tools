@@ -1,8 +1,8 @@
 import { Rating } from "@mui/material";
 
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 
-export interface GearStarsSelectorProps extends HasSxProps {
+export interface GearStarsSelectorProps extends PropsWithSx {
   stars: number;
   readOnly?: boolean;
   disabled?: boolean;

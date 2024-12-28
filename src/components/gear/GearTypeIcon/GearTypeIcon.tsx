@@ -4,9 +4,9 @@ import Image from "next/image";
 
 import type { GearTypeId } from "../../../definitions/gear-types";
 import { normalCaseToKebabCase } from "../../../utils/string-utils";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 
-export interface GearTypeIconProps extends HasSxProps {
+export interface GearTypeIconProps extends PropsWithSx {
   id: GearTypeId | undefined;
   size?: number;
   isTitan?: boolean;

@@ -1,9 +1,9 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { Button } from "../Button/Button";
 
-export interface AddToSlotButtonProps extends HasSxProps {
+export interface AddToSlotButtonProps extends PropsWithSx {
   iconSize?: number;
 
   onClick(): void;

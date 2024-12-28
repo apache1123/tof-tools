@@ -8,13 +8,13 @@ import {
 } from "@mui/material";
 
 import type { Gear } from "../../../models/gear/gear";
-import type { HasElevationProp } from "../../__helpers__/has-elevation-prop";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { RandomStatDisplay } from "../../stat/RandomStatDisplay/RandomStatDisplay";
 import { GearStars } from "../GearStars/GearStars";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
-export interface GearCardProps extends HasSxProps, HasElevationProp {
+export interface GearCardProps extends PropsWithSx, PropsWithElevation {
   gear: Gear;
   onClick?: () => void;
 }

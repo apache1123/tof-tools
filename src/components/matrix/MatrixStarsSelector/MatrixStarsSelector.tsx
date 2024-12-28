@@ -1,9 +1,9 @@
 import { Rating } from "@mui/material";
 
 import { maxNumOfMatrixStars } from "../../../definitions/matrices/matrix";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 
-export interface MatrixStarsSelectorProps extends HasSxProps {
+export interface MatrixStarsSelectorProps extends PropsWithSx {
   stars: number;
   readOnly?: boolean;
   disabled?: boolean;

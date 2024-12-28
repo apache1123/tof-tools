@@ -2,12 +2,12 @@ import { Stack } from "@mui/material";
 
 import type { MatrixSlot } from "../../../models/matrix/matrix-slot";
 import type { Weapon } from "../../../models/weapon/weapon";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { MatrixSlotIconList } from "../../matrix/MatrixSlotIconList/MatrixSlotIconList";
 import { WeaponDefinitionCardContent } from "../WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector";
 
-export interface WeaponCardContentProps extends HasSxProps {
+export interface WeaponCardContentProps extends PropsWithSx {
   weapon: Weapon;
   showWeaponDescription?: boolean;
   matrixSlots?: MatrixSlot[];

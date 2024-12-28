@@ -3,9 +3,9 @@ import Image from "next/image";
 
 import type { MatrixDefinitionId } from "../../../definitions/matrices/matrix-definitions";
 import { normalCaseToKebabCase } from "../../../utils/string-utils";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 
-export interface MatrixIconProps extends HasSxProps {
+export interface MatrixIconProps extends PropsWithSx {
   definitionId: MatrixDefinitionId;
   displayName: string;
   size?: number;

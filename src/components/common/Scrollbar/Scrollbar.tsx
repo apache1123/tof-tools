@@ -6,9 +6,9 @@ import { forwardRef } from "react";
 import type { Props as SimpleBarProps } from "simplebar-react";
 import SimpleBar from "simplebar-react";
 
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 
-export interface ScrollbarProps extends SimpleBarProps, HasSxProps {
+export interface ScrollbarProps extends SimpleBarProps, PropsWithSx {
   children?: ReactNode;
 }
 

@@ -1,10 +1,10 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
 
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import type { WeaponCardContentProps } from "./WeaponCardContent";
 import { WeaponCardContent } from "./WeaponCardContent";
 
-export interface WeaponCardProps extends WeaponCardContentProps, HasSxProps {
+export interface WeaponCardProps extends WeaponCardContentProps, PropsWithSx {
   onClick?(): void;
 }
 

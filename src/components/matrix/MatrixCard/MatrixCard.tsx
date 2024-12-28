@@ -1,13 +1,13 @@
 import { Card, CardActionArea, CardContent, Stack } from "@mui/material";
 
 import type { Matrix } from "../../../models/matrix/matrix";
-import type { HasElevationProp } from "../../__helpers__/has-elevation-prop";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { MatrixDefinitionCardContent } from "../MatrixDefinitionCard/MatrixDefinitionCardContent";
 import { MatrixStarsSelector } from "../MatrixStarsSelector/MatrixStarsSelector";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
-export interface MatrixCardProps extends HasSxProps, HasElevationProp {
+export interface MatrixCardProps extends PropsWithSx, PropsWithElevation {
   matrix: Matrix;
   showName?: boolean;
   showTypeIcon?: boolean;

@@ -1,13 +1,13 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
 
 import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
-import type { HasSxProps } from "../../__helpers__/has-sx-props";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import type { WeaponDefinitionCardContentProps } from "./WeaponDefinitionCardContent";
 import { WeaponDefinitionCardContent } from "./WeaponDefinitionCardContent";
 
 export interface WeaponDefinitionCardProps
   extends WeaponDefinitionCardContentProps,
-    HasSxProps {
+    PropsWithSx {
   onClick?(id: WeaponName): void;
 }
 

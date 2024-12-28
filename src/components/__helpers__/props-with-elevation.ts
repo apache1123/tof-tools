@@ -1,5 +1,5 @@
 import type { CardProps } from "@mui/material";
 
-export interface HasElevationProp {
+export interface PropsWithElevation {
   elevation?: CardProps["elevation"];
 }
