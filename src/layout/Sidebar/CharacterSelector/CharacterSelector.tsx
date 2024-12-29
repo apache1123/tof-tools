@@ -26,8 +26,7 @@ export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
   const characterRepository = db.get("characters");
   const { items } = useSnapshot(characterRepository);
 
-  const { selectedCharacterId, selectedCharacterProxy } =
-    useSelectedCharacter();
+  const { characterId, characterProxy } = useSelectedCharacter();
 
   function handleChangeCharacter(id: CharacterId) {
     characterState.selectedId = id;
@@ -66,7 +65,7 @@ export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
           }}
         >
           <Typography variant="body2" fontWeight="bold">
-            {selectedCharacterProxy?.name}
+            {characterProxy?.name}
           </Typography>
         </Box>
 
@@ -80,7 +79,7 @@ export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
       >
         <MenuList sx={{ width: 210, p: 0.5 }}>
           {items.map((character) => {
-            const isSelected = character.id === selectedCharacterId;
+            const isSelected = character.id === characterId;
 
             return (
               <MenuItem

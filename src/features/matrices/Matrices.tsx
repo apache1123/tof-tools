@@ -11,22 +11,24 @@ import { NewMatrixModal } from "../../components/matrix/NewMatrixModal/NewMatrix
 import { db } from "../../db/reactive-local-storage-db";
 import { getAllMatrixDefinitions } from "../../definitions/matrices/matrix-definitions";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
+import type { CharacterId } from "../../models/character/character";
 import { Matrix } from "../../models/matrix/matrix";
 import { getFilteredMatrices } from "../../models/matrix/matrix-filter";
 import type { MatrixState } from "../../states/matrix/matrix-state";
 import { matrixState } from "../../states/matrix/matrix-state";
-import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { MatrixEditor } from "./MatrixEditor";
 import { useMatrices } from "./useMatrices";
 
-export function Matrices() {
-  const { selectedCharacterId } = useSelectedCharacter();
+export interface MatricesProps {
+  characterId: CharacterId;
+}
 
+export function Matrices({ characterId }: MatricesProps) {
   const matrixRepoProxy = db.get("matrices");
 
-  const { matrixSnaps } = useMatrices(selectedCharacterId);
+  const { matrixSnaps } = useMatrices(characterId);
 
   const { filter } = useSnapshot(matrixState) as MatrixState;
   const filteredMatrices = getFilteredMatrices(matrixSnaps, filter);
@@ -41,106 +43,100 @@ export function Matrices() {
   );
 
   return (
-    selectedCharacterId && (
-      <>
-        <InventoryLayout
-          filter={
-            <FilterLayout
-              title="Matrix Filter"
-              filterContent={
-                <MatrixFilterSelector
-                  filter={filter}
-                  onChange={(filter) => {
-                    matrixState.filter = filter;
-                  }}
-                />
-              }
-              onResetFilter={() => {
-                matrixState.resetFilter();
-              }}
-            />
-          }
-          actions={
-            <Button
-              variant="contained"
-              onClick={() => {
-                setIsAddingMatrix(true);
-              }}
-            >
-              Add matrix
-            </Button>
-          }
-          items={filteredMatrices.map((matrix) => (
-            <MatrixCard
-              key={matrix.id}
-              matrix={matrix}
-              onClick={() => {
-                const matrixProxy = matrixRepoProxy.find(matrix.id);
-                if (matrixProxy) setEditingMatrix(matrixProxy);
-              }}
-            />
-          ))}
-        />
+    <>
+      <InventoryLayout
+        filter={
+          <FilterLayout
+            title="Matrix Filter"
+            filterContent={
+              <MatrixFilterSelector
+                filter={filter}
+                onChange={(filter) => {
+                  matrixState.filter = filter;
+                }}
+              />
+            }
+            onResetFilter={() => {
+              matrixState.resetFilter();
+            }}
+          />
+        }
+        actions={
+          <Button
+            variant="contained"
+            onClick={() => {
+              setIsAddingMatrix(true);
+            }}
+          >
+            Add matrix
+          </Button>
+        }
+        items={filteredMatrices.map((matrix) => (
+          <MatrixCard
+            key={matrix.id}
+            matrix={matrix}
+            onClick={() => {
+              const matrixProxy = matrixRepoProxy.find(matrix.id);
+              if (matrixProxy) setEditingMatrix(matrixProxy);
+            }}
+          />
+        ))}
+      />
 
-        <StyledModal
-          modalContent={
-            <MatrixDefinitionSelector
-              matrixDefinitions={getAllMatrixDefinitions()}
-              onSelect={setAddingDefinition}
-            />
-          }
-          open={isAddingMatrix && !addingDefinition}
-          modalTitle="Add matrix"
-          showCancel
-          onClose={() => {
+      <StyledModal
+        modalContent={
+          <MatrixDefinitionSelector
+            matrixDefinitions={getAllMatrixDefinitions()}
+            onSelect={setAddingDefinition}
+          />
+        }
+        open={isAddingMatrix && !addingDefinition}
+        modalTitle="Add matrix"
+        showCancel
+        onClose={() => {
+          setAddingDefinition(undefined);
+          setIsAddingMatrix(false);
+        }}
+        maxWidth={false}
+        fullWidth
+      />
+
+      {addingDefinition && (
+        <NewMatrixModal
+          definition={addingDefinition}
+          open={isAddingMatrix && !!addingDefinition}
+          onConfirm={({ definition, types, stars }) => {
+            for (const type of types) {
+              const matrix = new Matrix(type, definition, characterId);
+              matrix.stars = stars;
+              matrixRepoProxy.add(matrix);
+            }
+
             setAddingDefinition(undefined);
             setIsAddingMatrix(false);
           }}
-          maxWidth={false}
+          onCancel={() => {
+            setAddingDefinition(undefined);
+          }}
+        />
+      )}
+
+      {editingMatrix && (
+        <EditorModal
+          modalContent={<MatrixEditor matrixProxy={editingMatrix} />}
+          open={!!editingMatrix}
+          itemName={editingMatrix.displayName}
+          onClose={() => {
+            setEditingMatrix(undefined);
+          }}
+          showDelete
+          onDelete={() => {
+            matrixRepoProxy.remove(editingMatrix.id);
+            setEditingMatrix(undefined);
+          }}
           fullWidth
         />
-
-        {addingDefinition && (
-          <NewMatrixModal
-            definition={addingDefinition}
-            open={isAddingMatrix && !!addingDefinition}
-            onConfirm={({ definition, types, stars }) => {
-              for (const type of types) {
-                const matrix = new Matrix(
-                  type,
-                  definition,
-                  selectedCharacterId,
-                );
-                matrix.stars = stars;
-                matrixRepoProxy.add(matrix);
-              }
-
-              setAddingDefinition(undefined);
-              setIsAddingMatrix(false);
-            }}
-            onCancel={() => {
-              setAddingDefinition(undefined);
-            }}
-          />
-        )}
-
-        {editingMatrix && (
-          <EditorModal
-            modalContent={<MatrixEditor matrixProxy={editingMatrix} />}
-            open={!!editingMatrix}
-            itemName={editingMatrix.displayName}
-            onClose={() => {
-              setEditingMatrix(undefined);
-            }}
-            showDelete
-            onDelete={() => {
-              matrixRepoProxy.remove(editingMatrix.id);
-              setEditingMatrix(undefined);
-            }}
-            fullWidth
-          />
-        )}
-      </>
-    )
+      )}
+    </>
   );
 }

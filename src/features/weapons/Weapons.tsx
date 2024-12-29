@@ -8,20 +8,21 @@ import { WeaponCard } from "../../components/weapon/WeaponCard/WeaponCard";
 import { WeaponDefinitionSelector } from "../../components/weapon/WeaponDefinitionSelector/WeaponDefinitionSelector";
 import { db } from "../../db/reactive-local-storage-db";
 import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";
+import type { CharacterId } from "../../models/character/character";
 import { Weapon } from "../../models/weapon/weapon";
-import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { WeaponEditor } from "./WeaponEditor";
 
-export function Weapons() {
-  const { selectedCharacterId } = useSelectedCharacter();
+export interface WeaponsProps {
+  characterId: CharacterId;
+}
 
+export function Weapons({ characterId }: WeaponsProps) {
   const weaponRepo = db.get("weapons");
-  const weaponProxies = selectedCharacterId
-    ? weaponRepo.filter((weapon) => weapon.characterId === selectedCharacterId)
-    : // TODO: remove this when this component requires a character
-      proxy([]);
 
+  const weaponProxies = weaponRepo.filter(
+    (weapon) => weapon.characterId === characterId,
+  );
   const weapons = useSnapshot(weaponProxies) as Weapon[];
 
   const unusedWeaponDefinitions = getAllWeaponDefinitions().filter(
@@ -35,79 +36,82 @@ export function Weapons() {
   >(undefined);
 
   return (
-    selectedCharacterId && (
-      <>
-        <InventoryLayout
-          filter={undefined}
-          actions={
-            <Button
-              variant="contained"
-              onClick={() => {
-                setIsAddingWeapon(true);
-              }}
-            >
-              Add weapon
-            </Button>
-          }
-          items={weapons.map((weapon) => (
-            <WeaponCard
-              key={weapon.id}
-              weapon={weapon}
-              onClick={() => {
-                const weaponProxy = weaponProxies.find(
-                  (weaponProxy) => weaponProxy.id === weapon.id,
-                );
-                if (!weaponProxy) throw new Error("Weapon proxy not found");
+    <>
+      <InventoryLayout
+        filter={undefined}
+        actions={
+          <Button
+            variant="contained"
+            onClick={() => {
+              setIsAddingWeapon(true);
+            }}
+          >
+            Add weapon
+          </Button>
+        }
+        items={weapons.map((weapon) => (
+          <WeaponCard
+            key={weapon.id}
+            weapon={weapon}
+            onClick={() => {
+              const weaponProxy = weaponProxies.find(
+                (weaponProxy) => weaponProxy.id === weapon.id,
+              );
+              if (!weaponProxy) throw new Error("Weapon proxy not found");
 
-                setEditingWeaponProxy(weaponProxy);
-              }}
-              sx={{ width: 300 }}
-            />
-          ))}
-        />
+              setEditingWeaponProxy(weaponProxy);
+            }}
+            sx={{ width: 300 }}
+          />
+        ))}
+      />
 
-        <StyledModal
+      <StyledModal
+        modalContent={
+          <WeaponDefinitionSelector
+            weaponDefinitions={unusedWeaponDefinitions}
+            onSelect={(weaponDefinition) => {
+              const weaponProxy = proxy(
+                new Weapon(weaponDefinition, characterId, undefined),
+              );
+              weaponRepo.add(weaponProxy);
+
+              setIsAddingWeapon(false);
+              setEditingWeaponProxy(weaponProxy);
+            }}
+          />
+        }
+        open={isAddingWeapon}
+        showCancel
+        onClose={() => {
+          setIsAddingWeapon(false);
+        }}
+        maxWidth={false}
+        fullWidth
+      />
+
+      {editingWeaponProxy && (
+        <EditorModal
           modalContent={
-            <WeaponDefinitionSelector
-              weaponDefinitions={unusedWeaponDefinitions}
-              onSelect={(weaponDefinition) => {
-                const weaponProxy = proxy(
-                  new Weapon(weaponDefinition, selectedCharacterId, undefined),
-                );
-                weaponRepo.add(weaponProxy);
-
-                setIsAddingWeapon(false);
-                setEditingWeaponProxy(weaponProxy);
-              }}
+            <WeaponEditor
+              weaponProxy={editingWeaponProxy}
+              characterId={characterId}
             />
           }
-          open={isAddingWeapon}
-          showCancel
+          open={!!editingWeaponProxy}
           onClose={() => {
-            setIsAddingWeapon(false);
+            setEditingWeaponProxy(undefined);
+          }}
+          itemName={editingWeaponProxy.weaponDisplayName}
+          showDelete
+          onDelete={() => {
+            weaponRepo.remove(editingWeaponProxy.id);
+            setEditingWeaponProxy(undefined);
           }}
           maxWidth={false}
           fullWidth
         />
-
-        {editingWeaponProxy && (
-          <EditorModal
-            modalContent={<WeaponEditor weaponProxy={editingWeaponProxy} />}
-            open={!!editingWeaponProxy}
-            onClose={() => {
-              setEditingWeaponProxy(undefined);
-            }}
-            itemName={editingWeaponProxy.weaponDisplayName}
-            showDelete
-            onDelete={() => {
-              weaponRepo.remove(editingWeaponProxy.id);
-              setEditingWeaponProxy(undefined);
-            }}
-            maxWidth={false}
-            fullWidth
-          />
-        )}
-      </>
-    )
+      )}
+    </>
   );
 }

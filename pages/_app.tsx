@@ -56,9 +56,11 @@ export default function MyApp(props: MyAppProps) {
       characterRepo.add(defaultCharacter);
     }
 
-    // Set the first character as selected if none are selected
-    if (!characterState.selectedId) {
-      const characterRepo = db.get("characters");
+    // Set the first character as selected if none are selected, or the selected id is invalid
+    if (
+      !characterState.selectedId ||
+      !characterRepo.find(characterState.selectedId)
+    ) {
       const firstCharacter = characterRepo.items[0];
       if (firstCharacter) {
         characterState.selectedId = firstCharacter.id;

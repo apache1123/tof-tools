@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useEffect } from "react";
 
 import { db } from "../src/db/reactive-local-storage-db";
+import { useSelectedCharacter } from "../src/features/characters/useSelectedCharacter";
 import { GearSetPresets } from "../src/features/gear-set-presets/GearSetPresets";
 
 export default function GearPresetsPage() {
@@ -9,13 +10,15 @@ export default function GearPresetsPage() {
     db.init(["characters", "gears", "gearSetPresets"]);
   }, []);
 
+  const { characterId } = useSelectedCharacter();
+
   return (
     <>
       <Head>
         <title>Gear Presets | Tower of Fantasy Tools</title>
       </Head>
 
-      <GearSetPresets />
+      {characterId && <GearSetPresets characterId={characterId} />}
     </>
   );
 }

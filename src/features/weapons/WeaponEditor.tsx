@@ -9,18 +9,17 @@ import { WeaponDefinitionCardContent } from "../../components/weapon/WeaponDefin
 import { WeaponPresetCard } from "../../components/weapon/WeaponPresetCard/WeaponPresetCard";
 import { WeaponStarsSelector } from "../../components/weapon/WeaponStarsSelector/WeaponStarsSelector";
 import { db } from "../../db/reactive-local-storage-db";
+import type { CharacterId } from "../../models/character/character";
 import type { Weapon } from "../../models/weapon/weapon";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { WeaponPresetEditor } from "./WeaponPresetEditor";
 
 export interface WeaponEditorProps {
   weaponProxy: Weapon;
+  characterId: CharacterId;
 }
 
-export function WeaponEditor({ weaponProxy }: WeaponEditorProps) {
-  const { selectedCharacterId } = useSelectedCharacter();
-
+export function WeaponEditor({ weaponProxy, characterId }: WeaponEditorProps) {
   const weapon = useSnapshot(weaponProxy) as Weapon;
   const {
     definitionId,
@@ -108,12 +107,12 @@ export function WeaponEditor({ weaponProxy }: WeaponEditorProps) {
           </Box>
         </Box>
 
-        {editingPresetProxy && selectedCharacterId && (
+        {editingPresetProxy && (
           <EditorModal
             modalContent={
               <WeaponPresetEditor
                 weaponPresetProxy={editingPresetProxy}
-                characterId={selectedCharacterId}
+                characterId={characterId}
               />
             }
             open={!!editingPresetProxy}

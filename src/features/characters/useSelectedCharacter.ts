@@ -8,12 +8,12 @@ export function useSelectedCharacter() {
 
   const { selectedId } = useSnapshot(characterState);
 
-  const selectedCharacterProxy = selectedId
+  const characterProxy = selectedId
     ? characterRepository.find(selectedId)
     : undefined;
 
   return {
-    selectedCharacterId: selectedId,
-    selectedCharacterProxy,
+    characterId: selectedId,
+    characterProxy,
   };
 }
