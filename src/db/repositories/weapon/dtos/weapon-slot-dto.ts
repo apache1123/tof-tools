@@ -1,5 +1,5 @@
-import { WeaponSlot } from "../../../../models/team/weapon-slot";
 import type { Weapon } from "../../../../models/weapon/weapon";
+import { WeaponSlot } from "../../../../models/weapon/weapon-slot";
 import { logException } from "../../../../utils/exception-utils";
 import { DeserializationError } from "../../../error/deserialization-error";
 import type { Repository } from "../../../repository/types/repository";

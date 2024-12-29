@@ -6,7 +6,7 @@ import { CharacterRepository } from "./repositories/character/character-reposito
 import { GearRepository } from "./repositories/gear/gear-repository";
 import { GearSetPresetRepository } from "./repositories/gear/gear-set-preset-repository";
 import { MatrixRepository } from "./repositories/matrix/matrix-repository";
-import { TeamRepository } from "./repositories/team/team-repository";
+import { TeamPresetRepository } from "./repositories/team/team-preset-repository";
 import { WeaponPresetRepository } from "./repositories/weapon/weapon-preset-repository";
 import { WeaponRepository } from "./repositories/weapon/weapon-repository";
 import { StubRepository } from "./repository/stub-repository";
@@ -24,7 +24,7 @@ export class ReactiveLocalStorageDb implements Db {
     matrices: new StubRepository(),
     weapons: new StubRepository(),
     weaponPresets: new StubRepository(),
-    teams: new StubRepository(),
+    teamPresets: new StubRepository(),
   });
 
   /** Initializes the repositories in the given order.
@@ -70,8 +70,8 @@ export class ReactiveLocalStorageDb implements Db {
         return new WeaponRepository(key, storage, this);
       case "weaponPresets":
         return new WeaponPresetRepository(key, storage, this);
-      case "teams":
-        return new TeamRepository(key, storage, this);
+      case "teamPresets":
+        return new TeamPresetRepository(key, storage, this);
       default:
         throw new Error(`Unknown repository key: ${key}`);
     }

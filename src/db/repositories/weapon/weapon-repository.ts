@@ -25,16 +25,6 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDto> {
         weaponPresetRepo.remove(preset.id);
       }
     });
-
-    // Remove the weapon reference from any teams that use this deleted weapon
-    const teamRepo = this.db.get("teams");
-    teamRepo.items.forEach((team) => {
-      team.weaponSlots.forEach((slot) => {
-        if (slot.weapon?.id === removedItemId) {
-          slot.weapon = undefined;
-        }
-      });
-    });
   }
 
   protected override itemToDto(item: Weapon): WeaponDto {

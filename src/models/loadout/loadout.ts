@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import type { GearSetDtoV2 } from "../../db/repositories/gear/deprecated/gear-set-dto";
 import type { GearSetDto } from "../../db/repositories/gear/dtos/gear-set-dto";
 import type { TeamDtoV1 } from "../../db/repositories/team/deprecated/team-dto";
-import type { TeamDto } from "../../db/repositories/team/team-dto";
+import type { TeamDto } from "../../db/repositories/team/dtos/team-dto";
 import type { Dto } from "../../db/repository/dto";
 import { defaultCritDamagePercent } from "../../definitions/damage-formula";
 import type {

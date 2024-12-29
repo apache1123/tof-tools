@@ -1,15 +1,14 @@
 import { nanoid } from "nanoid";
 
 import type { WeaponElementalType } from "../../definitions/elemental-type";
+import { numWeaponsInTeam } from "../../definitions/team";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
 import type { CharacterId } from "../character/character";
 import type { Id } from "../identifiable";
 import type { Weapon } from "../weapon/weapon";
-import { WeaponSlot } from "./weapon-slot";
-
-const maxWeapons = 3;
+import { WeaponSlot } from "../weapon/weapon-slot";
 
 export type TeamId = Id;
 
@@ -22,7 +21,7 @@ export class Team {
     this.id = id ?? nanoid();
     this.characterId = characterId;
     this.weaponSlots =
-      weaponSlots ?? [...Array(maxWeapons)].map(() => new WeaponSlot());
+      weaponSlots ?? [...Array(numWeaponsInTeam)].map(() => new WeaponSlot());
   }
 
   public readonly id: TeamId;

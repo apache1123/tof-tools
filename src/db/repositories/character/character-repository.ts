@@ -40,6 +40,13 @@ export class CharacterRepository extends ValtioRepository<
         weaponRepository.remove(weapon.id);
       }
     });
+
+    const teamPresetRepository = this.db.get("teamPresets");
+    teamPresetRepository.items.forEach((preset) => {
+      if (preset.characterId === removedItemId) {
+        teamPresetRepository.remove(preset.id);
+      }
+    });
   }
 
   protected override itemToDto(item: Character): CharacterDto {

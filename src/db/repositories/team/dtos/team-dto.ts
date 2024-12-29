@@ -1,12 +1,12 @@
-import { Team } from "../../../models/team/team";
-import type { Weapon } from "../../../models/weapon/weapon";
-import type { Dto } from "../../repository/dto";
-import type { Repository } from "../../repository/types/repository";
-import type { WeaponSlotDto } from "../weapon/dtos/weapon-slot-dto";
+import { Team } from "../../../../models/team/team";
+import type { Weapon } from "../../../../models/weapon/weapon";
+import type { Dto } from "../../../repository/dto";
+import type { Repository } from "../../../repository/types/repository";
+import type { WeaponSlotDto } from "../../weapon/dtos/weapon-slot-dto";
 import {
   dtoToWeaponSlot,
   weaponSlotToDto,
-} from "../weapon/dtos/weapon-slot-dto";
+} from "../../weapon/dtos/weapon-slot-dto";
 
 export interface TeamDto extends Dto {
   id: string;
