@@ -5,22 +5,22 @@ import { CardList } from "../../components/common/CardList/CardList";
 import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { GearSelector } from "../../components/gear/GearSelector/GearSelector";
 import { GearSlotCard } from "../../components/gear/GearSlotCard/GearSlotCard";
+import { db } from "../../db/reactive-local-storage-db";
 import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
-import { NewGearEditor } from "./NewGearEditor";
+import { NewGearEditor } from "../gears/NewGearEditor";
+import { useGears } from "../gears/useGears";
 
 export interface GearSetEditorProps {
   gearSetProxy: GearSet;
-  allGearsProxy: Gear[];
   characterId: CharacterId;
   onAddGear(gear: Gear): void;
 }
 
 export function GearSetEditor({
   gearSetProxy,
-  allGearsProxy,
   characterId,
   onAddGear,
 }: GearSetEditorProps) {
@@ -31,7 +31,7 @@ export function GearSetEditor({
   >(undefined);
   const [isAddingGear, setIsAddingGear] = useState(false);
 
-  const allGears = useSnapshot(allGearsProxy) as Gear[];
+  const allGears = useGears(characterId);
   const filteredGears = editingGearSlotTypeId
     ? allGears.filter((gear) => gear.type.id === editingGearSlotTypeId)
     : [];
@@ -56,9 +56,7 @@ export function GearSetEditor({
           <GearSelector
             gears={filteredGears}
             onSelect={(gearId) => {
-              const gearProxy = allGearsProxy.find(
-                (gear) => gear.id === gearId,
-              );
+              const gearProxy = db.get("gears").find(gearId);
               if (gearProxy) {
                 gearSetProxy.getSlot(gearProxy.type.id).gear = gearProxy;
               }

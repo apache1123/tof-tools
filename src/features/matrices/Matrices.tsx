@@ -26,12 +26,12 @@ export interface MatricesProps {
 }
 
 export function Matrices({ characterId }: MatricesProps) {
-  const matrixRepoProxy = db.get("matrices");
+  const matrices = useMatrices(characterId);
 
-  const { matrixSnaps } = useMatrices(characterId);
+  const matrixRepo = db.get("matrices");
 
   const { filter } = useSnapshot(matrixState) as MatrixState;
-  const filteredMatrices = getFilteredMatrices(matrixSnaps, filter);
+  const filteredMatrices = getFilteredMatrices(matrices, filter);
 
   const [isAddingMatrix, setIsAddingMatrix] = useState(false);
   const [addingDefinition, setAddingDefinition] = useState<
@@ -76,7 +76,7 @@ export function Matrices({ characterId }: MatricesProps) {
             key={matrix.id}
             matrix={matrix}
             onClick={() => {
-              const matrixProxy = matrixRepoProxy.find(matrix.id);
+              const matrixProxy = matrixRepo.find(matrix.id);
               if (matrixProxy) setEditingMatrix(matrixProxy);
             }}
           />
@@ -109,7 +109,7 @@ export function Matrices({ characterId }: MatricesProps) {
             for (const type of types) {
               const matrix = new Matrix(type, definition, characterId);
               matrix.stars = stars;
-              matrixRepoProxy.add(matrix);
+              matrixRepo.add(matrix);
             }
 
             setAddingDefinition(undefined);
@@ -131,7 +131,7 @@ export function Matrices({ characterId }: MatricesProps) {
           }}
           showDelete
           onDelete={() => {
-            matrixRepoProxy.remove(editingMatrix.id);
+            matrixRepo.remove(editingMatrix.id);
             setEditingMatrix(undefined);
           }}
           fullWidth

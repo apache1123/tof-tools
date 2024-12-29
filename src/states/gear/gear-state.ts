@@ -1,6 +1,7 @@
 import { proxy } from "valtio";
 
 import type { GearFilter } from "./gear-filter";
+import { getEmptyGearFilter } from "./gear-filter";
 
 export interface GearState {
   filter: GearFilter;
@@ -8,16 +9,10 @@ export interface GearState {
 }
 
 export const gearState = proxy<GearState>({
-  filter: getInitialFilter(),
+  filter: getEmptyGearFilter(),
   resetFilter() {
-    this.filter = getInitialFilter();
+    this.filter = getEmptyGearFilter();
   },
 });
 
 export const gearStateKey = "gears";
-
-function getInitialFilter(): GearFilter {
-  return {
-    gearTypeIds: [],
-  };
-}

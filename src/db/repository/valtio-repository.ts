@@ -1,4 +1,4 @@
-import { proxy, ref, subscribe } from "valtio";
+import { ref, subscribe } from "valtio";
 import { proxyMap } from "valtio/utils";
 
 import { repositoryKeyPrefix } from "../../constants/persistence";
@@ -25,7 +25,7 @@ export abstract class ValtioRepository<
   public type = "valtio" as const;
 
   public get items() {
-    return proxy([...this._items.values()]);
+    return [...this._items.values()];
   }
 
   public find(id: Id) {
@@ -33,7 +33,7 @@ export abstract class ValtioRepository<
   }
 
   public filter(predicate: (item: TItem) => boolean): TItem[] {
-    return proxy(this.items.filter(predicate));
+    return this.items.filter(predicate);
   }
 
   public add(item: TItem) {

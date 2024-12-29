@@ -5,8 +5,8 @@ import { CardList } from "../../components/common/CardList/CardList";
 import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { MatrixSelector } from "../../components/matrix/MatrixSelector/MatrixSelector";
 import { MatrixSlotCard } from "../../components/matrix/MatrixSlotCard/MatrixSlotCard";
+import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character";
-import type { Matrix } from "../../models/matrix/matrix";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useMatrices } from "../matrices/useMatrices";
@@ -26,9 +26,7 @@ export function WeaponPresetEditor({
     MatrixTypeId | undefined
   >(undefined);
 
-  const { matrixProxies } = useMatrices(characterId);
-
-  const allMatrices = useSnapshot(matrixProxies) as Matrix[];
+  const allMatrices = useMatrices(characterId);
   const filteredMatrices = addingMatrixTypeId
     ? allMatrices.filter((matrix) => matrix.type.id === addingMatrixTypeId)
     : [];
@@ -58,9 +56,7 @@ export function WeaponPresetEditor({
           <MatrixSelector
             matrices={filteredMatrices}
             onSelect={(matrix) => {
-              const matrixProxy = matrixProxies.find(
-                (matrixProxy) => matrixProxy.id === matrix.id,
-              );
+              const matrixProxy = db.get("matrices").find(matrix.id);
               if (!matrixProxy) throw new Error("Matrix not found");
 
               weaponPresetProxy.matrixSlots.getSlot(matrix.type.id).matrix =

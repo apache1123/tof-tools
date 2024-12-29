@@ -20,10 +20,9 @@ export interface WeaponsProps {
 export function Weapons({ characterId }: WeaponsProps) {
   const weaponRepo = db.get("weapons");
 
-  const weaponProxies = weaponRepo.filter(
+  const weapons = useSnapshot(weaponRepo).filter(
     (weapon) => weapon.characterId === characterId,
-  );
-  const weapons = useSnapshot(weaponProxies) as Weapon[];
+  ) as Weapon[];
 
   const unusedWeaponDefinitions = getAllWeaponDefinitions().filter(
     (definition) =>
@@ -54,9 +53,7 @@ export function Weapons({ characterId }: WeaponsProps) {
             key={weapon.id}
             weapon={weapon}
             onClick={() => {
-              const weaponProxy = weaponProxies.find(
-                (weaponProxy) => weaponProxy.id === weapon.id,
-              );
+              const weaponProxy = weaponRepo.find(weapon.id);
               if (!weaponProxy) throw new Error("Weapon proxy not found");
 
               setEditingWeaponProxy(weaponProxy);

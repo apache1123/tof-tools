@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof MatrixSelector>;
 
 export const Default: Story = {
-  args: { open: false, matrices: generateMatrices() },
+  args: { matrices: generateMatrices() },
 };
 
 function generateMatrices() {

@@ -32,11 +32,10 @@ export function WeaponEditor({ weaponProxy, characterId }: WeaponEditorProps) {
   } = weapon;
 
   const weaponPresetRepo = db.get("weaponPresets");
-  const weaponPresetProxies = weaponPresetRepo.filter(
+
+  const weaponPresets = useSnapshot(weaponPresetRepo).filter(
     (weaponPreset) => weaponPreset.weaponId === weaponProxy.id,
   );
-
-  const weaponPresets = useSnapshot(weaponPresetProxies);
 
   const [editingPresetProxy, setEditingPresetProxy] = useState<
     WeaponPreset | undefined
@@ -88,9 +87,8 @@ export function WeaponEditor({ weaponProxy, characterId }: WeaponEditorProps) {
                     weapon={weapon}
                     matrixSlots={weaponPreset.matrixSlots.getSlots()}
                     onClick={() => {
-                      const weaponPresetProxy = weaponPresetProxies.find(
-                        (weaponPresetProxy) =>
-                          weaponPresetProxy.id === weaponPreset.id,
+                      const weaponPresetProxy = weaponPresetRepo.find(
+                        weaponPreset.id,
                       );
                       if (!weaponPresetProxy) {
                         throw new Error(

@@ -8,34 +8,27 @@ import { GearFilter } from "../../components/gear/GearFilter/GearFilter";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character";
 import type { Gear } from "../../models/gear/gear";
+import { getFilteredGears } from "../../states/gear/gear-filter";
 import type { GearState } from "../../states/gear/gear-state";
 import { gearState } from "../../states/gear/gear-state";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { GearEditor } from "./GearEditor";
 import { NewGearEditor } from "./NewGearEditor";
+import { useGears } from "./useGears";
 
 export interface GearsProps {
   characterId: CharacterId;
 }
 
 export function Gears({ characterId }: GearsProps) {
-  const gearRepoProxy = db.get("gears");
-  const gearRepo = useSnapshot(gearRepoProxy);
+  const gearRepo = db.get("gears");
 
   const gearsSnap = useSnapshot(gearState) as GearState;
   const { filter } = gearsSnap;
 
-  const filteredGears = gearRepo.filter((gear) => {
-    if (gear.characterId !== characterId) return false;
-
-    const { gearTypeIds } = filter;
-    if (gearTypeIds.length) {
-      return gearTypeIds.includes(gear.type.id);
-    }
-
-    return true;
-  });
+  const gears = useGears(characterId);
+  const filteredGears = getFilteredGears(gears, filter);
 
   const [isAddingNewGear, setIsAddingNewGear] = useState(false);
   const [editingGear, setEditingGear] = useState<Gear | undefined>(undefined);
@@ -74,7 +67,7 @@ export function Gears({ characterId }: GearsProps) {
             key={gear.id}
             gear={gear}
             onClick={() => {
-              const gearProxy = gearRepoProxy.find(gear.id);
+              const gearProxy = gearRepo.find(gear.id);
               if (gearProxy) {
                 setEditingGear(gearProxy);
               }
@@ -87,7 +80,7 @@ export function Gears({ characterId }: GearsProps) {
         characterId={characterId}
         open={isAddingNewGear}
         onConfirm={(gear) => {
-          gearRepoProxy.add(gear);
+          gearRepo.add(gear);
           setIsAddingNewGear(false);
         }}
         onCancel={() => {
@@ -105,7 +98,7 @@ export function Gears({ characterId }: GearsProps) {
           }}
           showDelete
           onDelete={() => {
-            gearRepoProxy.remove(editingGear.id);
+            gearRepo.remove(editingGear.id);
             setEditingGear(undefined);
           }}
         />
