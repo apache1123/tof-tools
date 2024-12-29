@@ -2,25 +2,27 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { proxy, useSnapshot } from "valtio";
 
+import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { WeaponCard } from "../../components/weapon/WeaponCard/WeaponCard";
-import { WeaponDefinitionSelectorModal } from "../../components/weapon/WeaponDefinitionSelectorModal/WeaponDefinitionSelectorModal";
+import { WeaponDefinitionSelector } from "../../components/weapon/WeaponDefinitionSelector/WeaponDefinitionSelector";
 import { db } from "../../db/reactive-local-storage-db";
-import type { Repository } from "../../db/repository/types/repository";
 import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";
-import type { WeaponId } from "../../models/weapon/weapon";
 import { Weapon } from "../../models/weapon/weapon";
 import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { EditWeapon } from "./EditWeapon";
+import { WeaponEditor } from "./WeaponEditor";
 
 export function Weapons() {
   const { selectedCharacterId } = useSelectedCharacter();
 
-  const weaponRepoProxy = db.get("weapons");
-  const weaponRepo = useSnapshot(weaponRepoProxy) as Repository<Weapon>;
-  const weapons = selectedCharacterId
+  const weaponRepo = db.get("weapons");
+  const weaponProxies = selectedCharacterId
     ? weaponRepo.filter((weapon) => weapon.characterId === selectedCharacterId)
-    : [];
+    : // TODO: remove this when this component requires a character
+      proxy([]);
+
+  const weapons = useSnapshot(weaponProxies) as Weapon[];
 
   const unusedWeaponDefinitions = getAllWeaponDefinitions().filter(
     (definition) =>
@@ -28,9 +30,9 @@ export function Weapons() {
   );
 
   const [isAddingWeapon, setIsAddingWeapon] = useState(false);
-  const [editingWeaponId, setEditingWeaponId] = useState<WeaponId | undefined>(
-    undefined,
-  );
+  const [editingWeaponProxy, setEditingWeaponProxy] = useState<
+    Weapon | undefined
+  >(undefined);
 
   return (
     selectedCharacterId && (
@@ -52,36 +54,57 @@ export function Weapons() {
               key={weapon.id}
               weapon={weapon}
               onClick={() => {
-                setEditingWeaponId(weapon.id);
+                const weaponProxy = weaponProxies.find(
+                  (weaponProxy) => weaponProxy.id === weapon.id,
+                );
+                if (!weaponProxy) throw new Error("Weapon proxy not found");
+
+                setEditingWeaponProxy(weaponProxy);
               }}
-              sx={{ width: 280 }}
+              sx={{ width: 300 }}
             />
           ))}
         />
 
-        <WeaponDefinitionSelectorModal
-          open={isAddingWeapon}
-          weaponDefinitions={unusedWeaponDefinitions}
-          onSelect={(weaponDefinition) => {
-            const weapon = proxy(
-              new Weapon(weaponDefinition, selectedCharacterId, undefined),
-            );
-            weaponRepoProxy.add(weapon);
+        <StyledModal
+          modalContent={
+            <WeaponDefinitionSelector
+              weaponDefinitions={unusedWeaponDefinitions}
+              onSelect={(weaponDefinition) => {
+                const weaponProxy = proxy(
+                  new Weapon(weaponDefinition, selectedCharacterId, undefined),
+                );
+                weaponRepo.add(weaponProxy);
 
+                setIsAddingWeapon(false);
+                setEditingWeaponProxy(weaponProxy);
+              }}
+            />
+          }
+          open={isAddingWeapon}
+          showCancel
+          onClose={() => {
             setIsAddingWeapon(false);
-            setEditingWeaponId(weapon.id);
           }}
-          onCancel={() => {
-            setIsAddingWeapon(false);
-          }}
+          maxWidth={false}
+          fullWidth
         />
 
-        {editingWeaponId && (
-          <EditWeapon
-            id={editingWeaponId}
-            onFinishEdit={() => {
-              setEditingWeaponId(undefined);
+        {editingWeaponProxy && (
+          <EditorModal
+            modalContent={<WeaponEditor weaponProxy={editingWeaponProxy} />}
+            open={!!editingWeaponProxy}
+            onClose={() => {
+              setEditingWeaponProxy(undefined);
             }}
+            itemName={editingWeaponProxy.weaponDisplayName}
+            showDelete
+            onDelete={() => {
+              weaponRepo.remove(editingWeaponProxy.id);
+              setEditingWeaponProxy(undefined);
+            }}
+            maxWidth={false}
+            fullWidth
           />
         )}
       </>

@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { getAllWeaponDefinitions } from "../../../definitions/weapons/weapon-definitions";
-import { WeaponDefinitionSelectorModal } from "./WeaponDefinitionSelectorModal";
+import { WeaponDefinitionSelector } from "./WeaponDefinitionSelector";
 
-const meta: Meta<typeof WeaponDefinitionSelectorModal> = {
-  component: WeaponDefinitionSelectorModal,
+const meta: Meta<typeof WeaponDefinitionSelector> = {
+  component: WeaponDefinitionSelector,
   tags: ["autodocs"],
 };
 
 export default meta;
-type Story = StoryObj<typeof WeaponDefinitionSelectorModal>;
+type Story = StoryObj<typeof WeaponDefinitionSelector>;
 
 export const Default: Story = {
   args: { weaponDefinitions: getAllWeaponDefinitions() },

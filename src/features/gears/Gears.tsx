@@ -13,7 +13,7 @@ import { useSelectedCharacter } from "../characters/useSelectedCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { GearEditor } from "./GearEditor";
-import { NewGearEditorModal } from "./NewGearEditorModal";
+import { NewGearEditor } from "./NewGearEditor";
 
 export function Gears() {
   const { selectedCharacterId } = useSelectedCharacter();
@@ -82,7 +82,7 @@ export function Gears() {
           ))}
         />
 
-        <NewGearEditorModal
+        <NewGearEditor
           characterId={selectedCharacterId}
           open={isAddingNewGear}
           onConfirm={(gear) => {

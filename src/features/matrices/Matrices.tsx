@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { MatrixCard } from "../../components/matrix/MatrixCard/MatrixCard";
-import { MatrixDefinitionSelectorModal } from "../../components/matrix/MatrixDefinitionSelectorModal/MatrixDefinitionSelectorModal";
+import { MatrixDefinitionSelector } from "../../components/matrix/MatrixDefinitionSelector/MatrixDefinitionSelector";
 import { MatrixFilterSelector } from "../../components/matrix/MatrixFilterSelector/MatrixFilterSelector";
 import { NewMatrixModal } from "../../components/matrix/NewMatrixModal/NewMatrixModal";
 import { db } from "../../db/reactive-local-storage-db";
@@ -81,15 +82,22 @@ export function Matrices() {
           ))}
         />
 
-        <MatrixDefinitionSelectorModal
+        <StyledModal
+          modalContent={
+            <MatrixDefinitionSelector
+              matrixDefinitions={getAllMatrixDefinitions()}
+              onSelect={setAddingDefinition}
+            />
+          }
           open={isAddingMatrix && !addingDefinition}
-          matrixDefinitions={getAllMatrixDefinitions()}
-          title="Add matrix"
-          onSelect={setAddingDefinition}
-          onCancel={() => {
+          modalTitle="Add matrix"
+          showCancel
+          onClose={() => {
             setAddingDefinition(undefined);
             setIsAddingMatrix(false);
           }}
+          maxWidth={false}
+          fullWidth
         />
 
         {addingDefinition && (

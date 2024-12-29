@@ -2,23 +2,23 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { CardList } from "../../components/common/CardList/CardList";
-import type { EditorModalProps } from "../../components/common/Modal/EditorModal";
-import { EditorModal } from "../../components/common/Modal/EditorModal";
-import { MatrixSelectorModal } from "../../components/matrix/MatrixSelectorModal/MatrixSelectorModal";
+import { StyledModal } from "../../components/common/Modal/StyledModal";
+import { MatrixSelector } from "../../components/matrix/MatrixSelector/MatrixSelector";
 import { MatrixSlotCard } from "../../components/matrix/MatrixSlotCard/MatrixSlotCard";
+import type { CharacterId } from "../../models/character/character";
 import type { Matrix } from "../../models/matrix/matrix";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
+import { useMatrices } from "../matrices/useMatrices";
 
-export interface WeaponPresetEditorProps extends EditorModalProps {
+export interface WeaponPresetEditorProps {
   weaponPresetProxy: WeaponPreset;
-  allMatrixProxies: Matrix[];
+  characterId: CharacterId;
 }
 
 export function WeaponPresetEditor({
   weaponPresetProxy,
-  allMatrixProxies,
-  ...props
+  characterId,
 }: WeaponPresetEditorProps) {
   const { matrixSlots } = useSnapshot(weaponPresetProxy);
 
@@ -26,38 +26,39 @@ export function WeaponPresetEditor({
     MatrixTypeId | undefined
   >(undefined);
 
-  const allMatrices = useSnapshot(allMatrixProxies) as Matrix[];
+  const { matrixProxies } = useMatrices(characterId);
+
+  const allMatrices = useSnapshot(matrixProxies) as Matrix[];
   const filteredMatrices = addingMatrixTypeId
     ? allMatrices.filter((matrix) => matrix.type.id === addingMatrixTypeId)
     : [];
 
   return (
-    <EditorModal
-      modalContent={
-        <>
-          <CardList>
-            {matrixSlots.getSlots().map((slot) => (
-              <MatrixSlotCard
-                key={slot.acceptsType.id}
-                type={slot.acceptsType}
-                matrix={slot.matrix}
-                onClick={() => {
-                  setAddingMatrixTypeId(slot.acceptsType.id);
-                }}
-                onRemove={() => {
-                  weaponPresetProxy.matrixSlots.getSlot(
-                    slot.acceptsType.id,
-                  ).matrix = undefined;
-                }}
-              />
-            ))}
-          </CardList>
+    <>
+      <CardList>
+        {matrixSlots.getSlots().map((slot) => (
+          <MatrixSlotCard
+            key={slot.acceptsType.id}
+            type={slot.acceptsType}
+            matrix={slot.matrix}
+            onClick={() => {
+              setAddingMatrixTypeId(slot.acceptsType.id);
+            }}
+            onRemove={() => {
+              weaponPresetProxy.matrixSlots.getSlot(
+                slot.acceptsType.id,
+              ).matrix = undefined;
+            }}
+          />
+        ))}
+      </CardList>
 
-          <MatrixSelectorModal
-            open={!!addingMatrixTypeId}
+      <StyledModal
+        modalContent={
+          <MatrixSelector
             matrices={filteredMatrices}
             onSelect={(matrix) => {
-              const matrixProxy = allMatrixProxies.find(
+              const matrixProxy = matrixProxies.find(
                 (matrixProxy) => matrixProxy.id === matrix.id,
               );
               if (!matrixProxy) throw new Error("Matrix not found");
@@ -67,12 +68,14 @@ export function WeaponPresetEditor({
 
               setAddingMatrixTypeId(undefined);
             }}
-            onClose={() => setAddingMatrixTypeId(undefined)}
           />
-        </>
-      }
-      maxWidth={false}
-      {...props}
-    />
+        }
+        open={!!addingMatrixTypeId}
+        onClose={() => setAddingMatrixTypeId(undefined)}
+        showCancel
+        maxWidth={false}
+        fullWidth
+      />
+    </>
   );
 }

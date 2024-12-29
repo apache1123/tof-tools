@@ -3,15 +3,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { matrixDefinitions } from "../../../definitions/matrices/matrix-definitions";
 import { getMatrixType } from "../../../definitions/matrices/matrix-type";
 import { Matrix } from "../../../models/matrix/matrix";
-import { MatrixSelectorModal } from "./MatrixSelectorModal";
+import { MatrixSelector } from "./MatrixSelector";
 
-const meta: Meta<typeof MatrixSelectorModal> = {
-  component: MatrixSelectorModal,
+const meta: Meta<typeof MatrixSelector> = {
+  component: MatrixSelector,
   tags: ["autodocs"],
 };
 export default meta;
 
-type Story = StoryObj<typeof MatrixSelectorModal>;
+type Story = StoryObj<typeof MatrixSelector>;
 
 export const Default: Story = {
   args: { open: false, matrices: generateMatrices() },

@@ -12,19 +12,19 @@ const state = proxy<{ newGear: Gear | undefined }>({
   newGear: undefined,
 });
 
-export interface NewGearEditorModalProps {
+export interface NewGearEditorProps {
   characterId: CharacterId;
   open: boolean;
   onConfirm(gear: Gear): void;
   onCancel(): void;
 }
 
-export function NewGearEditorModal({
+export function NewGearEditor({
   characterId,
   open,
   onConfirm,
   onCancel,
-}: NewGearEditorModalProps) {
+}: NewGearEditorProps) {
   const { newGear } = useSnapshot(state);
 
   return (

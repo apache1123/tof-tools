@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { CardList } from "../../components/common/CardList/CardList";
-import { GearSelectorModal } from "../../components/gear/GearSelectorModal/GearSelectorModal";
+import { StyledModal } from "../../components/common/Modal/StyledModal";
+import { GearSelector } from "../../components/gear/GearSelector/GearSelector";
 import { GearSlotCard } from "../../components/gear/GearSlotCard/GearSlotCard";
 import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
-import { NewGearEditorModal } from "./NewGearEditorModal";
+import { NewGearEditor } from "./NewGearEditor";
 
 export interface GearSetEditorProps {
   gearSetProxy: GearSet;
@@ -50,26 +51,35 @@ export function GearSetEditor({
         ))}
       </CardList>
 
-      <GearSelectorModal
-        open={!!editingGearSlotTypeId}
-        gears={filteredGears}
-        onSelect={(gearId) => {
-          const gearProxy = allGearsProxy.find((gear) => gear.id === gearId);
-          if (gearProxy) {
-            gearSetProxy.getSlot(gearProxy.type.id).gear = gearProxy;
-          }
+      <StyledModal
+        modalContent={
+          <GearSelector
+            gears={filteredGears}
+            onSelect={(gearId) => {
+              const gearProxy = allGearsProxy.find(
+                (gear) => gear.id === gearId,
+              );
+              if (gearProxy) {
+                gearSetProxy.getSlot(gearProxy.type.id).gear = gearProxy;
+              }
 
-          setEditingGearSlotTypeId(undefined);
-        }}
-        onAdd={() => {
-          setIsAddingGear(true);
-        }}
+              setEditingGearSlotTypeId(undefined);
+            }}
+            onAdd={() => {
+              setIsAddingGear(true);
+            }}
+          />
+        }
+        open={!!editingGearSlotTypeId}
+        showCancel
         onClose={() => {
           setEditingGearSlotTypeId(undefined);
         }}
+        maxWidth={false}
+        fullWidth
       />
 
-      <NewGearEditorModal
+      <NewGearEditor
         characterId={characterId}
         open={isAddingGear}
         onConfirm={(gear) => {

@@ -6,19 +6,18 @@ import {
   exampleGloves,
   exampleSpaulders,
 } from "../../__fixtures__/gear";
-import { GearSelectorModal } from "./GearSelectorModal";
+import { GearSelector } from "./GearSelector";
 
-const meta: Meta<typeof GearSelectorModal> = {
-  component: GearSelectorModal,
+const meta: Meta<typeof GearSelector> = {
+  component: GearSelector,
   tags: ["autodocs"],
 };
 export default meta;
 
-type Story = StoryObj<typeof GearSelectorModal>;
+type Story = StoryObj<typeof GearSelector>;
 
 export const Default: Story = {
   args: {
-    open: false,
     gears: [
       exampleEyepiece,
       exampleGloves,
