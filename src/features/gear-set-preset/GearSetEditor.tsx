@@ -10,8 +10,8 @@ import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
-import { NewGearEditor } from "../gears/NewGearEditor";
-import { useGears } from "../gears/useGears";
+import { NewGearEditor } from "../gear/NewGearEditor";
+import { useGears } from "../gear/useGears";
 
 export interface GearSetEditorProps {
   gearSetProxy: GearSet;

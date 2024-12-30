@@ -2,8 +2,8 @@ import Head from "next/head";
 import { useEffect } from "react";
 
 import { db } from "../src/db/reactive-local-storage-db";
-import { useSelectedCharacter } from "../src/features/characters/useSelectedCharacter";
-import { GearSetPresets } from "../src/features/gear-set-presets/GearSetPresets";
+import { useSelectedCharacter } from "../src/features/character/useSelectedCharacter";
+import { GearSetPresets } from "../src/features/gear-set-preset/GearSetPresets";
 
 export default function GearPresetsPage() {
   useEffect(() => {

@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 import Head from "next/head";
 
-import { CritFlatToPercent } from "../src/features/stats/CritFlatToPercent";
-import { StatMaxAugmentIncrease } from "../src/features/stats/StatMaxAugmentIncrease";
-import { StatRanges } from "../src/features/stats/StatRanges";
+import { CritFlatToPercent } from "../src/features/stat/CritFlatToPercent";
+import { StatMaxAugmentIncrease } from "../src/features/stat/StatMaxAugmentIncrease";
+import { StatRanges } from "../src/features/stat/StatRanges";
 
 export default function StatsPage() {
   return (

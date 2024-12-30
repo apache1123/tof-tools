@@ -9,7 +9,7 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { useMatrices } from "../matrices/useMatrices";
+import { useMatrices } from "../matrix/useMatrices";
 
 export interface WeaponPresetEditorProps {
   weaponPresetProxy: WeaponPreset;

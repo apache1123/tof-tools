@@ -7,7 +7,7 @@ import { defaultNumOfRandomStats } from "../../definitions/gear";
 import { statTypesLookup } from "../../definitions/stat-types";
 import type { Gear } from "../../models/gear/gear";
 import { RandomStat } from "../../models/gear/random-stat";
-import { EmptyStatEditor, StatEditor } from "../stats/StatEditor";
+import { EmptyStatEditor, StatEditor } from "../stat/StatEditor";
 
 export interface GearEditorProps {
   gearProxy: Gear;

@@ -16,7 +16,7 @@ import { useSnapshot } from "valtio";
 
 import { ComingSoonIcon } from "../../../components/common/ComingSoonIcon/ComingSoonIcon";
 import { db } from "../../../db/reactive-local-storage-db";
-import { useSelectedCharacter } from "../../../features/characters/useSelectedCharacter";
+import { useSelectedCharacter } from "../../../features/character/useSelectedCharacter";
 import type { CharacterId } from "../../../models/character/character";
 import { characterState } from "../../../states/character/character-state";
 
