@@ -21,7 +21,7 @@ export class WeaponRepository extends ValtioRepository<Weapon, WeaponDto> {
     // Remove weapon presets that reference the removed weapon
     const weaponPresetRepo = this.db.get("weaponPresets");
     weaponPresetRepo.items.forEach((preset) => {
-      if (preset.weaponId === removedItemId) {
+      if (preset.weapon.id === removedItemId) {
         weaponPresetRepo.remove(preset.id);
       }
     });

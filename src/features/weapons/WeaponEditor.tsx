@@ -34,7 +34,7 @@ export function WeaponEditor({ weaponProxy, characterId }: WeaponEditorProps) {
   const weaponPresetRepo = db.get("weaponPresets");
 
   const weaponPresets = useSnapshot(weaponPresetRepo).filter(
-    (weaponPreset) => weaponPreset.weaponId === weaponProxy.id,
+    (weaponPreset) => weaponPreset.weapon.id === weaponProxy.id,
   );
 
   const [editingPresetProxy, setEditingPresetProxy] = useState<
@@ -72,7 +72,7 @@ export function WeaponEditor({ weaponProxy, characterId }: WeaponEditorProps) {
 
             <Button
               onClick={() => {
-                weaponPresetRepo.add(new WeaponPreset(weaponProxy.id));
+                weaponPresetRepo.add(new WeaponPreset(weaponProxy));
               }}
               sx={{ mb: 1 }}
             >

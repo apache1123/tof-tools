@@ -1,11 +1,10 @@
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Card, CardContent, CardHeader } from "@mui/material";
 
 import type { Matrix } from "../../../models/matrix/matrix";
 import type { MatrixType } from "../../../models/matrix/matrix-type";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { AddToSlotButton } from "../../common/AddToSlotButton/AddToSlotButton";
-import { Button } from "../../common/Button/Button";
+import { RemoveFromSlotButton } from "../../common/RemoveFromSlotButton/RemoveFromSlotButton";
 import { MatrixCard } from "../MatrixCard/MatrixCard";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
@@ -66,14 +65,7 @@ export function MatrixSlotCard({
                 elevation={1}
                 onClick={onClick}
               />
-              <Button
-                icon={<RemoveCircleIcon />}
-                buttonProps={{ variant: "text" }}
-                onClick={onRemove}
-                sx={{ mt: 0.5 }}
-              >
-                Remove
-              </Button>
+              <RemoveFromSlotButton onClick={onRemove} sx={{ mt: 0.5 }} />
             </>
           ) : (
             <AddToSlotButton onClick={onClick} />

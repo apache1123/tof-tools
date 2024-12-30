@@ -26,6 +26,10 @@ export class WeaponPresetRepository extends ValtioRepository<
   }
 
   protected override dtoToItem(dto: WeaponPresetDto): WeaponPreset {
-    return dtoToWeaponPreset(dto, this.db.get("matrices"));
+    return dtoToWeaponPreset(
+      dto,
+      this.db.get("weapons"),
+      this.db.get("matrices"),
+    );
   }
 }

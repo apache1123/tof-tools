@@ -2,13 +2,16 @@ import { Stack } from "@mui/material";
 
 import type { MatrixSlot } from "../../../models/matrix/matrix-slot";
 import type { Weapon } from "../../../models/weapon/weapon";
+import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { CardList } from "../../common/CardList/CardList";
 import { MatrixSlotIcon } from "../../matrix/MatrixSlotIcon/MatrixSlotIcon";
 import { WeaponDefinitionCardContent } from "../WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector";
 
-export interface WeaponCardContentProps extends PropsWithSx {
+export interface WeaponCardContentProps
+  extends PropsWithElevation,
+    PropsWithSx {
   weapon: Weapon;
   showWeaponDescription?: boolean;
   matrixSlots?: MatrixSlot[];
@@ -18,6 +21,7 @@ export function WeaponCardContent({
   weapon,
   showWeaponDescription = true,
   matrixSlots,
+  elevation,
   sx,
 }: WeaponCardContentProps) {
   const {
@@ -52,7 +56,7 @@ export function WeaponCardContent({
               key={slot.acceptsType.id}
               type={slot.acceptsType}
               matrix={slot.matrix}
-              elevation={1}
+              elevation={(elevation ?? 0) + 1}
             />
           ))}
         </CardList>

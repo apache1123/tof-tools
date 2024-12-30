@@ -2,10 +2,11 @@ import { Card, CardActionArea, Stack } from "@mui/material";
 
 import type { MatrixSlot } from "../../../models/matrix/matrix-slot";
 import type { Weapon } from "../../../models/weapon/weapon";
+import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { WeaponCardContent } from "../WeaponCard/WeaponCardContent";
 
-export interface WeaponPresetCardProps extends PropsWithSx {
+export interface WeaponPresetCardProps extends PropsWithElevation, PropsWithSx {
   weapon: Weapon;
   matrixSlots: MatrixSlot[];
   onClick?(): void;
@@ -15,10 +16,11 @@ export function WeaponPresetCard({
   weapon,
   matrixSlots,
   onClick,
+  elevation,
   sx,
 }: WeaponPresetCardProps) {
   return (
-    <Card sx={{ width: "fit-content", ...sx }}>
+    <Card elevation={elevation} sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
         onClick={() => {
           if (onClick) onClick();
@@ -36,6 +38,7 @@ export function WeaponPresetCard({
             weapon={weapon}
             matrixSlots={matrixSlots}
             showWeaponDescription={false}
+            elevation={elevation}
           />
         </Stack>
       </CardActionArea>

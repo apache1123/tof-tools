@@ -1,15 +1,15 @@
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { exampleMatrixSlots } from "./matrix-slot";
-import { exampleWeaponId } from "./weapon";
+import { exampleWeapon } from "./weapon";
 
 export const exampleWeaponPreset1 = new WeaponPreset(
-  exampleWeaponId,
+  exampleWeapon,
   "weaponPresetId",
   exampleMatrixSlots,
 );
 
 export const exampleWeaponPreset2 = new WeaponPreset(
-  exampleWeaponId,
+  exampleWeapon,
   "weaponPresetId2",
 );
 
