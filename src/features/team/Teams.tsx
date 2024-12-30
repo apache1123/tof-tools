@@ -3,6 +3,7 @@ import { useSnapshot } from "valtio";
 
 import { Button } from "../../components/common/Button/Button";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { TeamPresetCard } from "../../components/team/TeamPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character";
 import { TeamPreset } from "../../models/team/team-preset";
@@ -43,7 +44,15 @@ export function Teams({ characterId }: TeamsProps) {
           </Button>
         }
         items={teamPresets.map((teamPreset) => (
-          <></>
+          <TeamPresetCard
+            key={teamPreset.id}
+            teamPreset={teamPreset}
+            onClick={() => {
+              const presetProxy = teamPresetsRepo.find(teamPreset.id);
+              if (!presetProxy) throw new Error("Preset not found");
+              setEditingTeamPresetProxy(presetProxy);
+            }}
+          />
         ))}
       />
 
@@ -59,7 +68,7 @@ export function Teams({ characterId }: TeamsProps) {
           itemName={
             !!editingTeamPresetProxy.name
               ? editingTeamPresetProxy.name
-              : undefined
+              : "this team"
           }
           showDelete
           onDelete={() => {

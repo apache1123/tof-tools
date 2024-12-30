@@ -20,7 +20,7 @@ export function WeaponPresetCard({
   sx,
 }: WeaponPresetCardProps) {
   return (
-    <Card elevation={elevation} sx={{ width: "fit-content", ...sx }}>
+    <Card elevation={elevation} sx={{ ...sx }}>
       <CardActionArea
         onClick={() => {
           if (onClick) onClick();
