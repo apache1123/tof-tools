@@ -35,7 +35,7 @@ export function WeaponCardContent({
   } = weapon;
 
   return (
-    <Stack sx={{ gap: 2, alignItems: "center", ...sx }}>
+    <Stack direction="row" sx={{ gap: 2, alignItems: "center", ...sx }}>
       <Stack>
         <WeaponDefinitionCardContent
           id={definitionId}

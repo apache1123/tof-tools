@@ -20,6 +20,10 @@ export const routes = {
     label: "Matrices",
     path: "/matrices",
   },
+  teams: {
+    label: "Teams",
+    path: "/teams",
+  },
   damageCalculator: {
     label: "Damage Calculator",
     path: "/damage-calculator",

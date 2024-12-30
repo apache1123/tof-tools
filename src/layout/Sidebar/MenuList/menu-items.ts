@@ -32,6 +32,11 @@ export const menuItems: NavGroupModel[] = [
         path: routes.matrices.path,
       },
       {
+        id: "teams",
+        title: routes.teams.label,
+        path: routes.teams.path,
+      },
+      {
         id: "loadouts",
         title: routes.loadouts.label,
         path: routes.loadouts.path,

@@ -21,8 +21,6 @@ export function WeaponPresetSlotCard({
   return (
     <Card
       sx={{
-        width: 360,
-        height: 330,
         display: "flex",
         flexDirection: "column",
         ...sx,
