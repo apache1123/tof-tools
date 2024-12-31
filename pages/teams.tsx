@@ -13,6 +13,7 @@ export default function TeamsPage() {
       "weapons",
       "weaponPresets",
       "teamPresets",
+      "characterPresets",
     ]);
   }, []);
 

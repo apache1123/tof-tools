@@ -3,6 +3,7 @@ import { proxy } from "valtio";
 import type { Identifiable } from "../models/identifiable";
 import type { Db, RepositoryKey, RepositoryMap } from "./db";
 import { CharacterRepository } from "./repositories/character/character-repository";
+import { CharacterPresetRepository } from "./repositories/character-preset/character-preset-repository";
 import { GearRepository } from "./repositories/gear/gear-repository";
 import { GearSetPresetRepository } from "./repositories/gear/gear-set-preset-repository";
 import { MatrixRepository } from "./repositories/matrix/matrix-repository";
@@ -25,6 +26,7 @@ export class ReactiveLocalStorageDb implements Db {
     weapons: new StubRepository(),
     weaponPresets: new StubRepository(),
     teamPresets: new StubRepository(),
+    characterPresets: new StubRepository(),
   });
 
   /** Initializes the repositories in the given order.
@@ -72,6 +74,8 @@ export class ReactiveLocalStorageDb implements Db {
         return new WeaponPresetRepository(key, storage, this);
       case "teamPresets":
         return new TeamPresetRepository(key, storage, this);
+      case "characterPresets":
+        return new CharacterPresetRepository(key, storage, this);
       default:
         throw new Error(`Unknown repository key: ${key}`);
     }

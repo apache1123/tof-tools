@@ -1,4 +1,5 @@
 import type { Character } from "../models/character/character";
+import type { CharacterPreset } from "../models/character/character-preset";
 import type { Gear } from "../models/gear/gear";
 import type { GearSetPreset } from "../models/gear/gear-set-preset";
 import type { Matrix } from "../models/matrix/matrix";
@@ -15,6 +16,7 @@ export interface RepositoryMap {
   weapons: Repository<Weapon>;
   weaponPresets: Repository<WeaponPreset>;
   teamPresets: Repository<TeamPreset>;
+  characterPresets: Repository<CharacterPreset>;
 }
 
 export type RepositoryKey = keyof RepositoryMap;

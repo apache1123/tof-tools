@@ -76,7 +76,6 @@ export function Teams({ characterId }: TeamsProps) {
             setEditingTeamPresetProxy(undefined);
           }}
           maxWidth={false}
-          fullWidth
         />
       )}
     </>

@@ -3,13 +3,13 @@ import type { NavGroupModel } from "./NavGroup/NavGroup";
 
 export const menuItems: NavGroupModel[] = [
   {
-    id: "character",
+    id: "wanderer",
     title: "Wanderer",
     children: [
       {
-        id: "character-info",
-        title: "Wanderer Info",
-        path: "/",
+        id: "wanderer",
+        title: routes.wanderer.label,
+        path: routes.wanderer.path,
       },
       {
         id: "gears",
@@ -35,11 +35,6 @@ export const menuItems: NavGroupModel[] = [
         id: "teams",
         title: routes.teams.label,
         path: routes.teams.path,
-      },
-      {
-        id: "loadouts",
-        title: routes.loadouts.label,
-        path: routes.loadouts.path,
       },
     ],
   },

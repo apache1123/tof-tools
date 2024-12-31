@@ -4,6 +4,10 @@ export interface Route {
 }
 
 export const routes = {
+  wanderer: {
+    label: "Wanderer",
+    path: "/wanderer",
+  },
   gears: {
     label: "Gear",
     path: "/gear",
@@ -31,10 +35,6 @@ export const routes = {
   simulatorResults: {
     label: "Simulator Results",
     path: "/simulator-results",
-  },
-  loadouts: {
-    label: "Loadouts",
-    path: "/loadouts",
   },
   gearComparer: {
     label: "Compare Gear",

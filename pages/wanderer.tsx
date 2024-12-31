@@ -3,11 +3,17 @@ import { useEffect } from "react";
 
 import { db } from "../src/db/reactive-local-storage-db";
 import { useSelectedCharacter } from "../src/features/character/useSelectedCharacter";
-import { GearSetPresets } from "../src/features/gear-set-preset/GearSetPresets";
 
-export default function GearPresetsPage() {
+export default function WandererPage() {
   useEffect(() => {
-    db.init(["characters", "gears", "gearSetPresets", "characterPresets"]);
+    db.init([
+      "characters",
+      "matrices",
+      "weapons",
+      "weaponPresets",
+      "teamPresets",
+      "characterPresets",
+    ]);
   }, []);
 
   const { characterId } = useSelectedCharacter();
@@ -15,10 +21,8 @@ export default function GearPresetsPage() {
   return (
     <>
       <Head>
-        <title>Gear Presets | Tower of Fantasy Tools</title>
+        <title>Wanderer | Tower of Fantasy Tools</title>
       </Head>
-
-      {characterId && <GearSetPresets characterId={characterId} />}
     </>
   );
 }
