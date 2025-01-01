@@ -31,6 +31,7 @@ export function Character({ characterId }: CharacterProps) {
             buttonProps={{ variant: "contained" }}
             onClick={() => {
               const newPreset = new CharacterPreset(characterId);
+              newPreset.name = "Character preset name";
               characterPresetRepo.add(newPreset);
 
               const newPresetProxy = characterPresetRepo.find(newPreset.id);

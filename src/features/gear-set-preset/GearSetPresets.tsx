@@ -37,7 +37,7 @@ export function GearSetPresets({ characterId }: GearSetPresetsProps) {
             variant="contained"
             onClick={() => {
               const newPreset = new GearSetPreset(characterId);
-              newPreset.name = "Gear Preset";
+              newPreset.name = "Gear preset name";
               gearSetPresetRepo.add(newPreset);
 
               setEditingPresetId(newPreset.id);

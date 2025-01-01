@@ -18,8 +18,15 @@ export function TeamPresetCard({ teamPreset, onClick }: TeamPresetCardProps) {
         onClick={() => {
           onClick?.();
         }}
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "start",
+          alignItems: "start",
+        }}
       >
-        <CardHeader title={name} />
+        <CardHeader title={name || "Unnamed team"} />
         <CardContent>
           <CardList direction="column" gap={0.5}>
             {weaponPresetSlots.map(

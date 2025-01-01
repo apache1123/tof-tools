@@ -32,6 +32,7 @@ export function Teams({ characterId }: TeamsProps) {
             buttonProps={{ variant: "contained" }}
             onClick={() => {
               const newPreset = new TeamPreset(characterId);
+              newPreset.name = "Team name";
               teamPresetsRepo.add(newPreset);
 
               const newPresetProxy = teamPresetsRepo.find(newPreset.id);
