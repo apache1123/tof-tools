@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { useSnapshot } from "valtio";
 
 import { Button } from "../../components/common/Button/Button";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
-import { TeamPresetCard } from "../../components/team/TeamPresetCard";
+import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character";
 import { TeamPreset } from "../../models/team/team-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { TeamPresetEditor } from "./TeamPresetEditor";
+import { useTeamPresets } from "./useTeamPresets";
 
 export interface TeamsProps {
   characterId: CharacterId;
@@ -17,9 +17,7 @@ export interface TeamsProps {
 export function Teams({ characterId }: TeamsProps) {
   const teamPresetsRepo = db.get("teamPresets");
 
-  const teamPresets = useSnapshot(teamPresetsRepo).filter(
-    (teamPreset) => teamPreset.characterId === characterId,
-  ) as TeamPreset[];
+  const teamPresets = useTeamPresets(characterId);
 
   const [editingTeamPresetProxy, setEditingTeamPresetProxy] = useState<
     TeamPreset | undefined

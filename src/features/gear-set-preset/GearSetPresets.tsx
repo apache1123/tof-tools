@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { useSnapshot } from "valtio";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
@@ -10,6 +9,7 @@ import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
 import { GearSetPreset } from "../../models/gear/gear-set-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { GearSetPresetEditor } from "./GearSetPresetEditor";
+import { useGearSetPresets } from "./useGearSetPresets";
 
 export interface GearSetPresetsProps {
   characterId: CharacterId;
@@ -17,9 +17,7 @@ export interface GearSetPresetsProps {
 
 export function GearSetPresets({ characterId }: GearSetPresetsProps) {
   const gearSetPresetRepo = db.get("gearSetPresets");
-  const presets = useSnapshot(gearSetPresetRepo).filter((preset) => {
-    return preset.characterId === characterId;
-  });
+  const presets = useGearSetPresets(characterId);
 
   const [editingPresetId, setEditingPresetId] = useState<
     GearSetPresetId | undefined

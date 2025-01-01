@@ -8,18 +8,14 @@ export type CharacterId = Id;
 /** Represent the game character's metadata, such as level, name, and inventory */
 export class Character {
   public constructor(id?: CharacterId) {
-    this._id = id ?? nanoid();
+    this.id = id ?? nanoid();
     this.name = "";
     this._level = 0;
   }
 
+  public readonly id: CharacterId;
   public name: string;
-  private readonly _id: CharacterId;
   private _level: number;
-
-  public get id(): CharacterId {
-    return this._id;
-  }
 
   public get level(): number {
     return this._level;

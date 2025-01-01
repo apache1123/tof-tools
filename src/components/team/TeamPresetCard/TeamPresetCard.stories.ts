@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { exampleTeamPreset } from "../__fixtures__/team-preset";
+import { exampleTeamPreset } from "../../__fixtures__/team-preset";
 import { TeamPresetCard } from "./TeamPresetCard";
 
 const meta: Meta<typeof TeamPresetCard> = {

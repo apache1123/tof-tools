@@ -1,8 +1,8 @@
 import { Card, CardActionArea, CardContent, CardHeader } from "@mui/material";
 
-import type { TeamPreset } from "../../models/team/team-preset";
-import { CardList } from "../common/CardList/CardList";
-import { WeaponPresetCard } from "../weapon/WeaponPresetCard/WeaponPresetCard";
+import type { TeamPreset } from "../../../models/team/team-preset";
+import { CardList } from "../../common/CardList/CardList";
+import { WeaponPresetCard } from "../../weapon/WeaponPresetCard/WeaponPresetCard";
 
 export interface TeamPresetCardProps {
   teamPreset: TeamPreset;
