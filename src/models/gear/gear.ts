@@ -23,7 +23,7 @@ import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
 import { getItemWithHighestNumber } from "../../utils/number-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
 import { AugmentStat } from "./augment-stat";
 import type {

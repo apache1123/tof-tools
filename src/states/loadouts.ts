@@ -119,16 +119,12 @@
 // }
 //
 import type { Dto } from "../db/repository/dto";
-import type {
-  Loadout,
-  LoadoutDtoV1,
-  LoadoutDtoV2,
-} from "../models/loadout/loadout";
+import type { LoadoutDtoV1, LoadoutDtoV2 } from "../models/loadout/loadout";
 
-export interface LoadoutListItem {
-  loadout: Loadout;
-  isDefault: boolean;
-}
+// export interface LoadoutListItem {
+//   loadout: Loadout;
+//   isDefault: boolean;
+// }
 
 /** @deprecated */
 export interface LoadoutListItemDtoV1 {

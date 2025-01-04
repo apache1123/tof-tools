@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import type { Matrix } from "../../models/matrix/matrix";
 
 /** Returns all matrices for the character */

@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 import createEmotionCache from "../src/createEmotionCache";
 import { db } from "../src/db/reactive-local-storage-db";
-import { Character } from "../src/models/character/character";
+import { CharacterData } from "../src/models/character/character-data";
 import {
   changelogState,
   changelogStateKey,
@@ -51,7 +51,7 @@ export default function MyApp(props: MyAppProps) {
     // Add a default character if none exists
     const characterRepo = db.get("characters");
     if (characterRepo.items.length === 0) {
-      const defaultCharacter = new Character();
+      const defaultCharacter = new CharacterData();
       defaultCharacter.name = "Default wanderer";
       characterRepo.add(defaultCharacter);
     }

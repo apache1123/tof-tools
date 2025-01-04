@@ -11,7 +11,7 @@ import { NewMatrixModal } from "../../components/matrix/NewMatrixModal/NewMatrix
 import { db } from "../../db/reactive-local-storage-db";
 import { getAllMatrixDefinitions } from "../../definitions/matrices/matrix-definitions";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import { Matrix } from "../../models/matrix/matrix";
 import { getFilteredMatrices } from "../../models/matrix/matrix-filter";
 import type { MatrixState } from "../../states/matrix/matrix-state";

@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 
 import { numWeaponsInTeam } from "../../definitions/team";
-import type { CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
 import { WeaponPresetSlot } from "../weapon/weapon-preset-slot";
 

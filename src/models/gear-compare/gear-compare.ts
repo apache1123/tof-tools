@@ -17,15 +17,16 @@ import { CritDamageBuff } from "../buff/crit-damage-buff/crit-damage-buff";
 import { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
 import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { FinalDamageBuff } from "../buff/final-damage-buff/final-damage-buff";
-import type { Character } from "../character/character";
-import { CombatCharacter } from "../character/combat-character";
+import { Character } from "../character/character";
+import type { CharacterData } from "../character/character-data";
 import { DamageEvent } from "../damage-event/damage-event";
 import type { AttackHit } from "../event/messages/attack-hit";
 import { Gear } from "../gear/gear";
 import { GearSet } from "../gear/gear-set";
-import { Loadout } from "../loadout/loadout";
+import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Target } from "../target/target";
 import { ElementalWeaponRequirements } from "../team/elemental-weapon-requirements";
+import type { Team } from "../team/team";
 import { TeamRequirements } from "../team/team-requirements";
 import { WeaponResonanceRequirements } from "../team/weapon-resonance-requirements";
 import { Weapon } from "../weapon/weapon";
@@ -34,14 +35,14 @@ import { GearCompareBuffAbility } from "./gear-compare-buff-ability";
 import { GearCompareBuffAbilityRequirements } from "./gear-compare-buff-ability-requirements";
 
 export class GearCompare {
-  /** Start a gear compare with a loadout as the basis */
   public constructor(
-    private readonly character: Character,
-    private readonly basisLoadout: Loadout,
+    private readonly characterData: CharacterData,
+    private readonly team: Team,
+    private readonly gearSet: GearSet,
+    private readonly simulacrumTrait: SimulacrumTrait | undefined,
   ) {
     this.target = { resistance: 0 };
 
-    const { team } = basisLoadout;
     const { weapons } = team;
 
     const buffAbilityDefinitions: {
@@ -147,9 +148,11 @@ export class GearCompare {
   /** The damage for the given element. Used as a basis for comparing gear */
   public getDamageBasis(element: WeaponElementalType): number {
     // Simulate a dummy attack hit to get the damage to use as the basis
-    const character = new CombatCharacter(
-      this.character,
-      this.basisLoadout,
+    const character = new Character(
+      this.characterData,
+      this.team,
+      this.gearSet,
+      this.simulacrumTrait,
       this.activeBuffs,
       this.activeWeapon,
     );
@@ -171,26 +174,26 @@ export class GearCompare {
     element: WeaponElementalType,
   ): number {
     return this.getSubstituteGearValue(
-      new Gear(getGearType(gearTypeId), this.character.id), // Empty gear of the same type
+      new Gear(getGearType(gearTypeId), this.characterData.id), // Empty gear of the same type
       element,
     );
   }
 
-  /** The damage when a piece of gear is equipped, relative to the basis damage, if it replaces the basis loadout's corresponding piece of gear
+  /** The damage when a piece of gear is equipped, relative to the basis damage, if it replaces the basis gear set's corresponding piece of gear
    */
   public getSubstituteGearValue(
     substituteGear: Gear,
     element: WeaponElementalType,
   ): number {
-    // Create a copy of the basis loadout with the gear replaced with the substitute gear
-    const tempLoadout = Loadout.createCopy(this.basisLoadout);
-    tempLoadout.gearSet = GearSet.createCopy(this.basisLoadout.gearSet);
-    tempLoadout.replaceGear(substituteGear);
+    // Create a copy of the basis gear set with the gear replaced with the substitute gear
+    const tempGearSet = GearSet.createCopy(this.gearSet);
 
     // Simulate a dummy attack hit using the temp gear set to calculate how much it is relative to the basis damage
-    const tempCharacter = new CombatCharacter(
-      this.character,
-      tempLoadout,
+    const tempCharacter = new Character(
+      this.characterData,
+      this.team,
+      tempGearSet,
+      this.simulacrumTrait,
       this.activeBuffs,
       this.activeWeapon,
     );
@@ -216,9 +219,9 @@ export class GearCompare {
 
   private getAttackHit(element: WeaponElementalType): AttackHit {
     // It doesn't matter what weapon is used as long as the element of the attack hit matches and all buffs apply
-    const weapon = this.basisLoadout.team.weapons.length
-      ? this.basisLoadout.team.weapons[0]
-      : new Weapon(getWeaponDefinition("Cocoritter"), this.character.id);
+    const weapon = this.team.weapons.length
+      ? this.team.weapons[0]
+      : new Weapon(getWeaponDefinition("Cocoritter"), this.characterData.id);
 
     // Use a mock attack hit that matches the element and applies all buffs
     return {

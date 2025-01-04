@@ -5,7 +5,7 @@ import { numWeaponsInTeam } from "../../definitions/team";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
-import type { CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
 import type { Weapon } from "../weapon/weapon";
 import { WeaponSlot } from "../weapon/weapon-slot";

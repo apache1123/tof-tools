@@ -7,7 +7,7 @@ import { GearSelector } from "../../components/gear/GearSelector/GearSelector";
 import { GearSlotCard } from "../../components/gear/GearSlotCard/GearSlotCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { GearTypeId } from "../../definitions/gear-types";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
 import { NewGearEditor } from "../gear/NewGearEditor";

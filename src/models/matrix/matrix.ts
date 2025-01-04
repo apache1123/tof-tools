@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 
 import { maxNumOfMatrixStars } from "../../definitions/matrices/matrix";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
-import type { CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
 import type { MatrixType } from "./matrix-type";
 

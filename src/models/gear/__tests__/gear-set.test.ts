@@ -1,6 +1,6 @@
 import { getGearType } from "../../../definitions/gear-types";
 import { statTypesLookup } from "../../../definitions/stat-types";
-import type { CharacterId } from "../../character/character";
+import type { CharacterId } from "../../character/character-data";
 import { Gear } from "../gear";
 import { GearSet } from "../gear-set";
 import { RandomStat } from "../random-stat";

@@ -1,6 +1,6 @@
 import type { Dto } from "../../repository/dto";
 
-export interface CharacterDto extends Dto {
+export interface CharacterDataDto extends Dto {
   id: string;
   name: string;
   level: number;

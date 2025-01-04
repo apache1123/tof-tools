@@ -6,7 +6,7 @@ import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { GearCard } from "../../components/gear/GearCard/GearCard";
 import { GearFilter } from "../../components/gear/GearFilter/GearFilter";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
 import { getFilteredGears } from "../../states/gear/gear-filter";
 import type { GearState } from "../../states/gear/gear-state";

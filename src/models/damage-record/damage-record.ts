@@ -1,7 +1,7 @@
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import type { Buff } from "../buff/buff";
 import type { UtilizedBuffs } from "../buff/utilized-buffs";
-import type { CombatCharacter } from "../character/combat-character";
+import type { Character } from "../character/character";
 import { DamageEvent } from "../damage-event/damage-event";
 import type { EventManager } from "../event/event-manager";
 import type { EventSubscriber } from "../event/event-subscriber";
@@ -21,7 +21,7 @@ export class DamageRecord
     private readonly timeline: DamageRecordTimeline,
     private readonly currentTick: CurrentTick,
     private readonly eventManager: EventManager,
-    private readonly character: CombatCharacter,
+    private readonly character: Character,
     private readonly target: Target,
     private readonly activeBuffs: ActiveBuffs,
     private readonly utilizedBuffs: UtilizedBuffs,

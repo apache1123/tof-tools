@@ -4,7 +4,7 @@ import { CharacterPresetCard } from "../../components/character/CharacterPresetC
 import { Button } from "../../components/common/Button/Button";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import { CharacterPreset } from "../../models/character/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { CharacterPresetEditor } from "./CharacterPresetEditor";

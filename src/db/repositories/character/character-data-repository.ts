@@ -1,11 +1,11 @@
-import { Character } from "../../../models/character/character";
+import { CharacterData } from "../../../models/character/character-data";
 import type { Id } from "../../../models/identifiable";
 import { ValtioRepository } from "../../repository/valtio-repository";
-import type { CharacterDto } from "./character-dto";
+import type { CharacterDataDto } from "./character-data-dto";
 
-export class CharacterRepository extends ValtioRepository<
-  Character,
-  CharacterDto
+export class CharacterDataRepository extends ValtioRepository<
+  CharacterData,
+  CharacterDataDto
 > {
   protected override cleanUpRelatedEntitiesOnItemRemoval(
     removedItemId: Id,
@@ -49,16 +49,16 @@ export class CharacterRepository extends ValtioRepository<
     });
   }
 
-  protected override itemToDto(item: Character): CharacterDto {
+  protected override itemToDto(item: CharacterData): CharacterDataDto {
     const { id, name, level } = item;
     return { id, name, level, version: 1 };
   }
 
-  protected override dtoToItem(dto: CharacterDto): Character {
+  protected override dtoToItem(dto: CharacterDataDto): CharacterData {
     const { id, name, level } = dto;
-    const character = new Character(id);
-    character.name = name;
-    character.level = level;
-    return character;
+    const characterInfo = new CharacterData(id);
+    characterInfo.name = name;
+    characterInfo.level = level;
+    return characterInfo;
   }
 }

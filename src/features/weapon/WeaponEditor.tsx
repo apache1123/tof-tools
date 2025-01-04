@@ -9,7 +9,7 @@ import { WeaponDefinitionCardContent } from "../../components/weapon/WeaponDefin
 import { WeaponPresetCard } from "../../components/weapon/WeaponPresetCard/WeaponPresetCard";
 import { WeaponStarsSelector } from "../../components/weapon/WeaponStarsSelector/WeaponStarsSelector";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import type { Weapon } from "../../models/weapon/weapon";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { WeaponPresetEditor } from "./WeaponPresetEditor";

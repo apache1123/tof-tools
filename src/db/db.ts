@@ -1,4 +1,4 @@
-import type { Character } from "../models/character/character";
+import type { CharacterData } from "../models/character/character-data";
 import type { CharacterPreset } from "../models/character/character-preset";
 import type { Gear } from "../models/gear/gear";
 import type { GearSetPreset } from "../models/gear/gear-set-preset";
@@ -9,7 +9,7 @@ import type { WeaponPreset } from "../models/weapon/weapon-preset";
 import type { Repository } from "./repository/types/repository";
 
 export interface RepositoryMap {
-  characters: Repository<Character>;
+  characters: Repository<CharacterData>;
   gears: Repository<Gear>;
   gearSetPresets: Repository<GearSetPreset>;
   matrices: Repository<Matrix>;

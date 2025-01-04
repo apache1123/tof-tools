@@ -4,7 +4,7 @@ import { useState } from "react";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
 import { GearSetPreset } from "../../models/gear/gear-set-preset";
 import { InventoryLayout } from "../common/InventoryLayout";

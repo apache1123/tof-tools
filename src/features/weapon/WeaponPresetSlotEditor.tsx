@@ -5,7 +5,7 @@ import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { WeaponPresetSelector } from "../../components/weapon/WeaponPresetSelector/WeaponPresetSelector";
 import { WeaponPresetSlotCard } from "../../components/weapon/WeaponPresetSlotCard/WeaponPresetSlotCard";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import type { WeaponPresetSlot } from "../../models/weapon/weapon-preset-slot";
 
 export interface WeaponPresetSlotEditorProps {

@@ -30,14 +30,14 @@ import { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
 import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { FinalDamageBuff } from "../buff/final-damage-buff/final-damage-buff";
 import { UtilizedBuffs } from "../buff/utilized-buffs";
-import type { Character } from "../character/character";
-import { CombatCharacter } from "../character/combat-character";
+import { Character } from "../character/character";
+import type { CharacterData } from "../character/character-data";
 import { Charge } from "../charge/charge";
 import { DamageRecord } from "../damage-record/damage-record";
 import { DamageRecordTimeline } from "../damage-record/damage-record-timeline";
 import { EventManager } from "../event/event-manager";
 import type { EventSubscriber } from "../event/event-subscriber";
-import type { Loadout } from "../loadout/loadout";
+import type { GearSet } from "../gear/gear-set";
 import type { Relics } from "../relics/relics";
 import { Repository } from "../repository/repository";
 import { CurrentResources } from "../resource/current-resource/current-resources";
@@ -46,6 +46,7 @@ import type { ResourceDefinition } from "../resource/resource-definition";
 import { ResourceRequirements } from "../resource/resource-requirements";
 import { Resources } from "../resource/resources";
 import { ResourceTimeline } from "../resource-timeline/resource-timeline";
+import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Target } from "../target/target";
 import { ElementalWeaponRequirements } from "../team/elemental-weapon-requirements";
 import type { Team } from "../team/team";
@@ -59,8 +60,10 @@ import type { CombatSimulatorOptions } from "./combat-simulator-options";
 
 export class CombatSimulator {
   public constructor(
-    character: Character,
-    loadout: Loadout,
+    characterData: CharacterData,
+    team: Team,
+    gearSet: GearSet,
+    simulacrumTrait: SimulacrumTrait | undefined,
     relics: Relics,
     options: CombatSimulatorOptions,
   ) {
@@ -70,7 +73,6 @@ export class CombatSimulator {
 
     this.target = { resistance: targetResistance };
 
-    const { team, simulacrumTrait } = loadout;
     this.team = team;
     const { weapons } = this.team;
 
@@ -289,9 +291,11 @@ export class CombatSimulator {
 
     this.activeBuffs = new ActiveBuffs(this.buffAbilities);
 
-    this.character = new CombatCharacter(
-      character,
-      loadout,
+    this.character = new Character(
+      characterData,
+      team,
+      gearSet,
+      simulacrumTrait,
       this.activeBuffs,
       this.activeWeapon,
     );
@@ -326,7 +330,7 @@ export class CombatSimulator {
   private readonly attackAbilities: AttackAbilities;
   private readonly buffAbilities: BuffAbilities;
   private readonly activeBuffs: ActiveBuffs;
-  private readonly character: CombatCharacter;
+  private readonly character: Character;
   private readonly damageRecord: DamageRecord;
   private readonly eventSubscribers: EventSubscriber[] = [];
   private hasBegunCombat = false;

@@ -8,7 +8,7 @@ import { WeaponCard } from "../../components/weapon/WeaponCard/WeaponCard";
 import { WeaponDefinitionSelector } from "../../components/weapon/WeaponDefinitionSelector/WeaponDefinitionSelector";
 import { db } from "../../db/reactive-local-storage-db";
 import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import { Weapon } from "../../models/weapon/weapon";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { WeaponEditor } from "./WeaponEditor";

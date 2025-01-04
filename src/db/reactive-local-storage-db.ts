@@ -2,7 +2,7 @@ import { proxy } from "valtio";
 
 import type { Identifiable } from "../models/identifiable";
 import type { Db, RepositoryKey, RepositoryMap } from "./db";
-import { CharacterRepository } from "./repositories/character/character-repository";
+import { CharacterDataRepository } from "./repositories/character/character-data-repository";
 import { CharacterPresetRepository } from "./repositories/character-preset/character-preset-repository";
 import { GearRepository } from "./repositories/gear/gear-repository";
 import { GearSetPresetRepository } from "./repositories/gear/gear-set-preset-repository";
@@ -61,7 +61,7 @@ export class ReactiveLocalStorageDb implements Db {
 
     switch (key) {
       case "characters":
-        return new CharacterRepository(key, storage, this);
+        return new CharacterDataRepository(key, storage, this);
       case "gears":
         return new GearRepository(key, storage, this);
       case "gearSetPresets":

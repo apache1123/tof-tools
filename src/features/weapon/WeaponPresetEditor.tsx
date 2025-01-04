@@ -6,7 +6,7 @@ import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { MatrixSelector } from "../../components/matrix/MatrixSelector/MatrixSelector";
 import { MatrixSlotCard } from "../../components/matrix/MatrixSlotCard/MatrixSlotCard";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useMatrices } from "../matrix/useMatrices";

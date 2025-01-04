@@ -1,5 +1,5 @@
 import { getWeaponDefinition } from "../../../definitions/weapons/weapon-definitions";
-import type { CharacterId } from "../../character/character";
+import type { CharacterId } from "../../character/character-data";
 import { EventManager } from "../../event/event-manager";
 import { CurrentTick } from "../../tick/current-tick";
 import { Weapon } from "../../weapon/weapon";

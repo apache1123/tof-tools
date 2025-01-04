@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 
-import type { CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
 import { GearSet } from "./gear-set";
 

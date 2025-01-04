@@ -4,7 +4,7 @@ import { proxy, useSnapshot } from "valtio";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { GearTypeToggle } from "../../components/gear/GearTypeToggle/GearTypeToggle";
 import { getGearType } from "../../definitions/gear-types";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import { Gear } from "../../models/gear/gear";
 import { GearEditor } from "./GearEditor";
 

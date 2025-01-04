@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import type { AttackAbilityDefinition } from "../../definitions/types/attack/attack-ability-definition";
 import { type WeaponDefinition } from "../../definitions/types/weapon/weapon-definition";
 import { maxNumOfWeaponStars } from "../../definitions/weapons/weapon-stars";
-import type { CharacterId } from "../character/character";
+import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
 import { MatrixSlots } from "../matrix/matrix-slots";
 import { hasMetStarRequirement } from "../star-requirement";

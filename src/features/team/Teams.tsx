@@ -4,7 +4,7 @@ import { Button } from "../../components/common/Button/Button";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 import { TeamPreset } from "../../models/team/team-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { TeamPresetEditor } from "./TeamPresetEditor";

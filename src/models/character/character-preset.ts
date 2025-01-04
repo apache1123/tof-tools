@@ -2,8 +2,9 @@ import { nanoid } from "nanoid";
 
 import type { GearSetPreset } from "../gear/gear-set-preset";
 import type { Id } from "../identifiable";
+import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { TeamPreset } from "../team/team-preset";
-import type { CharacterId } from "./character";
+import type { CharacterId } from "./character-data";
 
 export type LoadoutId = Id;
 
@@ -20,4 +21,5 @@ export class CharacterPreset {
   public teamPreset: TeamPreset | undefined;
   public gearSetPreset: GearSetPreset | undefined;
   public name: string;
+  public simulacrumTrait: SimulacrumTrait | undefined;
 }

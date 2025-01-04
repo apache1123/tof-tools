@@ -8,7 +8,7 @@ import type { AbilityRequirements } from "../../ability/ability-requirements";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
 import { ActiveWeaponTimeline } from "../../active-weapon/active-weapon-timeline";
 import { CombatSimulatorActiveWeapon } from "../../active-weapon/combat-simulator-active-weapon";
-import type { CharacterId } from "../../character/character";
+import type { CharacterId } from "../../character/character-data";
 import type { BaseDamageModifiersDefinition } from "../../damage-modifiers/base-damage-modifiers-definition";
 import type { FinalDamageModifiersDefinition } from "../../damage-modifiers/final-damage-modifiers-definition";
 import { EventManager } from "../../event/event-manager";

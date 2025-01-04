@@ -1,6 +1,6 @@
 import { proxy } from "valtio";
 
-import type { CharacterId } from "../../models/character/character";
+import type { CharacterId } from "../../models/character/character-data";
 
 export interface CharacterState {
   selectedId: CharacterId | undefined;
