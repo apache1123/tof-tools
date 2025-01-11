@@ -7,6 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 import type { CharacterPreset } from "../../../models/character/character-preset";
 import { GearSetPresetSummaryCard } from "../../gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
@@ -14,23 +15,19 @@ import { TeamPresetCard } from "../../team/TeamPresetCard/TeamPresetCard";
 
 export interface CharacterPresetCardProps {
   characterPreset: CharacterPreset;
-  onClick?(): void;
+  href?: string;
 }
 
 export function CharacterPresetCard({
   characterPreset,
-  onClick,
+  href,
 }: CharacterPresetCardProps) {
   const { name, teamPreset, gearSetPreset } = characterPreset;
 
   return (
     <Card>
-      <CardActionArea
-        onClick={() => {
-          onClick?.();
-        }}
-      >
-        <CardHeader title={name || "Unnamed character preset"} />
+      <CardActionArea href={href ?? ""} LinkComponent={Link}>
+        <CardHeader title={name || "Unnamed wanderer preset"} />
         <CardContent>
           <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
             <Box>

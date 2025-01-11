@@ -8,6 +8,10 @@ export const routes = {
     label: "Wanderer",
     path: "/wanderer",
   },
+  wandererPresets: {
+    label: "Wanderer Presets",
+    path: "/wanderer-presets",
+  },
   gears: {
     label: "Gear",
     path: "/gear",

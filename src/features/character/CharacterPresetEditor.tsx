@@ -39,7 +39,7 @@ export function CharacterPresetEditor({
     <>
       <Stack sx={{ gap: 4 }}>
         <TextField
-          label="Character preset name"
+          label="Wanderer preset name"
           value={name}
           onChange={(e) => {
             characterPresetProxy.name = e.target.value;
