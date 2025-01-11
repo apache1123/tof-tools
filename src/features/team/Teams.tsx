@@ -6,9 +6,9 @@ import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetC
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import { TeamPreset } from "../../models/team/team-preset";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { TeamPresetEditor } from "./TeamPresetEditor";
-import { useTeamPresets } from "./useTeamPresets";
 
 export interface TeamsProps {
   characterId: CharacterId;
@@ -17,7 +17,7 @@ export interface TeamsProps {
 export function Teams({ characterId }: TeamsProps) {
   const teamPresetsRepo = db.get("teamPresets");
 
-  const teamPresets = useTeamPresets(characterId);
+  const { items } = useItemsBelongingToCharacter(teamPresetsRepo, characterId);
 
   const [editingTeamPresetProxy, setEditingTeamPresetProxy] = useState<
     TeamPreset | undefined
@@ -42,7 +42,7 @@ export function Teams({ characterId }: TeamsProps) {
             Add team
           </Button>
         }
-        items={teamPresets.map((teamPreset) => (
+        items={items.map((teamPreset) => (
           <TeamPresetCard
             key={teamPreset.id}
             teamPreset={teamPreset}

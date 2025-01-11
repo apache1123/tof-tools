@@ -8,16 +8,19 @@ import type { CharacterId } from "../../models/character/character-data";
 import { CharacterPreset } from "../../models/character/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { CharacterPresetEditor } from "./CharacterPresetEditor";
-import { useCharacterPresets } from "./useCharacterPresets";
+import { useItemsBelongingToCharacter } from "./useItemsBelongingToCharacter";
 
-export interface CharacterProps {
+export interface CharacterPresetsProps {
   characterId: CharacterId;
 }
 
-export function Character({ characterId }: CharacterProps) {
+export function CharacterPresets({ characterId }: CharacterPresetsProps) {
   const characterPresetRepo = db.get("characterPresets");
 
-  const presets = useCharacterPresets(characterId);
+  const { items } = useItemsBelongingToCharacter(
+    characterPresetRepo,
+    characterId,
+  );
   const [editingPresetProxy, setEditingPresetProxy] = useState<
     CharacterPreset | undefined
   >(undefined);
@@ -41,7 +44,7 @@ export function Character({ characterId }: CharacterProps) {
             Add preset
           </Button>
         }
-        items={presets.map((preset) => (
+        items={items.map((preset) => (
           <CharacterPresetCard
             key={preset.id}
             characterPreset={preset}

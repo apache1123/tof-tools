@@ -16,22 +16,22 @@ import { Matrix } from "../../models/matrix/matrix";
 import { getFilteredMatrices } from "../../models/matrix/matrix-filter";
 import type { MatrixState } from "../../states/matrix/matrix-state";
 import { matrixState } from "../../states/matrix/matrix-state";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { MatrixEditor } from "./MatrixEditor";
-import { useMatrices } from "./useMatrices";
 
 export interface MatricesProps {
   characterId: CharacterId;
 }
 
 export function Matrices({ characterId }: MatricesProps) {
-  const matrices = useMatrices(characterId);
-
   const matrixRepo = db.get("matrices");
 
+  const { items } = useItemsBelongingToCharacter(matrixRepo, characterId);
+
   const { filter } = useSnapshot(matrixState) as MatrixState;
-  const filteredMatrices = getFilteredMatrices(matrices, filter);
+  const filteredItems = getFilteredMatrices(items, filter);
 
   const [isAddingMatrix, setIsAddingMatrix] = useState(false);
   const [addingDefinition, setAddingDefinition] = useState<
@@ -71,7 +71,7 @@ export function Matrices({ characterId }: MatricesProps) {
             Add matrix
           </Button>
         }
-        items={filteredMatrices.map((matrix) => (
+        items={filteredItems.map((matrix) => (
           <MatrixCard
             key={matrix.id}
             matrix={matrix}

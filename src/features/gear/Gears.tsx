@@ -11,11 +11,11 @@ import type { Gear } from "../../models/gear/gear";
 import { getFilteredGears } from "../../states/gear/gear-filter";
 import type { GearState } from "../../states/gear/gear-state";
 import { gearState } from "../../states/gear/gear-state";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { GearEditor } from "./GearEditor";
 import { NewGearEditor } from "./NewGearEditor";
-import { useGears } from "./useGears";
 
 export interface GearsProps {
   characterId: CharacterId;
@@ -27,8 +27,8 @@ export function Gears({ characterId }: GearsProps) {
   const gearsSnap = useSnapshot(gearState) as GearState;
   const { filter } = gearsSnap;
 
-  const gears = useGears(characterId);
-  const filteredGears = getFilteredGears(gears, filter);
+  const { items } = useItemsBelongingToCharacter(gearRepo, characterId);
+  const filteredItems = getFilteredGears(items, filter);
 
   const [isAddingNewGear, setIsAddingNewGear] = useState(false);
   const [editingGear, setEditingGear] = useState<Gear | undefined>(undefined);
@@ -62,7 +62,7 @@ export function Gears({ characterId }: GearsProps) {
             Add new gear
           </Button>
         }
-        items={filteredGears.map((gear) => (
+        items={filteredItems.map((gear) => (
           <GearCard
             key={gear.id}
             gear={gear}

@@ -9,8 +9,7 @@ import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetC
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../models/character/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { useGearSetPresets } from "../gear-set-preset/useGearSetPresets";
-import { useTeamPresets } from "../team/useTeamPresets";
+import { useItemsBelongingToCharacter } from "./useItemsBelongingToCharacter";
 
 export interface CharacterPresetEditorProps {
   characterPresetProxy: CharacterPreset;
@@ -23,10 +22,16 @@ export function CharacterPresetEditor({
     characterPresetProxy,
   ) as CharacterPreset;
 
-  const teamPresets = useTeamPresets(characterId);
+  const { items: teamPresets } = useItemsBelongingToCharacter(
+    db.get("teamPresets"),
+    characterId,
+  );
   const [isSelectingTeamPreset, setIsSelectingTeamPreset] = useState(false);
 
-  const gearSetPresets = useGearSetPresets(characterId);
+  const { items: gearSetPresets } = useItemsBelongingToCharacter(
+    db.get("gearSetPresets"),
+    characterId,
+  );
   const [isSelectingGearSetPreset, setIsSelectingGearSetPreset] =
     useState(false);
 

@@ -9,7 +9,7 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { useMatrices } from "../matrix/useMatrices";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 
 export interface WeaponPresetEditorProps {
   weaponPresetProxy: WeaponPreset;
@@ -26,7 +26,10 @@ export function WeaponPresetEditor({
     MatrixTypeId | undefined
   >(undefined);
 
-  const allMatrices = useMatrices(characterId);
+  const { items: allMatrices } = useItemsBelongingToCharacter(
+    db.get("matrices"),
+    characterId,
+  );
   const filteredMatrices = addingMatrixTypeId
     ? allMatrices.filter((matrix) => matrix.type.id === addingMatrixTypeId)
     : [];

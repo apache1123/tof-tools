@@ -10,8 +10,8 @@ import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { NewGearEditor } from "../gear/NewGearEditor";
-import { useGears } from "../gear/useGears";
 
 export interface GearSetEditorProps {
   gearSetProxy: GearSet;
@@ -31,7 +31,10 @@ export function GearSetEditor({
   >(undefined);
   const [isAddingGear, setIsAddingGear] = useState(false);
 
-  const allGears = useGears(characterId);
+  const { items: allGears } = useItemsBelongingToCharacter(
+    db.get("gears"),
+    characterId,
+  );
   const filteredGears = editingGearSlotTypeId
     ? allGears.filter((gear) => gear.type.id === editingGearSlotTypeId)
     : [];

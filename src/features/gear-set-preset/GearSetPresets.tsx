@@ -7,9 +7,9 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
 import { GearSetPreset } from "../../models/gear/gear-set-preset";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { GearSetPresetEditor } from "./GearSetPresetEditor";
-import { useGearSetPresets } from "./useGearSetPresets";
 
 export interface GearSetPresetsProps {
   characterId: CharacterId;
@@ -17,7 +17,10 @@ export interface GearSetPresetsProps {
 
 export function GearSetPresets({ characterId }: GearSetPresetsProps) {
   const gearSetPresetRepo = db.get("gearSetPresets");
-  const presets = useGearSetPresets(characterId);
+  const { items } = useItemsBelongingToCharacter(
+    gearSetPresetRepo,
+    characterId,
+  );
 
   const [editingPresetId, setEditingPresetId] = useState<
     GearSetPresetId | undefined
@@ -46,7 +49,7 @@ export function GearSetPresets({ characterId }: GearSetPresetsProps) {
             Add gear preset
           </Button>
         }
-        items={presets.map((preset) => (
+        items={items.map((preset) => (
           <GearSetPresetSummaryCard
             key={preset.id}
             preset={preset}
