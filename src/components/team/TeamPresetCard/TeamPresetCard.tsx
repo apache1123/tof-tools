@@ -10,7 +10,7 @@ export interface TeamPresetCardProps {
 }
 
 export function TeamPresetCard({ teamPreset, onClick }: TeamPresetCardProps) {
-  const { name, weaponPresetSlots } = teamPreset;
+  const { name } = teamPreset;
 
   return (
     <Card>
@@ -29,17 +29,19 @@ export function TeamPresetCard({ teamPreset, onClick }: TeamPresetCardProps) {
         <CardHeader title={name || "Unnamed team"} />
         <CardContent>
           <CardList direction="column" gap={0.5}>
-            {weaponPresetSlots.map(
-              (weaponPresetSlot, i) =>
-                weaponPresetSlot.weaponPreset && (
-                  <WeaponPresetCard
-                    key={i}
-                    weapon={weaponPresetSlot.weaponPreset.weapon}
-                    matrixSlots={weaponPresetSlot.weaponPreset.matrixSlots.getSlots()}
-                    elevation={1}
-                  />
-                ),
-            )}
+            {teamPreset
+              .getWeaponPresets()
+              .map(
+                (weaponPreset, i) =>
+                  weaponPreset && (
+                    <WeaponPresetCard
+                      key={i}
+                      weapon={weaponPreset.weapon}
+                      matrixSlots={weaponPreset.matrixSlots.getSlots()}
+                      elevation={1}
+                    />
+                  ),
+              )}
           </CardList>
         </CardContent>
       </CardActionArea>

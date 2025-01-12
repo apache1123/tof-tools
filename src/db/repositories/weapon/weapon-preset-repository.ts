@@ -13,9 +13,9 @@ export class WeaponPresetRepository extends ValtioRepository<
   ): void {
     // Remove from team presets
     this.db.get("teamPresets").items.forEach((teamPreset) => {
-      teamPreset.weaponPresetSlots.forEach((weaponPresetSlot) => {
-        if (weaponPresetSlot.weaponPreset?.id === removedItemId) {
-          weaponPresetSlot.weaponPreset = undefined;
+      teamPreset.getWeaponPresets().forEach((weaponPreset, i) => {
+        if (weaponPreset?.id === removedItemId) {
+          teamPreset.removeWeaponPreset(i);
         }
       });
     });

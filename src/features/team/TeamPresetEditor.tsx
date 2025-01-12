@@ -1,18 +1,17 @@
-import { Stack, TextField } from "@mui/material";
+import { Alert, Stack, TextField } from "@mui/material";
 import { useSnapshot } from "valtio";
 
 import { CardList } from "../../components/common/CardList/CardList";
-import type { TeamPreset } from "../../models/team/team-preset";
-import { WeaponPresetSlotEditor } from "../weapon/WeaponPresetSlotEditor";
+import { TeamPreset } from "../../models/team/team-preset";
+import { TeamPresetWeaponEditor } from "./TeamPresetWeaponEditor";
 
 export interface TeamPresetEditorProps {
   teamPresetProxy: TeamPreset;
 }
 
 export function TeamPresetEditor({ teamPresetProxy }: TeamPresetEditorProps) {
-  const { characterId, name, weaponPresetSlots } = useSnapshot(
-    teamPresetProxy,
-  ) as TeamPreset;
+  const teamPreset = useSnapshot(teamPresetProxy) as TeamPreset;
+  const { name, characterId } = teamPreset;
 
   return (
     <Stack sx={{ gap: 2 }}>
@@ -24,12 +23,28 @@ export function TeamPresetEditor({ teamPresetProxy }: TeamPresetEditorProps) {
         }}
       />
 
+      <Alert severity="info">
+        The first weapon in the team is the main on-field weapon that deals the
+        majority of the team&apos;s damage, and cannot be empty.
+      </Alert>
+
       <CardList direction="column" gap={1}>
-        {weaponPresetSlots.map((weaponPresetSlot, i) => (
-          <WeaponPresetSlotEditor
+        {[...Array(TeamPreset.maxNumOfWeapons)].map((_, i) => (
+          <TeamPresetWeaponEditor
             key={i}
-            weaponPresetSlotProxy={teamPresetProxy.weaponPresetSlots[i]}
+            weaponPreset={teamPreset.getWeaponPreset(i)}
             characterId={characterId}
+            disabled={i !== 0 && !teamPreset.getWeaponPreset(0)}
+            showSetAsMainButton={i !== 0}
+            onChange={(weaponPresetProxy) => {
+              teamPresetProxy.setWeaponPreset(i, weaponPresetProxy);
+            }}
+            onRemove={() => {
+              teamPresetProxy.removeWeaponPreset(i);
+            }}
+            onSetAsMain={() => {
+              teamPresetProxy.setWeaponPresetToMain(i);
+            }}
           />
         ))}
       </CardList>

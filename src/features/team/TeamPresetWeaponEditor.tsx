@@ -6,21 +6,27 @@ import { WeaponPresetSelector } from "../../components/weapon/WeaponPresetSelect
 import { WeaponPresetSlotCard } from "../../components/weapon/WeaponPresetSlotCard/WeaponPresetSlotCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
-import type { WeaponPresetSlot } from "../../models/weapon/weapon-preset-slot";
+import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 
-export interface WeaponPresetSlotEditorProps {
-  weaponPresetSlotProxy: WeaponPresetSlot;
+export interface TeamPresetWeaponEditorProps {
+  weaponPreset: WeaponPreset | undefined;
   characterId: CharacterId;
+  disabled?: boolean;
+  showSetAsMainButton?: boolean;
+  onChange(weaponPresetProxy: WeaponPreset): void;
+  onRemove(): void;
+  onSetAsMain?(): void;
 }
 
-export function WeaponPresetSlotEditor({
-  weaponPresetSlotProxy,
+export function TeamPresetWeaponEditor({
+  weaponPreset,
   characterId,
-}: WeaponPresetSlotEditorProps) {
-  const { weaponPreset } = useSnapshot(
-    weaponPresetSlotProxy,
-  ) as WeaponPresetSlot;
-
+  disabled,
+  showSetAsMainButton,
+  onChange,
+  onRemove,
+  onSetAsMain,
+}: TeamPresetWeaponEditorProps) {
   const weaponPresets = useSnapshot(db.get("weaponPresets")).filter(
     (weaponPreset) => weaponPreset.weapon.characterId === characterId,
   );
@@ -31,12 +37,13 @@ export function WeaponPresetSlotEditor({
     <>
       <WeaponPresetSlotCard
         weaponPreset={weaponPreset}
+        disabled={disabled}
+        showSetAsMainButton={showSetAsMainButton}
         onClick={() => {
           setIsAddingWeaponPreset(true);
         }}
-        onRemove={() => {
-          weaponPresetSlotProxy.weaponPreset = undefined;
-        }}
+        onRemove={onRemove}
+        onSetAsMain={onSetAsMain}
       />
 
       <StyledModal
@@ -48,7 +55,7 @@ export function WeaponPresetSlotEditor({
               if (!weaponPresetProxy)
                 throw new Error("Weapon preset not found");
 
-              weaponPresetSlotProxy.weaponPreset = weaponPresetProxy;
+              onChange(weaponPresetProxy);
 
               setIsAddingWeaponPreset(false);
             }}
