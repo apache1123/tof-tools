@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 import { db } from "../../src/db/reactive-local-storage-db";
 import { CharacterPresetEditor } from "../../src/features/character/CharacterPresetEditor";
@@ -8,19 +7,6 @@ import { useSelectedCharacter } from "../../src/features/character/useSelectedCh
 import type { CharacterId } from "../../src/models/character/character-data";
 
 export default function Page() {
-  useEffect(() => {
-    db.init([
-      "characters",
-      "gears",
-      "gearSetPresets",
-      "matrices",
-      "weapons",
-      "weaponPresets",
-      "teamPresets",
-      "characterPresets",
-    ]);
-  }, []);
-
   const { characterId } = useSelectedCharacter();
 
   const router = useRouter();

@@ -38,8 +38,16 @@ export default function MyApp(props: MyAppProps) {
   });
 
   useEffect(() => {
-    // Most pages depend on the presence of a character
-    db.init(["characters"]);
+    db.init([
+      "characters",
+      "gears",
+      "gearSetPresets",
+      "matrices",
+      "weapons",
+      "weaponPresets",
+      "teamPresets",
+      "characterPresets",
+    ]);
   }, []);
 
   useLocalStoragePersistence(changelogStateKey, changelogState);

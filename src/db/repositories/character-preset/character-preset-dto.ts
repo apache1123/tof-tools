@@ -43,7 +43,7 @@ export function dtoToCharacterPreset(
     if (!teamPreset) {
       logException(
         new DeserializationError(
-          `No teamPreset found with id ${id} found.`,
+          `No teamPreset found with id ${teamPresetId} found.`,
           dto,
         ),
       );
@@ -57,7 +57,7 @@ export function dtoToCharacterPreset(
     if (!gearSetPreset) {
       logException(
         new DeserializationError(
-          `No gearSetPreset found with id ${id} found.`,
+          `No gearSetPreset found with id ${gearSetPresetId} found.`,
           dto,
         ),
       );
