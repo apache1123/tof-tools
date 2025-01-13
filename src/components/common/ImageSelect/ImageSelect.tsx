@@ -8,7 +8,7 @@ import { forwardRef, useEffect, useRef } from "react";
 
 export interface ImageSelectProps {
   onSelectedImageChange?(image: File): void;
-  onSelectedImageURLChange?(imageURL: string): void;
+  onSelectedImageUrlChange?(imageUrl: string): void;
 }
 
 const UploadButton = asUploadButton(
@@ -60,9 +60,9 @@ const ImageSelectCustomInput = () => (
 
 export const ImageSelect = ({
   onSelectedImageChange,
-  onSelectedImageURLChange,
+  onSelectedImageUrlChange,
 }: ImageSelectProps) => {
-  const selectedImageURL = useRef<string>(undefined);
+  const selectedImageUrl = useRef<string>(undefined);
 
   // This is an empty component because useBatchAddListener has to be used in a child component
   const ImageSelectHandler = () => {
@@ -71,10 +71,10 @@ export const ImageSelect = ({
 
       if (onSelectedImageChange) onSelectedImageChange(image);
 
-      if (onSelectedImageURLChange) {
+      if (onSelectedImageUrlChange) {
         const objectUrl = URL.createObjectURL(image);
-        selectedImageURL.current = objectUrl;
-        onSelectedImageURLChange(objectUrl);
+        selectedImageUrl.current = objectUrl;
+        onSelectedImageUrlChange(objectUrl);
       }
     });
     return <div></div>;
@@ -82,8 +82,8 @@ export const ImageSelect = ({
 
   useEffect(() => {
     return () => {
-      if (selectedImageURL.current)
-        URL.revokeObjectURL(selectedImageURL.current);
+      if (selectedImageUrl.current)
+        URL.revokeObjectURL(selectedImageUrl.current);
     };
   }, []);
 

@@ -7,6 +7,7 @@ import { getGearType } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
 import { Gear } from "../../models/gear/gear";
 import { GearEditor } from "./GearEditor";
+import { GearOcrModal } from "./GearOcrModal";
 
 const state = proxy<{ newGear: Gear | undefined }>({
   newGear: undefined,
@@ -33,6 +34,12 @@ export function NewGearEditor({
       modalTitle="Add new gear"
       modalContent={
         <Stack sx={{ gap: 3, alignItems: "center" }}>
+          <GearOcrModal
+            characterId={characterId}
+            onFinalizeGear={(gear) => {
+              state.newGear = gear;
+            }}
+          />
           <GearTypeToggle
             values={newGear ? [newGear.type.id] : []}
             exclusive
