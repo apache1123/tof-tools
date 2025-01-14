@@ -33,7 +33,7 @@ export function CharacterPresets({ characterId }: CharacterPresetsProps) {
             buttonProps={{ variant: "contained" }}
             onClick={() => {
               const newPreset = new CharacterPreset(characterId);
-              newPreset.name = "Wanderer preset name";
+              newPreset.name = "Preset name";
               characterPresetRepo.add(newPreset);
 
               const newPresetProxy = characterPresetRepo.find(newPreset.id);
@@ -58,5 +58,5 @@ export function CharacterPresets({ characterId }: CharacterPresetsProps) {
 }
 
 function getPresetPagePath(id: CharacterPresetId) {
-  return `${routes.wandererPresets.path}/${id}`;
+  return `${routes.presets.path}/${id}`;
 }

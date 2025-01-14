@@ -27,7 +27,7 @@ export function CharacterPresetCard({
   return (
     <Card>
       <CardActionArea href={href ?? ""} LinkComponent={Link}>
-        <CardHeader title={name || "Unnamed wanderer preset"} />
+        <CardHeader title={name || "Unnamed preset"} />
         <CardContent>
           <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
             <Box>
