@@ -7,6 +7,11 @@ export const menuItems: NavGroupModel[] = [
     title: "Wanderer",
     children: [
       {
+        id: "wanderer-info",
+        title: routes.wanderer.label,
+        path: routes.wanderer.path,
+      },
+      {
         id: "presets",
         title: routes.presets.label,
         path: routes.presets.path,

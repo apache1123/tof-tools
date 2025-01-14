@@ -26,7 +26,7 @@ export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
   const characterRepository = db.get("characters");
   const { items } = useSnapshot(characterRepository);
 
-  const { characterId, characterProxy } = useSelectedCharacter();
+  const { characterId, characterDataProxy } = useSelectedCharacter();
 
   function handleChangeCharacter(id: CharacterId) {
     characterState.selectedId = id;
@@ -65,7 +65,7 @@ export function CharacterSelector({ sx, ...other }: CharacterSelectorProps) {
           }}
         >
           <Typography variant="body2" fontWeight="bold">
-            {characterProxy?.name}
+            {characterDataProxy?.name}
           </Typography>
         </Box>
 

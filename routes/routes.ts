@@ -5,7 +5,7 @@ export interface Route {
 
 export const routes = {
   wanderer: {
-    label: "Wanderer",
+    label: "Wanderer Info",
     path: "/wanderer",
   },
   presets: {
