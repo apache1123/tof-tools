@@ -9,6 +9,7 @@ import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetC
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../models/character/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { CharacterPresetStatsEditor } from "./CharacterPresetStatsEditor";
 import { useItemsBelongingToCharacter } from "./useItemsBelongingToCharacter";
 
 export interface CharacterPresetEditorProps {
@@ -103,6 +104,10 @@ export function CharacterPresetEditor({
             </Typography>
           )}
         </Stack>
+
+        <CharacterPresetStatsEditor
+          characterPresetProxy={characterPresetProxy}
+        />
       </Stack>
 
       {isSelectingTeamPreset && (

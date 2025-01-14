@@ -16,18 +16,21 @@ export class TeamPreset {
     this.name = "";
   }
 
+  public static maxNumOfWeapons = numWeaponsInTeam;
+  public static mainWeaponPresetIndex = 0;
+
   public readonly id: TeamPresetId;
   public readonly characterId: CharacterId;
   public name: string;
   private readonly weaponPresets: (WeaponPreset | undefined)[];
 
-  public static get maxNumOfWeapons() {
-    return numWeaponsInTeam;
-  }
-
   /** The selected weapon presets. The first weapon preset is the main weapon. */
   public getWeaponPresets(): ReadonlyArray<WeaponPreset | undefined> {
     return this.weaponPresets;
+  }
+
+  public getMainWeaponPreset() {
+    return this.weaponPresets[TeamPreset.mainWeaponPresetIndex];
   }
 
   public getWeaponPreset(index: number) {
@@ -40,7 +43,10 @@ export class TeamPreset {
     }
 
     // Cannot set another weapon if the main weapon is empty.
-    if (index !== 0 && this.weaponPresets[0] === undefined) {
+    if (
+      index !== TeamPreset.mainWeaponPresetIndex &&
+      this.getMainWeaponPreset() === undefined
+    ) {
       throw new Error("Cannot set another weapon if the main weapon is empty.");
     }
 
@@ -55,10 +61,11 @@ export class TeamPreset {
     this.weaponPresets[index] = undefined;
 
     // Promote the next weapon to the main weapon if the main weapon is being removed.
-    if (index === 0) {
+    if (index === TeamPreset.mainWeaponPresetIndex) {
       for (let i = 1; i < TeamPreset.maxNumOfWeapons; i++) {
         if (this.weaponPresets[i] !== undefined) {
-          this.weaponPresets[0] = this.weaponPresets[i];
+          this.weaponPresets[TeamPreset.mainWeaponPresetIndex] =
+            this.weaponPresets[i];
           this.weaponPresets[i] = undefined;
           break;
         }
@@ -69,10 +76,10 @@ export class TeamPreset {
   /** Promotes the weapon at the given index to the main weapon. The previous main weapon's index is set to index */
   public setWeaponPresetToMain(index: number) {
     const newMainWeapon = this.getWeaponPreset(index);
-    const oldMainWeapon = this.getWeaponPreset(0);
+    const oldMainWeapon = this.getMainWeaponPreset();
 
     if (newMainWeapon && oldMainWeapon) {
-      this.weaponPresets[0] = newMainWeapon;
+      this.weaponPresets[TeamPreset.mainWeaponPresetIndex] = newMainWeapon;
       this.weaponPresets[index] = oldMainWeapon;
     }
   }

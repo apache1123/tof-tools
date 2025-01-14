@@ -6,7 +6,6 @@ import type { Dto } from "../../db/repository/dto";
 import type { CoreElementalType } from "../../definitions/elemental-type";
 import type { SimulacrumName } from "../../definitions/simulacra/simulacrum-name";
 import type { LoadoutStatsDto } from "../deprecated/loadout-stats";
-import type { ElementalAttackFlatsDto } from "../elemental-attack-flats";
 
 export interface LoadoutDtoV2 extends Dto {
   id: string;
@@ -15,9 +14,6 @@ export interface LoadoutDtoV2 extends Dto {
   team: TeamDto;
   gearSet: GearSetDto;
   simulacrumTraitId: SimulacrumName | undefined;
-  useOverrideStats: boolean;
-  overrideElementalAttackFlats: ElementalAttackFlatsDto;
-  overrideCritRateFlat: number;
   version: 2;
 }
 

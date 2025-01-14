@@ -28,7 +28,7 @@ const { decimalSeparator, groupSeparator } = getNumberSeparators();
 
 export const NumericInput = ({
   onChange,
-  variant = "standard",
+  variant = "outlined",
   allowNegative = false,
   decimalScale = 3,
   fullWidth = true,

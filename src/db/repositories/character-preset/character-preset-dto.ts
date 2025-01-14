@@ -5,6 +5,8 @@ import { logException } from "../../../utils/exception-utils";
 import { DeserializationError } from "../../error/deserialization-error";
 import type { Dto } from "../../repository/dto";
 import type { Repository } from "../../repository/types/repository";
+import type { BaseAttacksDto } from "./base-attacks-dto";
+import { baseAttacksToDto, dtoToBaseAttacks } from "./base-attacks-dto";
 
 export interface CharacterPresetDto extends Dto {
   id: string;
@@ -12,19 +14,31 @@ export interface CharacterPresetDto extends Dto {
   teamPresetId: string | undefined;
   gearSetPresetId: string | undefined;
   name: string;
+  baseAttacks: BaseAttacksDto;
+  critRateFlat: number;
   version: 1;
 }
 
 export function characterPresetToDto(
   characterPreset: CharacterPreset,
 ): CharacterPresetDto {
-  const { id, characterId, teamPreset, gearSetPreset, name } = characterPreset;
+  const {
+    id,
+    characterId,
+    teamPreset,
+    gearSetPreset,
+    name,
+    baseAttacks,
+    critRateFlat,
+  } = characterPreset;
   return {
     id,
     characterId,
     teamPresetId: teamPreset?.id,
     gearSetPresetId: gearSetPreset?.id,
     name,
+    baseAttacks: baseAttacksToDto(baseAttacks),
+    critRateFlat,
     version: 1,
   };
 }
@@ -34,7 +48,15 @@ export function dtoToCharacterPreset(
   teamPresetRepository: Repository<TeamPreset>,
   gearSetPresetRepository: Repository<GearSetPreset>,
 ): CharacterPreset {
-  const { id, characterId, teamPresetId, gearSetPresetId, name } = dto;
+  const {
+    id,
+    characterId,
+    teamPresetId,
+    gearSetPresetId,
+    name,
+    baseAttacks,
+    critRateFlat,
+  } = dto;
 
   let teamPreset: TeamPreset | undefined;
   if (teamPresetId) {
@@ -68,6 +90,8 @@ export function dtoToCharacterPreset(
   characterPreset.teamPreset = teamPreset;
   characterPreset.gearSetPreset = gearSetPreset;
   characterPreset.name = name;
+  characterPreset.baseAttacks = dtoToBaseAttacks(baseAttacks);
+  characterPreset.critRateFlat = critRateFlat;
 
   return characterPreset;
 }

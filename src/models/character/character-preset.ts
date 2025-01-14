@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 
+import { BaseAttacks } from "../base-attacks";
 import type { GearSetPreset } from "../gear/gear-set-preset";
 import type { Id } from "../identifiable";
 import type { SimulacrumTrait } from "../simulacrum-trait";
@@ -14,6 +15,8 @@ export class CharacterPreset {
     this.id = id ?? nanoid();
     this.characterId = characterId;
     this.name = "";
+    this.baseAttacks = BaseAttacks.create();
+    this._critRateFlat = 0;
   }
 
   public readonly id: CharacterPresetId;
@@ -22,4 +25,13 @@ export class CharacterPreset {
   public gearSetPreset: GearSetPreset | undefined;
   public name: string;
   public simulacrumTrait: SimulacrumTrait | undefined;
+  public baseAttacks: BaseAttacks;
+  private _critRateFlat: number;
+
+  public get critRateFlat(): number {
+    return this._critRateFlat;
+  }
+  public set critRateFlat(value: number) {
+    this._critRateFlat = Math.max(value, 0);
+  }
 }

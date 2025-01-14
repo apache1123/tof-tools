@@ -11,6 +11,7 @@ import { sum } from "../../utils/math-utils";
 import { getHighestNumber } from "../../utils/number-utils";
 import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-utils";
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
+import { BaseAttacks } from "../base-attacks";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import { AttackPercentBuffAggregate } from "../buff/attack-percent-buff/attack-percent-buff-aggregate";
 import { BaseAttackBuffAggregate } from "../buff/base-attack-buff/base-attack-buff-aggregate";
@@ -19,7 +20,6 @@ import { CritDamageBuffAggregate } from "../buff/crit-damage-buff/crit-damage-bu
 import { CritRateBuffAggregate } from "../buff/crit-rate-buff/crit-rate-buff-aggregate";
 import { CharacterElementalAttacks } from "../elemental-attack/character-elemental-attacks";
 import { ElementalAttack } from "../elemental-attack/elemental-attack";
-import { ElementalAttackFlats } from "../elemental-attack-flats";
 import type { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team } from "../team/team";
@@ -36,12 +36,12 @@ export class Character {
     private readonly activeWeapon: ActiveWeapon,
   ) {
     this.useOverrideStats = false;
-    this.overrideElementalAttackFlats = ElementalAttackFlats.create();
+    this.overrideBaseAttack = BaseAttacks.create();
   }
 
   /** Use manually inputted stats for some of the stats instead of calculated stats */
   public useOverrideStats: boolean;
-  private overrideElementalAttackFlats: ElementalAttackFlats;
+  private overrideBaseAttack: BaseAttacks;
   private _overrideCritRateFlat = 0;
 
   /** Specifically get the override crit rate flat value */
@@ -179,7 +179,7 @@ export class Character {
   /** The base attack amount before buffs are applied. Comes only from gear, weapons, matrices etc. */
   private getPreBuffBaseAttack(element: CoreElementalType) {
     return this.useOverrideStats
-      ? this.overrideElementalAttackFlats.getAttackFlat(element)
+      ? this.overrideBaseAttack.get(element)
       : this.gearSet.getTotalAttackFlat(element);
   }
 
