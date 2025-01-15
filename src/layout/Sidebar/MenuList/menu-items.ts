@@ -48,9 +48,9 @@ export const menuItems: NavGroupModel[] = [
     title: "Tools",
     children: [
       {
-        id: "gear-comparer",
-        title: routes.gearComparer.label,
-        path: routes.gearComparer.path,
+        id: "gear-compare",
+        title: routes.gearCompare.label,
+        path: routes.gearCompare.path,
       },
       {
         id: "damage-calculator",

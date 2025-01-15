@@ -14,8 +14,8 @@ export function CharacterEditor({ characterDataProxy }: CharacterEditorProps) {
   const { name, level } = characterData;
 
   return (
-    <Card sx={{ p: 4 }}>
-      <Stack sx={{ gap: 4 }}>
+    <Card sx={{ p: 3 }}>
+      <Stack sx={{ gap: 3 }}>
         <TextField
           label="Wanderer name"
           value={name}

@@ -14,7 +14,7 @@ export class CharacterPreset {
   public constructor(characterId: CharacterId, id?: CharacterPresetId) {
     this.id = id ?? nanoid();
     this.characterId = characterId;
-    this.name = "";
+    this.name = "Preset name";
     this.baseAttacks = BaseAttacks.create();
     this._critRateFlat = 0;
   }

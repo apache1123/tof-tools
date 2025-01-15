@@ -40,9 +40,9 @@ export const routes = {
     label: "Simulator Results",
     path: "/simulator-results",
   },
-  gearComparer: {
-    label: "Compare Gear",
-    path: "/gear-comparer",
+  gearCompare: {
+    label: "Gear Compare",
+    path: "/gear-compare",
   },
   stats: {
     label: "Stats",

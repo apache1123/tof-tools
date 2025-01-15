@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 
 import { db } from "../../src/db/reactive-local-storage-db";
-import { CharacterPresetEditor } from "../../src/features/character/CharacterPresetEditor";
 import { useItemsBelongingToCharacter } from "../../src/features/character/useItemsBelongingToCharacter";
 import { useSelectedCharacter } from "../../src/features/character/useSelectedCharacter";
+import { CharacterPresetEditor } from "../../src/features/character-preset/CharacterPresetEditor";
 import type { CharacterId } from "../../src/models/character/character-data";
 
 export default function Page() {

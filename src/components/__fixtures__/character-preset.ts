@@ -3,9 +3,21 @@ import { exampleCharacterId } from "./character";
 import { exampleGearSetPreset } from "./gear-set-preset";
 import { exampleTeamPreset } from "./team-preset";
 
-export const exampleCharacterPreset = new CharacterPreset(
+export const exampleCharacterPreset1 = new CharacterPreset(
   exampleCharacterId,
-  "characterPresetId",
+  "characterPresetId1",
 );
-exampleCharacterPreset.teamPreset = exampleTeamPreset;
-exampleCharacterPreset.gearSetPreset = exampleGearSetPreset;
+exampleCharacterPreset1.teamPreset = exampleTeamPreset;
+exampleCharacterPreset1.gearSetPreset = exampleGearSetPreset;
+
+export const exampleCharacterPreset2 = new CharacterPreset(
+  exampleCharacterId,
+  "characterPresetId2",
+);
+exampleCharacterPreset2.teamPreset = exampleTeamPreset;
+exampleCharacterPreset2.gearSetPreset = exampleGearSetPreset;
+
+export const exampleCharacterPresets = [
+  exampleCharacterPreset1,
+  exampleCharacterPreset2,
+];

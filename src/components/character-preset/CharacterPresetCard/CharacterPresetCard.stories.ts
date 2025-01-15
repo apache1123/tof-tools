@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { exampleCharacterPreset } from "../../__fixtures__/character-preset";
+import { exampleCharacterPreset1 } from "../../__fixtures__/character-preset";
 import { CharacterPresetCard } from "./CharacterPresetCard";
 
 const meta: Meta<typeof CharacterPresetCard> = {
@@ -12,5 +12,5 @@ export default meta;
 type Story = StoryObj<typeof CharacterPresetCard>;
 
 export const Default: Story = {
-  args: { characterPreset: exampleCharacterPreset },
+  args: { characterPreset: exampleCharacterPreset1 },
 };

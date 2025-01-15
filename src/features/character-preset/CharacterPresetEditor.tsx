@@ -8,9 +8,9 @@ import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSum
 import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../models/character/character-preset";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { CharacterPresetStatsEditor } from "./CharacterPresetStatsEditor";
-import { useItemsBelongingToCharacter } from "./useItemsBelongingToCharacter";
 
 export interface CharacterPresetEditorProps {
   characterPresetProxy: CharacterPreset;

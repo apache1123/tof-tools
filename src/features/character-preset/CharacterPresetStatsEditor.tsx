@@ -2,8 +2,8 @@ import { Box, Card, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
-import { BaseAttackInput } from "../../components/character/BaseAttackInput/BaseAttackInput";
-import { CritRateFlatInput } from "../../components/character/CritRateFlatInput/CritRateFlatInput";
+import { BaseAttackInput } from "../../components/character-preset/BaseAttackInput/BaseAttackInput";
+import { CritRateFlatInput } from "../../components/character-preset/CritRateFlatInput/CritRateFlatInput";
 import { ElementalStyledText } from "../../components/elemental/ElementalStyledText/ElementalStyledText";
 import { WeaponIcon } from "../../components/weapon/WeaponIcon/WeaponIcon";
 import type { CharacterPreset } from "../../models/character/character-preset";
