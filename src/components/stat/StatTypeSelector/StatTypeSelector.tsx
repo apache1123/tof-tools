@@ -23,9 +23,7 @@ export const StatTypeSelector = ({
     <Autocomplete
       options={possibleStatTypes}
       getOptionLabel={(option) => option.id}
-      renderInput={(params) => (
-        <TextField {...params} label="Stat" variant="standard" />
-      )}
+      renderInput={(params) => <TextField {...params} label="Stat" />}
       value={selectedStatType}
       onChange={handleChange}
       isOptionEqualToValue={(option, value) => option.id === value.id}

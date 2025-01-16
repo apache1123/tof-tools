@@ -8,8 +8,9 @@ import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 const gearTypeIds = getGearTypeOrder();
 
 export interface GearTypeToggleProps {
-  /** Array of selected gear type ids. When exclusive is false, this will be one in the array. When exclusive is true, there can be multiple. */
+  /** Array of selected gear type ids. When exclusive is false, there can be one in the array. When exclusive is true, there can be multiple. */
   values: GearTypeId[];
+  /** When exclusive is true, only one gear type can be selected. */
   exclusive?: boolean;
   /** Enforce at least one gear type to be selected (except at initial state) i.e. cannot deselect all gear types. */
   enforceAtLeastOne?: boolean;

@@ -22,7 +22,7 @@ export function GearEditor({ gearProxy }: GearEditorProps) {
   const { type, isAugmented } = gear;
 
   return (
-    <Stack gap={2}>
+    <Stack gap={3}>
       <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
         <GearTypeIcon id={type.id} isTitan={isAugmented} />
         <GearStars
@@ -32,7 +32,7 @@ export function GearEditor({ gearProxy }: GearEditorProps) {
           }}
         />
       </Stack>
-      <Stack gap={1}>
+      <Stack gap={2}>
         {[...Array(defaultNumOfRandomStats)].map((_, i) => {
           const randomStat = gearProxy.getRandomStat(i);
 

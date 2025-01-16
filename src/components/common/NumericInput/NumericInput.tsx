@@ -1,4 +1,7 @@
-import type { TextFieldVariants } from "@mui/material/TextField";
+import type {
+  TextFieldProps,
+  TextFieldVariants,
+} from "@mui/material/TextField";
 import TextField from "@mui/material/TextField";
 import type { ReactNode } from "react";
 import { NumericFormat } from "react-number-format";
@@ -12,6 +15,7 @@ export interface NumericInputProps {
   name?: string;
   id?: string;
   variant?: TextFieldVariants;
+  size?: TextFieldProps["size"];
   allowNegative?: boolean;
   decimalScale?: number;
   prefix?: string;

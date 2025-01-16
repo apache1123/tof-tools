@@ -106,11 +106,16 @@ export const EmptyStatEditor = ({
         />
       }
       valueInput={
-        <NumericInput disabled label={isAugmented ? "Base" : undefined} />
+        <StatInput
+          isPercentageBased={false}
+          disabled
+          label={isAugmented ? "Base" : undefined}
+        />
       }
       augmentIncreaseValueInput={
         isAugmented && (
-          <NumericInput
+          <StatInput
+            isPercentageBased={false}
             disabled
             label={<Typography color="titan.main">Increase</Typography>}
           />
@@ -118,7 +123,8 @@ export const EmptyStatEditor = ({
       }
       totalValueInput={
         isAugmented && (
-          <NumericInput
+          <StatInput
+            isPercentageBased={false}
             disabled
             label={<Typography color="titan.main">Total</Typography>}
           />
@@ -147,6 +153,7 @@ function StatInput({
       onChange={onChange}
       disabled={disabled}
       label={label}
+      size="small"
       aria-label={ariaLabel}
     />
   ) : (
@@ -155,6 +162,7 @@ function StatInput({
       onChange={onChange}
       disabled={disabled}
       label={label}
+      size="small"
       aria-label={ariaLabel}
     />
   );
@@ -180,7 +188,7 @@ function Layout({
     <Box>
       <Grid
         container
-        spacing={2}
+        spacing={1}
         justifyContent="space-between"
         alignItems="end"
       >
