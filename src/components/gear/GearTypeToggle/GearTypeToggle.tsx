@@ -14,6 +14,7 @@ export interface GearTypeToggleProps {
   exclusive?: boolean;
   /** Enforce at least one gear type to be selected (except at initial state) i.e. cannot deselect all gear types. */
   enforceAtLeastOne?: boolean;
+  disabled?: boolean;
   size?: number;
   /** @param values - Array of selected gear ids (or empty array if none). */
   onChange?: (values: GearTypeId[]) => void;
@@ -23,6 +24,7 @@ export function GearTypeToggle({
   values,
   exclusive,
   enforceAtLeastOne,
+  disabled,
   size = 35,
   onChange,
 }: GearTypeToggleProps) {
@@ -32,6 +34,7 @@ export function GearTypeToggle({
       value={values}
       exclusive={exclusive}
       enforceAtLeastOne={enforceAtLeastOne}
+      disabled={disabled}
       onChange={(_, value) => {
         if (onChange) onChange(value);
       }}

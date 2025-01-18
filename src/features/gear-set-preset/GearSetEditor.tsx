@@ -26,14 +26,10 @@ export function GearSetEditor({
     GearTypeId | undefined
   >(undefined);
 
-  const gearsRepo = db.get("gears");
-  const { items: allGears } = useItemsBelongingToCharacter(
-    gearsRepo,
+  const { items: gears } = useItemsBelongingToCharacter(
+    db.get("gears"),
     characterId,
   );
-  const filteredGears = editingGearSlotTypeId
-    ? allGears.filter((gear) => gear.type.id === editingGearSlotTypeId)
-    : [];
 
   return (
     <>
@@ -50,29 +46,32 @@ export function GearSetEditor({
         ))}
       </CardList>
 
-      <StyledModal
-        modalContent={
-          <GearSelector
-            characterId={characterId}
-            gears={filteredGears}
-            onSelect={(gearId) => {
-              const gearProxy = db.get("gears").find(gearId);
-              if (gearProxy) {
-                gearSetProxy.getSlot(gearProxy.type.id).gear = gearProxy;
-              }
+      {editingGearSlotTypeId && (
+        <StyledModal
+          modalContent={
+            <GearSelector
+              characterId={characterId}
+              gears={gears}
+              enforceGearType={editingGearSlotTypeId}
+              onSelect={(gearId) => {
+                const gearProxy = db.get("gears").find(gearId);
+                if (gearProxy) {
+                  gearSetProxy.getSlot(gearProxy.type.id).gear = gearProxy;
+                }
 
-              setEditingGearSlotTypeId(undefined);
-            }}
-          />
-        }
-        open={!!editingGearSlotTypeId}
-        showCancel
-        onClose={() => {
-          setEditingGearSlotTypeId(undefined);
-        }}
-        maxWidth={false}
-        fullWidth
-      />
+                setEditingGearSlotTypeId(undefined);
+              }}
+            />
+          }
+          open={!!editingGearSlotTypeId}
+          showCancel
+          onClose={() => {
+            setEditingGearSlotTypeId(undefined);
+          }}
+          maxWidth={false}
+          fullWidth
+        />
+      )}
     </>
   );
 }

@@ -28,3 +28,16 @@ export const Default: Story = {
     ],
   },
 };
+
+export const EnforceGearType: Story = {
+  args: {
+    characterId: exampleCharacterId,
+    gears: [
+      exampleEyepiece,
+      exampleGloves,
+      exampleCombatEngine,
+      exampleSpaulders,
+    ],
+    enforceGearType: "Eyepiece",
+  },
+};
