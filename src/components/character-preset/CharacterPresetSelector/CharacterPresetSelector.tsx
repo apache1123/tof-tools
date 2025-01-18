@@ -1,18 +1,21 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type {
+  CharacterPreset,
+  CharacterPresetId,
+} from "../../../models/character/character-preset";
 
 export interface CharacterPresetSelectorProps {
   presets: CharacterPreset[];
-  selectedPreset: CharacterPreset | undefined;
-  onSelect(preset: CharacterPreset): void;
+  selectedPresetId: CharacterPresetId | undefined;
+  onSelect(presetId: CharacterPresetId): void;
 }
 
 const label = "Choose preset";
 
 export function CharacterPresetSelector({
   presets,
-  selectedPreset,
+  selectedPresetId,
   onSelect,
 }: CharacterPresetSelectorProps) {
   return (
@@ -21,16 +24,10 @@ export function CharacterPresetSelector({
       <Select
         labelId="preset-select-label"
         id="preset-select"
-        value={selectedPreset?.id ?? ""}
+        value={selectedPresetId ?? ""}
         label={label}
         onChange={(event) => {
-          const preset = presets.find(
-            (preset) => preset.id === event.target.value,
-          );
-
-          if (preset) {
-            onSelect(preset);
-          }
+          onSelect(event.target.value);
         }}
       >
         {presets.map((preset) => (
