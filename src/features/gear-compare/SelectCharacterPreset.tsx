@@ -22,13 +22,15 @@ export function SelectCharacterPreset({
     characterId,
   );
 
+  const selectedPreset = items.find((item) => item.id === characterPresetId);
+
   return (
     <Card sx={{ p: 3 }}>
       <CharacterPresetSelector
         presets={items}
-        selectedPresetId={characterPresetId}
-        onSelect={(presetId) => {
-          $state.characterPresetId = presetId;
+        selectedPreset={selectedPreset}
+        onSelect={(preset) => {
+          $state.characterPresetId = preset.id;
         }}
       />
     </Card>

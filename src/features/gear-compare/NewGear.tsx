@@ -1,4 +1,5 @@
 import { Card, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 import { useProxy } from "valtio/utils";
 
 import { Button } from "../../components/common/Button/Button";
@@ -8,6 +9,7 @@ import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { AddNewGear } from "../gear/AddNewGear";
 import { GearEditor } from "../gear/GearEditor";
+import { SelectGear } from "../gear/SelectGear";
 
 export interface NewGearProps {
   characterId: CharacterId;
@@ -22,6 +24,8 @@ export function NewGear({ characterId }: NewGearProps) {
     characterId,
   );
   const gearProxy = itemProxies.find((gearProxy) => gearProxy.id === newGearId);
+
+  const [isSelecting, setIsSelecting] = useState(false);
 
   return (
     <>
@@ -53,8 +57,29 @@ export function NewGear({ characterId }: NewGearProps) {
             }}
           />
           <Typography>or</Typography>
-          <Button>Choose from existing</Button>
+          <Button
+            onClick={() => {
+              setIsSelecting(true);
+            }}
+          >
+            Choose from existing
+          </Button>
         </Stack>
+      )}
+
+      {isSelecting && (
+        <SelectGear
+          characterId={characterId}
+          isSelecting={isSelecting}
+          enforceGearType={gearTypeId}
+          onSelect={(gearProxy) => {
+            $state.newGearId = gearProxy.id;
+            setIsSelecting(false);
+          }}
+          onClose={() => {
+            setIsSelecting(false);
+          }}
+        />
       )}
     </>
   );
