@@ -8,31 +8,27 @@ import { GearSlotCard } from "../../components/gear/GearSlotCard/GearSlotCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
-import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
-import { NewGearEditor } from "../gear/NewGearEditor";
 
 export interface GearSetEditorProps {
   gearSetProxy: GearSet;
   characterId: CharacterId;
-  onAddGear(gear: Gear): void;
 }
 
 export function GearSetEditor({
   gearSetProxy,
   characterId,
-  onAddGear,
 }: GearSetEditorProps) {
   const gearSet = useSnapshot(gearSetProxy);
 
   const [editingGearSlotTypeId, setEditingGearSlotTypeId] = useState<
     GearTypeId | undefined
   >(undefined);
-  const [isAddingGear, setIsAddingGear] = useState(false);
 
+  const gearsRepo = db.get("gears");
   const { items: allGears } = useItemsBelongingToCharacter(
-    db.get("gears"),
+    gearsRepo,
     characterId,
   );
   const filteredGears = editingGearSlotTypeId
@@ -57,6 +53,7 @@ export function GearSetEditor({
       <StyledModal
         modalContent={
           <GearSelector
+            characterId={characterId}
             gears={filteredGears}
             onSelect={(gearId) => {
               const gearProxy = db.get("gears").find(gearId);
@@ -65,9 +62,6 @@ export function GearSetEditor({
               }
 
               setEditingGearSlotTypeId(undefined);
-            }}
-            onAdd={() => {
-              setIsAddingGear(true);
             }}
           />
         }
@@ -78,18 +72,6 @@ export function GearSetEditor({
         }}
         maxWidth={false}
         fullWidth
-      />
-
-      <NewGearEditor
-        characterId={characterId}
-        open={isAddingGear}
-        onConfirm={(gear) => {
-          onAddGear(gear);
-          setIsAddingGear(false);
-        }}
-        onCancel={() => {
-          setIsAddingGear(false);
-        }}
       />
     </>
   );

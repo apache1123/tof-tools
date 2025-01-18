@@ -29,8 +29,6 @@ export function GearSetPresets({ characterId }: GearSetPresetsProps) {
     ? gearSetPresetRepo.find(editingPresetId)
     : undefined;
 
-  const gearRepo = db.get("gears");
-
   return (
     <>
       <InventoryLayout
@@ -63,12 +61,7 @@ export function GearSetPresets({ characterId }: GearSetPresetsProps) {
       {editingPresetProxy && (
         <EditorModal
           modalContent={
-            <GearSetPresetEditor
-              presetProxy={editingPresetProxy}
-              onAddGear={(gear) => {
-                gearRepo.add(gear);
-              }}
-            />
+            <GearSetPresetEditor presetProxy={editingPresetProxy} />
           }
           open={!!editingPresetId}
           onClose={() => {

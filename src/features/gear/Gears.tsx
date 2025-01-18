@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
@@ -14,8 +13,8 @@ import { gearState } from "../../states/gear/gear-state";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { AddNewGear } from "./AddNewGear";
 import { GearEditor } from "./GearEditor";
-import { NewGearEditor } from "./NewGearEditor";
 
 export interface GearsProps {
   characterId: CharacterId;
@@ -30,7 +29,6 @@ export function Gears({ characterId }: GearsProps) {
   const { items } = useItemsBelongingToCharacter(gearRepo, characterId);
   const filteredItems = getFilteredGears(items, filter);
 
-  const [isAddingNewGear, setIsAddingNewGear] = useState(false);
   const [editingGear, setEditingGear] = useState<Gear | undefined>(undefined);
 
   return (
@@ -52,16 +50,7 @@ export function Gears({ characterId }: GearsProps) {
             }}
           />
         }
-        actions={
-          <Button
-            variant="contained"
-            onClick={() => {
-              setIsAddingNewGear(true);
-            }}
-          >
-            Add new gear
-          </Button>
-        }
+        actions={<AddNewGear characterId={characterId} />}
         items={filteredItems.map((gear) => (
           <GearCard
             key={gear.id}
@@ -74,18 +63,6 @@ export function Gears({ characterId }: GearsProps) {
             }}
           />
         ))}
-      />
-
-      <NewGearEditor
-        characterId={characterId}
-        open={isAddingNewGear}
-        onConfirm={(gear) => {
-          gearRepo.add(gear);
-          setIsAddingNewGear(false);
-        }}
-        onCancel={() => {
-          setIsAddingNewGear(false);
-        }}
       />
 
       {editingGear && (

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { exampleCharacterId } from "../../__fixtures__/character";
 import {
   exampleCombatEngine,
   exampleEyepiece,
@@ -18,6 +19,7 @@ type Story = StoryObj<typeof GearSelector>;
 
 export const Default: Story = {
   args: {
+    characterId: exampleCharacterId,
     gears: [
       exampleEyepiece,
       exampleGloves,
