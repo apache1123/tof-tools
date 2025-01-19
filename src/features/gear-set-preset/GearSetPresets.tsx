@@ -9,7 +9,7 @@ import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
 import { GearSetPreset } from "../../models/gear/gear-set-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { GearSetPresetEditor } from "./GearSetPresetEditor";
+import { EditGearSetPreset } from "./EditGearSetPreset";
 
 export interface GearSetPresetsProps {
   characterId: CharacterId;
@@ -60,9 +60,7 @@ export function GearSetPresets({ characterId }: GearSetPresetsProps) {
 
       {editingPresetProxy && (
         <EditorModal
-          modalContent={
-            <GearSetPresetEditor presetProxy={editingPresetProxy} />
-          }
+          modalContent={<EditGearSetPreset presetProxy={editingPresetProxy} />}
           open={!!editingPresetId}
           onClose={() => {
             setEditingPresetId(undefined);

@@ -8,7 +8,7 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 
-export interface TeamPresetWeaponEditorProps {
+export interface EditTeamPresetWeaponProps {
   weaponPreset: WeaponPreset | undefined;
   characterId: CharacterId;
   disabled?: boolean;
@@ -18,7 +18,7 @@ export interface TeamPresetWeaponEditorProps {
   onSetAsMain?(): void;
 }
 
-export function TeamPresetWeaponEditor({
+export function EditTeamPresetWeapon({
   weaponPreset,
   characterId,
   disabled,
@@ -26,7 +26,7 @@ export function TeamPresetWeaponEditor({
   onChange,
   onRemove,
   onSetAsMain,
-}: TeamPresetWeaponEditorProps) {
+}: EditTeamPresetWeaponProps) {
   const weaponPresets = useSnapshot(db.get("weaponPresets")).filter(
     (weaponPreset) => weaponPreset.weapon.characterId === characterId,
   );

@@ -3,13 +3,13 @@ import TextField from "@mui/material/TextField";
 import { useSnapshot } from "valtio";
 
 import type { GearSetPreset } from "../../models/gear/gear-set-preset";
-import { GearSetEditor } from "./GearSetEditor";
+import { EditGearSet } from "./EditGearSet";
 
-export interface GearSetPresetEditorProps {
+export interface EditGearSetPresetProps {
   presetProxy: GearSetPreset;
 }
 
-export function GearSetPresetEditor({ presetProxy }: GearSetPresetEditorProps) {
+export function EditGearSetPreset({ presetProxy }: EditGearSetPresetProps) {
   const { characterId, name } = useSnapshot(presetProxy);
 
   return (
@@ -21,7 +21,7 @@ export function GearSetPresetEditor({ presetProxy }: GearSetPresetEditorProps) {
           presetProxy.name = e.target.value;
         }}
       />
-      <GearSetEditor
+      <EditGearSet
         gearSetProxy={presetProxy.gearSet}
         characterId={characterId}
       />

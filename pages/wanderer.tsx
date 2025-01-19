@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import { CharacterEditor } from "../src/features/character/CharacterEditor";
+import { EditCharacter } from "../src/features/character/EditCharacter";
 import { useSelectedCharacter } from "../src/features/character/useSelectedCharacter";
 
 export default function Page() {
@@ -13,7 +13,7 @@ export default function Page() {
       </Head>
 
       {characterDataProxy && (
-        <CharacterEditor characterDataProxy={characterDataProxy} />
+        <EditCharacter characterDataProxy={characterDataProxy} />
       )}
     </>
   );

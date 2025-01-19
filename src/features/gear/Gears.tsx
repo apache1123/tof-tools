@@ -14,7 +14,7 @@ import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCh
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { AddNewGear } from "./AddNewGear";
-import { GearEditor } from "./GearEditor";
+import { EditGear } from "./EditGear";
 
 export interface GearsProps {
   characterId: CharacterId;
@@ -68,7 +68,7 @@ export function Gears({ characterId }: GearsProps) {
       {editingGear && (
         <EditorModal
           open={!!editingGear}
-          modalContent={<GearEditor gearProxy={editingGear} />}
+          modalContent={<EditGear gearProxy={editingGear} />}
           itemName={editingGear.type.displayName}
           onClose={() => {
             setEditingGear(undefined);

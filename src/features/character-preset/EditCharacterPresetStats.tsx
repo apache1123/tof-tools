@@ -8,13 +8,13 @@ import { ElementalStyledText } from "../../components/elemental/ElementalStyledT
 import { WeaponIcon } from "../../components/weapon/WeaponIcon/WeaponIcon";
 import type { CharacterPreset } from "../../models/character/character-preset";
 
-export interface CharacterPresetStatsEditorProps {
+export interface EditCharacterPresetStatsProps {
   characterPresetProxy: CharacterPreset;
 }
 
-export function CharacterPresetStatsEditor({
+export function EditCharacterPresetStats({
   characterPresetProxy,
-}: CharacterPresetStatsEditorProps) {
+}: EditCharacterPresetStatsProps) {
   const { teamPreset, baseAttacks, critRateFlat } =
     useSnapshot(characterPresetProxy);
   const mainWeapon = teamPreset?.getMainWeaponPreset()?.weapon;

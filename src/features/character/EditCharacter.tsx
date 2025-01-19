@@ -5,11 +5,11 @@ import { NumericInput } from "../../components/common/NumericInput/NumericInput"
 import { maxCharacterLevel } from "../../definitions/character-level";
 import type { CharacterData } from "../../models/character/character-data";
 
-export interface CharacterEditorProps {
+export interface EditCharacterProps {
   characterDataProxy: CharacterData;
 }
 
-export function CharacterEditor({ characterDataProxy }: CharacterEditorProps) {
+export function EditCharacter({ characterDataProxy }: EditCharacterProps) {
   const characterData = useSnapshot(characterDataProxy);
   const { name, level } = characterData;
 

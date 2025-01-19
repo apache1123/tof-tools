@@ -11,15 +11,15 @@ import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 
-export interface WeaponPresetEditorProps {
+export interface EditWeaponPresetProps {
   weaponPresetProxy: WeaponPreset;
   characterId: CharacterId;
 }
 
-export function WeaponPresetEditor({
+export function EditWeaponPreset({
   weaponPresetProxy,
   characterId,
-}: WeaponPresetEditorProps) {
+}: EditWeaponPresetProps) {
   const { matrixSlots } = useSnapshot(weaponPresetProxy);
 
   const [addingMatrixTypeId, setAddingMatrixTypeId] = useState<

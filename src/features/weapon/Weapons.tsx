@@ -11,7 +11,7 @@ import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-defini
 import type { CharacterId } from "../../models/character/character-data";
 import { Weapon } from "../../models/weapon/weapon";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { WeaponEditor } from "./WeaponEditor";
+import { EditWeapon } from "./EditWeapon";
 
 export interface WeaponsProps {
   characterId: CharacterId;
@@ -90,7 +90,7 @@ export function Weapons({ characterId }: WeaponsProps) {
       {editingWeaponProxy && (
         <EditorModal
           modalContent={
-            <WeaponEditor
+            <EditWeapon
               weaponProxy={editingWeaponProxy}
               characterId={characterId}
             />

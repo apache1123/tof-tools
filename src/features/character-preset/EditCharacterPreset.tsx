@@ -10,15 +10,15 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../models/character/character-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { CharacterPresetStatsEditor } from "./CharacterPresetStatsEditor";
+import { EditCharacterPresetStats } from "./EditCharacterPresetStats";
 
-export interface CharacterPresetEditorProps {
+export interface EditCharacterPresetProps {
   characterPresetProxy: CharacterPreset;
 }
 
-export function CharacterPresetEditor({
+export function EditCharacterPreset({
   characterPresetProxy,
-}: CharacterPresetEditorProps) {
+}: EditCharacterPresetProps) {
   const { characterId, name, teamPreset, gearSetPreset } = useSnapshot(
     characterPresetProxy,
   ) as CharacterPreset;
@@ -105,9 +105,7 @@ export function CharacterPresetEditor({
           )}
         </Stack>
 
-        <CharacterPresetStatsEditor
-          characterPresetProxy={characterPresetProxy}
-        />
+        <EditCharacterPresetStats characterPresetProxy={characterPresetProxy} />
       </Stack>
 
       {isSelectingTeamPreset && (

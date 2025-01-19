@@ -3,7 +3,7 @@ import { useProxy } from "valtio/utils";
 
 import type { CharacterPreset } from "../../models/character/character-preset";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
-import { GearEditor } from "../gear/GearEditor";
+import { EditGear } from "../gear/EditGear";
 
 export interface CurrentGearProps {
   characterPresetProxy: CharacterPreset;
@@ -25,7 +25,7 @@ export function CurrentGear({ characterPresetProxy }: CurrentGearProps) {
 
       {gearProxy ? (
         <Card elevation={1} sx={{ p: 2 }}>
-          <GearEditor gearProxy={gearProxy} />
+          <EditGear gearProxy={gearProxy} />
         </Card>
       ) : (
         <Alert severity="info">No gear in preset</Alert>

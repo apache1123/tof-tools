@@ -5,11 +5,11 @@ import { MatrixIcon } from "../../components/matrix/MatrixIcon/MatrixIcon";
 import { MatrixStarsSelector } from "../../components/matrix/MatrixStarsSelector/MatrixStarsSelector";
 import type { Matrix } from "../../models/matrix/matrix";
 
-export interface MatrixEditorProps {
+export interface EditMatrixProps {
   matrixProxy: Matrix;
 }
 
-export function MatrixEditor({ matrixProxy }: MatrixEditorProps) {
+export function EditMatrix({ matrixProxy }: EditMatrixProps) {
   const { definitionId, displayName, stars } = useSnapshot(matrixProxy);
 
   return (

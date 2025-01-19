@@ -8,7 +8,7 @@ import type { CharacterId } from "../../models/character/character-data";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { AddNewGear } from "../gear/AddNewGear";
-import { GearEditor } from "../gear/GearEditor";
+import { EditGear } from "../gear/EditGear";
 import { SelectGear } from "../gear/SelectGear";
 
 export interface NewGearProps {
@@ -44,7 +44,7 @@ export function NewGear({ characterId }: NewGearProps) {
 
       {gearProxy ? (
         <Card elevation={1} sx={{ p: 2 }}>
-          <GearEditor gearProxy={gearProxy} />
+          <EditGear gearProxy={gearProxy} />
         </Card>
       ) : (
         <Stack direction="row" sx={{ gap: 1, alignItems: "center" }}>

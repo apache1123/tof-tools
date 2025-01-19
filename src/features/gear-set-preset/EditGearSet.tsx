@@ -8,15 +8,12 @@ import type { CharacterId } from "../../models/character/character-data";
 import type { GearSet } from "../../models/gear/gear-set";
 import { SelectGear } from "../gear/SelectGear";
 
-export interface GearSetEditorProps {
+export interface EditGearSetProps {
   gearSetProxy: GearSet;
   characterId: CharacterId;
 }
 
-export function GearSetEditor({
-  gearSetProxy,
-  characterId,
-}: GearSetEditorProps) {
+export function EditGearSet({ gearSetProxy, characterId }: EditGearSetProps) {
   const gearSet = useSnapshot(gearSetProxy);
 
   const [editingGearSlotTypeId, setEditingGearSlotTypeId] = useState<

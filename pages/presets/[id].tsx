@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { db } from "../../src/db/reactive-local-storage-db";
 import { useItemsBelongingToCharacter } from "../../src/features/character/useItemsBelongingToCharacter";
 import { useSelectedCharacter } from "../../src/features/character/useSelectedCharacter";
-import { CharacterPresetEditor } from "../../src/features/character-preset/CharacterPresetEditor";
+import { EditCharacterPreset } from "../../src/features/character-preset/EditCharacterPreset";
 import type { CharacterId } from "../../src/models/character/character-data";
 
 export default function Page() {
@@ -31,6 +31,6 @@ function CharacterPresetPage({
   ).itemProxies.find((item) => item.id === id);
 
   return (
-    presetProxy && <CharacterPresetEditor characterPresetProxy={presetProxy} />
+    presetProxy && <EditCharacterPreset characterPresetProxy={presetProxy} />
   );
 }

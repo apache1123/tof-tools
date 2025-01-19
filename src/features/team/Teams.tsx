@@ -8,7 +8,7 @@ import type { CharacterId } from "../../models/character/character-data";
 import { TeamPreset } from "../../models/team/team-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { TeamPresetEditor } from "./TeamPresetEditor";
+import { EditTeamPreset } from "./EditTeamPreset";
 
 export interface TeamsProps {
   characterId: CharacterId;
@@ -58,7 +58,7 @@ export function Teams({ characterId }: TeamsProps) {
       {editingTeamPresetProxy && (
         <EditorModal
           modalContent={
-            <TeamPresetEditor teamPresetProxy={editingTeamPresetProxy} />
+            <EditTeamPreset teamPresetProxy={editingTeamPresetProxy} />
           }
           open={!!editingTeamPresetProxy}
           onClose={() => {

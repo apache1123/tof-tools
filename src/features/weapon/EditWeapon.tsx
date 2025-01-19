@@ -12,14 +12,14 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Weapon } from "../../models/weapon/weapon";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { WeaponPresetEditor } from "./WeaponPresetEditor";
+import { EditWeaponPreset } from "./EditWeaponPreset";
 
-export interface WeaponEditorProps {
+export interface EditWeaponProps {
   weaponProxy: Weapon;
   characterId: CharacterId;
 }
 
-export function WeaponEditor({ weaponProxy, characterId }: WeaponEditorProps) {
+export function EditWeapon({ weaponProxy, characterId }: EditWeaponProps) {
   const weapon = useSnapshot(weaponProxy) as Weapon;
   const {
     definitionId,
@@ -108,7 +108,7 @@ export function WeaponEditor({ weaponProxy, characterId }: WeaponEditorProps) {
         {editingPresetProxy && (
           <EditorModal
             modalContent={
-              <WeaponPresetEditor
+              <EditWeaponPreset
                 weaponPresetProxy={editingPresetProxy}
                 characterId={characterId}
               />

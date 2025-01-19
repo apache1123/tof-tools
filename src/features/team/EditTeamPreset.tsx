@@ -3,13 +3,13 @@ import { useSnapshot } from "valtio";
 
 import { CardList } from "../../components/common/CardList/CardList";
 import { TeamPreset } from "../../models/team/team-preset";
-import { TeamPresetWeaponEditor } from "./TeamPresetWeaponEditor";
+import { EditTeamPresetWeapon } from "./EditTeamPresetWeapon";
 
-export interface TeamPresetEditorProps {
+export interface EditTeamPresetProps {
   teamPresetProxy: TeamPreset;
 }
 
-export function TeamPresetEditor({ teamPresetProxy }: TeamPresetEditorProps) {
+export function EditTeamPreset({ teamPresetProxy }: EditTeamPresetProps) {
   const teamPreset = useSnapshot(teamPresetProxy) as TeamPreset;
   const { name, characterId } = teamPreset;
 
@@ -30,7 +30,7 @@ export function TeamPresetEditor({ teamPresetProxy }: TeamPresetEditorProps) {
 
       <CardList direction="column" gap={1}>
         {[...Array(TeamPreset.maxNumOfWeapons)].map((_, i) => (
-          <TeamPresetWeaponEditor
+          <EditTeamPresetWeapon
             key={i}
             weaponPreset={teamPreset.getWeaponPreset(i)}
             characterId={characterId}

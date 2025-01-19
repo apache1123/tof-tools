@@ -19,7 +19,7 @@ import { matrixState } from "../../states/matrix/matrix-state";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { MatrixEditor } from "./MatrixEditor";
+import { EditMatrix } from "./EditMatrix";
 
 export interface MatricesProps {
   characterId: CharacterId;
@@ -123,7 +123,7 @@ export function Matrices({ characterId }: MatricesProps) {
 
       {editingMatrix && (
         <EditorModal
-          modalContent={<MatrixEditor matrixProxy={editingMatrix} />}
+          modalContent={<EditMatrix matrixProxy={editingMatrix} />}
           open={!!editingMatrix}
           itemName={editingMatrix.displayName}
           onClose={() => {
