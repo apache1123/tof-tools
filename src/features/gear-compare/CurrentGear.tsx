@@ -1,21 +1,10 @@
 import { Alert, Card, Typography } from "@mui/material";
-import { useProxy } from "valtio/utils";
 
-import type { CharacterPreset } from "../../models/character/character-preset";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { EditGear } from "../gear/EditGear";
 
-export interface CurrentGearProps {
-  characterPresetProxy: CharacterPreset;
-}
-
-export function CurrentGear({ characterPresetProxy }: CurrentGearProps) {
-  const $state = useProxy(gearCompareState);
-  const { gearTypeId } = $state;
-
-  const gearProxy = gearTypeId
-    ? characterPresetProxy?.gearSetPreset?.gearSet?.getSlot(gearTypeId).gear
-    : undefined;
+export function CurrentGear() {
+  const gearProxy = gearCompareState.getCurrentGear();
 
   return (
     <>

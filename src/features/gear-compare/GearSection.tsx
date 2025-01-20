@@ -3,7 +3,6 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useProxy } from "valtio/utils";
 
 import type { CharacterId } from "../../models/character/character-data";
-import type { CharacterPreset } from "../../models/character/character-preset";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { CurrentGear } from "./CurrentGear";
 import { NewGear } from "./NewGear";
@@ -11,13 +10,9 @@ import { SelectGearType } from "./SelectGearType";
 
 export interface GearSectionProps {
   characterId: CharacterId;
-  characterPresetProxy: CharacterPreset;
 }
 
-export function GearSection({
-  characterId,
-  characterPresetProxy,
-}: GearSectionProps) {
+export function GearSection({ characterId }: GearSectionProps) {
   const $state = useProxy(gearCompareState);
   const { gearTypeId } = $state;
 
@@ -29,7 +24,7 @@ export function GearSection({
         {gearTypeId && (
           <Grid container spacing={2}>
             <Grid xs={12} md={6}>
-              <CurrentGear characterPresetProxy={characterPresetProxy} />
+              <CurrentGear />
             </Grid>
 
             <Grid xs={12} md={6}>

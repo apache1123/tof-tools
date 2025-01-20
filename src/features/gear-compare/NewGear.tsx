@@ -3,10 +3,8 @@ import { useState } from "react";
 import { useProxy } from "valtio/utils";
 
 import { Button } from "../../components/common/Button/Button";
-import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { AddNewGear } from "../gear/AddNewGear";
 import { EditGear } from "../gear/EditGear";
 import { SelectGear } from "../gear/SelectGear";
@@ -17,13 +15,9 @@ export interface NewGearProps {
 
 export function NewGear({ characterId }: NewGearProps) {
   const $state = useProxy(gearCompareState);
-  const { gearTypeId, newGearId } = $state;
+  const { gearTypeId } = $state;
 
-  const { itemProxies } = useItemsBelongingToCharacter(
-    db.get("gears"),
-    characterId,
-  );
-  const gearProxy = itemProxies.find((gearProxy) => gearProxy.id === newGearId);
+  const gearProxy = gearCompareState.getNewGear();
 
   const [isSelecting, setIsSelecting] = useState(false);
 
