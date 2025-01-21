@@ -9,7 +9,7 @@ export class WeaponResonanceRequirements implements Requirements {
   ) {}
 
   public haveBeenMet(team: Team): boolean {
-    const { weaponResonance } = team;
+    const weaponResonance = team.getWeaponResonance();
 
     if (this.isResonance && this.isResonance !== weaponResonance) return false;
 

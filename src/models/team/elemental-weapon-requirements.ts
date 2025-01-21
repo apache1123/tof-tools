@@ -20,7 +20,8 @@ export class ElementalWeaponRequirements implements Requirements {
   ) {}
 
   public haveBeenMet(team: Team): boolean {
-    const { weapons, weaponElementalTypes } = team;
+    const weapons = team.getEquippedWeapons();
+    const weaponElementalTypes = team.getWeaponElementalTypes();
 
     if (
       this.numOfElementalWeapons &&

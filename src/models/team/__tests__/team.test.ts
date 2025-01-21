@@ -36,51 +36,51 @@ describe("Team", () => {
 
   describe("Weapon resonance", () => {
     it("is Attack when there are at least 2 attack weapons", () => {
-      sut.weaponSlots[0].weapon = alyss;
-      sut.weaponSlots[1].weapon = annabella;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("Attack");
+      sut.setWeapon(0, alyss);
+      sut.setWeapon(1, annabella);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("Attack");
 
-      sut.weaponSlots[2].weapon = claudia;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("Attack");
+      sut.setWeapon(2, claudia);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("Attack");
     });
 
     it("is Fortitude when there are at least 2 defense weapons", () => {
-      sut.weaponSlots[0].weapon = mimi;
-      sut.weaponSlots[1].weapon = huma;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("Fortitude");
+      sut.setWeapon(0, mimi);
+      sut.setWeapon(1, huma);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("Fortitude");
 
-      sut.weaponSlots[2].weapon = lan;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("Fortitude");
+      sut.setWeapon(2, lan);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("Fortitude");
     });
 
     it("is Benediction when there are at least 2 support weapons", () => {
-      sut.weaponSlots[0].weapon = brevey;
-      sut.weaponSlots[1].weapon = coco;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("Benediction");
+      sut.setWeapon(0, brevey);
+      sut.setWeapon(1, coco);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("Benediction");
 
-      sut.weaponSlots[2].weapon = fiona;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("Benediction");
+      sut.setWeapon(2, fiona);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("Benediction");
     });
 
     it("is Balance when there is 1 weapon of each type", () => {
-      sut.weaponSlots[0].weapon = alyss;
-      sut.weaponSlots[1].weapon = brevey;
-      sut.weaponSlots[2].weapon = mimi;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("Balance");
+      sut.setWeapon(0, alyss);
+      sut.setWeapon(1, brevey);
+      sut.setWeapon(2, mimi);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("Balance");
     });
 
     it("is None when there are only 2 weapons, and of different type", () => {
-      sut.weaponSlots[0].weapon = alyss;
-      sut.weaponSlots[1].weapon = brevey;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("None");
+      sut.setWeapon(0, alyss);
+      sut.setWeapon(1, brevey);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("None");
 
-      sut.weaponSlots[1].weapon = mimi;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("None");
+      sut.setWeapon(0, mimi);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("None");
 
-      sut.weaponSlots[0].weapon = undefined;
-      sut.weaponSlots[1].weapon = brevey;
-      sut.weaponSlots[2].weapon = mimi;
-      expect(sut.weaponResonance).toBe<WeaponResonance>("None");
+      sut.setWeapon(0, undefined);
+      sut.setWeapon(1, brevey);
+      sut.setWeapon(2, mimi);
+      expect(sut.getWeaponResonance()).toBe<WeaponResonance>("None");
     });
   });
 });

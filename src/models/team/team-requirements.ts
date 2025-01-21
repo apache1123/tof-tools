@@ -15,7 +15,7 @@ export class TeamRequirements implements Requirements {
     if (
       this.anyWeapon &&
       this.anyWeapon.every(
-        (weaponName) => !team.weaponNames.includes(weaponName),
+        (weaponName) => !team.getWeaponNames().includes(weaponName),
       )
     )
       return false;

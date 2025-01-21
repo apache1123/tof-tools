@@ -74,7 +74,7 @@ export class CombatSimulator {
     this.target = { resistance: targetResistance };
 
     this.team = team;
-    const { weapons } = this.team;
+    const weapons = team.getEquippedWeapons();
 
     const startingTickInterval = new TimeInterval(-tickDuration, 0);
     this.currentTick = new CurrentTick(
@@ -112,7 +112,7 @@ export class CombatSimulator {
     );
     const dodge = createResource(dodgeResourceDefinition);
     const endurance = createResource(enduranceDefinition);
-    const customResources = team.weapons.flatMap((weapon) =>
+    const customResources = weapons.flatMap((weapon) =>
       weapon.resourceDefinitions.map((resourceDefinition) =>
         createResource(resourceDefinition),
       ),

@@ -43,7 +43,7 @@ export class GearCompare {
   ) {
     this.target = { resistance: 0 };
 
-    const { weapons } = team;
+    const weapons = team.getEquippedWeapons();
 
     const buffAbilityDefinitions: {
       source: BuffSource;
@@ -219,8 +219,8 @@ export class GearCompare {
 
   private getAttackHit(element: WeaponElementalType): AttackHit {
     // It doesn't matter what weapon is used as long as the element of the attack hit matches and all buffs apply
-    const weapon = this.team.weapons.length
-      ? this.team.weapons[0]
+    const weapon = this.team.getEquippedWeapons().length
+      ? this.team.getEquippedWeapons()[0]
       : new Weapon(getWeaponDefinition("Cocoritter"), this.characterData.id);
 
     // Use a mock attack hit that matches the element and applies all buffs
