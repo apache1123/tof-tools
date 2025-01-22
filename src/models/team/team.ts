@@ -8,6 +8,7 @@ import { filterOutUndefined } from "../../utils/array-utils";
 import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
 import type { Weapon } from "../weapon/weapon";
+import type { TeamPreset } from "./team-preset";
 
 export type TeamId = Id;
 
@@ -77,5 +78,24 @@ export class Team {
       return "Balance";
 
     return "None";
+  }
+
+  public applyPreset(preset: TeamPreset) {
+    this.clearWeapons();
+
+    const weaponPresets = preset.getWeaponPresets();
+    for (let i = 0; i < preset.getWeaponPresets().length; i++) {
+      const weaponPreset = weaponPresets[i];
+
+      if (!weaponPreset) continue;
+
+      const weapon = weaponPreset.weapon;
+      weapon.applyPreset(weaponPreset);
+      this.setWeapon(i, weapon);
+    }
+  }
+
+  private clearWeapons() {
+    this.weapons.length = 0;
   }
 }
