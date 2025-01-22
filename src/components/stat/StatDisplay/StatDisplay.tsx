@@ -30,6 +30,7 @@ export function StatDisplay({
       direction="row"
       spacing={1}
       sx={{
+        justifyContent: "space-between",
         alignItems: "center",
         typography: "body2",
       }}
