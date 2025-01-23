@@ -1,32 +1,18 @@
-import { nanoid } from "nanoid";
-
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 import { numWeaponsInTeam } from "../../definitions/team";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
-import type { CharacterId } from "../character/character-data";
-import type { Id } from "../identifiable";
 import type { Weapon } from "../weapon/weapon";
 import type { TeamPreset } from "./team-preset";
 
-export type TeamId = Id;
-
 export class Team {
-  public constructor(
-    characterId: CharacterId,
-    id?: TeamId,
-    weapons?: (Weapon | undefined)[],
-  ) {
-    this.id = id ?? nanoid();
-    this.characterId = characterId;
-    this.weapons = weapons ?? [];
+  public constructor() {
+    this.weapons = [];
   }
 
   public static maxNumOfWeapons = numWeaponsInTeam;
 
-  public readonly id: TeamId;
-  public readonly characterId: CharacterId;
   private readonly weapons: (Weapon | undefined)[];
 
   /** Returns the list of weapons, including undefined values if a weapon is not equipped. */

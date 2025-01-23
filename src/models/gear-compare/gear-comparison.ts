@@ -1,12 +1,7 @@
-import BigNumber from "bignumber.js";
-
-import type { WeaponElementalType } from "../../definitions/elemental-type";
-import type { GearTypeId } from "../../definitions/gear-types";
-import { getGearType } from "../../definitions/gear-types";
 import { teamBuffs } from "../../definitions/team-buffs";
 import type { AbilityRequirementsDefinition } from "../../definitions/types/ability/ability-requirements-definition";
 import type { BuffAbilityDefinition as BuffAbilityDefinition } from "../../definitions/types/buff/buff-ability-definition";
-import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
+import { calculateRelativeIncrease } from "../../utils/math-utils";
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import { GearComparerActiveWeapon } from "../active-weapon/gear-comparer-active-weapon";
 import { ActiveBuffs } from "../buff/active-buff/active-buffs";
@@ -21,7 +16,7 @@ import { Character } from "../character/character";
 import type { CharacterData } from "../character/character-data";
 import { DamageEvent } from "../damage-event/damage-event";
 import type { AttackHit } from "../event/messages/attack-hit";
-import { Gear } from "../gear/gear";
+import type { Gear } from "../gear/gear";
 import { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Target } from "../target/target";
@@ -29,17 +24,22 @@ import { ElementalWeaponRequirements } from "../team/elemental-weapon-requiremen
 import type { Team } from "../team/team";
 import { TeamRequirements } from "../team/team-requirements";
 import { WeaponResonanceRequirements } from "../team/weapon-resonance-requirements";
-import { Weapon } from "../weapon/weapon";
+import type { Weapon } from "../weapon/weapon";
 import { GearCompareBuffAbilities } from "./gear-compare-buff-abilities";
 import { GearCompareBuffAbility } from "./gear-compare-buff-ability";
 import { GearCompareBuffAbilityRequirements } from "./gear-compare-buff-ability-requirements";
 
-export class GearCompare {
+export class GearComparison {
   public constructor(
     private readonly characterData: CharacterData,
     private readonly team: Team,
-    private readonly gearSet: GearSet,
+    private readonly mainWeapon: Weapon,
     private readonly simulacrumTrait: SimulacrumTrait | undefined,
+    private readonly currentGearSet: GearSet,
+    /** The current piece of gear in the current gear set that is being compared */
+    private readonly currentGear: Gear,
+    /** The new piece of gear that is being compared */
+    private readonly newGear: Gear,
   ) {
     this.target = { resistance: 0 };
 
@@ -117,7 +117,31 @@ export class GearCompare {
     }
 
     this.activeBuffs = new ActiveBuffs(this.buffAbilities);
+
     this.activeWeapon = new GearComparerActiveWeapon();
+    this.activeWeapon.switchTo(mainWeapon);
+
+    this.currentCharacter = new Character(
+      this.characterData,
+      this.team,
+      this.currentGearSet,
+      this.simulacrumTrait,
+      this.activeBuffs,
+      this.activeWeapon,
+    );
+
+    // Create a copy of the current gear set with the gear replaced with the new gear
+    this.newGearSet = GearSet.createCopy(this.currentGearSet);
+    this.newGearSet.getSlot(newGear.type.id).gear = newGear;
+
+    this.newCharacter = new Character(
+      this.characterData,
+      this.team,
+      this.newGearSet,
+      this.simulacrumTrait,
+      this.activeBuffs,
+      this.activeWeapon,
+    );
 
     function createRequirements(
       definition: AbilityRequirementsDefinition,
@@ -145,89 +169,87 @@ export class GearCompare {
   private readonly activeBuffs: ActiveBuffs;
   private readonly activeWeapon: ActiveWeapon;
 
-  /** The damage for the given element. Used as a basis for comparing gear */
-  public getDamageBasis(element: WeaponElementalType): number {
-    // Simulate a dummy attack hit to get the damage to use as the basis
-    const character = new Character(
-      this.characterData,
-      this.team,
-      this.gearSet,
-      this.simulacrumTrait,
-      this.activeBuffs,
-      this.activeWeapon,
+  /** Current character with the existing gear, used as a basis of comparison */
+  private readonly currentCharacter: Character;
+
+  /** Temporary new gear set. This is a copy of the current gear set with the gear replaced with the new gear */
+  private readonly newGearSet: GearSet;
+  /** Temporary new character, with the new gear equipped */
+  private readonly newCharacter: Character;
+
+  /** The damage value of a dummy hit using the current gear */
+  public getCurrentCharacterDamage(): number {
+    return this.getCharacterDamage(this.currentCharacter);
+  }
+
+  /** The damage value of a dummy hit using a temporary new character that is equipped with the new piece of gear */
+  public getNewCharacterDamage(): number {
+    return this.getCharacterDamage(this.newCharacter);
+  }
+
+  /** The damage when the current piece of gear is equipped, relative to the damage when that piece of gear is not equipped.
+   * a.k.a. the damage increase with vs without that piece of gear
+   */
+  public getCurrentGearValue(): number {
+    const characterWithoutGear = this.getCharacterWithoutGear(
+      this.currentGear,
+      this.currentGearSet,
     );
+    const damageWithoutGear = this.getCharacterDamage(characterWithoutGear);
+
+    if (damageWithoutGear === 0) {
+      return 0;
+    }
+
+    return calculateRelativeIncrease(
+      this.getCurrentCharacterDamage(),
+      damageWithoutGear,
+    );
+  }
+
+  /** The damage when the new piece of gear is equipped, relative to the damage when that piece of gear is not equipped.
+   * a.k.a. the damage increase with vs without that piece of gear
+   */
+  public getNewGearValue(): number {
+    const characterWithoutGear = this.getCharacterWithoutGear(
+      this.newGear,
+      this.newGearSet,
+    );
+    const damageWithoutGear = this.getCharacterDamage(characterWithoutGear);
+
+    if (damageWithoutGear === 0) {
+      return 0;
+    }
+
+    return calculateRelativeIncrease(
+      this.getNewCharacterDamage(),
+      damageWithoutGear,
+    );
+  }
+
+  private getCharacterDamage(character: Character): number {
     const damageEvent = new DamageEvent(
-      this.getAttackHit(element),
+      this.getAttackHit(),
       character,
       this.target,
       this.activeBuffs,
     );
-
     return damageEvent.getDamage().finalDamage;
   }
 
-  /** The damage when a piece of gear is equipped, relative to the damage when that piece of gear is not equipped.
-   * a.k.a. the damage increase with vs without that piece of gear
-   */
-  public getGearValue(
-    gearTypeId: GearTypeId,
-    element: WeaponElementalType,
-  ): number {
-    return this.getSubstituteGearValue(
-      new Gear(getGearType(gearTypeId), this.characterData.id), // Empty gear of the same type
-      element,
-    );
-  }
+  /** Get a mock attack hit using the active weapon */
+  private getAttackHit(): AttackHit {
+    const weapon = this.activeWeapon.current;
 
-  /** The damage when a piece of gear is equipped, relative to the basis damage, if it replaces the basis gear set's corresponding piece of gear
-   */
-  public getSubstituteGearValue(
-    substituteGear: Gear,
-    element: WeaponElementalType,
-  ): number {
-    // Create a copy of the basis gear set with the gear replaced with the substitute gear
-    const tempGearSet = GearSet.createCopy(this.gearSet);
-
-    // Simulate a dummy attack hit using the temp gear set to calculate how much it is relative to the basis damage
-    const tempCharacter = new Character(
-      this.characterData,
-      this.team,
-      tempGearSet,
-      this.simulacrumTrait,
-      this.activeBuffs,
-      this.activeWeapon,
-    );
-
-    const damageEvent = new DamageEvent(
-      this.getAttackHit(element),
-      tempCharacter,
-      this.target,
-      this.activeBuffs,
-    );
-    const damageWithSubstituteGear = damageEvent.getDamage().finalDamage;
-    const damageWithBasisGear = this.getDamageBasis(element);
-
-    return BigNumber(damageWithBasisGear)
-      .minus(damageWithSubstituteGear)
-      .div(damageWithSubstituteGear)
-      .toNumber();
-  }
-
-  public setActiveWeapon(weapon: Weapon): void {
-    this.activeWeapon.switchTo(weapon);
-  }
-
-  private getAttackHit(element: WeaponElementalType): AttackHit {
-    // It doesn't matter what weapon is used as long as the element of the attack hit matches and all buffs apply
-    const weapon = this.team.getEquippedWeapons().length
-      ? this.team.getEquippedWeapons()[0]
-      : new Weapon(getWeaponDefinition("Cocoritter"), this.characterData.id);
+    if (!weapon) {
+      throw new Error("No active weapon");
+    }
 
     // Use a mock attack hit that matches the element and applies all buffs
     return {
       applyAllBuffs: true,
       time: 0,
-      damageElement: element,
+      damageElement: weapon.damageElement,
       baseDamageModifiers: {
         attackMultiplier: 1,
         attackFlat: 0,
@@ -241,5 +263,21 @@ export class GearCompare {
       attackId: "",
       attackType: "normal",
     };
+  }
+
+  /** Returns a new character with the gear removed from the gear set */
+  private getCharacterWithoutGear(gear: Gear, gearSet: GearSet) {
+    // Copy the gear set with the gear removed
+    const gearSetWithoutGear = GearSet.createCopy(gearSet);
+    gearSetWithoutGear.getSlot(gear.type.id).gear = undefined;
+
+    return new Character(
+      this.characterData,
+      this.team,
+      gearSetWithoutGear,
+      this.simulacrumTrait,
+      this.activeBuffs,
+      this.activeWeapon,
+    );
   }
 }

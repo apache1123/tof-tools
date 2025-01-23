@@ -119,7 +119,7 @@
 // }
 //
 import type { Dto } from "../db/repository/dto";
-import type { LoadoutDtoV1, LoadoutDtoV2 } from "../models/loadout/loadout";
+import type { LoadoutDtoV1 } from "../models/loadout/loadout";
 
 // export interface LoadoutListItem {
 //   loadout: Loadout;
@@ -132,20 +132,9 @@ export interface LoadoutListItemDtoV1 {
   isDefault: boolean;
 }
 
-export interface LoadoutListItemDtoV2 {
-  loadout: LoadoutDtoV2;
-  isDefault: boolean;
-}
-
 /** @deprecated */
 export interface LoadoutsStateDtoV1 extends Dto {
   loadoutList: LoadoutListItemDtoV1[];
   selectedLoadoutIndex: number;
   version: 1;
-}
-
-export interface LoadoutsStateDtoV2 extends Dto {
-  loadoutList: LoadoutListItemDtoV2[];
-  selectedLoadoutIndex: number;
-  version: 2;
 }

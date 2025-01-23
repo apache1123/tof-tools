@@ -19,9 +19,7 @@ let fiona: Weapon;
 
 describe("Team", () => {
   beforeEach(() => {
-    characterId = "characterId";
-
-    sut = new Team(characterId);
+    sut = new Team();
 
     alyss = new Weapon(getWeaponDefinition("Alyss"), characterId);
     annabella = new Weapon(getWeaponDefinition("Annabella"), characterId);
