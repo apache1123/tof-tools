@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import { useSnapshot } from "valtio";
 
+import { GearRarityToggle } from "../../components/gear/GearRarityToggle/GearRarityToggle";
 import { GearStars } from "../../components/gear/GearStars/GearStars";
 import { GearTypeIcon } from "../../components/gear/GearTypeIcon/GearTypeIcon";
 import { defaultNumOfRandomStats } from "../../definitions/gear";
@@ -23,14 +24,23 @@ export function EditGear({ gearProxy }: EditGearProps) {
 
   return (
     <Stack gap={3}>
-      <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
+      <Stack direction="row" gap={1} sx={{ alignItems: "start" }}>
         <GearTypeIcon id={type.id} rarity={rarity} />
-        <GearStars
-          gear={gear}
-          onStarsChange={(stars) => {
-            gearProxy.stars = stars;
-          }}
-        />
+
+        <Stack sx={{ gap: 1 }}>
+          <GearRarityToggle
+            value={rarity}
+            onChange={(value) => {
+              gearProxy.rarity = value;
+            }}
+          />
+          <GearStars
+            gear={gear}
+            onStarsChange={(stars) => {
+              gearProxy.stars = stars;
+            }}
+          />
+        </Stack>
       </Stack>
       <Stack gap={2}>
         {[...Array(defaultNumOfRandomStats)].map((_, i) => {
