@@ -42,7 +42,10 @@ export function AddNewGear({
 
   // If enforceGearType is set, pre-set the gearProxy to new gear of that gear type. Essentially skipping the gear type toggle select.
   useEffect(() => {
-    if (enforceGearType && !gearProxy) {
+    if (
+      enforceGearType &&
+      (!gearProxy || gearProxy.type.id !== enforceGearType)
+    ) {
       setGearProxy(createGear(enforceGearType));
     }
   }, [createGear, enforceGearType, gearProxy]);

@@ -1,5 +1,4 @@
-import { Stack } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { Stack, TextField } from "@mui/material";
 import { useState } from "react";
 
 import type { MatrixDefinition } from "../../../definitions/types/matrix/matrix-definition";
