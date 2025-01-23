@@ -17,6 +17,7 @@ export function NewGear({ characterId }: NewGearProps) {
   const $state = useProxy(gearCompareState);
   const { gearTypeId } = $state;
 
+  const gear = $state.getNewGear();
   const gearProxy = gearCompareState.getNewGear();
 
   const [isSelecting, setIsSelecting] = useState(false);
@@ -25,7 +26,7 @@ export function NewGear({ characterId }: NewGearProps) {
     <>
       <Stack direction="row" sx={{ mb: 2, gap: 1, alignItems: "center" }}>
         <Typography variant="h5">New gear to compare</Typography>
-        {gearProxy && (
+        {gear && gearProxy && (
           <Button
             onClick={() => {
               $state.newGearId = undefined;
@@ -36,7 +37,7 @@ export function NewGear({ characterId }: NewGearProps) {
         )}
       </Stack>
 
-      {gearProxy ? (
+      {gear && gearProxy ? (
         <Card elevation={1} sx={{ p: 2 }}>
           <EditGear gearProxy={gearProxy} />
         </Card>
