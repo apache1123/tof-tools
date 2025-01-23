@@ -10,6 +10,7 @@ import { db } from "../../db/reactive-local-storage-db";
 import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
 import { Weapon } from "../../models/weapon/weapon";
+import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { EditWeapon } from "./EditWeapon";
 
@@ -72,6 +73,10 @@ export function Weapons({ characterId }: WeaponsProps) {
                 new Weapon(weaponDefinition, characterId, undefined),
               );
               weaponRepo.add(weaponProxy);
+
+              // Create 1 default weapon preset
+              const weaponPreset = new WeaponPreset(weaponProxy);
+              db.get("weaponPresets").add(weaponPreset);
 
               setIsAddingWeapon(false);
               setEditingWeaponProxy(weaponProxy);
