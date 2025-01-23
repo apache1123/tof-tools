@@ -11,15 +11,15 @@ export default meta;
 type Story = StoryObj<typeof GearTypeIcon>;
 
 export const Default: Story = {
-  args: { id: "Eyepiece" },
+  args: { id: "Eyepiece", rarity: "SSR" },
 };
 
-export const Unknown: Story = {
-  args: {},
+export const Augmented: Story = {
+  args: { id: "Eyepiece", rarity: "Augmented" },
 };
 
 export const Titan: Story = {
-  args: { id: "Eyepiece", isTitan: true },
+  args: { id: "Eyepiece", rarity: "Titan" },
 };
 
 export const MonochromeBlack: Story = {
@@ -28,4 +28,8 @@ export const MonochromeBlack: Story = {
 
 export const MonochromeWhite: Story = {
   args: { id: "Eyepiece", monochromeWhite: true },
+};
+
+export const Unknown: Story = {
+  args: {},
 };

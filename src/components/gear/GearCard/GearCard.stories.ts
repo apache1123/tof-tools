@@ -19,7 +19,7 @@ export const Default: Story = {
 };
 
 const titanGear = exampleGloves;
-titanGear.isAugmented = true;
+titanGear.rarity = "Titan";
 export const Titan: Story = {
   args: {
     gear: titanGear,

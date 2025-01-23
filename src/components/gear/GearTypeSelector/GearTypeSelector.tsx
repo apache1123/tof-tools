@@ -51,7 +51,11 @@ export const GearTypeSelector = ({
       }
       renderOption={(props, { gearType, isTitan }) => (
         <Stack direction="row" spacing={1} component="li" {...props}>
-          <GearTypeIcon id={gearType.id} isTitan={isTitan} size={30} />
+          <GearTypeIcon
+            id={gearType.id}
+            rarity={isTitan ? "Titan" : "SSR"}
+            size={30}
+          />
           <Typography>
             {isTitan ? `Titan ${gearType.displayName}` : gearType.displayName}
           </Typography>

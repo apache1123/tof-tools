@@ -30,6 +30,7 @@ import type {
   GearRandomStatRollCombinations,
   RandomStatRollCombination,
 } from "./gear-random-stat-roll-combinations";
+import type { GearRarity } from "./gear-rarity";
 import type { GearStatDifference } from "./gear-stat-difference";
 import type { GearSummaryStat } from "./gear-summary-stat";
 import type { GearType } from "./gear-type";
@@ -62,8 +63,8 @@ export class Gear {
     this._id = id ?? nanoid();
     this._type = type;
     this.characterId = characterId;
+    this._rarity = "SSR";
     this._stars = 0;
-    this._isAugmented = false;
     this._randomStats = [];
     this._augmentStats = [];
   }
@@ -71,9 +72,9 @@ export class Gear {
   public readonly characterId: CharacterId;
   private readonly _id: GearId;
   private readonly _type: GearType;
+  private _rarity: GearRarity;
   private _stars: number;
   private _randomStats: RandomStatSlot[];
-  private _isAugmented: boolean;
   private _augmentStats: AugmentStatSlot[];
 
   public get id(): GearId {
@@ -97,18 +98,23 @@ export class Gear {
     return this._randomStats;
   }
 
-  public get isAugmented(): boolean {
-    return this._isAugmented;
+  public get rarity() {
+    return this._rarity;
   }
 
-  public set isAugmented(value: boolean) {
-    if (this._isAugmented === value) return;
+  public set rarity(value: GearRarity) {
+    if (this._rarity === value) return;
 
-    this._isAugmented = value;
+    this._rarity = value;
 
-    // Reset random stats augment to zero when going from an augmented gear to a non-augmented gear
-    if (!value) {
+    // Reset random stats augment to zero when going from an augmented/titan gear to an SSR gear
+    if (value === "SSR") {
       this.resetRandomStatsAugment();
+    }
+
+    // Augmented gear and titan gear are always 5 stars
+    if (value === "Augmented" || value === "Titan") {
+      this.stars = 5;
     }
   }
 
@@ -231,7 +237,7 @@ export class Gear {
       }
     });
 
-    to.isAugmented = from.isAugmented;
+    to.rarity = from.rarity;
   }
 
   public getRandomStat(index: number): RandomStatSlot {
@@ -512,7 +518,7 @@ export class Gear {
 
     pullUpStatsValueIfApplicable();
 
-    maxTitanGear.isAugmented = true;
+    maxTitanGear.rarity = "Titan";
 
     return maxTitanGear;
 

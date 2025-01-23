@@ -19,12 +19,12 @@ const possibleStatTypes = statTypesLookup.allIds.map(
 
 export function EditGear({ gearProxy }: EditGearProps) {
   const gear = useSnapshot(gearProxy) as Gear;
-  const { type, isAugmented } = gear;
+  const { type, rarity } = gear;
 
   return (
     <Stack gap={3}>
       <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
-        <GearTypeIcon id={type.id} isTitan={isAugmented} />
+        <GearTypeIcon id={type.id} rarity={rarity} />
         <GearStars
           gear={gear}
           onStarsChange={(stars) => {
@@ -41,7 +41,7 @@ export function EditGear({ gearProxy }: EditGearProps) {
               key={i}
               statProxy={randomStat}
               possibleStatTypes={possibleStatTypes}
-              isAugmented={isAugmented}
+              isAugmented={rarity === "Augmented" || rarity === "Titan"}
             />
           ) : (
             <EmptyStatEditor
@@ -50,7 +50,7 @@ export function EditGear({ gearProxy }: EditGearProps) {
               onStatTypeChange={(statType) => {
                 gearProxy.setRandomStat(i, new RandomStat(statType));
               }}
-              isAugmented={isAugmented}
+              isAugmented={rarity === "Augmented" || rarity === "Titan"}
             />
           );
         })}

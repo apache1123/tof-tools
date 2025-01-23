@@ -27,7 +27,7 @@ export function GearSummaryCard({ gear, elevation }: GearSummaryCardProps) {
       }}
     >
       <Box sx={{ mr: 1 }}>
-        <GearTypeIcon id={gear.type.id} size={height} />
+        <GearTypeIcon id={gear.type.id} rarity={gear.rarity} size={height} />
       </Box>
       <Stack
         sx={{
