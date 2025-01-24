@@ -1,13 +1,12 @@
+import type { ElementalBuffAggregatorResult } from "../../buff-aggregator/elemental-buff-aggregator";
 import { ElementalDamageBuff } from "../elemental-damage-buff";
-import { ElementalDamageBuffAggregate } from "../elemental-damage-buff-aggregate";
+import { elementalDamageBuffAggregator } from "../elemental-damage-buff-aggregator";
 
-let elementalDamageBuffs: ElementalDamageBuff[];
+let buffs: ElementalDamageBuff[];
 
-let sut: ElementalDamageBuffAggregate;
-
-describe("Elemental damage buff aggregate", () => {
+describe("Elemental damage buff aggregator", () => {
   beforeEach(() => {
-    elementalDamageBuffs = [
+    buffs = [
       new ElementalDamageBuff(
         "altered weapon buff 1",
         0.1,
@@ -39,17 +38,13 @@ describe("Elemental damage buff aggregate", () => {
       new ElementalDamageBuff("volt team buff", 0.45, "team", {}, "Volt"),
       new ElementalDamageBuff("volt relic buff", 0.11, "relic", {}, "Volt"),
     ];
-
-    resetSut();
   });
 
-  function resetSut() {
-    sut = new ElementalDamageBuffAggregate(elementalDamageBuffs);
-  }
-
   it("should sum buffs of the same source, whilst multiplying buffs of different sources", () => {
-    expect(sut.getAggregatedResult()).toMatchObject({
-      damagePercentByElement: {
+    expect(
+      elementalDamageBuffAggregator(buffs),
+    ).toMatchObject<ElementalBuffAggregatorResult>({
+      totalValueByElement: {
         Altered: 0.904,
         Flame: 0,
         Frost: 0,

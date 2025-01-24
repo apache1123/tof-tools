@@ -5,8 +5,9 @@ import type { AttackHit } from "../../event/messages/attack-hit";
 import type { BuffSource } from "../buff-source";
 import { DamageBuff } from "../damage-buff/damage-buff";
 import type { DamageBuffRestrictedTo } from "../damage-buff/damage-buff-restricted-to";
+import type { ElementalBuff } from "../elemental-buff";
 
-export class ElementalDamageBuff extends DamageBuff {
+export class ElementalDamageBuff extends DamageBuff implements ElementalBuff {
   public constructor(
     id: BuffId,
     value: number,

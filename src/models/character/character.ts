@@ -13,11 +13,11 @@ import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-u
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import { BaseAttacks } from "../base-attacks";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
-import { AttackPercentBuffAggregate } from "../buff/attack-percent-buff/attack-percent-buff-aggregate";
-import { BaseAttackBuffAggregate } from "../buff/base-attack-buff/base-attack-buff-aggregate";
+import { attackPercentBuffAggregator } from "../buff/attack-percent-buff/attack-percent-buff-aggregator";
+import { baseAttackBuffAggregator } from "../buff/base-attack-buff/base-attack-buff-aggregator";
 import type { Buff } from "../buff/buff";
-import { CritDamageBuffAggregate } from "../buff/crit-damage-buff/crit-damage-buff-aggregate";
-import { CritRateBuffAggregate } from "../buff/crit-rate-buff/crit-rate-buff-aggregate";
+import { critDamageBuffAggregator } from "../buff/crit-damage-buff/crit-damage-buff-aggregator";
+import { critRateBuffAggregator } from "../buff/crit-rate-buff/crit-rate-buff-aggregator";
 import { CharacterElementalAttacks } from "../elemental-attack/character-elemental-attacks";
 import { ElementalAttack } from "../elemental-attack/elemental-attack";
 import type { GearSet } from "../gear/gear-set";
@@ -169,9 +169,8 @@ export class Character {
       : this.getPreBuffBaseAttack(element);
 
     const baseAttackBuffs = this.getBaseAttackBuffs();
-    const baseAttackBuffValue = new BaseAttackBuffAggregate(
-      baseAttackBuffs,
-    ).getAggregatedResult().baseAttackByElement[element];
+    const baseAttackBuffValue =
+      baseAttackBuffAggregator(baseAttackBuffs).totalValueByElement[element];
 
     return sum(baseAttack, baseAttackBuffValue);
   }
@@ -202,9 +201,8 @@ export class Character {
       : this.getPreBuffAttackPercent(element);
 
     const attackBuffs = this.getAttackPercentBuffs();
-    const buffAttackPercent = new AttackPercentBuffAggregate(
-      attackBuffs,
-    ).getAggregatedResult().attackPercentByElement[element];
+    const buffAttackPercent =
+      attackPercentBuffAggregator(attackBuffs).totalValueByElement[element];
 
     return sum(gearAttackPercent, buffAttackPercent);
   }
@@ -236,10 +234,7 @@ export class Character {
 
   private getBuffCritRatePercent(): number {
     const critRateBuffs = this.getCritRateBuffs();
-    const aggregatedResult = new CritRateBuffAggregate(
-      critRateBuffs,
-    ).getAggregatedResult();
-    return aggregatedResult.critRatePercent;
+    return critRateBuffAggregator(critRateBuffs).totalValue;
   }
 
   private getCritRateBuffs() {
@@ -248,10 +243,7 @@ export class Character {
 
   private getBuffCritDamagePercent() {
     const critDamageBuffs = this.getCritDamageBuffs();
-    const aggregatedResult = new CritDamageBuffAggregate(
-      critDamageBuffs,
-    ).getAggregatedResult();
-    return aggregatedResult.critDamagePercent;
+    return critDamageBuffAggregator(critDamageBuffs).totalValue;
   }
 
   private getCritDamageBuffs() {

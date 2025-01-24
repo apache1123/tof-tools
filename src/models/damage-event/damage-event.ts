@@ -5,8 +5,8 @@ import { product, sum } from "../../utils/math-utils";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import type { Buff } from "../buff/buff";
 import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
-import { ElementalDamageBuffAggregate } from "../buff/elemental-damage-buff/elemental-damage-buff-aggregate";
-import { FinalDamageBuffAggregate } from "../buff/final-damage-buff/final-damage-buff-aggregate";
+import { elementalDamageBuffAggregator } from "../buff/elemental-damage-buff/elemental-damage-buff-aggregator";
+import { finalDamageBuffAggregator } from "../buff/final-damage-buff/final-damage-buff-aggregator";
 import type { Character } from "../character/character";
 import { Damage } from "../damage/damage";
 import type { AttackHit } from "../event/messages/attack-hit";
@@ -68,11 +68,8 @@ export class DamageEvent {
   }
 
   private getElementalDamagePercent(): number {
-    return new ElementalDamageBuffAggregate(
-      this.getElementalDamageBuffs(),
-    ).getAggregatedResult().damagePercentByElement[
-      this.attackHit.damageElement
-    ];
+    return elementalDamageBuffAggregator(this.getElementalDamageBuffs())
+      .totalValueByElement[this.attackHit.damageElement];
   }
 
   private getElementalDamageBuffs() {
@@ -96,9 +93,7 @@ export class DamageEvent {
   }
 
   private getFinalDamageBuffPercent(): number {
-    return new FinalDamageBuffAggregate(
-      this.getFinalDamageBuffs(),
-    ).getAggregatedResult().finalDamagePercent;
+    return finalDamageBuffAggregator(this.getFinalDamageBuffs()).totalValue;
   }
 
   private getFinalDamageBuffs() {

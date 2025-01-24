@@ -1,20 +1,18 @@
 import type { BuffId } from "../../../definitions/types/buff/buff-ability-definition";
 import type { AttackHit } from "../../event/messages/attack-hit";
-import { Buff } from "../buff";
+import type { Buff } from "../buff";
 import type { BuffSource } from "../buff-source";
 import type { DamageBuffRestrictedTo } from "./damage-buff-restricted-to";
 
-export class DamageBuff extends Buff {
+export class DamageBuff implements Buff {
   public constructor(
-    id: BuffId,
-    value: number,
+    public readonly id: BuffId,
+    public readonly value: number,
     public readonly source: BuffSource,
     private readonly restrictedTo: DamageBuffRestrictedTo,
-  ) {
-    super(id, value);
-  }
+  ) {}
 
-  public override canApplyTo(attackHit: AttackHit): boolean {
+  public canApplyTo(attackHit: AttackHit): boolean {
     if (attackHit.applyAllBuffs) return true;
 
     const {
