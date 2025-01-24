@@ -47,6 +47,7 @@ describe("Ability", () => {
     sut = new ConcreteAbility(
       id,
       displayName,
+      undefined,
       cooldown,
       duration,
       canBePlayerTriggered,

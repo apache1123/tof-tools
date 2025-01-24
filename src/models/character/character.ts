@@ -161,6 +161,22 @@ export class Character {
     ];
   }
 
+  public getBaseAttackBuffs() {
+    return this.activeBuffs.getBaseAttackBuffs();
+  }
+
+  public getAttackPercentBuffs() {
+    return this.activeBuffs.getAttackPercentBuffs();
+  }
+
+  public getCritRateBuffs() {
+    return this.activeBuffs.getCritRateBuffs();
+  }
+
+  public getCritDamageBuffs() {
+    return this.activeBuffs.getCritDamageBuffs();
+  }
+
   /** The base attack amount after buffs are applied. This also takes into account the active weapon's gear calculation elements (fusion elements) */
   private getPostBuffBaseAttack(element: CoreElementalType) {
     const gearResonanceElements = this.getGearResonanceElements();
@@ -189,10 +205,6 @@ export class Character {
     );
   }
 
-  private getBaseAttackBuffs() {
-    return this.activeBuffs.getBaseAttackBuffs();
-  }
-
   /** The attack percent amount after buffs are applied. This also takes into account the active weapon's gear calculation elements (fusion elements) */
   private getPostBuffAttackPercent(element: CoreElementalType) {
     const gearResonanceElements = this.getGearResonanceElements();
@@ -219,10 +231,6 @@ export class Character {
     );
   }
 
-  private getAttackPercentBuffs() {
-    return this.activeBuffs.getAttackPercentBuffs();
-  }
-
   /** The highest damage percent amount before buffs are applied, amongst the given elements. */
   private getHighestPreBuffElementalDamagePercent(
     elements: GearResonanceElements,
@@ -237,17 +245,9 @@ export class Character {
     return critRateBuffAggregator(critRateBuffs).totalValue;
   }
 
-  private getCritRateBuffs() {
-    return this.activeBuffs.getCritRateBuffs();
-  }
-
   private getBuffCritDamagePercent() {
     const critDamageBuffs = this.getCritDamageBuffs();
     return critDamageBuffAggregator(critDamageBuffs).totalValue;
-  }
-
-  private getCritDamageBuffs() {
-    return this.activeBuffs.getCritDamageBuffs();
   }
 
   private getGearResonanceElements() {

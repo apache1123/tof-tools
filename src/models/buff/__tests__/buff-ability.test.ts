@@ -16,6 +16,7 @@ import type { FinalDamageBuff } from "../final-damage-buff/final-damage-buff";
 
 let id: AbilityId;
 let displayName: string;
+let description: string | undefined;
 let cooldown: number;
 let duration: number | undefined;
 let canBePlayerTriggered: boolean;
@@ -63,6 +64,7 @@ describe("Buff ability", () => {
     sut = new BuffAbility(
       id,
       displayName,
+      description,
       cooldown,
       duration,
       canBePlayerTriggered,

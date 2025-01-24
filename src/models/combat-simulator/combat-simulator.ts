@@ -182,6 +182,7 @@ export class CombatSimulator {
         const attack = new AttackAbility(
           definition.id,
           definition.displayName,
+          definition.description,
           definition.cooldown,
           definition.duration,
           definition.canBePlayerTriggered,
@@ -267,6 +268,7 @@ export class CombatSimulator {
         const buffAbility = new BuffAbility(
           id,
           abilityDef.displayName,
+          abilityDef.description,
           abilityDef.cooldown,
           abilityDef.duration,
           abilityDef.canBePlayerTriggered,

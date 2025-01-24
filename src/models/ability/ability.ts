@@ -18,7 +18,8 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
 {
   public constructor(
     public readonly id: AbilityId,
-    protected readonly displayName: string,
+    public readonly displayName: string,
+    public readonly description: string | undefined,
     protected readonly cooldown: number,
     protected readonly duration: number | undefined,
     protected readonly canBePlayerTriggered: boolean,
@@ -31,10 +32,6 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
 
   public subscribeToEvents(): void {
     this.eventManager.onTickAdvancing(this.handleTickAdvancing.bind(this));
-  }
-
-  protected getTriggerTime() {
-    return this.currentTick.startTime;
   }
 
   public canTrigger() {
@@ -67,6 +64,21 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     return this.getOngoingEvents().length > 0;
   }
 
+  public toDto(): AbilityDto {
+    const { id, displayName, timeline } = this;
+    return { id, displayName, timeline: timeline.toDto(), version: 1 };
+  }
+
+  protected getTriggerTime() {
+    return this.currentTick.startTime;
+  }
+
+  protected getOngoingEvents(): TAbilityEvent[] {
+    return this.timeline.getEventsOverlapping(this.currentTick.value);
+  }
+
+  protected abstract createNewEvent(timeInterval: TimeInterval): TAbilityEvent;
+
   /** Perform whatever actions needed during the current tick for this ability. Emit events, update resources, etc. */
   private handleTickAdvancing() {
     const ongoingEvents = this.getOngoingEvents();
@@ -75,12 +87,6 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
     // Terminate any ongoing events if the requirements for this ability are no longer met
     if (!this.haveRequirementsBeenMet()) this.terminate();
   }
-
-  protected getOngoingEvents(): TAbilityEvent[] {
-    return this.timeline.getEventsOverlapping(this.currentTick.value);
-  }
-
-  protected abstract createNewEvent(timeInterval: TimeInterval): TAbilityEvent;
 
   /** Terminate any active ability events */
   private terminate() {
@@ -101,11 +107,6 @@ export abstract class Ability<TAbilityEvent extends AbilityEvent = AbilityEvent>
         : this.timeline.endTime;
 
     return new TimeInterval(startTime, endTime);
-  }
-
-  public toDto(): AbilityDto {
-    const { id, displayName, timeline } = this;
-    return { id, displayName, timeline: timeline.toDto(), version: 1 };
   }
 }
 

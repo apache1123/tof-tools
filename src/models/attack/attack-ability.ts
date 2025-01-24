@@ -25,6 +25,7 @@ export class AttackAbility
   public constructor(
     id: AbilityId,
     displayName: string,
+    description: string | undefined,
     cooldown: number,
     duration: number | undefined,
     canBePlayerTriggered: boolean,
@@ -48,6 +49,7 @@ export class AttackAbility
     super(
       id,
       displayName,
+      description,
       cooldown,
       duration,
       canBePlayerTriggered,

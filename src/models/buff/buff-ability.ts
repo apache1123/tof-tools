@@ -26,6 +26,7 @@ export class BuffAbility
   public constructor(
     id: AbilityId,
     displayName: string,
+    description: string | undefined,
     cooldown: number,
     duration: number | undefined,
     canBePlayerTriggered: boolean,
@@ -46,6 +47,7 @@ export class BuffAbility
     super(
       id,
       displayName,
+      description,
       cooldown,
       duration,
       canBePlayerTriggered,
@@ -65,6 +67,17 @@ export class BuffAbility
     return super.canTrigger() && !this.isAtMaxStacks(this.getTriggerTime());
   }
 
+  public override toDto(): BuffDto {
+    const { timeline } = this;
+    return {
+      ...super.toDto(),
+      timeline: {
+        events: timeline.events.map((event) => event.toDto()),
+        version: 1,
+      },
+    };
+  }
+
   protected override createNewEvent(timeInterval: TimeInterval) {
     return new BuffEvent(
       timeInterval,
@@ -81,17 +94,6 @@ export class BuffAbility
       this.critDamageBuffs,
       this.miscBuff,
     );
-  }
-
-  public override toDto(): BuffDto {
-    const { timeline } = this;
-    return {
-      ...super.toDto(),
-      timeline: {
-        events: timeline.events.map((event) => event.toDto()),
-        version: 1,
-      },
-    };
   }
 
   private isAtMaxStacks(time: number) {

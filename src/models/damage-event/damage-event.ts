@@ -32,6 +32,37 @@ export class DamageEvent {
     ];
   }
 
+  public getBaseAttackBuffs() {
+    return this.character.getBaseAttackBuffs();
+  }
+
+  public getAttackPercentBuffs() {
+    return this.character.getAttackPercentBuffs();
+  }
+
+  public getCritRateBuffs() {
+    return this.character.getCritRateBuffs();
+  }
+
+  public getCritDamageBuffs() {
+    return this.character.getCritDamageBuffs();
+  }
+
+  public getElementalDamageBuffs() {
+    return [
+      this.getGearElementalDamageBuff(),
+      ...this.activeBuffs
+        .getElementalDamageBuffs()
+        .filter((buff) => buff.canApplyTo(this.attackHit)),
+    ];
+  }
+
+  public getFinalDamageBuffs() {
+    return this.activeBuffs
+      .getFinalDamageBuffs()
+      .filter((buff) => buff.canApplyTo(this.attackHit));
+  }
+
   private getBaseDamage(): number {
     const { damageElement, baseDamageModifiers } = this.attackHit;
     const {
@@ -72,15 +103,6 @@ export class DamageEvent {
       .totalValueByElement[this.attackHit.damageElement];
   }
 
-  private getElementalDamageBuffs() {
-    return [
-      this.getGearElementalDamageBuff(),
-      ...this.activeBuffs
-        .getElementalDamageBuffs()
-        .filter((buff) => buff.canApplyTo(this.attackHit)),
-    ];
-  }
-
   private getGearElementalDamageBuff(): ElementalDamageBuff {
     const element = this.attackHit.damageElement;
     return new ElementalDamageBuff(
@@ -94,12 +116,6 @@ export class DamageEvent {
 
   private getFinalDamageBuffPercent(): number {
     return finalDamageBuffAggregator(this.getFinalDamageBuffs()).totalValue;
-  }
-
-  private getFinalDamageBuffs() {
-    return this.activeBuffs
-      .getFinalDamageBuffs()
-      .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
   private getTotalAttack(elementalType: WeaponElementalType) {

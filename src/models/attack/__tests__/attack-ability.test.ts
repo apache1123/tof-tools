@@ -22,6 +22,7 @@ import { AttackTimeline } from "../attack-timeline";
 
 let id: AbilityId;
 let displayName: string;
+let description: string | undefined;
 let cooldown: number;
 let duration: number | undefined;
 let canBePlayerTriggered: boolean;
@@ -84,6 +85,7 @@ describe("Attack ability", () => {
     sut = new AttackAbility(
       id,
       displayName,
+      description,
       cooldown,
       duration,
       canBePlayerTriggered,
