@@ -5,9 +5,9 @@ import type { AbilityTriggeredBy } from "./ability-triggered-by";
 export interface AbilityDefinition {
   id: string;
   displayName: string;
+  description?: string;
   /** The minimum amount of time between ability events */
   cooldown: number;
-  description?: string;
   /** If left undefined, the ability's end time will be set to the combat end time. It then may or may not end early based on other factors (e.g. requirements) */
   duration?: number;
 
