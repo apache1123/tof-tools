@@ -382,6 +382,10 @@ export class CombatSimulator {
     return this.activeWeapon.getWeaponsToSwitchTo();
   }
 
+  public getDamageSummary() {
+    return this.damageRecord.generateSummary();
+  }
+
   /** Advance and process ticks until there are no ongoing foreground attacks */
   private finishOngoingForegroundAttacks() {
     while (this.attackAbilities.hasOngoingForegroundAttack()) {

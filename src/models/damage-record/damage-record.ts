@@ -3,20 +3,17 @@ import type { Buff } from "../buff/buff";
 import type { UtilizedBuffs } from "../buff/utilized-buffs";
 import type { Character } from "../character/character";
 import { DamageEvent } from "../damage-event/damage-event";
+import { DamageSummary } from "../damage-summary/damage-summary";
 import type { EventManager } from "../event/event-manager";
 import type { EventSubscriber } from "../event/event-subscriber";
 import type { AttackHit } from "../event/messages/attack-hit";
-import type { Serializable } from "../persistable";
 import type { Target } from "../target/target";
 import type { CurrentTick } from "../tick/current-tick";
 import { DamageRecordEvent } from "./damage-record-event";
 import type { DamageRecordTimeline } from "./damage-record-timeline";
-import type { DamageRecordDto } from "./dtos/damage-record-dto";
 
 /** A record (timeline) of damages during combat */
-export class DamageRecord
-  implements EventSubscriber, Serializable<DamageRecordDto>
-{
+export class DamageRecord implements EventSubscriber {
   public constructor(
     private readonly timeline: DamageRecordTimeline,
     private readonly currentTick: CurrentTick,
@@ -48,18 +45,38 @@ export class DamageRecord
         attackHit.attackType,
         attackHit.damageElement,
         attackHit.weaponId,
+        damageEvent.getBaseAttackBuffs(),
+        damageEvent.getAttackPercentBuffs(),
+        damageEvent.getElementalDamageBuffs(),
+        damageEvent.getFinalDamageBuffs(),
+        damageEvent.getCritRateBuffs(),
+        damageEvent.getCritDamageBuffs(),
       ),
     );
 
     this.recordUtilizedBuffs(damageEvent.getUtilizedBuffs());
   }
 
-  public toDto(): DamageRecordDto {
-    const { timeline } = this;
-    return {
-      timeline: timeline.toDto(),
-      version: 1,
-    };
+  /** Returns a summary of the damage dealt so far */
+  public generateSummary(): DamageSummary {
+    // Generate cumulative damage summary of all events
+    const summary = this.timeline.events.reduce((result, event) => {
+      const summaryForEvent = new DamageSummary(event.duration, event.weaponId);
+
+      const elementalDamageSummary = summaryForEvent.weaponDamageSummaries.get(
+        event.weaponId,
+      )?.attackTypeDamageSummaries[event.attackType].elementalTypeDamages;
+
+      if (elementalDamageSummary) {
+        elementalDamageSummary[event.elementalType] = event.damage;
+      }
+
+      return result.add(summaryForEvent);
+    }, new DamageSummary(0));
+
+    summary.duration = this.currentTick.startTime;
+
+    return summary;
   }
 
   private recordUtilizedBuffs(buffs: Buff[]) {
