@@ -1,6 +1,4 @@
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
-import type { Buff } from "../buff/buff";
-import type { UtilizedBuffs } from "../buff/utilized-buffs";
 import type { Character } from "../character/character";
 import { DamageEvent } from "../damage-event/damage-event";
 import { DamageSummary } from "../damage-summary/damage-summary";
@@ -21,7 +19,6 @@ export class DamageRecord implements EventSubscriber {
     private readonly character: Character,
     private readonly target: Target,
     private readonly activeBuffs: ActiveBuffs,
-    private readonly utilizedBuffs: UtilizedBuffs,
   ) {}
 
   public subscribeToEvents() {
@@ -53,8 +50,6 @@ export class DamageRecord implements EventSubscriber {
         damageEvent.getCritDamageBuffs(),
       ),
     );
-
-    this.recordUtilizedBuffs(damageEvent.getUtilizedBuffs());
   }
 
   /** Returns a summary of the damage dealt so far */
@@ -77,11 +72,5 @@ export class DamageRecord implements EventSubscriber {
     summary.duration = this.currentTick.startTime;
 
     return summary;
-  }
-
-  private recordUtilizedBuffs(buffs: Buff[]) {
-    for (const buff of buffs) {
-      this.utilizedBuffs.add(buff.id);
-    }
   }
 }

@@ -1,6 +1,6 @@
 import type { Id, Identifiable } from "../identifiable";
 
-export class Repository<T extends Identifiable> {
+export class Registry<T extends Identifiable> {
   public constructor() {
     this._items = new Map<string, T>();
   }

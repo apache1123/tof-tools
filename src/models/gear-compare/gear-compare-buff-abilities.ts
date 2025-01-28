@@ -1,10 +1,10 @@
 import type { ActiveBuff } from "../buff/active-buff/active-buff";
 import type { HasActiveBuffs } from "../buff/has-active-buffs";
-import { Repository } from "../repository/repository";
+import { Registry } from "../registry/registry";
 import type { GearCompareBuffAbility } from "./gear-compare-buff-ability";
 
 export class GearCompareBuffAbilities
-  extends Repository<GearCompareBuffAbility>
+  extends Registry<GearCompareBuffAbility>
   implements HasActiveBuffs
 {
   public getActiveBuffs(): ActiveBuff[] {

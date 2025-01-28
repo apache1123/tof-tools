@@ -1,13 +1,15 @@
 import type { Charge } from "../charge/charge";
-import { Repository } from "../repository/repository";
+import { Registry } from "../registry/registry";
 import type { Resource } from "./resource";
 
-export class Resources extends Repository<Resource> {
+export class Resources extends Registry<Resource> {
   public constructor(
     public readonly charge: Charge,
-    otherResources: Resource[],
+    public readonly dodge: Resource,
+    public readonly endurance: Resource,
+    ...otherResources: Resource[]
   ) {
     super();
-    this.addItems([charge, ...otherResources]);
+    this.addItems([charge, dodge, endurance, ...otherResources]);
   }
 }
