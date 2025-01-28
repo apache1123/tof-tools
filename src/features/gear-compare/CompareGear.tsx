@@ -54,7 +54,7 @@ export function CompareGear() {
           </Typography>
           <Stack spacing={2}>
             <Box>Value: {gearComparison.getCurrentGearValue()}</Box>
-            <Box>Damage: {gearComparison.getCurrentCharacterDamage()}</Box>
+            <Box>Damage: {gearComparison.getCurrentDamage()}</Box>
           </Stack>
         </Grid>
 
@@ -64,7 +64,7 @@ export function CompareGear() {
           </Typography>
           <Stack spacing={2}>
             <Box>Value: {gearComparison.getNewGearValue()}</Box>
-            <Box>Damage: {gearComparison.getNewCharacterDamage()}</Box>
+            <Box>Damage: {gearComparison.getNewDamage()}</Box>
           </Stack>
         </Grid>
       </Grid>

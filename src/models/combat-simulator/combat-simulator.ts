@@ -7,7 +7,10 @@ import { teamBuffs } from "../../definitions/team-buffs";
 import { tickDuration } from "../../definitions/tick";
 import type { AbilityDefinition } from "../../definitions/types/ability/ability-definition";
 import type { AbilityRequirementsDefinition } from "../../definitions/types/ability/ability-requirements-definition";
-import type { AttackId } from "../../definitions/types/attack/attack-ability-definition";
+import type {
+  AttackAbilityDefinition,
+  AttackId,
+} from "../../definitions/types/attack/attack-ability-definition";
 import type { BuffAbilityDefinition as BuffAbilityDefinition } from "../../definitions/types/buff/buff-ability-definition";
 import type { Ability } from "../ability/ability";
 import { AbilityRequirements } from "../ability/ability-requirements";
@@ -35,7 +38,6 @@ import { Charge } from "../charge/charge";
 import { DamageRecord } from "../damage-record/damage-record";
 import { DamageRecordTimeline } from "../damage-record/damage-record-timeline";
 import { EventManager } from "../event/event-manager";
-import type { EventSubscriber } from "../event/event-subscriber";
 import type { GearSet } from "../gear/gear-set";
 import { Registry } from "../registry/registry";
 import { CurrentResources } from "../resource/current-resource/current-resources";
@@ -74,7 +76,7 @@ export class CombatSimulator {
 
     this.eventManager = new EventManager();
 
-    const startingTickInterval = new TimeInterval(-tickDuration, 0);
+    const startingTickInterval = new TimeInterval(0, tickDuration);
     this.currentTick = new CurrentTick(
       startingTickInterval.startTime,
       tickDuration,
@@ -114,8 +116,6 @@ export class CombatSimulator {
       this.target,
       this.activeBuffs,
     );
-
-    this.eventSubscribers = [];
   }
 
   private readonly combatDuration: number;
@@ -133,16 +133,16 @@ export class CombatSimulator {
   private readonly activeBuffs: ActiveBuffs;
   private readonly character: Character;
   private readonly damageRecord: DamageRecord;
-  private readonly eventSubscribers: EventSubscriber[];
   private hasBegunCombat = false;
 
   public beginCombat() {
+    if (this.hasBegunCombat) throw new Error("Combat already in progress");
+
     this.registerResources();
     this.registerAttackAbilities();
     this.registerBuffAbilities();
 
-    this.registerEventSubscribers();
-    this.subscribeEventSubscribers();
+    this.subscribeToEvents();
 
     this.addStartingResources();
     this.advanceTick();
@@ -172,14 +172,73 @@ export class CombatSimulator {
 
   public switchToWeapon(weapon: Weapon) {
     this.activeWeapon.switchTo(weapon);
+    this.advanceTick();
   }
 
   public getWeaponsToSwitchTo() {
     return this.activeWeapon.getWeaponsToSwitchTo();
   }
 
-  public getDamageSummary() {
+  /** Returns a summary of the damage dealt so far */
+  public generateDamageSummary() {
     return this.damageRecord.generateSummary();
+  }
+
+  public beginMockCombat() {
+    if (this.hasBegunCombat) throw new Error("Combat already in progress");
+
+    this.registerResources();
+    this.registerAttackAbilities();
+    this.registerBuffAbilities();
+
+    // Add mock attack ability for each weapon
+    this.team.getEquippedWeapons().forEach((weapon) => {
+      const mockAttackDefinition: AttackAbilityDefinition = {
+        id: `mock-attack-${weapon.id}`,
+        displayName: `${weapon.id} attack`,
+        cooldown: 0,
+        duration: tickDuration,
+        requirements: {},
+        canBePlayerTriggered: true,
+        triggeredBy: {},
+        type: "normal",
+        elementalType: { defaultElementalType: weapon.damageElement },
+        isForegroundAttack: true,
+        baseDamageModifiers: {
+          damageDealtIsPerSecond: false,
+          attackMultiplier: 1,
+          attackFlat: 0,
+        },
+        finalDamageModifiers: {},
+        hitCount: { numberOfHitsFixed: 1 },
+        doesNotTriggerEvents: true,
+      };
+      const mockAttackAbility = this.createAttackAbility(
+        mockAttackDefinition,
+        weapon,
+      );
+
+      this.attackAbilities.add(mockAttackAbility);
+      this.abilityTriggers.add(
+        this.createAbilityTrigger(mockAttackAbility, mockAttackDefinition),
+      );
+    });
+
+    this.subscribeToEvents();
+
+    this.addStartingResources();
+    this.advanceTick();
+    this.hasBegunCombat = true;
+    this.eventManager.publishCombatStarted({});
+  }
+
+  /** Perform a simple mock attack using the current active weapon for the purposes of testing damage. E.g. for gear comparison. Must have called beginMockCombat() first */
+  public performMockAttack() {
+    const activeWeapon = this.activeWeapon.current;
+    if (!activeWeapon)
+      throw new Error("No active weapon to perform mock attack");
+
+    this.performAttack(`mock-attack-${activeWeapon.id}`);
   }
 
   /** Advance and process ticks until there are no ongoing foreground attacks */
@@ -214,31 +273,8 @@ export class CombatSimulator {
   private registerAttackAbilities() {
     for (const weapon of this.team.getEquippedWeapons()) {
       for (const definition of weapon.attackDefinitions) {
-        const attack = new AttackAbility(
-          definition.id,
-          definition.displayName,
-          definition.description,
-          definition.cooldown,
-          definition.duration,
-          definition.canBePlayerTriggered,
-          this.createRequirements(definition.requirements),
-          definition.updatesResources ?? [],
-          new AttackTimeline(this.combatDuration),
-          this.eventManager,
-          this.currentTick,
-          weapon,
-          definition.elementalType,
-          definition.type,
-          definition.isForegroundAttack,
-          definition.baseDamageModifiers,
-          definition.finalDamageModifiers,
-          definition.hitCount,
-          !!definition.doesNotTriggerEvents,
-          this.activeWeapon,
-          this.currentResources,
-        );
+        const attack = this.createAttackAbility(definition, weapon);
         this.attackAbilities.add(attack);
-
         this.abilityTriggers.add(this.createAbilityTrigger(attack, definition));
       }
     }
@@ -335,18 +371,14 @@ export class CombatSimulator {
     }
   }
 
-  private registerEventSubscribers() {
-    this.eventSubscribers.push(
+  private subscribeToEvents() {
+    for (const subscriber of [
       ...this.resources.items,
       ...this.attackAbilities.items,
       ...this.buffAbilities.items,
       ...this.abilityTriggers.items,
       this.damageRecord,
-    );
-  }
-
-  private subscribeEventSubscribers() {
-    for (const subscriber of this.eventSubscribers) {
+    ]) {
       subscriber.subscribeToEvents();
     }
   }
@@ -404,6 +436,35 @@ export class CombatSimulator {
         ),
       ),
       new ResourceRequirements(definition.hasResource),
+    );
+  }
+
+  private createAttackAbility(
+    definition: AttackAbilityDefinition,
+    weapon: Weapon,
+  ) {
+    return new AttackAbility(
+      definition.id,
+      definition.displayName,
+      definition.description,
+      definition.cooldown,
+      definition.duration,
+      definition.canBePlayerTriggered,
+      this.createRequirements(definition.requirements),
+      definition.updatesResources ?? [],
+      new AttackTimeline(this.combatDuration),
+      this.eventManager,
+      this.currentTick,
+      weapon,
+      definition.elementalType,
+      definition.type,
+      definition.isForegroundAttack,
+      definition.baseDamageModifiers,
+      definition.finalDamageModifiers,
+      definition.hitCount,
+      !!definition.doesNotTriggerEvents,
+      this.activeWeapon,
+      this.currentResources,
     );
   }
 
