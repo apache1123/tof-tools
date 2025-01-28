@@ -13,8 +13,8 @@ import type { Ability } from "../ability/ability";
 import { AbilityRequirements } from "../ability/ability-requirements";
 import { AbilityTrigger } from "../ability/ability-trigger";
 import type { AbilityTriggerOptions } from "../ability/ability-trigger-options";
+import { ActiveWeapon } from "../active-weapon/active-weapon";
 import { ActiveWeaponTimeline } from "../active-weapon/active-weapon-timeline";
-import { CombatSimulatorActiveWeapon } from "../active-weapon/combat-simulator-active-weapon";
 import { AttackAbilities } from "../attack/attack-abilities";
 import { AttackAbility } from "../attack/attack-ability";
 import { AttackTimeline } from "../attack/attack-timeline";
@@ -81,7 +81,7 @@ export class CombatSimulator {
       this.eventManager,
     );
 
-    this.activeWeapon = new CombatSimulatorActiveWeapon(
+    this.activeWeapon = new ActiveWeapon(
       this.team.getEquippedWeapons(),
       new ActiveWeaponTimeline(combatDuration),
       this.eventManager,
@@ -124,7 +124,7 @@ export class CombatSimulator {
   private readonly simulacrumTrait: SimulacrumTrait | undefined;
   private readonly eventManager: EventManager;
   private readonly currentTick: CurrentTick;
-  private readonly activeWeapon: CombatSimulatorActiveWeapon;
+  private readonly activeWeapon: ActiveWeapon;
   private readonly resources: Resources;
   private readonly currentResources: CurrentResources;
   private readonly abilityTriggers: Registry<AbilityTrigger>;

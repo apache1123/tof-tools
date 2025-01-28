@@ -6,8 +6,8 @@ import { getWeaponDefinition } from "../../../definitions/weapons/weapon-definit
 import type { AbilityId } from "../../ability/ability-id";
 import type { AbilityRequirements } from "../../ability/ability-requirements";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
+import { ActiveWeapon } from "../../active-weapon/active-weapon";
 import { ActiveWeaponTimeline } from "../../active-weapon/active-weapon-timeline";
-import { CombatSimulatorActiveWeapon } from "../../active-weapon/combat-simulator-active-weapon";
 import type { CharacterId } from "../../character/character-data";
 import type { BaseDamageModifiersDefinition } from "../../damage-modifiers/base-damage-modifiers-definition";
 import type { FinalDamageModifiersDefinition } from "../../damage-modifiers/final-damage-modifiers-definition";
@@ -41,7 +41,7 @@ let finalDamageModifiers: FinalDamageModifiersDefinition;
 let hitCount: AttackHitCount;
 let doesNotTriggerEvents: boolean;
 let anotherWeapon: Weapon;
-let activeWeapon: CombatSimulatorActiveWeapon;
+let activeWeapon: ActiveWeapon;
 let currentResources: MockProxy<CurrentResources>;
 
 let sut: AttackAbility;
@@ -70,7 +70,7 @@ describe("Attack ability", () => {
     hitCount = mock<AttackHitCount>();
     doesNotTriggerEvents = false;
     anotherWeapon = new Weapon(getWeaponDefinition("Meryl"), characterId);
-    activeWeapon = new CombatSimulatorActiveWeapon(
+    activeWeapon = new ActiveWeapon(
       [weapon, anotherWeapon],
       new ActiveWeaponTimeline(100000),
       eventManager,

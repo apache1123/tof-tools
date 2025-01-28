@@ -3,7 +3,7 @@ import { Ability } from "../ability/ability";
 import type { AbilityId } from "../ability/ability-id";
 import type { AbilityRequirements } from "../ability/ability-requirements";
 import type { AbilityUpdatesResource } from "../ability/ability-updates-resource";
-import type { CombatSimulatorActiveWeapon } from "../active-weapon/combat-simulator-active-weapon";
+import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import type { BaseDamageModifiersDefinition } from "../damage-modifiers/base-damage-modifiers-definition";
 import type { FinalDamageModifiersDefinition } from "../damage-modifiers/final-damage-modifiers-definition";
 import type { EventManager } from "../event/event-manager";
@@ -43,7 +43,7 @@ export class AttackAbility
     private readonly finalDamageModifiers: FinalDamageModifiersDefinition,
     private readonly hitCount: AttackHitCount,
     private readonly doesNotTriggerEvents: boolean,
-    private readonly activeWeapon: CombatSimulatorActiveWeapon,
+    private readonly activeWeapon: ActiveWeapon,
     private readonly currentResources: CurrentResources,
   ) {
     super(

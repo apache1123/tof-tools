@@ -3,8 +3,8 @@ import type { CharacterId } from "../../character/character-data";
 import { EventManager } from "../../event/event-manager";
 import { CurrentTick } from "../../tick/current-tick";
 import { Weapon } from "../../weapon/weapon";
+import { ActiveWeapon } from "../active-weapon";
 import { ActiveWeaponTimeline } from "../active-weapon-timeline";
-import { CombatSimulatorActiveWeapon } from "../combat-simulator-active-weapon";
 
 let characterId: CharacterId;
 let weapon1: Weapon;
@@ -15,9 +15,9 @@ let timeline: ActiveWeaponTimeline;
 let eventManager: EventManager;
 let currentTick: CurrentTick;
 
-let activeWeapon: CombatSimulatorActiveWeapon;
+let activeWeapon: ActiveWeapon;
 
-describe("Switchable active weapon", () => {
+describe("Active weapon", () => {
   beforeEach(() => {
     characterId = "characterId";
     weapon1 = new Weapon(getWeaponDefinition("Fenrir"), characterId);
@@ -27,7 +27,7 @@ describe("Switchable active weapon", () => {
     timeline = new ActiveWeaponTimeline(10000);
     eventManager = new EventManager();
     currentTick = new CurrentTick(0, 1000, eventManager);
-    activeWeapon = new CombatSimulatorActiveWeapon(
+    activeWeapon = new ActiveWeapon(
       weapons,
       timeline,
       eventManager,
