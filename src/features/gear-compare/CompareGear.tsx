@@ -19,7 +19,8 @@ export function CompareGear() {
 
   if (!characterPreset) return "No selected preset";
 
-  const { teamPreset, gearSetPreset } = characterPreset;
+  const { teamPreset, gearSetPreset, baseAttacks, critRateFlat } =
+    characterPreset;
 
   if (!teamPreset) return "No team in preset";
   if (!gearSetPreset) return "No gear set in preset";
@@ -38,6 +39,8 @@ export function CompareGear() {
   team.applyPreset(teamPreset);
   const gearComparison = new GearComparison(
     characterDataProxy,
+    baseAttacks,
+    critRateFlat,
     team,
     mainWeapon,
     undefined,

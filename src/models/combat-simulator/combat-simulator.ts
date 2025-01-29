@@ -21,6 +21,7 @@ import { ActiveWeaponTimeline } from "../active-weapon/active-weapon-timeline";
 import { AttackAbilities } from "../attack/attack-abilities";
 import { AttackAbility } from "../attack/attack-ability";
 import { AttackTimeline } from "../attack/attack-timeline";
+import type { BaseAttacks } from "../base-attacks";
 import { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-buff";
 import { BaseAttackBuff } from "../buff/base-attack-buff/base-attack-buff";
@@ -63,6 +64,8 @@ export class CombatSimulator {
     characterData: CharacterData,
     team: Team,
     gearSet: GearSet,
+    overrideBaseAttacks: BaseAttacks,
+    overrideCritRateFlat: number,
     simulacrumTrait: SimulacrumTrait | undefined,
     // relics: Relics,
     options: CombatSimulatorOptions,
@@ -107,6 +110,9 @@ export class CombatSimulator {
       this.activeBuffs,
       this.activeWeapon,
     );
+    this.character.useOverrideStats = true;
+    this.character.overrideBaseAttacks = overrideBaseAttacks;
+    this.character.overrideCritRateFlat = overrideCritRateFlat;
 
     this.damageRecord = new DamageRecord(
       new DamageRecordTimeline(combatDuration),

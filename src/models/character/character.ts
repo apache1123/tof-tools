@@ -36,12 +36,12 @@ export class Character {
     private readonly activeWeapon: ActiveWeapon,
   ) {
     this.useOverrideStats = false;
-    this.overrideBaseAttack = BaseAttacks.create();
+    this.overrideBaseAttacks = BaseAttacks.create();
   }
 
   /** Use manually inputted stats for some of the stats instead of calculated stats */
   public useOverrideStats: boolean;
-  private overrideBaseAttack: BaseAttacks;
+  public overrideBaseAttacks: BaseAttacks;
   private _overrideCritRateFlat = 0;
 
   /** Specifically get the override crit rate flat value */
@@ -194,7 +194,7 @@ export class Character {
   /** The base attack amount before buffs are applied. Comes only from gear, weapons, matrices etc. */
   private getPreBuffBaseAttack(element: CoreElementalType) {
     return this.useOverrideStats
-      ? this.overrideBaseAttack.get(element)
+      ? this.overrideBaseAttacks.get(element)
       : this.gearSet.getTotalAttackFlat(element);
   }
 
