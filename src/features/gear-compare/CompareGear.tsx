@@ -2,6 +2,7 @@ import { Box, Card, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useProxy } from "valtio/utils";
 
+import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
 import { GearComparison } from "../../models/gear-compare/gear-comparison";
 import { Team } from "../../models/team/team";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
@@ -49,32 +50,38 @@ export function CompareGear() {
   const newGearResult = gearComparison.getNewGearResult();
 
   return (
-    <Card sx={{ p: 3 }}>
-      <Grid container spacing={2}>
-        <Grid xs={12} md={6}>
-          <Typography variant="h5" sx={{ mb: 2 }}>
-            Current gear
-          </Typography>
-          <Stack spacing={2}>
-            <Box>Value: {currentGearResult.gearValue}</Box>
-            <Box>
-              Damage: {currentGearResult.damageSummary.totalDamage.finalDamage}
-            </Box>
-          </Stack>
-        </Grid>
+    <>
+      <Card sx={{ p: 3 }}>
+        <Grid container spacing={2}>
+          <Grid xs={12} md={6}>
+            <Typography variant="h5" sx={{ mb: 2 }}>
+              Current gear
+            </Typography>
+            <Stack spacing={2}>
+              <Box>Value: {currentGearResult.gearValue}</Box>
+              <Box>
+                Damage:{" "}
+                {currentGearResult.damageSummary.totalDamage.finalDamage}
+              </Box>
+            </Stack>
+          </Grid>
 
-        <Grid xs={12} md={6}>
-          <Typography variant="h5" sx={{ mb: 2 }}>
-            New gear
-          </Typography>
-          <Stack spacing={2}>
-            <Box>Value: {newGearResult.gearValue}</Box>
-            <Box>
-              Damage: {newGearResult.damageSummary.totalDamage.finalDamage}
-            </Box>
-          </Stack>
+          <Grid xs={12} md={6}>
+            <Typography variant="h5" sx={{ mb: 2 }}>
+              New gear
+            </Typography>
+            <Stack spacing={2}>
+              <Box>Value: {newGearResult.gearValue}</Box>
+              <Box>
+                Damage: {newGearResult.damageSummary.totalDamage.finalDamage}
+              </Box>
+            </Stack>
+          </Grid>
         </Grid>
-      </Grid>
-    </Card>
+      </Card>
+      {currentGearResult.buffSummary && (
+        <BuffSummary buffSummary={currentGearResult.buffSummary} />
+      )}
+    </>
   );
 }

@@ -1,8 +1,8 @@
 import { Box, Stack } from "@mui/material";
 import { useState } from "react";
 
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
-import type { DamageSummaryDto } from "../../models/damage-summary/dtos/damage-summary-dto";
+import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { DamageSummaryDto } from "../../../models/damage-summary/dtos/damage-summary-dto";
 import { DamageSummaryBreakdownSideBar } from "./DamageSummaryBreakdownSideBar";
 import { DamageSummaryBreakdownTable } from "./DamageSummaryBreakdownTable";
 import { DamageSummaryBreakdownTopBar } from "./DamageSummaryBreakdownTopBar";
