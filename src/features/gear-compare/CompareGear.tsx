@@ -45,6 +45,9 @@ export function CompareGear() {
     newGear,
   );
 
+  const currentGearResult = gearComparison.getCurrentGearResult();
+  const newGearResult = gearComparison.getNewGearResult();
+
   return (
     <Card sx={{ p: 3 }}>
       <Grid container spacing={2}>
@@ -53,8 +56,10 @@ export function CompareGear() {
             Current gear
           </Typography>
           <Stack spacing={2}>
-            <Box>Value: {gearComparison.getCurrentGearValue()}</Box>
-            <Box>Damage: {gearComparison.getCurrentDamage()}</Box>
+            <Box>Value: {currentGearResult.gearValue}</Box>
+            <Box>
+              Damage: {currentGearResult.damageSummary.totalDamage.finalDamage}
+            </Box>
           </Stack>
         </Grid>
 
@@ -63,8 +68,10 @@ export function CompareGear() {
             New gear
           </Typography>
           <Stack spacing={2}>
-            <Box>Value: {gearComparison.getNewGearValue()}</Box>
-            <Box>Damage: {gearComparison.getNewDamage()}</Box>
+            <Box>Value: {newGearResult.gearValue}</Box>
+            <Box>
+              Damage: {newGearResult.damageSummary.totalDamage.finalDamage}
+            </Box>
           </Stack>
         </Grid>
       </Grid>

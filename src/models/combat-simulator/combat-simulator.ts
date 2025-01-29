@@ -114,6 +114,7 @@ export class CombatSimulator {
       this.eventManager,
       this.character,
       this.target,
+      this.buffAbilities,
       this.activeBuffs,
     );
   }
@@ -182,6 +183,11 @@ export class CombatSimulator {
   /** Returns a summary of the damage dealt so far */
   public generateDamageSummary() {
     return this.damageRecord.generateSummary();
+  }
+
+  /** Returns a buff summary of the last attack hit */
+  public generateLastBuffSummary() {
+    return this.damageRecord.generateLastBuffSummary();
   }
 
   public beginMockCombat() {

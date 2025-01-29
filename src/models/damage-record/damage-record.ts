@@ -1,4 +1,7 @@
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
+import type { BuffAbilities } from "../buff/buff-abilities";
+import type { BuffSummary } from "../buff-summary/buff-summary";
+import { createBuffSummary } from "../buff-summary/buff-summary";
 import type { Character } from "../character/character";
 import { DamageEvent } from "../damage-event/damage-event";
 import { DamageSummary } from "../damage-summary/damage-summary";
@@ -18,6 +21,7 @@ export class DamageRecord implements EventSubscriber {
     private readonly eventManager: EventManager,
     private readonly character: Character,
     private readonly target: Target,
+    private readonly buffAbilities: BuffAbilities,
     private readonly activeBuffs: ActiveBuffs,
   ) {}
 
@@ -72,5 +76,23 @@ export class DamageRecord implements EventSubscriber {
     summary.duration = this.currentTick.startTime;
 
     return summary;
+  }
+
+  /** Returns a summary of the buffs applied for the last instance of damage */
+  public generateLastBuffSummary(): BuffSummary | undefined {
+    const damageEvent = this.timeline.lastEvent;
+
+    if (!damageEvent) return undefined;
+
+    return createBuffSummary(
+      damageEvent.elementalType,
+      this.buffAbilities,
+      damageEvent.baseAttackBuffs,
+      damageEvent.attackPercentBuffs,
+      damageEvent.elementalDamageBuffs,
+      damageEvent.finalDamageBuffs,
+      damageEvent.critRateBuffs,
+      damageEvent.critDamageBuffs,
+    );
   }
 }
