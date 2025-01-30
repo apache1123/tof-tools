@@ -1,24 +1,27 @@
-import { Card, CardContent, CardHeader } from "@mui/material";
+import { Card, CardContent, CardHeader, Stack } from "@mui/material";
 
 import type { Matrix } from "../../../models/matrix/matrix";
 import type { MatrixType } from "../../../models/matrix/matrix-type";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { AddToSlotButton } from "../../common/AddToSlotButton/AddToSlotButton";
 import { RemoveFromSlotButton } from "../../common/RemoveFromSlotButton/RemoveFromSlotButton";
+import { SwapButton } from "../../common/SwapButton/SwapButton";
 import { MatrixCard } from "../MatrixCard/MatrixCard";
 import { MatrixTypeIcon } from "../MatrixTypeIcon/MatrixTypeIcon";
 
 export interface MatrixSlotCardProps extends PropsWithSx {
   type: MatrixType;
   matrix: Matrix | undefined;
-  onClick(): void;
+  onEdit(): void;
+  onSwap(): void;
   onRemove(): void;
 }
 
 export function MatrixSlotCard({
   type,
   matrix,
-  onClick,
+  onEdit,
+  onSwap,
   onRemove,
   sx,
 }: MatrixSlotCardProps) {
@@ -26,7 +29,7 @@ export function MatrixSlotCard({
     <Card
       sx={{
         width: 130,
-        height: 230,
+        height: 270,
         display: "flex",
         flexDirection: "column",
         ...sx,
@@ -56,19 +59,20 @@ export function MatrixSlotCard({
       >
         <>
           {matrix ? (
-            <>
+            <Stack sx={{ gap: 0.5 }}>
               <MatrixCard
                 matrix={matrix}
                 showName={false}
                 showTypeIcon={false}
                 matrixIconSize={100}
                 elevation={1}
-                onClick={onClick}
+                onClick={onEdit}
               />
-              <RemoveFromSlotButton onClick={onRemove} sx={{ mt: 0.5 }} />
-            </>
+              <SwapButton onClick={onSwap} />
+              <RemoveFromSlotButton onClick={onRemove} />
+            </Stack>
           ) : (
-            <AddToSlotButton onClick={onClick} />
+            <AddToSlotButton onClick={onSwap} />
           )}
         </>
       </CardContent>

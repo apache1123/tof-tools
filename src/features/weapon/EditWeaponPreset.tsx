@@ -2,14 +2,17 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { CardList } from "../../components/common/CardList/CardList";
+import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { MatrixSelector } from "../../components/matrix/MatrixSelector/MatrixSelector";
 import { MatrixSlotCard } from "../../components/matrix/MatrixSlotCard/MatrixSlotCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
+import type { Matrix } from "../../models/matrix/matrix";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
+import { EditMatrix } from "../matrix/EditMatrix";
 
 export interface EditWeaponPresetProps {
   weaponPresetProxy: WeaponPreset;
@@ -25,11 +28,12 @@ export function EditWeaponPreset({
   const [addingMatrixTypeId, setAddingMatrixTypeId] = useState<
     MatrixTypeId | undefined
   >(undefined);
+  const [editingMatrixProxy, setEditingMatrixProxy] = useState<
+    Matrix | undefined
+  >(undefined);
 
-  const { items: allMatrices } = useItemsBelongingToCharacter(
-    db.get("matrices"),
-    characterId,
-  );
+  const { items: allMatrices, itemProxies: allMatrixProxies } =
+    useItemsBelongingToCharacter(db.get("matrices"), characterId);
   const filteredMatrices = addingMatrixTypeId
     ? allMatrices.filter((matrix) => matrix.type.id === addingMatrixTypeId)
     : [];
@@ -42,7 +46,16 @@ export function EditWeaponPreset({
             key={slot.acceptsType.id}
             type={slot.acceptsType}
             matrix={slot.matrix}
-            onClick={() => {
+            onEdit={() => {
+              const editingMatrix = slot.matrix;
+              if (editingMatrix) {
+                const matrixProxy = allMatrixProxies.find(
+                  (matrix) => matrix.id === editingMatrix.id,
+                );
+                setEditingMatrixProxy(matrixProxy);
+              }
+            }}
+            onSwap={() => {
               setAddingMatrixTypeId(slot.acceptsType.id);
             }}
             onRemove={() => {
@@ -75,6 +88,17 @@ export function EditWeaponPreset({
         maxWidth={false}
         fullWidth
       />
+
+      {editingMatrixProxy && (
+        <EditorModal
+          modalContent={<EditMatrix matrixProxy={editingMatrixProxy} />}
+          open={!!editingMatrixProxy}
+          onClose={() => {
+            setEditingMatrixProxy(undefined);
+          }}
+          fullWidth
+        />
+      )}
     </>
   );
 }
