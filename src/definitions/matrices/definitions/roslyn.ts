@@ -8,7 +8,7 @@ const buff4pcBase = {
   description: "After entering Bitter Cold, increase frost ATK for 40 seconds",
   cooldown: 0,
   duration: 40000,
-  requirements: {},
+  requirements: { teamRequirements: { anyWeapon: ["Roslyn"] } },
   canBePlayerTriggered: false,
   triggeredBy: {},
   maxStacks: 1,

@@ -1,7 +1,6 @@
 import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-definition";
 import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
 
-// TODO:
 const buff2pcBase = {
   id: "Fei Se 2pc",
   displayName: "Fei Se 2pc",
@@ -9,7 +8,17 @@ const buff2pcBase = {
     "Increase ATK after using a flame skill or discharge for 30s, works off hand.",
   cooldown: 0,
   duration: 30000,
-  requirements: {},
+  requirements: {
+    teamRequirements: {
+      elementalWeapons: {
+        numOfElementalWeapons: [
+          { element: "Flame", numOfWeapons: 1 },
+          { element: "Flame", numOfWeapons: 2 },
+          { element: "Flame", numOfWeapons: 3 },
+        ],
+      },
+    },
+  },
   canBePlayerTriggered: false,
   triggeredBy: {},
   maxStacks: 1,

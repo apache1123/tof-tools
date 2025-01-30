@@ -8,7 +8,7 @@ const buff4pcBase = {
     "Upon a headshot or hitting the target with Icewind Arrow: Piercing Shot, increase ATK for 8 seconds",
   cooldown: 0,
   duration: 8000,
-  requirements: {},
+  requirements: { teamRequirements: { anyWeapon: ["Tsubasa"] } },
   canBePlayerTriggered: false,
   triggeredBy: {},
   maxStacks: 1,

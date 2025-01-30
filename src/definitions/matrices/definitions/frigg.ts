@@ -18,7 +18,7 @@ const buff2pcBase = {
     },
   },
   canBePlayerTriggered: false,
-  triggeredBy: { combatStart: true },
+  triggeredBy: {},
   maxStacks: 1,
   minMatrixPieces: 2,
 } as const satisfies Partial<MatrixBuffDefinition>;

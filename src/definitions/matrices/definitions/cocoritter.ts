@@ -8,7 +8,6 @@ const buff4pcBase = {
   description:
     "When you or your teammates are healed, increase ATK for 6 seconds",
   cooldown: 0,
-  duration: 6000,
   requirements: {},
   canBePlayerTriggered: false,
   triggeredBy: { combatStart: true },

@@ -1,7 +1,7 @@
 import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-definition";
 import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
 
-// TODO:
+// TODO: triggered by matrix equipped weapon only
 const buff2pcBase = {
   id: "Lyra 2pc",
   displayName: "Lyra 2pc",
@@ -9,7 +9,7 @@ const buff2pcBase = {
   cooldown: 0,
   requirements: {},
   canBePlayerTriggered: false,
-  triggeredBy: { combatStart: true },
+  triggeredBy: {},
   maxStacks: 1,
   minMatrixPieces: 2,
 } as const satisfies Partial<MatrixBuffDefinition>;

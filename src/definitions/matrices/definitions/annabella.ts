@@ -7,14 +7,24 @@ const buff2pcBase = {
   displayName: "Annabella 2pc",
   description: "Increase crit rate after hitting with a flame weapon",
   cooldown: 0,
-  requirements: {},
+  requirements: {
+    teamRequirements: {
+      elementalWeapons: {
+        numOfElementalWeapons: [
+          { element: "Flame", numOfWeapons: 1 },
+          { element: "Flame", numOfWeapons: 2 },
+          { element: "Flame", numOfWeapons: 3 },
+        ],
+      },
+    },
+  },
   canBePlayerTriggered: false,
-  triggeredBy: { combatStart: true },
+  triggeredBy: {},
   maxStacks: 1,
   minMatrixPieces: 2,
 } as const satisfies Partial<MatrixBuffDefinition>;
 
-// TODO:
+// TODO: only after a crit
 const buff4pcBase = {
   id: "Annabella 4pc",
   displayName: "Annabella 4pc",
