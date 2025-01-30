@@ -142,7 +142,13 @@ export class GearComparison {
       { combatDuration: 10000, targetResistance: 0 },
     );
 
-    combatSimulator.beginMockCombat();
+    combatSimulator.beginCombat();
+
+    // Max all resources in case some buffs that will be manually triggered below rely on resource requirements
+    combatSimulator.maxAllResources();
+    // Simulate damage fully buffed
+    combatSimulator.triggerAllBuffs();
+
     combatSimulator.switchToWeapon(this.mainWeapon);
     combatSimulator.performMockAttack();
 

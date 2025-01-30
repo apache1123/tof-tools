@@ -146,13 +146,13 @@ export class CombatSimulator {
     if (this.hasBegunCombat) throw new Error("Combat already in progress");
 
     this.registerResources();
-    this.registerAttackAbilities();
-    this.registerBuffAbilities();
+    this.registerAttacks();
+    this.registerMockAttacks();
+    this.registerBuffs();
 
     this.subscribeToEvents();
 
     this.addStartingResources();
-    this.advanceTick();
     this.hasBegunCombat = true;
     this.eventManager.publishCombatStarted({});
   }
@@ -196,14 +196,75 @@ export class CombatSimulator {
     return this.damageRecord.generateLastBuffSummary();
   }
 
-  public beginMockCombat() {
-    if (this.hasBegunCombat) throw new Error("Combat already in progress");
+  /** Perform a simple mock attack using the current active weapon for the purposes of testing damage. E.g. for gear comparison */
+  public performMockAttack() {
+    const activeWeapon = this.activeWeapon.current;
+    if (!activeWeapon)
+      throw new Error("No active weapon to perform mock attack");
 
-    this.registerResources();
-    this.registerAttackAbilities();
-    this.registerBuffAbilities();
+    this.performAttack(`mock-attack-${activeWeapon.id}`);
+  }
 
-    // Add mock attack ability for each weapon
+  /** Trigger all buffs (to max stacks). This will trigger all buffs as long as requirements are met */
+  public triggerAllBuffs() {
+    this.buffAbilities.items.forEach((buffAbility) => {
+      for (let i = 0; i < buffAbility.maxStacks; i++) {
+        buffAbility.trigger();
+      }
+    });
+    this.advanceTick();
+  }
+
+  /** Adds a resource amount (if needed) to make all resources max */
+  public maxAllResources() {
+    this.resources.items.forEach((resource) => {
+      resource.add(resource.maxAmount);
+    });
+    this.advanceTick();
+  }
+
+  /** Advance and process ticks until there are no ongoing foreground attacks */
+  private finishOngoingForegroundAttacks() {
+    while (this.attackAbilities.hasOngoingForegroundAttack()) {
+      this.advanceTick();
+    }
+  }
+
+  private advanceTick() {
+    this.currentTick.advance();
+  }
+
+  private addStartingResources() {
+    for (const resource of this.resources.items) {
+      resource.addStartingAmount();
+    }
+    this.advanceTick();
+  }
+
+  private registerResources() {
+    const resources = this.team
+      .getEquippedWeapons()
+      .flatMap((weapon) =>
+        weapon.resourceDefinitions.map((resourceDefinition) =>
+          this.createResource(resourceDefinition),
+        ),
+      );
+
+    this.resources.addItems(resources);
+  }
+
+  private registerAttacks() {
+    for (const weapon of this.team.getEquippedWeapons()) {
+      for (const definition of weapon.attackDefinitions) {
+        const attack = this.createAttackAbility(definition, weapon);
+        this.attackAbilities.add(attack);
+        this.abilityTriggers.add(this.createAbilityTrigger(attack, definition));
+      }
+    }
+  }
+
+  /** Add mock attack ability for each weapon */
+  private registerMockAttacks() {
     this.team.getEquippedWeapons().forEach((weapon) => {
       const mockAttackDefinition: AttackAbilityDefinition = {
         id: `mock-attack-${weapon.id}`,
@@ -235,76 +296,9 @@ export class CombatSimulator {
         this.createAbilityTrigger(mockAttackAbility, mockAttackDefinition),
       );
     });
-
-    this.subscribeToEvents();
-
-    // Make all resources max (in case some buffs that will be manually triggered below rely on resource requirements)
-    this.resources.items.forEach((resource) => {
-      resource.add(resource.maxAmount);
-    });
-    this.advanceTick();
-
-    // Trigger all buffs (to max stacks) to simulate a mock combat at max buffs. This will trigger all buffs as long as requirements are met
-    this.buffAbilities.items.forEach((buffAbility) => {
-      for (let i = 0; i < buffAbility.maxStacks; i++) {
-        buffAbility.trigger();
-      }
-    });
-    this.advanceTick();
-
-    this.hasBegunCombat = true;
-    this.eventManager.publishCombatStarted({});
   }
 
-  /** Perform a simple mock attack using the current active weapon for the purposes of testing damage. E.g. for gear comparison. Must have called beginMockCombat() first */
-  public performMockAttack() {
-    const activeWeapon = this.activeWeapon.current;
-    if (!activeWeapon)
-      throw new Error("No active weapon to perform mock attack");
-
-    this.performAttack(`mock-attack-${activeWeapon.id}`);
-  }
-
-  /** Advance and process ticks until there are no ongoing foreground attacks */
-  private finishOngoingForegroundAttacks() {
-    while (this.attackAbilities.hasOngoingForegroundAttack()) {
-      this.advanceTick();
-    }
-  }
-
-  private advanceTick() {
-    this.currentTick.advance();
-  }
-
-  private addStartingResources() {
-    for (const resource of this.resources.items) {
-      resource.addStartingAmount();
-    }
-  }
-
-  private registerResources() {
-    const resources = this.team
-      .getEquippedWeapons()
-      .flatMap((weapon) =>
-        weapon.resourceDefinitions.map((resourceDefinition) =>
-          this.createResource(resourceDefinition),
-        ),
-      );
-
-    this.resources.addItems(resources);
-  }
-
-  private registerAttackAbilities() {
-    for (const weapon of this.team.getEquippedWeapons()) {
-      for (const definition of weapon.attackDefinitions) {
-        const attack = this.createAttackAbility(definition, weapon);
-        this.attackAbilities.add(attack);
-        this.abilityTriggers.add(this.createAbilityTrigger(attack, definition));
-      }
-    }
-  }
-
-  private registerBuffAbilities() {
+  private registerBuffs() {
     const buffAbilityDefinitions: {
       source: BuffSource;
       abilityDefinitions: BuffAbilityDefinition[];
@@ -506,81 +500,4 @@ export class CombatSimulator {
       triggeredBy.resourceUpdate,
     );
   }
-
-  // /** Similar to `toDto()`, but cleaned up and aggregated for display purposes. The intention is for the output of this to be for display purposes only and not able to be deserialized with all the correct states later. e.g. Abilities with empty timelines removed, Player input attacks are combined into one, for each weapon */
-  // public snapshot(): CombatSimulatorSnapshot {
-  //   const playerInputAttackTimelines = [];
-
-  //   const weaponAttacksMap = new Map<Weapon, WeaponAttackSnapshot>();
-  //   // Combine all player input attack timelines into one, for each weapon
-  //   for (const { displayName, weapon, timeline } of this.attackRegistry
-  //     .activeAttacks) {
-  //     if (!weaponAttacksMap.has(weapon)) {
-  //       weaponAttacksMap.set(weapon, {
-  //         weaponId: weapon.id,
-  //         weaponDisplayName: weapon.displayName,
-  //         attackTimeline: {
-  //           events: [],
-  //         },
-  //       });
-  //     }
-
-  //     const weaponTimeline = weaponAttacksMap.get(weapon)?.attackTimeline;
-  //     if (!weaponTimeline) {
-  //       continue;
-  //     }
-
-  //     for (const attackEvent of timeline.events) {
-  //       weaponTimeline.events.push({
-  //         attackDisplayName: displayName,
-  //         startTime: attackEvent.startTime,
-  //         endTime: attackEvent.endTime,
-  //       });
-  //     }
-  //   }
-  //   // Sort timeline events chronologically for each weapon and push to result
-  //   for (const [, { attackTimeline: timeline }] of weaponAttacksMap) {
-  //     timeline.events.sort((a, b) => a.startTime - b.startTime);
-  //     playerInputAttackTimelines.push(timeline);
-  //   }
-
-  //   const { loadout, passiveAttacks, buffs, resources, combatDamageSummary } =
-  //     this.toDto();
-
-  //   return {
-  //     loadout,
-  //     weaponAttacks: [...weaponAttacksMap.values()],
-  //     passiveAttacks: passiveAttacks.filter(
-  //       (attack) => attack.timeline.events.length
-  //     ),
-  //     buffs: buffs.filter((buff) => this.utilizedBuffs.has(buff.id)),
-  //     resources: resources.filter(
-  //       (resource) => resource.timeline.events.length
-  //     ),
-  //     damageSummary: combatDamageSummary.cumulatedDamageSummary,
-  //   };
-  // }
-
-  // /** Raw serialized DTO of all properties. */
-  // public toDto(): CombatSimulatorDto {
-  //   const {
-  //     loadout,
-  //     attackRegistry,
-  //     buffRegistry,
-  //     resourceRegistry,
-  //     combatDamageSummary,
-  //   } = this;
-
-  //   const { activeAttacks, passiveAttacks } = attackRegistry.toDto();
-
-  //   return {
-  //     loadout: loadout.toDto(),
-  //     activeAttacks,
-  //     passiveAttacks,
-  //     buffs: buffRegistry.toDto().items,
-  //     resources: resourceRegistry.toDto().resources,
-  //     combatDamageSummary: combatDamageSummary.toDto(),
-  //     version: 1,
-  //   };
-  // }
 }
