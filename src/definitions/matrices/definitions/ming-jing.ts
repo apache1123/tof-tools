@@ -67,7 +67,7 @@ export const mingJing = {
         "Increase physical ATK and flame ATK for 30 seconds after applying snake bite, works off-hand",
       cooldown: 0,
       duration: 30000,
-      requirements: {},
+      requirements: { teamRequirements: { anyWeapon: ["Ming Jing"] } },
       canBePlayerTriggered: false,
       triggeredBy: {},
       maxStacks: 1,
@@ -75,7 +75,7 @@ export const mingJing = {
       attackPercentBuffs: [
         { value: 0.09, elementalTypes: ["Flame", "Physical"] },
       ],
-      starRequirement: { minStarRequirement: 0, maxStarRequirement: 0 },
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 3 },
     },
   ],
 } as const satisfies MatrixDefinition;

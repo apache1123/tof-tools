@@ -35,7 +35,7 @@ export class BuffAbility
     timeline: BuffTimeline,
     eventManager: EventManager,
     currentTick: CurrentTick,
-    private readonly maxStacks: number,
+    public readonly maxStacks: number,
     private readonly baseAttackBuffs: BaseAttackBuff[],
     private readonly attackBuffs: AttackPercentBuff[],
     private readonly elementalDamageBuffs: ElementalDamageBuff[],
@@ -64,7 +64,7 @@ export class BuffAbility
   }
 
   public override canTrigger(): boolean {
-    return super.canTrigger() && !this.isAtMaxStacks(this.getTriggerTime());
+    return super.canTrigger() && !this.isAtMaxStacks();
   }
 
   public override toDto(): BuffDto {
@@ -96,7 +96,9 @@ export class BuffAbility
     );
   }
 
-  private isAtMaxStacks(time: number) {
-    return this.timeline.getEventsAt(time).length >= this.maxStacks;
+  private isAtMaxStacks() {
+    return (
+      this.timeline.getEventsAt(this.getTriggerTime()).length >= this.maxStacks
+    );
   }
 }

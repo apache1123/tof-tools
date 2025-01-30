@@ -238,8 +238,20 @@ export class CombatSimulator {
 
     this.subscribeToEvents();
 
-    this.addStartingResources();
+    // Make all resources max (in case some buffs that will be manually triggered below rely on resource requirements)
+    this.resources.items.forEach((resource) => {
+      resource.add(resource.maxAmount);
+    });
     this.advanceTick();
+
+    // Trigger all buffs (to max stacks) to simulate a mock combat at max buffs. This will trigger all buffs as long as requirements are met
+    this.buffAbilities.items.forEach((buffAbility) => {
+      for (let i = 0; i < buffAbility.maxStacks; i++) {
+        buffAbility.trigger();
+      }
+    });
+    this.advanceTick();
+
     this.hasBegunCombat = true;
     this.eventManager.publishCombatStarted({});
   }

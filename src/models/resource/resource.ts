@@ -16,7 +16,7 @@ export class Resource implements EventSubscriber, Serializable<ResourceDto> {
   public constructor(
     public readonly id: ResourceId,
     public readonly displayName: string,
-    private readonly maxAmount: number,
+    public readonly maxAmount: number,
     private readonly startingAmount: number,
     private readonly regenerationDefinition: ResourceRegenerationDefinition,
     protected readonly timeline: ResourceTimeline,
