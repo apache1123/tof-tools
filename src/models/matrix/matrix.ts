@@ -4,6 +4,7 @@ import { maxNumOfMatrixStars } from "../../definitions/matrices/matrix";
 import type { MatrixDefinition } from "../../definitions/types/matrix/matrix-definition";
 import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
+import { hasMetStarRequirement } from "../star-requirement";
 import type { MatrixType } from "./matrix-type";
 
 export type MatrixId = Id;
@@ -41,5 +42,12 @@ export class Matrix {
   }
   public set stars(value: number) {
     this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfMatrixStars);
+  }
+
+  /** Buffs that can be activated for this matrix */
+  public get buffDefinitions() {
+    return this.definition.buffs.filter((buffDefinition) =>
+      hasMetStarRequirement(buffDefinition.starRequirement, this.stars),
+    );
   }
 }

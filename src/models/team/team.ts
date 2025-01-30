@@ -1,5 +1,6 @@
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 import { numWeaponsInTeam } from "../../definitions/team";
+import type { MatrixBuffDefinition } from "../../definitions/types/matrix/matrix-buff-definition";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
@@ -79,6 +80,25 @@ export class Team {
       weapon.applyPreset(weaponPreset);
       this.setWeapon(i, weapon);
     }
+  }
+
+  public getWeaponBuffDefinitions() {
+    return this.getEquippedWeapons().flatMap(
+      (weapon) => weapon.buffDefinitions,
+    );
+  }
+
+  public getMatrixBuffDefinitions() {
+    // TODO: Some matrix buffs can stack?
+    // Assuming buff definition objects are reused and can be "uniqued" by object instance
+    const results = new Set<MatrixBuffDefinition>();
+    for (const weapon of this.getEquippedWeapons()) {
+      for (const buffDefinition of weapon.matrixSlots.buffDefinitions) {
+        results.add(buffDefinition);
+      }
+    }
+
+    return [...results.values()];
   }
 
   private clearWeapons() {

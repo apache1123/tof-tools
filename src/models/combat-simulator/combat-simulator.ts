@@ -299,18 +299,11 @@ export class CombatSimulator {
     }[] = [
       {
         source: "weapon",
-        abilityDefinitions: this.team
-          .getEquippedWeapons()
-          .flatMap((weapon) => weapon.buffDefinitions),
+        abilityDefinitions: this.team.getWeaponBuffDefinitions(),
       },
       {
         source: "matrix",
-        abilityDefinitions: [], // TODO:
-        //   weapons.flatMap((weapon) =>
-        //   weapon.matrixSets
-        //     .getMatrixSets()
-        //     .flatMap((matrixSet) => matrixSet.buffs),
-        // ),
+        abilityDefinitions: this.team.getMatrixBuffDefinitions(),
       },
       { source: "team", abilityDefinitions: teamBuffs },
       {

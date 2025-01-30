@@ -1,4 +1,6 @@
 import { getMatrixType } from "../../definitions/matrices/matrix-type";
+import type { MatrixBuffDefinition } from "../../definitions/types/matrix/matrix-buff-definition";
+import { hasMetStarRequirement } from "../star-requirement";
 import { MatrixSlot } from "./matrix-slot";
 import type { MatrixTypeId } from "./matrix-type";
 
@@ -17,6 +19,34 @@ export class MatrixSlots {
   }
 
   private readonly _slots: Record<MatrixTypeId, MatrixSlot>;
+
+  /** Buffs that can be activated for this matrix slots */
+  public get buffDefinitions(): MatrixBuffDefinition[] {
+    const matrices = this.getSlots().flatMap((slot) =>
+      slot.matrix ? [slot.matrix] : [],
+    );
+
+    // Assuming if two matrices have the same buff definition, the buff definition points to the same object
+    const results = new Set<MatrixBuffDefinition>();
+    for (const matrix of matrices) {
+      for (const buffDefinition of matrix.buffDefinitions) {
+        const { starRequirement, minMatrixPieces } = buffDefinition;
+
+        // Add buff definition if star and pieces requirements are met
+        if (
+          matrices.filter(
+            (otherMatrix) =>
+              otherMatrix.definitionId === matrix.definitionId &&
+              hasMetStarRequirement(starRequirement, otherMatrix.stars),
+          ).length >= minMatrixPieces
+        ) {
+          results.add(buffDefinition);
+        }
+      }
+    }
+
+    return [...results.values()];
+  }
 
   public getSlot(typeId: MatrixTypeId) {
     return this._slots[typeId];
