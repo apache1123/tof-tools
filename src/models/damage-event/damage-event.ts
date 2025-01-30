@@ -33,19 +33,27 @@ export class DamageEvent {
   }
 
   public getBaseAttackBuffs() {
-    return this.character.getBaseAttackBuffs();
+    return this.character
+      .getBaseAttackBuffs()
+      .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
   public getAttackPercentBuffs() {
-    return this.character.getAttackPercentBuffs();
+    return this.character
+      .getAttackPercentBuffs()
+      .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
   public getCritRateBuffs() {
-    return this.character.getCritRateBuffs();
+    return this.character
+      .getCritRateBuffs()
+      .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
   public getCritDamageBuffs() {
-    return this.character.getCritDamageBuffs();
+    return this.character
+      .getCritDamageBuffs()
+      .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
   public getElementalDamageBuffs() {

@@ -2,7 +2,7 @@ import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-defini
 import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
 
 const noneBenedictionBuff4pcBase = {
-  id: "Brevey 4pc",
+  id: "brevey-matrix-4pc-non-benediction",
   displayName: "Brevey 4pc",
   description: "When benediction resonance is not active, increase all ATK",
   cooldown: 0,
@@ -16,7 +16,7 @@ const noneBenedictionBuff4pcBase = {
 } as const satisfies Partial<MatrixBuffDefinition>;
 
 const benedictionBuff4pcBase = {
-  id: "Brevey 4pc",
+  id: "brevey-matrix-4pc-benediction",
   displayName: "Brevey 4pc",
   description: "When benediction resonance is active, increase all ATK",
   cooldown: 0,

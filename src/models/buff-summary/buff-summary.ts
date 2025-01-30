@@ -86,13 +86,15 @@ function createBuffSummaryItemGroup<T extends Buff = Buff>(
   buffAggregator: BuffAggregator<T>,
   buffAbilities: BuffAbilities,
 ) {
+  // Group same buffs together
   const buffsById = groupBy(buffs, (buff) => buff.id);
 
   const items: BuffSummaryItem[] = keysOf(buffsById).map((id) => {
-    const totalValue = buffAggregator(buffs).totalValue;
+    const sameBuffs = buffsById[id];
+    const totalValue = buffAggregator(sameBuffs).totalValue;
 
     return {
-      ...createSummaryItemCommonFields(buffsById, id, buffAbilities),
+      ...createSummaryItemCommonFields(sameBuffs, buffAbilities),
       totalValue,
     };
   });
@@ -113,13 +115,15 @@ function createElementalBuffSummaryItemGroup<
   element: WeaponElementalType,
   buffAbilities: BuffAbilities,
 ) {
+  // Group same buffs together
   const buffsById = groupBy(buffs, (buff) => buff.id);
 
   const items: BuffSummaryItem[] = keysOf(buffsById).map((id) => {
-    const totalValue = buffAggregator(buffs).totalValueByElement[element];
+    const sameBuffs = buffsById[id];
+    const totalValue = buffAggregator(sameBuffs).totalValueByElement[element];
 
     return {
-      ...createSummaryItemCommonFields(buffsById, id, buffAbilities),
+      ...createSummaryItemCommonFields(sameBuffs, buffAbilities),
       totalValue,
     };
   });
@@ -133,17 +137,18 @@ function createElementalBuffSummaryItemGroup<
 }
 
 function createSummaryItemCommonFields(
-  buffsById: Record<string, Buff[]>,
-  id: string,
+  buffsWithSameId: Buff[],
   buffAbilities: BuffAbilities,
 ) {
-  const buffs = buffsById[id];
+  if (!buffsWithSameId.length) throw new Error("Array cannot be empty");
+
+  const id = buffsWithSameId[0].id;
   const buffAbility = buffAbilities.find(id);
 
   return {
     id,
     displayName: buffAbility?.displayName ?? id, // This shouldn't happen, but just in case the buff ability isn't found
     description: buffAbility?.description,
-    stacks: buffs.length,
+    stacks: buffsWithSameId.length,
   };
 }
