@@ -31,7 +31,7 @@ export function GearSetPresetSummaryCard({
       >
         <CardHeader title={preset.name} />
         <CardContent>
-          <CardList direction="column" gap={0.5}>
+          <CardList direction="row" gap={0.5}>
             {gears.map((gear) => (
               <GearSummaryCard key={gear.id} gear={gear} elevation={1} />
             ))}
