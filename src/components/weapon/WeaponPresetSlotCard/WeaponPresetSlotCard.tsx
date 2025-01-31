@@ -5,13 +5,15 @@ import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { AddToSlotButton } from "../../common/AddToSlotButton/AddToSlotButton";
 import { Button } from "../../common/Button/Button";
 import { RemoveFromSlotButton } from "../../common/RemoveFromSlotButton/RemoveFromSlotButton";
+import { SwapButton } from "../../common/SwapButton/SwapButton";
 import { WeaponPresetCard } from "../WeaponPresetCard/WeaponPresetCard";
 
 export interface WeaponPresetSlotCardProps extends PropsWithSx {
   weaponPreset: WeaponPreset | undefined;
   disabled?: boolean;
   showSetAsMainButton?: boolean;
-  onClick(): void;
+  onEdit(): void;
+  onSwap(): void;
   onRemove(): void;
   onSetAsMain?(): void;
 }
@@ -20,7 +22,8 @@ export function WeaponPresetSlotCard({
   weaponPreset,
   disabled,
   showSetAsMainButton,
-  onClick,
+  onEdit,
+  onSwap,
   onRemove,
   onSetAsMain,
   sx,
@@ -41,7 +44,6 @@ export function WeaponPresetSlotCard({
           pt: 2,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
         }}
       >
@@ -51,11 +53,12 @@ export function WeaponPresetSlotCard({
               <WeaponPresetCard
                 weapon={weaponPreset.weapon}
                 matrixSlots={weaponPreset.matrixSlots.getSlots()}
-                onClick={onClick}
+                onClick={onEdit}
                 elevation={1}
                 sx={{ width: "100%" }}
               />
               <Stack sx={{ mt: 0.5, width: "100%", gap: 0.5 }}>
+                <SwapButton onClick={onSwap} />
                 <RemoveFromSlotButton onClick={onRemove} />
                 {showSetAsMainButton && onSetAsMain && (
                   <Button
@@ -70,7 +73,7 @@ export function WeaponPresetSlotCard({
           ) : (
             <AddToSlotButton
               title="Add weapon preset"
-              onClick={onClick}
+              onClick={onSwap}
               buttonProps={{ disabled }}
             />
           )}

@@ -1,3 +1,4 @@
+import { Alert, Stack } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
@@ -13,17 +14,21 @@ import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { EditMatrix } from "../matrix/EditMatrix";
+import { EditWeapon } from "./EditWeapon";
 
 export interface EditWeaponPresetProps {
   weaponPresetProxy: WeaponPreset;
   characterId: CharacterId;
+  onFinish(): void;
 }
 
 export function EditWeaponPreset({
   weaponPresetProxy,
   characterId,
+  onFinish,
 }: EditWeaponPresetProps) {
-  const { matrixSlots } = useSnapshot(weaponPresetProxy);
+  const weaponPreset = useSnapshot(weaponPresetProxy);
+  const { matrixSlots } = weaponPreset;
 
   const [addingMatrixTypeId, setAddingMatrixTypeId] = useState<
     MatrixTypeId | undefined
@@ -40,32 +45,59 @@ export function EditWeaponPreset({
 
   return (
     <>
-      <CardList>
-        {matrixSlots.getSlots().map((slot) => (
-          <MatrixSlotCard
-            key={slot.acceptsType.id}
-            type={slot.acceptsType}
-            matrix={slot.matrix}
-            onEdit={() => {
-              const editingMatrix = slot.matrix;
-              if (editingMatrix) {
-                const matrixProxy = allMatrixProxies.find(
-                  (matrix) => matrix.id === editingMatrix.id,
-                );
-                setEditingMatrixProxy(matrixProxy);
-              }
-            }}
-            onSwap={() => {
-              setAddingMatrixTypeId(slot.acceptsType.id);
-            }}
-            onRemove={() => {
-              weaponPresetProxy.matrixSlots.getSlot(
-                slot.acceptsType.id,
-              ).matrix = undefined;
-            }}
-          />
-        ))}
-      </CardList>
+      <EditorModal
+        modalContent={
+          <>
+            <Stack sx={{ gap: 3 }}>
+              <Stack sx={{ gap: 1 }}>
+                <EditWeapon weaponProxy={weaponPresetProxy.weapon} />
+
+                <Alert severity="info">
+                  Weapon star changes will apply to all presets of this weapon
+                </Alert>
+              </Stack>
+
+              <CardList>
+                {matrixSlots.getSlots().map((slot) => (
+                  <MatrixSlotCard
+                    key={slot.acceptsType.id}
+                    type={slot.acceptsType}
+                    matrix={slot.matrix}
+                    onEdit={() => {
+                      const editingMatrix = slot.matrix;
+                      if (editingMatrix) {
+                        const matrixProxy = allMatrixProxies.find(
+                          (matrix) => matrix.id === editingMatrix.id,
+                        );
+                        setEditingMatrixProxy(matrixProxy);
+                      }
+                    }}
+                    onSwap={() => {
+                      setAddingMatrixTypeId(slot.acceptsType.id);
+                    }}
+                    onRemove={() => {
+                      weaponPresetProxy.matrixSlots.getSlot(
+                        slot.acceptsType.id,
+                      ).matrix = undefined;
+                    }}
+                  />
+                ))}
+              </CardList>
+            </Stack>
+          </>
+        }
+        open={!!weaponPreset}
+        onClose={() => {
+          onFinish();
+        }}
+        itemName="Weapon preset"
+        showDelete
+        onDelete={() => {
+          db.get("weaponPresets").remove(weaponPresetProxy.id);
+          onFinish();
+        }}
+        maxWidth={false}
+      />
 
       <StyledModal
         modalContent={

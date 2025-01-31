@@ -28,7 +28,7 @@ export function TeamPresetCard({ teamPreset, onClick }: TeamPresetCardProps) {
       >
         <CardHeader title={name || "Unnamed team"} />
         <CardContent>
-          <CardList direction="column" gap={0.5}>
+          <CardList direction="row" gap={1}>
             {teamPreset
               .getWeaponPresets()
               .map(

@@ -12,7 +12,7 @@ import type { CharacterId } from "../../models/character/character-data";
 import { Weapon } from "../../models/weapon/weapon";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
-import { EditWeapon } from "./EditWeapon";
+import { EditWeaponAndPresets } from "./EditWeaponAndPresets";
 
 export interface WeaponsProps {
   characterId: CharacterId;
@@ -95,7 +95,7 @@ export function Weapons({ characterId }: WeaponsProps) {
       {editingWeaponProxy && (
         <EditorModal
           modalContent={
-            <EditWeapon
+            <EditWeaponAndPresets
               weaponProxy={editingWeaponProxy}
               characterId={characterId}
             />

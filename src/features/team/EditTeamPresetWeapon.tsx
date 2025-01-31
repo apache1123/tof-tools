@@ -13,7 +13,8 @@ export interface EditTeamPresetWeaponProps {
   characterId: CharacterId;
   disabled?: boolean;
   showSetAsMainButton?: boolean;
-  onChange(weaponPresetProxy: WeaponPreset): void;
+  onEdit(): void;
+  onSwap(weaponPresetProxy: WeaponPreset): void;
   onRemove(): void;
   onSetAsMain?(): void;
 }
@@ -23,7 +24,8 @@ export function EditTeamPresetWeapon({
   characterId,
   disabled,
   showSetAsMainButton,
-  onChange,
+  onEdit,
+  onSwap,
   onRemove,
   onSetAsMain,
 }: EditTeamPresetWeaponProps) {
@@ -39,7 +41,8 @@ export function EditTeamPresetWeapon({
         weaponPreset={weaponPreset}
         disabled={disabled}
         showSetAsMainButton={showSetAsMainButton}
-        onClick={() => {
+        onEdit={onEdit}
+        onSwap={() => {
           setIsAddingWeaponPreset(true);
         }}
         onRemove={onRemove}
@@ -55,7 +58,7 @@ export function EditTeamPresetWeapon({
               if (!weaponPresetProxy)
                 throw new Error("Weapon preset not found");
 
-              onChange(weaponPresetProxy);
+              onSwap(weaponPresetProxy);
 
               setIsAddingWeaponPreset(false);
             }}
