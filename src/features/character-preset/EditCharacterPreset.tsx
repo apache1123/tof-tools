@@ -8,8 +8,10 @@ import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSum
 import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../models/character/character-preset";
+import type { TeamPreset } from "../../models/team/team-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { EditTeamPreset } from "../team/EditTeamPreset";
 import { EditCharacterPresetStats } from "./EditCharacterPresetStats";
 
 export interface EditCharacterPresetProps {
@@ -28,6 +30,9 @@ export function EditCharacterPreset({
     characterId,
   );
   const [isSelectingTeamPreset, setIsSelectingTeamPreset] = useState(false);
+  const [editingTeamPresetProxy, setEditingTeamPresetProxy] = useState<
+    TeamPreset | undefined
+  >(undefined);
 
   const { items: gearSetPresets } = useItemsBelongingToCharacter(
     db.get("gearSetPresets"),
@@ -49,7 +54,7 @@ export function EditCharacterPreset({
 
         <Stack sx={{ gap: 1 }}>
           <Stack direction="row" sx={{ gap: 1 }}>
-            <Typography variant="h5">Team preset</Typography>
+            <Typography variant="h5">Team</Typography>
             <Button
               onClick={() => {
                 setIsSelectingTeamPreset(true);
@@ -68,7 +73,12 @@ export function EditCharacterPreset({
           </Stack>
 
           {teamPreset ? (
-            <TeamPresetCard teamPreset={teamPreset} />
+            <TeamPresetCard
+              teamPreset={teamPreset}
+              onClick={() => {
+                setEditingTeamPresetProxy(characterPresetProxy.teamPreset);
+              }}
+            />
           ) : (
             <Typography sx={{ fontStyle: "italic" }}>
               No team preset selected
@@ -173,6 +183,15 @@ export function EditCharacterPreset({
           }}
           maxWidth={false}
           fullWidth
+        />
+      )}
+
+      {editingTeamPresetProxy && (
+        <EditTeamPreset
+          teamPresetProxy={editingTeamPresetProxy}
+          onFinish={() => {
+            setEditingTeamPresetProxy(undefined);
+          }}
         />
       )}
     </>

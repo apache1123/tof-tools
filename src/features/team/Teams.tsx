@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { Button } from "../../components/common/Button/Button";
-import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
@@ -56,25 +55,11 @@ export function Teams({ characterId }: TeamsProps) {
       />
 
       {editingTeamPresetProxy && (
-        <EditorModal
-          modalContent={
-            <EditTeamPreset teamPresetProxy={editingTeamPresetProxy} />
-          }
-          open={!!editingTeamPresetProxy}
-          onClose={() => {
+        <EditTeamPreset
+          teamPresetProxy={editingTeamPresetProxy}
+          onFinish={() => {
             setEditingTeamPresetProxy(undefined);
           }}
-          itemName={
-            !!editingTeamPresetProxy.name
-              ? editingTeamPresetProxy.name
-              : "this team"
-          }
-          showDelete
-          onDelete={() => {
-            teamPresetsRepo.remove(editingTeamPresetProxy.id);
-            setEditingTeamPresetProxy(undefined);
-          }}
-          maxWidth={false}
         />
       )}
     </>
