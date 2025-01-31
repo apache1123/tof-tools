@@ -20,13 +20,15 @@ export function EditCharacterPresetStats({
   const mainWeapon = teamPreset?.getMainWeaponPreset()?.weapon;
 
   return (
-    <Card sx={{ p: 4 }}>
-      <Typography variant="h6">Preset stats</Typography>
+    <Card sx={{ p: 2 }}>
+      <Typography variant="h5" sx={{ mb: 3 }}>
+        Preset stats
+      </Typography>
 
       {mainWeapon ? (
-        <>
+        <Stack sx={{ gap: 3 }}>
           <Box>
-            <Typography>Main weapon</Typography>
+            <Typography>Using main weapon</Typography>
             <WeaponIcon
               weaponName={mainWeapon.definitionId}
               elementalIcon={mainWeapon.elementalIcon}
@@ -62,7 +64,7 @@ export function EditCharacterPresetStats({
               />
             </Grid>
           </Grid>
-        </>
+        </Stack>
       ) : (
         <Typography>No main weapon</Typography>
       )}
