@@ -10,7 +10,7 @@ import type { GearTypeId } from "../../definitions/gear-types";
 import { getGearType } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
 import { Gear } from "../../models/gear/gear";
-import { EditGear } from "./EditGear";
+import { EditGearInline } from "./EditGearInline";
 import { GearOcrModal } from "./GearOcrModal";
 
 export interface AddNewGearProps {
@@ -77,7 +77,7 @@ export function AddNewGear({
               }
             }}
           />
-          {gearProxy && <EditGear gearProxy={gearProxy} />}
+          {gearProxy && <EditGearInline gearProxy={gearProxy} />}
         </Stack>
       }
       showConfirm

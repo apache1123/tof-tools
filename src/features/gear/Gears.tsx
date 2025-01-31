@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { GearCard } from "../../components/gear/GearCard/GearCard";
 import { GearFilter } from "../../components/gear/GearFilter/GearFilter";
 import { db } from "../../db/reactive-local-storage-db";
@@ -14,7 +13,7 @@ import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCh
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { AddNewGear } from "./AddNewGear";
-import { EditGear } from "./EditGear";
+import { EditGearModal } from "./EditGearModal";
 
 export interface GearsProps {
   characterId: CharacterId;
@@ -66,14 +65,11 @@ export function Gears({ characterId }: GearsProps) {
       />
 
       {editingGear && (
-        <EditorModal
-          open={!!editingGear}
-          modalContent={<EditGear gearProxy={editingGear} />}
-          itemName={editingGear.type.displayName}
+        <EditGearModal
+          gearProxy={editingGear}
           onClose={() => {
             setEditingGear(undefined);
           }}
-          showDelete
           onDelete={() => {
             gearRepo.remove(editingGear.id);
             setEditingGear(undefined);

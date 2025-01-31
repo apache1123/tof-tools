@@ -30,7 +30,7 @@ import {
   indexOfIgnoringCase,
   splitIntoWords,
 } from "../../utils/string-utils";
-import { EditGear } from "./EditGear";
+import { EditGearInline } from "./EditGearInline";
 
 export interface GearOcrModalProps {
   characterId: CharacterId;
@@ -155,7 +155,7 @@ export function GearOcrModal({
                 </Box>
               )}
               {!errorMessage && tempGear && ocrTempGearState.tempGear && (
-                <EditGear gearProxy={ocrTempGearState.tempGear} />
+                <EditGearInline gearProxy={ocrTempGearState.tempGear} />
               )}
             </Grid>
           </Grid>

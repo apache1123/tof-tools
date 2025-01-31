@@ -6,7 +6,7 @@ import { Button } from "../../components/common/Button/Button";
 import type { CharacterId } from "../../models/character/character-data";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { AddNewGear } from "../gear/AddNewGear";
-import { EditGear } from "../gear/EditGear";
+import { EditGearInline } from "../gear/EditGearInline";
 import { SelectGear } from "../gear/SelectGear";
 
 export interface NewGearProps {
@@ -39,7 +39,7 @@ export function NewGear({ characterId }: NewGearProps) {
 
       {gear && gearProxy ? (
         <Card elevation={1} sx={{ p: 2 }}>
-          <EditGear gearProxy={gearProxy} />
+          <EditGearInline gearProxy={gearProxy} />
         </Card>
       ) : (
         <Stack direction="row" sx={{ gap: 1, alignItems: "center" }}>

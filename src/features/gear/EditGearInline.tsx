@@ -10,7 +10,7 @@ import type { Gear } from "../../models/gear/gear";
 import { RandomStat } from "../../models/gear/random-stat";
 import { EmptyStatEditor, StatEditor } from "../stat/StatEditor";
 
-export interface EditGearProps {
+export interface EditGearInlineProps {
   gearProxy: Gear;
 }
 
@@ -18,7 +18,7 @@ const possibleStatTypes = statTypesLookup.allIds.map(
   (statTypeId) => statTypesLookup.byId[statTypeId],
 );
 
-export function EditGear({ gearProxy }: EditGearProps) {
+export function EditGearInline({ gearProxy }: EditGearInlineProps) {
   const gear = useSnapshot(gearProxy) as Gear;
   const { type, rarity } = gear;
 

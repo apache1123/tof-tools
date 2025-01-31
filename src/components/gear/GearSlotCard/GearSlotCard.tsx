@@ -1,18 +1,28 @@
-import { Card, CardContent, CardHeader } from "@mui/material";
+import { Card, CardContent, CardHeader, Stack } from "@mui/material";
 
 import type { Gear } from "../../../models/gear/gear";
 import type { GearType } from "../../../models/gear/gear-type";
 import { AddToSlotButton } from "../../common/AddToSlotButton/AddToSlotButton";
+import { RemoveFromSlotButton } from "../../common/RemoveFromSlotButton/RemoveFromSlotButton";
+import { SwapButton } from "../../common/SwapButton/SwapButton";
 import { GearCard } from "../GearCard/GearCard";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
 export interface GearSlotCardProps {
   type: GearType;
   gear: Gear | undefined;
-  onClick?(): void;
+  onEdit?(): void;
+  onSwap?(): void;
+  onRemove?(): void;
 }
 
-export function GearSlotCard({ type, gear, onClick }: GearSlotCardProps) {
+export function GearSlotCard({
+  type,
+  gear,
+  onEdit,
+  onSwap,
+  onRemove,
+}: GearSlotCardProps) {
   return (
     <Card sx={{ width: 200 }}>
       <CardHeader
@@ -31,13 +41,23 @@ export function GearSlotCard({ type, gear, onClick }: GearSlotCardProps) {
         }}
       >
         {gear ? (
-          <GearCard gear={gear} elevation={1} onClick={onClick} />
+          <Stack sx={{ gap: 0.5 }}>
+            <GearCard gear={gear} elevation={1} onClick={onEdit} />
+            <SwapButton
+              onClick={() => {
+                onSwap?.();
+              }}
+            />
+            <RemoveFromSlotButton
+              onClick={() => {
+                onRemove?.();
+              }}
+            />
+          </Stack>
         ) : (
           <AddToSlotButton
             onClick={() => {
-              if (onClick) {
-                onClick();
-              }
+              onSwap?.();
             }}
             sx={{ minHeight: 180 }}
           />
