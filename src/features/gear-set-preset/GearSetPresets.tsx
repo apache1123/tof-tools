@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 
-import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
@@ -59,20 +58,11 @@ export function GearSetPresets({ characterId }: GearSetPresetsProps) {
       />
 
       {editingPresetProxy && (
-        <EditorModal
-          modalContent={<EditGearSetPreset presetProxy={editingPresetProxy} />}
-          open={!!editingPresetId}
-          onClose={() => {
+        <EditGearSetPreset
+          presetProxy={editingPresetProxy}
+          onFinish={() => {
             setEditingPresetId(undefined);
           }}
-          itemName={editingPresetProxy.name}
-          showDelete
-          onDelete={() => {
-            gearSetPresetRepo.remove(editingPresetProxy.id);
-            setEditingPresetId(undefined);
-          }}
-          maxWidth={false}
-          fullWidth
         />
       )}
     </>

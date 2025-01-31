@@ -8,9 +8,11 @@ import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSum
 import { TeamPresetCard } from "../../components/team/TeamPresetCard/TeamPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../models/character/character-preset";
+import type { GearSetPreset } from "../../models/gear/gear-set-preset";
 import type { TeamPreset } from "../../models/team/team-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { EditGearSetPreset } from "../gear-set-preset/EditGearSetPreset";
 import { EditTeamPreset } from "../team/EditTeamPreset";
 import { EditCharacterPresetStats } from "./EditCharacterPresetStats";
 
@@ -40,6 +42,9 @@ export function EditCharacterPreset({
   );
   const [isSelectingGearSetPreset, setIsSelectingGearSetPreset] =
     useState(false);
+  const [editingGearSetPresetProxy, setEditingGearSetPresetProxy] = useState<
+    GearSetPreset | undefined
+  >(undefined);
 
   return (
     <>
@@ -107,7 +112,14 @@ export function EditCharacterPreset({
           </Stack>
 
           {gearSetPreset ? (
-            <GearSetPresetSummaryCard preset={gearSetPreset} />
+            <GearSetPresetSummaryCard
+              preset={gearSetPreset}
+              onClick={() => {
+                setEditingGearSetPresetProxy(
+                  characterPresetProxy.gearSetPreset,
+                );
+              }}
+            />
           ) : (
             <Typography sx={{ fontStyle: "italic" }}>
               No gear preset selected
@@ -191,6 +203,15 @@ export function EditCharacterPreset({
           teamPresetProxy={editingTeamPresetProxy}
           onFinish={() => {
             setEditingTeamPresetProxy(undefined);
+          }}
+        />
+      )}
+
+      {editingGearSetPresetProxy && (
+        <EditGearSetPreset
+          presetProxy={editingGearSetPresetProxy}
+          onFinish={() => {
+            setEditingGearSetPresetProxy(undefined);
           }}
         />
       )}
