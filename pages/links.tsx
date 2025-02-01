@@ -12,6 +12,8 @@ import {
 import Head from "next/head";
 import type { ReactNode } from "react";
 
+import { SectionTitle } from "../src/components/common/SectionTitle/SectionTitle";
+
 const links: {
   title: string;
   description: string;
@@ -61,7 +63,9 @@ export default function LinksPage() {
         <title>Useful Links | Tower of Fantasy Tools</title>
       </Head>
 
-      <Paper sx={{ p: 1 }}>
+      <Paper sx={{ p: 3 }}>
+        <SectionTitle sx={{ mb: 0 }}>Useful links</SectionTitle>
+
         <List>
           {links.map(({ title, description, href, icon }, index) => (
             <ListItemButton key={index} href={href} target="_blank">

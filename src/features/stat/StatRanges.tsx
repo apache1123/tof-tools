@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import BigNumber from "bignumber.js";
 
@@ -14,14 +13,14 @@ import {
   NumericStringInteger,
   NumericStringPercentage2dp,
 } from "../../components/common/NumericString/NumericString";
+import { SectionTitle } from "../../components/common/SectionTitle/SectionTitle";
 import { statTypesLookup } from "../../definitions/stat-types";
 
 export function StatRanges() {
   return (
     <Paper elevation={0} sx={{ p: 2 }}>
-      <Typography variant="h5" mb={2}>
-        Stat ranges
-      </Typography>
+      <SectionTitle>Stat ranges</SectionTitle>
+
       <TableContainer>
         <Table size="small" aria-label="stat-ranges-table">
           <TableHead>
