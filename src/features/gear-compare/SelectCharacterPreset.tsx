@@ -1,4 +1,3 @@
-import { Card } from "@mui/material";
 import { useProxy } from "valtio/utils";
 
 import { CharacterPresetSelector } from "../../components/character-preset/CharacterPresetSelector/CharacterPresetSelector";
@@ -25,14 +24,12 @@ export function SelectCharacterPreset({
   const selectedPreset = items.find((item) => item.id === characterPresetId);
 
   return (
-    <Card sx={{ p: 3 }}>
-      <CharacterPresetSelector
-        presets={items}
-        selectedPreset={selectedPreset}
-        onSelect={(preset) => {
-          $state.characterPresetId = preset.id;
-        }}
-      />
-    </Card>
+    <CharacterPresetSelector
+      presets={items}
+      selectedPreset={selectedPreset}
+      onSelect={(preset) => {
+        $state.characterPresetId = preset.id;
+      }}
+    />
   );
 }

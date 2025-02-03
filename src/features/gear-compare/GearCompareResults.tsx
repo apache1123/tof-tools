@@ -1,42 +1,46 @@
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useProxy } from "valtio/utils";
+import { useSnapshot } from "valtio";
 
 import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
+import type { CharacterData } from "../../models/character/character-data";
+import type { CharacterPreset } from "../../models/character/character-preset";
+import type { Gear } from "../../models/gear/gear";
+import type { GearSet } from "../../models/gear/gear-set";
 import { GearComparison } from "../../models/gear-compare/gear-comparison";
 import { Team } from "../../models/team/team";
+import type { TeamPreset } from "../../models/team/team-preset";
 import { Weapon } from "../../models/weapon/weapon";
-import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
-import { useSelectedCharacter } from "../character/useSelectedCharacter";
 
-// TODO: Naming?
-export function CompareGear() {
-  const $state = useProxy(gearCompareState);
+export interface GearCompareResultsProps {
+  characterData: CharacterData;
+  characterPresetProxy: CharacterPreset;
+  teamPresetProxy: TeamPreset;
+  gearSetProxy: GearSet;
+  currentGearProxy: Gear;
+  newGearProxy: Gear;
+}
 
-  const { characterDataProxy } = useSelectedCharacter();
-  if (!characterDataProxy) return "No character";
-
-  const characterPreset = $state.getCharacterPreset();
-
-  if (!characterPreset) return "No selected preset";
-
-  const { teamPreset, gearSetPreset, baseAttacks, critRateFlat } =
-    characterPreset;
-
-  if (!teamPreset) return "No team in preset";
-  if (!gearSetPreset) return "No gear set in preset";
-
-  const currentGear = $state.getCurrentGear();
-  if (!currentGear) return "No current gear";
-
-  const newGear = $state.getNewGear();
-  if (!newGear) return "No new gear";
+export function GearCompareResults({
+  characterData,
+  characterPresetProxy,
+  teamPresetProxy,
+  gearSetProxy,
+  currentGearProxy,
+  newGearProxy,
+}: GearCompareResultsProps) {
+  const { baseAttacks, critRateFlat } = useSnapshot(
+    characterPresetProxy,
+  ) as CharacterPreset;
+  const teamPreset = useSnapshot(teamPresetProxy);
+  const gearSet = useSnapshot(gearSetProxy) as GearSet;
+  const currentGear = useSnapshot(currentGearProxy) as Gear;
+  const newGear = useSnapshot(newGearProxy) as Gear;
 
   const mainWeaponPreset = teamPreset.getMainWeaponPreset();
-
   let mainWeapon: Weapon | undefined;
-  const team = new Team();
 
+  const team = new Team();
   teamPreset.getWeaponPresets().forEach((weaponPreset, i) => {
     if (i < Team.maxNumOfWeapons && weaponPreset) {
       const weapon = new Weapon(weaponPreset.definition);
@@ -53,13 +57,13 @@ export function CompareGear() {
   if (!mainWeapon) return "No main weapon";
 
   const gearComparison = new GearComparison(
-    characterDataProxy,
+    characterData,
     baseAttacks,
     critRateFlat,
     team,
     mainWeapon,
     undefined,
-    gearSetPreset.gearSet,
+    gearSet,
     currentGear,
     newGear,
   );
@@ -69,7 +73,7 @@ export function CompareGear() {
 
   return (
     <>
-      <Card sx={{ p: 3 }}>
+      <Paper sx={{ p: 3 }}>
         <Grid container spacing={2}>
           <Grid xs={12} md={6}>
             <Typography variant="h5" sx={{ mb: 2 }}>
@@ -96,7 +100,7 @@ export function CompareGear() {
             </Stack>
           </Grid>
         </Grid>
-      </Card>
+      </Paper>
       {currentGearResult.buffSummary && (
         <BuffSummary buffSummary={currentGearResult.buffSummary} />
       )}
