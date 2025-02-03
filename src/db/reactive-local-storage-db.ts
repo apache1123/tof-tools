@@ -9,7 +9,6 @@ import { GearSetPresetRepository } from "./repositories/gear/gear-set-preset-rep
 import { MatrixRepository } from "./repositories/matrix/matrix-repository";
 import { TeamPresetRepository } from "./repositories/team/team-preset-repository";
 import { WeaponPresetRepository } from "./repositories/weapon/weapon-preset-repository";
-import { WeaponRepository } from "./repositories/weapon/weapon-repository";
 import { StubRepository } from "./repository/stub-repository";
 import type { ReactiveRepository } from "./repository/types/reactive-repository";
 
@@ -23,7 +22,6 @@ export class ReactiveLocalStorageDb implements Db {
     gears: new StubRepository(),
     gearSetPresets: new StubRepository(),
     matrices: new StubRepository(),
-    weapons: new StubRepository(),
     weaponPresets: new StubRepository(),
     teamPresets: new StubRepository(),
     characterPresets: new StubRepository(),
@@ -68,8 +66,6 @@ export class ReactiveLocalStorageDb implements Db {
         return new GearSetPresetRepository(key, storage, this);
       case "matrices":
         return new MatrixRepository(key, storage, this);
-      case "weapons":
-        return new WeaponRepository(key, storage, this);
       case "weaponPresets":
         return new WeaponPresetRepository(key, storage, this);
       case "teamPresets":

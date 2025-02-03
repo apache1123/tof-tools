@@ -5,6 +5,7 @@ import { useProxy } from "valtio/utils";
 import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
 import { GearComparison } from "../../models/gear-compare/gear-comparison";
 import { Team } from "../../models/team/team";
+import { Weapon } from "../../models/weapon/weapon";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { useSelectedCharacter } from "../character/useSelectedCharacter";
 
@@ -25,18 +26,32 @@ export function CompareGear() {
   if (!teamPreset) return "No team in preset";
   if (!gearSetPreset) return "No gear set in preset";
 
-  const mainWeapon = teamPreset.getMainWeaponPreset()?.weapon;
-
-  if (!mainWeapon) return "No main weapon in preset";
-
   const currentGear = $state.getCurrentGear();
   if (!currentGear) return "No current gear";
 
   const newGear = $state.getNewGear();
   if (!newGear) return "No new gear";
 
+  const mainWeaponPreset = teamPreset.getMainWeaponPreset();
+
+  let mainWeapon: Weapon | undefined;
   const team = new Team();
-  team.applyPreset(teamPreset);
+
+  teamPreset.getWeaponPresets().forEach((weaponPreset, i) => {
+    if (i < Team.maxNumOfWeapons && weaponPreset) {
+      const weapon = new Weapon(weaponPreset.definition);
+      weapon.applyPreset(weaponPreset);
+
+      team.setWeapon(i, weapon);
+
+      if (weaponPreset === mainWeaponPreset) {
+        mainWeapon = weapon;
+      }
+    }
+  });
+
+  if (!mainWeapon) return "No main weapon";
+
   const gearComparison = new GearComparison(
     characterDataProxy,
     baseAttacks,

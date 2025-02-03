@@ -51,7 +51,8 @@ export function WeaponPresetSlotCard({
           {weaponPreset ? (
             <>
               <WeaponPresetCard
-                weapon={weaponPreset.weapon}
+                weaponDefinition={weaponPreset.definition}
+                stars={weaponPreset.stars}
                 matrixSlots={weaponPreset.matrixSlots.getSlots()}
                 onClick={onEdit}
                 elevation={1}

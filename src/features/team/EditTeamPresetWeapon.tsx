@@ -30,7 +30,7 @@ export function EditTeamPresetWeapon({
   onSetAsMain,
 }: EditTeamPresetWeaponProps) {
   const weaponPresets = useSnapshot(db.get("weaponPresets")).filter(
-    (weaponPreset) => weaponPreset.weapon.characterId === characterId,
+    (weaponPreset) => weaponPreset.characterId === characterId,
   );
 
   const [isAddingWeaponPreset, setIsAddingWeaponPreset] = useState(false);

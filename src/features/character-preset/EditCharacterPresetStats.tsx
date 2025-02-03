@@ -17,7 +17,7 @@ export function EditCharacterPresetStats({
 }: EditCharacterPresetStatsProps) {
   const { teamPreset, baseAttacks, critRateFlat } =
     useSnapshot(characterPresetProxy);
-  const mainWeapon = teamPreset?.getMainWeaponPreset()?.weapon;
+  const mainWeaponDefinition = teamPreset?.getMainWeaponPreset()?.definition;
 
   return (
     <Card sx={{ p: 2 }}>
@@ -25,16 +25,16 @@ export function EditCharacterPresetStats({
         Preset stats
       </Typography>
 
-      {mainWeapon ? (
+      {mainWeaponDefinition ? (
         <Stack sx={{ gap: 3 }}>
           <Box>
             <Typography>Using main weapon</Typography>
             <WeaponIcon
-              weaponName={mainWeapon.definitionId}
-              elementalIcon={mainWeapon.elementalIcon}
+              weaponName={mainWeaponDefinition.id}
+              elementalIcon={mainWeaponDefinition.elementalIcon}
             />
             <Stack direction="row" sx={{ gap: 0.5 }}>
-              {mainWeapon.gearCalculationElements.map((element) => (
+              {mainWeaponDefinition.gearResonanceElements.map((element) => (
                 <ElementalStyledText key={element} elementalType={element}>
                   {element}
                 </ElementalStyledText>
@@ -43,7 +43,7 @@ export function EditCharacterPresetStats({
           </Box>
 
           <Grid container spacing={2}>
-            {mainWeapon.gearCalculationElements.map((element) => (
+            {mainWeaponDefinition.gearResonanceElements.map((element) => (
               <Grid key={element} xs={12} sm={6} md={4} lg={3}>
                 <BaseAttackInput
                   element={element}

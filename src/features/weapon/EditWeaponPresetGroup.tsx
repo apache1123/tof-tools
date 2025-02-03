@@ -1,32 +1,33 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { useState } from "react";
-import { useSnapshot } from "valtio/index";
 
 import { Button } from "../../components/common/Button/Button";
 import { CardList } from "../../components/common/CardList/CardList";
 import { WeaponPresetCard } from "../../components/weapon/WeaponPresetCard/WeaponPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
+import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
-import type { Weapon } from "../../models/weapon/weapon";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { EditWeapon } from "./EditWeapon";
+import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { EditWeaponPreset } from "./EditWeaponPreset";
+import { EditWeaponPresetGroupCommon } from "./EditWeaponPresetGroupCommon";
 
-export interface EditWeaponAndPresetsProps {
-  weaponProxy: Weapon;
+export interface EditWeaponPresetGroupProps {
   characterId: CharacterId;
+  weaponDefinitionId: WeaponName;
 }
 
-export function EditWeaponAndPresets({
-  weaponProxy,
+/** Edit weapon presets with the same weapon definition id and belonging to the character */
+export function EditWeaponPresetGroup({
   characterId,
-}: EditWeaponAndPresetsProps) {
-  const weapon = useSnapshot(weaponProxy) as Weapon;
-
+  weaponDefinitionId,
+}: EditWeaponPresetGroupProps) {
   const weaponPresetRepo = db.get("weaponPresets");
+  const { items } = useItemsBelongingToCharacter(weaponPresetRepo, characterId);
 
-  const weaponPresets = useSnapshot(weaponPresetRepo).filter(
-    (weaponPreset) => weaponPreset.weapon.id === weaponProxy.id,
+  const weaponPresets = items.filter(
+    (weaponPreset) => weaponPreset.definition.id === weaponDefinitionId,
   );
 
   const [editingPresetProxy, setEditingPresetProxy] = useState<
@@ -34,10 +35,13 @@ export function EditWeaponAndPresets({
   >(undefined);
 
   return (
-    weaponProxy && (
+    !!weaponPresets.length && (
       <>
         <Box>
-          <EditWeapon weaponProxy={weaponProxy} />
+          <EditWeaponPresetGroupCommon
+            characterId={characterId}
+            weaponDefinitionId={weaponDefinitionId}
+          />
 
           <Divider sx={{ my: 3 }} />
 
@@ -48,7 +52,12 @@ export function EditWeaponAndPresets({
 
             <Button
               onClick={() => {
-                weaponPresetRepo.add(new WeaponPreset(weaponProxy));
+                weaponPresetRepo.add(
+                  new WeaponPreset(
+                    characterId,
+                    getWeaponDefinition(weaponDefinitionId),
+                  ),
+                );
               }}
               sx={{ mb: 1 }}
             >
@@ -60,7 +69,8 @@ export function EditWeaponAndPresets({
                 return (
                   <WeaponPresetCard
                     key={weaponPreset.id}
-                    weapon={weapon}
+                    weaponDefinition={weaponPreset.definition}
+                    stars={weaponPreset.stars}
                     matrixSlots={weaponPreset.matrixSlots.getSlots()}
                     onClick={() => {
                       const weaponPresetProxy = weaponPresetRepo.find(

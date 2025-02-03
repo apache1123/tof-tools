@@ -11,7 +11,7 @@ export class CharacterDataRepository extends ValtioRepository<
     removedItemId: Id,
   ): void {
     // Delete everything that belongs to the character
-    this.db.init(["gears", "gearSetPresets", "matrices", "weapons"]);
+    this.db.init(["gears", "gearSetPresets", "matrices", "weaponPresets"]);
 
     const gearRepository = this.db.get("gears");
     gearRepository.items.forEach((gear) => {
@@ -34,10 +34,10 @@ export class CharacterDataRepository extends ValtioRepository<
       }
     });
 
-    const weaponRepository = this.db.get("weapons");
-    weaponRepository.items.forEach((weapon) => {
-      if (weapon.characterId === removedItemId) {
-        weaponRepository.remove(weapon.id);
+    const weaponPresetRepository = this.db.get("weaponPresets");
+    weaponPresetRepository.items.forEach((weaponPreset) => {
+      if (weaponPreset.characterId === removedItemId) {
+        weaponPresetRepository.remove(weaponPreset.id);
       }
     });
 

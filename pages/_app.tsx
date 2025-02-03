@@ -43,7 +43,6 @@ export default function MyApp(props: MyAppProps) {
       "gears",
       "gearSetPresets",
       "matrices",
-      "weapons",
       "weaponPresets",
       "teamPresets",
       "characterPresets",

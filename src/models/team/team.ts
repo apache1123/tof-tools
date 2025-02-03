@@ -5,7 +5,6 @@ import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
 import type { Weapon } from "../weapon/weapon";
-import type { TeamPreset } from "./team-preset";
 
 export class Team {
   public constructor() {
@@ -36,7 +35,7 @@ export class Team {
 
   /** Returns all equipped weapon names */
   public getWeaponNames(): WeaponName[] {
-    return this.getEquippedWeapons().map((weapon) => weapon.definitionId);
+    return this.getEquippedWeapons().map((weapon) => weapon.id);
   }
 
   /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
@@ -65,21 +64,6 @@ export class Team {
       return "Balance";
 
     return "None";
-  }
-
-  public applyPreset(preset: TeamPreset) {
-    this.clearWeapons();
-
-    const weaponPresets = preset.getWeaponPresets();
-    for (let i = 0; i < preset.getWeaponPresets().length; i++) {
-      const weaponPreset = weaponPresets[i];
-
-      if (!weaponPreset) continue;
-
-      const weapon = weaponPreset.weapon;
-      weapon.applyPreset(weaponPreset);
-      this.setWeapon(i, weapon);
-    }
   }
 
   public getWeaponBuffDefinitions() {

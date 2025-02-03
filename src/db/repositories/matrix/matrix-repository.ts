@@ -8,15 +8,6 @@ export class MatrixRepository extends ValtioRepository<Matrix, MatrixDto> {
   protected override cleanUpRelatedEntitiesOnItemRemoval(
     removedItemId: Id,
   ): void {
-    // Remove the matrix from the weapon slots
-    this.db.get("weapons").items.forEach((weapon) => {
-      weapon.matrixSlots.getSlots().forEach((slot) => {
-        if (slot.matrix?.id === removedItemId) {
-          slot.matrix = undefined;
-        }
-      });
-    });
-
     // Remove the matrix from weapon presets
     this.db.get("weaponPresets").items.forEach((preset) => {
       preset.matrixSlots.getSlots().forEach((slot) => {

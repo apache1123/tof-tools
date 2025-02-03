@@ -14,7 +14,7 @@ import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { EditMatrix } from "../matrix/EditMatrix";
-import { EditWeapon } from "./EditWeapon";
+import { EditWeaponPresetGroupCommon } from "./EditWeaponPresetGroupCommon";
 
 export interface EditWeaponPresetProps {
   weaponPresetProxy: WeaponPreset;
@@ -27,7 +27,7 @@ export function EditWeaponPreset({
   characterId,
   onFinish,
 }: EditWeaponPresetProps) {
-  const weaponPreset = useSnapshot(weaponPresetProxy);
+  const weaponPreset = useSnapshot(weaponPresetProxy) as WeaponPreset;
   const { matrixSlots } = weaponPreset;
 
   const [addingMatrixTypeId, setAddingMatrixTypeId] = useState<
@@ -49,13 +49,10 @@ export function EditWeaponPreset({
         modalContent={
           <>
             <Stack sx={{ gap: 3 }}>
-              <Stack sx={{ gap: 1 }}>
-                <EditWeapon weaponProxy={weaponPresetProxy.weapon} />
-
-                <Alert severity="info">
-                  Weapon star changes will apply to all presets of this weapon
-                </Alert>
-              </Stack>
+              <EditWeaponPresetGroupCommon
+                characterId={characterId}
+                weaponDefinitionId={weaponPreset.definition.id}
+              />
 
               <CardList>
                 {matrixSlots.getSlots().map((slot) => (

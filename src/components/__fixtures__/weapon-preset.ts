@@ -1,15 +1,18 @@
+import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
+import { exampleCharacterId } from "./character";
 import { exampleMatrixSlots } from "./matrix-slot";
-import { exampleWeapon } from "./weapon";
 
 export const exampleWeaponPreset1 = new WeaponPreset(
-  exampleWeapon,
+  exampleCharacterId,
+  getWeaponDefinition("King"),
   "weaponPresetId",
   exampleMatrixSlots,
 );
 
 export const exampleWeaponPreset2 = new WeaponPreset(
-  exampleWeapon,
+  exampleCharacterId,
+  getWeaponDefinition("King"),
   "weaponPresetId2",
 );
 

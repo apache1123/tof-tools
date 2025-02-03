@@ -19,7 +19,8 @@ export function WeaponPresetSelector({
       {weaponPresets.map((weaponPreset) => (
         <WeaponPresetCard
           key={weaponPreset.id}
-          weapon={weaponPreset.weapon}
+          weaponDefinition={weaponPreset.definition}
+          stars={weaponPreset.stars}
           matrixSlots={weaponPreset.matrixSlots.getSlots()}
           onClick={() => onSelect(weaponPreset.id)}
         />

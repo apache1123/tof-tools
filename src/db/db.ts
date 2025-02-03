@@ -4,7 +4,6 @@ import type { Gear } from "../models/gear/gear";
 import type { GearSetPreset } from "../models/gear/gear-set-preset";
 import type { Matrix } from "../models/matrix/matrix";
 import type { TeamPreset } from "../models/team/team-preset";
-import type { Weapon } from "../models/weapon/weapon";
 import type { WeaponPreset } from "../models/weapon/weapon-preset";
 import type { Repository } from "./repository/types/repository";
 
@@ -13,7 +12,6 @@ export interface RepositoryMap {
   gears: Repository<Gear>;
   gearSetPresets: Repository<GearSetPreset>;
   matrices: Repository<Matrix>;
-  weapons: Repository<Weapon>;
   weaponPresets: Repository<WeaponPreset>;
   teamPresets: Repository<TeamPreset>;
   characterPresets: Repository<CharacterPreset>;

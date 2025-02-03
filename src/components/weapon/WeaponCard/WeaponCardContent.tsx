@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 
+import type { WeaponDefinition } from "../../../definitions/types/weapon/weapon-definition";
 import type { MatrixSlot } from "../../../models/matrix/matrix-slot";
-import type { Weapon } from "../../../models/weapon/weapon";
 import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { CardList } from "../../common/CardList/CardList";
@@ -12,33 +12,34 @@ import { WeaponStarsSelector } from "../WeaponStarsSelector/WeaponStarsSelector"
 export interface WeaponCardContentProps
   extends PropsWithElevation,
     PropsWithSx {
-  weapon: Weapon;
+  definition: WeaponDefinition;
+  stars: number;
   showWeaponDescription?: boolean;
   matrixSlots?: MatrixSlot[];
 }
 
 export function WeaponCardContent({
-  weapon,
+  definition,
+  stars,
   showWeaponDescription = true,
   matrixSlots,
   elevation,
   sx,
 }: WeaponCardContentProps) {
   const {
-    definitionId,
+    id,
     weaponDisplayName,
     simulacrumDisplayName,
     iconWeaponName,
     elementalIcon,
     type,
-    stars,
-  } = weapon;
+  } = definition;
 
   return (
     <Stack direction="column" sx={{ gap: 2, alignItems: "center", ...sx }}>
       <Stack>
         <WeaponDefinitionCardContent
-          id={definitionId}
+          id={id}
           weaponDisplayName={weaponDisplayName}
           simulacrumDisplayName={simulacrumDisplayName}
           iconWeaponName={iconWeaponName}

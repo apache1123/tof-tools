@@ -8,7 +8,7 @@ export interface WeaponCardProps extends WeaponCardContentProps, PropsWithSx {
   onClick?(): void;
 }
 
-export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
+export function WeaponCard({ sx, onClick, ...rest }: WeaponCardProps) {
   return (
     <Card sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
@@ -23,7 +23,7 @@ export function WeaponCard({ weapon, sx, onClick }: WeaponCardProps) {
         }}
       >
         <CardContent sx={{ p: 2, pt: 0 }}>
-          <WeaponCardContent weapon={weapon} />
+          <WeaponCardContent {...rest} />
         </CardContent>
       </CardActionArea>
     </Card>

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { exampleWeapon } from "../../__fixtures__/weapon";
 import { exampleWeaponPreset1 } from "../../__fixtures__/weapon-preset";
 import { WeaponPresetCard } from "./WeaponPresetCard";
 
@@ -12,9 +11,12 @@ const meta: Meta<typeof WeaponPresetCard> = {
 export default meta;
 type Story = StoryObj<typeof WeaponPresetCard>;
 
+const weaponPreset = exampleWeaponPreset1;
+
 export const Default: Story = {
   args: {
-    weapon: exampleWeapon,
-    matrixSlots: exampleWeaponPreset1.matrixSlots.getSlots(),
+    weaponDefinition: weaponPreset.definition,
+    stars: weaponPreset.stars,
+    matrixSlots: weaponPreset.matrixSlots.getSlots(),
   },
 };

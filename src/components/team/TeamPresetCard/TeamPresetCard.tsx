@@ -36,7 +36,8 @@ export function TeamPresetCard({ teamPreset, onClick }: TeamPresetCardProps) {
                   weaponPreset && (
                     <WeaponPresetCard
                       key={i}
-                      weapon={weaponPreset.weapon}
+                      weaponDefinition={weaponPreset.definition}
+                      stars={weaponPreset.stars}
                       matrixSlots={weaponPreset.matrixSlots.getSlots()}
                       elevation={1}
                     />

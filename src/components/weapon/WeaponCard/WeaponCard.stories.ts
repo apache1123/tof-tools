@@ -14,9 +14,13 @@ type Story = StoryObj<typeof WeaponCard>;
 const weapon = exampleWeapon;
 
 export const Default: Story = {
-  args: { weapon },
+  args: { definition: weapon.definition, stars: weapon.stars },
 };
 
 export const CustomWidth: Story = {
-  args: { weapon, sx: { width: 380 } },
+  args: {
+    definition: weapon.definition,
+    stars: weapon.stars,
+    sx: { width: 380 },
+  },
 };

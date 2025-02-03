@@ -15,13 +15,18 @@ const weapon = exampleWeapon;
 const matrixSlots = weapon.matrixSlots.getSlots();
 
 export const Default: Story = {
-  args: { weapon },
+  args: { definition: weapon.definition, stars: weapon.stars },
 };
 
 export const WithMatrixSlots: Story = {
-  args: { weapon, matrixSlots },
+  args: { definition: weapon.definition, stars: weapon.stars, matrixSlots },
 };
 
 export const WithoutWeaponDescription: Story = {
-  args: { weapon, matrixSlots, showWeaponDescription: false },
+  args: {
+    definition: weapon.definition,
+    stars: weapon.stars,
+    matrixSlots,
+    showWeaponDescription: false,
+  },
 };
