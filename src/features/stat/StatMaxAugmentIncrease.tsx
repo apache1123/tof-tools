@@ -5,7 +5,7 @@ import Image from "next/image";
 import { proxy, useSnapshot } from "valtio";
 
 import { NumericStringPercentage2dp } from "../../components/common/NumericString/NumericString";
-import { SectionTitle } from "../../components/common/SectionTitle/SectionTitle";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { statTypesLookup } from "../../definitions/stat-types";
 import { RandomStat } from "../../models/gear/random-stat";
 import type { StatType } from "../../models/gear/stat-type";
@@ -24,9 +24,9 @@ export function StatMaxAugmentIncrease() {
   return (
     <Paper elevation={0} sx={{ p: 2 }}>
       <Stack direction="row" spacing={1} alignItems="center" mb={2}>
-        <SectionTitle>
+        <SectionHeading>
           Calculate max augment(titan) increase for stat
-        </SectionTitle>
+        </SectionHeading>
         <Tooltip
           title={
             <Image

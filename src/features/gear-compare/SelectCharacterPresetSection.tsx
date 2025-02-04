@@ -1,6 +1,6 @@
 import { Paper } from "@mui/material";
 
-import { SectionTitle } from "../../components/common/SectionTitle/SectionTitle";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import type { CharacterId } from "../../models/character/character-data";
 import { SelectCharacterPreset } from "./SelectCharacterPreset";
 
@@ -13,7 +13,7 @@ export function SelectCharacterPresetSection({
 }: SelectCharacterPresetSectionProps) {
   return (
     <Paper sx={{ p: 3 }}>
-      <SectionTitle>Select preset</SectionTitle>
+      <SectionHeading>Select preset</SectionHeading>
 
       <SelectCharacterPreset characterId={characterId} />
     </Paper>

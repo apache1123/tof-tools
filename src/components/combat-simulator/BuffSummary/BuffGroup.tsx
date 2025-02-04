@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import type { PropsWithChildren } from "react";
 
 import type { WeaponElementalType } from "../../../definitions/elemental-type";
@@ -24,19 +24,17 @@ export function BuffGroup({
 }: BuffGroupProps) {
   return (
     <Box>
-      <Divider sx={{ mb: 1 }}>
-        <Typography fontWeight="bold">
-          {title}
-          {" : "}
-          <ElementalStyledText elementalType={element}>
-            {isPercentageValue ? (
-              <NumericStringPercentage2dp value={totalValue} />
-            ) : (
-              <NumericStringInteger value={totalValue} />
-            )}
-          </ElementalStyledText>
-        </Typography>
-      </Divider>
+      <Typography fontWeight="bold" sx={{ mb: 2 }}>
+        {title}
+        {" : "}
+        <ElementalStyledText elementalType={element}>
+          {isPercentageValue ? (
+            <NumericStringPercentage2dp value={totalValue} />
+          ) : (
+            <NumericStringInteger value={totalValue} />
+          )}
+        </ElementalStyledText>
+      </Typography>
 
       <Stack>{children}</Stack>
     </Box>

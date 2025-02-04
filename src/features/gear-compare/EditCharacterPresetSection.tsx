@@ -1,6 +1,6 @@
 import { Paper } from "@mui/material";
 
-import { SectionTitle } from "../../components/common/SectionTitle/SectionTitle";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import type { CharacterPreset } from "../../models/character/character-preset";
 import { EditCharacterPreset } from "../character-preset/EditCharacterPreset";
 
@@ -13,7 +13,7 @@ export function EditCharacterPresetSection({
 }: EditCharacterPresetSectionProps) {
   return (
     <Paper sx={{ p: 3 }}>
-      <SectionTitle>Edit preset</SectionTitle>
+      <SectionHeading>Edit preset</SectionHeading>
 
       <EditCharacterPreset
         characterPresetProxy={selectedCharacterPresetProxy}

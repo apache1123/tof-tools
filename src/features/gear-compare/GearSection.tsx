@@ -1,8 +1,10 @@
-import { Alert, Paper, Stack, Typography } from "@mui/material";
+import { Alert, Box, Paper, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useProxy } from "valtio/utils";
 
 import { Button } from "../../components/common/Button/Button";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
+import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
@@ -27,15 +29,17 @@ export function GearSection({
 
   return (
     <Paper sx={{ p: 3 }}>
+      <SectionHeading>Select gear to compare</SectionHeading>
+
       <Stack sx={{ gap: 3 }}>
         <SelectGearType />
 
         {gearTypeId && (
           <Grid container spacing={2}>
             <Grid xs={12} md={6}>
-              <Typography variant="h5" sx={{ mb: 2 }}>
-                Current gear in preset
-              </Typography>
+              <Box sx={{ height: 40 }}>
+                <SectionSubheading>Current gear in preset</SectionSubheading>
+              </Box>
 
               {currentGearProxy ? (
                 <CurrentGear gearProxy={currentGearProxy} />
@@ -47,11 +51,12 @@ export function GearSection({
             <Grid xs={12} md={6}>
               <Stack
                 direction="row"
-                sx={{ mb: 2, gap: 1, alignItems: "center" }}
+                sx={{ height: 40, gap: 1, alignItems: "start" }}
               >
-                <Typography variant="h5">New gear to compare</Typography>
+                <SectionSubheading>New gear to compare</SectionSubheading>
                 {newGearProxy && (
                   <Button
+                    buttonProps={{ size: "small" }}
                     onClick={() => {
                       $state.newGearId = undefined;
                     }}

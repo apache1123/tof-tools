@@ -1,7 +1,7 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { type ChangeEvent, useState } from "react";
 
-import { SectionTitle } from "../../components/common/SectionTitle/SectionTitle";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { useAutoHideSnackbar } from "../../components/common/Snackbar/useAutoHideSnackbar";
 import { localStoragePersistenceState } from "../../states/hooks/useLocalStoragePersistence";
 import type { StateMigrationsState } from "../../states/migrations/state-migrations-state";
@@ -13,7 +13,7 @@ export function TransferAppData() {
 
   return (
     <Paper elevation={0} sx={{ p: 2 }}>
-      <SectionTitle>Export/Import app data</SectionTitle>
+      <SectionHeading>Export/Import app data</SectionHeading>
 
       <Stack direction="row" spacing={1} alignItems="center">
         <ExportAppData />

@@ -3,7 +3,7 @@ import { proxy, useSnapshot } from "valtio";
 
 import { NumericInput } from "../../components/common/NumericInput/NumericInput";
 import { NumericStringPercentage2dp } from "../../components/common/NumericString/NumericString";
-import { SectionTitle } from "../../components/common/SectionTitle/SectionTitle";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { maxCharacterLevel } from "../../definitions/character-level";
 import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-utils";
 
@@ -22,7 +22,7 @@ export function CritFlatToPercent() {
 
   return (
     <Paper elevation={0} sx={{ p: 2 }}>
-      <SectionTitle>Calculate crit rate % from crit</SectionTitle>
+      <SectionHeading>Calculate crit rate % from crit</SectionHeading>
 
       <Stack spacing={2}>
         <Stack direction="row" spacing={2}>

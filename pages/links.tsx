@@ -12,7 +12,7 @@ import {
 import Head from "next/head";
 import type { ReactNode } from "react";
 
-import { SectionTitle } from "../src/components/common/SectionTitle/SectionTitle";
+import { SectionHeading } from "../src/components/common/SectionHeading/SectionHeading";
 
 const links: {
   title: string;
@@ -64,7 +64,7 @@ export default function LinksPage() {
       </Head>
 
       <Paper sx={{ p: 3 }}>
-        <SectionTitle sx={{ mb: 0 }}>Useful links</SectionTitle>
+        <SectionHeading sx={{ mb: 0 }}>Useful links</SectionHeading>
 
         <List>
           {links.map(({ title, description, href, icon }, index) => (

@@ -1,8 +1,14 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
 import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
+import {
+  NumericStringInteger,
+  NumericStringPercentage2dp,
+} from "../../components/common/NumericString/NumericString";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
+import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
 import type { CharacterData } from "../../models/character/character-data";
 import type { CharacterPreset } from "../../models/character/character-preset";
 import type { Gear } from "../../models/gear/gear";
@@ -74,33 +80,47 @@ export function GearCompareResults({
   return (
     <>
       <Paper sx={{ p: 3 }}>
+        <SectionHeading>Results</SectionHeading>
+
         <Grid container spacing={2}>
           <Grid xs={12} md={6}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Current gear
-            </Typography>
+            <SectionSubheading>Current gear</SectionSubheading>
             <Stack spacing={2}>
-              <Box>Value: {currentGearResult.gearValue}</Box>
+              <Box>
+                Value:{" "}
+                <NumericStringPercentage2dp
+                  value={currentGearResult.gearValue}
+                />
+              </Box>
               <Box>
                 Damage:{" "}
-                {currentGearResult.damageSummary.totalDamage.finalDamage}
+                <NumericStringInteger
+                  value={
+                    currentGearResult.damageSummary.totalDamage.finalDamage
+                  }
+                />
               </Box>
             </Stack>
           </Grid>
 
           <Grid xs={12} md={6}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              New gear
-            </Typography>
+            <SectionSubheading>New gear</SectionSubheading>
             <Stack spacing={2}>
-              <Box>Value: {newGearResult.gearValue}</Box>
               <Box>
-                Damage: {newGearResult.damageSummary.totalDamage.finalDamage}
+                Value:{" "}
+                <NumericStringPercentage2dp value={newGearResult.gearValue} />
+              </Box>
+              <Box>
+                Damage:{" "}
+                <NumericStringInteger
+                  value={newGearResult.damageSummary.totalDamage.finalDamage}
+                />
               </Box>
             </Stack>
           </Grid>
         </Grid>
       </Paper>
+
       {currentGearResult.buffSummary && (
         <BuffSummary buffSummary={currentGearResult.buffSummary} />
       )}

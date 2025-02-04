@@ -13,13 +13,13 @@ import {
   NumericStringInteger,
   NumericStringPercentage2dp,
 } from "../../components/common/NumericString/NumericString";
-import { SectionTitle } from "../../components/common/SectionTitle/SectionTitle";
+import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { statTypesLookup } from "../../definitions/stat-types";
 
 export function StatRanges() {
   return (
     <Paper elevation={0} sx={{ p: 2 }}>
-      <SectionTitle>Stat ranges</SectionTitle>
+      <SectionHeading>Stat ranges</SectionHeading>
 
       <TableContainer>
         <Table size="small" aria-label="stat-ranges-table">

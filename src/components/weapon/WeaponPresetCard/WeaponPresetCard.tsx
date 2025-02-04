@@ -40,7 +40,7 @@ export function WeaponPresetCard({
             definition={weaponDefinition}
             stars={stars}
             matrixSlots={matrixSlots}
-            showWeaponDescription={false}
+            showWeaponDescription={true}
             elevation={elevation}
           />
         </Stack>
