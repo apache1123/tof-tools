@@ -1,4 +1,4 @@
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
@@ -19,55 +19,47 @@ export function EditCharacterPresetStats({
     useSnapshot(characterPresetProxy);
   const mainWeaponDefinition = teamPreset?.getMainWeaponPreset()?.definition;
 
-  return (
-    <Card sx={{ p: 2 }}>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        Preset stats
-      </Typography>
-
-      {mainWeaponDefinition ? (
-        <Stack sx={{ gap: 3 }}>
-          <Box>
-            <Typography>Using main weapon</Typography>
-            <WeaponIcon
-              weaponName={mainWeaponDefinition.id}
-              elementalIcon={mainWeaponDefinition.elementalIcon}
-            />
-            <Stack direction="row" sx={{ gap: 0.5 }}>
-              {mainWeaponDefinition.gearResonanceElements.map((element) => (
-                <ElementalStyledText key={element} elementalType={element}>
-                  {element}
-                </ElementalStyledText>
-              ))}
-            </Stack>
-          </Box>
-
-          <Grid container spacing={2}>
-            {mainWeaponDefinition.gearResonanceElements.map((element) => (
-              <Grid key={element} xs={12} sm={6} md={4} lg={3}>
-                <BaseAttackInput
-                  element={element}
-                  value={baseAttacks.get(element)}
-                  onChange={(value) => {
-                    characterPresetProxy.baseAttacks.set(element, value);
-                  }}
-                />
-              </Grid>
-            ))}
-
-            <Grid xs={12} sm={6} md={4} lg={3}>
-              <CritRateFlatInput
-                value={critRateFlat}
-                onChange={(value) => {
-                  characterPresetProxy.critRateFlat = value;
-                }}
-              />
-            </Grid>
-          </Grid>
+  return mainWeaponDefinition ? (
+    <Stack sx={{ gap: 3 }}>
+      <Box>
+        <Typography>Using main weapon</Typography>
+        <WeaponIcon
+          weaponName={mainWeaponDefinition.id}
+          elementalIcon={mainWeaponDefinition.elementalIcon}
+        />
+        <Stack direction="row" sx={{ gap: 0.5 }}>
+          {mainWeaponDefinition.gearResonanceElements.map((element) => (
+            <ElementalStyledText key={element} elementalType={element}>
+              {element}
+            </ElementalStyledText>
+          ))}
         </Stack>
-      ) : (
-        <Typography>No main weapon</Typography>
-      )}
-    </Card>
+      </Box>
+
+      <Grid container spacing={2}>
+        {mainWeaponDefinition.gearResonanceElements.map((element) => (
+          <Grid key={element} xs={12} sm={6} md={4} lg={3}>
+            <BaseAttackInput
+              element={element}
+              value={baseAttacks.get(element)}
+              onChange={(value) => {
+                characterPresetProxy.baseAttacks.set(element, value);
+              }}
+            />
+          </Grid>
+        ))}
+
+        <Grid xs={12} sm={6} md={4} lg={3}>
+          <CritRateFlatInput
+            value={critRateFlat}
+            onChange={(value) => {
+              characterPresetProxy.critRateFlat = value;
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Stack>
+  ) : (
+    <Typography>No main weapon</Typography>
   );
 }

@@ -1,4 +1,12 @@
-import { Stack, TextField, Typography } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
@@ -44,84 +52,139 @@ export function EditCharacterPreset({
 
   return (
     <>
-      <Stack sx={{ gap: 4 }}>
-        <TextField
-          label="Preset name"
-          value={name}
-          onChange={(e) => {
-            characterPresetProxy.name = e.target.value;
-          }}
-        />
+      <TextField
+        label="Preset name"
+        value={name}
+        onChange={(e) => {
+          characterPresetProxy.name = e.target.value;
+        }}
+        fullWidth
+        sx={{ mb: 2 }}
+      />
 
-        <Stack sx={{ gap: 1 }}>
-          <Stack direction="row" sx={{ gap: 1 }}>
-            <Typography variant="h5">Team</Typography>
-            <Button
-              onClick={() => {
-                setIsSelectingTeamPreset(true);
-              }}
-            >
-              Select
-            </Button>
-            <Button
-              buttonProps={{ color: "error" }}
-              onClick={() => {
-                characterPresetProxy.teamPreset = undefined;
-              }}
-            >
-              Remove
-            </Button>
+      <Accordion defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
+            <Typography variant="h6">Team</Typography>
+
+            {!teamPreset && (
+              <Typography
+                sx={{
+                  fontStyle: "italic",
+                  color: (theme) => theme.palette.error.main,
+                }}
+              >
+                No team preset selected
+              </Typography>
+            )}
           </Stack>
+        </AccordionSummary>
 
-          {teamPreset && characterPresetProxy.teamPreset ? (
-            <ViewAndEditTeamPreset
-              teamPresetProxy={characterPresetProxy.teamPreset}
-            />
-          ) : (
-            <Typography sx={{ fontStyle: "italic" }}>
-              No team preset selected
-            </Typography>
-          )}
-        </Stack>
+        <AccordionDetails>
+          <Stack sx={{ gap: 1 }}>
+            <Stack direction="row" sx={{ gap: 1 }}>
+              <Button
+                onClick={() => {
+                  setIsSelectingTeamPreset(true);
+                }}
+              >
+                Select
+              </Button>
+              <Button
+                buttonProps={{ color: "error" }}
+                onClick={() => {
+                  characterPresetProxy.teamPreset = undefined;
+                }}
+              >
+                Remove
+              </Button>
+            </Stack>
 
-        <Stack sx={{ gap: 1 }}>
-          <Stack direction="row" sx={{ gap: 1 }}>
-            <Typography variant="h5">Gear preset</Typography>
-            <Button
-              onClick={() => {
-                setIsSelectingGearSetPreset(true);
-              }}
-            >
-              Select
-            </Button>
-            <Button
-              buttonProps={{ color: "error" }}
-              onClick={() => {
-                characterPresetProxy.gearSetPreset = undefined;
-              }}
-            >
-              Remove
-            </Button>
+            {teamPreset && characterPresetProxy.teamPreset && (
+              <ViewAndEditTeamPreset
+                teamPresetProxy={characterPresetProxy.teamPreset}
+              />
+            )}
           </Stack>
+        </AccordionDetails>
+      </Accordion>
 
-          {gearSetPreset ? (
-            <GearSetPresetSummaryCard
-              preset={gearSetPreset}
-              onClick={() => {
-                setEditingGearSetPresetProxy(
-                  characterPresetProxy.gearSetPreset,
-                );
-              }}
-            />
-          ) : (
-            <Typography sx={{ fontStyle: "italic" }}>
-              No gear preset selected
-            </Typography>
-          )}
-        </Stack>
+      <Accordion defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
+            <Typography variant="h6">Gear preset</Typography>
 
-        <EditCharacterPresetStats characterPresetProxy={characterPresetProxy} />
-      </Stack>
+            {!gearSetPreset && (
+              <Typography
+                sx={{
+                  fontStyle: "italic",
+                  color: (theme) => theme.palette.error.main,
+                }}
+              >
+                No gear preset selected
+              </Typography>
+            )}
+          </Stack>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <Stack sx={{ gap: 1 }}>
+            <Stack direction="row" sx={{ gap: 1 }}>
+              <Button
+                onClick={() => {
+                  setIsSelectingGearSetPreset(true);
+                }}
+              >
+                Select
+              </Button>
+              <Button
+                buttonProps={{ color: "error" }}
+                onClick={() => {
+                  characterPresetProxy.gearSetPreset = undefined;
+                }}
+              >
+                Remove
+              </Button>
+            </Stack>
+
+            {gearSetPreset && (
+              <GearSetPresetSummaryCard
+                preset={gearSetPreset}
+                onClick={() => {
+                  setEditingGearSetPresetProxy(
+                    characterPresetProxy.gearSetPreset,
+                  );
+                }}
+              />
+            )}
+          </Stack>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
+            <Typography variant="h6">Preset stats</Typography>
+
+            {!teamPreset && (
+              <Typography
+                sx={{
+                  fontStyle: "italic",
+                  color: (theme) => theme.palette.error.main,
+                }}
+              >
+                No team preset selected
+              </Typography>
+            )}
+          </Stack>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <EditCharacterPresetStats
+            characterPresetProxy={characterPresetProxy}
+          />
+        </AccordionDetails>
+      </Accordion>
 
       {isSelectingTeamPreset && (
         <StyledModal
