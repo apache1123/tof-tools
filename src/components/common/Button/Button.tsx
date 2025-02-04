@@ -3,7 +3,7 @@ import type {
   IconButtonProps,
 } from "@mui/material";
 import { Button as MuiButton, IconButton, Tooltip } from "@mui/material";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { MouseEventHandler, PropsWithChildren, ReactNode } from "react";
 
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 
@@ -26,9 +26,10 @@ export function Button({
   onClick,
   sx,
 }: ButtonProps) {
-  function handleClick() {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
     onClick?.();
-  }
+  };
 
   return iconButton && icon ? (
     <Tooltip title={children} placement="right">
