@@ -34,7 +34,10 @@ export function GearCompare({ characterId, characterData }: GearCompareProps) {
 
   return (
     <Stack sx={{ gap: 2 }}>
-      <CharacterPresetSection characterId={characterId} />
+      <CharacterPresetSection
+        characterId={characterId}
+        selectedCharacterPresetProxy={characterPresetProxy}
+      />
 
       {characterPresetProxy && currentGearProxy && newGearProxy && (
         <>

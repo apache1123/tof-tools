@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import { useSelectedCharacter } from "../src/features/character/useSelectedCharacter";
-import { Teams } from "../src/features/team/Teams";
+import { TeamPresets } from "../src/features/team/TeamPresets";
 
 export default function TeamsPage() {
   const { characterId } = useSelectedCharacter();
@@ -12,7 +12,7 @@ export default function TeamsPage() {
         <title>Teams | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterId && <Teams characterId={characterId} />}
+      {characterId && <TeamPresets characterId={characterId} />}
     </>
   );
 }
