@@ -15,8 +15,8 @@ import { SelectNewGear } from "./SelectNewGear";
 
 export interface GearSectionProps {
   characterId: CharacterId;
-  currentGearProxy: Gear;
-  newGearProxy: Gear;
+  currentGearProxy: Gear | undefined;
+  newGearProxy: Gear | undefined;
 }
 
 export function GearSection({

@@ -43,7 +43,7 @@ export function GearCompare({ characterId, characterData }: GearCompareProps) {
         />
       )}
 
-      {characterPresetProxy && currentGearProxy && newGearProxy && (
+      {characterPresetProxy && (
         <>
           <GearSection
             characterId={characterId}
@@ -51,7 +51,9 @@ export function GearCompare({ characterId, characterData }: GearCompareProps) {
             newGearProxy={newGearProxy}
           />
           {characterPresetProxy.teamPreset &&
-            characterPresetProxy.gearSetPreset?.gearSet && (
+            characterPresetProxy.gearSetPreset?.gearSet &&
+            currentGearProxy &&
+            newGearProxy && (
               <GearCompareResults
                 characterData={characterData}
                 characterPresetProxy={characterPresetProxy}
