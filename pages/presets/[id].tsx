@@ -31,6 +31,13 @@ function CharacterPresetPage({
   ).itemProxies.find((item) => item.id === id);
 
   return (
-    presetProxy && <EditCharacterPreset characterPresetProxy={presetProxy} />
+    presetProxy && (
+      <EditCharacterPreset
+        characterPresetProxy={presetProxy}
+        expandTeam
+        expandGearSet
+        expandStats
+      />
+    )
   );
 }

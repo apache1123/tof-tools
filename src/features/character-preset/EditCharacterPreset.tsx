@@ -25,10 +25,16 @@ import { EditCharacterPresetStats } from "./EditCharacterPresetStats";
 
 export interface EditCharacterPresetProps {
   characterPresetProxy: CharacterPreset;
+  expandTeam?: boolean;
+  expandGearSet?: boolean;
+  expandStats?: boolean;
 }
 
 export function EditCharacterPreset({
   characterPresetProxy,
+  expandTeam,
+  expandGearSet,
+  expandStats,
 }: EditCharacterPresetProps) {
   const { characterId, name, teamPreset, gearSetPreset } = useSnapshot(
     characterPresetProxy,
@@ -62,7 +68,7 @@ export function EditCharacterPreset({
         sx={{ mb: 2 }}
       />
 
-      <Accordion defaultExpanded>
+      <Accordion defaultExpanded={expandTeam}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
             <Typography variant="h6">Team</Typography>
@@ -109,7 +115,7 @@ export function EditCharacterPreset({
         </AccordionDetails>
       </Accordion>
 
-      <Accordion defaultExpanded>
+      <Accordion defaultExpanded={expandGearSet}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
             <Typography variant="h6">Gear preset</Typography>
@@ -161,7 +167,7 @@ export function EditCharacterPreset({
         </AccordionDetails>
       </Accordion>
 
-      <Accordion defaultExpanded>
+      <Accordion defaultExpanded={expandStats}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
             <Typography variant="h6">Preset stats</Typography>

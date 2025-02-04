@@ -7,9 +7,10 @@ import type {
   CharacterId,
 } from "../../models/character/character-data";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
-import { CharacterPresetSection } from "./CharacterPresetSection";
+import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 import { GearCompareResults } from "./GearCompareResults";
 import { GearSection } from "./GearSection";
+import { SelectCharacterPresetSection } from "./SelectCharacterPresetSection";
 
 export interface GearCompareProps {
   characterId: CharacterId;
@@ -34,10 +35,13 @@ export function GearCompare({ characterId, characterData }: GearCompareProps) {
 
   return (
     <Stack sx={{ gap: 2 }}>
-      <CharacterPresetSection
-        characterId={characterId}
-        selectedCharacterPresetProxy={characterPresetProxy}
-      />
+      <SelectCharacterPresetSection characterId={characterId} />
+
+      {characterPresetProxy && (
+        <EditCharacterPresetSection
+          selectedCharacterPresetProxy={characterPresetProxy}
+        />
+      )}
 
       {characterPresetProxy && currentGearProxy && newGearProxy && (
         <>
