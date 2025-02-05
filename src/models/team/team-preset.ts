@@ -24,6 +24,13 @@ export class TeamPreset {
   public name: string;
   private readonly weaponPresets: (WeaponPreset | undefined)[];
 
+  /** Has at least one weapon preset */
+  public get hasWeaponPresets() {
+    return this.weaponPresets.some(
+      (weaponPreset) => weaponPreset !== undefined,
+    );
+  }
+
   /** The selected weapon presets. The first weapon preset is the main weapon. */
   public getWeaponPresets(): ReadonlyArray<WeaponPreset | undefined> {
     return this.weaponPresets;

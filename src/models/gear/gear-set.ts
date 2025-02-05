@@ -37,6 +37,11 @@ export class GearSet {
   public readonly id: GearSetId;
   private readonly slots: Record<GearTypeId, GearSlot>;
 
+  /** Returns true if the gear set has any gear. */
+  public get hasGear() {
+    return this.getSlots().some((slot) => !!slot.gear);
+  }
+
   public static createCopy(gearSet: GearSet): GearSet {
     const copy = new GearSet();
 

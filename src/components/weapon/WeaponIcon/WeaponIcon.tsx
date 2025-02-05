@@ -11,6 +11,8 @@ import { WeaponTypeIcon } from "../WeaponTypeIcon/WeaponTypeIcon";
 
 export interface WeaponIconProps {
   weaponName: WeaponName | undefined;
+  /** Optional. The weapon's icon will be inferred from the id/weapon name if not provided. This is used when the weapon has a different id than the icon name, e.g. id="Nola (Altered)", id="Nola (Frost)", etc. all use "Nola" icon */
+  iconWeaponName: WeaponName | undefined;
   size?: number;
   /** If defined, will overlay the elemental type icon on top of the weapon icon */
   elementalIcon?: FusionWeaponElementalType;
@@ -20,12 +22,13 @@ export interface WeaponIconProps {
 
 export const WeaponIcon = ({
   weaponName,
+  iconWeaponName,
   size = 100,
   elementalIcon,
   weaponType,
 }: WeaponIconProps) => {
   if (weaponName) {
-    const imageName = normalCaseToKebabCase(weaponName);
+    const imageName = normalCaseToKebabCase(iconWeaponName ?? weaponName);
     const imagePath = `/icons/weapons/${imageName}.png`;
 
     return (

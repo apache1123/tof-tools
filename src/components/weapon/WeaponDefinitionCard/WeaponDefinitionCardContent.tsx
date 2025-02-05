@@ -30,7 +30,11 @@ export function WeaponDefinitionCardContent({
 }: WeaponDefinitionCardContentProps) {
   return (
     <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
-      <WeaponIcon weaponName={iconWeaponName ?? id} size={iconSize} />
+      <WeaponIcon
+        weaponName={id}
+        iconWeaponName={iconWeaponName}
+        size={iconSize}
+      />
 
       {showWeaponDescription && (
         <Stack sx={{ pr: 2 }}>

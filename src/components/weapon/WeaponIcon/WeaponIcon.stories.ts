@@ -12,7 +12,17 @@ type Story = StoryObj<typeof WeaponIcon>;
 
 export const Initial: Story = {
   args: {
-    weaponName: "Nola",
+    weaponName: "King",
+    size: 100,
+    elementalIcon: "Flame-Physical",
+    weaponType: "DPS",
+  },
+};
+
+export const NolaShouldUseBaseNolaIcon: Story = {
+  args: {
+    weaponName: "Nola (Flame-Physical)",
+    iconWeaponName: "Nola",
     size: 100,
     elementalIcon: "Flame-Physical",
     weaponType: "DPS",

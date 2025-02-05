@@ -25,7 +25,7 @@ export interface WeaponDefinition {
   simulacrumDisplayName: string;
   /** The actual name of the weapon, e.g. Shadoweave for Lin */
   weaponDisplayName: string;
-  /** Optional. The weapon's icon will be inferred from the id if not provided */
+  /** Optional. The weapon's icon will be inferred from the id if not provided. This is used when the weapon has a different id than the icon name, e.g. id="Nola (Altered)", id="Nola (Frost)", etc. all use "Nola" icon */
   iconWeaponName?: WeaponName;
   /** For displaying the weapon's elemental type icon */
   elementalIcon: FusionWeaponElementalType;

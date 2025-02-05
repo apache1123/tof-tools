@@ -2,7 +2,7 @@ import { Paper } from "@mui/material";
 
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import type { CharacterPreset } from "../../models/character/character-preset";
-import { EditCharacterPreset } from "../character-preset/EditCharacterPreset";
+import { EditCharacterPreset } from "../character-preset/EditCharacterPreset/EditCharacterPreset";
 
 export interface EditCharacterPresetSectionProps {
   selectedCharacterPresetProxy: CharacterPreset;
