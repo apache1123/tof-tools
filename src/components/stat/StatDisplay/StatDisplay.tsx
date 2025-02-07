@@ -3,8 +3,8 @@ import { Stack, Typography } from "@mui/material";
 import type { StatTypeElementalType } from "../../../definitions/elemental-type";
 import type { StatRole } from "../../../definitions/stat-types";
 import {
+  toSignedIntegerString,
   toSignedPercentageString1dp,
-  toSignedString,
 } from "../../../utils/number-utils";
 import { StatTypeIcon } from "../StatTypeIcon/StatTypeIcon";
 
@@ -42,7 +42,7 @@ export function StatDisplay({
       <Typography variant="inherit">
         {isPercentageBased
           ? toSignedPercentageString1dp(value)
-          : toSignedString(value)}
+          : toSignedIntegerString(value)}
       </Typography>
     </Stack>
   );

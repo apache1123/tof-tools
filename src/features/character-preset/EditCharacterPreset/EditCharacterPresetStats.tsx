@@ -1,4 +1,3 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -34,7 +33,7 @@ export function EditCharacterPresetStats({
 
   return (
     <Accordion defaultExpanded={expand}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary>
         <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
           <Typography variant="h6">Preset stats</Typography>
 

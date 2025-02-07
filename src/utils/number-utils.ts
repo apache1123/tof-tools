@@ -23,9 +23,10 @@ export function toIntegerString(number: number) {
   });
 }
 
-export function toSignedString(number: number) {
+export function toSignedIntegerString(number: number) {
   return number.toLocaleString(undefined, {
     signDisplay: "always",
+    maximumFractionDigits: 0,
   });
 }
 

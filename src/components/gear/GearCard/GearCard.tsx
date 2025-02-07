@@ -3,6 +3,7 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Divider,
   Stack,
   Typography,
 } from "@mui/material";
@@ -20,7 +21,7 @@ export interface GearCardProps extends PropsWithSx, PropsWithElevation {
 }
 
 export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
-  const { type, rarity, randomStats } = gear;
+  const { type, rarity, randomStats, augmentStats } = gear;
 
   return (
     <Card elevation={elevation} sx={{ width: 190, ...sx }}>
@@ -66,6 +67,34 @@ export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
                 </Typography>
               )}
             </Box>
+
+            {/* Augment stats */}
+            {(rarity === "Augmented" || rarity === "Titan") && (
+              <>
+                <Divider />
+                <Box sx={{ p: 1 }}>
+                  {augmentStats.length ? (
+                    <Stack spacing={1}>
+                      <>
+                        {augmentStats.map(
+                          (augmentStats, i) =>
+                            augmentStats && (
+                              <RandomStatDisplay
+                                key={i}
+                                randomStat={augmentStats}
+                              />
+                            ),
+                        )}
+                      </>
+                    </Stack>
+                  ) : (
+                    <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                      No augment stats
+                    </Typography>
+                  )}
+                </Box>
+              </>
+            )}
           </Stack>
         </CardContent>
       </CardActionArea>

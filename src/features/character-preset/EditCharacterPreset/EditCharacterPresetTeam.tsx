@@ -1,4 +1,3 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -42,7 +41,7 @@ export function EditCharacterPresetTeam({
   return (
     <>
       <Accordion defaultExpanded={expand}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary>
           <Stack direction="row" sx={{ gap: 1, alignItems: "center" }}>
             <Typography variant="h6">Team</Typography>
 

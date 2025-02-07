@@ -10,7 +10,7 @@ export interface CurrentGearProps {
 export function CurrentGear({ gearProxy }: CurrentGearProps) {
   return (
     <Card elevation={1} sx={{ p: 2 }}>
-      <EditGearInline gearProxy={gearProxy} />
+      <EditGearInline gearProxy={gearProxy} elevation={1} />
     </Card>
   );
 }

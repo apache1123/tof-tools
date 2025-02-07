@@ -1,4 +1,5 @@
 import { flavors } from "@catppuccin/palette";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { pink } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 import { Roboto } from "next/font/google";
@@ -31,7 +32,7 @@ let theme = createTheme({
       white: colors.text.hex,
       black: colors.mantle.hex,
     },
-    divider: colors.surface0.hex,
+    divider: colors.overlay0.hex,
   },
   shape: {
     borderRadius: 8,
@@ -71,6 +72,11 @@ let theme = createTheme({
         paper: {
           background: colors.mantle.hex,
         },
+      },
+    },
+    MuiAccordionSummary: {
+      defaultProps: {
+        expandIcon: <ExpandMoreIcon />,
       },
     },
   },

@@ -1,6 +1,12 @@
-import { Stack } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Stack,
+} from "@mui/material";
 import { useSnapshot } from "valtio";
 
+import type { PropsWithElevation } from "../../components/__helpers__/props-with-elevation";
 import { GearRarityToggle } from "../../components/gear/GearRarityToggle/GearRarityToggle";
 import { GearStars } from "../../components/gear/GearStars/GearStars";
 import { GearTypeIcon } from "../../components/gear/GearTypeIcon/GearTypeIcon";
@@ -9,8 +15,9 @@ import { statTypesLookup } from "../../definitions/stat-types";
 import type { Gear } from "../../models/gear/gear";
 import { RandomStat } from "../../models/gear/random-stat";
 import { EmptyStatEditor, StatEditor } from "../stat/StatEditor";
+import { MaxTitanGearPreview } from "./MaxTitanGearPreview";
 
-export interface EditGearInlineProps {
+export interface EditGearInlineProps extends PropsWithElevation {
   gearProxy: Gear;
 }
 
@@ -18,7 +25,7 @@ const possibleStatTypes = statTypesLookup.allIds.map(
   (statTypeId) => statTypesLookup.byId[statTypeId],
 );
 
-export function EditGearInline({ gearProxy }: EditGearInlineProps) {
+export function EditGearInline({ gearProxy, elevation }: EditGearInlineProps) {
   const gear = useSnapshot(gearProxy) as Gear;
   const { type, rarity } = gear;
 
@@ -65,6 +72,13 @@ export function EditGearInline({ gearProxy }: EditGearInlineProps) {
           );
         })}
       </Stack>
+
+      <Accordion elevation={(elevation ?? 0) + 1}>
+        <AccordionSummary>Max titan preview</AccordionSummary>
+        <AccordionDetails>
+          <MaxTitanGearPreview gear={gear} elevation={(elevation ?? 0) + 2} />
+        </AccordionDetails>
+      </Accordion>
     </Stack>
   );
 }
