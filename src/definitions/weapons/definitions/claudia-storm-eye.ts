@@ -1,0 +1,46 @@
+import type { Weapon } from "../../types/weapon/weapon";
+
+export const claudiaStormEye = {
+  id: 'Claudia Storm Eye',
+  displayName: 'Claudia Storm Eye',
+  elementalIcon: 'Physical-Flame',
+  resonanceElements: ['Physical', 'Flame'],
+  calculationElements: ['Physical', 'Flame'],
+  damageElement: 'Physical',
+  type: 'DPS',
+  attackPercentBuffs: [
+    {
+      id: 'Physical Resonance',
+      displayName: 'Physical Resonance',
+      description:
+        '+15% physical ATK when equipping 2 or more physical weapons',
+      value: 0.15,
+      elementalTypes: ['Physical'],
+      canStack: false,
+      isActivePassively: true,
+      minStarRequirement: 0,
+      maxStarRequirement: 6,
+      elementalResonanceRequirements: ['Physical'],
+    },
+    {
+      id: 'Flame Resonance',
+      displayName: 'Flame Resonance',
+      description: '+15% flame ATK when equipping 2 or more flame weapons',
+      value: 0.15,
+      elementalTypes: ['Flame'],
+      canStack: false,
+      isActivePassively: true,
+      minStarRequirement: 0,
+      maxStarRequirement: 6,
+      elementalResonanceRequirements: ['Flame'],
+    },
+  ],
+  critRateBuffs: [],
+  critDamageBuffs: [],
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+  buffs: [],
+  resources: [],
+} as const satisfies Weapon;

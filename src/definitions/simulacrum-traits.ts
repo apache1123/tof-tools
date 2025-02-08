@@ -20,6 +20,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     'Asurada',
     'Brevey',
     'Claudia',
+    'Claudia Storm Eye',
     'Cobalt-B',
     'Cocoritter',
     'Crow',
@@ -28,6 +29,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     'Fiona',
     'Frigg',
     'Gnonno',
+    'Gray Fox',
     'Huang (Mimi)',
     'Huma',
     'Icarus',
@@ -148,6 +150,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     Claudia: {
       id: 'Claudia',
       displayName: 'Claudia',
+      buffs: [],
+    },
+    "Claudia Storm Eye": {
+      id: "Claudia Storm Eye",
+      displayName: "Claudia Storm Eye",
       buffs: [],
     },
     'Cobalt-B': {
