@@ -1,8 +1,8 @@
-import { Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import Image from 'next/image';
+import { Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import Image from "next/image";
 
-import type { Changelog } from '../models/changelog';
+import type { Changelog } from "../models/changelog";
 
 export const changelog: Changelog = [
   {
@@ -240,4 +240,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 10, 4)),
     title: 'Add Asurada',
   },
+  {
+    semver: '3.20.0',
+    date: new Date(Date.UTC(2025, 1, 8)),
+    title: 'Add Gray Fox'
+  }
 ];
