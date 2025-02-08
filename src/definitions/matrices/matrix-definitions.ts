@@ -8,6 +8,7 @@ import { asuka } from "./definitions/asuka";
 import { asurada } from "./definitions/asurada";
 import { brevey } from "./definitions/brevey";
 import { claudia } from "./definitions/claudia";
+import { claudiaStormEye } from "./definitions/claudia-storm-eye";
 import { cobaltB } from "./definitions/cobalt-b";
 import { cocoritter } from "./definitions/cocoritter";
 import { crow } from "./definitions/crow";
@@ -16,6 +17,7 @@ import { fenrir } from "./definitions/fenrir";
 import { fiona } from "./definitions/fiona";
 import { frigg } from "./definitions/frigg";
 import { gnonno } from "./definitions/gnonno";
+import { grayFox } from "./definitions/gray-fox";
 import { haboela } from "./definitions/haboela";
 import { huma } from "./definitions/huma";
 import { icarus } from "./definitions/icarus";
@@ -111,6 +113,7 @@ export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
     Asurada: asurada,
     Brevey: brevey,
     Claudia: claudia,
+    "Claudia Storm Eye": claudiaStormEye,
     "Cobalt-B": cobaltB,
     Cocoritter: cocoritter,
     Crow: crow,
@@ -119,6 +122,7 @@ export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
     Fiona: fiona,
     Frigg: frigg,
     Gnonno: gnonno,
+    "Gray Fox": grayFox,
     Haboela: haboela,
     "Huang (Mimi)": mimi,
     Huma: huma,

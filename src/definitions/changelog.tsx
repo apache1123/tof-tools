@@ -240,4 +240,14 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2024, 10, 4)),
     title: "Add Asurada",
   },
+  {
+    semver: '3.20.0',
+    date: new Date(Date.UTC(2025, 1, 8)),
+    title: 'Add Gray Fox'
+  },
+  {
+    semver: '3.21.0',
+    date: new Date(Date.UTC(2025, 1, 8)),
+    title: 'Add Claudia Storm Eye'
+  }
 ];

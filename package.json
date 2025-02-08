@@ -1,6 +1,6 @@
 {
   "name": "tof-tools",
-  "version": "3.19.0",
+  "version": "3.21.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

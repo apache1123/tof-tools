@@ -8,6 +8,7 @@ import { asuka } from "./definitions/asuka";
 import { asurada } from "./definitions/asurada";
 import { brevey } from "./definitions/brevey";
 import { claudia } from "./definitions/claudia";
+import { claudiaStormEye } from "./definitions/claudia-storm-eye";
 import { cobaltB } from "./definitions/cobalt-b";
 import { cocoritter } from "./definitions/cocoritter";
 import { crow } from "./definitions/crow";
@@ -16,6 +17,7 @@ import { fenrir } from "./definitions/fenrir";
 import { fiona } from "./definitions/fiona";
 import { frigg } from "./definitions/frigg";
 import { gnonno } from "./definitions/gnonno";
+import { grayFox } from "./definitions/gray-fox";
 import { huma } from "./definitions/huma";
 import { icarus } from "./definitions/icarus";
 import { jiYu } from "./definitions/ji-yu";
@@ -70,6 +72,7 @@ const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     "Asurada",
     "Brevey",
     "Claudia",
+    "Claudia Storm Eye",
     "Cobalt-B",
     "Cocoritter",
     "Crow",
@@ -78,6 +81,7 @@ const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     "Fiona",
     "Frigg",
     "Gnonno",
+    "Gray Fox",
     "Huang (Mimi)",
     "Huma",
     "Icarus",
@@ -122,7 +126,8 @@ const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     Asurada: asurada,
     Brevey: brevey,
     Claudia: claudia,
-    "Cobalt-B": cobaltB,
+    "Claudia Storm Eye": claudiaStormEye,
+    'Cobalt-B': cobaltB,
     Cocoritter: cocoritter,
     Crow: crow,
     "Fei Se": feiSe,
@@ -130,7 +135,8 @@ const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     Fiona: fiona,
     Frigg: frigg,
     Gnonno: gnonno,
-    "Huang (Mimi)": mimi,
+    "Gray Fox": grayFox,
+    'Huang (Mimi)': mimi,
     Huma: huma,
     Icarus: icarus,
     "Ji Yu": jiYu,

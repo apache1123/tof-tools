@@ -11,6 +11,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     "Asurada",
     "Brevey",
     "Claudia",
+    "Claudia Storm Eye",
     "Cobalt-B",
     "Cocoritter",
     "Crow",
@@ -19,6 +20,7 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
     "Fiona",
     "Frigg",
     "Gnonno",
+    "Gray Fox",
     "Huang (Mimi)",
     "Huma",
     "Icarus",
@@ -141,9 +143,14 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       displayName: "Claudia",
       buffs: [],
     },
-    "Cobalt-B": {
-      id: "Cobalt-B",
-      displayName: "Cobalt-B",
+    "Claudia Storm Eye": {
+      id: "Claudia Storm Eye",
+      displayName: "Claudia Storm Eye",
+      buffs: [],
+    },
+    'Cobalt-B': {
+      id: 'Cobalt-B',
+      displayName: 'Cobalt-B',
       buffs: [],
       remarks: "Cobalt-B trait will not be implemented",
     },
@@ -352,6 +359,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       id: "Gnonno",
       displayName: "Gnonno",
       buffs: [],
+    },
+    "Gray Fox": {
+      id: 'Gray Fox',
+      displayName: "Gray Fox",
+      buffs: []
     },
     // TODO: crit rate duration buff
     "Huang (Mimi)": {
