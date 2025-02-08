@@ -244,5 +244,10 @@ export const changelog: Changelog = [
     semver: '3.20.0',
     date: new Date(Date.UTC(2025, 1, 8)),
     title: 'Add Gray Fox'
+  },
+  {
+    semver: '3.21.0',
+    date: new Date(Date.UTC(2025, 1, 8)),
+    title: 'Add Claudia Storm Eye'
   }
 ];

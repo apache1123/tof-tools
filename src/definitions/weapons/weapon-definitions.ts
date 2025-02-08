@@ -7,6 +7,7 @@ import { asuka } from "./definitions/asuka";
 import { asurada } from "./definitions/asurada";
 import { brevey } from "./definitions/brevey";
 import { claudia } from "./definitions/claudia";
+import { claudiaStormEye } from "./definitions/claudia-storm-eye";
 import { cobaltB } from "./definitions/cobalt-b";
 import { cocoritter } from "./definitions/cocoritter";
 import { crow } from "./definitions/crow";
@@ -61,6 +62,7 @@ export type WeaponName =
   | 'Asurada'
   | 'Brevey'
   | 'Claudia'
+  | 'Claudia Storm Eye'
   | 'Cobalt-B'
   | 'Cocoritter'
   | 'Crow'
@@ -116,6 +118,7 @@ export const weaponDefinitions: Data<WeaponName, Weapon> = {
     'Asurada',
     'Brevey',
     'Claudia',
+    'Claudia Storm Eye',
     'Cobalt-B',
     'Cocoritter',
     'Crow',
@@ -169,6 +172,7 @@ export const weaponDefinitions: Data<WeaponName, Weapon> = {
     Asurada: asurada,
     Brevey: brevey,
     Claudia: claudia,
+    "Claudia Storm Eye": claudiaStormEye,
     'Cobalt-B': cobaltB,
     Cocoritter: cocoritter,
     Crow: crow,
