@@ -132,6 +132,16 @@ export class Gear {
     );
   }
 
+  /** If this gear has any augment stats, or contains any random stats with an augment increase value */
+  public get hasAnyAugmentValues(): boolean {
+    return (
+      this.augmentStats.length > 0 ||
+      this.randomStats.some(
+        (randomStat) => randomStat && randomStat.augmentIncreaseValue > 0,
+      )
+    );
+  }
+
   /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
   public static calculateStatDifference(
     baseGear: Gear,

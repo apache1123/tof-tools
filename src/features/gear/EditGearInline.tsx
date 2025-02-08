@@ -7,7 +7,6 @@ import {
 import { useSnapshot } from "valtio";
 
 import type { PropsWithElevation } from "../../components/__helpers__/props-with-elevation";
-import { GearRarityToggle } from "../../components/gear/GearRarityToggle/GearRarityToggle";
 import { GearStars } from "../../components/gear/GearStars/GearStars";
 import { GearTypeIcon } from "../../components/gear/GearTypeIcon/GearTypeIcon";
 import { defaultNumOfRandomStats } from "../../definitions/gear";
@@ -15,6 +14,7 @@ import { statTypesLookup } from "../../definitions/stat-types";
 import type { Gear } from "../../models/gear/gear";
 import { RandomStat } from "../../models/gear/random-stat";
 import { EmptyStatEditor, StatEditor } from "../stat/StatEditor";
+import { EditGearRarity } from "./EditGearRarity";
 import { MaxTitanGearPreview } from "./MaxTitanGearPreview";
 
 export interface EditGearInlineProps extends PropsWithElevation {
@@ -35,12 +35,8 @@ export function EditGearInline({ gearProxy, elevation }: EditGearInlineProps) {
         <GearTypeIcon id={type.id} rarity={rarity} />
 
         <Stack sx={{ gap: 1 }}>
-          <GearRarityToggle
-            value={rarity}
-            onChange={(value) => {
-              gearProxy.rarity = value;
-            }}
-          />
+          <EditGearRarity gearProxy={gearProxy} />
+
           <GearStars
             gear={gear}
             onStarsChange={(stars) => {
