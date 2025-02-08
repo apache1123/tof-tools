@@ -88,6 +88,10 @@ export class RandomStat {
       .toNumber();
   }
 
+  public getMaxAugmentTotalValue(): number {
+    return BigNumber(this.value).plus(this.getMaxAugmentIncrease()).toNumber();
+  }
+
   public addOneAverageRoll() {
     const {
       value,

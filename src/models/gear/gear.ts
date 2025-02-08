@@ -34,6 +34,10 @@ import type { GearRarity } from "./gear-rarity";
 import type { GearStatDifference } from "./gear-stat-difference";
 import type { GearSummaryStat } from "./gear-summary-stat";
 import type { GearType } from "./gear-type";
+import type {
+  PossibleAugmentStat,
+  PossibleAugmentStats,
+} from "./possible-augment-stats";
 import { RandomStat } from "./random-stat";
 import type { StatType } from "./stat-type";
 import {
@@ -121,9 +125,11 @@ export class Gear {
   public get augmentStats(): ReadonlyArray<AugmentStatSlot> {
     return this._augmentStats;
   }
-
-  public get allStats(): ReadonlyArray<RandomStatSlot | AugmentStatSlot> {
-    return this._randomStats.concat(this._augmentStats);
+  public get hasFilledAllAugmentStats(): boolean {
+    return (
+      this.augmentStats.length >= maxNumOfAugmentStats &&
+      this.augmentStats.every((x) => x !== undefined)
+    );
   }
 
   /** Calculates the stat value differences between the two gears, using the `baseGear` as the basis */
@@ -243,6 +249,7 @@ export class Gear {
   public getRandomStat(index: number): RandomStatSlot {
     return this._randomStats[index];
   }
+
   public setRandomStat(index: number, randomStat: RandomStatSlot) {
     if (index < 0 || index >= defaultNumOfRandomStats)
       throw new Error("Invalid random stat index");
@@ -258,6 +265,45 @@ export class Gear {
       throw new Error("Invalid augment stat index");
 
     this._augmentStats[index] = augmentStat;
+  }
+  public getAvailableAugmentStatIndex(): number | undefined {
+    if (this.hasFilledAllAugmentStats) return undefined;
+
+    return this.augmentStats.findIndex((statSlot) => statSlot === undefined) !==
+      -1
+      ? this.augmentStats.findIndex((statSlot) => statSlot === undefined)
+      : this.augmentStats.length < maxNumOfAugmentStats
+        ? this.augmentStats.length
+        : undefined;
+  }
+
+  /** Returns the highest rolled stat (highest weighted), or undefined if none or cannot be determined */
+  public getHighestRolledRandomStat(): RandomStat | undefined {
+    const gearStatRollCombinations = this.getRandomStatRollCombinations();
+    if (!gearStatRollCombinations.length) {
+      return undefined;
+    }
+
+    const rollBreakdown =
+      gearStatRollCombinations[0].randomStatRollCombinations;
+    const highestStatName = rollBreakdown.reduce((prev, current) =>
+      current.rollCombination.totalRollWeight >=
+      prev.rollCombination.totalRollWeight
+        ? current
+        : prev,
+    ).randomStatId;
+
+    return this.randomStats.reduce((result, current) => {
+      return current &&
+        current.type.id === highestStatName &&
+        current.totalValue >= (result?.totalValue ?? 0)
+        ? current
+        : result;
+    }, undefined);
+  }
+
+  public getAllStats(): ReadonlyArray<RandomStatSlot | AugmentStatSlot> {
+    return this._randomStats.concat(this._augmentStats);
   }
 
   public getPossibleStars(): number[] {
@@ -482,61 +528,62 @@ export class Gear {
     const maxTitanGear = new Gear(this.type, this.characterId);
     Gear.copy(this, maxTitanGear);
 
-    const gearStatRollCombinations =
-      maxTitanGear.getRandomStatRollCombinations();
-    if (!gearStatRollCombinations.length) {
-      return undefined;
-    }
-
-    const rollBreakdown =
-      gearStatRollCombinations[0].randomStatRollCombinations;
-    const highestStatName = rollBreakdown.reduce((prev, current) =>
-      current.rollCombination.totalRollWeight >=
-      prev.rollCombination.totalRollWeight
-        ? current
-        : prev,
-    ).randomStatId;
-
-    const prioritizedStatNames =
-      prioritizedAugmentationStatTypesLookup[highestStatName]
-        .prioritizedStatTypes;
-    const elementalPrioritizedStatNames = elementalType
-      ? prioritizedStatNames.filter(
-          (statName) =>
-            statTypesLookup.byId[statName].elementalType === elementalType,
-        )
-      : [];
-    const fallbackStatNames =
-      prioritizedAugmentationStatTypesLookup[highestStatName].fallbackStatTypes;
-
-    fillAugmentStatsIfPossible(elementalPrioritizedStatNames);
-    fillAugmentStatsIfPossible(prioritizedStatNames);
-    fillAugmentStatsIfPossible(fallbackStatNames);
-
+    fillAugmentStats();
     setMaxAugmentIncrease(maxTitanGear._randomStats);
     setMaxAugmentIncrease(maxTitanGear._augmentStats);
-
     pullUpStatsValueIfApplicable();
 
     maxTitanGear.rarity = "Titan";
 
     return maxTitanGear;
 
-    function fillAugmentStatsIfPossible(statNameCollection: StatName[]) {
-      statNameCollection.forEach((statName) => {
-        if (
-          maxTitanGear.augmentStats.length < maxNumOfAugmentStats &&
-          !maxTitanGear.randomStats.some(
-            (randomStat) => randomStat?.type.id === statName,
-          ) &&
-          !maxTitanGear.augmentStats.some(
-            (augmentStat) => augmentStat?.type.id === statName,
-          )
-        ) {
-          const statType = statTypesLookup.byId[statName];
-          maxTitanGear._augmentStats.push(new AugmentStat(statType));
+    function fillAugmentStats() {
+      while (!maxTitanGear.hasFilledAllAugmentStats) {
+        const availableAugmentStatIndex =
+          maxTitanGear.getAvailableAugmentStatIndex();
+
+        if (availableAugmentStatIndex === undefined) {
+          break;
         }
-      });
+
+        const possibleAugmentStats = maxTitanGear.getPossibleAugmentStats();
+
+        if (
+          !possibleAugmentStats ||
+          (possibleAugmentStats.priority.length === 0 &&
+            possibleAugmentStats.fallback.length === 0)
+        ) {
+          break;
+        }
+
+        const elementalPrioritizedPossibleStats = elementalType
+          ? possibleAugmentStats.priority.filter(
+              (priorityStat) =>
+                priorityStat.type.elementalType === elementalType,
+            )
+          : [];
+
+        const fillAugmentStat = (statType: StatType) => {
+          maxTitanGear.setAugmentStat(
+            availableAugmentStatIndex,
+            new AugmentStat(statType),
+          );
+        };
+
+        if (elementalPrioritizedPossibleStats.length) {
+          fillAugmentStat(elementalPrioritizedPossibleStats[0].type);
+          continue;
+        }
+
+        if (possibleAugmentStats.priority.length) {
+          fillAugmentStat(possibleAugmentStats.priority[0].type);
+          continue;
+        }
+
+        if (possibleAugmentStats.fallback.length) {
+          fillAugmentStat(possibleAugmentStats.fallback[0].type);
+        }
+      }
     }
 
     function setMaxAugmentIncrease(
@@ -618,9 +665,8 @@ export class Gear {
       });
 
       // Similar "pull-up" happens with augment stats, but each augment stat will always be 95%.
-      const valueWithAugmentOfHighestStat = maxTitanGear.randomStats.find(
-        (randomStat) => randomStat?.type.id === highestStatName,
-      )?.totalValue;
+      const valueWithAugmentOfHighestStat =
+        maxTitanGear.getHighestRolledRandomStat()?.totalValue;
       maxTitanGear.augmentStats.forEach((augmentStat) => {
         if (!augmentStat) return;
 
@@ -642,6 +688,49 @@ export class Gear {
         }
       });
     }
+  }
+
+  /** Returns the possible augment stats for this gear. If the possible augment stats cannot be determined, returns undefined. */
+  public getPossibleAugmentStats(): PossibleAugmentStats | undefined {
+    // Augment stats only possible at 5 stars
+    const gearStatRollCombinations =
+      this.getRandomStatRollCombinations().filter((x) => x.stars === 5);
+    if (!gearStatRollCombinations.length) {
+      return undefined;
+    }
+
+    const rollBreakdown =
+      gearStatRollCombinations[0].randomStatRollCombinations;
+
+    const highestStatName = rollBreakdown.reduce((prev, current) =>
+      current.rollCombination.totalRollWeight >=
+      prev.rollCombination.totalRollWeight
+        ? current
+        : prev,
+    ).randomStatId;
+
+    const prioritizedStatNames =
+      prioritizedAugmentationStatTypesLookup[highestStatName]
+        .prioritizedStatTypes;
+    const fallbackStatNames =
+      prioritizedAugmentationStatTypesLookup[highestStatName].fallbackStatTypes;
+
+    // Only include stat types that aren't already used
+    const filterExisting = (statName: StatName) =>
+      this.getAllStats().every((stat) => stat?.type.id !== statName);
+
+    const mapPossibleAugmentStat = (
+      statName: StatName,
+    ): PossibleAugmentStat => ({ type: statTypesLookup.byId[statName] });
+
+    return {
+      priority: prioritizedStatNames
+        .filter(filterExisting)
+        .map(mapPossibleAugmentStat),
+      fallback: fallbackStatNames
+        .filter(filterExisting)
+        .map(mapPossibleAugmentStat),
+    };
   }
 
   // Additively sum up all random stat & augment stat values based on a stat type condition

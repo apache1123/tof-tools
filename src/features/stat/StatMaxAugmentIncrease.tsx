@@ -4,7 +4,10 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 import { proxy, useSnapshot } from "valtio";
 
-import { NumericStringPercentage2dp } from "../../components/common/NumericString/NumericString";
+import {
+  NumericStringInteger,
+  NumericStringPercentage2dp,
+} from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { statTypesLookup } from "../../definitions/stat-types";
 import { RandomStat } from "../../models/gear/random-stat";
@@ -58,7 +61,7 @@ export function StatMaxAugmentIncrease() {
           )}
         </Grid>
         <Grid xs={12}>
-          <Typography>
+          <Typography gutterBottom>
             Max augment increase value:{" "}
             {statSnap ? (
               statSnap.type.isPercentageBased ? (
@@ -66,7 +69,39 @@ export function StatMaxAugmentIncrease() {
                   value={statSnap.getMaxAugmentIncrease()}
                 />
               ) : (
-                statSnap.getMaxAugmentIncrease()
+                <NumericStringInteger
+                  value={statSnap.getMaxAugmentIncrease()}
+                />
+              )
+            ) : (
+              0
+            )}
+          </Typography>
+          <Typography gutterBottom>
+            Total value after max increase:{" "}
+            {statSnap ? (
+              statSnap.type.isPercentageBased ? (
+                <>
+                  <NumericStringPercentage2dp value={statSnap.value} /> +{" "}
+                  <NumericStringPercentage2dp
+                    value={statSnap.getMaxAugmentIncrease()}
+                  />{" "}
+                  ={" "}
+                  <NumericStringPercentage2dp
+                    value={statSnap.getMaxAugmentTotalValue()}
+                  />
+                </>
+              ) : (
+                <>
+                  <NumericStringInteger value={statSnap.value} /> +{" "}
+                  <NumericStringInteger
+                    value={statSnap.getMaxAugmentIncrease()}
+                  />{" "}
+                  ={" "}
+                  <NumericStringInteger
+                    value={statSnap.getMaxAugmentTotalValue()}
+                  />
+                </>
               )
             ) : (
               0
