@@ -1,5 +1,5 @@
 import type { WeaponName } from "../../../../definitions/weapons/weapon-definitions";
-import type { WeaponMatrixSetsDto } from "../../../../models/weapon-matrix-sets";
+import type { WeaponMatrixSetsDto } from "../../../../models/deprecated/weapon-matrix-sets";
 import type { Dto } from "../../../repository/dto";
 
 /** @deprecated Weapon must now belong to a character and does not contain matrices */
