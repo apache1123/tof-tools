@@ -1,6 +1,6 @@
-import type { Data } from '../models/data';
-import type { SimulacrumTrait } from '../models/v4/simulacrum-trait';
-import type { WeaponName } from './weapons/weapon-definitions';
+import type { Data } from "../models/data";
+import type { SimulacrumTrait } from "../models/v4/simulacrum-trait";
+import type { WeaponName } from "./weapons/weapon-definitions";
 
 export type SimulacrumName = Exclude<
   WeaponName,
@@ -361,6 +361,11 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       id: 'Gnonno',
       displayName: 'Gnonno',
       buffs: [],
+    },
+    "Gray Fox": {
+      id: 'Gray Fox',
+      displayName: "Gray Fox",
+      buffs: []
     },
     // TODO: crit rate duration buff
     'Huang (Mimi)': {
