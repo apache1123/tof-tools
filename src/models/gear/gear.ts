@@ -16,7 +16,7 @@ import {
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
 } from "../../definitions/gear";
-import type { StatName } from "../../definitions/stat-types";
+import type { StatTypeId } from "../../definitions/stat-types";
 import { statTypesLookup } from "../../definitions/stat-types";
 import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
@@ -296,7 +296,7 @@ export class Gear {
 
     const rollBreakdown =
       gearStatRollCombinations[0].randomStatRollCombinations;
-    const highestStatName = rollBreakdown.reduce((prev, current) =>
+    const highestStatTypeId = rollBreakdown.reduce((prev, current) =>
       current.rollCombination.totalRollWeight >=
       prev.rollCombination.totalRollWeight
         ? current
@@ -305,7 +305,7 @@ export class Gear {
 
     return this.randomStats.reduce((result, current) => {
       return current &&
-        current.type.id === highestStatName &&
+        current.type.id === highestStatTypeId &&
         current.totalValue >= (result?.totalValue ?? 0)
         ? current
         : result;
@@ -317,7 +317,7 @@ export class Gear {
   }
 
   /** Checks if the gear has a stat with the given stat name (in random stats or augment stats) */
-  public hasStat(statTypeId: StatName): boolean {
+  public hasStat(statTypeId: StatTypeId): boolean {
     return this.getAllStats().some((stat) => stat?.type.id === statTypeId);
   }
 
@@ -717,32 +717,33 @@ export class Gear {
     const rollBreakdown =
       gearStatRollCombinations[0].randomStatRollCombinations;
 
-    const highestStatName = rollBreakdown.reduce((prev, current) =>
+    const highestStatTypeId = rollBreakdown.reduce((prev, current) =>
       current.rollCombination.totalRollWeight >=
       prev.rollCombination.totalRollWeight
         ? current
         : prev,
     ).randomStatId;
 
-    const prioritizedStatNames =
-      prioritizedAugmentationStatTypesLookup[highestStatName]
+    const prioritizedStatTypeIds =
+      prioritizedAugmentationStatTypesLookup[highestStatTypeId]
         .prioritizedStatTypes;
-    const fallbackStatNames =
-      prioritizedAugmentationStatTypesLookup[highestStatName].fallbackStatTypes;
+    const fallbackStatTypeIds =
+      prioritizedAugmentationStatTypesLookup[highestStatTypeId]
+        .fallbackStatTypes;
 
     // Only include stat types that aren't already used
-    const filterExisting = (statName: StatName) =>
-      this.getAllStats().every((stat) => stat?.type.id !== statName);
+    const filterExisting = (statTypeId: StatTypeId) =>
+      this.getAllStats().every((stat) => stat?.type.id !== statTypeId);
 
     const mapPossibleAugmentStat = (
-      statName: StatName,
-    ): PossibleAugmentStat => ({ type: statTypesLookup.byId[statName] });
+      statTypeId: StatTypeId,
+    ): PossibleAugmentStat => ({ type: statTypesLookup.byId[statTypeId] });
 
     return {
-      priority: prioritizedStatNames
+      priority: prioritizedStatTypeIds
         .filter(filterExisting)
         .map(mapPossibleAugmentStat),
-      fallback: fallbackStatNames
+      fallback: fallbackStatTypeIds
         .filter(filterExisting)
         .map(mapPossibleAugmentStat),
     };

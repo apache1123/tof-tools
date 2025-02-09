@@ -1,5 +1,5 @@
 import type { GearTypeId, GearVersion } from "../../definitions/gear-types";
-import type { StatName } from "../../definitions/stat-types";
+import type { StatTypeId } from "../../definitions/stat-types";
 import { statTypesLookup } from "../../definitions/stat-types";
 import type { StatType } from "./stat-type";
 
@@ -9,7 +9,7 @@ export interface GearType {
   // The name used in-game, used to OCR match.
   inGameName: string;
   numberOfRandomStats: number;
-  possibleRandomStatTypeIds: StatName[];
+  possibleRandomStatTypeIds: StatTypeId[];
   version: GearVersion;
 }
 

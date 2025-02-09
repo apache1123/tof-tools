@@ -1,4 +1,4 @@
-import type { StatName } from "../../definitions/stat-types";
+import type { StatTypeId } from "../../definitions/stat-types";
 import type { RollCombination } from "./random-stat-roll-combination";
 
 export interface GearRandomStatRollCombinations {
@@ -7,6 +7,6 @@ export interface GearRandomStatRollCombinations {
 }
 
 export interface RandomStatRollCombination {
-  randomStatId: StatName;
+  randomStatId: StatTypeId;
   rollCombination: RollCombination;
 }

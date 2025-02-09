@@ -1,9 +1,9 @@
-import type { StatName } from "./stat-types";
+import type { StatTypeId } from "./stat-types";
 
 // If a random stat of X stat-type has the highest roll, the augmentation stats can be of A/B/C stat-type. Prioritized stat-types will be "pulled up" so they almost match X's value (95%), fallback stat-types will not.
 export const prioritizedAugmentationStatTypesLookup: Record<
-  StatName,
-  { prioritizedStatTypes: StatName[]; fallbackStatTypes: StatName[] }
+  StatTypeId,
+  { prioritizedStatTypes: StatTypeId[]; fallbackStatTypes: StatTypeId[] }
 > = {
   ["Altered Attack"]: {
     prioritizedStatTypes: [],

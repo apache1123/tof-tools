@@ -1,10 +1,10 @@
-import type { StatName } from "../../../../definitions/stat-types";
+import type { StatTypeId } from "../../../../definitions/stat-types";
 import { getStatType } from "../../../../definitions/stat-types";
 import { RandomStat } from "../../../../models/gear/random-stat";
 import type { Dto } from "../../../repository/dto";
 
 export interface RandomStatDto extends Dto {
-  typeId: StatName;
+  typeId: StatTypeId;
   value: number;
   augmentIncreaseValue?: number;
   version: 1;

@@ -1,7 +1,7 @@
 import type { Data } from "../models/data";
 import type { StatType } from "../models/gear/stat-type";
 
-export type StatName =
+export type StatTypeId =
   | "Altered Attack"
   | "Altered Resistance"
   | "Altered Resistance %"
@@ -43,7 +43,7 @@ export type StatRole =
   | "HP"
   | "HP %";
 
-export const statTypesLookup: Data<StatName, StatType> = {
+export const statTypesLookup: Data<StatTypeId, StatType> = {
   allIds: [
     "Altered Attack",
     "Altered Resistance",
@@ -485,7 +485,7 @@ export const statTypesLookup: Data<StatName, StatType> = {
   },
 };
 
-export function getStatType(name: StatName) {
+export function getStatType(name: StatTypeId) {
   const statType = statTypesLookup.byId[name];
   if (!statType) throw new Error(`Cannot find stat type ${name}`);
   return statType;

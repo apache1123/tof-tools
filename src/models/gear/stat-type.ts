@@ -2,10 +2,10 @@ import type {
   StatTypeElementalType,
   WeaponElementalType,
 } from "../../definitions/elemental-type";
-import type { StatName, StatRole } from "../../definitions/stat-types";
+import type { StatRole, StatTypeId } from "../../definitions/stat-types";
 
 export interface StatType {
-  id: StatName;
+  id: StatTypeId;
   displayName: string;
   shortDisplayName: string;
   inGameName: string;
