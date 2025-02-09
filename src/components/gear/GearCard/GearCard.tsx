@@ -44,8 +44,16 @@ export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
               spacing={1}
               sx={{ pr: 1, alignItems: "center" }}
             >
-              <GearTypeIcon id={type.id} rarity={rarity} />
-              <GearStars gear={gear} readOnly />
+              <GearTypeIcon
+                id={type.id}
+                rarity={rarity}
+                sx={{ flex: "none" }}
+              />
+              <GearStars
+                gear={gear}
+                readOnly
+                sx={{ justifyContent: "center" }}
+              />
             </Stack>
 
             {/* Random stats */}

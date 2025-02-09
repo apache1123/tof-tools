@@ -8,7 +8,7 @@ import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
-import { EditGearModal } from "../gear/EditGearModal";
+import { GearDetailsModal } from "../gear/GearDetailsModal";
 import { SelectGear } from "../gear/SelectGear";
 
 export interface EditGearSetProps {
@@ -49,7 +49,7 @@ export function EditGearSet({ gearSetProxy, characterId }: EditGearSetProps) {
       </CardList>
 
       {editingGearProxy && (
-        <EditGearModal
+        <GearDetailsModal
           gearProxy={editingGearProxy}
           onClose={() => {
             setEditingGearProxy(undefined);

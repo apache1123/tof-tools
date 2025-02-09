@@ -2,25 +2,25 @@ import { useSnapshot } from "valtio";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import type { Gear } from "../../models/gear/gear";
-import { EditGearInline } from "./EditGearInline";
+import { GearDetailsInline } from "./GearDetailsInline";
 
-export interface EditGearModalProps {
+export interface GearDetailsModalProps {
   gearProxy: Gear;
   onClose(): void;
   onDelete(): void;
 }
 
-export function EditGearModal({
+export function GearDetailsModal({
   gearProxy,
   onClose,
   onDelete,
-}: EditGearModalProps) {
+}: GearDetailsModalProps) {
   const gear = useSnapshot(gearProxy);
 
   return (
     <EditorModal
       open={!!gearProxy}
-      modalContent={<EditGearInline gearProxy={gearProxy} />}
+      modalContent={<GearDetailsInline gearProxy={gearProxy} />}
       itemName={gear.type.displayName}
       onClose={onClose}
       showDelete

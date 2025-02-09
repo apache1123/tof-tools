@@ -1,7 +1,7 @@
 import { Card } from "@mui/material";
 
 import type { Gear } from "../../models/gear/gear";
-import { EditGearInline } from "../gear/EditGearInline";
+import { GearDetailsInline } from "../gear/GearDetailsInline";
 
 export interface CurrentGearProps {
   gearProxy: Gear;
@@ -10,7 +10,7 @@ export interface CurrentGearProps {
 export function CurrentGear({ gearProxy }: CurrentGearProps) {
   return (
     <Card elevation={1} sx={{ p: 2 }}>
-      <EditGearInline gearProxy={gearProxy} elevation={1} />
+      <GearDetailsInline gearProxy={gearProxy} elevation={1} />
     </Card>
   );
 }

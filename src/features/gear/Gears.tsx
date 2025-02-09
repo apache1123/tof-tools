@@ -13,7 +13,7 @@ import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCh
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { AddNewGear } from "./AddNewGear";
-import { EditGearModal } from "./EditGearModal";
+import { GearDetailsModal } from "./GearDetailsModal";
 
 export interface GearsProps {
   characterId: CharacterId;
@@ -65,7 +65,7 @@ export function Gears({ characterId }: GearsProps) {
       />
 
       {editingGear && (
-        <EditGearModal
+        <GearDetailsModal
           gearProxy={editingGear}
           onClose={() => {
             setEditingGear(undefined);

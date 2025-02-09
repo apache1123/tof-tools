@@ -316,6 +316,11 @@ export class Gear {
     return this._randomStats.concat(this._augmentStats);
   }
 
+  /** Checks if the gear has a stat with the given stat name (in random stats or augment stats) */
+  public hasStat(statTypeId: StatName): boolean {
+    return this.getAllStats().some((stat) => stat?.type.id === statTypeId);
+  }
+
   public getPossibleStars(): number[] {
     return Object.keys(
       groupBy(this.getRandomStatRollCombinations(), (x) => x.stars),

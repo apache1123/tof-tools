@@ -1,17 +1,23 @@
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Box, Tooltip } from "@mui/material";
+import { Stack, Tooltip } from "@mui/material";
 import groupBy from "lodash.groupby";
 
 import type { Gear } from "../../../models/gear/gear";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { GearStarsSelector } from "../GearStarsSelector/GearStarsSelector";
 
-export interface GearStarsProps {
+export interface GearStarsProps extends PropsWithSx {
   gear: Gear;
   readOnly?: boolean;
   onStarsChange?: (stars: number) => void;
 }
 
-export function GearStars({ gear, readOnly, onStarsChange }: GearStarsProps) {
+export function GearStars({
+  gear,
+  readOnly,
+  onStarsChange,
+  sx,
+}: GearStarsProps) {
   const { stars } = gear;
 
   const randomStatRollCombinations = gear.getRandomStatRollCombinations();
@@ -21,7 +27,15 @@ export function GearStars({ gear, readOnly, onStarsChange }: GearStarsProps) {
   );
 
   return (
-    <Box>
+    <Stack
+      sx={{
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 0.5,
+        alignItems: "center",
+        ...sx,
+      }}
+    >
       <GearStarsSelector
         stars={
           stars ||
@@ -43,9 +57,9 @@ export function GearStars({ gear, readOnly, onStarsChange }: GearStarsProps) {
             </>
           }
         >
-          <InfoOutlinedIcon color="info" sx={{ ml: 1 }} />
+          <InfoOutlinedIcon color="info" />
         </Tooltip>
       )}
-    </Box>
+    </Stack>
   );
 }

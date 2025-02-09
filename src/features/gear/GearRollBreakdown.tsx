@@ -2,15 +2,15 @@ import { Divider, Typography } from "@mui/material";
 import pluralize from "pluralize";
 import { Fragment } from "react";
 
-import { NumericStringPercentage } from "../components/common/NumericString/NumericString";
-import { type Gear } from "../models/gear/gear";
+import { NumericStringPercentage } from "../../components/common/NumericString/NumericString";
+import { type Gear } from "../../models/gear/gear";
 
 export interface GearRollBreakdownProps {
-  gearSnap: Gear;
+  gear: Gear;
 }
 
-export const GearRollBreakdown = ({ gearSnap }: GearRollBreakdownProps) => {
-  const randomStatRollCombinations = gearSnap.getRandomStatRollCombinations();
+export const GearRollBreakdown = ({ gear }: GearRollBreakdownProps) => {
+  const randomStatRollCombinations = gear.getRandomStatRollCombinations();
 
   const hasOnlyOneRollCombination = randomStatRollCombinations.length === 1;
 
@@ -19,7 +19,7 @@ export const GearRollBreakdown = ({ gearSnap }: GearRollBreakdownProps) => {
       {randomStatRollCombinations.map((x, i) => (
         <Fragment key={i}>
           {!!i && <Divider>or</Divider>}
-          {!gearSnap.stars && !hasOnlyOneRollCombination && (
+          {!gear.stars && !hasOnlyOneRollCombination && (
             <Typography variant="h6">{x.stars} star gear:</Typography>
           )}
           <ul>
