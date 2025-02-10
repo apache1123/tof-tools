@@ -1,6 +1,7 @@
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useSnapshot } from "valtio";
 
+import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
 import { defaultNumOfRandomStats } from "../../definitions/gear";
 import { statTypesLookup } from "../../definitions/stat-types";
 import type { Gear } from "../../models/gear/gear";
@@ -23,34 +24,40 @@ export function EditGearRandomStats({ gearProxy }: EditGearRandomStatsProps) {
   const highestRolledStat = gear.getHighestRolledRandomStat();
 
   return (
-    <Stack gap={2}>
-      {[...Array(defaultNumOfRandomStats)].map((_, i) => {
-        const randomStatProxy = gearProxy.getRandomStat(i);
-        const randomStat = gear.getRandomStat(i);
+    <Box>
+      <SectionSubheading>Random Stats</SectionSubheading>
 
-        const isRolled = randomStat ? rolledStats.includes(randomStat) : false;
-        const isHighestRolled = randomStat === highestRolledStat;
+      <Stack gap={2}>
+        {[...Array(defaultNumOfRandomStats)].map((_, i) => {
+          const randomStatProxy = gearProxy.getRandomStat(i);
+          const randomStat = gear.getRandomStat(i);
 
-        return randomStatProxy && randomStat ? (
-          <StatEditor
-            key={i}
-            statProxy={randomStatProxy}
-            possibleStatTypes={possibleStatTypes}
-            isAugmented={rarity === "Augmented" || rarity === "Titan"}
-            isRolled={isRolled}
-            isHighestRolled={isHighestRolled}
-          />
-        ) : (
-          <EmptyStatEditor
-            key={i}
-            possibleStatTypes={possibleStatTypes}
-            onStatTypeChange={(statType) => {
-              gearProxy.setRandomStat(i, new RandomStat(statType));
-            }}
-            isAugmented={rarity === "Augmented" || rarity === "Titan"}
-          />
-        );
-      })}
-    </Stack>
+          const isRolled = randomStat
+            ? rolledStats.includes(randomStat)
+            : false;
+          const isHighestRolled = randomStat === highestRolledStat;
+
+          return randomStatProxy && randomStat ? (
+            <StatEditor
+              key={i}
+              statProxy={randomStatProxy}
+              possibleStatTypes={possibleStatTypes}
+              isAugmented={rarity === "Augmented" || rarity === "Titan"}
+              isRolled={isRolled}
+              isHighestRolled={isHighestRolled}
+            />
+          ) : (
+            <EmptyStatEditor
+              key={i}
+              possibleStatTypes={possibleStatTypes}
+              onStatTypeChange={(statType) => {
+                gearProxy.setRandomStat(i, new RandomStat(statType));
+              }}
+              isAugmented={rarity === "Augmented" || rarity === "Titan"}
+            />
+          );
+        })}
+      </Stack>
+    </Box>
   );
 }

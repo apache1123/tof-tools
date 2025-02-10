@@ -89,7 +89,7 @@ export const StatEditor = ({
       }
       rolledIcon={
         isHighestRolled ? (
-          <Tooltip title="The highest rolled into stat (see roll breakdown). This stat will be used to determine the augment stats">
+          <Tooltip title="The highest rolled into stat (see roll breakdown). This stat will be used to determine the augmentation stats">
             <KeyboardDoubleArrowUpIcon />
           </Tooltip>
         ) : isRolled ? (

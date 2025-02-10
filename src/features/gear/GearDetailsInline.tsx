@@ -11,6 +11,7 @@ import type { PropsWithElevation } from "../../components/__helpers__/props-with
 import { GearStars } from "../../components/gear/GearStars/GearStars";
 import { GearTypeIcon } from "../../components/gear/GearTypeIcon/GearTypeIcon";
 import type { Gear } from "../../models/gear/gear";
+import { EditGearAugmentStats } from "./EditGearAugmentStats";
 import { EditGearRandomStats } from "./EditGearRandomStats";
 import { EditGearRarity } from "./EditGearRarity";
 import { GearRollBreakdown } from "./GearRollBreakdown";
@@ -45,6 +46,8 @@ export function GearDetailsInline({
       </Stack>
 
       <EditGearRandomStats gearProxy={gearProxy} />
+
+      <EditGearAugmentStats gearProxy={gearProxy} />
 
       <Box>
         <Accordion elevation={(elevation ?? 0) + 1}>
