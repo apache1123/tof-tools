@@ -2,8 +2,7 @@ import { Box, Stack } from "@mui/material";
 import { useSnapshot } from "valtio";
 
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
-import { defaultNumOfRandomStats } from "../../definitions/gear";
-import { statTypesLookup } from "../../definitions/stat-types";
+import { maxNumOfRandomStats } from "../../definitions/gear";
 import type { Gear } from "../../models/gear/gear";
 import { RandomStat } from "../../models/gear/random-stat";
 import { EmptyStatEditor, StatEditor } from "../stat/StatEditor";
@@ -16,9 +15,7 @@ export function EditGearRandomStats({ gearProxy }: EditGearRandomStatsProps) {
   const gear = useSnapshot(gearProxy) as Gear;
   const { rarity } = gear;
 
-  const possibleStatTypes = statTypesLookup.allIds
-    .filter((statTypeId) => !gear.hasStat(statTypeId))
-    .map((statTypeId) => statTypesLookup.byId[statTypeId]);
+  const possibleStatTypes = gear.getPossibleRandomStats();
 
   const rolledStats = gear.getRolledRandomStats();
   const highestRolledStat = gear.getHighestRolledRandomStat();
@@ -28,7 +25,7 @@ export function EditGearRandomStats({ gearProxy }: EditGearRandomStatsProps) {
       <SectionSubheading>Random Stats</SectionSubheading>
 
       <Stack gap={2}>
-        {[...Array(defaultNumOfRandomStats)].map((_, i) => {
+        {[...Array(maxNumOfRandomStats)].map((_, i) => {
           const randomStatProxy = gearProxy.getRandomStat(i);
           const randomStat = gear.getRandomStat(i);
 

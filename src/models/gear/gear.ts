@@ -12,9 +12,9 @@ import {
   augmentStatsPullUpFactor1,
   augmentStatsPullUpFactor2,
   augmentStatsPullUpFactor3,
-  defaultNumOfRandomStats,
   maxNumOfAugmentStats,
   maxNumOfRandomStatRolls,
+  maxNumOfRandomStats,
 } from "../../definitions/gear";
 import type { StatTypeId } from "../../definitions/stat-types";
 import { statTypesLookup } from "../../definitions/stat-types";
@@ -261,10 +261,16 @@ export class Gear {
   }
 
   public setRandomStat(index: number, randomStat: RandomStatSlot) {
-    if (index < 0 || index >= defaultNumOfRandomStats)
+    if (index < 0 || index >= maxNumOfRandomStats)
       throw new Error("Invalid random stat index");
 
     this._randomStats[index] = randomStat;
+  }
+
+  public getPossibleRandomStats(): StatType[] {
+    return this.type.possibleRandomStatTypeIds
+      .filter((statTypeId) => !this.hasStat(statTypeId))
+      .map((statTypeId) => statTypesLookup.byId[statTypeId]);
   }
 
   public getAugmentStat(index: number): AugmentStatSlot {

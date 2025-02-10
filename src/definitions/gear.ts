@@ -1,5 +1,5 @@
 export const maxNumOfRandomStatRolls = 5;
-export const defaultNumOfRandomStats = 4;
+export const maxNumOfRandomStats = 4;
 export const maxNumOfAugmentStats = 2;
 
 // For random stats when augmenting, when there are multiple stats of the same stat type but of different elemental types, the stat with the highest value is used as a base, and the rest are "pulled-up" to be a factor of that value. The second highest value is pulled up to be 95% of the highest value, the third highest value is pulled up to be 90%, and the fourth highest value is pulled up to be 85% (unconfirmed, this is too rare).
