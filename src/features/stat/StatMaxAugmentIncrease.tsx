@@ -62,7 +62,7 @@ export function StatMaxAugmentIncrease() {
         </Grid>
         <Grid xs={12}>
           <Typography gutterBottom>
-            Max augment increase value:{" "}
+            Max augmentation increase value:{" "}
             {statSnap ? (
               statSnap.type.isPercentageBased ? (
                 <NumericStringPercentage2dp

@@ -97,7 +97,7 @@ export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
                     </Stack>
                   ) : (
                     <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-                      No augment stats
+                      No augmentation stats
                     </Typography>
                   )}
                 </Box>

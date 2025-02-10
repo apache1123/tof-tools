@@ -54,7 +54,7 @@ export function EditGearRarity({ gearProxy }: EditGearRarityProps) {
       {augmentResetConfirm.show && augmentResetConfirm.rarityChange && (
         <StyledModal
           open={augmentResetConfirm.show}
-          modalContent={`Changing this gear from ${augmentResetConfirm.rarityChange.from} to ${augmentResetConfirm.rarityChange.to} will reset the augment value of all random stats to 0, and remove all augment stats. Are you sure you want to continue?`}
+          modalContent={`Changing this gear from ${augmentResetConfirm.rarityChange.from} to ${augmentResetConfirm.rarityChange.to} will reset the augmentation value of all random stats to 0, and remove all augmentation stats. Are you sure you want to continue?`}
           showConfirm
           onConfirm={() => {
             if (augmentResetConfirm.rarityChange) {

@@ -125,11 +125,11 @@ export class Gear {
   public get augmentStats(): ReadonlyArray<AugmentStatSlot> {
     return this._augmentStats;
   }
+  public get numberOfFilledAugmentStats(): number {
+    return this.augmentStats.filter((x) => x !== undefined).length;
+  }
   public get hasFilledAllAugmentStats(): boolean {
-    return (
-      this.augmentStats.length >= maxNumOfAugmentStats &&
-      this.augmentStats.every((x) => x !== undefined)
-    );
+    return this.numberOfFilledAugmentStats >= maxNumOfAugmentStats;
   }
 
   /** If this gear has any augment stats, or contains any random stats with an augment increase value */
@@ -754,13 +754,30 @@ export class Gear {
       statTypeId: StatTypeId,
     ): PossibleAugmentStat => ({ type: statTypesLookup.byId[statTypeId] });
 
+    const availableAugmentStatSlots = Math.max(
+      maxNumOfAugmentStats - this.numberOfFilledAugmentStats,
+      0,
+    );
+
+    if (!availableAugmentStatSlots) {
+      return { priority: [], fallback: [] };
+    }
+
+    const priorityPossibleStats = prioritizedStatTypeIds
+      .filter(filterExisting)
+      .map(mapPossibleAugmentStat);
+
+    // If the number of priority possible stats is possible to fill the number of available augment stat slots, there is no need to return fallback stats
+    const fallbackPossibleStats =
+      priorityPossibleStats.length >= availableAugmentStatSlots
+        ? []
+        : fallbackStatTypeIds
+            .filter(filterExisting)
+            .map(mapPossibleAugmentStat);
+
     return {
-      priority: prioritizedStatTypeIds
-        .filter(filterExisting)
-        .map(mapPossibleAugmentStat),
-      fallback: fallbackStatTypeIds
-        .filter(filterExisting)
-        .map(mapPossibleAugmentStat),
+      priority: priorityPossibleStats,
+      fallback: fallbackPossibleStats,
     };
   }
 
