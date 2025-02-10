@@ -19,17 +19,26 @@ export function EditGearRandomStats({ gearProxy }: EditGearRandomStatsProps) {
     .filter((statTypeId) => !gear.hasStat(statTypeId))
     .map((statTypeId) => statTypesLookup.byId[statTypeId]);
 
+  const rolledStats = gear.getRolledRandomStats();
+  const highestRolledStat = gear.getHighestRolledRandomStat();
+
   return (
     <Stack gap={2}>
       {[...Array(defaultNumOfRandomStats)].map((_, i) => {
-        const randomStat = gearProxy.getRandomStat(i);
+        const randomStatProxy = gearProxy.getRandomStat(i);
+        const randomStat = gear.getRandomStat(i);
 
-        return randomStat ? (
+        const isRolled = randomStat ? rolledStats.includes(randomStat) : false;
+        const isHighestRolled = randomStat === highestRolledStat;
+
+        return randomStatProxy && randomStat ? (
           <StatEditor
             key={i}
-            statProxy={randomStat}
+            statProxy={randomStatProxy}
             possibleStatTypes={possibleStatTypes}
             isAugmented={rarity === "Augmented" || rarity === "Titan"}
+            isRolled={isRolled}
+            isHighestRolled={isHighestRolled}
           />
         ) : (
           <EmptyStatEditor

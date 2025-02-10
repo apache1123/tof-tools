@@ -303,13 +303,28 @@ export class Gear {
         : prev,
     ).randomStatId;
 
-    return this.randomStats.reduce((result, current) => {
-      return current &&
-        current.type.id === highestStatTypeId &&
-        current.totalValue >= (result?.totalValue ?? 0)
-        ? current
-        : result;
-    }, undefined);
+    // Assuming random stats won't have repeated stat types
+    return this.randomStats.find((stat) => stat?.type.id === highestStatTypeId);
+  }
+
+  /** Returns the random stats that have been rolled into i.e. not at initial value. */
+  public getRolledRandomStats(): RandomStat[] {
+    const gearStatRollCombinations = this.getRandomStatRollCombinations();
+    if (!gearStatRollCombinations.length) {
+      return [];
+    }
+
+    const rollBreakdown =
+      gearStatRollCombinations[0].randomStatRollCombinations;
+
+    return rollBreakdown
+      .filter((x) => x.rollCombination.totalRollWeight !== 0)
+      .flatMap((x) => {
+        const randomStat = this.randomStats.find(
+          (stat) => stat?.type.id === x.randomStatId,
+        );
+        return randomStat ? [randomStat] : [];
+      });
   }
 
   public getAllStats(): ReadonlyArray<RandomStatSlot | AugmentStatSlot> {

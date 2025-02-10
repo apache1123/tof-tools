@@ -1,4 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import { Box, Stack, Tooltip, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import type { ReactNode } from "react";
 import { useSnapshot } from "valtio";
@@ -15,12 +17,16 @@ export interface StatEditorProps {
   statProxy: RandomStat;
   possibleStatTypes: StatType[];
   isAugmented: boolean;
+  isRolled?: boolean;
+  isHighestRolled?: boolean;
 }
 
 export const StatEditor = ({
   statProxy,
   possibleStatTypes = [],
   isAugmented,
+  isRolled,
+  isHighestRolled,
 }: StatEditorProps) => {
   const { type, value, augmentIncreaseValue, totalValue } = useSnapshot(
     statProxy,
@@ -80,6 +86,17 @@ export const StatEditor = ({
             aria-label="stat-total-value-input"
           />
         )
+      }
+      rolledIcon={
+        isHighestRolled ? (
+          <Tooltip title="The highest rolled into stat (see roll breakdown). This stat will be used to determine the augment stats">
+            <KeyboardDoubleArrowUpIcon />
+          </Tooltip>
+        ) : isRolled ? (
+          <Tooltip title="Stat that has been rolled into, but is not the highest (see roll breakdown)">
+            <KeyboardArrowUpIcon />
+          </Tooltip>
+        ) : undefined
       }
     />
   );
@@ -174,12 +191,14 @@ function Layout({
   valueInput,
   augmentIncreaseValueInput,
   totalValueInput,
+  rolledIcon,
 }: {
   typeIcon: ReactNode;
   typeSelector: ReactNode;
   valueInput: ReactNode;
   augmentIncreaseValueInput?: ReactNode;
   totalValueInput?: ReactNode;
+  rolledIcon?: ReactNode;
 }) {
   const isTitanLayout = !!augmentIncreaseValueInput || !!totalValueInput;
   const inputWidth = isTitanLayout ? 2 : 3;
@@ -205,6 +224,7 @@ function Layout({
           <Grid xs={inputWidth}>{augmentIncreaseValueInput}</Grid>
         )}
         {totalValueInput && <Grid xs={inputWidth}>{totalValueInput}</Grid>}
+        <Box sx={{ width: 24, alignSelf: "center" }}>{rolledIcon}</Box>
       </Grid>
     </Box>
   );
