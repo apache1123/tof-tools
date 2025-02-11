@@ -105,15 +105,15 @@ export class Gear {
   public get rarity() {
     return this._rarity;
   }
-
   public set rarity(value: GearRarity) {
     if (this._rarity === value) return;
 
     this._rarity = value;
 
-    // Reset random stats augment to zero when going from an augmented/titan gear to an SSR gear
+    // Reset random stats augment to zero and clear all augment stats when going from an augmented/titan gear to an SSR gear
     if (value === "SSR") {
       this.resetRandomStatsAugment();
+      this.clearAugmentStats();
     }
 
     // Augmented gear and titan gear are always 5 stars
@@ -122,14 +122,20 @@ export class Gear {
     }
   }
 
+  /** Augmented gear and titan gear are both considered augmented */
+  public get isAugmented(): boolean {
+    return this.rarity === "Augmented" || this.rarity === "Titan";
+  }
+
   public get augmentStats(): ReadonlyArray<AugmentStatSlot> {
     return this._augmentStats;
   }
-  public get numberOfFilledAugmentStats(): number {
-    return this.augmentStats.filter((x) => x !== undefined).length;
-  }
-  public get hasFilledAllAugmentStats(): boolean {
-    return this.numberOfFilledAugmentStats >= maxNumOfAugmentStats;
+  public get numOfAvailableAugmentStatSlots(): number {
+    return Math.max(
+      maxNumOfAugmentStats -
+        this.augmentStats.filter((x) => x !== undefined).length,
+      0,
+    );
   }
 
   /** If this gear has any augment stats, or contains any random stats with an augment increase value */
@@ -267,6 +273,10 @@ export class Gear {
     this._randomStats[index] = randomStat;
   }
 
+  public hasRandomStat(statTypeId: StatTypeId): boolean {
+    return this.randomStats.some((stat) => stat?.type.id === statTypeId);
+  }
+
   public getPossibleRandomStats(): StatType[] {
     return this.type.possibleRandomStatTypeIds
       .filter((statTypeId) => !this.hasStat(statTypeId))
@@ -282,8 +292,13 @@ export class Gear {
 
     this._augmentStats[index] = augmentStat;
   }
+
+  public hasAugmentStat(statTypeId: StatTypeId): boolean {
+    return this.augmentStats.some((stat) => stat?.type.id === statTypeId);
+  }
+
   public getAvailableAugmentStatIndex(): number | undefined {
-    if (this.hasFilledAllAugmentStats) return undefined;
+    if (this.numOfAvailableAugmentStatSlots <= 0) return undefined;
 
     return this.augmentStats.findIndex((statSlot) => statSlot === undefined) !==
       -1
@@ -574,7 +589,7 @@ export class Gear {
     return maxTitanGear;
 
     function fillAugmentStats() {
-      while (!maxTitanGear.hasFilledAllAugmentStats) {
+      while (maxTitanGear.numOfAvailableAugmentStatSlots > 0) {
         const availableAugmentStatIndex =
           maxTitanGear.getAvailableAugmentStatIndex();
 
@@ -726,17 +741,11 @@ export class Gear {
     }
   }
 
-  /** Returns the possible augment stats for this gear. If the possible augment stats cannot be determined, returns undefined. */
-  public getPossibleAugmentStats(): PossibleAugmentStats | undefined {
-    const availableAugmentStatSlots = Math.max(
-      maxNumOfAugmentStats - this.numberOfFilledAugmentStats,
-      0,
-    );
-
-    if (!availableAugmentStatSlots) {
-      return { priority: [], fallback: [] };
-    }
-
+  /** Returns the possible augment stats for this gear. If the possible augment stats cannot be determined, returns undefined.
+   * @arg includeAll Whether or not to filter out possible augment stats based on what has already been set in augment stats (default), or return all. (Stats already used in random stats will still not return in either case) */
+  public getPossibleAugmentStats(
+    includeAll?: boolean,
+  ): PossibleAugmentStats | undefined {
     // Augment stats only possible at 5 stars
     const gearStatRollCombinations =
       this.getRandomStatRollCombinations().filter((x) => x.stars === 5);
@@ -754,32 +763,40 @@ export class Gear {
         : prev,
     ).randomStatId;
 
+    // Filter out those already used in random stats
+    const isNotInRandomStats = (statTypeId: StatTypeId) =>
+      !this.hasRandomStat(statTypeId);
     const prioritizedStatTypeIds =
-      prioritizedAugmentationStatTypesLookup[highestStatTypeId]
-        .prioritizedStatTypes;
+      prioritizedAugmentationStatTypesLookup[
+        highestStatTypeId
+      ].prioritizedStatTypes.filter(isNotInRandomStats);
     const fallbackStatTypeIds =
-      prioritizedAugmentationStatTypesLookup[highestStatTypeId]
-        .fallbackStatTypes;
+      prioritizedAugmentationStatTypesLookup[
+        highestStatTypeId
+      ].fallbackStatTypes.filter(isNotInRandomStats);
 
-    // Only include stat types that aren't already used
-    const filterExisting = (statTypeId: StatTypeId) =>
-      !this.hasStat(statTypeId);
-
+    const isNotInAugmentStats = (statTypeId: StatTypeId) =>
+      !this.hasAugmentStat(statTypeId);
     const mapPossibleAugmentStat = (
       statTypeId: StatTypeId,
     ): PossibleAugmentStat => ({ type: statTypesLookup.byId[statTypeId] });
 
-    const priorityPossibleStats = prioritizedStatTypeIds
-      .filter(filterExisting)
-      .map(mapPossibleAugmentStat);
+    // The returned possible priority stats, based on if we are returning all or only returning those unused in augment stats as well
+    const priorityPossibleStats = includeAll
+      ? prioritizedStatTypeIds.map(mapPossibleAugmentStat)
+      : prioritizedStatTypeIds
+          .filter(isNotInAugmentStats)
+          .map(mapPossibleAugmentStat);
 
     // If the number of priority possible stats is possible to fill the number of available augment stat slots, there is no need to return fallback stats
     const fallbackPossibleStats =
-      priorityPossibleStats.length >= availableAugmentStatSlots
+      prioritizedStatTypeIds.length >= maxNumOfAugmentStats
         ? []
-        : fallbackStatTypeIds
-            .filter(filterExisting)
-            .map(mapPossibleAugmentStat);
+        : includeAll
+          ? fallbackStatTypeIds.map(mapPossibleAugmentStat)
+          : fallbackStatTypeIds
+              .filter(isNotInAugmentStats)
+              .map(mapPossibleAugmentStat);
 
     return {
       priority: priorityPossibleStats,
@@ -825,5 +842,9 @@ export class Gear {
         randomStat.augmentIncreaseValue = 0;
       }
     }
+  }
+
+  private clearAugmentStats() {
+    this._augmentStats.length = 0;
   }
 }

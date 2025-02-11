@@ -10,15 +10,17 @@ import { NumericInput } from "../../components/common/NumericInput/NumericInput"
 import { PercentageNumericInput } from "../../components/common/NumericInput/PercentageNumericInput";
 import { StatTypeIcon } from "../../components/stat/StatTypeIcon/StatTypeIcon";
 import { StatTypeSelector } from "../../components/stat/StatTypeSelector/StatTypeSelector";
+import type { AugmentStat } from "../../models/gear/augment-stat";
 import type { RandomStat } from "../../models/gear/random-stat";
 import type { StatType } from "../../models/gear/stat-type";
 
 export interface StatEditorProps {
-  statProxy: RandomStat;
+  statProxy: RandomStat | AugmentStat;
   possibleStatTypes: StatType[];
   isAugmented: boolean;
   isRolled?: boolean;
   isHighestRolled?: boolean;
+  showTotalValueOnly?: boolean;
 }
 
 export const StatEditor = ({
@@ -27,6 +29,7 @@ export const StatEditor = ({
   isAugmented,
   isRolled,
   isHighestRolled,
+  showTotalValueOnly,
 }: StatEditorProps) => {
   const { type, value, augmentIncreaseValue, totalValue } = useSnapshot(
     statProxy,
@@ -51,18 +54,21 @@ export const StatEditor = ({
         />
       }
       valueInput={
-        <StatInput
-          isPercentageBased={type.isPercentageBased}
-          value={value}
-          onChange={(value) => {
-            statProxy.value = value;
-          }}
-          label={isAugmented ? "Base" : undefined}
-          aria-label="stat-value-input"
-        />
+        !showTotalValueOnly && (
+          <StatInput
+            isPercentageBased={type.isPercentageBased}
+            value={value}
+            onChange={(value) => {
+              statProxy.value = value;
+            }}
+            label={isAugmented ? "Base" : undefined}
+            aria-label="stat-value-input"
+          />
+        )
       }
       augmentIncreaseValueInput={
-        isAugmented && (
+        isAugmented &&
+        !showTotalValueOnly && (
           <StatInput
             isPercentageBased={type.isPercentageBased}
             value={augmentIncreaseValue}
@@ -103,13 +109,17 @@ export const StatEditor = ({
 };
 
 interface EmptyStatEditorProps
-  extends Pick<StatEditorProps, "possibleStatTypes" | "isAugmented"> {
+  extends Pick<
+    StatEditorProps,
+    "possibleStatTypes" | "isAugmented" | "showTotalValueOnly"
+  > {
   onStatTypeChange(statType: StatType): void;
 }
 
 export const EmptyStatEditor = ({
   possibleStatTypes = [],
   isAugmented,
+  showTotalValueOnly,
   onStatTypeChange,
 }: EmptyStatEditorProps) => {
   return (
@@ -123,14 +133,17 @@ export const EmptyStatEditor = ({
         />
       }
       valueInput={
-        <StatInput
-          isPercentageBased={false}
-          disabled
-          label={isAugmented ? "Base" : undefined}
-        />
+        !showTotalValueOnly && (
+          <StatInput
+            isPercentageBased={false}
+            disabled
+            label={isAugmented ? "Base" : undefined}
+          />
+        )
       }
       augmentIncreaseValueInput={
-        isAugmented && (
+        isAugmented &&
+        !showTotalValueOnly && (
           <StatInput
             isPercentageBased={false}
             disabled

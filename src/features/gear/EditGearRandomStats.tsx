@@ -13,7 +13,7 @@ export interface EditGearRandomStatsProps {
 
 export function EditGearRandomStats({ gearProxy }: EditGearRandomStatsProps) {
   const gear = useSnapshot(gearProxy) as Gear;
-  const { rarity } = gear;
+  const { isAugmented } = gear;
 
   const possibleStatTypes = gear.getPossibleRandomStats();
 
@@ -39,7 +39,7 @@ export function EditGearRandomStats({ gearProxy }: EditGearRandomStatsProps) {
               key={i}
               statProxy={randomStatProxy}
               possibleStatTypes={possibleStatTypes}
-              isAugmented={rarity === "Augmented" || rarity === "Titan"}
+              isAugmented={isAugmented}
               isRolled={isRolled}
               isHighestRolled={isHighestRolled}
             />
@@ -50,7 +50,7 @@ export function EditGearRandomStats({ gearProxy }: EditGearRandomStatsProps) {
               onStatTypeChange={(statType) => {
                 gearProxy.setRandomStat(i, new RandomStat(statType));
               }}
-              isAugmented={rarity === "Augmented" || rarity === "Titan"}
+              isAugmented={isAugmented}
             />
           );
         })}

@@ -39,7 +39,7 @@ export function EditGearRarity({ gearProxy }: EditGearRarityProps) {
           };
 
           if (
-            gearProxy.rarity !== "SSR" &&
+            gearProxy.isAugmented &&
             value === "SSR" &&
             gearProxy.hasAnyAugmentValues
           ) {

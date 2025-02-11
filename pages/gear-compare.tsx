@@ -17,7 +17,9 @@ export default function Page() {
 
   return (
     <>
-      <Head>Gear Compare | Tower of Fantasy Tools</Head>
+      <Head>
+        <title>Gear Compare | Tower of Fantasy Tools</title>
+      </Head>
 
       {characterId && characterDataProxy && (
         <Inner

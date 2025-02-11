@@ -21,7 +21,7 @@ export interface GearCardProps extends PropsWithSx, PropsWithElevation {
 }
 
 export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
-  const { type, rarity, randomStats, augmentStats } = gear;
+  const { type, rarity, isAugmented, randomStats, augmentStats } = gear;
 
   return (
     <Card elevation={elevation} sx={{ width: 190, ...sx }}>
@@ -77,7 +77,7 @@ export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
             </Box>
 
             {/* Augment stats */}
-            {(rarity === "Augmented" || rarity === "Titan") && (
+            {isAugmented && (
               <>
                 <Divider />
                 <Box sx={{ p: 1 }}>
