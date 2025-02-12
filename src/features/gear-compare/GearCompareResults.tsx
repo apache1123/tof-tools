@@ -100,6 +100,25 @@ export function GearCompareResults({
                   }
                 />
               </Box>
+              {currentGearResult.maxTitan && (
+                <>
+                  <Box>
+                    Value if gear is max titan:{" "}
+                    <NumericStringPercentage2dp
+                      value={currentGearResult.maxTitan.gearValue}
+                    />
+                  </Box>
+                  <Box>
+                    Damage if gear is max titan:{" "}
+                    <NumericStringInteger
+                      value={
+                        currentGearResult.maxTitan.damageSummary.totalDamage
+                          .finalDamage
+                      }
+                    />
+                  </Box>
+                </>
+              )}
             </Stack>
           </Grid>
 
@@ -116,6 +135,25 @@ export function GearCompareResults({
                   value={newGearResult.damageSummary.totalDamage.finalDamage}
                 />
               </Box>
+              {newGearResult.maxTitan && (
+                <>
+                  <Box>
+                    Value if gear is max titan:{" "}
+                    <NumericStringPercentage2dp
+                      value={newGearResult.maxTitan.gearValue}
+                    />
+                  </Box>
+                  <Box>
+                    Damage if gear is max titan:{" "}
+                    <NumericStringInteger
+                      value={
+                        newGearResult.maxTitan.damageSummary.totalDamage
+                          .finalDamage
+                      }
+                    />
+                  </Box>
+                </>
+              )}
             </Stack>
           </Grid>
         </Grid>

@@ -25,27 +25,7 @@ export class GearComparison {
     private readonly currentGear: Gear,
     /** The new piece of gear that is being compared */
     private readonly newGear: Gear,
-  ) {
-    // function createRequirements(
-    //   definition: AbilityRequirementsDefinition,
-    // ): GearCompareBuffAbilityRequirements {
-    //   return new GearCompareBuffAbilityRequirements(
-    //     team,
-    //     new TeamRequirements(
-    //       definition.teamRequirements?.anyWeapon,
-    //       new WeaponResonanceRequirements(
-    //         definition.teamRequirements?.weaponResonance?.is,
-    //         definition.teamRequirements?.weaponResonance?.isNot,
-    //       ),
-    //       new ElementalWeaponRequirements(
-    //         definition.teamRequirements?.elementalWeapons?.numOfElementalWeapons,
-    //         definition.teamRequirements?.elementalWeapons?.numOfNotElementalWeapons,
-    //         definition.teamRequirements?.elementalWeapons?.numOfDifferentElementalTypes,
-    //       ),
-    //     ),
-    //   );
-    // }
-  }
+  ) {}
 
   /** The results of the current gear */
   public getCurrentGearResult() {
@@ -109,12 +89,47 @@ export class GearComparison {
       newCritRateFlat,
     ).damageSummary.totalDamage.finalDamage;
 
-    let gearValue = 0;
-    if (damageWithoutGear > 0) {
-      gearValue = calculateRelativeIncrease(
-        damageSummary.totalDamage.finalDamage,
-        damageWithoutGear,
+    const gearValue =
+      damageWithoutGear > 0
+        ? calculateRelativeIncrease(
+            damageSummary.totalDamage.finalDamage,
+            damageWithoutGear,
+          )
+        : 0;
+
+    let maxTitanResult = undefined;
+    const maxTitanGear = gear.getMaxTitanGear();
+    if (maxTitanGear) {
+      // Copy the gear set with the gear replaced with the max titan gear
+      const gearSetWithMaxTitanGear = GearSet.createCopy(gearSet);
+      gearSetWithMaxTitanGear.getSlot(gear.type.id).gear = maxTitanGear;
+
+      // Adjust stats
+      const { newBaseAttacks, newCritRateFlat } = this.getAdjustedStats(
+        baseAttacks,
+        critRateFlat,
+        gear,
+        maxTitanGear,
       );
+
+      const maxTitanGearDamageSummary = this.getSimulationResult(
+        gearSetWithMaxTitanGear,
+        newBaseAttacks,
+        newCritRateFlat,
+      ).damageSummary;
+
+      const maxTitanGearValue =
+        damageWithoutGear > 0
+          ? calculateRelativeIncrease(
+              maxTitanGearDamageSummary.totalDamage.finalDamage,
+              damageWithoutGear,
+            )
+          : 0;
+
+      maxTitanResult = {
+        damageSummary: maxTitanGearDamageSummary,
+        gearValue: maxTitanGearValue,
+      };
     }
 
     return {
@@ -124,6 +139,7 @@ export class GearComparison {
        * a.k.a. the damage increase with vs without that piece of gear
        */
       gearValue,
+      maxTitan: maxTitanResult,
     };
   }
 
