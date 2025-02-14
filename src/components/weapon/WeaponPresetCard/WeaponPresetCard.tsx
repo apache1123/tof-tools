@@ -24,6 +24,8 @@ export function WeaponPresetCard({
   return (
     <Card elevation={elevation} sx={{ ...sx }}>
       <CardActionArea
+        component={onClick ? "button" : "div"}
+        disabled={!onClick}
         onClick={() => {
           if (onClick) onClick();
         }}
