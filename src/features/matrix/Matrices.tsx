@@ -16,9 +16,9 @@ import { Matrix } from "../../models/matrix/matrix";
 import { getFilteredMatrices } from "../../models/matrix/matrix-filter";
 import type { MatrixState } from "../../states/matrix/matrix-state";
 import { matrixState } from "../../states/matrix/matrix-state";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 import { EditMatrix } from "./EditMatrix";
 
 export interface MatricesProps {

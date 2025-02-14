@@ -15,8 +15,8 @@ import { TeamPresetCard } from "../../../components/team/TeamPresetCard/TeamPres
 import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
 import { db } from "../../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../../models/character/character-preset";
-import { useItemsBelongingToCharacter } from "../../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../../common/InventoryLayout";
+import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
 import { ViewAndEditTeamPreset } from "../../team/ViewAndEditTeamPreset";
 
 export interface EditCharacterPresetTeamProps {
@@ -42,7 +42,7 @@ export function EditCharacterPresetTeam({
     <>
       <Accordion defaultExpanded={expand}>
         <AccordionSummary>
-          <Stack direction="row" sx={{ gap: 1, alignItems: "center" }}>
+          <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
             <Typography variant="h6">Team</Typography>
 
             {teamPreset ? (
@@ -65,10 +65,10 @@ export function EditCharacterPresetTeam({
                     )}
                 </Stack>
               ) : (
-                <ErrorText>Team has no weapons</ErrorText>
+                <ErrorText sx={{ py: 0 }}>Team has no weapons</ErrorText>
               )
             ) : (
-              <ErrorText>No team selected</ErrorText>
+              <ErrorText sx={{ py: 0 }}>No team selected</ErrorText>
             )}
           </Stack>
         </AccordionSummary>

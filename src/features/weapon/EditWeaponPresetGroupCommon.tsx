@@ -6,7 +6,7 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 
 export interface EditWeaponPresetGroupCommonProps {
   characterId: CharacterId;

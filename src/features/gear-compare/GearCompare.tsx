@@ -1,15 +1,14 @@
 import { Stack } from "@mui/material";
 import { useProxy } from "valtio/utils";
 
-import { db } from "../../db/reactive-local-storage-db";
 import type {
   CharacterData,
   CharacterId,
 } from "../../models/character/character-data";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
+import { useRepositoryItem } from "../common/useRepositoryItem";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
-import { GearCompareResults } from "./GearCompareResults";
-import { GearSection } from "./GearSection";
+import { GearAndResultsSection } from "./GearAndResultsSection";
 import { SelectCharacterPresetSection } from "./SelectCharacterPresetSection";
 
 export interface GearCompareProps {
@@ -18,52 +17,29 @@ export interface GearCompareProps {
 }
 
 export function GearCompare({ characterId, characterData }: GearCompareProps) {
-  const $state = useProxy(gearCompareState);
+  const { characterPresetId } = useProxy(gearCompareState);
 
-  const characterPresetProxy = $state.characterPresetId
-    ? db.get("characterPresets").find($state.characterPresetId)
-    : undefined;
-
-  const currentGearProxy = $state.gearTypeId
-    ? characterPresetProxy?.gearSetPreset?.gearSet.getSlot($state.gearTypeId)
-        .gear
-    : undefined;
-
-  const newGearProxy = $state.newGearId
-    ? db.get("gears").find($state.newGearId)
-    : undefined;
+  const { item: characterPreset, itemProxy: characterPresetProxy } =
+    useRepositoryItem("characterPresets", (repository) => {
+      return characterPresetId ? repository.find(characterPresetId) : undefined;
+    });
 
   return (
     <Stack sx={{ gap: 2 }}>
       <SelectCharacterPresetSection characterId={characterId} />
 
-      {characterPresetProxy && (
+      {characterPreset && characterPresetProxy && (
         <EditCharacterPresetSection
           selectedCharacterPresetProxy={characterPresetProxy}
         />
       )}
 
-      {characterPresetProxy && (
-        <>
-          <GearSection
-            characterId={characterId}
-            currentGearProxy={currentGearProxy}
-            newGearProxy={newGearProxy}
-          />
-          {characterPresetProxy.teamPreset &&
-            characterPresetProxy.gearSetPreset?.gearSet &&
-            currentGearProxy &&
-            newGearProxy && (
-              <GearCompareResults
-                characterData={characterData}
-                characterPresetProxy={characterPresetProxy}
-                teamPresetProxy={characterPresetProxy.teamPreset}
-                gearSetProxy={characterPresetProxy.gearSetPreset.gearSet}
-                currentGearProxy={currentGearProxy}
-                newGearProxy={newGearProxy}
-              />
-            )}
-        </>
+      {characterPreset && characterPresetProxy && (
+        <GearAndResultsSection
+          characterId={characterId}
+          characterData={characterData}
+          characterPresetProxy={characterPresetProxy}
+        />
       )}
     </Stack>
   );

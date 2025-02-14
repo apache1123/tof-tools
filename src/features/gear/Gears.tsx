@@ -9,9 +9,9 @@ import type { Gear } from "../../models/gear/gear";
 import { getFilteredGears } from "../../states/gear/gear-filter";
 import type { GearState } from "../../states/gear/gear-state";
 import { gearState } from "../../states/gear/gear-state";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { FilterLayout } from "../common/FilterLayout";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 import { AddNewGear } from "./AddNewGear";
 import { GearDetailsModal } from "./GearDetailsModal";
 

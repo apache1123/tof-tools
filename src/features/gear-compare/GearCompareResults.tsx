@@ -1,6 +1,5 @@
 import { Box, Paper, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useSnapshot } from "valtio";
 
 import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
 import {
@@ -20,28 +19,22 @@ import { Weapon } from "../../models/weapon/weapon";
 
 export interface GearCompareResultsProps {
   characterData: CharacterData;
-  characterPresetProxy: CharacterPreset;
-  teamPresetProxy: TeamPreset;
-  gearSetProxy: GearSet;
-  currentGearProxy: Gear;
-  newGearProxy: Gear;
+  characterPreset: CharacterPreset;
+  teamPreset: TeamPreset;
+  gearSet: GearSet;
+  currentGear: Gear;
+  newGear: Gear;
 }
 
 export function GearCompareResults({
   characterData,
-  characterPresetProxy,
-  teamPresetProxy,
-  gearSetProxy,
-  currentGearProxy,
-  newGearProxy,
+  characterPreset,
+  teamPreset,
+  gearSet,
+  currentGear,
+  newGear,
 }: GearCompareResultsProps) {
-  const { baseAttacks, critRateFlat } = useSnapshot(
-    characterPresetProxy,
-  ) as CharacterPreset;
-  const teamPreset = useSnapshot(teamPresetProxy);
-  const gearSet = useSnapshot(gearSetProxy) as GearSet;
-  const currentGear = useSnapshot(currentGearProxy) as Gear;
-  const newGear = useSnapshot(newGearProxy) as Gear;
+  const { baseAttacks, critRateFlat } = characterPreset;
 
   const mainWeaponPreset = teamPreset.getMainWeaponPreset();
   let mainWeapon: Weapon | undefined;

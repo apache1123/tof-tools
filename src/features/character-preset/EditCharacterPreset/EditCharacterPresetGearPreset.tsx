@@ -16,8 +16,8 @@ import { GearTypeIcon } from "../../../components/gear/GearTypeIcon/GearTypeIcon
 import { db } from "../../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../../models/character/character-preset";
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
-import { useItemsBelongingToCharacter } from "../../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../../common/InventoryLayout";
+import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
 import { EditGearSetPreset } from "../../gear-set-preset/EditGearSetPreset";
 
 export interface EditCharacterPresetGearPresetProps {
@@ -49,7 +49,7 @@ export function EditCharacterPresetGearPreset({
         <AccordionSummary>
           <Stack
             direction="row"
-            sx={{ gap: 1, alignItems: "center", flexWrap: "wrap" }}
+            sx={{ gap: 2, alignItems: "center", flexWrap: "wrap" }}
           >
             <Typography variant="h6">Gear preset</Typography>
 
@@ -71,10 +71,12 @@ export function EditCharacterPresetGearPreset({
                     )}
                 </Stack>
               ) : (
-                <ErrorText>Gear preset contains no gear</ErrorText>
+                <ErrorText sx={{ py: 0 }}>
+                  Gear preset contains no gear
+                </ErrorText>
               )
             ) : (
-              <ErrorText>No gear preset selected</ErrorText>
+              <ErrorText sx={{ py: 0 }}>No gear preset selected</ErrorText>
             )}
           </Stack>
         </AccordionSummary>

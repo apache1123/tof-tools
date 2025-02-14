@@ -12,7 +12,7 @@ import type { CharacterId } from "../../models/character/character-data";
 import type { Matrix } from "../../models/matrix/matrix";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 import { EditMatrix } from "../matrix/EditMatrix";
 import { EditWeaponPresetGroupCommon } from "./EditWeaponPresetGroupCommon";
 

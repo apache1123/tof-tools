@@ -4,7 +4,7 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { GearTypeId } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 
 export interface SelectGearProps {
   characterId: CharacterId;

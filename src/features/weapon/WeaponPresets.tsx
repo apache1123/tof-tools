@@ -15,8 +15,8 @@ import {
 import type { CharacterId } from "../../models/character/character-data";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { keysOf } from "../../utils/object-utils";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 import { EditWeaponPresetGroup } from "./EditWeaponPresetGroup";
 
 export interface WeaponPresetsProps {

@@ -9,7 +9,7 @@ import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
 import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 import { EditWeaponPreset } from "./EditWeaponPreset";
 import { EditWeaponPresetGroupCommon } from "./EditWeaponPresetGroupCommon";
 

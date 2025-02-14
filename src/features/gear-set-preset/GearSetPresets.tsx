@@ -6,8 +6,8 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
 import { GearSetPreset } from "../../models/gear/gear-set-preset";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
 import { InventoryLayout } from "../common/InventoryLayout";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 import { EditGearSetPreset } from "./EditGearSetPreset";
 
 export interface GearSetPresetsProps {

@@ -1,8 +1,9 @@
-import { Alert, Box, Paper, Stack } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useProxy } from "valtio/utils";
 
 import { Button } from "../../components/common/Button/Button";
+import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
 import type { CharacterId } from "../../models/character/character-data";
@@ -15,13 +16,17 @@ import { SelectNewGear } from "./SelectNewGear";
 
 export interface GearSectionProps {
   characterId: CharacterId;
+  currentGear: Gear | undefined;
   currentGearProxy: Gear | undefined;
+  newGear: Gear | undefined;
   newGearProxy: Gear | undefined;
 }
 
 export function GearSection({
   characterId,
+  currentGear,
   currentGearProxy,
+  newGear,
   newGearProxy,
 }: GearSectionProps) {
   const $state = useProxy(gearCompareState);
@@ -41,10 +46,10 @@ export function GearSection({
                 <SectionSubheading>Current gear in preset</SectionSubheading>
               </Box>
 
-              {currentGearProxy ? (
+              {currentGear && currentGearProxy ? (
                 <CurrentGear gearProxy={currentGearProxy} />
               ) : (
-                <Alert severity="info">No gear in preset</Alert>
+                <ErrorText>No gear in preset</ErrorText>
               )}
             </Grid>
 
@@ -54,7 +59,7 @@ export function GearSection({
                 sx={{ height: 40, gap: 1, alignItems: "start" }}
               >
                 <SectionSubheading>New gear to compare</SectionSubheading>
-                {newGearProxy && (
+                {newGear && newGearProxy && (
                   <Button
                     buttonProps={{ size: "small" }}
                     onClick={() => {
@@ -66,7 +71,7 @@ export function GearSection({
                 )}
               </Stack>
 
-              {newGearProxy ? (
+              {newGear && newGearProxy ? (
                 <NewGear gearProxy={newGearProxy} />
               ) : (
                 <SelectNewGear characterId={characterId} />

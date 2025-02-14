@@ -4,7 +4,7 @@ import { CharacterPresetSelector } from "../../components/character-preset/Chara
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
-import { useItemsBelongingToCharacter } from "../character/useItemsBelongingToCharacter";
+import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 
 export interface SelectCharacterPresetProps {
   characterId: CharacterId;

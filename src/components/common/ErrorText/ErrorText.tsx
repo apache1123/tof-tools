@@ -1,19 +1,12 @@
-import type { TypographyProps } from "@mui/material";
-import { Typography } from "@mui/material";
+import type { AlertProps } from "@mui/material";
+import { Alert } from "@mui/material";
 
-export type ErrorTextProps = TypographyProps;
+export type ErrorTextProps = AlertProps;
 
 export function ErrorText({ children, ...props }: ErrorTextProps) {
   return (
-    <Typography
-      {...props}
-      sx={{
-        fontStyle: "italic",
-        color: (theme) => theme.palette.error.main,
-        ...props.sx,
-      }}
-    >
+    <Alert severity="error" {...props}>
       {children}
-    </Typography>
+    </Alert>
   );
 }

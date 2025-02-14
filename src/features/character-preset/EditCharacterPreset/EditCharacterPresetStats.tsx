@@ -34,7 +34,7 @@ export function EditCharacterPresetStats({
   return (
     <Accordion defaultExpanded={expand}>
       <AccordionSummary>
-        <Stack direction="row" sx={{ gap: 1, alignItems: "baseline" }}>
+        <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
           <Typography variant="h6">Preset stats</Typography>
 
           {teamPreset ? (
@@ -61,10 +61,10 @@ export function EditCharacterPresetStats({
                 </Typography>
               </Stack>
             ) : (
-              <ErrorText>Team has no weapons</ErrorText>
+              <ErrorText sx={{ py: 0 }}>Team has no weapons</ErrorText>
             )
           ) : (
-            <ErrorText>No team selected</ErrorText>
+            <ErrorText sx={{ py: 0 }}>No team selected</ErrorText>
           )}
         </Stack>
       </AccordionSummary>
