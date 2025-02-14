@@ -10,7 +10,7 @@ export class CharacterData {
   public constructor(id?: CharacterId) {
     this.id = id ?? nanoid();
     this.name = "";
-    this._level = 0;
+    this._level = maxCharacterLevel;
   }
 
   public readonly id: CharacterId;
