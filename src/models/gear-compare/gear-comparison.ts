@@ -98,7 +98,11 @@ export class GearComparison {
         : 0;
 
     let maxTitanResult = undefined;
-    const maxTitanGear = gear.getMaxTitanGear();
+    const maxTitanGear = gear.getMaxTitanGear(
+      this.mainWeapon.damageElement === "Altered"
+        ? undefined
+        : this.mainWeapon.damageElement,
+    );
     if (maxTitanGear) {
       // Copy the gear set with the gear replaced with the max titan gear
       const gearSetWithMaxTitanGear = GearSet.createCopy(gearSet);

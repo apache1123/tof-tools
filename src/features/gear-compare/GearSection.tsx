@@ -6,11 +6,11 @@ import { Button } from "../../components/common/Button/Button";
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
+import type { CoreElementalType } from "../../definitions/elemental-type";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
-import { CurrentGear } from "./CurrentGear";
-import { NewGear } from "./NewGear";
+import { GearCompareGear } from "./GearCompareGear";
 import { SelectGearType } from "./SelectGearType";
 import { SelectNewGear } from "./SelectNewGear";
 
@@ -20,6 +20,7 @@ export interface GearSectionProps {
   currentGearProxy: Gear | undefined;
   newGear: Gear | undefined;
   newGearProxy: Gear | undefined;
+  prioritizedElement: CoreElementalType | undefined;
 }
 
 export function GearSection({
@@ -28,6 +29,7 @@ export function GearSection({
   currentGearProxy,
   newGear,
   newGearProxy,
+  prioritizedElement,
 }: GearSectionProps) {
   const $state = useProxy(gearCompareState);
   const { gearTypeId } = $state;
@@ -47,7 +49,10 @@ export function GearSection({
               </Box>
 
               {currentGear && currentGearProxy ? (
-                <CurrentGear gearProxy={currentGearProxy} />
+                <GearCompareGear
+                  gearProxy={currentGearProxy}
+                  prioritizedElement={prioritizedElement}
+                />
               ) : (
                 <ErrorText>No gear in preset</ErrorText>
               )}
@@ -72,7 +77,10 @@ export function GearSection({
               </Stack>
 
               {newGear && newGearProxy ? (
-                <NewGear gearProxy={newGearProxy} />
+                <GearCompareGear
+                  gearProxy={newGearProxy}
+                  prioritizedElement={prioritizedElement}
+                />
               ) : (
                 <SelectNewGear characterId={characterId} />
               )}

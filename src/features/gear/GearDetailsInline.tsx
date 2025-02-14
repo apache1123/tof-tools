@@ -10,6 +10,7 @@ import { useSnapshot } from "valtio";
 import type { PropsWithElevation } from "../../components/__helpers__/props-with-elevation";
 import { GearStars } from "../../components/gear/GearStars/GearStars";
 import { GearTypeIcon } from "../../components/gear/GearTypeIcon/GearTypeIcon";
+import type { CoreElementalType } from "../../definitions/elemental-type";
 import type { Gear } from "../../models/gear/gear";
 import { EditGearAugmentStats } from "./EditGearAugmentStats";
 import { EditGearRandomStats } from "./EditGearRandomStats";
@@ -19,10 +20,12 @@ import { MaxTitanGearPreview } from "./MaxTitanGearPreview";
 
 export interface GearDetailsInlineProps extends PropsWithElevation {
   gearProxy: Gear;
+  prioritizedElement?: CoreElementalType;
 }
 
 export function GearDetailsInline({
   gearProxy,
+  prioritizedElement,
   elevation,
 }: GearDetailsInlineProps) {
   const gear = useSnapshot(gearProxy) as Gear;
@@ -53,7 +56,11 @@ export function GearDetailsInline({
         <Accordion elevation={(elevation ?? 0) + 1}>
           <AccordionSummary>Max titan preview</AccordionSummary>
           <AccordionDetails>
-            <MaxTitanGearPreview gear={gear} elevation={(elevation ?? 0) + 2} />
+            <MaxTitanGearPreview
+              gear={gear}
+              prioritizedElement={prioritizedElement}
+              elevation={(elevation ?? 0) + 2}
+            />
           </AccordionDetails>
         </Accordion>
         <Accordion elevation={(elevation ?? 0) + 1}>

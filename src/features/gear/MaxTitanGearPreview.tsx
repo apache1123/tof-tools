@@ -3,17 +3,20 @@ import { Box, Link, Paper, Stack, Typography } from "@mui/material";
 
 import type { PropsWithElevation } from "../../components/__helpers__/props-with-elevation";
 import { GearCard } from "../../components/gear/GearCard/GearCard";
+import type { CoreElementalType } from "../../definitions/elemental-type";
 import type { Gear } from "../../models/gear/gear";
 
 export interface MaxTitanGearPreviewProps extends PropsWithElevation {
   gear: Gear;
+  prioritizedElement?: CoreElementalType;
 }
 
 export function MaxTitanGearPreview({
   gear,
+  prioritizedElement,
   elevation,
 }: MaxTitanGearPreviewProps) {
-  const maxTitanGear = gear.getMaxTitanGear();
+  const maxTitanGear = gear.getMaxTitanGear(prioritizedElement);
 
   return (
     <Box>
