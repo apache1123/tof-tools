@@ -36,6 +36,7 @@ export function EditGearSetPreset({
           />
         </Stack>
       }
+      modalTitle="Edit gear preset"
       open={!!preset}
       onClose={onFinish}
       itemName={preset.name}

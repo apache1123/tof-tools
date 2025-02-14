@@ -1,7 +1,8 @@
-import { Card, CardActionArea, CardContent, CardHeader } from "@mui/material";
+import { Card, CardActionArea, CardContent } from "@mui/material";
 
 import type { TeamPreset } from "../../../models/team/team-preset";
 import { CardList } from "../../common/CardList/CardList";
+import { SectionSubheading } from "../../common/SectionHeading/SectionSubheading";
 import { WeaponPresetCard } from "../../weapon/WeaponPresetCard/WeaponPresetCard";
 
 export interface TeamPresetCardProps {
@@ -26,8 +27,8 @@ export function TeamPresetCard({ teamPreset, onClick }: TeamPresetCardProps) {
           alignItems: "start",
         }}
       >
-        <CardHeader title={name || "Unnamed team"} />
         <CardContent>
+          <SectionSubheading>{name || "Unnamed team"}</SectionSubheading>
           <CardList direction="row" gap={1}>
             {teamPreset
               .getWeaponPresets()

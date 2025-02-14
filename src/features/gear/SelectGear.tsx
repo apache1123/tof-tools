@@ -2,6 +2,7 @@ import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { GearSelector } from "../../components/gear/GearSelector/GearSelector";
 import { db } from "../../db/reactive-local-storage-db";
 import type { GearTypeId } from "../../definitions/gear-types";
+import { getGearType } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
@@ -41,6 +42,11 @@ export function SelectGear({
             if (gearProxy) onSelect(gearProxy);
           }}
         />
+      }
+      modalTitle={
+        enforceGearType
+          ? `Select ${getGearType(enforceGearType).displayName}`
+          : "Select gear"
       }
       open={isSelecting}
       showCancel

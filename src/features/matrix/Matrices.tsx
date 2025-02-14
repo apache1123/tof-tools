@@ -124,6 +124,7 @@ export function Matrices({ characterId }: MatricesProps) {
       {editingMatrix && (
         <EditorModal
           modalContent={<EditMatrix matrixProxy={editingMatrix} />}
+          modalTitle="Edit matrix"
           open={!!editingMatrix}
           itemName={editingMatrix.displayName}
           onClose={() => {

@@ -83,6 +83,7 @@ export function EditWeaponPreset({
             </Stack>
           </>
         }
+        modalTitle="Edit weapon preset"
         open={!!weaponPreset}
         onClose={() => {
           onFinish();
@@ -96,31 +97,35 @@ export function EditWeaponPreset({
         maxWidth={false}
       />
 
-      <StyledModal
-        modalContent={
-          <MatrixSelector
-            matrices={filteredMatrices}
-            onSelect={(matrix) => {
-              const matrixProxy = db.get("matrices").find(matrix.id);
-              if (!matrixProxy) throw new Error("Matrix not found");
+      {addingMatrixTypeId && (
+        <StyledModal
+          modalContent={
+            <MatrixSelector
+              matrices={filteredMatrices}
+              onSelect={(matrix) => {
+                const matrixProxy = db.get("matrices").find(matrix.id);
+                if (!matrixProxy) throw new Error("Matrix not found");
 
-              weaponPresetProxy.matrixSlots.getSlot(matrix.type.id).matrix =
-                matrixProxy;
+                weaponPresetProxy.matrixSlots.getSlot(matrix.type.id).matrix =
+                  matrixProxy;
 
-              setAddingMatrixTypeId(undefined);
-            }}
-          />
-        }
-        open={!!addingMatrixTypeId}
-        onClose={() => setAddingMatrixTypeId(undefined)}
-        showCancel
-        maxWidth={false}
-        fullWidth
-      />
+                setAddingMatrixTypeId(undefined);
+              }}
+            />
+          }
+          modalTitle="Select matrix"
+          open={!!addingMatrixTypeId}
+          onClose={() => setAddingMatrixTypeId(undefined)}
+          showCancel
+          maxWidth={false}
+          fullWidth
+        />
+      )}
 
       {editingMatrixProxy && (
         <EditorModal
           modalContent={<EditMatrix matrixProxy={editingMatrixProxy} />}
+          modalTitle="Edit matrix"
           open={!!editingMatrixProxy}
           onClose={() => {
             setEditingMatrixProxy(undefined);

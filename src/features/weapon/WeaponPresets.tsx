@@ -125,6 +125,7 @@ export function WeaponPresets({ characterId }: WeaponPresetsProps) {
               weaponDefinitionId={editingWeaponDefinitionId}
             />
           }
+          modalTitle="Edit weapon & presets"
           open={!!editingWeaponDefinitionId}
           onClose={() => {
             setEditingWeaponDefinitionId(undefined);

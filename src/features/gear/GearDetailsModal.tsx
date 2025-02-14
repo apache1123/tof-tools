@@ -21,6 +21,7 @@ export function GearDetailsModal({
     <EditorModal
       open={!!gearProxy}
       modalContent={<GearDetailsInline gearProxy={gearProxy} />}
+      modalTitle="Gear details/edit"
       itemName={gear.type.displayName}
       onClose={onClose}
       showDelete

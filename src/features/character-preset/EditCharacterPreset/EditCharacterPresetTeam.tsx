@@ -127,6 +127,7 @@ export function EditCharacterPresetTeam({
               ))}
             />
           }
+          modalTitle="Select team"
           open={isSelectingTeamPreset}
           onClose={() => {
             setIsSelectingTeamPreset(false);

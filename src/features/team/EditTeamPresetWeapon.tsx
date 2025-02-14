@@ -64,6 +64,7 @@ export function EditTeamPresetWeapon({
             }}
           />
         }
+        modalTitle="Select weapon preset"
         open={isAddingWeaponPreset}
         onClose={() => {
           setIsAddingWeaponPreset(false);

@@ -72,6 +72,7 @@ export function EditTeamPreset({
             </CardList>
           </Stack>
         }
+        modalTitle="Edit team"
         open={!!teamPreset}
         onClose={onFinish}
         itemName={!!teamPreset.name ? teamPreset.name : "this team"}

@@ -140,6 +140,7 @@ export function EditCharacterPresetGearPreset({
               ))}
             />
           }
+          modalTitle="Select gear preset"
           open={isSelectingGearSetPreset}
           onClose={() => {
             setIsSelectingGearSetPreset(false);
