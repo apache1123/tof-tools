@@ -4,6 +4,8 @@ import { useState } from "react";
 import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import { FilterLayout } from "../../../features/common/FilterLayout";
 import { InventoryLayout } from "../../../features/common/InventoryLayout";
+import { AddWeaponPresetGroup } from "../../../features/weapon/AddWeaponPresetGroup";
+import type { CharacterId } from "../../../models/character/character-data";
 import type {
   WeaponPreset,
   WeaponPresetId,
@@ -13,11 +15,13 @@ import { WeaponDefinitionAutocomplete } from "../WeaponDefinitionAutocomplete/We
 import { WeaponPresetCard } from "../WeaponPresetCard/WeaponPresetCard";
 
 export interface WeaponPresetSelectorProps {
+  characterId: CharacterId;
   weaponPresets: WeaponPreset[];
   onSelect(weaponPresetId: WeaponPresetId): void;
 }
 
 export function WeaponPresetSelector({
+  characterId,
   weaponPresets,
   onSelect,
 }: WeaponPresetSelectorProps) {
@@ -63,7 +67,12 @@ export function WeaponPresetSelector({
           }}
         />
       }
-      actions={undefined}
+      actions={
+        <AddWeaponPresetGroup
+          characterId={characterId}
+          buttonText="Add weapon preset"
+        />
+      }
       items={filteredWeaponPresets.map((weaponPreset) => (
         <WeaponPresetCard
           key={weaponPreset.id}

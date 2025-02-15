@@ -1,22 +1,16 @@
-import { Button } from "@mui/material";
 import groupBy from "lodash.groupby";
 import { useState } from "react";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
-import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { WeaponCard } from "../../components/weapon/WeaponCard/WeaponCard";
-import { WeaponDefinitionSelector } from "../../components/weapon/WeaponDefinitionSelector/WeaponDefinitionSelector";
 import { db } from "../../db/reactive-local-storage-db";
 import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
-import {
-  getAllWeaponDefinitions,
-  getWeaponDefinition,
-} from "../../definitions/weapons/weapon-definitions";
+import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
-import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { keysOf } from "../../utils/object-utils";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
+import { AddWeaponPresetGroup } from "./AddWeaponPresetGroup";
 import { EditWeaponPresetGroup } from "./EditWeaponPresetGroup";
 
 export interface WeaponPresetsProps {
@@ -44,15 +38,6 @@ export function WeaponPresets({ characterId }: WeaponPresetsProps) {
     },
   );
 
-  const unusedWeaponDefinitions = getAllWeaponDefinitions().filter(
-    (definition) =>
-      !items.some(
-        (weaponPreset) => weaponPreset.definition.id === definition.id,
-      ),
-  );
-
-  const [isAddingWeaponPresetGroup, setIsAddingWeaponPresetGroup] =
-    useState(false);
   const [editingWeaponDefinitionId, setEditingWeaponDefinitionId] = useState<
     WeaponDefinitionId | undefined
   >(undefined);
@@ -62,14 +47,12 @@ export function WeaponPresets({ characterId }: WeaponPresetsProps) {
       <InventoryLayout
         filter={undefined}
         actions={
-          <Button
-            variant="contained"
-            onClick={() => {
-              setIsAddingWeaponPresetGroup(true);
+          <AddWeaponPresetGroup
+            characterId={characterId}
+            onAdded={(weaponDefinitionId) => {
+              setEditingWeaponDefinitionId(weaponDefinitionId);
             }}
-          >
-            Add weapon
-          </Button>
+          />
         }
         items={weaponPresetGroups.map((weaponPresetGroup) => {
           const definition = weaponPresetGroup.weaponDefinition;
@@ -89,34 +72,6 @@ export function WeaponPresets({ characterId }: WeaponPresetsProps) {
           );
         })}
       />
-
-      {isAddingWeaponPresetGroup && (
-        <StyledModal
-          modalContent={
-            <WeaponDefinitionSelector
-              weaponDefinitions={unusedWeaponDefinitions}
-              onSelect={(weaponDefinition) => {
-                const weaponPreset = new WeaponPreset(
-                  characterId,
-                  weaponDefinition,
-                );
-                weaponPresetRepo.add(weaponPreset);
-
-                setIsAddingWeaponPresetGroup(false);
-                setEditingWeaponDefinitionId(weaponDefinition.id);
-              }}
-            />
-          }
-          modalTitle="Add weapon"
-          open={isAddingWeaponPresetGroup}
-          showCancel
-          onClose={() => {
-            setIsAddingWeaponPresetGroup(false);
-          }}
-          maxWidth={false}
-          fullWidth
-        />
-      )}
 
       {editingWeaponDefinitionId && (
         <EditorModal

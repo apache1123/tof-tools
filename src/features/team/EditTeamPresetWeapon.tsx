@@ -52,6 +52,7 @@ export function EditTeamPresetWeapon({
       <StyledModal
         modalContent={
           <WeaponPresetSelector
+            characterId={characterId}
             weaponPresets={weaponPresets}
             onSelect={(id) => {
               const weaponPresetProxy = db.get("weaponPresets").find(id);
