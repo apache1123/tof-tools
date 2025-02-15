@@ -1,5 +1,5 @@
 import type { Data } from "../../models/data";
-import type { SimulacrumName } from "../simulacra/simulacrum-name";
+import type { SimulacrumId } from "../simulacra/simulacrum-id";
 import type { WeaponDefinition } from "../types/weapon/weapon-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
@@ -56,7 +56,7 @@ import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
 export type WeaponName =
-  | SimulacrumName
+  | SimulacrumId
   | "Nola (Altered)"
   | "Nola (Flame-Physical)"
   | "Nola (Frost-Volt)"
@@ -127,7 +127,7 @@ const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     Brevey: brevey,
     Claudia: claudia,
     "Claudia Storm Eye": claudiaStormEye,
-    'Cobalt-B': cobaltB,
+    "Cobalt-B": cobaltB,
     Cocoritter: cocoritter,
     Crow: crow,
     "Fei Se": feiSe,
@@ -136,7 +136,7 @@ const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
     Frigg: frigg,
     Gnonno: gnonno,
     "Gray Fox": grayFox,
-    'Huang (Mimi)': mimi,
+    "Huang (Mimi)": mimi,
     Huma: huma,
     Icarus: icarus,
     "Ji Yu": jiYu,

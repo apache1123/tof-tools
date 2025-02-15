@@ -1,4 +1,4 @@
-export type SimulacrumName =
+export type SimulacrumId =
   | "Alyss"
   | "Anka"
   | "Annabella"

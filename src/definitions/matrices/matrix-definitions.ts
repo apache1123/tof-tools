@@ -1,5 +1,5 @@
 import type { Data } from "../../models/data";
-import type { SimulacrumName } from "../simulacra/simulacrum-name";
+import type { SimulacrumId } from "../simulacra/simulacrum-id";
 import type { MatrixDefinition } from "../types/matrix/matrix-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
@@ -52,7 +52,7 @@ import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
-export type MatrixDefinitionId = SimulacrumName | "Haboela" | "Scylla";
+export type MatrixDefinitionId = SimulacrumId | "Haboela" | "Scylla";
 
 export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
   allIds: [

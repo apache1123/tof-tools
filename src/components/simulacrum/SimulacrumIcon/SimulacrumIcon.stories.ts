@@ -12,6 +12,6 @@ type Story = StoryObj<typeof SimulacrumIcon>;
 
 export const Default: Story = {
   args: {
-    simulacrumName: "Roslyn",
+    simulacrumId: "Roslyn",
   },
 };

@@ -1,8 +1,8 @@
 import type { Data } from "../../models/data";
 import type { SimulacrumTrait } from "../../models/simulacrum-trait";
-import type { SimulacrumName } from "./simulacrum-name";
+import type { SimulacrumId } from "./simulacrum-id";
 
-export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
+export const simulacrumTraits: Data<SimulacrumId, SimulacrumTrait> = {
   allIds: [
     "Alyss",
     "Anka",
@@ -148,9 +148,9 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       displayName: "Claudia Storm Eye",
       buffs: [],
     },
-    'Cobalt-B': {
-      id: 'Cobalt-B',
-      displayName: 'Cobalt-B',
+    "Cobalt-B": {
+      id: "Cobalt-B",
+      displayName: "Cobalt-B",
       buffs: [],
       remarks: "Cobalt-B trait will not be implemented",
     },
@@ -361,9 +361,9 @@ export const simulacrumTraits: Data<SimulacrumName, SimulacrumTrait> = {
       buffs: [],
     },
     "Gray Fox": {
-      id: 'Gray Fox',
+      id: "Gray Fox",
       displayName: "Gray Fox",
-      buffs: []
+      buffs: [],
     },
     // TODO: crit rate duration buff
     "Huang (Mimi)": {
