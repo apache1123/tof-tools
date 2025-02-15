@@ -1,4 +1,4 @@
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import { filterOutUndefined } from "../../utils/array-utils";
 import { Damage } from "../damage/damage";
 import type { Serializable } from "../persistable";
@@ -6,19 +6,19 @@ import type { DamageSummaryDto } from "./dtos/damage-summary-dto";
 import { WeaponDamageSummary } from "./weapon-damage-summary";
 
 export class DamageSummary implements Serializable<DamageSummaryDto> {
-  public readonly weaponDamageSummaries = new Map<
-    WeaponName,
-    WeaponDamageSummary
-  >();
-
   public constructor(
     public duration: number,
-    ...weaponNames: WeaponName[]
+    ...weaponIds: WeaponDefinitionId[]
   ) {
-    for (const weaponName of weaponNames) {
-      this.weaponDamageSummaries.set(weaponName, new WeaponDamageSummary());
+    for (const weaponId of weaponIds) {
+      this.weaponDamageSummaries.set(weaponId, new WeaponDamageSummary());
     }
   }
+
+  public readonly weaponDamageSummaries = new Map<
+    WeaponDefinitionId,
+    WeaponDamageSummary
+  >();
 
   public get totalDamage(): Damage {
     return Array.from(this.weaponDamageSummaries.values()).reduce(
@@ -29,13 +29,13 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
   }
 
   public get damagePercentageByWeapon(): {
-    weaponName: WeaponName;
+    weaponId: WeaponDefinitionId;
     percentage: number;
   }[] {
     const totalFinalDamage = this.totalDamage.finalDamage;
     return Array.from(this.weaponDamageSummaries.entries()).map(
-      ([weaponName, weaponDamageSummary]) => ({
-        weaponName,
+      ([weaponId, weaponDamageSummary]) => ({
+        weaponId,
         percentage:
           weaponDamageSummary.totalDamage.finalDamage / totalFinalDamage,
       }),
@@ -44,30 +44,29 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
 
   /** Adds another damage summary. Returns another instance without modifying the originals */
   public add(damageSummary: DamageSummary): DamageSummary {
-    const aggregatedWeaponNames = new Set([
+    const aggregatedWeaponIds = new Set([
       ...this.weaponDamageSummaries.keys(),
       ...damageSummary.weaponDamageSummaries.keys(),
     ]);
 
     const result = new DamageSummary(
       this.duration + damageSummary.duration,
-      ...aggregatedWeaponNames,
+      ...aggregatedWeaponIds,
     );
 
-    for (const weaponName of aggregatedWeaponNames) {
-      const thisWeaponDamageSummary =
-        this.weaponDamageSummaries.get(weaponName);
+    for (const weaponId of aggregatedWeaponIds) {
+      const thisWeaponDamageSummary = this.weaponDamageSummaries.get(weaponId);
       const otherWeaponDamageSummary =
-        damageSummary.weaponDamageSummaries.get(weaponName);
+        damageSummary.weaponDamageSummaries.get(weaponId);
 
       filterOutUndefined([
         thisWeaponDamageSummary,
         otherWeaponDamageSummary,
       ]).forEach((weaponDamageSummary) => {
         result.weaponDamageSummaries.set(
-          weaponName,
+          weaponId,
           result.weaponDamageSummaries
-            .get(weaponName)
+            .get(weaponId)
             ?.add(weaponDamageSummary) ?? weaponDamageSummary,
         );
       });
@@ -81,13 +80,13 @@ export class DamageSummary implements Serializable<DamageSummaryDto> {
     return {
       totalDamage: totalDamage.toDto(),
       damageByWeapon: [...weaponDamageSummaries.entries()].map(
-        ([weaponName, weaponDamageSummary]) => ({
+        ([weaponId, weaponDamageSummary]) => ({
           ...weaponDamageSummary.toDto(),
-          weaponName,
+          weaponId,
           percentageOfTotalDamage:
             this.damagePercentageByWeapon.find(
               (damagePercentageItem) =>
-                damagePercentageItem.weaponName === weaponName,
+                damagePercentageItem.weaponId === weaponId,
             )?.percentage ?? 0,
         }),
       ),

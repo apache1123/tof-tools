@@ -1,7 +1,7 @@
 import { Box, Stack } from "@mui/material";
 import { useState } from "react";
 
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { DamageSummaryDto } from "../../../models/damage-summary/dtos/damage-summary-dto";
 import { DamageSummaryBreakdownSideBar } from "./DamageSummaryBreakdownSideBar";
 import { DamageSummaryBreakdownTable } from "./DamageSummaryBreakdownTable";
@@ -12,13 +12,13 @@ export function DamageSummaryBreakdown({
 }: {
   damageSummary: DamageSummaryDto;
 }) {
-  const [selectedWeaponName, setSelectedWeaponName] = useState<
-    WeaponName | undefined
-  >(damageSummary.damageByWeapon[0]?.weaponName ?? undefined);
+  const [selectedWeaponId, setSelectedWeaponId] = useState<
+    WeaponDefinitionId | undefined
+  >(damageSummary.damageByWeapon[0]?.weaponId ?? undefined);
 
   const { totalDamage, duration, damageByWeapon } = damageSummary;
   const selectedWeaponDamageSummary = damageByWeapon.find(
-    ({ weaponName }) => weaponName === selectedWeaponName,
+    ({ weaponId }) => weaponId === selectedWeaponId,
   );
 
   return (
@@ -32,14 +32,14 @@ export function DamageSummaryBreakdown({
       <Stack direction="row">
         <DamageSummaryBreakdownSideBar
           damagePercentageByWeapon={damageSummary.damageByWeapon.map(
-            ({ weaponName, percentageOfTotalDamage }) => ({
-              weaponName,
+            ({ weaponId, percentageOfTotalDamage }) => ({
+              weaponId,
               percentageOfTotalDamage,
             }),
           )}
-          selectedWeaponName={selectedWeaponName}
-          onWeaponChange={(selectedWeaponName) => {
-            setSelectedWeaponName(selectedWeaponName);
+          selectedWeaponId={selectedWeaponId}
+          onWeaponChange={(selectedWeaponId) => {
+            setSelectedWeaponId(selectedWeaponId);
           }}
         />
         <Box width={450}>

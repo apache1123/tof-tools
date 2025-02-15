@@ -55,10 +55,8 @@ export function EditCharacterPresetTeam({
                         weaponPreset?.definition && (
                           <WeaponIcon
                             key={`${i}-${weaponPreset.definition.id}`}
-                            weaponName={weaponPreset.definition.id}
-                            iconWeaponName={
-                              weaponPreset.definition.iconWeaponName
-                            }
+                            weaponId={weaponPreset.definition.id}
+                            iconWeaponId={weaponPreset.definition.iconWeaponId}
                             size={50}
                           />
                         ),

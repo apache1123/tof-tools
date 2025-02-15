@@ -1,6 +1,6 @@
 import type { AttackType } from "../../definitions/attack-type";
 import type { WeaponElementalType } from "../../definitions/elemental-type";
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-buff";
 import type { BaseAttackBuff } from "../buff/base-attack-buff/base-attack-buff";
 import type { CritDamageBuff } from "../buff/crit-damage-buff/crit-damage-buff";
@@ -17,7 +17,7 @@ export class DamageRecordEvent extends TimelineEvent {
     public readonly damage: Damage,
     public readonly attackType: AttackType,
     public readonly elementalType: WeaponElementalType,
-    public readonly weaponId: WeaponName,
+    public readonly weaponId: WeaponDefinitionId,
     public readonly baseAttackBuffs: BaseAttackBuff[],
     public readonly attackPercentBuffs: AttackPercentBuff[],
     public readonly elementalDamageBuffs: ElementalDamageBuff[],

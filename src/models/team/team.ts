@@ -1,7 +1,7 @@
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 import { numWeaponsInTeam } from "../../definitions/team";
 import type { MatrixBuffDefinition } from "../../definitions/types/matrix/matrix-buff-definition";
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
 import type { Weapon } from "../weapon/weapon";
@@ -33,8 +33,8 @@ export class Team {
     this.weapons[index] = weapon;
   }
 
-  /** Returns all equipped weapon names */
-  public getWeaponNames(): WeaponName[] {
+  /** Returns all equipped weapon ids */
+  public getWeaponIds(): WeaponDefinitionId[] {
     return this.getEquippedWeapons().map((weapon) => weapon.id);
   }
 

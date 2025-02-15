@@ -1,4 +1,4 @@
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 
 export const matrixSet2pcIdSuffix = "2pc";
 export const matrixSet4pcIdSuffix = "4pc";
@@ -6,7 +6,7 @@ export const matrixSet4pcIdSuffix = "4pc";
 /** @deprecated */
 export type MatrixSetBaseName =
   | Exclude<
-      WeaponName,
+      WeaponDefinitionId,
       | "Nola (Altered)"
       | "Nola (Flame-Physical)"
       | "Nola (Frost-Volt)"

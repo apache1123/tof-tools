@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
 
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import type { WeaponDefinitionCardContentProps } from "./WeaponDefinitionCardContent";
 import { WeaponDefinitionCardContent } from "./WeaponDefinitionCardContent";
@@ -8,14 +8,14 @@ import { WeaponDefinitionCardContent } from "./WeaponDefinitionCardContent";
 export interface WeaponDefinitionCardProps
   extends WeaponDefinitionCardContentProps,
     PropsWithSx {
-  onClick?(id: WeaponName): void;
+  onClick?(id: WeaponDefinitionId): void;
 }
 
 export function WeaponDefinitionCard({
   id,
   weaponDisplayName,
   simulacrumDisplayName,
-  iconWeaponName,
+  iconWeaponId,
   elementalIcon,
   type,
   sx,
@@ -39,7 +39,7 @@ export function WeaponDefinitionCard({
             id={id}
             weaponDisplayName={weaponDisplayName}
             simulacrumDisplayName={simulacrumDisplayName}
-            iconWeaponName={iconWeaponName}
+            iconWeaponId={iconWeaponId}
             elementalIcon={elementalIcon}
             type={type}
           />

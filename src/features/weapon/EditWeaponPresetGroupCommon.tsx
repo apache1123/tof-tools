@@ -3,14 +3,14 @@ import { Alert, Stack } from "@mui/material";
 import { WeaponDefinitionCardContent } from "../../components/weapon/WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../../components/weapon/WeaponStarsSelector/WeaponStarsSelector";
 import { db } from "../../db/reactive-local-storage-db";
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 
 export interface EditWeaponPresetGroupCommonProps {
   characterId: CharacterId;
-  weaponDefinitionId: WeaponName;
+  weaponDefinitionId: WeaponDefinitionId;
 }
 
 /** Edit common properties of all weapon presets with the same weapon definition and belonging to the same character */
@@ -37,7 +37,7 @@ export function EditWeaponPresetGroupCommon({
     id,
     weaponDisplayName,
     simulacrumDisplayName,
-    iconWeaponName,
+    iconWeaponId,
     elementalIcon,
     type,
   } = weaponPresets[0].definition;
@@ -50,7 +50,7 @@ export function EditWeaponPresetGroupCommon({
           id={id}
           weaponDisplayName={weaponDisplayName}
           simulacrumDisplayName={simulacrumDisplayName}
-          iconWeaponName={iconWeaponName}
+          iconWeaponId={iconWeaponId}
           elementalIcon={elementalIcon}
           type={type}
           iconSize={120}

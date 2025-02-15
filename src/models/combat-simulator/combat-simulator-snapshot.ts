@@ -1,4 +1,4 @@
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { AttackDto } from "../attack/dtos/attack-dto";
 import type { BuffDto } from "../buff/dtos/buff-dto";
 import type { DamageSummaryDto } from "../damage-summary/dtos/damage-summary-dto";
@@ -15,7 +15,7 @@ export interface CombatSimulatorSnapshot {
 }
 
 export interface WeaponAttackSnapshot {
-  weaponId: WeaponName;
+  weaponId: WeaponDefinitionId;
   weaponDisplayName: string;
   attackTimeline: {
     events: {

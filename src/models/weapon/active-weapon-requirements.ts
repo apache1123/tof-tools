@@ -1,11 +1,11 @@
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { Requirements } from "../requirements/requirements";
 import type { Weapon } from "./weapon";
 
 export class ActiveWeaponRequirements implements Requirements {
   public constructor(
-    private readonly isWeapon?: WeaponName,
-    private readonly isNotWeapon?: WeaponName,
+    private readonly isWeapon?: WeaponDefinitionId,
+    private readonly isNotWeapon?: WeaponDefinitionId,
   ) {}
 
   public haveBeenMet(activeWeapon: Weapon | undefined): boolean {

@@ -1,17 +1,17 @@
 import { Stack, Typography } from "@mui/material";
 
 import type { FusionWeaponElementalType } from "../../../definitions/elemental-type";
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { WeaponType } from "../../../definitions/weapons/weapon-type";
 import { ElementalTypeIcon } from "../../elemental/ElementalTypeIcon/ElementalTypeIcon";
 import { WeaponIcon } from "../WeaponIcon/WeaponIcon";
 import { WeaponTypeIcon } from "../WeaponTypeIcon/WeaponTypeIcon";
 
 export interface WeaponDefinitionCardContentProps {
-  id: WeaponName;
+  id: WeaponDefinitionId;
   weaponDisplayName: string;
   simulacrumDisplayName: string;
-  iconWeaponName?: WeaponName;
+  iconWeaponId?: WeaponDefinitionId;
   elementalIcon: FusionWeaponElementalType;
   type: WeaponType;
   iconSize?: number;
@@ -22,7 +22,7 @@ export function WeaponDefinitionCardContent({
   id,
   weaponDisplayName,
   simulacrumDisplayName,
-  iconWeaponName,
+  iconWeaponId,
   elementalIcon,
   type,
   iconSize,
@@ -30,11 +30,7 @@ export function WeaponDefinitionCardContent({
 }: WeaponDefinitionCardContentProps) {
   return (
     <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
-      <WeaponIcon
-        weaponName={id}
-        iconWeaponName={iconWeaponName}
-        size={iconSize}
-      />
+      <WeaponIcon weaponId={id} iconWeaponId={iconWeaponId} size={iconSize} />
 
       {showWeaponDescription && (
         <Stack sx={{ pr: 2 }}>

@@ -1,6 +1,6 @@
 import type { ResourceId } from "../../../models/resource/resource-definition";
 import type { WeaponElementalType } from "../../elemental-type";
-import type { WeaponName } from "../../weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../weapons/weapon-definitions";
 import type { WeaponResonance } from "../../weapons/weapon-resonance";
 
 /** Requirements are treated as a "AND" check i.e. the ability can be triggered when all defined requirements pass check */
@@ -8,15 +8,15 @@ export interface AbilityRequirementsDefinition {
   activeBuff?: string;
 
   activeWeapon?: {
-    is?: WeaponName;
+    is?: WeaponDefinitionId;
     /** e.g. can only be triggered when [weapon] is not active weapon */
-    isNot?: WeaponName;
+    isNot?: WeaponDefinitionId;
   };
 
   /** Requirements related to the team composition */
   teamRequirements?: {
     /** Any of these weapons in the team */
-    anyWeapon?: WeaponName[];
+    anyWeapon?: WeaponDefinitionId[];
 
     weaponResonance?: {
       is?: WeaponResonance;

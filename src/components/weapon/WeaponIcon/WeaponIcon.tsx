@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Image from "next/image";
 
 import type { FusionWeaponElementalType } from "../../../definitions/elemental-type";
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { WeaponType } from "../../../definitions/weapons/weapon-type";
 import { normalCaseToKebabCase } from "../../../utils/string-utils";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
@@ -11,9 +11,9 @@ import { ElementalTypeIcon } from "../../elemental/ElementalTypeIcon/ElementalTy
 import { WeaponTypeIcon } from "../WeaponTypeIcon/WeaponTypeIcon";
 
 export interface WeaponIconProps extends PropsWithSx {
-  weaponName: WeaponName | undefined;
-  /** Optional. The weapon's icon will be inferred from the id/weapon name if not provided. This is used when the weapon has a different id than the icon name, e.g. id="Nola (Altered)", id="Nola (Frost)", etc. all use "Nola" icon */
-  iconWeaponName: WeaponName | undefined;
+  weaponId: WeaponDefinitionId | undefined;
+  /** Optional. The weapon's icon will be inferred from the id if not provided. This is used when the weapon has a different id than the icon name, e.g. id="Nola (Altered)", id="Nola (Frost)", etc. all use "Nola" icon */
+  iconWeaponId: WeaponDefinitionId | undefined;
   size?: number;
   /** If defined, will overlay the elemental type icon on top of the weapon icon */
   elementalIcon?: FusionWeaponElementalType;
@@ -22,23 +22,23 @@ export interface WeaponIconProps extends PropsWithSx {
 }
 
 export const WeaponIcon = ({
-  weaponName,
-  iconWeaponName,
+  weaponId,
+  iconWeaponId,
   size = 100,
   elementalIcon,
   weaponType,
   sx,
 }: WeaponIconProps) => {
-  if (weaponName) {
-    const imageName = normalCaseToKebabCase(iconWeaponName ?? weaponName);
+  if (weaponId) {
+    const imageName = normalCaseToKebabCase(iconWeaponId ?? weaponId);
     const imagePath = `/icons/weapons/${imageName}.png`;
 
     return (
       <Box width={size} height={size} position={"relative"} sx={sx}>
         <Image
           src={imagePath}
-          alt={weaponName}
-          title={weaponName}
+          alt={weaponId}
+          title={weaponId}
           width={size}
           height={size}
         ></Image>

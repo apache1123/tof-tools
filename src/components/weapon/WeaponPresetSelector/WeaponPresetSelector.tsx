@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import { getAllWeaponDefinitions } from "../../../definitions/weapons/weapon-definitions";
 import { FilterLayout } from "../../../features/common/FilterLayout";
 import { InventoryLayout } from "../../../features/common/InventoryLayout";
@@ -21,7 +21,7 @@ export function WeaponPresetSelector({
   onSelect,
 }: WeaponPresetSelectorProps) {
   const [definitionIdFilter, setDefinitionIdFilter] = useState<
-    WeaponName | undefined
+    WeaponDefinitionId | undefined
   >(undefined);
 
   const filteredWeaponPresets = weaponPresets.filter((weaponPreset) => {

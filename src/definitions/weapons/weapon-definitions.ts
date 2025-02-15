@@ -55,7 +55,7 @@ import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
-export type WeaponName =
+export type WeaponDefinitionId =
   | SimulacrumId
   | "Nola (Altered)"
   | "Nola (Flame-Physical)"
@@ -63,7 +63,7 @@ export type WeaponName =
   | "Nola (Physical-Flame)"
   | "Nola (Volt-Frost)";
 
-const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
+const weaponDefinitions: Data<WeaponDefinitionId, WeaponDefinition> = {
   allIds: [
     "Alyss",
     "Anka",
@@ -175,10 +175,9 @@ const weaponDefinitions: Data<WeaponName, WeaponDefinition> = {
   },
 };
 
-export function getWeaponDefinition(name: WeaponName) {
-  const weaponDefinition = weaponDefinitions.byId[name];
-  if (!weaponDefinition)
-    throw new Error(`Cannot find weapon definition ${name}`);
+export function getWeaponDefinition(id: WeaponDefinitionId) {
+  const weaponDefinition = weaponDefinitions.byId[id];
+  if (!weaponDefinition) throw new Error(`Cannot find weapon definition ${id}`);
   return weaponDefinition;
 }
 

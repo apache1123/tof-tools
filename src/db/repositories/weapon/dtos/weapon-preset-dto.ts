@@ -1,4 +1,4 @@
-import type { WeaponName } from "../../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../../definitions/weapons/weapon-definitions";
 import { getWeaponDefinition } from "../../../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../../../models/character/character-data";
 import type { Matrix } from "../../../../models/matrix/matrix";
@@ -14,7 +14,7 @@ import {
 
 export interface WeaponPresetDto extends Dto {
   id: string;
-  definitionId: WeaponName;
+  definitionId: WeaponDefinitionId;
   characterId: CharacterId;
   stars: number;
   matrixSlots: MatrixSlotsDto;

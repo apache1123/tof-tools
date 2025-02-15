@@ -2,17 +2,17 @@ import { Stack, Typography } from "@mui/material";
 import ButtonBase from "@mui/material/ButtonBase";
 import { styled } from "@mui/material/styles";
 
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { DamageSummaryDto } from "../../../models/damage-summary/dtos/damage-summary-dto";
 import { toPercentageString } from "../../../utils/number-utils";
 
 export interface DamageSummaryBreakdownSideBarProps {
   damagePercentageByWeapon: Pick<
     DamageSummaryDto["damageByWeapon"][number],
-    "weaponName" | "percentageOfTotalDamage"
+    "weaponId" | "percentageOfTotalDamage"
   >[];
-  selectedWeaponName: WeaponName | undefined;
-  onWeaponChange(selectedWeaponName: WeaponName): void;
+  selectedWeaponId: WeaponDefinitionId | undefined;
+  onWeaponChange(selectedWeaponId: WeaponDefinitionId): void;
 }
 
 const WeaponButton = styled(ButtonBase)(({ theme }) => ({
@@ -56,22 +56,20 @@ export function DamageSummaryBreakdownSideBar({
       // justifyContent="space-between"
       spacing={1}
     >
-      {damagePercentageByWeapon.map(
-        ({ weaponName, percentageOfTotalDamage }) => (
-          <WeaponButton
-            key={weaponName}
-            onClick={() => {
-              onWeaponChange(weaponName);
-            }}
-          >
-            <Weapon>
-              <Typography>
-                {weaponName}: {toPercentageString(percentageOfTotalDamage)}
-              </Typography>
-            </Weapon>
-          </WeaponButton>
-        ),
-      )}
+      {damagePercentageByWeapon.map(({ weaponId, percentageOfTotalDamage }) => (
+        <WeaponButton
+          key={weaponId}
+          onClick={() => {
+            onWeaponChange(weaponId);
+          }}
+        >
+          <Weapon>
+            <Typography>
+              {weaponId}: {toPercentageString(percentageOfTotalDamage)}
+            </Typography>
+          </Weapon>
+        </WeaponButton>
+      ))}
     </Stack>
   );
 }

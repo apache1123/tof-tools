@@ -75,8 +75,8 @@ export function EditCharacterPresetStats({
             <Box>
               <Typography>Using main weapon</Typography>
               <WeaponIcon
-                weaponName={mainWeaponDefinition.id}
-                iconWeaponName={mainWeaponDefinition.iconWeaponName}
+                weaponId={mainWeaponDefinition.id}
+                iconWeaponId={mainWeaponDefinition.iconWeaponId}
                 elementalIcon={mainWeaponDefinition.elementalIcon}
               />
               <Stack direction="row" sx={{ gap: 0.5 }}>

@@ -1,4 +1,4 @@
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { EventManager } from "../event/event-manager";
 import type { EventSubscriber } from "../event/event-subscriber";
 import type { AbilityEndedMessage } from "../event/messages/ability-ended";
@@ -21,7 +21,7 @@ export class AbilityTrigger implements EventSubscriber {
     private readonly triggerOnAbilityEnd?: AbilityId[],
     private readonly triggerOnAttackHit?: {
       any?: boolean;
-      ofWeapon?: WeaponName;
+      ofWeapon?: WeaponDefinitionId;
     },
     private readonly triggerOnResourceUpdate?: ResourceId,
   ) {}

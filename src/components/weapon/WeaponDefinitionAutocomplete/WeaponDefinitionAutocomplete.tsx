@@ -46,15 +46,15 @@ function Option({
     id,
     weaponDisplayName,
     simulacrumDisplayName,
-    iconWeaponName,
+    iconWeaponId,
     elementalIcon,
     type,
   } = definition;
   return (
     <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
       <WeaponIcon
-        weaponName={id}
-        iconWeaponName={iconWeaponName}
+        weaponId={id}
+        iconWeaponId={iconWeaponId}
         elementalIcon={elementalIcon}
         weaponType={type}
         size={iconSize}

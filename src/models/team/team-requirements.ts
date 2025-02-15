@@ -1,4 +1,4 @@
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { Requirements } from "../requirements/requirements";
 import type { ElementalWeaponRequirements } from "./elemental-weapon-requirements";
 import type { Team } from "./team";
@@ -6,7 +6,7 @@ import type { WeaponResonanceRequirements } from "./weapon-resonance-requirement
 
 export class TeamRequirements implements Requirements {
   public constructor(
-    private readonly anyWeapon?: WeaponName[],
+    private readonly anyWeapon?: WeaponDefinitionId[],
     private readonly weaponResonanceRequirements?: WeaponResonanceRequirements,
     private readonly elementalWeaponRequirements?: ElementalWeaponRequirements,
   ) {}
@@ -15,7 +15,7 @@ export class TeamRequirements implements Requirements {
     if (
       this.anyWeapon &&
       this.anyWeapon.every(
-        (weaponName) => !team.getWeaponNames().includes(weaponName),
+        (weaponId) => !team.getWeaponIds().includes(weaponId),
       )
     )
       return false;

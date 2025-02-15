@@ -5,7 +5,7 @@ import { Button } from "../../components/common/Button/Button";
 import { CardList } from "../../components/common/CardList/CardList";
 import { WeaponPresetCard } from "../../components/weapon/WeaponPresetCard/WeaponPresetCard";
 import { db } from "../../db/reactive-local-storage-db";
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
@@ -15,7 +15,7 @@ import { EditWeaponPresetGroupCommon } from "./EditWeaponPresetGroupCommon";
 
 export interface EditWeaponPresetGroupProps {
   characterId: CharacterId;
-  weaponDefinitionId: WeaponName;
+  weaponDefinitionId: WeaponDefinitionId;
 }
 
 /** Edit weapon presets with the same weapon definition id and belonging to the character */

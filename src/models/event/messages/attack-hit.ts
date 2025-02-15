@@ -1,7 +1,7 @@
 import type { AttackType } from "../../../definitions/attack-type";
 import type { WeaponElementalType } from "../../../definitions/elemental-type";
 import type { AttackId } from "../../../definitions/types/attack/attack-ability-definition";
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { BaseDamageModifiers } from "../../damage-modifiers/base-damage-modifiers";
 import type { FinalDamageModifiers } from "../../damage-modifiers/final-damage-modifiers";
 import type { Message } from "../message";
@@ -11,7 +11,7 @@ export interface AttackHit extends Message {
   readonly damageElement: WeaponElementalType;
   readonly baseDamageModifiers: BaseDamageModifiers;
   readonly finalDamageModifiers: FinalDamageModifiers;
-  readonly weaponId: WeaponName;
+  readonly weaponId: WeaponDefinitionId;
   readonly attackId: AttackId;
   readonly attackType: AttackType;
 

@@ -7,7 +7,7 @@ import { StyledModal } from "../../components/common/Modal/StyledModal";
 import { WeaponCard } from "../../components/weapon/WeaponCard/WeaponCard";
 import { WeaponDefinitionSelector } from "../../components/weapon/WeaponDefinitionSelector/WeaponDefinitionSelector";
 import { db } from "../../db/reactive-local-storage-db";
-import type { WeaponName } from "../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import {
   getAllWeaponDefinitions,
   getWeaponDefinition,
@@ -54,7 +54,7 @@ export function WeaponPresets({ characterId }: WeaponPresetsProps) {
   const [isAddingWeaponPresetGroup, setIsAddingWeaponPresetGroup] =
     useState(false);
   const [editingWeaponDefinitionId, setEditingWeaponDefinitionId] = useState<
-    WeaponName | undefined
+    WeaponDefinitionId | undefined
   >(undefined);
 
   return (

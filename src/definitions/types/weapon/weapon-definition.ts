@@ -16,17 +16,17 @@ import type {
   GearResonanceElements,
   WeaponElementalType,
 } from "../../elemental-type";
-import type { WeaponName } from "../../weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../weapons/weapon-definitions";
 import type { WeaponType } from "../../weapons/weapon-type";
 
 export interface WeaponDefinition {
-  id: WeaponName;
+  id: WeaponDefinitionId;
   /** This is the name of the simulacrum the weapon is related to, as the weapon is usually referred to by the simulacrum name instead of the actual name of the weapon */
   simulacrumDisplayName: string;
   /** The actual name of the weapon, e.g. Shadoweave for Lin */
   weaponDisplayName: string;
   /** Optional. The weapon's icon will be inferred from the id if not provided. This is used when the weapon has a different id than the icon name, e.g. id="Nola (Altered)", id="Nola (Frost)", etc. all use "Nola" icon */
-  iconWeaponName?: WeaponName;
+  iconWeaponId?: WeaponDefinitionId;
   /** For displaying the weapon's elemental type icon */
   elementalIcon: FusionWeaponElementalType;
   /** The elemental type the weapon is considered to be for the purposes of elemental resonance, matrix effects etc. (not the damage dealing elemental type)

@@ -52,7 +52,7 @@ export const WeaponDefinitionSelector = ({
           id,
           weaponDisplayName,
           simulacrumDisplayName,
-          iconWeaponName,
+          iconWeaponId,
           elementalIcon,
           type,
         } = definition;
@@ -63,7 +63,7 @@ export const WeaponDefinitionSelector = ({
             id={id}
             weaponDisplayName={weaponDisplayName}
             simulacrumDisplayName={simulacrumDisplayName}
-            iconWeaponName={iconWeaponName}
+            iconWeaponId={iconWeaponId}
             elementalIcon={elementalIcon}
             type={type}
             onClick={() => {

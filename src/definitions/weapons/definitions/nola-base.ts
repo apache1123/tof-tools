@@ -4,7 +4,7 @@ export const nolaBase = {
   id: "Nola",
   simulacrumDisplayName: "Nola",
   weaponDisplayName: "Rumble",
-  iconWeaponName: "Nola",
+  iconWeaponId: "Nola",
   elementalIcon: "Altered",
   resonanceElements: [],
   gearResonanceElements: [],

@@ -1,5 +1,5 @@
 import type { Dto } from "../../../db/repository/dto";
-import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
+import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { DamageDto } from "./damage-dto";
 import type { WeaponDamageSummaryDto } from "./weapon-damage-summary-dto";
 
@@ -10,6 +10,6 @@ export interface DamageSummaryDto extends Dto {
 }
 
 interface DamageByWeaponDto extends WeaponDamageSummaryDto {
-  weaponName: WeaponName;
+  weaponId: WeaponDefinitionId;
   percentageOfTotalDamage: number;
 }

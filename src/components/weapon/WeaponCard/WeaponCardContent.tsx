@@ -30,7 +30,7 @@ export function WeaponCardContent({
     id,
     weaponDisplayName,
     simulacrumDisplayName,
-    iconWeaponName,
+    iconWeaponId,
     elementalIcon,
     type,
   } = definition;
@@ -42,7 +42,7 @@ export function WeaponCardContent({
           id={id}
           weaponDisplayName={weaponDisplayName}
           simulacrumDisplayName={simulacrumDisplayName}
-          iconWeaponName={iconWeaponName}
+          iconWeaponId={iconWeaponId}
           elementalIcon={elementalIcon}
           type={type}
           showWeaponDescription={showWeaponDescription}

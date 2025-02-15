@@ -24,7 +24,7 @@
 //             return (
 //               <Stack direction="row" alignItems="baseline" key={index}>
 //                 <WeaponDisplay
-//                   weaponName={weapon.definitionId}
+//                   weaponId={weapon.definitionId}
 //                   stars={weapon.stars}
 //                 />
 //                 {matrixSet4pc && (
