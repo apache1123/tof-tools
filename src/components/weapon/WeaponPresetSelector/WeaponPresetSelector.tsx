@@ -1,13 +1,14 @@
+import groupBy from "lodash.groupby";
 import { useState } from "react";
 
 import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
-import { getAllWeaponDefinitions } from "../../../definitions/weapons/weapon-definitions";
 import { FilterLayout } from "../../../features/common/FilterLayout";
 import { InventoryLayout } from "../../../features/common/InventoryLayout";
 import type {
   WeaponPreset,
   WeaponPresetId,
 } from "../../../models/weapon/weapon-preset";
+import { keysOf } from "../../../utils/object-utils";
 import { WeaponDefinitionAutocomplete } from "../WeaponDefinitionAutocomplete/WeaponDefinitionAutocomplete";
 import { WeaponPresetCard } from "../WeaponPresetCard/WeaponPresetCard";
 
@@ -20,6 +21,18 @@ export function WeaponPresetSelector({
   weaponPresets,
   onSelect,
 }: WeaponPresetSelectorProps) {
+  // Get list of unique weapon definitions used by the weapon presets
+  const weaponPresetsByDefinitionId = groupBy(
+    weaponPresets,
+    (weaponPreset) => weaponPreset.definition.id,
+  );
+  const nonUniqueWeaponDefinitions = keysOf(weaponPresetsByDefinitionId).map(
+    (definitionId) => {
+      return weaponPresetsByDefinitionId[definitionId][0].definition;
+    },
+  );
+  const weaponDefinitions = [...new Set(nonUniqueWeaponDefinitions)];
+
   const [definitionIdFilter, setDefinitionIdFilter] = useState<
     WeaponDefinitionId | undefined
   >(undefined);
@@ -32,16 +45,14 @@ export function WeaponPresetSelector({
     return true;
   });
 
-  const allWeaponDefinitions = getAllWeaponDefinitions();
-
   return (
     <InventoryLayout
       filter={
         <FilterLayout
           filterContent={
             <WeaponDefinitionAutocomplete
-              options={allWeaponDefinitions}
-              value={allWeaponDefinitions.find(
+              options={weaponDefinitions}
+              value={weaponDefinitions.find(
                 (definition) => definition.id === definitionIdFilter,
               )}
               onChange={(value) => setDefinitionIdFilter(value?.id)}
