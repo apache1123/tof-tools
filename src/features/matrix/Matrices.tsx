@@ -47,7 +47,6 @@ export function Matrices({ characterId }: MatricesProps) {
       <InventoryLayout
         filter={
           <FilterLayout
-            title="Matrix Filter"
             filterContent={
               <MatrixFilterSelector
                 filter={filter}

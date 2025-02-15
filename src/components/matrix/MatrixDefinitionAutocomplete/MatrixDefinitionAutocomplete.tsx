@@ -20,7 +20,7 @@ export function MatrixDefinitionAutocomplete({
       options={options}
       renderInput={(params) => <TextField {...params} label="Matrices" />}
       renderOption={(props, definition) => (
-        <ListItem {...props} key={definition.id}>
+        <ListItem {...props} key={definition.id} sx={{ minHeight: 70 }}>
           <Option definition={definition} iconSize={60} />
         </ListItem>
       )}
@@ -59,7 +59,6 @@ function Option({
         definitionId={definition.id}
         displayName={definition.displayName}
         size={iconSize}
-        sx={{ mt: -1.5, mr: -1.5, mb: -2.5, ml: -1 }}
       />
       {definition.displayName}
     </Stack>

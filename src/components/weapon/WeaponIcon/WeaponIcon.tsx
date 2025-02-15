@@ -6,10 +6,11 @@ import type { FusionWeaponElementalType } from "../../../definitions/elemental-t
 import type { WeaponName } from "../../../definitions/weapons/weapon-definitions";
 import type { WeaponType } from "../../../definitions/weapons/weapon-type";
 import { normalCaseToKebabCase } from "../../../utils/string-utils";
+import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { ElementalTypeIcon } from "../../elemental/ElementalTypeIcon/ElementalTypeIcon";
 import { WeaponTypeIcon } from "../WeaponTypeIcon/WeaponTypeIcon";
 
-export interface WeaponIconProps {
+export interface WeaponIconProps extends PropsWithSx {
   weaponName: WeaponName | undefined;
   /** Optional. The weapon's icon will be inferred from the id/weapon name if not provided. This is used when the weapon has a different id than the icon name, e.g. id="Nola (Altered)", id="Nola (Frost)", etc. all use "Nola" icon */
   iconWeaponName: WeaponName | undefined;
@@ -26,13 +27,14 @@ export const WeaponIcon = ({
   size = 100,
   elementalIcon,
   weaponType,
+  sx,
 }: WeaponIconProps) => {
   if (weaponName) {
     const imageName = normalCaseToKebabCase(iconWeaponName ?? weaponName);
     const imagePath = `/icons/weapons/${imageName}.png`;
 
     return (
-      <Box width={size} height={size} position={"relative"}>
+      <Box width={size} height={size} position={"relative"} sx={sx}>
         <Image
           src={imagePath}
           alt={weaponName}

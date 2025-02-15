@@ -35,7 +35,6 @@ export function Gears({ characterId }: GearsProps) {
       <InventoryLayout
         filter={
           <FilterLayout
-            title="Gear Filter"
             filterContent={
               <GearFilter
                 filter={filter}

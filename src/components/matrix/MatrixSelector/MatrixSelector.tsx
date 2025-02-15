@@ -25,7 +25,6 @@ export function MatrixSelector({ matrices, onSelect }: MatrixSelectorProps) {
     <InventoryLayout
       filter={
         <FilterLayout
-          title="Matrix Filter"
           filterContent={
             <MatrixFilterSelector filter={filter} onChange={setFilter} />
           }

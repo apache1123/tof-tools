@@ -107,6 +107,7 @@ export function WeaponPresets({ characterId }: WeaponPresetsProps) {
               }}
             />
           }
+          modalTitle="Add weapon"
           open={isAddingWeaponPresetGroup}
           showCancel
           onClose={() => {
