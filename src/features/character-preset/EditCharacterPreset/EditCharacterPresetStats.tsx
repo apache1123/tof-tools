@@ -31,6 +31,11 @@ export function EditCharacterPresetStats({
 
   const mainWeaponDefinition = teamPreset?.getMainWeaponPreset()?.definition;
 
+  const areAllStatsSet =
+    !!mainWeaponDefinition?.gearResonanceElements.every(
+      (element) => baseAttacks.get(element) > 0,
+    ) && critRateFlat > 0;
+
   return (
     <Accordion defaultExpanded={expand}>
       <AccordionSummary>
@@ -39,27 +44,22 @@ export function EditCharacterPresetStats({
 
           {teamPreset ? (
             mainWeaponDefinition ? (
-              <Stack direction="row" sx={{ gap: 2 }}>
-                {mainWeaponDefinition.gearResonanceElements.map((element) => (
-                  <ElementalStyledText key={element} elementalType={element}>
-                    {element}:{" "}
-                    {baseAttacks.get(element) ? (
+              areAllStatsSet ? (
+                <Stack direction="row" sx={{ gap: 2 }}>
+                  {mainWeaponDefinition.gearResonanceElements.map((element) => (
+                    <ElementalStyledText key={element} elementalType={element}>
+                      {element}:{" "}
                       <NumericStringInteger value={baseAttacks.get(element)} />
-                    ) : (
-                      <NotSetErrorText />
-                    )}
-                  </ElementalStyledText>
-                ))}
+                    </ElementalStyledText>
+                  ))}
 
-                <Typography>
-                  Crit:{" "}
-                  {critRateFlat ? (
-                    <NumericStringInteger value={critRateFlat} />
-                  ) : (
-                    <NotSetErrorText />
-                  )}
-                </Typography>
-              </Stack>
+                  <Typography>
+                    Crit: <NumericStringInteger value={critRateFlat} />
+                  </Typography>
+                </Stack>
+              ) : (
+                <ErrorText sx={{ py: 0 }}>Stats not set</ErrorText>
+              )
             ) : (
               <ErrorText sx={{ py: 0 }}>Team has no weapons</ErrorText>
             )
@@ -114,13 +114,5 @@ export function EditCharacterPresetStats({
         )}
       </AccordionDetails>
     </Accordion>
-  );
-}
-
-function NotSetErrorText() {
-  return (
-    <ErrorText sx={{ display: "inline", fontWeight: "bold" }}>
-      Not set
-    </ErrorText>
   );
 }
