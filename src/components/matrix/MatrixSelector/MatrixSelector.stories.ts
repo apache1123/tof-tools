@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { matrixDefinitions } from "../../../definitions/matrices/matrix-definitions";
 import { getMatrixType } from "../../../definitions/matrices/matrix-type";
 import { Matrix } from "../../../models/matrix/matrix";
+import { exampleCharacterId } from "../../__fixtures__/character";
 import { MatrixSelector } from "./MatrixSelector";
 
 const meta: Meta<typeof MatrixSelector> = {
@@ -14,7 +15,7 @@ export default meta;
 type Story = StoryObj<typeof MatrixSelector>;
 
 export const Default: Story = {
-  args: { matrices: generateMatrices() },
+  args: { characterId: exampleCharacterId, matrices: generateMatrices() },
 };
 
 function generateMatrices() {

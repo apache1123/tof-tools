@@ -101,6 +101,7 @@ export function EditWeaponPreset({
         <StyledModal
           modalContent={
             <MatrixSelector
+              characterId={characterId}
               matrices={filteredMatrices}
               onSelect={(matrix) => {
                 const matrixProxy = db.get("matrices").find(matrix.id);
