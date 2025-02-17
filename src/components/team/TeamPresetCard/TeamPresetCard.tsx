@@ -4,7 +4,10 @@ import type { TeamPreset } from "../../../models/team/team-preset";
 import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
 import { CardList } from "../../common/CardList/CardList";
 import { SectionSubheading } from "../../common/SectionHeading/SectionSubheading";
-import { WeaponPresetCard } from "../../weapon/WeaponPresetCard/WeaponPresetCard";
+import {
+  EmptyWeaponPresetCard,
+  WeaponPresetCard,
+} from "../../weapon/WeaponPresetCard/WeaponPresetCard";
 
 export interface TeamPresetCardProps extends PropsWithElevation {
   teamPreset: TeamPreset;
@@ -37,17 +40,18 @@ export function TeamPresetCard({
           <CardList direction="row" gap={1}>
             {teamPreset
               .getWeaponPresets()
-              .map(
-                (weaponPreset, i) =>
-                  weaponPreset && (
-                    <WeaponPresetCard
-                      key={i}
-                      weaponDefinition={weaponPreset.definition}
-                      stars={weaponPreset.stars}
-                      matrixSlots={weaponPreset.matrixSlots.getSlots()}
-                      elevation={elevation + 1}
-                    />
-                  ),
+              .map((weaponPreset, i) =>
+                weaponPreset ? (
+                  <WeaponPresetCard
+                    key={i}
+                    weaponDefinition={weaponPreset.definition}
+                    stars={weaponPreset.stars}
+                    matrixSlots={weaponPreset.matrixSlots.getSlots()}
+                    elevation={elevation + 1}
+                  />
+                ) : (
+                  <EmptyWeaponPresetCard key={i} elevation={elevation + 1} />
+                ),
               )}
           </CardList>
         </CardContent>

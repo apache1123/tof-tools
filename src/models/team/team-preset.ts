@@ -33,7 +33,9 @@ export class TeamPreset {
 
   /** The selected weapon presets. The first weapon preset is the main weapon. */
   public getWeaponPresets(): ReadonlyArray<WeaponPreset | undefined> {
-    return this.weaponPresets;
+    return [...Array(TeamPreset.maxNumOfWeapons)].map((_, i) =>
+      this.getWeaponPreset(i),
+    );
   }
 
   public getMainWeaponPreset() {

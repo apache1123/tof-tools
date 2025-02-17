@@ -8,3 +8,5 @@ export const exampleTeamPreset = new TeamPreset(
 );
 exampleTeamPreset.setWeaponPreset(0, exampleWeaponPreset1);
 exampleTeamPreset.setWeaponPreset(1, exampleWeaponPreset2);
+
+export const exampleTeamPresetEmpty = new TeamPreset(exampleCharacterId);
