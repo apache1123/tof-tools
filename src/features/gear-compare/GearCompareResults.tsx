@@ -2,6 +2,7 @@ import { Box, Paper, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
+import { NumericCompareString } from "../../components/common/NumericCompareString/NumericCompareString";
 import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
@@ -75,7 +76,8 @@ export function GearCompareResults({
         <Grid container spacing={2}>
           <Grid xs={12} md={6}>
             <SectionSubheading>Current gear</SectionSubheading>
-            <Stack spacing={2}>
+
+            <Stack spacing={1}>
               <Box>
                 Value:{" "}
                 <NumericString
@@ -92,17 +94,24 @@ export function GearCompareResults({
                   variant="integer"
                 />
               </Box>
-              {currentGearResult.maxTitan && (
-                <>
+            </Stack>
+
+            {currentGearResult.maxTitan && (
+              <>
+                <SectionSubheading sx={{ mt: 3 }}>
+                  Current gear when at max titan
+                </SectionSubheading>
+
+                <Stack spacing={1}>
                   <Box>
-                    Value if gear is max titan:{" "}
+                    Value:{" "}
                     <NumericString
                       value={currentGearResult.maxTitan.gearValue}
                       variant="percentage2dp"
                     />
                   </Box>
                   <Box>
-                    Damage if gear is max titan:{" "}
+                    Damage:{" "}
                     <NumericString
                       value={
                         currentGearResult.maxTitan.damageSummary.totalDamage
@@ -111,50 +120,84 @@ export function GearCompareResults({
                       variant="integer"
                     />
                   </Box>
-                </>
-              )}
-            </Stack>
+                </Stack>
+              </>
+            )}
           </Grid>
 
           <Grid xs={12} md={6}>
             <SectionSubheading>New gear</SectionSubheading>
-            <Stack spacing={2}>
+
+            <Stack spacing={1}>
               <Box>
                 Value:{" "}
-                <NumericString
+                <NumericCompareString
                   value={newGearResult.gearValue}
+                  otherValue={currentGearResult.gearValue}
                   variant="percentage2dp"
                 />
               </Box>
               <Box>
                 Damage:{" "}
-                <NumericString
+                <NumericCompareString
                   value={newGearResult.damageSummary.totalDamage.finalDamage}
+                  otherValue={
+                    currentGearResult.damageSummary.totalDamage.finalDamage
+                  }
                   variant="integer"
                 />
               </Box>
-              {newGearResult.maxTitan && (
-                <>
-                  <Box>
-                    Value if gear is max titan:{" "}
-                    <NumericString
-                      value={newGearResult.maxTitan.gearValue}
-                      variant="percentage2dp"
-                    />
-                  </Box>
-                  <Box>
-                    Damage if gear is max titan:{" "}
-                    <NumericString
-                      value={
-                        newGearResult.maxTitan.damageSummary.totalDamage
-                          .finalDamage
-                      }
-                      variant="integer"
-                    />
-                  </Box>
-                </>
-              )}
             </Stack>
+
+            {newGearResult.maxTitan && (
+              <>
+                <SectionSubheading sx={{ mt: 3 }}>
+                  New gear when at max titan
+                </SectionSubheading>
+
+                <Stack spacing={1}>
+                  <Box>
+                    Value:{" "}
+                    {currentGearResult.maxTitan ? (
+                      <NumericCompareString
+                        value={newGearResult.maxTitan.gearValue}
+                        otherValue={currentGearResult.maxTitan.gearValue}
+                        variant="percentage2dp"
+                      />
+                    ) : (
+                      <NumericString
+                        value={newGearResult.maxTitan.gearValue}
+                        variant="percentage2dp"
+                      />
+                    )}
+                  </Box>
+                  <Box>
+                    Damage:{" "}
+                    {currentGearResult.maxTitan ? (
+                      <NumericCompareString
+                        value={
+                          newGearResult.maxTitan.damageSummary.totalDamage
+                            .finalDamage
+                        }
+                        otherValue={
+                          currentGearResult.maxTitan.damageSummary.totalDamage
+                            .finalDamage
+                        }
+                        variant="integer"
+                      />
+                    ) : (
+                      <NumericString
+                        value={
+                          newGearResult.maxTitan.damageSummary.totalDamage
+                            .finalDamage
+                        }
+                        variant="integer"
+                      />
+                    )}
+                  </Box>
+                </Stack>
+              </>
+            )}
           </Grid>
         </Grid>
       </Paper>
