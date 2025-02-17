@@ -2,7 +2,7 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import { proxy, useSnapshot } from "valtio";
 
 import { NumericInput } from "../../components/common/NumericInput/NumericInput";
-import { NumericStringPercentage2dp } from "../../components/common/NumericString/NumericString";
+import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { maxCharacterLevel } from "../../definitions/character-level";
 import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-utils";
@@ -57,7 +57,8 @@ export function CritFlatToPercent() {
           </Box>
         </Stack>
         <Typography>
-          Crit rate %: <NumericStringPercentage2dp value={critPercent} />
+          Crit rate %:{" "}
+          <NumericString value={critPercent} variant="percentage2dp" />
         </Typography>
       </Stack>
     </Paper>

@@ -2,10 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import type { PropsWithChildren } from "react";
 
 import type { WeaponElementalType } from "../../../definitions/elemental-type";
-import {
-  NumericStringInteger,
-  NumericStringPercentage2dp,
-} from "../../common/NumericString/NumericString";
+import { NumericString } from "../../common/NumericString/NumericString";
 import { ElementalStyledText } from "../../elemental/ElementalStyledText/ElementalStyledText";
 
 export interface BuffGroupProps extends PropsWithChildren {
@@ -29,9 +26,9 @@ export function BuffGroup({
         {" : "}
         <ElementalStyledText elementalType={element}>
           {isPercentageValue ? (
-            <NumericStringPercentage2dp value={totalValue} />
+            <NumericString value={totalValue} variant="percentage2dp" />
           ) : (
-            <NumericStringInteger value={totalValue} />
+            <NumericString value={totalValue} variant="integer" />
           )}
         </ElementalStyledText>
       </Typography>

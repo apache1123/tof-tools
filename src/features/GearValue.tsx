@@ -1,6 +1,6 @@
 import { Paper, Typography } from "@mui/material";
 
-import { NumericStringPercentage2dp } from "../components/common/NumericString/NumericString";
+import { NumericString } from "../components/common/NumericString/NumericString";
 import { getComparisonColor } from "../utils/color-utils";
 
 export interface GearValueProps {
@@ -31,7 +31,7 @@ export function GearValue({
         }}
         data-testid={dataTestId ? `${dataTestId}-value` : "gear-value"}
       >
-        <NumericStringPercentage2dp value={gearValue} />
+        <NumericString value={gearValue} variant="percentage2dp" />
       </Typography>
 
       {titanGearValue !== undefined && (
@@ -47,7 +47,7 @@ export function GearValue({
               dataTestId ? `${dataTestId}-max-titan-value` : "max-titan-value"
             }
           >
-            <NumericStringPercentage2dp value={titanGearValue} />
+            <NumericString value={titanGearValue} variant="percentage2dp" />
           </Typography>
         </>
       )}

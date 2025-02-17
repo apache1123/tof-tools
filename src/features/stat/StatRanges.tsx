@@ -9,10 +9,7 @@ import {
 } from "@mui/material";
 import BigNumber from "bignumber.js";
 
-import {
-  NumericStringInteger,
-  NumericStringPercentage2dp,
-} from "../../components/common/NumericString/NumericString";
+import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { statTypesLookup } from "../../definitions/stat-types";
 
@@ -107,9 +104,10 @@ function StatValue({
   value: number;
   isPercentageBased: boolean;
 }) {
-  return isPercentageBased ? (
-    <NumericStringPercentage2dp value={value} />
-  ) : (
-    <NumericStringInteger value={value} />
+  return (
+    <NumericString
+      value={value}
+      variant={isPercentageBased ? "percentage2dp" : "integer"}
+    />
   );
 }

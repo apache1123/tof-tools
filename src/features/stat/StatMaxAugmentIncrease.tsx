@@ -4,10 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 import { proxy, useSnapshot } from "valtio";
 
-import {
-  NumericStringInteger,
-  NumericStringPercentage2dp,
-} from "../../components/common/NumericString/NumericString";
+import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { statTypesLookup } from "../../definitions/stat-types";
 import { RandomStat } from "../../models/gear/random-stat";
@@ -65,12 +62,14 @@ export function StatMaxAugmentIncrease() {
             Max augmentation increase value:{" "}
             {statSnap ? (
               statSnap.type.isPercentageBased ? (
-                <NumericStringPercentage2dp
+                <NumericString
                   value={statSnap.getMaxAugmentIncrease()}
+                  variant="percentage2dp"
                 />
               ) : (
-                <NumericStringInteger
+                <NumericString
                   value={statSnap.getMaxAugmentIncrease()}
+                  variant="integer"
                 />
               )
             ) : (
@@ -82,24 +81,32 @@ export function StatMaxAugmentIncrease() {
             {statSnap ? (
               statSnap.type.isPercentageBased ? (
                 <>
-                  <NumericStringPercentage2dp value={statSnap.value} /> +{" "}
-                  <NumericStringPercentage2dp
+                  <NumericString
+                    value={statSnap.value}
+                    variant="percentage2dp"
+                  />{" "}
+                  +{" "}
+                  <NumericString
                     value={statSnap.getMaxAugmentIncrease()}
+                    variant="percentage2dp"
                   />{" "}
                   ={" "}
-                  <NumericStringPercentage2dp
+                  <NumericString
                     value={statSnap.getMaxAugmentTotalValue()}
+                    variant="percentage2dp"
                   />
                 </>
               ) : (
                 <>
-                  <NumericStringInteger value={statSnap.value} /> +{" "}
-                  <NumericStringInteger
+                  <NumericString value={statSnap.value} variant="integer" /> +{" "}
+                  <NumericString
                     value={statSnap.getMaxAugmentIncrease()}
+                    variant="integer"
                   />{" "}
                   ={" "}
-                  <NumericStringInteger
+                  <NumericString
                     value={statSnap.getMaxAugmentTotalValue()}
+                    variant="integer"
                   />
                 </>
               )

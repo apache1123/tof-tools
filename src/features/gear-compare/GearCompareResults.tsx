@@ -2,10 +2,7 @@ import { Box, Paper, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
-import {
-  NumericStringInteger,
-  NumericStringPercentage2dp,
-} from "../../components/common/NumericString/NumericString";
+import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
 import type { CharacterData } from "../../models/character/character-data";
@@ -81,33 +78,37 @@ export function GearCompareResults({
             <Stack spacing={2}>
               <Box>
                 Value:{" "}
-                <NumericStringPercentage2dp
+                <NumericString
                   value={currentGearResult.gearValue}
+                  variant="percentage2dp"
                 />
               </Box>
               <Box>
                 Damage:{" "}
-                <NumericStringInteger
+                <NumericString
                   value={
                     currentGearResult.damageSummary.totalDamage.finalDamage
                   }
+                  variant="integer"
                 />
               </Box>
               {currentGearResult.maxTitan && (
                 <>
                   <Box>
                     Value if gear is max titan:{" "}
-                    <NumericStringPercentage2dp
+                    <NumericString
                       value={currentGearResult.maxTitan.gearValue}
+                      variant="percentage2dp"
                     />
                   </Box>
                   <Box>
                     Damage if gear is max titan:{" "}
-                    <NumericStringInteger
+                    <NumericString
                       value={
                         currentGearResult.maxTitan.damageSummary.totalDamage
                           .finalDamage
                       }
+                      variant="integer"
                     />
                   </Box>
                 </>
@@ -120,29 +121,35 @@ export function GearCompareResults({
             <Stack spacing={2}>
               <Box>
                 Value:{" "}
-                <NumericStringPercentage2dp value={newGearResult.gearValue} />
+                <NumericString
+                  value={newGearResult.gearValue}
+                  variant="percentage2dp"
+                />
               </Box>
               <Box>
                 Damage:{" "}
-                <NumericStringInteger
+                <NumericString
                   value={newGearResult.damageSummary.totalDamage.finalDamage}
+                  variant="integer"
                 />
               </Box>
               {newGearResult.maxTitan && (
                 <>
                   <Box>
                     Value if gear is max titan:{" "}
-                    <NumericStringPercentage2dp
+                    <NumericString
                       value={newGearResult.maxTitan.gearValue}
+                      variant="percentage2dp"
                     />
                   </Box>
                   <Box>
                     Damage if gear is max titan:{" "}
-                    <NumericStringInteger
+                    <NumericString
                       value={
                         newGearResult.maxTitan.damageSummary.totalDamage
                           .finalDamage
                       }
+                      variant="integer"
                     />
                   </Box>
                 </>

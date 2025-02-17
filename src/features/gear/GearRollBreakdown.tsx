@@ -2,7 +2,7 @@ import { Divider, Typography } from "@mui/material";
 import pluralize from "pluralize";
 import { Fragment } from "react";
 
-import { NumericStringPercentage } from "../../components/common/NumericString/NumericString";
+import { NumericString } from "../../components/common/NumericString/NumericString";
 import { type Gear } from "../../models/gear/gear";
 
 export interface GearRollBreakdownProps {
@@ -30,12 +30,14 @@ export const GearRollBreakdown = ({ gear }: GearRollBreakdownProps) => {
                 {!!y.rollCombination.numberOfRolls && (
                   <Typography gutterBottom>
                     Average strength of each roll:{" "}
-                    <NumericStringPercentage
+                    <NumericString
                       value={y.rollCombination.rollStrength}
+                      variant="percentage"
                     />
                     . Total weighting:{" "}
-                    <NumericStringPercentage
+                    <NumericString
                       value={y.rollCombination.totalRollWeight}
+                      variant="percentage"
                     />
                   </Typography>
                 )}

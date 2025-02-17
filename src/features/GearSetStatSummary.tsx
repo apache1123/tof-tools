@@ -1,9 +1,6 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 
-import {
-  NumericStringInteger,
-  NumericStringPercentage2dp,
-} from "../components/common/NumericString/NumericString";
+import { NumericString } from "../components/common/NumericString/NumericString";
 import { ElementalStyledText } from "../components/elemental/ElementalStyledText/ElementalStyledText";
 import type { CoreElementalType } from "../definitions/elemental-type";
 import type { GearSet } from "../models/gear/gear-set";
@@ -29,8 +26,9 @@ export function GearSetStatSummary({
           <Typography>Attack</Typography>
           <Box>
             <ElementalStyledText elementalType={elementalType}>
-              <NumericStringInteger
+              <NumericString
                 value={gearSetSnap.getTotalAttackFlat(elementalType)}
+                variant="integer"
               />
             </ElementalStyledText>
           </Box>
@@ -40,8 +38,9 @@ export function GearSetStatSummary({
           <Typography>Attack %</Typography>
           <Box>
             <ElementalStyledText elementalType={elementalType}>
-              <NumericStringPercentage2dp
+              <NumericString
                 value={gearSetSnap.getTotalAttackPercent(elementalType)}
+                variant="percentage2dp"
               />
             </ElementalStyledText>
           </Box>
@@ -51,8 +50,9 @@ export function GearSetStatSummary({
           <Typography>Damage %</Typography>
           <Box>
             <ElementalStyledText elementalType={elementalType}>
-              <NumericStringPercentage2dp
+              <NumericString
                 value={gearSetSnap.getTotalDamagePercent(elementalType)}
+                variant="percentage2dp"
               />
             </ElementalStyledText>
           </Box>
@@ -62,8 +62,9 @@ export function GearSetStatSummary({
           <Typography>Crit</Typography>
           <Box>
             <ElementalStyledText elementalType={elementalType}>
-              <NumericStringInteger
+              <NumericString
                 value={gearSetSnap.getTotalCritRateFlat()}
+                variant="integer"
               />
             </ElementalStyledText>
           </Box>
@@ -73,8 +74,9 @@ export function GearSetStatSummary({
           <Typography>Crit %</Typography>
           <Box>
             <ElementalStyledText elementalType={elementalType}>
-              <NumericStringPercentage2dp
+              <NumericString
                 value={gearSetSnap.getTotalCritRatePercent()}
+                variant="percentage2dp"
               />
             </ElementalStyledText>
           </Box>

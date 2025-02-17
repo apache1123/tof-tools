@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio";
 import { BaseAttackInput } from "../../../components/character-preset/BaseAttackInput/BaseAttackInput";
 import { CritRateFlatInput } from "../../../components/character-preset/CritRateFlatInput/CritRateFlatInput";
 import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
-import { NumericStringInteger } from "../../../components/common/NumericString/NumericString";
+import { NumericString } from "../../../components/common/NumericString/NumericString";
 import { ElementalStyledText } from "../../../components/elemental/ElementalStyledText/ElementalStyledText";
 import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
 import type { CharacterPreset } from "../../../models/character/character-preset";
@@ -41,12 +41,15 @@ export function EditCharacterPresetStats({
                 {mainWeaponDefinition.gearResonanceElements.map((element) => (
                   <ElementalStyledText key={element} elementalType={element}>
                     {element}:{" "}
-                    <NumericStringInteger value={baseAttacks.get(element)} />
+                    <NumericString
+                      value={baseAttacks.get(element)}
+                      variant="integer"
+                    />
                   </ElementalStyledText>
                 ))}
 
                 <Typography>
-                  Crit: <NumericStringInteger value={critRateFlat} />
+                  Crit: <NumericString value={critRateFlat} variant="integer" />
                 </Typography>
               </Stack>
             ) : (
