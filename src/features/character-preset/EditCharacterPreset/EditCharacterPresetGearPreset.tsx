@@ -1,10 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Stack } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
@@ -19,6 +13,7 @@ import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
 import { InventoryLayout } from "../../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
 import { EditGearSetPreset } from "../../gear-set-preset/EditGearSetPreset";
+import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
 export interface EditCharacterPresetGearPresetProps {
   characterPresetProxy: CharacterPreset;
@@ -45,43 +40,34 @@ export function EditCharacterPresetGearPreset({
 
   return (
     <>
-      <Accordion defaultExpanded={expand}>
-        <AccordionSummary>
-          <Stack
-            direction="row"
-            sx={{ gap: 2, alignItems: "center", flexWrap: "wrap" }}
-          >
-            <Typography variant="h6">Gear preset</Typography>
-
-            {gearSetPreset ? (
-              gearSetPreset.gearSet.hasGear ? (
-                <Stack direction="row" sx={{ gap: 0.25, flexWrap: "wrap" }}>
-                  {gearSetPreset.gearSet
-                    .getSlots()
-                    .map(
-                      (slot) =>
-                        slot.gear && (
-                          <GearTypeIcon
-                            key={slot.gear.type.id}
-                            id={slot.gear.type.id}
-                            rarity={slot.gear.rarity}
-                            size={30}
-                          />
-                        ),
-                    )}
-                </Stack>
-              ) : (
-                <ErrorText sx={{ py: 0 }}>
-                  Gear preset contains no gear
-                </ErrorText>
-              )
+      <EditCharacterPresetSection
+        title="Gear preset"
+        summary={
+          gearSetPreset ? (
+            gearSetPreset.gearSet.hasGear ? (
+              <Stack direction="row" sx={{ gap: 0.25, flexWrap: "wrap" }}>
+                {gearSetPreset.gearSet
+                  .getSlots()
+                  .map(
+                    (slot) =>
+                      slot.gear && (
+                        <GearTypeIcon
+                          key={slot.gear.type.id}
+                          id={slot.gear.type.id}
+                          rarity={slot.gear.rarity}
+                          size={30}
+                        />
+                      ),
+                  )}
+              </Stack>
             ) : (
-              <ErrorText sx={{ py: 0 }}>No gear preset selected</ErrorText>
-            )}
-          </Stack>
-        </AccordionSummary>
-
-        <AccordionDetails>
+              <ErrorText sx={{ py: 0 }}>Gear preset contains no gear</ErrorText>
+            )
+          ) : (
+            <ErrorText sx={{ py: 0 }}>No gear preset selected</ErrorText>
+          )
+        }
+        details={
           <Stack sx={{ gap: 1 }}>
             <Stack direction="row" sx={{ gap: 1 }}>
               <Button
@@ -89,16 +75,18 @@ export function EditCharacterPresetGearPreset({
                   setIsSelectingGearSetPreset(true);
                 }}
               >
-                Select
+                {gearSetPreset ? "Swap gear preset" : "Select gear preset"}
               </Button>
-              <Button
-                buttonProps={{ color: "error" }}
-                onClick={() => {
-                  characterPresetProxy.gearSetPreset = undefined;
-                }}
-              >
-                Remove
-              </Button>
+              {gearSetPreset && (
+                <Button
+                  buttonProps={{ color: "error" }}
+                  onClick={() => {
+                    characterPresetProxy.gearSetPreset = undefined;
+                  }}
+                >
+                  Remove gear preset
+                </Button>
+              )}
             </Stack>
 
             {gearSetPreset && (
@@ -109,11 +97,13 @@ export function EditCharacterPresetGearPreset({
                     characterPresetProxy.gearSetPreset,
                   );
                 }}
+                elevation={2}
               />
             )}
           </Stack>
-        </AccordionDetails>
-      </Accordion>
+        }
+        expand={expand}
+      />
 
       {isSelectingGearSetPreset && (
         <StyledModal

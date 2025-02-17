@@ -1,11 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
@@ -16,6 +9,7 @@ import { NumericStringInteger } from "../../../components/common/NumericString/N
 import { ElementalStyledText } from "../../../components/elemental/ElementalStyledText/ElementalStyledText";
 import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
 import type { CharacterPreset } from "../../../models/character/character-preset";
+import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
 export interface EditCharacterPresetStatsProps {
   characterPresetProxy: CharacterPreset;
@@ -37,40 +31,36 @@ export function EditCharacterPresetStats({
     ) && critRateFlat > 0;
 
   return (
-    <Accordion defaultExpanded={expand}>
-      <AccordionSummary>
-        <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
-          <Typography variant="h6">Preset stats</Typography>
+    <EditCharacterPresetSection
+      title="Preset stats"
+      summary={
+        teamPreset ? (
+          mainWeaponDefinition ? (
+            areAllStatsSet ? (
+              <Stack direction="row" sx={{ gap: 2 }}>
+                {mainWeaponDefinition.gearResonanceElements.map((element) => (
+                  <ElementalStyledText key={element} elementalType={element}>
+                    {element}:{" "}
+                    <NumericStringInteger value={baseAttacks.get(element)} />
+                  </ElementalStyledText>
+                ))}
 
-          {teamPreset ? (
-            mainWeaponDefinition ? (
-              areAllStatsSet ? (
-                <Stack direction="row" sx={{ gap: 2 }}>
-                  {mainWeaponDefinition.gearResonanceElements.map((element) => (
-                    <ElementalStyledText key={element} elementalType={element}>
-                      {element}:{" "}
-                      <NumericStringInteger value={baseAttacks.get(element)} />
-                    </ElementalStyledText>
-                  ))}
-
-                  <Typography>
-                    Crit: <NumericStringInteger value={critRateFlat} />
-                  </Typography>
-                </Stack>
-              ) : (
-                <ErrorText sx={{ py: 0 }}>Stats not set</ErrorText>
-              )
+                <Typography>
+                  Crit: <NumericStringInteger value={critRateFlat} />
+                </Typography>
+              </Stack>
             ) : (
-              <ErrorText sx={{ py: 0 }}>Team has no weapons</ErrorText>
+              <ErrorText sx={{ py: 0 }}>Stats not set</ErrorText>
             )
           ) : (
-            <ErrorText sx={{ py: 0 }}>No team selected</ErrorText>
-          )}
-        </Stack>
-      </AccordionSummary>
-
-      <AccordionDetails>
-        {mainWeaponDefinition && (
+            <ErrorText sx={{ py: 0 }}>Team has no weapons</ErrorText>
+          )
+        ) : (
+          <ErrorText sx={{ py: 0 }}>No team selected</ErrorText>
+        )
+      }
+      details={
+        mainWeaponDefinition && (
           <Stack sx={{ gap: 3 }}>
             <Box>
               <Typography>Using main weapon</Typography>
@@ -111,8 +101,9 @@ export function EditCharacterPresetStats({
               </Grid>
             </Grid>
           </Stack>
-        )}
-      </AccordionDetails>
-    </Accordion>
+        )
+      }
+      expand={expand}
+    />
   );
 }

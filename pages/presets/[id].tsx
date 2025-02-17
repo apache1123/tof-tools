@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import { useRouter } from "next/router";
 
 import { db } from "../../src/db/reactive-local-storage-db";
@@ -32,12 +33,14 @@ function CharacterPresetPage({
 
   return (
     presetProxy && (
-      <EditCharacterPreset
-        characterPresetProxy={presetProxy}
-        expandTeam
-        expandGearSet
-        expandStats
-      />
+      <Paper sx={{ p: 3 }}>
+        <EditCharacterPreset
+          characterPresetProxy={presetProxy}
+          expandTeam
+          expandGearSet
+          expandStats
+        />
+      </Paper>
     )
   );
 }

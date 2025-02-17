@@ -1,11 +1,12 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
 
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
+import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
 import { CardList } from "../../common/CardList/CardList";
 import { SectionSubheading } from "../../common/SectionHeading/SectionSubheading";
 import { GearSummaryCard } from "../GearSummaryCard/GearSummaryCard";
 
-export interface GearSetPresetSummaryCardProps {
+export interface GearSetPresetSummaryCardProps extends PropsWithElevation {
   preset: GearSetPreset;
   onClick?(): void;
 }
@@ -13,11 +14,12 @@ export interface GearSetPresetSummaryCardProps {
 export function GearSetPresetSummaryCard({
   preset,
   onClick,
+  elevation = 0,
 }: GearSetPresetSummaryCardProps) {
   const gears = preset.gearSet.getGears();
 
   return (
-    <Card sx={{ width: "fit-content" }}>
+    <Card elevation={elevation} sx={{ width: "fit-content" }}>
       <CardActionArea
         onClick={() => {
           if (onClick) onClick();
@@ -34,7 +36,11 @@ export function GearSetPresetSummaryCard({
           <SectionSubheading>{preset.name}</SectionSubheading>
           <CardList direction="row" gap={0.5}>
             {gears.map((gear) => (
-              <GearSummaryCard key={gear.id} gear={gear} elevation={1} />
+              <GearSummaryCard
+                key={gear.id}
+                gear={gear}
+                elevation={elevation + 1}
+              />
             ))}
           </CardList>
         </CardContent>

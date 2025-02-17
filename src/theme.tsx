@@ -58,6 +58,9 @@ let theme = createTheme({
         elevation3: {
           background: colors.surface2.hex,
         },
+        elevation4: {
+          background: colors.overlay0.hex,
+        },
       },
     },
     MuiFilledInput: {

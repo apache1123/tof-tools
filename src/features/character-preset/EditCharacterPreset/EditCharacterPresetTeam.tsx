@@ -1,10 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Stack } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
@@ -18,6 +12,7 @@ import type { CharacterPreset } from "../../../models/character/character-preset
 import { InventoryLayout } from "../../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
 import { ViewAndEditTeamPreset } from "../../team/ViewAndEditTeamPreset";
+import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
 export interface EditCharacterPresetTeamProps {
   characterPresetProxy: CharacterPreset;
@@ -40,38 +35,34 @@ export function EditCharacterPresetTeam({
 
   return (
     <>
-      <Accordion defaultExpanded={expand}>
-        <AccordionSummary>
-          <Stack direction="row" sx={{ gap: 2, alignItems: "center" }}>
-            <Typography variant="h6">Team</Typography>
-
-            {teamPreset ? (
-              teamPreset.hasWeaponPresets ? (
-                <Stack direction="row" sx={{ gap: 0.5 }}>
-                  {teamPreset
-                    .getWeaponPresets()
-                    .map(
-                      (weaponPreset, i) =>
-                        weaponPreset?.definition && (
-                          <WeaponIcon
-                            key={`${i}-${weaponPreset.definition.id}`}
-                            weaponId={weaponPreset.definition.id}
-                            iconWeaponId={weaponPreset.definition.iconWeaponId}
-                            size={50}
-                          />
-                        ),
-                    )}
-                </Stack>
-              ) : (
-                <ErrorText sx={{ py: 0 }}>Team has no weapons</ErrorText>
-              )
+      <EditCharacterPresetSection
+        title="Team"
+        summary={
+          teamPreset ? (
+            teamPreset.hasWeaponPresets ? (
+              <Stack direction="row" sx={{ gap: 0.5 }}>
+                {teamPreset
+                  .getWeaponPresets()
+                  .map(
+                    (weaponPreset, i) =>
+                      weaponPreset?.definition && (
+                        <WeaponIcon
+                          key={`${i}-${weaponPreset.definition.id}`}
+                          weaponId={weaponPreset.definition.id}
+                          iconWeaponId={weaponPreset.definition.iconWeaponId}
+                          size={50}
+                        />
+                      ),
+                  )}
+              </Stack>
             ) : (
-              <ErrorText sx={{ py: 0 }}>No team selected</ErrorText>
-            )}
-          </Stack>
-        </AccordionSummary>
-
-        <AccordionDetails>
+              <ErrorText sx={{ py: 0 }}>Team has no weapons</ErrorText>
+            )
+          ) : (
+            <ErrorText sx={{ py: 0 }}>No team selected</ErrorText>
+          )
+        }
+        details={
           <Stack sx={{ gap: 1 }}>
             <Stack direction="row" sx={{ gap: 1 }}>
               <Button
@@ -79,26 +70,30 @@ export function EditCharacterPresetTeam({
                   setIsSelectingTeamPreset(true);
                 }}
               >
-                Select
+                {teamPreset ? "Swap team" : "Select team"}
               </Button>
-              <Button
-                buttonProps={{ color: "error" }}
-                onClick={() => {
-                  characterPresetProxy.teamPreset = undefined;
-                }}
-              >
-                Remove
-              </Button>
+              {teamPreset && (
+                <Button
+                  buttonProps={{ color: "error" }}
+                  onClick={() => {
+                    characterPresetProxy.teamPreset = undefined;
+                  }}
+                >
+                  Remove team
+                </Button>
+              )}
             </Stack>
 
             {teamPreset && characterPresetProxy.teamPreset && (
               <ViewAndEditTeamPreset
                 teamPresetProxy={characterPresetProxy.teamPreset}
+                elevation={2}
               />
             )}
           </Stack>
-        </AccordionDetails>
-      </Accordion>
+        }
+        expand={expand}
+      />
 
       {isSelectingTeamPreset && (
         <StyledModal
