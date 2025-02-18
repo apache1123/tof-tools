@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
@@ -46,19 +46,33 @@ export function EditCharacterPresetGearPreset({
           gearSetPreset ? (
             gearSetPreset.gearSet.hasGear ? (
               <Stack direction="row" sx={{ gap: 0.25, flexWrap: "wrap" }}>
-                {gearSetPreset.gearSet
-                  .getSlots()
-                  .map(
-                    (slot) =>
-                      slot.gear && (
-                        <GearTypeIcon
-                          key={slot.gear.type.id}
-                          id={slot.gear.type.id}
-                          rarity={slot.gear.rarity}
-                          size={30}
-                        />
-                      ),
-                  )}
+                {gearSetPreset.gearSet.getSlots().map((slot) =>
+                  slot.gear ? (
+                    <GearTypeIcon
+                      key={slot.gear.type.id}
+                      id={slot.gear.type.id}
+                      rarity={slot.gear.rarity}
+                      size={30}
+                    />
+                  ) : (
+                    <Box
+                      key={slot.acceptsType.id}
+                      sx={{
+                        width: 30,
+                        height: 30,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <GearTypeIcon
+                        id={slot.acceptsType.id}
+                        monochromeWhite
+                        size={20}
+                      />
+                    </Box>
+                  ),
+                )}
               </Stack>
             ) : (
               <ErrorText sx={{ py: 0 }}>Gear preset contains no gear</ErrorText>
