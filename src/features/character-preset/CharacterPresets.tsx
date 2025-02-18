@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
+import { useState } from "react";
 
-import { routes } from "../../../routes/routes";
 import { CharacterPresetCard } from "../../components/character-preset/CharacterPresetCard/CharacterPresetCard";
 import { Button } from "../../components/common/Button/Button";
+import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
-import type { CharacterPresetId } from "../../models/character/character-preset";
 import { CharacterPreset } from "../../models/character/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
+import { EditCharacterPreset } from "./EditCharacterPreset/EditCharacterPreset";
 
 export interface CharacterPresetsProps {
   characterId: CharacterId;
@@ -22,7 +22,9 @@ export function CharacterPresets({ characterId }: CharacterPresetsProps) {
     characterId,
   );
 
-  const router = useRouter();
+  const [editingPresetProxy, setEditingPresetProxy] = useState<
+    CharacterPreset | undefined
+  >(undefined);
 
   return (
     <>
@@ -38,7 +40,7 @@ export function CharacterPresets({ characterId }: CharacterPresetsProps) {
 
               const newPresetProxy = characterPresetRepo.find(newPreset.id);
               if (newPresetProxy) {
-                router.push(getPresetPagePath(newPresetProxy.id));
+                setEditingPresetProxy(newPresetProxy);
               }
             }}
           >
@@ -49,14 +51,36 @@ export function CharacterPresets({ characterId }: CharacterPresetsProps) {
           <CharacterPresetCard
             key={preset.id}
             characterPreset={preset}
-            href={getPresetPagePath(preset.id)}
+            onClick={() => {
+              const presetProxy = characterPresetRepo.find(preset.id);
+              if (presetProxy) {
+                setEditingPresetProxy(presetProxy);
+              }
+            }}
           />
         ))}
       />
+
+      {editingPresetProxy && (
+        <EditorModal
+          open={!!editingPresetProxy}
+          modalContent={
+            <EditCharacterPreset characterPresetProxy={editingPresetProxy} />
+          }
+          modalTitle="Edit preset"
+          itemName="this preset"
+          onClose={() => {
+            setEditingPresetProxy(undefined);
+          }}
+          showDelete
+          onDelete={() => {
+            characterPresetRepo.remove(editingPresetProxy.id);
+            setEditingPresetProxy(undefined);
+          }}
+          maxWidth={false}
+          fullWidth
+        />
+      )}
     </>
   );
-}
-
-function getPresetPagePath(id: CharacterPresetId) {
-  return `${routes.presets.path}/${id}`;
 }
