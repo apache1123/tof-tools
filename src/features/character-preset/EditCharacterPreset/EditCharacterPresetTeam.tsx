@@ -11,6 +11,7 @@ import { db } from "../../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../../models/character/character-preset";
 import { InventoryLayout } from "../../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
+import { AddTeamPreset } from "../../team/AddTeamPreset";
 import { ViewAndEditTeamPreset } from "../../team/ViewAndEditTeamPreset";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
@@ -100,7 +101,7 @@ export function EditCharacterPresetTeam({
           modalContent={
             <InventoryLayout
               filter={undefined}
-              actions={undefined}
+              actions={<AddTeamPreset characterId={characterId} />}
               items={teamPresets.map((teamPreset) => (
                 <TeamPresetCard
                   key={teamPreset.id}
