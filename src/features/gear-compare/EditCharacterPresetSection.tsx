@@ -1,22 +1,26 @@
 import { Paper } from "@mui/material";
 
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
+import type { CharacterData } from "../../models/character/character-data";
 import type { CharacterPreset } from "../../models/character/character-preset";
 import { EditCharacterPreset } from "../character-preset/EditCharacterPreset/EditCharacterPreset";
 
 export interface EditCharacterPresetSectionProps {
-  selectedCharacterPresetProxy: CharacterPreset;
+  characterPresetProxy: CharacterPreset;
+  characterDataProxy: CharacterData;
 }
 
 export function EditCharacterPresetSection({
-  selectedCharacterPresetProxy,
+  characterPresetProxy,
+  characterDataProxy,
 }: EditCharacterPresetSectionProps) {
   return (
     <Paper sx={{ p: 3 }}>
       <SectionHeading>Edit preset</SectionHeading>
 
       <EditCharacterPreset
-        characterPresetProxy={selectedCharacterPresetProxy}
+        characterPresetProxy={characterPresetProxy}
+        characterDataProxy={characterDataProxy}
       />
     </Paper>
   );

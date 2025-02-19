@@ -4,7 +4,10 @@ import { CharacterPresetCard } from "../../components/character-preset/Character
 import { Button } from "../../components/common/Button/Button";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { db } from "../../db/reactive-local-storage-db";
-import type { CharacterId } from "../../models/character/character-data";
+import type {
+  CharacterData,
+  CharacterId,
+} from "../../models/character/character-data";
 import { CharacterPreset } from "../../models/character/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
@@ -12,9 +15,13 @@ import { EditCharacterPreset } from "./EditCharacterPreset/EditCharacterPreset";
 
 export interface CharacterPresetsProps {
   characterId: CharacterId;
+  characterDataProxy: CharacterData;
 }
 
-export function CharacterPresets({ characterId }: CharacterPresetsProps) {
+export function CharacterPresets({
+  characterId,
+  characterDataProxy,
+}: CharacterPresetsProps) {
   const characterPresetRepo = db.get("characterPresets");
 
   const { items } = useItemsBelongingToCharacter(
@@ -65,7 +72,10 @@ export function CharacterPresets({ characterId }: CharacterPresetsProps) {
         <EditorModal
           open={!!editingPresetProxy}
           modalContent={
-            <EditCharacterPreset characterPresetProxy={editingPresetProxy} />
+            <EditCharacterPreset
+              characterPresetProxy={editingPresetProxy}
+              characterDataProxy={characterDataProxy}
+            />
           }
           modalTitle="Edit preset"
           itemName="this preset"

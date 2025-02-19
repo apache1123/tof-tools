@@ -4,7 +4,8 @@ import { useSelectedCharacter } from "../../src/features/character/useSelectedCh
 import { CharacterPresets } from "../../src/features/character-preset/CharacterPresets";
 
 export default function Page() {
-  const { characterId } = useSelectedCharacter();
+  const { characterId, characterData, characterDataProxy } =
+    useSelectedCharacter();
 
   return (
     <>
@@ -12,7 +13,12 @@ export default function Page() {
         <title>Presets | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterId && <CharacterPresets characterId={characterId} />}
+      {characterId && characterData && characterDataProxy && (
+        <CharacterPresets
+          characterId={characterId}
+          characterDataProxy={characterDataProxy}
+        />
+      )}
     </>
   );
 }

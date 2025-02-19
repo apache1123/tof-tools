@@ -1,9 +1,7 @@
 import Head from "next/head";
-import { useSnapshot } from "valtio";
 
 import { useSelectedCharacter } from "../src/features/character/useSelectedCharacter";
 import { GearCompare } from "../src/features/gear-compare/GearCompare";
-import type { CharacterData } from "../src/models/character/character-data";
 import {
   gearCompareState,
   gearCompareStateKey,
@@ -13,7 +11,7 @@ import { useLocalStoragePersistence } from "../src/states/hooks/useLocalStorageP
 export default function Page() {
   useLocalStoragePersistence(gearCompareStateKey, gearCompareState);
 
-  const { characterId, characterDataProxy } = useSelectedCharacter();
+  const { characterData, characterDataProxy } = useSelectedCharacter();
 
   return (
     <>
@@ -21,26 +19,12 @@ export default function Page() {
         <title>Gear Compare | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterId && characterDataProxy && (
-        <Inner
-          characterId={characterId}
+      {characterData && characterDataProxy && (
+        <GearCompare
+          characterId={characterData.id}
           characterDataProxy={characterDataProxy}
         />
       )}
     </>
   );
-
-  function Inner({
-    characterId,
-    characterDataProxy,
-  }: {
-    characterId: string;
-    characterDataProxy: CharacterData;
-  }) {
-    const characterData = useSnapshot(characterDataProxy) as CharacterData;
-
-    return (
-      <GearCompare characterId={characterId} characterData={characterData} />
-    );
-  }
 }

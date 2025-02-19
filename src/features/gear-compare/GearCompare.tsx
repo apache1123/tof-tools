@@ -1,4 +1,5 @@
 import { Stack } from "@mui/material";
+import { useSnapshot } from "valtio";
 import { useProxy } from "valtio/utils";
 
 import type {
@@ -13,10 +14,15 @@ import { SelectCharacterPresetSection } from "./SelectCharacterPresetSection";
 
 export interface GearCompareProps {
   characterId: CharacterId;
-  characterData: CharacterData;
+  characterDataProxy: CharacterData;
 }
 
-export function GearCompare({ characterId, characterData }: GearCompareProps) {
+export function GearCompare({
+  characterId,
+  characterDataProxy,
+}: GearCompareProps) {
+  const characterData = useSnapshot(characterDataProxy) as CharacterData;
+
   const { characterPresetId } = useProxy(gearCompareState);
 
   const { item: characterPreset, itemProxy: characterPresetProxy } =
@@ -30,7 +36,8 @@ export function GearCompare({ characterId, characterData }: GearCompareProps) {
 
       {characterPreset && characterPresetProxy && (
         <EditCharacterPresetSection
-          selectedCharacterPresetProxy={characterPresetProxy}
+          characterPresetProxy={characterPresetProxy}
+          characterDataProxy={characterDataProxy}
         />
       )}
 

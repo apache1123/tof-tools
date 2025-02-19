@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import { useSnapshot } from "valtio";
 
+import type { CharacterData } from "../../../models/character/character-data";
 import type { CharacterPreset } from "../../../models/character/character-preset";
 import { EditCharacterPresetGearPreset } from "./EditCharacterPresetGearPreset";
 import { EditCharacterPresetStats } from "./EditCharacterPresetStats";
@@ -8,6 +9,7 @@ import { EditCharacterPresetTeam } from "./EditCharacterPresetTeam";
 
 export interface EditCharacterPresetProps {
   characterPresetProxy: CharacterPreset;
+  characterDataProxy: CharacterData;
   expandTeam?: boolean;
   expandGearSet?: boolean;
   expandStats?: boolean;
@@ -15,6 +17,7 @@ export interface EditCharacterPresetProps {
 
 export function EditCharacterPreset({
   characterPresetProxy,
+  characterDataProxy,
   expandTeam,
   expandGearSet,
   expandStats,
@@ -45,6 +48,7 @@ export function EditCharacterPreset({
 
       <EditCharacterPresetStats
         characterPresetProxy={characterPresetProxy}
+        characterDataProxy={characterDataProxy}
         expand={expandStats}
       />
     </>

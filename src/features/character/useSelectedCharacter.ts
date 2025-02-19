@@ -1,19 +1,18 @@
 import { useSnapshot } from "valtio/index";
 
-import { db } from "../../db/reactive-local-storage-db";
 import { characterState } from "../../states/character/character-state";
+import { useRepositoryItem } from "../common/useRepositoryItem";
 
 export function useSelectedCharacter() {
-  const characterRepository = db.get("characters");
-
   const { selectedId } = useSnapshot(characterState);
 
-  const characterDataProxy = selectedId
-    ? characterRepository.find(selectedId)
-    : undefined;
+  const { item, itemProxy } = useRepositoryItem("characters", (repository) => {
+    return selectedId ? repository.find(selectedId) : undefined;
+  });
 
   return {
-    characterId: selectedId,
-    characterDataProxy,
+    characterId: item?.id,
+    characterData: item,
+    characterDataProxy: itemProxy,
   };
 }

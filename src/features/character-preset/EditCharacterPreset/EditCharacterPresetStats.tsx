@@ -2,26 +2,31 @@ import { Box, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
+import { CharacterLevelInput } from "../../../components/character/CharacterLevelInput/CharacterLevelInput";
 import { BaseAttackInput } from "../../../components/character-preset/BaseAttackInput/BaseAttackInput";
 import { CritRateFlatInput } from "../../../components/character-preset/CritRateFlatInput/CritRateFlatInput";
 import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
 import { NumericString } from "../../../components/common/NumericString/NumericString";
 import { ElementalStyledText } from "../../../components/elemental/ElementalStyledText/ElementalStyledText";
 import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
+import type { CharacterData } from "../../../models/character/character-data";
 import type { CharacterPreset } from "../../../models/character/character-preset";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
 export interface EditCharacterPresetStatsProps {
   characterPresetProxy: CharacterPreset;
+  characterDataProxy: CharacterData;
   expand?: boolean;
 }
 
 export function EditCharacterPresetStats({
   characterPresetProxy,
+  characterDataProxy,
   expand,
 }: EditCharacterPresetStatsProps) {
   const { teamPreset, baseAttacks, critRateFlat } =
     useSnapshot(characterPresetProxy);
+  const { level } = useSnapshot(characterDataProxy);
 
   const mainWeaponDefinition = teamPreset?.getMainWeaponPreset()?.definition;
 
@@ -50,6 +55,11 @@ export function EditCharacterPresetStats({
 
                 <Typography>
                   Crit: <NumericString value={critRateFlat} variant="integer" />
+                </Typography>
+
+                <Typography>
+                  Wanderer level:{" "}
+                  <NumericString value={level} variant="integer" />
                 </Typography>
               </Stack>
             ) : (
@@ -99,6 +109,15 @@ export function EditCharacterPresetStats({
                   value={critRateFlat}
                   onChange={(value) => {
                     characterPresetProxy.critRateFlat = value;
+                  }}
+                />
+              </Grid>
+
+              <Grid xs={12} sm={6} md={4} lg={3}>
+                <CharacterLevelInput
+                  value={level}
+                  onChange={(value) => {
+                    characterDataProxy.level = value;
                   }}
                 />
               </Grid>
