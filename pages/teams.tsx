@@ -4,7 +4,7 @@ import { useSelectedCharacter } from "../src/features/character/useSelectedChara
 import { TeamPresets } from "../src/features/team/TeamPresets";
 
 export default function TeamsPage() {
-  const { characterId } = useSelectedCharacter();
+  const { characterData } = useSelectedCharacter();
 
   return (
     <>
@@ -12,7 +12,7 @@ export default function TeamsPage() {
         <title>Teams | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterId && <TeamPresets characterId={characterId} />}
+      {characterData && <TeamPresets characterId={characterData.id} />}
     </>
   );
 }

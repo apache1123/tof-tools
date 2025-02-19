@@ -8,7 +8,7 @@ import { useLocalStoragePersistence } from "../src/states/hooks/useLocalStorageP
 export default function GearPage() {
   useLocalStoragePersistence(gearStateKey, gearState);
 
-  const { characterId } = useSelectedCharacter();
+  const { characterData } = useSelectedCharacter();
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function GearPage() {
         <title>Gear | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterId && <Gears characterId={characterId} />}
+      {characterData && <Gears characterId={characterData.id} />}
     </>
   );
 }

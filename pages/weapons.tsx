@@ -4,7 +4,7 @@ import { useSelectedCharacter } from "../src/features/character/useSelectedChara
 import { WeaponPresets } from "../src/features/weapon/WeaponPresets";
 
 export default function WeaponsPage() {
-  const { characterId } = useSelectedCharacter();
+  const { characterData } = useSelectedCharacter();
 
   return (
     <>
@@ -12,7 +12,7 @@ export default function WeaponsPage() {
         <title>Weapons | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterId && <WeaponPresets characterId={characterId} />}
+      {characterData && <WeaponPresets characterId={characterData.id} />}
     </>
   );
 }

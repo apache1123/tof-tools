@@ -8,7 +8,7 @@ import { matrixState, matrixStateKey } from "../src/states/matrix/matrix-state";
 export default function MatricesPage() {
   useLocalStoragePersistence(matrixStateKey, matrixState);
 
-  const { characterId } = useSelectedCharacter();
+  const { characterData } = useSelectedCharacter();
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function MatricesPage() {
         <title>Matrices | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterId && <Matrices characterId={characterId} />}
+      {characterData && <Matrices characterId={characterData.id} />}
     </>
   );
 }

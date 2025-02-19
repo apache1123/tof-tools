@@ -11,19 +11,17 @@ import type {
 } from "../../src/models/character/character-data";
 
 export default function Page() {
-  const { characterId, characterData, characterDataProxy } =
-    useSelectedCharacter();
+  const { characterData, characterDataProxy } = useSelectedCharacter();
 
   const router = useRouter();
   // Only ../id paths here, no ../id/... paths, so no need to handle string[] type or undefined
   const id = router.query.id as string;
 
   return (
-    characterId &&
     characterData &&
     characterDataProxy && (
       <CharacterPresetPage
-        characterId={characterId}
+        characterId={characterData.id}
         characterDataProxy={characterDataProxy}
         id={id}
       />

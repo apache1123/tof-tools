@@ -11,7 +11,6 @@ export function useSelectedCharacter() {
   });
 
   return {
-    characterId: item?.id,
     characterData: item,
     characterDataProxy: itemProxy,
   };

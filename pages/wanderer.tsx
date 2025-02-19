@@ -4,7 +4,7 @@ import { EditCharacter } from "../src/features/character/EditCharacter";
 import { useSelectedCharacter } from "../src/features/character/useSelectedCharacter";
 
 export default function Page() {
-  const { characterDataProxy } = useSelectedCharacter();
+  const { characterData, characterDataProxy } = useSelectedCharacter();
 
   return (
     <>
@@ -12,7 +12,7 @@ export default function Page() {
         <title>Wanderer | Tower of Fantasy Tools</title>
       </Head>
 
-      {characterDataProxy && (
+      {characterData && characterDataProxy && (
         <EditCharacter characterDataProxy={characterDataProxy} />
       )}
     </>
