@@ -12,6 +12,8 @@ export function WeaponCard({ sx, onClick, ...rest }: WeaponCardProps) {
   return (
     <Card sx={{ width: "fit-content", ...sx }}>
       <CardActionArea
+        component={onClick ? "button" : "div"}
+        disabled={!onClick}
         onClick={() => {
           if (onClick) onClick();
         }}

@@ -25,7 +25,11 @@ export function CharacterPresetCard({
 
   return (
     <Card>
-      <CardActionArea onClick={onClick}>
+      <CardActionArea
+        component={onClick ? "button" : "div"}
+        disabled={!onClick}
+        onClick={onClick}
+      >
         <CardHeader title={name || "Unnamed preset"} />
         <CardContent>
           <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>

@@ -26,6 +26,8 @@ export function GearCard({ gear, onClick, elevation, sx }: GearCardProps) {
   return (
     <Card elevation={elevation} sx={{ width: 190, ...sx }}>
       <CardActionArea
+        component={onClick ? "button" : "div"}
+        disabled={!onClick}
         onClick={() => {
           if (onClick) onClick();
         }}

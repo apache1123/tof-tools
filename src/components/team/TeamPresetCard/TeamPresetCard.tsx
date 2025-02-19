@@ -24,6 +24,8 @@ export function TeamPresetCard({
   return (
     <Card elevation={elevation}>
       <CardActionArea
+        component={onClick ? "button" : "div"}
+        disabled={!onClick}
         onClick={() => {
           onClick?.();
         }}

@@ -24,6 +24,8 @@ export function GearSetPresetSummaryCard({
   return (
     <Card elevation={elevation} sx={{ width: "fit-content" }}>
       <CardActionArea
+        component={onClick ? "button" : "div"}
+        disabled={!onClick}
         onClick={() => {
           if (onClick) onClick();
         }}

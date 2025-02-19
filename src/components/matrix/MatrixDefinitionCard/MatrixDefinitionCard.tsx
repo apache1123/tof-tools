@@ -17,6 +17,8 @@ export function MatrixDefinitionCard({
   return (
     <Card sx={{ width: "fit-content" }}>
       <CardActionArea
+        component={onClick ? "button" : "div"}
+        disabled={!onClick}
         onClick={() => {
           if (onClick) onClick(definitionId);
         }}
