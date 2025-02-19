@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
@@ -65,7 +65,7 @@ export function EditCharacterPresetTeam({
         }
         details={
           <Stack sx={{ gap: 1 }}>
-            <Stack direction="row" sx={{ gap: 1 }}>
+            <Stack direction="row" sx={{ gap: 1, alignItems: "end" }}>
               <Button
                 onClick={() => {
                   setIsSelectingTeamPreset(true);
@@ -82,6 +82,15 @@ export function EditCharacterPresetTeam({
                 >
                   Remove team
                 </Button>
+              )}
+
+              {teamPreset && (
+                <Typography
+                  variant="body2"
+                  sx={{ color: (theme) => theme.palette.text.secondary }}
+                >
+                  Click on the team below to edit
+                </Typography>
               )}
             </Stack>
 

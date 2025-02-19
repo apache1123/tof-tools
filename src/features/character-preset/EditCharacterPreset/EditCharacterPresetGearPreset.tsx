@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
@@ -84,7 +84,7 @@ export function EditCharacterPresetGearPreset({
         }
         details={
           <Stack sx={{ gap: 1 }}>
-            <Stack direction="row" sx={{ gap: 1 }}>
+            <Stack direction="row" sx={{ gap: 1, alignItems: "end" }}>
               <Button
                 onClick={() => {
                   setIsSelectingGearSetPreset(true);
@@ -92,6 +92,7 @@ export function EditCharacterPresetGearPreset({
               >
                 {gearSetPreset ? "Swap gear preset" : "Select gear preset"}
               </Button>
+
               {gearSetPreset && (
                 <Button
                   buttonProps={{ color: "error" }}
@@ -101,6 +102,15 @@ export function EditCharacterPresetGearPreset({
                 >
                   Remove gear preset
                 </Button>
+              )}
+
+              {gearSetPreset && (
+                <Typography
+                  variant="body2"
+                  sx={{ color: (theme) => theme.palette.text.secondary }}
+                >
+                  Click on the gear preset below to edit
+                </Typography>
               )}
             </Stack>
 
