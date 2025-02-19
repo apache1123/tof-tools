@@ -1,13 +1,12 @@
-import { Button } from "@mui/material";
 import { useState } from "react";
 
 import { GearSetPresetSummaryCard } from "../../components/gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import type { GearSetPresetId } from "../../models/gear/gear-set-preset";
-import { GearSetPreset } from "../../models/gear/gear-set-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
+import { AddGearSetPreset } from "./AddGearSetPreset";
 import { EditGearSetPreset } from "./EditGearSetPreset";
 
 export interface GearSetPresetsProps {
@@ -33,18 +32,12 @@ export function GearSetPresets({ characterId }: GearSetPresetsProps) {
       <InventoryLayout
         filter={undefined}
         actions={
-          <Button
-            variant="contained"
-            onClick={() => {
-              const newPreset = new GearSetPreset(characterId);
-              newPreset.name = "Gear preset name";
-              gearSetPresetRepo.add(newPreset);
-
-              setEditingPresetId(newPreset.id);
+          <AddGearSetPreset
+            characterId={characterId}
+            onAdded={(id) => {
+              setEditingPresetId(id);
             }}
-          >
-            Add gear preset
-          </Button>
+          />
         }
         items={items.map((preset) => (
           <GearSetPresetSummaryCard

@@ -12,6 +12,7 @@ import type { CharacterPreset } from "../../../models/character/character-preset
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
 import { InventoryLayout } from "../../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
+import { AddGearSetPreset } from "../../gear-set-preset/AddGearSetPreset";
 import { EditGearSetPreset } from "../../gear-set-preset/EditGearSetPreset";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
@@ -124,7 +125,7 @@ export function EditCharacterPresetGearPreset({
           modalContent={
             <InventoryLayout
               filter={undefined}
-              actions={undefined}
+              actions={<AddGearSetPreset characterId={characterId} />}
               items={gearSetPresets.map((gearSetPreset) => (
                 <GearSetPresetSummaryCard
                   key={gearSetPreset.id}
