@@ -12,6 +12,9 @@ import { useEffect } from "react";
 import createEmotionCache from "../src/createEmotionCache";
 import { db } from "../src/db/reactive-local-storage-db";
 import { CharacterData } from "../src/models/character/character-data";
+import { CharacterPreset } from "../src/models/character/character-preset";
+import { GearSetPreset } from "../src/models/gear/gear-set-preset";
+import { TeamPreset } from "../src/models/team/team-preset";
 import {
   changelogState,
   changelogStateKey,
@@ -55,12 +58,26 @@ export default function MyApp(props: MyAppProps) {
   useEffect(() => {
     // Most pages depend on a selected character
 
-    // Add a default character if none exists
+    // Add a default character if none exists. Also add a default gear preset, team preset, and character preset along with it to aid new users
     const characterRepo = db.get("characters");
     if (characterRepo.items.length === 0) {
       const defaultCharacter = new CharacterData();
       defaultCharacter.name = "Default wanderer";
       characterRepo.add(defaultCharacter);
+
+      const gearSetPreset = new GearSetPreset(defaultCharacter.id);
+      gearSetPreset.name = "Default gear preset";
+      db.get("gearSetPresets").add(gearSetPreset);
+
+      const teamPreset = new TeamPreset(defaultCharacter.id);
+      teamPreset.name = "Default team";
+      db.get("teamPresets").add(teamPreset);
+
+      const characterPreset = new CharacterPreset(defaultCharacter.id);
+      characterPreset.name = "Default preset";
+      characterPreset.gearSetPreset = gearSetPreset;
+      characterPreset.teamPreset = teamPreset;
+      db.get("characterPresets").add(characterPreset);
     }
 
     // Set the first character as selected if none are selected, or the selected id is invalid
