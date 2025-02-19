@@ -1,9 +1,9 @@
 import { nanoid } from "nanoid";
 
-import type { GearSetDtoV2 } from "../../../db/repositories/gear/deprecated/gear-set-dto";
-import type { GearTypeId } from "../../../definitions/gear-types";
-import type { GearComparerStateDto } from "../../gear-comparer";
-import type { LoadoutsStateDtoV1 } from "../../loadouts";
+import type { GearSetDtoV2 } from "../../db/repositories/gear/deprecated/gear-set-dto";
+import type { GearTypeId } from "../../definitions/gear-types";
+import type { GearComparerStateDto } from "../../states/gear-comparer";
+import type { LoadoutsStateDtoV1 } from "../../states/loadouts";
 
 /** Data fix for potential issue with gear sets gear type data that may have been introduced in 3.0.0.
  *

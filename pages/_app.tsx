@@ -10,6 +10,7 @@ import * as React from "react";
 import { useEffect } from "react";
 
 import createEmotionCache from "../src/createEmotionCache";
+import { migrateDataToLatestVersion } from "../src/data-migrations/migrate-data-to-latest-version";
 import { db } from "../src/db/reactive-local-storage-db";
 import { CharacterData } from "../src/models/character/character-data";
 import { CharacterPreset } from "../src/models/character/character-preset";
@@ -24,7 +25,6 @@ import {
   characterStateKey,
 } from "../src/states/character/character-state";
 import { useLocalStoragePersistence } from "../src/states/hooks/useLocalStoragePersistence";
-import { migrateStatesToLatestVersion } from "../src/states/migrations/state-migrations-state";
 import theme from "../src/theme";
 import Layout from "./_layout";
 
@@ -37,8 +37,8 @@ export interface MyAppProps extends AppProps {
 
 export default function MyApp(props: MyAppProps) {
   useEffect(() => {
-    migrateStatesToLatestVersion();
-  });
+    migrateDataToLatestVersion();
+  }, []);
 
   useEffect(() => {
     db.init([

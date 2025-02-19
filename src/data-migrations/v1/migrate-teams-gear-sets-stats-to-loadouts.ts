@@ -1,31 +1,27 @@
 import { nanoid } from "nanoid";
 
-import type { GearDtoV1 } from "../../../db/repositories/gear/deprecated/gear-dto";
-import type {
-  GearSetDtoV1,
-  GearSetDtoV2,
-} from "../../../db/repositories/gear/deprecated/gear-set-dto";
-import type { RandomStatDto } from "../../../db/repositories/gear/dtos/random-stat-dto";
-import type { TeamDtoV1 } from "../../../db/repositories/team/deprecated/team-dto";
-import type { WeaponDtoV1 } from "../../../db/repositories/weapon/deprecated/weapon-dto";
-import { maxCharacterLevel } from "../../../definitions/character-level";
-import { defaultCritDamagePercent } from "../../../definitions/damage-formula";
-import type { CoreElementalType } from "../../../definitions/elemental-type";
-import type { GearTypeId } from "../../../definitions/gear-types";
-import type { MatrixSetDto } from "../../../models/deprecated/matrix-set";
-import type { ElementalAttackDto } from "../../../models/elemental-attack/elemental-attack";
-import type { LoadoutDtoV1 } from "../../../models/loadout/loadout";
-import { filterOutUndefined } from "../../../utils/array-utils";
-import type { GearComparerGearsStateDto } from "../../deprecated/gear-comparer-gear";
-import type { GearComparerOptionsStateDto } from "../../deprecated/gear-comparer-options";
-import type { GearSetsStateDto } from "../../deprecated/gear-sets";
-import type { TeamsStateDto } from "../../deprecated/teams";
-import type {
-  UserStatsStateDtoV1,
-  UserStatsStateDtoV2,
-} from "../../deprecated/user-stats";
-import type { GearComparerStateDto } from "../../gear-comparer";
-import type { LoadoutsStateDtoV1 } from "../../loadouts";
+import type { GearDtoV1 } from "../../db/repositories/gear/deprecated/gear-dto";
+import type { GearSetDtoV2 } from "../../db/repositories/gear/deprecated/gear-set-dto";
+import type { RandomStatDto } from "../../db/repositories/gear/dtos/random-stat-dto";
+import type { TeamDtoV1 } from "../../db/repositories/team/deprecated/team-dto";
+import type { WeaponDtoV1 } from "../../db/repositories/weapon/deprecated/weapon-dto";
+import { maxCharacterLevel } from "../../definitions/character-level";
+import { defaultCritDamagePercent } from "../../definitions/damage-formula";
+import type { CoreElementalType } from "../../definitions/elemental-type";
+import type { GearTypeId } from "../../definitions/gear-types";
+import type { MatrixSetDto } from "../../models/deprecated/matrix-set";
+import type { ElementalAttackDto } from "../../models/elemental-attack/elemental-attack";
+import type { LoadoutDtoV1 } from "../../models/loadout/loadout";
+import type { UserStatsStateDtoV2 } from "../../states/deprecated/user-stats";
+import type { GearComparerStateDto } from "../../states/gear-comparer";
+import type { LoadoutsStateDtoV1 } from "../../states/loadouts";
+import { filterOutUndefined } from "../../utils/array-utils";
+import type { GearComparerGearsStateDtoV1 } from "./deprecated-dtos/gear-comparer-gears-state-dto";
+import type { GearComparerOptionsStateDtoV1 } from "./deprecated-dtos/gear-comparer-options-state-dto";
+import type { GearSetDtoV1 } from "./deprecated-dtos/gear-set-dto";
+import type { GearSetsStateDtoV1 } from "./deprecated-dtos/gear-sets-state-dto";
+import type { TeamsStateDtoV1 } from "./deprecated-dtos/teams-state-dto";
+import type { UserStatsStateDtoV1 } from "./deprecated-dtos/user-stats-state-dto";
 
 export function migrateTeamsGearSetsStatsToLoadouts() {
   const userStatsKey = "userStats";
@@ -44,16 +40,16 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     ? (JSON.parse(userStatsJson) as UserStatsStateDtoV1)
     : undefined;
   const oldGearSetsState = gearSetsJson
-    ? (JSON.parse(gearSetsJson) as GearSetsStateDto)
+    ? (JSON.parse(gearSetsJson) as GearSetsStateDtoV1)
     : undefined;
   const oldGearComparerOptionsState = gearComparerOptionsJson
-    ? (JSON.parse(gearComparerOptionsJson) as GearComparerOptionsStateDto)
+    ? (JSON.parse(gearComparerOptionsJson) as GearComparerOptionsStateDtoV1)
     : undefined;
   const oldGearComparerGearsState = gearComparerGearsJson
-    ? (JSON.parse(gearComparerGearsJson) as GearComparerGearsStateDto)
+    ? (JSON.parse(gearComparerGearsJson) as GearComparerGearsStateDtoV1)
     : undefined;
   const oldTeamsState = teamsJson
-    ? (JSON.parse(teamsJson) as TeamsStateDto)
+    ? (JSON.parse(teamsJson) as TeamsStateDtoV1)
     : undefined;
 
   const newUserStatsState: UserStatsStateDtoV2 = {

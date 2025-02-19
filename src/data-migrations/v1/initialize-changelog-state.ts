@@ -1,6 +1,6 @@
-import { stateKeyPrefix } from "../../../constants/persistence";
-import type { ChangelogState } from "../../changelog/changelog";
-import { changelogStateKey } from "../../changelog/changelog";
+import { stateKeyPrefix } from "../../constants/persistence";
+import type { ChangelogState } from "../../states/changelog/changelog";
+import { changelogStateKey } from "../../states/changelog/changelog";
 
 export function initializeChangelogState() {
   const changelogState: ChangelogState = {

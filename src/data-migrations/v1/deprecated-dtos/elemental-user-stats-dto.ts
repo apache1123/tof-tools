@@ -1,7 +1,7 @@
-import type { Dto } from "../../db/repository/dto";
+import type { Dto } from "../../../db/repository/dto";
 
 /** @deprecated migrated to using Loadouts */
-export interface ElementalUserStatsDto extends Dto {
+export interface ElementalUserStatsDtoV1 extends Dto {
   baseAttackFlatWithGearA: number;
   totalAttackFlatWithGearA: number;
   critFlatWithGearA: number;
