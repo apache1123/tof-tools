@@ -3,8 +3,8 @@ import { type ChangeEvent, useState } from "react";
 
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { useAutoHideSnackbar } from "../../components/common/Snackbar/useAutoHideSnackbar";
-import type { DataMigrationsState } from "../../data-migrations/data-migrations-state";
-import { dataMigrationsStateKey } from "../../data-migrations/data-migrations-state";
+import type { DataMigrationRecord } from "../../data-migrations/data-migration-record";
+import { legacyDataMigrationRecordKey } from "../../data-migrations/data-migration-record";
 import { localStoragePersistenceState } from "../../states/hooks/useLocalStoragePersistence";
 
 export function TransferAppData() {
@@ -38,9 +38,11 @@ export function TransferAppData() {
         }
       });
 
-      const stateMigrationsJson = localStorage.getItem(dataMigrationsStateKey);
+      const stateMigrationsJson = localStorage.getItem(
+        legacyDataMigrationRecordKey,
+      );
       if (stateMigrationsJson) {
-        data[dataMigrationsStateKey] = JSON.parse(stateMigrationsJson);
+        data[legacyDataMigrationRecordKey] = JSON.parse(stateMigrationsJson);
       }
 
       const json = JSON.stringify(data);
@@ -102,15 +104,15 @@ export function TransferAppData() {
             // If the schema is v2 or v3, but the assumed schema is v1, there will be problems.
             // Manually check the schema to see if it is v1 or v2 and set the `state-migrations` key accordingly (from v2 to v3 is only data-fix, so we can safely mark v3 as v2 and let the state migrations mechanism handle the rest)
             type UnknownSchema = {
-              [dataMigrationsStateKey]?: DataMigrationsState;
+              [legacyDataMigrationRecordKey]?: DataMigrationRecord;
               loadouts?: never;
             };
             const unknownDataSchema = data as UnknownSchema;
-            if (!unknownDataSchema[dataMigrationsStateKey]) {
-              const stateMigrationsState: DataMigrationsState =
+            if (!unknownDataSchema[legacyDataMigrationRecordKey]) {
+              const stateMigrationsState: DataMigrationRecord =
                 unknownDataSchema.loadouts ? { version: 2 } : { version: 1 };
               localStorage.setItem(
-                dataMigrationsStateKey,
+                legacyDataMigrationRecordKey,
                 JSON.stringify(stateMigrationsState),
               );
             }

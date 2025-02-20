@@ -1,13 +1,13 @@
-import { dataMigrations } from "./data-migrations";
 import {
-  getDataMigrationsState,
-  setDataMigrationsState,
-} from "./data-migrations-state";
+  getDataMigrationRecord,
+  setDataMigrationRecord,
+} from "./data-migration-record";
+import { dataMigrations } from "./data-migrations";
 
 export function migrateDataToLatestVersion() {
-  const dataMigrationsState = getDataMigrationsState();
+  const dataMigrationRecord = getDataMigrationRecord();
 
-  const { version } = dataMigrationsState;
+  const { version } = dataMigrationRecord;
   const latestVersion = dataMigrations[dataMigrations.length - 1].version + 1;
 
   if (version === latestVersion) {
@@ -25,7 +25,7 @@ export function migrateDataToLatestVersion() {
   }
 
   migration.migrate();
-  setDataMigrationsState({ version: version + 1 });
+  setDataMigrationRecord({ version: version + 1 });
 
   migrateDataToLatestVersion();
 }

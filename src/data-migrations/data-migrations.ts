@@ -21,7 +21,9 @@ import { fixGearSetsGearTypeData } from "./v2/fix-gear-sets-gear-type-data";
  *
  * Migrations can also be used for data-fixes.
  *
- * The latest `version` is one version greater than the version of the last migration defined below */
+ * The latest `version` is one version greater than the version of the last migration defined below.
+ *
+ * The `version` used here is purely for data migrations, and is not related to the version of the app. */
 export const dataMigrations: DataMigration[] = [
   {
     version: 1,
