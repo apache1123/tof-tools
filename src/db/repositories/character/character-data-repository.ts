@@ -51,7 +51,7 @@ export class CharacterDataRepository extends ValtioRepository<
 
   protected override itemToDto(item: CharacterData): CharacterDataDto {
     const { id, name, level } = item;
-    return { id, name, level, version: 1 };
+    return { id, name, level };
   }
 
   protected override dtoToItem(dto: CharacterDataDto): CharacterData {

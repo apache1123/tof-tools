@@ -3,15 +3,13 @@ import type { Gear } from "../../../../models/gear/gear";
 import { GearSet } from "../../../../models/gear/gear-set";
 import { logException } from "../../../../utils/exception-utils";
 import { DeserializationError } from "../../../error/deserialization-error";
-import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
 import type { GearSlotDto } from "./gear-slot-dto";
 import { gearSlotToDto } from "./gear-slot-dto";
 
-export interface GearSetDto extends Dto {
+export interface GearSetDto {
   id: string;
   slots: Record<GearTypeId, GearSlotDto>;
-  version: 3;
 }
 
 export function gearSetToDto(gearSet: GearSet): GearSetDto {
@@ -32,7 +30,6 @@ export function gearSetToDto(gearSet: GearSet): GearSetDto {
       Exoskeleton: mapSlotToDto("Exoskeleton"),
       Microreactor: mapSlotToDto("Microreactor"),
     },
-    version: 3,
   };
 
   function mapSlotToDto(typeId: GearTypeId): GearSlotDto {

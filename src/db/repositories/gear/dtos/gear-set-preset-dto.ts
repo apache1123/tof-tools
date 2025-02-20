@@ -1,16 +1,14 @@
 import type { Gear } from "../../../../models/gear/gear";
 import { GearSetPreset } from "../../../../models/gear/gear-set-preset";
-import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
 import type { GearSetDto } from "./gear-set-dto";
 import { dtoToGearSet, gearSetToDto } from "./gear-set-dto";
 
-export interface GearSetPresetDto extends Dto {
+export interface GearSetPresetDto {
   id: string;
   characterId: string;
   name: string;
   gearSet: GearSetDto;
-  version: 1;
 }
 
 export function gearSetPresetToDto(
@@ -22,7 +20,6 @@ export function gearSetPresetToDto(
     characterId,
     name,
     gearSet: gearSetToDto(gearSet),
-    version: 1,
   };
 }
 

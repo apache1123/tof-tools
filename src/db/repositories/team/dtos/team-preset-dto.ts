@@ -2,15 +2,13 @@ import { TeamPreset } from "../../../../models/team/team-preset";
 import type { WeaponPreset } from "../../../../models/weapon/weapon-preset";
 import { logException } from "../../../../utils/exception-utils";
 import { DeserializationError } from "../../../error/deserialization-error";
-import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
 
-export interface TeamPresetDto extends Dto {
+export interface TeamPresetDto {
   id: string;
   characterId: string;
   weaponPresetIds: (string | undefined)[];
   name: string;
-  version: 1;
 }
 
 export function teamPresetToDto(teamPreset: TeamPreset): TeamPresetDto {
@@ -22,7 +20,6 @@ export function teamPresetToDto(teamPreset: TeamPreset): TeamPresetDto {
       .getWeaponPresets()
       .map((weaponPreset) => weaponPreset?.id),
     name,
-    version: 1,
   };
 }
 

@@ -1,8 +1,5 @@
-import type { Dto } from "../../repository/dto";
-
-export interface CharacterDataDto extends Dto {
+export interface CharacterDataDto {
   id: string;
   name: string;
   level: number;
-  version: 1;
 }

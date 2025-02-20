@@ -3,15 +3,13 @@ import { getMatrixDefinition } from "../../../../definitions/matrices/matrix-def
 import { getMatrixType } from "../../../../definitions/matrices/matrix-type";
 import { Matrix } from "../../../../models/matrix/matrix";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
-import type { Dto } from "../../../repository/dto";
 
-export interface MatrixDto extends Dto {
+export interface MatrixDto {
   id: string;
   characterId: string;
   typeId: MatrixTypeId;
   definitionId: MatrixDefinitionId;
   stars: number;
-  version: 1;
 }
 
 export function matrixToDto(item: Matrix): MatrixDto {
@@ -22,7 +20,6 @@ export function matrixToDto(item: Matrix): MatrixDto {
     typeId: type.id,
     definitionId,
     stars,
-    version: 1,
   };
 }
 

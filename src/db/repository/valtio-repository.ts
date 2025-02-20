@@ -6,14 +6,11 @@ import type { Id, Identifiable } from "../../models/identifiable";
 import { logException } from "../../utils/exception-utils";
 import type { Db } from "../db";
 import type { DbStorage } from "../storage/db-storage";
-import type { Dto } from "./dto";
 import type { ReactiveRepository } from "./types/reactive-repository";
 
 /** Repository that utilizes valtio to react to and persist changes. */
-export abstract class ValtioRepository<
-  TItem extends Identifiable,
-  TItemDto extends Dto,
-> implements ReactiveRepository<TItem>
+export abstract class ValtioRepository<TItem extends Identifiable, TItemDto>
+  implements ReactiveRepository<TItem>
 {
   public constructor(key: string, storage: DbStorage, db: Db) {
     this.storage = ref(storage);

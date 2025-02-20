@@ -4,20 +4,17 @@ import type { Gear, GearId } from "../../../../models/gear/gear";
 import { GearSlot } from "../../../../models/gear/gear-slot";
 import { logException } from "../../../../utils/exception-utils";
 import { DeserializationError } from "../../../error/deserialization-error";
-import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
 
-export interface GearSlotDto extends Dto {
+export interface GearSlotDto {
   acceptsType: GearTypeId;
   gearId: GearId | undefined;
-  version: 1;
 }
 
 export function gearSlotToDto(gearSlot: GearSlot): GearSlotDto {
   return {
     acceptsType: gearSlot.acceptsType.id,
     gearId: gearSlot.gear?.id ?? undefined,
-    version: 1,
   };
 }
 

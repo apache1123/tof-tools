@@ -1,16 +1,11 @@
 import type { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixSlots } from "../../../../models/matrix/matrix-slots";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
-import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
 import type { MatrixSlotDto } from "./matrix-slot-dto";
 import { dtoToMatrixSlot, matrixSlotToDto } from "./matrix-slot-dto";
 
-export interface MatrixSlotsDto
-  extends Dto,
-    Record<MatrixTypeId, MatrixSlotDto> {
-  version: 1;
-}
+export type MatrixSlotsDto = Record<MatrixTypeId, MatrixSlotDto>;
 
 export function matrixSlotsToDto(matrixSlots: MatrixSlots): MatrixSlotsDto {
   return {
@@ -18,7 +13,6 @@ export function matrixSlotsToDto(matrixSlots: MatrixSlots): MatrixSlotsDto {
     memory: matrixSlotToDto(matrixSlots.getSlot("memory")),
     belief: matrixSlotToDto(matrixSlots.getSlot("belief")),
     emotion: matrixSlotToDto(matrixSlots.getSlot("emotion")),
-    version: 1,
   };
 }
 

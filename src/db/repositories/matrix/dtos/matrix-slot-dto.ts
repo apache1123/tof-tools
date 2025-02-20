@@ -4,13 +4,11 @@ import { MatrixSlot } from "../../../../models/matrix/matrix-slot";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
 import { logException } from "../../../../utils/exception-utils";
 import { DeserializationError } from "../../../error/deserialization-error";
-import type { Dto } from "../../../repository/dto";
 import type { Repository } from "../../../repository/types/repository";
 
-export interface MatrixSlotDto extends Dto {
+export interface MatrixSlotDto {
   acceptsTypeId: MatrixTypeId;
   matrixId: string | undefined;
-  version: 1;
 }
 
 export function matrixSlotToDto(matrixSlot: MatrixSlot): MatrixSlotDto {
@@ -18,7 +16,6 @@ export function matrixSlotToDto(matrixSlot: MatrixSlot): MatrixSlotDto {
   return {
     acceptsTypeId: acceptsType.id,
     matrixId: matrix?.id,
-    version: 1,
   };
 }
 

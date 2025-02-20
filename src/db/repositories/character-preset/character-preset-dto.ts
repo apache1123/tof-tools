@@ -3,12 +3,11 @@ import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
 import type { TeamPreset } from "../../../models/team/team-preset";
 import { logException } from "../../../utils/exception-utils";
 import { DeserializationError } from "../../error/deserialization-error";
-import type { Dto } from "../../repository/dto";
 import type { Repository } from "../../repository/types/repository";
 import type { BaseAttacksDto } from "./base-attacks-dto";
 import { baseAttacksToDto, dtoToBaseAttacks } from "./base-attacks-dto";
 
-export interface CharacterPresetDto extends Dto {
+export interface CharacterPresetDto {
   id: string;
   characterId: string;
   teamPresetId: string | undefined;
@@ -16,7 +15,6 @@ export interface CharacterPresetDto extends Dto {
   name: string;
   baseAttacks: BaseAttacksDto;
   critRateFlat: number;
-  version: 1;
 }
 
 export function characterPresetToDto(
@@ -39,7 +37,6 @@ export function characterPresetToDto(
     name,
     baseAttacks: baseAttacksToDto(baseAttacks),
     critRateFlat,
-    version: 1,
   };
 }
 

@@ -2,12 +2,11 @@ import type { GearTypeId } from "../../../../definitions/gear-types";
 import { getGearType } from "../../../../definitions/gear-types";
 import { Gear } from "../../../../models/gear/gear";
 import type { GearRarity } from "../../../../models/gear/gear-rarity";
-import type { Dto } from "../../../repository/dto";
 import type { AugmentStatDto } from "./augment-stat-dto";
 import type { RandomStatDto } from "./random-stat-dto";
 import { dtoToRandomStat, randomStatToDto } from "./random-stat-dto";
 
-export interface GearDto extends Dto {
+export interface GearDto {
   id: string;
   typeId: GearTypeId;
   characterId: string;
@@ -15,7 +14,6 @@ export interface GearDto extends Dto {
   stars: number;
   randomStats: (RandomStatDto | undefined)[];
   augmentStats?: (AugmentStatDto | undefined)[];
-  version: 2;
 }
 
 export function gearToDto(item: Gear): GearDto {
@@ -34,7 +32,6 @@ export function gearToDto(item: Gear): GearDto {
     augmentStats: augmentStats.map((augmentStat) =>
       augmentStat ? randomStatToDto(augmentStat) : undefined,
     ),
-    version: 2,
   };
 }
 
