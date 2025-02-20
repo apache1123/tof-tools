@@ -7,8 +7,10 @@ import BigNumber from "bignumber.js";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import { ErrorText } from "../src/components/common/ErrorText/ErrorText";
+import { StyledModal } from "../src/components/common/Modal/StyledModal";
 import createEmotionCache from "../src/createEmotionCache";
 import { migrateDataToLatestVersion } from "../src/data-migrations/migrate-data-to-latest-version";
 import { db } from "../src/db/reactive-local-storage-db";
@@ -26,6 +28,7 @@ import {
 } from "../src/states/character/character-state";
 import { useLocalStoragePersistence } from "../src/states/hooks/useLocalStoragePersistence";
 import theme from "../src/theme";
+import { logException } from "../src/utils/exception-utils";
 import Layout from "./_layout";
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -36,8 +39,14 @@ export interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+  const [hasDataMigrationError, setHasDataMigrationError] = useState(false);
   useEffect(() => {
-    migrateDataToLatestVersion();
+    try {
+      migrateDataToLatestVersion();
+    } catch (e) {
+      setHasDataMigrationError(true);
+      logException(e);
+    }
   }, []);
 
   useEffect(() => {
@@ -104,10 +113,29 @@ export default function MyApp(props: MyAppProps) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Layout>
-          <Component {...pageProps} />
+          {hasDataMigrationError ? (
+            <DataMigrationError />
+          ) : (
+            <Component {...pageProps} />
+          )}
           <Analytics />
         </Layout>
       </ThemeProvider>
     </CacheProvider>
+  );
+}
+
+function DataMigrationError() {
+  return (
+    <StyledModal
+      open={true}
+      modalContent={
+        <ErrorText>
+          There was an error upgrading the app to the latest version. The error
+          has been logged and will be fixed. Please try again later, sorry.
+        </ErrorText>
+      }
+      hideClose
+    />
   );
 }
