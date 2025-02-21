@@ -1,21 +1,21 @@
 import { nanoid } from "nanoid";
 
-import type { GearDtoV1 } from "../../db/repositories/gear/deprecated/gear-dto";
-import type { GearSetDtoV2 } from "../../db/repositories/gear/deprecated/gear-set-dto";
 import type { RandomStatDto } from "../../db/repositories/gear/dtos/random-stat-dto";
-import type { TeamDtoV1 } from "../../db/repositories/team/deprecated/team-dto";
-import type { WeaponDtoV1 } from "../../db/repositories/weapon/deprecated/weapon-dto";
 import { maxCharacterLevel } from "../../definitions/character-level";
 import { defaultCritDamagePercent } from "../../definitions/damage-formula";
 import type { CoreElementalType } from "../../definitions/elemental-type";
 import type { GearTypeId } from "../../definitions/gear-types";
-import type { MatrixSetDto } from "../../models/deprecated/matrix-set";
-import type { ElementalAttackDto } from "../../models/elemental-attack/elemental-attack";
-import type { LoadoutDtoV1 } from "../../models/loadout/loadout";
-import type { UserStatsStateDtoV2 } from "../../states/deprecated/user-stats";
-import type { GearComparerStateDto } from "../../states/gear-comparer";
-import type { LoadoutsStateDtoV1 } from "../../states/loadouts";
 import { filterOutUndefined } from "../../utils/array-utils";
+import type { ElementalAttackDtoV3 } from "../v3/deprecated/elemental-attack-dto";
+import type { GearComparerStateDtoV3 } from "../v3/deprecated/gear-comparer-state-dto";
+import type { GearDtoV3 } from "../v3/deprecated/gear-dto";
+import type { GearSetDtoV3 } from "../v3/deprecated/gear-set-dto";
+import type { LoadoutDtoV3 } from "../v3/deprecated/loadout-dto";
+import type { LoadoutsStateDtoV3 } from "../v3/deprecated/loadouts-state-dto";
+import type { MatrixSetDtoV3 } from "../v3/deprecated/matrix-set-dto";
+import type { TeamDtoV3 } from "../v3/deprecated/team-dto";
+import type { UserStatsStateDtoV3 } from "../v3/deprecated/user-stats-state-dto";
+import type { WeaponDtoV3 } from "../v3/deprecated/weapon-dto";
 import type { GearComparerGearsStateDtoV1 } from "./deprecated-dtos/gear-comparer-gears-state-dto";
 import type { GearComparerOptionsStateDtoV1 } from "./deprecated-dtos/gear-comparer-options-state-dto";
 import type { GearSetDtoV1 } from "./deprecated-dtos/gear-set-dto";
@@ -52,13 +52,13 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     ? (JSON.parse(teamsJson) as TeamsStateDtoV1)
     : undefined;
 
-  const newUserStatsState: UserStatsStateDtoV2 = {
+  const newUserStatsState: UserStatsStateDtoV3 = {
     characterLevel: oldUserStatsState?.characterLevel ?? maxCharacterLevel,
     version: 2,
   };
   localStorage.setItem(userStatsKey, JSON.stringify(newUserStatsState));
 
-  const newLoadoutsState: LoadoutsStateDtoV1 = {
+  const newLoadoutsState: LoadoutsStateDtoV3 = {
     loadoutList: [
       {
         loadout: newLoadoutWithTransferredStatsAndTeam("Flame"),
@@ -92,7 +92,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
   transferOldGearSets();
   localStorage.setItem("loadouts", JSON.stringify(newLoadoutsState));
 
-  const newGearComparerState: GearComparerStateDto = {
+  const newGearComparerState: GearComparerStateDtoV3 = {
     selectedGearTypeId: oldGearComparerGearsState?.GearA?.typeId ?? "Armor",
     replacementGearGearSet: newGearSet(),
     version: 1,
@@ -158,7 +158,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
 
     function transferOldGearSetToLoadout(
       oldGearSet: GearSetDtoV1,
-      loadout: LoadoutDtoV1,
+      loadout: LoadoutDtoV3,
     ) {
       loadout.name = oldGearSet.name;
 
@@ -195,8 +195,8 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
 
   function newLoadoutWithTransferredStatsAndTeam(
     elementalType: CoreElementalType,
-  ): LoadoutDtoV1 {
-    const loadout: LoadoutDtoV1 = {
+  ): LoadoutDtoV3 {
+    const loadout: LoadoutDtoV3 = {
       id: nanoid(),
       name: elementalType,
       elementalType: elementalType,
@@ -237,7 +237,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
         // @ts-ignore
         const newElementalAttack = loadout.loadoutStats[
           `${elementalType.toLowerCase()}Attack`
-        ] as ElementalAttackDto;
+        ] as ElementalAttackDtoV3;
         if (newElementalAttack) {
           newElementalAttack.baseAttack =
             oldElementalStats.baseAttackFlatWithGearA;
@@ -262,7 +262,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     return loadout;
   }
 
-  function newGearSet(): GearSetDtoV2 {
+  function newGearSet(): GearSetDtoV3 {
     return {
       id: nanoid(),
       gearsByTypeId: {
@@ -283,7 +283,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newGear(typeId: GearTypeId): GearDtoV1 {
+  function newGear(typeId: GearTypeId): GearDtoV3 {
     return {
       id: nanoid(),
       typeId,
@@ -295,7 +295,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newGearFromOld(oldGear: GearDtoV1): GearDtoV1 {
+  function newGearFromOld(oldGear: GearDtoV3): GearDtoV3 {
     return {
       id: nanoid(),
       typeId: oldGear.typeId,
@@ -337,7 +337,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
       : undefined;
   }
 
-  function newTeamFromOld(oldTeam: TeamDtoV1): TeamDtoV1 {
+  function newTeamFromOld(oldTeam: TeamDtoV3): TeamDtoV3 {
     const weapon1 = oldTeam.weapon1
       ? newWeaponFromOld(oldTeam.weapon1)
       : undefined;
@@ -359,7 +359,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newWeaponFromOld(oldWeapon: WeaponDtoV1): WeaponDtoV1 {
+  function newWeaponFromOld(oldWeapon: WeaponDtoV3): WeaponDtoV3 {
     return {
       definitionId: oldWeapon.definitionId,
       stars: oldWeapon.stars,
@@ -379,7 +379,7 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     };
   }
 
-  function newMatrixSetFromOld(oldMatrixSet: MatrixSetDto): MatrixSetDto {
+  function newMatrixSetFromOld(oldMatrixSet: MatrixSetDtoV3): MatrixSetDtoV3 {
     return {
       definitionId: oldMatrixSet.definitionId,
       stars: oldMatrixSet.stars,

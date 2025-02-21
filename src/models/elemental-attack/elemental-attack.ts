@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 
-import type { Dto } from "../../db/repository/dto";
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 
 export class ElementalAttack {
@@ -39,27 +38,4 @@ export class ElementalAttack {
       .minus(1);
     return attackPercent.gt(0) ? attackPercent.toNumber() : 0;
   }
-
-  // public copyFromDto(dto: ElementalAttackDto): void {
-  //   const { baseAttack, totalAttack } = dto;
-  //
-  //   this.baseAttack = baseAttack;
-  //   this.totalAttack = totalAttack;
-  // }
-  //
-  // public toDto(): ElementalAttackDto {
-  //   const { baseAttack, totalAttack } = this;
-  //
-  //   return {
-  //     baseAttack,
-  //     totalAttack,
-  //     version: 1,
-  //   };
-  // }
-}
-
-export interface ElementalAttackDto extends Dto {
-  baseAttack: number;
-  totalAttack: number;
-  version: 1;
 }

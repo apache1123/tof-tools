@@ -2,7 +2,7 @@ import { BarChart, cheerfulFiestaPalette } from "@mui/x-charts";
 import { useRouter } from "next/router";
 
 import { routes } from "../../../routes/routes";
-import type { WeaponDtoV1 } from "../../db/repositories/weapon/deprecated/weapon-dto";
+import type { WeaponDtoV3 } from "../../data-migrations/v3/deprecated/weapon-dto";
 import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponBreakpointStars } from "../../definitions/weapons/weapon-stars";
 import type { CombatSimulatorSnapshot } from "../../models/combat-simulator/combat-simulator-snapshot";
@@ -25,7 +25,7 @@ export interface CombatSimulatorResultComparisonProps {
 function starsToString(stars: number) {
   return `${stars} ⭐`;
 }
-function weaponsToString(weapons: WeaponDtoV1[]) {
+function weaponsToString(weapons: WeaponDtoV3[]) {
   // TODO: should the dto return a display name
   return weapons
     .map((weapon) => `${weapon.definitionId} ${starsToString(weapon.stars)}`)

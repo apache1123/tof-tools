@@ -1,9 +1,9 @@
 import { nanoid } from "nanoid";
 
-import type { GearSetDtoV2 } from "../../db/repositories/gear/deprecated/gear-set-dto";
 import type { GearTypeId } from "../../definitions/gear-types";
-import type { GearComparerStateDto } from "../../states/gear-comparer";
-import type { LoadoutsStateDtoV1 } from "../../states/loadouts";
+import type { GearComparerStateDtoV3 } from "../v3/deprecated/gear-comparer-state-dto";
+import type { GearSetDtoV3 } from "../v3/deprecated/gear-set-dto";
+import type { LoadoutsStateDtoV3 } from "../v3/deprecated/loadouts-state-dto";
 
 /** Data fix for potential issue with gear sets gear type data that may have been introduced in 3.0.0.
  *
@@ -20,13 +20,13 @@ export function fixGearSetsGearTypeData() {
   const gearComparerStateJson = localStorage.getItem("gearComparer");
 
   const loadoutsState = loadoutsStateJson
-    ? (JSON.parse(loadoutsStateJson) as LoadoutsStateDtoV1)
+    ? (JSON.parse(loadoutsStateJson) as LoadoutsStateDtoV3)
     : undefined;
   const gearComparerState = gearComparerStateJson
-    ? (JSON.parse(gearComparerStateJson) as GearComparerStateDto)
+    ? (JSON.parse(gearComparerStateJson) as GearComparerStateDtoV3)
     : undefined;
 
-  const gearSets: GearSetDtoV2[] = [];
+  const gearSets: GearSetDtoV3[] = [];
   if (loadoutsState) {
     gearSets.push(
       ...loadoutsState.loadoutList.map(
