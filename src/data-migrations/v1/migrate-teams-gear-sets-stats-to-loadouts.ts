@@ -52,6 +52,9 @@ export function migrateTeamsGearSetsStatsToLoadouts() {
     ? (JSON.parse(teamsJson) as TeamsStateDtoV1)
     : undefined;
 
+  // No need to migrate anything if there aren't any old gear sets
+  if (!oldGearSetsState) return;
+
   const newUserStatsState: UserStatsStateDtoV3 = {
     characterLevel: oldUserStatsState?.characterLevel ?? maxCharacterLevel,
     version: 2,
