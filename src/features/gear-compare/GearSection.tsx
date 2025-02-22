@@ -43,7 +43,7 @@ export function GearSection({
 
         {gearTypeId && (
           <Grid container spacing={2}>
-            <Grid xs={12} md={6}>
+            <Grid xs={12} lg={6}>
               <Box sx={{ height: 40 }}>
                 <SectionSubheading>Current gear in preset</SectionSubheading>
               </Box>
@@ -58,7 +58,7 @@ export function GearSection({
               )}
             </Grid>
 
-            <Grid xs={12} md={6}>
+            <Grid xs={12} lg={6}>
               <Stack
                 direction="row"
                 sx={{ height: 40, gap: 1, alignItems: "start" }}
