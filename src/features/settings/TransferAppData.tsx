@@ -1,6 +1,7 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { type ChangeEvent, useState } from "react";
 
+import { ComingSoonIcon } from "../../components/common/ComingSoonIcon/ComingSoonIcon";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { useAutoHideSnackbar } from "../../components/common/Snackbar/useAutoHideSnackbar";
 import type { DataMigrationRecord } from "../../data-migrations/data-migration-record";
@@ -13,7 +14,9 @@ export function TransferAppData() {
 
   return (
     <Paper elevation={0} sx={{ p: 2 }}>
-      <SectionHeading>Export/Import app data</SectionHeading>
+      <SectionHeading>
+        Export/Import app data <ComingSoonIcon />
+      </SectionHeading>
 
       <Stack direction="row" spacing={1} alignItems="center">
         <ExportAppData />
@@ -59,7 +62,7 @@ export function TransferAppData() {
     }
 
     return (
-      <Button variant="outlined" onClick={handleExport}>
+      <Button variant="outlined" onClick={handleExport} disabled>
         Export
       </Button>
     );
@@ -135,7 +138,12 @@ export function TransferAppData() {
     return (
       <>
         {/* https://mui.com/material-ui/react-button/#file-upload */}
-        <Button component="label" variant="outlined" disabled={!hasMadeBackup}>
+        <Button
+          component="label"
+          variant="outlined"
+          disabled
+          // disabled={!hasMadeBackup}
+        >
           Import
           {/* Visually hidden input */}
           <input
