@@ -15,6 +15,7 @@ import type { Gear } from "../../models/gear/gear";
 import { EditGearAugmentStats } from "./EditGearAugmentStats";
 import { EditGearRandomStats } from "./EditGearRandomStats";
 import { EditGearRarity } from "./EditGearRarity";
+import { EditGearTitanStats } from "./EditGearTitanStats";
 import { GearRollBreakdown } from "./GearRollBreakdown";
 import { MaxTitanGearPreview } from "./MaxTitanGearPreview";
 
@@ -51,6 +52,8 @@ export function GearDetailsInline({
       <EditGearRandomStats gearProxy={gearProxy} />
 
       <EditGearAugmentStats gearProxy={gearProxy} />
+
+      <EditGearTitanStats gearProxy={gearProxy} />
 
       <Box>
         <Accordion elevation={(elevation ?? 0) + 1}>

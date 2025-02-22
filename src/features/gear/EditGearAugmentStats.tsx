@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useSnapshot } from "valtio";
 
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
@@ -30,11 +30,10 @@ export function EditGearAugmentStats({ gearProxy }: EditGearAugmentStatsProps) {
   const allPossibleAugmentStats = gear.getPossibleAugmentStats(true);
 
   return (
-    <Box>
-      <SectionSubheading>Augmentation Stats</SectionSubheading>
-
-      <Stack sx={{ gap: 1 }}>
-        {isAugmented && (
+    <Stack sx={{ gap: 1 }}>
+      {isAugmented && (
+        <>
+          <SectionSubheading>Augmentation Stats</SectionSubheading>
           <Stack sx={{ gap: 2 }}>
             {[...Array(maxNumOfAugmentStats)].map((_, i) => {
               const augmentStatProxy = gearProxy.getAugmentStat(i);
@@ -61,14 +60,12 @@ export function EditGearAugmentStats({ gearProxy }: EditGearAugmentStatsProps) {
               );
             })}
           </Stack>
-        )}
+        </>
+      )}
 
-        {allPossibleAugmentStats && (
-          <PossibleAugmentStats
-            possibleAugmentStats={allPossibleAugmentStats}
-          />
-        )}
-      </Stack>
-    </Box>
+      {allPossibleAugmentStats && (
+        <PossibleAugmentStats possibleAugmentStats={allPossibleAugmentStats} />
+      )}
+    </Stack>
   );
 }
