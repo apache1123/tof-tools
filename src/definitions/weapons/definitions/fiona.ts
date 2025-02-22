@@ -9,13 +9,12 @@ export const fiona = {
   gearResonanceElements: [],
   damageElement: "Altered",
   type: "Support",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "Fiona discharge",

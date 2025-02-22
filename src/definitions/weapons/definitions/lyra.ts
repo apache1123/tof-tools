@@ -9,13 +9,12 @@ export const lyra = {
   gearResonanceElements: ["Physical"],
   damageElement: "Physical",
   type: "Support",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } satisfies WeaponDefinition;

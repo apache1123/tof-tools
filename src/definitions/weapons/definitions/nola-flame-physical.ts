@@ -10,13 +10,12 @@ export const nolaFlamePhysical = {
   resonanceElements: ["Flame", "Physical"],
   gearResonanceElements: ["Flame", "Physical"],
   damageElement: "Flame",
-  attackPercentBuffs: [],
-  critRateBuffs: [...nolaBase.critRateBuffs],
-  critDamageBuffs: [...nolaBase.critDamageBuffs],
+
   normalAttacks: [...nolaBase.normalAttacks],
   dodgeAttacks: [...nolaBase.dodgeAttacks],
   skills: [...nolaBase.skills],
   discharges: [...nolaBase.discharges],
+
   // TODO: the flame-physical skill flame base attack buff
   buffs: [...nolaBase.buffs],
   resources: [...nolaBase.resources],

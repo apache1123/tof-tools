@@ -20,13 +20,12 @@ export const tianLang = {
   gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       ...voltSenseBuffBase,

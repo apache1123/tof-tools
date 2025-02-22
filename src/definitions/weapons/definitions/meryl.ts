@@ -9,13 +9,12 @@ export const meryl = {
   gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "Defense",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } satisfies WeaponDefinition;

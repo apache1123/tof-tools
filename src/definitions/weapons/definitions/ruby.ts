@@ -9,13 +9,12 @@ export const ruby = {
   gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "Ultimate Heat",

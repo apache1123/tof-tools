@@ -10,13 +10,12 @@ export const nolaVoltFrost = {
   resonanceElements: ["Volt", "Frost"],
   gearResonanceElements: ["Volt", "Frost"],
   damageElement: "Volt",
-  attackPercentBuffs: [],
-  critRateBuffs: [...nolaBase.critRateBuffs],
-  critDamageBuffs: [...nolaBase.critDamageBuffs],
+
   normalAttacks: [...nolaBase.normalAttacks],
   dodgeAttacks: [...nolaBase.dodgeAttacks],
   skills: [...nolaBase.skills],
   discharges: [...nolaBase.discharges],
+
   buffs: [...nolaBase.buffs],
   resources: [...nolaBase.resources],
 } as const satisfies WeaponDefinition;

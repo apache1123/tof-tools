@@ -9,13 +9,12 @@ export const mimi = {
   gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "Defense",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } satisfies WeaponDefinition;

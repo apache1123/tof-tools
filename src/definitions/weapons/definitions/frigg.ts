@@ -20,13 +20,12 @@ export const frigg = {
   gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       ...frostDomainBuffBase,

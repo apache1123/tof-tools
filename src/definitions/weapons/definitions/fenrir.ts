@@ -9,13 +9,12 @@ export const fenrir = {
   gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "Fenrir 6*",

@@ -9,13 +9,12 @@ export const zero = {
   gearResonanceElements: ["Flame"],
   damageElement: "Flame",
   type: "Support",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } satisfies WeaponDefinition;

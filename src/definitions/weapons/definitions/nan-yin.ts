@@ -9,13 +9,12 @@ export const nanYin = {
   gearResonanceElements: [],
   damageElement: "Altered",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "The Final Tune",

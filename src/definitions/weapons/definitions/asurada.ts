@@ -9,13 +9,12 @@ export const asurada = {
   gearResonanceElements: ["Flame", "Physical"],
   damageElement: "Flame",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } as const satisfies WeaponDefinition;

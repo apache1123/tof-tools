@@ -7,11 +7,6 @@ import type {
 import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
 import type { WeaponResourceDefinition } from "../../../models/weapon/weapon-resource-definition";
 import type {
-  WeaponAttackPercentBuffDefinition,
-  WeaponCritDamageBuffDefinition,
-  WeaponCritRateBuffDefinition,
-} from "../../../models/weapon-buff-definition";
-import type {
   FusionWeaponElementalType,
   GearResonanceElements,
   WeaponElementalType,
@@ -40,15 +35,6 @@ export interface WeaponDefinition {
   /** The default element the weapon deals damage in when it is on field */
   damageElement: WeaponElementalType;
   type: WeaponType;
-  // TODO: Remove below after v4 transition
-  /** @deprecated */
-  attackPercentBuffs: WeaponAttackPercentBuffDefinition[];
-  /** @deprecated */
-  critRateBuffs: WeaponCritRateBuffDefinition[];
-  /** @deprecated */
-  critDamageBuffs: WeaponCritDamageBuffDefinition[];
-
-  /** v4 below */
 
   normalAttacks: NormalAttackDefinition[];
   dodgeAttacks: DodgeAttackDefinition[];

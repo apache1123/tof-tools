@@ -9,13 +9,12 @@ export const cocoritter = {
   gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "Support",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } satisfies WeaponDefinition;

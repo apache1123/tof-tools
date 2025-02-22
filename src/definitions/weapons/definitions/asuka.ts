@@ -9,13 +9,12 @@ export const asuka = {
   gearResonanceElements: ["Physical", "Flame"],
   damageElement: "Physical",
   type: "Defense",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } satisfies WeaponDefinition;

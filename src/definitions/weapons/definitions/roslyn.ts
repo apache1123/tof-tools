@@ -9,13 +9,12 @@ export const roslyn = {
   gearResonanceElements: ["Frost", "Volt"],
   damageElement: "Frost",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     // TODO: this is temporary until trait selection is added to gear comparer
     {

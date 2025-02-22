@@ -9,13 +9,12 @@ export const lingHan = {
   gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "Ling Han 1*",

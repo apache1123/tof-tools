@@ -10,13 +10,12 @@ export const nolaPhysicalFlame = {
   resonanceElements: ["Physical", "Flame"],
   gearResonanceElements: ["Physical", "Flame"],
   damageElement: "Physical",
-  attackPercentBuffs: [],
-  critRateBuffs: [...nolaBase.critRateBuffs],
-  critDamageBuffs: [...nolaBase.critDamageBuffs],
+
   normalAttacks: [...nolaBase.normalAttacks],
   dodgeAttacks: [...nolaBase.dodgeAttacks],
   skills: [...nolaBase.skills],
   discharges: [...nolaBase.discharges],
+
   buffs: [...nolaBase.buffs],
   resources: [...nolaBase.resources],
 } as const satisfies WeaponDefinition;

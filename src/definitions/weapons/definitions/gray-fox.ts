@@ -9,13 +9,12 @@ export const grayFox = {
   gearResonanceElements: ["Frost", "Volt"],
   damageElement: "Frost",
   type: "Support",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } as const satisfies WeaponDefinition;

@@ -9,13 +9,12 @@ export const merylIronheart = {
   gearResonanceElements: ["Volt", "Frost"],
   damageElement: "Volt",
   type: "Defense",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "Meryl Ironheart Discharge ATK Buff",

@@ -9,13 +9,12 @@ export const rei = {
   gearResonanceElements: ["Volt", "Frost"],
   damageElement: "Volt",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "Energy Consumption - ATK buff",

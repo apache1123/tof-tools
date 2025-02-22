@@ -20,13 +20,12 @@ export const lin = {
   gearResonanceElements: [],
   damageElement: "Altered",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       ...moonlightRealmBuffBase,

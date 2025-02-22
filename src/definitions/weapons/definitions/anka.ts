@@ -9,13 +9,12 @@ export const anka = {
   gearResonanceElements: ["Physical", "Flame"],
   damageElement: "Physical",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
 } as const satisfies WeaponDefinition;

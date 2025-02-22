@@ -9,13 +9,12 @@ export const brevey = {
   gearResonanceElements: ["Volt", "Frost"],
   damageElement: "Volt",
   type: "Support",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [
     {

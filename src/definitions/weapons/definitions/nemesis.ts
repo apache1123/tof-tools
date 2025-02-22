@@ -9,13 +9,12 @@ export const nemesis = {
   gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "Support",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     {
       id: "Nemesis 5*",

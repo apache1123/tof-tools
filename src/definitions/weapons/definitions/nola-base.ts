@@ -10,13 +10,12 @@ export const nolaBase = {
   gearResonanceElements: [],
   damageElement: "Altered",
   type: "DPS",
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [
     // TODO: these nola trait buffs can be removed once traits can be selected in gear comparer
     {
