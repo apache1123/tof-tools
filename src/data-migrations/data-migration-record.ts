@@ -24,4 +24,9 @@ export function getDataMigrationRecord(): DataMigrationRecord {
 
 export function setDataMigrationRecord(migrationRecord: DataMigrationRecord) {
   localStorage.setItem(dataMigrationRecordKey, JSON.stringify(migrationRecord));
+
+  // Clean up legacy entry if present
+  if (localStorage.getItem(legacyDataMigrationRecordKey)) {
+    localStorage.removeItem(legacyDataMigrationRecordKey);
+  }
 }
