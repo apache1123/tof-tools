@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 
-import type { Changelog } from "../models/changelog";
+import type { Changelog } from "../../models/changelog";
 
 export const changelog: Changelog = [
   {
@@ -241,13 +241,13 @@ export const changelog: Changelog = [
     title: "Add Asurada",
   },
   {
-    semver: '3.20.0',
+    semver: "3.20.0",
     date: new Date(Date.UTC(2025, 1, 8)),
-    title: 'Add Gray Fox'
+    title: "Add Gray Fox",
   },
   {
-    semver: '3.21.0',
+    semver: "3.21.0",
     date: new Date(Date.UTC(2025, 1, 8)),
-    title: 'Add Claudia Storm Eye'
-  }
+    title: "Add Claudia Storm Eye",
+  },
 ];

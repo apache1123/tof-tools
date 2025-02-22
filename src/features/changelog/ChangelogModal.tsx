@@ -13,10 +13,10 @@ import { gt } from "@suchipi/femver";
 import { useSnapshot } from "valtio";
 
 import { ButtonModal } from "../../components/common/Modal/ButtonModal";
-import { changelog } from "../../definitions/changelog";
 import { changelogState } from "../../states/changelog/changelog";
+import { changelog } from "./changelog";
 
-export function Changelog() {
+export function ChangelogModal() {
   const { lastSeenChangelogSemver } = useSnapshot(changelogState);
   const lastChangelogSemver = changelog[changelog.length - 1].semver;
 
@@ -32,6 +32,12 @@ export function Changelog() {
     <ButtonModal
       openByDefault={hasUnseenChangelog}
       buttonContent="Changelog"
+      buttonProps={{
+        variant: "text",
+        sx: {
+          color: (theme) => theme.palette.text.secondary,
+        },
+      }}
       modalTitle="Changelog"
       modalContent={
         <Timeline

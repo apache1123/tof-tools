@@ -2,6 +2,7 @@ import { initializeChangelogState } from "./v1/initialize-changelog-state";
 import { migrateTeamsGearSetsStatsToLoadouts } from "./v1/migrate-teams-gear-sets-stats-to-loadouts";
 import { fixGearSetsGearTypeData } from "./v2/fix-gear-sets-gear-type-data";
 import { migrateToRepos } from "./v3/migrateToRepos";
+import { resetChangelogState } from "./v3/resetChangelogState";
 
 /** Migrations needed to ensure that the user's data (the serialized DTO data stored in localStorage) is valid with the latest defined schema before it is used in the app.
  *
@@ -43,6 +44,7 @@ export const dataMigrations: DataMigration[] = [
     version: 3,
     migrate: () => {
       migrateToRepos();
+      resetChangelogState();
     },
   },
 ];

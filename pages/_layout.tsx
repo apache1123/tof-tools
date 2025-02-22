@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import * as React from "react";
 import { useEffect } from "react";
 
+import { RandomSticker } from "../src/components/common/RandomSticker/RandomSticker";
 import { Header } from "../src/layout/Header/Header";
 import { Sidebar } from "../src/layout/Sidebar/Sidebar";
 
@@ -93,28 +94,11 @@ export default function Layout({ children }: LayoutProps) {
 
       <Main theme={theme} open={drawerIsOpen}>
         {children}
+
+        <Box sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+          <RandomSticker />
+        </Box>
       </Main>
-
-      {/*<Changelog />*/}
-
-      {/*<Stack mt={5} spacing={1} alignItems="center">*/}
-      {/*  <RandomSticker />*/}
-      {/*  <Box textAlign="center">*/}
-      {/*    <Typography variant="body2">*/}
-      {/*      Questions? Find me on discord @apache1123, or submit an issue in the*/}
-      {/*      Github repo*/}
-      {/*    </Typography>*/}
-      {/*  </Box>*/}
-      {/*  <Link*/}
-      {/*    href="https://github.com/apache1123/tof-tools"*/}
-      {/*    target="_blank"*/}
-      {/*    rel="noopener"*/}
-      {/*  >*/}
-      {/*    <IconButton>*/}
-      {/*      <GitHubIcon />*/}
-      {/*    </IconButton>*/}
-      {/*  </Link>*/}
-      {/*</Stack>*/}
     </Box>
   );
 }
