@@ -1,4 +1,15 @@
+import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
 import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+
+const voltSenseBuffBase = {
+  displayName: "Volt sense",
+  description: "+6% volt ATK for each other volt weapons equipped",
+  cooldown: 0,
+  canBePlayerTriggered: false,
+  triggeredBy: { combatStart: true },
+  maxStacks: 1,
+  starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+} as const satisfies Partial<WeaponBuffDefinition>;
 
 export const tianLang = {
   id: "Tian Lang",
@@ -9,39 +20,38 @@ export const tianLang = {
   gearResonanceElements: ["Volt"],
   damageElement: "Volt",
   type: "DPS",
-  attackPercentBuffs: [
-    {
-      id: "Volt Resonance",
-      displayName: "Volt Resonance",
-      description: "+15% volt ATK when equipping 2 or more volt weapons",
-      value: 0.15,
-      elementalTypes: ["Volt"],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ["Volt"],
-    },
-    {
-      id: "Volt sense",
-      displayName: "Volt sense",
-      description:
-        "+6% volt ATK for each other volt weapons equipped. (The tool only assumes 1 other volt weapon)",
-      value: 0.06,
-      elementalTypes: ["Volt"],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ["Volt"],
-    },
-  ],
+  attackPercentBuffs: [],
   critRateBuffs: [],
   critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
-  buffs: [],
+  buffs: [
+    {
+      ...voltSenseBuffBase,
+      id: "Volt sense - 1 other volt weapon",
+      requirements: {
+        teamRequirements: {
+          elementalWeapons: {
+            numOfElementalWeapons: [{ element: "Volt", numOfWeapons: 2 }],
+          },
+        },
+      },
+      attackPercentBuffs: [{ value: 0.06, elementalTypes: ["Volt"] }],
+    },
+    {
+      ...voltSenseBuffBase,
+      id: "Volt sense - 2 other volt weapons",
+      requirements: {
+        teamRequirements: {
+          elementalWeapons: {
+            numOfElementalWeapons: [{ element: "Volt", numOfWeapons: 3 }],
+          },
+        },
+      },
+      attackPercentBuffs: [{ value: 0.12, elementalTypes: ["Volt"] }],
+    },
+  ],
   resources: [],
 } satisfies WeaponDefinition;

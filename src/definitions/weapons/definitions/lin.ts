@@ -1,4 +1,15 @@
+import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
 import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+
+const moonlightRealmBuffBase = {
+  id: "Moonlight Realm",
+  displayName: "Moonlight Realm",
+  cooldown: 0,
+  requirements: {},
+  canBePlayerTriggered: false,
+  triggeredBy: {}, // TODO:
+  maxStacks: 1,
+} as const satisfies Partial<WeaponBuffDefinition>;
 
 export const lin = {
   id: "Lin",
@@ -9,61 +20,79 @@ export const lin = {
   gearResonanceElements: [],
   damageElement: "Altered",
   type: "DPS",
-  attackPercentBuffs: [
-    {
-      id: "Moonlight Realm",
-      displayName: "Moonlight Realm",
-      description: "Moonlight Realm gives +15% ATK for its duration",
-      value: 0.15,
-      elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 5,
-    },
-    {
-      id: "Moonlight Realm",
-      displayName: "Moonlight Realm",
-      description: "Moonlight Realm gives +23% ATK for its duration",
-      value: 0.23,
-      elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 6,
-      maxStarRequirement: 6,
-    },
-    {
-      id: "Frost Moonlight Realm",
-      displayName: "Frost Moonlight Realm",
-      description: "Frost Moonlight Realm gives +10% frost ATK",
-      value: 0.1,
-      elementalTypes: ["Frost"],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ["Frost"],
-    },
-    {
-      id: "Balance Moonlight Realm",
-      displayName: "Balance Moonlight Realm",
-      description:
-        "When paired with any 2 different elemental weapons, Moonlight Realm gives +15% ATK",
-      value: 0.15,
-      elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ["None"],
-    },
-  ],
+  attackPercentBuffs: [],
   critRateBuffs: [],
   critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
-  buffs: [],
+  buffs: [
+    {
+      ...moonlightRealmBuffBase,
+      description: "Moonlight Realm gives +15% ATK for its duration",
+      attackPercentBuffs: [
+        {
+          value: 0.15,
+          elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
+        },
+      ],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 5 },
+    },
+    {
+      ...moonlightRealmBuffBase,
+      description: "Moonlight Realm gives +23% ATK for its duration",
+      attackPercentBuffs: [
+        {
+          value: 0.23,
+          elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
+        },
+      ],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+    {
+      id: "Frost Moonlight Realm",
+      displayName: "Frost Moonlight Realm",
+      description: "Frost Moonlight Realm gives +10% frost ATK",
+      cooldown: 0,
+      requirements: {
+        teamRequirements: {
+          elementalWeapons: {
+            numOfElementalWeapons: [
+              { element: "Frost", numOfWeapons: 2 },
+              { element: "Frost", numOfWeapons: 3 },
+            ],
+          },
+        },
+      },
+      canBePlayerTriggered: false,
+      triggeredBy: {}, // TODO:
+      maxStacks: 1,
+      attackPercentBuffs: [{ value: 0.1, elementalTypes: ["Frost"] }],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+    },
+    {
+      id: "Balance Moonlight Realm",
+      displayName: "Balance Moonlight Realm",
+      description:
+        "When paired with any 2 different elemental weapons, Moonlight Realm gives +15% ATK",
+      cooldown: 0,
+      requirements: {
+        teamRequirements: {
+          elementalWeapons: { numOfDifferentElementalTypes: 3 },
+        },
+      },
+      canBePlayerTriggered: false,
+      triggeredBy: {}, // TODO:
+      maxStacks: 1,
+      attackPercentBuffs: [
+        {
+          value: 0.15,
+          elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
+        },
+      ],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+    },
+  ],
   resources: [],
 } satisfies WeaponDefinition;

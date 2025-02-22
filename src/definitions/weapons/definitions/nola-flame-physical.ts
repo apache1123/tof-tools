@@ -10,41 +10,14 @@ export const nolaFlamePhysical = {
   resonanceElements: ["Flame", "Physical"],
   gearResonanceElements: ["Flame", "Physical"],
   damageElement: "Flame",
-  // TODO: the flame-physical skill flame base attack buff
-  attackPercentBuffs: [
-    ...nolaBase.attackPercentBuffs,
-    {
-      id: "Flame Resonance",
-      displayName: "Flame Resonance",
-      description: "+15% flame ATK when equipping 2 or more flame weapons",
-      value: 0.15,
-      elementalTypes: ["Flame"],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ["Flame"],
-    },
-    {
-      id: "Physical Resonance",
-      displayName: "Physical Resonance",
-      description:
-        "+15% physical ATK when equipping 2 or more physical weapons",
-      value: 0.15,
-      elementalTypes: ["Physical"],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ["Physical"],
-    },
-  ],
+  attackPercentBuffs: [],
   critRateBuffs: [...nolaBase.critRateBuffs],
   critDamageBuffs: [...nolaBase.critDamageBuffs],
   normalAttacks: [...nolaBase.normalAttacks],
   dodgeAttacks: [...nolaBase.dodgeAttacks],
   skills: [...nolaBase.skills],
   discharges: [...nolaBase.discharges],
+  // TODO: the flame-physical skill flame base attack buff
   buffs: [...nolaBase.buffs],
   resources: [...nolaBase.resources],
 } as const satisfies WeaponDefinition;

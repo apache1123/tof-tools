@@ -1,6 +1,7 @@
 import type { BuffAbilityDefinition } from "./types/buff/buff-ability-definition";
 
 export const teamBuffs: BuffAbilityDefinition[] = [
+  // Weapon resonances
   {
     id: "attack-weapon-resonance",
     displayName: "Attack Resonance",
@@ -25,6 +26,34 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     triggeredBy: { combatStart: true },
     cooldown: 0,
   },
+
+  // Elemental resonances
+  {
+    id: "altered-resonance",
+    displayName: "Altered Resonance",
+    description: "+20% ATK when equipping 2 or more altered weapons",
+    attackPercentBuffs: [
+      {
+        value: 0.2,
+        elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
+      },
+    ],
+    maxStacks: 1,
+    requirements: {
+      teamRequirements: {
+        anyWeapon: ["Fiona"],
+        elementalWeapons: {
+          numOfElementalWeapons: [
+            { element: "Altered", numOfWeapons: 2 },
+            { element: "Altered", numOfWeapons: 3 },
+          ],
+        },
+      },
+    },
+    canBePlayerTriggered: false,
+    triggeredBy: { combatStart: true },
+    cooldown: 0,
+  },
   {
     id: "flame-resonance",
     displayName: "Flame Resonance",
@@ -38,9 +67,30 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     maxStacks: 1,
     requirements: {
       teamRequirements: {
-        anyWeapon: ["Ming Jing", "Yan Miao"],
+        anyWeapon: [
+          "Anka",
+          "Annabella",
+          "Asuka",
+          "Asurada",
+          "Claudia Storm Eye",
+          "Cobalt-B",
+          "Fei Se",
+          "Ji Yu",
+          "Lan",
+          "Liu Huo",
+          "Ming Jing",
+          "Nola (Flame-Physical)",
+          "Nola (Physical-Flame)",
+          "Plotti",
+          "Ruby",
+          "Yan Miao",
+          "Zero",
+        ],
         elementalWeapons: {
-          numOfElementalWeapons: [{ element: "Flame", numOfWeapons: 2 }],
+          numOfElementalWeapons: [
+            { element: "Flame", numOfWeapons: 2 },
+            { element: "Flame", numOfWeapons: 3 },
+          ],
         },
       },
     },
@@ -61,9 +111,28 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     maxStacks: 1,
     requirements: {
       teamRequirements: {
-        anyWeapon: ["Brevey", "Rei", "Yanuo"],
+        anyWeapon: [
+          "Alyss",
+          "Brevey",
+          "Cocoritter",
+          "Frigg",
+          "Gray Fox",
+          "Icarus",
+          "Ling Han",
+          "Meryl Ironheart",
+          "Nola (Frost-Volt)",
+          "Nola (Volt-Frost)",
+          "Rei",
+          "Roslyn",
+          "Saki Fuwa",
+          "Yanuo",
+          "Yu Lan",
+        ],
         elementalWeapons: {
-          numOfElementalWeapons: [{ element: "Frost", numOfWeapons: 2 }],
+          numOfElementalWeapons: [
+            { element: "Frost", numOfWeapons: 2 },
+            { element: "Frost", numOfWeapons: 3 },
+          ],
         },
       },
     },
@@ -84,9 +153,27 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     maxStacks: 1,
     requirements: {
       teamRequirements: {
-        anyWeapon: ["Ming Jing", "Yan Miao"],
+        anyWeapon: [
+          "Anka",
+          "Asuka",
+          "Asurada",
+          "Claudia",
+          "Claudia Storm Eye",
+          "Gnonno",
+          "Ji Yu",
+          "Lyra",
+          "Ming Jing",
+          "Nola (Flame-Physical)",
+          "Nola (Physical-Flame)",
+          "Plotti",
+          "Umi",
+          "Yan Miao",
+        ],
         elementalWeapons: {
-          numOfElementalWeapons: [{ element: "Physical", numOfWeapons: 2 }],
+          numOfElementalWeapons: [
+            { element: "Physical", numOfWeapons: 2 },
+            { element: "Physical", numOfWeapons: 3 },
+          ],
         },
       },
     },
@@ -107,10 +194,140 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     maxStacks: 1,
     requirements: {
       teamRequirements: {
-        anyWeapon: ["Brevey", "Huang (Mimi)", "Rei", "Yanuo"],
+        anyWeapon: [
+          "Brevey",
+          "Fenrir",
+          "Gray Fox",
+          "Huang (Mimi)",
+          "Meryl Ironheart",
+          "Nemesis",
+          "Nola (Frost-Volt)",
+          "Nola (Volt-Frost)",
+          "Rei",
+          "Roslyn",
+          "Rubilia",
+          "Tian Lang",
+          "Yanuo",
+        ],
         elementalWeapons: {
-          numOfElementalWeapons: [{ element: "Volt", numOfWeapons: 2 }],
+          numOfElementalWeapons: [
+            { element: "Volt", numOfWeapons: 2 },
+            { element: "Volt", numOfWeapons: 3 },
+          ],
         },
+      },
+    },
+    canBePlayerTriggered: false,
+    triggeredBy: { combatStart: true },
+    cooldown: 0,
+  },
+
+  // Other elemental resonances
+  {
+    id: "elemental-balancing",
+    displayName: "Elemental Balancing",
+    description: "+15% all ATK by equipping 3 weapons of different elements",
+    cooldown: 0,
+    requirements: {
+      teamRequirements: {
+        anyWeapon: ["Fenrir"],
+        elementalWeapons: { numOfDifferentElementalTypes: 3 },
+      },
+    },
+    canBePlayerTriggered: false,
+    triggeredBy: { combatStart: true },
+    maxStacks: 1,
+    attackPercentBuffs: [
+      {
+        value: 0.15,
+        elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
+      },
+    ],
+  },
+
+  // Benediction resonances
+  {
+    id: "flame-benediction",
+    displayName: "Flame Benediction",
+    description:
+      "Increase the entire team's flame ATK by 5% when Benediction Resonance is active",
+    attackPercentBuffs: [
+      {
+        value: 0.05,
+        elementalTypes: ["Flame"],
+      },
+    ],
+    maxStacks: 1,
+    requirements: {
+      teamRequirements: {
+        anyWeapon: ["Zero"],
+        weaponResonance: { is: "Benediction" },
+      },
+    },
+    canBePlayerTriggered: false,
+    triggeredBy: { combatStart: true },
+    cooldown: 0,
+  },
+  {
+    id: "frost-benediction",
+    displayName: "Frost Benediction",
+    description:
+      "Increase the entire team's frost ATK by 5% when Benediction Resonance is active",
+    attackPercentBuffs: [
+      {
+        value: 0.05,
+        elementalTypes: ["Frost"],
+      },
+    ],
+    maxStacks: 1,
+    requirements: {
+      teamRequirements: {
+        anyWeapon: ["Cocoritter"],
+        weaponResonance: { is: "Benediction" },
+      },
+    },
+    canBePlayerTriggered: false,
+    triggeredBy: { combatStart: true },
+    cooldown: 0,
+  },
+  {
+    id: "physical-benediction",
+    displayName: "Physical Benediction",
+    description:
+      "Increase the entire team's physical ATK by 5% when Benediction Resonance is active",
+    attackPercentBuffs: [
+      {
+        value: 0.05,
+        elementalTypes: ["Physical"],
+      },
+    ],
+    maxStacks: 1,
+    requirements: {
+      teamRequirements: {
+        anyWeapon: ["Lyra"],
+        weaponResonance: { is: "Benediction" },
+      },
+    },
+    canBePlayerTriggered: false,
+    triggeredBy: { combatStart: true },
+    cooldown: 0,
+  },
+  {
+    id: "volt-benediction",
+    displayName: "Volt Benediction",
+    description:
+      "Increase the entire team's volt ATK by 5% when Benediction Resonance is active",
+    attackPercentBuffs: [
+      {
+        value: 0.05,
+        elementalTypes: ["Volt"],
+      },
+    ],
+    maxStacks: 1,
+    requirements: {
+      teamRequirements: {
+        anyWeapon: ["Nemesis"],
+        weaponResonance: { is: "Benediction" },
       },
     },
     canBePlayerTriggered: false,

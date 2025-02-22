@@ -1,4 +1,15 @@
+import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
 import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+
+const frostDomainBuffBase = {
+  id: "Frost Domain",
+  displayName: "Frost Domain",
+  cooldown: 0,
+  requirements: {},
+  canBePlayerTriggered: false,
+  triggeredBy: {}, // TODO:
+  maxStacks: 1,
+} as const satisfies Partial<WeaponBuffDefinition>;
 
 export const frigg = {
   id: "Frigg",
@@ -9,48 +20,26 @@ export const frigg = {
   gearResonanceElements: ["Frost"],
   damageElement: "Frost",
   type: "DPS",
-  attackPercentBuffs: [
-    {
-      id: "Frost Resonance",
-      displayName: "Frost Resonance",
-      description: "+15% frost ATK when equipping 2 or more frost weapons",
-      value: 0.15,
-      elementalTypes: ["Frost"],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ["Frost"],
-    },
-    {
-      id: "Frost Domain",
-      displayName: "Frost Domain",
-      description: "Frost Domain gives +15% frost ATK",
-      value: 0.15,
-      elementalTypes: ["Frost"],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 5,
-    },
-    {
-      id: "Frost Domain",
-      displayName: "Frost Domain",
-      description: "Frost Domain gives +40% frost ATK",
-      value: 0.4,
-      elementalTypes: ["Frost"],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 6,
-      maxStarRequirement: 6,
-    },
-  ],
+  attackPercentBuffs: [],
   critRateBuffs: [],
   critDamageBuffs: [],
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
-  buffs: [],
+  buffs: [
+    {
+      ...frostDomainBuffBase,
+      description: "Frost Domain gives +15% frost ATK",
+      attackPercentBuffs: [{ value: 0.15, elementalTypes: ["Frost"] }],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 5 },
+    },
+    {
+      ...frostDomainBuffBase,
+      description: "Frost Domain gives +40% frost ATK",
+      attackPercentBuffs: [{ value: 0.4, elementalTypes: ["Frost"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
   resources: [],
 } satisfies WeaponDefinition;
