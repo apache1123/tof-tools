@@ -104,6 +104,7 @@ export function migrateToRepos() {
         weaponPresetIds: [],
         name: `${loadout.name} team`,
       };
+      newTeamPresetRepo.push(newTeamPreset);
 
       // The `weapons` field was added to the DTO code later, but the data was never amended, so there is a chance the user data does not have it
       const weapons =
@@ -245,8 +246,6 @@ export function migrateToRepos() {
             newTeamPreset.weaponPresetIds.push(newWeaponPreset.id);
           }
         });
-
-        newTeamPresetRepo.push(newTeamPreset);
       }
 
       // Migrate gear set
