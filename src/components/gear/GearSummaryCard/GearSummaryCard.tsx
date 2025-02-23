@@ -23,7 +23,7 @@ export function GearSummaryCard({ gear, elevation }: GearSummaryCardProps) {
       icon={
         <GearTypeIcon id={gear.type.id} rarity={gear.rarity} size={height} />
       }
-      stats={<GearSummary summary={summary} small sx={{ gap: 1 }} />}
+      stats={<GearSummary summary={summary} sx={{ gap: 1 }} />}
       elevation={elevation}
     />
   );

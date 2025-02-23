@@ -11,7 +11,6 @@ import { StatDisplay } from "../../stat/StatDisplay/StatDisplay";
 
 export interface GearSummaryProps extends PropsWithSx {
   summary: GearSummary;
-  small?: boolean;
 }
 
 const statOrder: (keyof GearSummaryStatsForElement)[] = [
@@ -20,7 +19,7 @@ const statOrder: (keyof GearSummaryStatsForElement)[] = [
   "damagePercent",
 ];
 
-export function GearSummary({ summary, small, sx }: GearSummaryProps) {
+export function GearSummary({ summary, sx }: GearSummaryProps) {
   return (
     <Stack direction="row" sx={{ gap: 2, flexWrap: "wrap", ...sx }}>
       {/* Show first attack flat by element, then attack percent by element, then damage percent by element */}
@@ -44,7 +43,7 @@ export function GearSummary({ summary, small, sx }: GearSummaryProps) {
   function StatItem({ summaryStat }: { summaryStat: GearSummaryStat }) {
     // Don't show 0 values
     return summaryStat.value === 0 ? null : (
-      <StatDisplay {...summaryStat} iconSize={small ? 20 : undefined} />
+      <StatDisplay {...summaryStat} iconSize={20} />
     );
   }
 }
