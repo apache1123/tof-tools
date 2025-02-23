@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Alert, Box, Paper, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import BigNumber from "bignumber.js";
 import a from "indefinite";
@@ -103,6 +103,12 @@ export function GearOcrModal({
       modalTitle="Import gear by using screenshot"
       modalContent={
         <>
+          <Alert severity="info" sx={{ mb: 2 }}>
+            Gear name & random stats should be clearly visible in the screenshot{" "}
+            <ExampleScreenshotModal />. Only random stats can be read from the
+            image right now, not augmentation stats
+          </Alert>
+
           <Grid container>
             <Grid xs></Grid>
             <Grid
@@ -120,14 +126,8 @@ export function GearOcrModal({
             </Grid>
             <Grid xs></Grid>
           </Grid>
-          <Box textAlign="center" mb={3}>
-            <Typography variant="caption">
-              Gear name & random stats should be clearly visible in the
-              screenshot. <ExampleScreenshotModal />
-            </Typography>
-          </Box>
 
-          <Grid container spacing={3} mb={3}>
+          <Grid container spacing={3} sx={{ mt: 2 }}>
             <Grid xs={12} sm={6}>
               {imageUrl && (
                 // TODO: Fix this sizing
@@ -155,7 +155,9 @@ export function GearOcrModal({
                 </Box>
               )}
               {!errorMessage && tempGear && ocrTempGearState.tempGear && (
-                <GearDetailsInline gearProxy={ocrTempGearState.tempGear} />
+                <Paper sx={{ p: 2 }}>
+                  <GearDetailsInline gearProxy={ocrTempGearState.tempGear} />
+                </Paper>
               )}
             </Grid>
           </Grid>
@@ -187,6 +189,7 @@ export function GearOcrModal({
     let randomStatTypes: StatType[];
 
     lines.forEach((line) => {
+      // First match gear type
       if (
         !hasFoundGearType &&
         (containsString(line, goldGearNamePrefix) ||
@@ -209,8 +212,7 @@ export function GearOcrModal({
         return;
       }
 
-      // If found the random stats section, read up to the max number of random stats of the gear type, if available.
-      // If the gear type is not available, read until the end of all the lines (for now, this may need to change in the future)
+      // If found the gear type, attempt to read the random stats section by matching the section title
       if (
         hasFoundGearType &&
         !hasFoundRandomStatsSection &&
@@ -231,10 +233,11 @@ export function GearOcrModal({
         return;
       }
 
+      // If found the random stats section, read up to the max number of random stats of the gear type, if available.
       if (
         hasFoundGearType &&
         hasFoundRandomStatsSection &&
-        (numOfRandomStatsToFind || numOfRandomStatsToFind === undefined)
+        numOfRandomStatsToFind > numOfRandomStatsFound
       ) {
         let hasMatch = false;
 
