@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Alert, TextField } from "@mui/material";
 import { useSnapshot } from "valtio";
 
 import type { CharacterData } from "../../../models/character/character-data";
@@ -26,6 +26,11 @@ export function EditCharacterPreset({
 
   return (
     <>
+      <Alert severity="info" sx={{ mb: 2 }}>
+        A preset is a combination of a team (of weapons) and a gear preset. Same
+        as how it is in-game.
+      </Alert>
+
       <TextField
         label="Preset name"
         value={name}

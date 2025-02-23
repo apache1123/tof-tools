@@ -1,4 +1,12 @@
-import { Box, Paper, Stack } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
@@ -200,6 +208,46 @@ export function GearCompareResults({
             )}
           </Grid>
         </Grid>
+
+        <Accordion elevation={1} sx={{ mt: 3 }}>
+          <AccordionSummary>
+            What do these numbers mean and how are they calculated?
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack sx={{ gap: 2 }}>
+              <Typography>
+                <b>Value:</b> is the damage increase you get from the piece of
+                gear, compared to without it. (This only accounts for the
+                gear&apos;s random stats and augmentation stats, and not the
+                gear&apos;s base stats)
+              </Typography>
+
+              <Typography>
+                <b>Damage:</b> is the simulated damage with the gear (with a
+                dummy skill attack, see below).
+              </Typography>
+
+              <Typography>
+                <b>&quot;When at max titan&ldquo;:</b> is the theoretical values
+                if that piece of gear is augmented to max titan stat values
+                (Check the max titan preview of the gear)
+              </Typography>
+
+              <Typography>
+                The damage is simulated by using a single dummy skill attack
+                with the main weapon (with a skill attack multiplier of 100%,
+                e.g. in-game text it would be{" "}
+                <i>Deal damage equal to 100% of ATK plus 0</i>). The attack is
+                then buffed with all possible buffs from the weapons, matrices,
+                gear etc. (As long as they are valid to be activated some time
+                during combat. e.g. Frost resonance will not be applied if the
+                team doesn&apos;t have at least two frost weapons, but
+                Fiona&apos;s buff on discharge will be applied, because it may
+                be activated during combat)
+              </Typography>
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
       </Paper>
 
       {currentGearResult.buffSummary && (

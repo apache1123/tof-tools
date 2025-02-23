@@ -11,7 +11,7 @@ export function SelectGearType() {
 
   return (
     <Stack sx={{ gap: 0.5 }}>
-      <SectionSubheading>Gear type</SectionSubheading>
+      <SectionSubheading>Select gear type</SectionSubheading>
       <GearTypeToggle
         values={gearTypeId ? [gearTypeId] : []}
         exclusive

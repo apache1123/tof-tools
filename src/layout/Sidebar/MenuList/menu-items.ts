@@ -52,11 +52,11 @@ export const menuItems: NavGroupModel[] = [
         title: routes.gearCompare.label,
         path: routes.gearCompare.path,
       },
-      {
-        id: "damage-calculator",
-        title: routes.damageCalculator.label,
-        path: routes.damageCalculator.path,
-      },
+      // {
+      //   id: "damage-calculator",
+      //   title: routes.damageCalculator.label,
+      //   path: routes.damageCalculator.path,
+      // },
     ],
   },
   {

@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Alert, Box, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
@@ -75,6 +75,12 @@ export function EditCharacterPresetStats({
       details={
         mainWeaponDefinition && (
           <Stack sx={{ gap: 3 }}>
+            <Alert severity="info">
+              Fill in these values according to what is on the Wanderer screen
+              in-game when you have the above team and gear equipped. The
+              element is based on the main weapon of the team.
+            </Alert>
+
             <Box>
               <Typography>Using main weapon</Typography>
               <WeaponIcon
