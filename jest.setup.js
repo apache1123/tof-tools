@@ -1,6 +1,6 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
-jest.mock('nanoid', () => {
+jest.mock("nanoid", () => {
   return {
     nanoid: () => {},
   };

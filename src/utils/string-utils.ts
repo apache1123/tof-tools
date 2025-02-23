@@ -7,7 +7,7 @@ export function indexOfIgnoringCase(text: string, searchString: string) {
 }
 
 export function splitIntoWords(text: string) {
-  return text.split(' ').filter((word) => word !== '');
+  return text.split(" ").filter((word) => word !== "");
 }
 
 export function pascalCaseToCamelCase(text: string) {
@@ -16,13 +16,13 @@ export function pascalCaseToCamelCase(text: string) {
 
 /** e.g. 'Normal case' -> 'normal-case' */
 export function normalCaseToKebabCase(text: string) {
-  return text.toLowerCase().replaceAll(' ', '-');
+  return text.toLowerCase().replaceAll(" ", "-");
 }
 
 /** e.g. 'PascalCase' -> 'pascal-case' */
 export function pascalCaseToKebabCase(text: string) {
   return text
-    .replace(/([a-z])([A-Z])/g, '$1-$2') // Inserts a hyphen between lowercase and uppercase letters
-    .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2') // Handles cases like 'HTMLParser'
+    .replace(/([a-z])([A-Z])/g, "$1-$2") // Inserts a hyphen between lowercase and uppercase letters
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2") // Handles cases like 'HTMLParser'
     .toLowerCase(); // Converts the entire string to lowercase
 }

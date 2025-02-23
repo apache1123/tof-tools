@@ -1,20 +1,20 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const samir = {
-  id: 'Samir',
-  displayName: 'Samir',
-  elementalIcon: 'Volt',
-  resonanceElements: ['Volt'],
-  calculationElements: ['Volt'],
-  damageElement: 'Volt',
-  type: 'DPS',
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "Samir",
+  simulacrumDisplayName: "Samir",
+  weaponDisplayName: "Dual EM Stars",
+  elementalIcon: "Volt",
+  resonanceElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
+  damageElement: "Volt",
+  type: "DPS",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

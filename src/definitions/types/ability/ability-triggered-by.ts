@@ -1,6 +1,6 @@
-import type { AbilityId } from '../../../models/v4/ability/ability-id';
-import type { ResourceId } from '../../../models/v4/resource/resource-definition';
-import type { WeaponName } from '../../weapons/weapon-definitions';
+import type { AbilityId } from "../../../models/ability/ability-id";
+import type { ResourceId } from "../../../models/resource/resource-definition";
+import type { WeaponDefinitionId } from "../../weapons/weapon-definitions";
 
 export interface AbilityTriggeredBy {
   combatStart?: boolean;
@@ -13,7 +13,7 @@ export interface AbilityTriggeredBy {
   /** Trigger upon end of the defined abilities */
   abilityEnd?: AbilityId[];
 
-  // fullChargeOfWeapons?: WeaponName[];
+  // fullChargeOfWeapons?: WeaponId[];
 
   // startOfAnyAttack?: boolean;
   // endOfAnyAttack?: boolean;
@@ -54,7 +54,7 @@ export interface AbilityTriggeredBy {
   // endOfDischargeOfElementalType?: WeaponElementalType;
 
   hitOfAnyAttack?: boolean;
-  hitOfWeapon?: WeaponName;
+  hitOfWeapon?: WeaponDefinitionId;
 
   resourceUpdate?: ResourceId;
 }

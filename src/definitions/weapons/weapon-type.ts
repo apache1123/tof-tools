@@ -1,1 +1,1 @@
-export type WeaponType = 'DPS' | 'Support' | 'Defense';
+export type WeaponType = "DPS" | "Support" | "Defense";

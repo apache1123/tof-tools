@@ -1,45 +1,39 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const fiona = {
-  id: 'Fiona',
-  displayName: 'Fiona',
-  elementalIcon: 'Altered',
-  resonanceElements: ['Altered'],
-  calculationElements: ['Altered'],
-  damageElement: 'Altered',
-  type: 'Support',
-  attackPercentBuffs: [
-    {
-      id: 'Altered Resonance',
-      displayName: 'Altered Resonance',
-      description: '+20% ATK when equipping 2 or more altered weapons',
-      value: 0.2,
-      elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ['Altered'],
-    },
-    {
-      id: 'Fiona discharge',
-      displayName: 'Fiona discharge',
-      description: '+15% ATK for 30s on discharge',
-      value: 0.15,
-      elementalTypes: ['Altered', 'Flame', 'Frost', 'Physical', 'Volt'],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      weaponResonanceRequirements: ['Attack', 'Balance'],
-    },
-  ],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "Fiona",
+  simulacrumDisplayName: "Fiona",
+  weaponDisplayName: "Moonstar Bracelet",
+  elementalIcon: "Altered",
+  resonanceElements: ["Altered"],
+  gearResonanceElements: [],
+  damageElement: "Altered",
+  type: "Support",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
-  buffs: [],
+
+  buffs: [
+    {
+      id: "Fiona discharge",
+      displayName: "Fiona discharge",
+      description: "+15% ATK for 30s on discharge",
+      cooldown: 0,
+      duration: 30000,
+      requirements: { teamRequirements: { anyWeapon: ["Fiona"] } },
+      canBePlayerTriggered: false,
+      triggeredBy: {}, // TODO:
+      maxStacks: 1,
+      attackPercentBuffs: [
+        {
+          value: 0.15,
+          elementalTypes: ["Altered", "Flame", "Frost", "Physical", "Volt"],
+        },
+      ],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+    },
+  ],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

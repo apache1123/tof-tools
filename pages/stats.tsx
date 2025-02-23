@@ -1,9 +1,9 @@
-import { Container, Stack } from '@mui/material';
-import Head from 'next/head';
+import { Stack } from "@mui/material";
+import Head from "next/head";
 
-import { CritFlatToPercent } from '../src/features/stats/CritFlatToPercent';
-import { StatMaxAugmentIncrease } from '../src/features/stats/StatMaxAugmentIncrease';
-import { StatRanges } from '../src/features/stats/StatRanges';
+import { CritFlatToPercent } from "../src/features/stat/CritFlatToPercent";
+import { StatMaxAugmentIncrease } from "../src/features/stat/StatMaxAugmentIncrease";
+import { StatRanges } from "../src/features/stat/StatRanges";
 
 export default function StatsPage() {
   return (
@@ -12,13 +12,11 @@ export default function StatsPage() {
         <title>Stats Stuff | Tower of Fantasy Tools</title>
       </Head>
 
-      <Container maxWidth="lg" sx={{ p: 3 }}>
-        <Stack spacing={6}>
-          <StatMaxAugmentIncrease />
-          <CritFlatToPercent />
-          <StatRanges />
-        </Stack>
-      </Container>
+      <Stack spacing={4}>
+        <StatMaxAugmentIncrease />
+        <CritFlatToPercent />
+        <StatRanges />
+      </Stack>
     </>
   );
 }

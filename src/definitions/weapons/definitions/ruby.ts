@@ -1,44 +1,33 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const ruby = {
-  id: 'Ruby',
-  displayName: 'Ruby',
-  elementalIcon: 'Flame',
-  resonanceElements: ['Flame'],
-  calculationElements: ['Flame'],
-  damageElement: 'Flame',
-  type: 'DPS',
-  attackPercentBuffs: [
-    {
-      id: 'Flame Resonance',
-      displayName: 'Flame Resonance',
-      description: '+15% flame ATK when equipping 2 or more flame weapons',
-      value: 0.15,
-      elementalTypes: ['Flame'],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ['Flame'],
-    },
-    {
-      id: 'Ultimate Heat',
-      displayName: 'Ultimate Heat',
-      description: 'Ultimate Heat gives +10% flame ATK after fully stacked',
-      value: 0.1,
-      elementalTypes: ['Flame'],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-    },
-  ],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "Ruby",
+  simulacrumDisplayName: "Ruby",
+  weaponDisplayName: "Spark",
+  elementalIcon: "Flame",
+  resonanceElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
+  damageElement: "Flame",
+  type: "DPS",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
-  buffs: [],
+
+  buffs: [
+    {
+      id: "Ultimate Heat",
+      displayName: "Ultimate Heat",
+      description: "Ultimate Heat gives +10% flame ATK after fully stacked",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: {},
+      maxStacks: 1,
+      attackPercentBuffs: [{ value: 0.1, elementalTypes: ["Flame"] }],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+    },
+  ],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

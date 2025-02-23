@@ -1,3 +1,3 @@
 export function getComparisonColor(isHigher: boolean) {
-  return isHigher ? 'success.main' : 'error.main';
+  return isHigher ? "success.main" : "error.main";
 }

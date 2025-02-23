@@ -4,32 +4,56 @@ export interface Route {
 }
 
 export const routes = {
+  wanderer: {
+    label: "Wanderer Info",
+    path: "/wanderer",
+  },
+  presets: {
+    label: "Presets",
+    path: "/presets",
+  },
+  gears: {
+    label: "Gear",
+    path: "/gear",
+  },
+  gearSetPresets: {
+    label: "Gear Presets",
+    path: "/gear-presets",
+  },
+  weapons: {
+    label: "Weapons",
+    path: "/weapons",
+  },
+  matrices: {
+    label: "Matrices",
+    path: "/matrices",
+  },
+  teams: {
+    label: "Teams",
+    path: "/teams",
+  },
   damageCalculator: {
-    label: 'Damage Calculator',
-    path: '/damage-calculator',
+    label: "Damage Calculator",
+    path: "/damage-calculator",
   },
   simulatorResults: {
-    label: 'Simulator Results',
-    path: '/simulator-results',
+    label: "Simulator Results",
+    path: "/simulator-results",
   },
-  loadouts: {
-    label: 'Loadouts',
-    path: '/loadouts',
-  },
-  gearComparer: {
-    label: 'Compare Gear',
-    path: '/gear-comparer',
+  gearCompare: {
+    label: "Gear Compare",
+    path: "/gear-compare",
   },
   stats: {
-    label: 'Stats stuff',
-    path: '/stats',
+    label: "Stats",
+    path: "/stats",
   },
   settings: {
-    label: 'Settings',
-    path: '/settings',
+    label: "Settings",
+    path: "/settings",
   },
   links: {
-    label: 'Useful Links',
-    path: '/links',
+    label: "Useful Links",
+    path: "/links",
   },
 } as const satisfies Record<string, Route>;

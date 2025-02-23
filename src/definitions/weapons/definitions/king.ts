@@ -1,20 +1,20 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const king = {
-  id: 'King',
-  displayName: 'King',
-  elementalIcon: 'Flame',
-  resonanceElements: ['Flame'],
-  calculationElements: ['Flame'],
-  damageElement: 'Flame',
-  type: 'DPS',
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "King",
+  simulacrumDisplayName: "King",
+  weaponDisplayName: "Scythe of the Crow",
+  elementalIcon: "Flame",
+  resonanceElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
+  damageElement: "Flame",
+  type: "DPS",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

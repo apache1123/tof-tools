@@ -1,19 +1,13 @@
-import createEmotionServer from '@emotion/server/create-instance';
-import type { AppType } from 'next/app';
-import type {
-  DocumentContext,
-  DocumentProps} from 'next/document';
-import Document, {
-  Head,
-  Html,
-  Main,
-  NextScript,
-} from 'next/document';
-import * as React from 'react';
+import createEmotionServer from "@emotion/server/create-instance";
+import type { AppType } from "next/app";
+import type { DocumentContext, DocumentProps } from "next/document";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import type { JSX } from "react";
+import * as React from "react";
 
-import createEmotionCache from '../src/createEmotionCache';
-import theme, { roboto } from '../src/theme';
-import type { MyAppProps } from './_app';
+import createEmotionCache from "../src/createEmotionCache";
+import theme, { roboto } from "../src/theme";
+import type { MyAppProps } from "./_app";
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
@@ -72,7 +66,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: (
-        App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>
+        App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>,
       ) =>
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />;
@@ -85,9 +79,9 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      data-emotion={`${style.key} ${style.ids.join(" ")}`}
       key={style.key}
-      // eslint-disable-next-line react/no-danger
+       
       dangerouslySetInnerHTML={{ __html: style.css }}
     />
   ));

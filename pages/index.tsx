@@ -1,5 +1,5 @@
-import Container from '@mui/material/Container';
-import Head from 'next/head';
+import Container from "@mui/material/Container";
+import Head from "next/head";
 
 export default function Home() {
   return (

@@ -1,44 +1,33 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const lingHan = {
-  id: 'Ling Han',
-  displayName: 'Ling Han',
-  elementalIcon: 'Frost',
-  resonanceElements: ['Frost'],
-  calculationElements: ['Frost'],
-  damageElement: 'Frost',
-  type: 'DPS',
-  attackPercentBuffs: [
-    {
-      id: 'Frost Resonance',
-      displayName: 'Frost Resonance',
-      description: '+15% frost ATK when equipping 2 or more frost weapons',
-      value: 0.15,
-      elementalTypes: ['Frost'],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ['Frost'],
-    },
-    {
-      id: 'Ling Han 1*',
-      displayName: 'Ling Han 1*',
-      description: '+10% frost ATK after launching Frost Blades',
-      value: 0.1,
-      elementalTypes: ['Frost'],
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 1,
-      maxStarRequirement: 6,
-    },
-  ],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "Ling Han",
+  simulacrumDisplayName: "Ling Han",
+  weaponDisplayName: "Alabaster Tiger",
+  elementalIcon: "Frost",
+  resonanceElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
+  damageElement: "Frost",
+  type: "DPS",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
-  buffs: [],
+
+  buffs: [
+    {
+      id: "Ling Han 1*",
+      displayName: "Ling Han 1*",
+      description: "+10% frost ATK after launching Frost Blades",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: {}, // TODO:
+      maxStacks: 1,
+      attackPercentBuffs: [{ value: 0.1, elementalTypes: ["Frost"] }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+  ],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

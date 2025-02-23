@@ -1,5 +1,6 @@
 import type { Data } from "../../models/data";
-import type { Weapon } from "../types/weapon/weapon";
+import type { SimulacrumId } from "../simulacra/simulacrum-id";
+import type { WeaponDefinition } from "../types/weapon/weapon-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
 import { annabella } from "./definitions/annabella";
@@ -54,115 +55,68 @@ import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
-export type WeaponName =
-  | 'Alyss'
-  | 'Anka'
-  | 'Annabella'
-  | 'Asuka'
-  | 'Asurada'
-  | 'Brevey'
-  | 'Claudia'
-  | 'Claudia Storm Eye'
-  | 'Cobalt-B'
-  | 'Cocoritter'
-  | 'Crow'
-  | 'Fei Se'
-  | 'Fenrir'
-  | 'Fiona'
-  | 'Frigg'
-  | 'Gnonno'
-  | 'Gray Fox'
-  | 'Huang (Mimi)'
-  | 'Huma'
-  | 'Icarus'
-  | 'Ji Yu'
-  | 'King'
-  | 'Lan'
-  | 'Lin'
-  | 'Ling Han'
-  | 'Liu Huo'
-  | 'Lyra'
-  | 'Meryl'
-  | 'Meryl Ironheart'
-  | 'Ming Jing'
-  | 'Nan Yin'
-  | 'Nemesis'
-  | 'Nola'
-  | 'Nola (Altered)'
-  | 'Nola (Flame-Physical)'
-  | 'Nola (Frost-Volt)'
-  | 'Nola (Physical-Flame)'
-  | 'Nola (Volt-Frost)'
-  | 'Plotti'
-  | 'Rei'
-  | 'Roslyn'
-  | 'Rubilia'
-  | 'Ruby'
-  | 'Saki Fuwa'
-  | 'Samir'
-  | 'Shiro'
-  | 'Tian Lang'
-  | 'Tsubasa'
-  | 'Umi'
-  | 'Yan Miao'
-  | 'Yanuo'
-  | 'Yu Lan'
-  | 'Zero';
+export type WeaponDefinitionId =
+  | SimulacrumId
+  | "Nola (Altered)"
+  | "Nola (Flame-Physical)"
+  | "Nola (Frost-Volt)"
+  | "Nola (Physical-Flame)"
+  | "Nola (Volt-Frost)";
 
-export const weaponDefinitions: Data<WeaponName, Weapon> = {
+const weaponDefinitions: Data<WeaponDefinitionId, WeaponDefinition> = {
   allIds: [
-    'Alyss',
-    'Anka',
-    'Annabella',
-    'Asuka',
-    'Asurada',
-    'Brevey',
-    'Claudia',
-    'Claudia Storm Eye',
-    'Cobalt-B',
-    'Cocoritter',
-    'Crow',
-    'Fei Se',
-    'Fenrir',
-    'Fiona',
-    'Frigg',
-    'Gnonno',
-    'Gray Fox',
-    'Huang (Mimi)',
-    'Huma',
-    'Icarus',
-    'Ji Yu',
-    'King',
-    'Lan',
-    'Lin',
-    'Ling Han',
-    'Liu Huo',
-    'Lyra',
-    'Meryl',
-    'Meryl Ironheart',
-    'Ming Jing',
-    'Nan Yin',
-    'Nemesis',
-    'Nola (Altered)',
-    'Nola (Flame-Physical)',
-    'Nola (Frost-Volt)',
-    'Nola (Physical-Flame)',
-    'Nola (Volt-Frost)',
-    'Plotti',
-    'Rei',
-    'Roslyn',
-    'Rubilia',
-    'Ruby',
-    'Saki Fuwa',
-    'Samir',
-    'Shiro',
-    'Tian Lang',
-    'Tsubasa',
-    'Umi',
-    'Yan Miao',
-    'Yanuo',
-    'Yu Lan',
-    'Zero',
+    "Alyss",
+    "Anka",
+    "Annabella",
+    "Asuka",
+    "Asurada",
+    "Brevey",
+    "Claudia",
+    "Claudia Storm Eye",
+    "Cobalt-B",
+    "Cocoritter",
+    "Crow",
+    "Fei Se",
+    "Fenrir",
+    "Fiona",
+    "Frigg",
+    "Gnonno",
+    "Gray Fox",
+    "Huang (Mimi)",
+    "Huma",
+    "Icarus",
+    "Ji Yu",
+    "King",
+    "Lan",
+    "Lin",
+    "Ling Han",
+    "Liu Huo",
+    "Lyra",
+    "Meryl",
+    "Meryl Ironheart",
+    "Ming Jing",
+    "Nan Yin",
+    "Nemesis",
+    "Nola (Altered)",
+    "Nola (Flame-Physical)",
+    "Nola (Frost-Volt)",
+    "Nola (Physical-Flame)",
+    "Nola (Volt-Frost)",
+    "Plotti",
+    "Rei",
+    "Roslyn",
+    "Rubilia",
+    "Ruby",
+    "Saki Fuwa",
+    "Samir",
+    "Shiro",
+    "Tian Lang",
+    "Tsubasa",
+    "Umi",
+    "Yan Miao",
+    "Yanuo",
+    "Yu Lan",
+    "Zero",
   ],
   byId: {
     Alyss: alyss,
@@ -173,50 +127,60 @@ export const weaponDefinitions: Data<WeaponName, Weapon> = {
     Brevey: brevey,
     Claudia: claudia,
     "Claudia Storm Eye": claudiaStormEye,
-    'Cobalt-B': cobaltB,
+    "Cobalt-B": cobaltB,
     Cocoritter: cocoritter,
     Crow: crow,
-    'Fei Se': feiSe,
+    "Fei Se": feiSe,
     Fenrir: fenrir,
     Fiona: fiona,
     Frigg: frigg,
     Gnonno: gnonno,
     "Gray Fox": grayFox,
-    'Huang (Mimi)': mimi,
+    "Huang (Mimi)": mimi,
     Huma: huma,
     Icarus: icarus,
-    'Ji Yu': jiYu,
+    "Ji Yu": jiYu,
     King: king,
     Lan: lan,
     Lin: lin,
-    'Ling Han': lingHan,
-    'Liu Huo': liuHuo,
+    "Ling Han": lingHan,
+    "Liu Huo": liuHuo,
     Lyra: lyra,
     Meryl: meryl,
-    'Meryl Ironheart': merylIronheart,
-    'Ming Jing': mingJing,
-    'Nan Yin': nanYin,
+    "Meryl Ironheart": merylIronheart,
+    "Ming Jing": mingJing,
+    "Nan Yin": nanYin,
     Nemesis: nemesis,
     Nola: nolaBase,
-    'Nola (Altered)': nolaAltered,
-    'Nola (Flame-Physical)': nolaFlamePhysical,
-    'Nola (Frost-Volt)': nolaFrostVolt,
-    'Nola (Physical-Flame)': nolaPhysicalFlame,
-    'Nola (Volt-Frost)': nolaVoltFrost,
+    "Nola (Altered)": nolaAltered,
+    "Nola (Flame-Physical)": nolaFlamePhysical,
+    "Nola (Frost-Volt)": nolaFrostVolt,
+    "Nola (Physical-Flame)": nolaPhysicalFlame,
+    "Nola (Volt-Frost)": nolaVoltFrost,
     Plotti: plotti,
     Rei: rei,
     Roslyn: roslyn,
     Rubilia: rubilia,
     Ruby: ruby,
-    'Saki Fuwa': sakiFuwa,
+    "Saki Fuwa": sakiFuwa,
     Samir: samir,
     Shiro: shiro,
-    'Tian Lang': tianLang,
+    "Tian Lang": tianLang,
     Tsubasa: tsubasa,
     Umi: umi,
-    'Yan Miao': yanMiao,
+    "Yan Miao": yanMiao,
     Yanuo: yanuo,
-    'Yu Lan': yuLan,
+    "Yu Lan": yuLan,
     Zero: zero,
   },
 };
+
+export function getWeaponDefinition(id: WeaponDefinitionId) {
+  const weaponDefinition = weaponDefinitions.byId[id];
+  if (!weaponDefinition) throw new Error(`Cannot find weapon definition ${id}`);
+  return weaponDefinition;
+}
+
+export function getAllWeaponDefinitions() {
+  return weaponDefinitions.allIds.map((id) => getWeaponDefinition(id));
+}

@@ -1,20 +1,20 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const huma = {
-  id: 'Huma',
-  displayName: 'Huma',
-  elementalIcon: 'Flame',
-  resonanceElements: ['Flame'],
-  calculationElements: ['Flame'],
-  damageElement: 'Flame',
-  type: 'Defense',
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "Huma",
+  simulacrumDisplayName: "Huma",
+  weaponDisplayName: "Molten Shield V2",
+  elementalIcon: "Flame",
+  resonanceElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
+  damageElement: "Flame",
+  type: "Defense",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

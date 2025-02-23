@@ -1,38 +1,35 @@
-import { useEffect } from 'react';
-import { proxy, subscribe } from 'valtio';
-import { devtools, proxySet } from 'valtio/utils';
+import { useEffect } from "react";
+import { proxy, subscribe } from "valtio";
+import { devtools, proxySet } from "valtio/utils";
 
-import type { Dto } from '../../models/dto';
-import type { Persistable } from '../../models/persistable';
+import { stateKeyPrefix } from "../../constants/persistence";
 
 export const localStoragePersistenceState = proxy<{
   persistedKeys: Set<string>;
 }>({
   persistedKeys: proxySet(),
 });
-devtools(localStoragePersistenceState, { name: 'localStoragePersistence' });
+devtools(localStoragePersistenceState, { name: "localStoragePersistence" });
 
-export function useLocalStoragePersistence<TObjectDto extends Dto>(
-  proxyState: Persistable<TObjectDto>,
-  key: string
+export function useLocalStoragePersistence<T extends object>(
+  key: string,
+  stateProxy: T,
 ) {
   useEffect(() => {
-    if (localStorage.getItem(key)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      proxyState.copyFromDto(JSON.parse(localStorage.getItem(key)!));
+    const persistenceKey = `${stateKeyPrefix}${key}`;
+    const data = localStorage.getItem(persistenceKey);
+
+    if (data) {
+      const persistedState = JSON.parse(data);
+      (Object.keys(stateProxy) as (keyof T)[]).forEach((key) => {
+        if (persistedState[key]) {
+          stateProxy[key] = persistedState[key];
+        }
+      });
     }
 
-    const unsubscribe = subscribe(proxyState, () =>
-      localStorage.setItem(key, JSON.stringify(proxyState.toDto()))
-    );
-
-    localStoragePersistenceState.persistedKeys.add(key);
-
-    function cleanup() {
-      unsubscribe();
-      localStoragePersistenceState.persistedKeys.delete(key);
-    }
-
-    return cleanup;
-  }, [key, proxyState]);
+    return subscribe(stateProxy, () => {
+      localStorage.setItem(persistenceKey, JSON.stringify(stateProxy));
+    });
+  }, [key, stateProxy]);
 }

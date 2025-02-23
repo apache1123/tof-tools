@@ -1,56 +1,47 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+
+const tranquilHeartBuffBase = {
+  id: "Tranquil Heart",
+  displayName: "Tranquil Heart",
+  cooldown: 0,
+  duration: 15000,
+  requirements: { teamRequirements: { anyWeapon: ["Annabella"] } },
+  canBePlayerTriggered: false,
+  triggeredBy: { hitOfWeapon: "Annabella" },
+  maxStacks: 3,
+} as const satisfies Partial<WeaponBuffDefinition>;
 
 export const annabella = {
-  id: 'Annabella',
-  displayName: 'Annabella',
-  elementalIcon: 'Flame',
-  resonanceElements: ['Flame'],
-  calculationElements: ['Flame'],
-  damageElement: 'Flame',
-  type: 'DPS',
-  attackPercentBuffs: [
-    {
-      id: 'Flame Resonance',
-      displayName: 'Flame Resonance',
-      description: '+15% flame ATK when equipping 2 or more flame weapons',
-      value: 0.15,
-      elementalTypes: ['Flame'],
-      canStack: false,
-      isActivePassively: true,
-      minStarRequirement: 0,
-      maxStarRequirement: 6,
-      elementalResonanceRequirements: ['Flame'],
-    },
-  ],
-  critRateBuffs: [
-    {
-      id: 'Tranquil Heart',
-      displayName: 'Tranquil Heart',
-      description:
-        'Tranquil Heart: after using discharge/skill/dodge/charge attack, increase crit rate by 5%, stacking up to 3 times. Lasts for 15s.',
-      value: 0.15,
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 0,
-      maxStarRequirement: 2,
-    },
-    {
-      id: 'Tranquil Heart',
-      displayName: 'Tranquil Heart',
-      description:
-        'Tranquil Heart: after using discharge/skill/dodge/charge attack, increase crit rate by 9%, stacking up to 3 times. Lasts for 15s.',
-      value: 0.27,
-      canStack: false,
-      isActivePassively: false,
-      minStarRequirement: 3,
-      maxStarRequirement: 6,
-    },
-  ],
-  critDamageBuffs: [],
+  id: "Annabella",
+  simulacrumDisplayName: "Annabella",
+  weaponDisplayName: "Clover Cross",
+  elementalIcon: "Flame",
+  resonanceElements: ["Flame"],
+  gearResonanceElements: ["Flame"],
+  damageElement: "Flame",
+  type: "DPS",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
-  buffs: [],
+
+  buffs: [
+    {
+      ...tranquilHeartBuffBase,
+      description:
+        "Tranquil Heart: When Clover Cross uses discharge/skill/charged attack/dodge, increase crit rate by 5%, stacking up to 3 times. Lasts for 15s.",
+      critRateBuffs: [{ value: 0.05 }],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 2 },
+    },
+    {
+      ...tranquilHeartBuffBase,
+      description:
+        "Tranquil Heart: When Clover Cross uses discharge/skill/charged attack/dodge, increase crit rate by 9%, stacking up to 3 times. Lasts for 15s.",
+      critRateBuffs: [{ value: 0.09 }],
+      starRequirement: { minStarRequirement: 3, maxStarRequirement: 6 },
+    },
+  ],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

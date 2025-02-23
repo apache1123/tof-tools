@@ -1,9 +1,9 @@
-import type { TimeInterval } from '../models/v4/time-interval/time-interval';
+import type { TimeInterval } from "../models/time-interval/time-interval";
 
 /** Returns how many units of time of overlap two intervals of time have */
 export function calculateOverlapDuration(
   timeIntervalA: TimeInterval,
-  timeIntervalB: TimeInterval
+  timeIntervalB: TimeInterval,
 ): number {
   // Order them first to make things easier
   let earlierInterval = timeIntervalA;
@@ -28,7 +28,7 @@ export function calculateOverlapDuration(
 
 /** Returns the interval that ends the latest from an array of intervals. If two intervals end at the same time, the one closest to the end of the array is returned. This throws if the array is empty. */
 export function getLatestTimeInterval<T extends TimeInterval>(
-  timeIntervals: T[]
+  timeIntervals: T[],
 ) {
   return timeIntervals.reduce((prev, curr) => {
     return curr.endTime >= prev.endTime ? curr : prev;

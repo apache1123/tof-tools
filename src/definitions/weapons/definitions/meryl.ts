@@ -1,20 +1,20 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const meryl = {
-  id: 'Meryl',
-  displayName: 'Meryl',
-  elementalIcon: 'Frost',
-  resonanceElements: ['Frost'],
-  calculationElements: ['Frost'],
-  damageElement: 'Frost',
-  type: 'Defense',
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "Meryl",
+  simulacrumDisplayName: "Meryl",
+  weaponDisplayName: "Rosy Edge",
+  elementalIcon: "Frost",
+  resonanceElements: ["Frost"],
+  gearResonanceElements: ["Frost"],
+  damageElement: "Frost",
+  type: "Defense",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;

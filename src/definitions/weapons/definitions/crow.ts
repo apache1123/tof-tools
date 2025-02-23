@@ -1,20 +1,20 @@
-import type { Weapon } from '../../types/weapon/weapon';
+import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const crow = {
-  id: 'Crow',
-  displayName: 'Crow',
-  elementalIcon: 'Volt',
-  resonanceElements: ['Volt'],
-  calculationElements: ['Volt'],
-  damageElement: 'Volt',
-  type: 'DPS',
-  attackPercentBuffs: [],
-  critRateBuffs: [],
-  critDamageBuffs: [],
+  id: "Crow",
+  simulacrumDisplayName: "Crow",
+  weaponDisplayName: "Thunderblades",
+  elementalIcon: "Volt",
+  resonanceElements: ["Volt"],
+  gearResonanceElements: ["Volt"],
+  damageElement: "Volt",
+  type: "DPS",
+
   normalAttacks: [],
   dodgeAttacks: [],
   skills: [],
   discharges: [],
+
   buffs: [],
   resources: [],
-} satisfies Weapon;
+} satisfies WeaponDefinition;
