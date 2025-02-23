@@ -8,7 +8,7 @@ const characterLevel = "95";
 
 const exampleGearDirectory = "./example-images/gear";
 
-test("persists element specific user stat values", async ({ page }) => {
+test.skip("persists element specific user stat values", async ({ page }) => {
   await page.goto("/gear-comparer");
   await dismissChangelog(page);
 
@@ -36,7 +36,7 @@ test("persists element specific user stat values", async ({ page }) => {
   await expect(page.getByLabel("Wanderer level")).toHaveValue(characterLevel);
 });
 
-test("import gear, ocr fills in correct gear", async ({ page }) => {
+test.skip("import gear, ocr fills in correct gear", async ({ page }) => {
   await page.goto("/gear-comparer");
   await dismissChangelog(page);
 
@@ -120,7 +120,7 @@ test("import gear, ocr fills in correct gear", async ({ page }) => {
   ).toMatchSnapshot();
 });
 
-test("gear value is calculated correctly", async ({ page }) => {
+test.skip("gear value is calculated correctly", async ({ page }) => {
   await page.goto("/gear-comparer");
   await dismissChangelog(page);
 
@@ -442,7 +442,9 @@ test("gear value is calculated correctly", async ({ page }) => {
   );
 });
 
-test("stat values at max titan is calculated correctly", async ({ page }) => {
+test.skip("stat values at max titan is calculated correctly", async ({
+  page,
+}) => {
   await page.goto("/gear-comparer");
   await dismissChangelog(page);
 

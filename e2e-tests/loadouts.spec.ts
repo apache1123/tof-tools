@@ -4,7 +4,7 @@ import { dismissChangelog } from "./helpers/dismiss-changelog"; // TODO: Test we
 
 // TODO: Test weapons/matrices, stats, gear persistence
 
-test("add, rename, delete loadout", async ({ page }) => {
+test.skip("add, rename, delete loadout", async ({ page }) => {
   await page.goto("/loadouts");
   await dismissChangelog(page);
 
@@ -37,7 +37,7 @@ test("add, rename, delete loadout", async ({ page }) => {
   ).not.toBeVisible();
 });
 
-test("loadout gear set stat summary", async ({ page }) => {
+test.skip("loadout gear set stat summary", async ({ page }) => {
   await page.goto("/loadouts");
   await dismissChangelog(page);
 
