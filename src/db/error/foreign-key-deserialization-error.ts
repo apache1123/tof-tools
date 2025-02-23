@@ -1,5 +1,7 @@
 import { addBreadcrumb } from "@sentry/nextjs";
 
+import type { Identifiable } from "../../models/identifiable";
+import type { Repository } from "../repository/types/repository";
 import { DeserializationError } from "./deserialization-error";
 
 export class ForeignKeyDeserializationError extends DeserializationError {
@@ -10,7 +12,7 @@ export class ForeignKeyDeserializationError extends DeserializationError {
   public constructor(
     public override readonly message: string,
     dto: object,
-    public readonly referencingRepository: object,
+    public readonly referencingRepository: Repository<Identifiable>,
   ) {
     super(message, dto);
 
@@ -21,9 +23,10 @@ export class ForeignKeyDeserializationError extends DeserializationError {
 
     this.name = "ForeignKeyDeserializationError";
 
+    const repoItems = referencingRepository.items;
     addBreadcrumb({
       message,
-      data: { dto, referencingRepository },
+      data: { dto, repoItems },
       type: "debug",
       level: "error",
     });
