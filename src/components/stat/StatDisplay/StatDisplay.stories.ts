@@ -12,7 +12,7 @@ type Story = StoryObj<typeof StatDisplay>;
 
 export const Default: Story = {
   args: {
-    typeRole: "Attack",
+    role: "Attack",
     element: "Frost",
     displayName: "Frost Attack",
     value: 2000,
@@ -21,7 +21,7 @@ export const Default: Story = {
 
 export const Percentage: Story = {
   args: {
-    typeRole: "Attack %",
+    role: "Attack %",
     element: "Frost",
     displayName: "Frost Attack",
     value: 0.03,

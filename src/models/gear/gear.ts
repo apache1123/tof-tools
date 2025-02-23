@@ -7,7 +7,6 @@ import type {
   CoreElementalType,
   WeaponElementalType,
 } from "../../definitions/elemental-type";
-import { weaponElementalTypes } from "../../definitions/elemental-type";
 import {
   augmentStatsPullUpFactor1,
   augmentStatsPullUpFactor2,
@@ -21,7 +20,6 @@ import { statTypesLookup } from "../../definitions/stat-types";
 import { filterOutUndefined } from "../../utils/array-utils";
 import { cartesian } from "../../utils/cartesian-utils";
 import { sum } from "../../utils/math-utils";
-import { getItemWithHighestNumber } from "../../utils/number-utils";
 import { keysOf } from "../../utils/object-utils";
 import type { CharacterId } from "../character/character-data";
 import type { Id } from "../identifiable";
@@ -32,7 +30,7 @@ import type {
 } from "./gear-random-stat-roll-combinations";
 import type { GearRarity } from "./gear-rarity";
 import type { GearStatDifference } from "./gear-stat-difference";
-import type { GearSummaryStat } from "./gear-summary-stat";
+import type { GearSummary, GearSummaryStatsForElement } from "./gear-summary";
 import type { GearType } from "./gear-type";
 import type {
   PossibleAugmentStat,
@@ -415,101 +413,58 @@ export class Gear {
     );
   }
 
-  public getHighestAttackFlat(): {
-    element: WeaponElementalType;
-    value: number;
-  } {
-    const attackFlats = weaponElementalTypes.map((element) => ({
-      element,
-      value: this.getTotalAttackFlat(element),
-    }));
-    return getItemWithHighestNumber(attackFlats, (x) => x.value);
-  }
+  public getSummary(): GearSummary {
+    const getElementSummaryStats = (
+      element: WeaponElementalType,
+    ): GearSummaryStatsForElement => {
+      return {
+        attackFlat: {
+          role: "Attack",
+          element,
+          displayName: "ATK",
+          value: this.getTotalAttackFlat(element),
+          isPercentageBased: false,
+        },
+        attackPercent: {
+          role: "Attack %",
+          element,
+          displayName: "ATK",
+          value: this.getTotalAttackPercent(element),
+          isPercentageBased: true,
+        },
+        damagePercent: {
+          role: "Damage %",
+          element,
+          displayName: "DMG",
+          value: this.getTotalElementalDamagePercent(element),
+          isPercentageBased: true,
+        },
+      };
+    };
 
-  public getHighestAttackPercent(): {
-    element: WeaponElementalType;
-    value: number;
-  } {
-    const attackPercents = weaponElementalTypes.map((element) => ({
-      element,
-      value: this.getTotalAttackPercent(element),
-    }));
-    return getItemWithHighestNumber(attackPercents, (x) => x.value);
-  }
-
-  public getHighestDamagePercent(): {
-    element: WeaponElementalType;
-    value: number;
-  } {
-    const damagePercents = weaponElementalTypes.map((element) => ({
-      element,
-      value: this.getTotalElementalDamagePercent(element),
-    }));
-    return getItemWithHighestNumber(damagePercents, (x) => x.value);
-  }
-
-  public getSummaryStats(): GearSummaryStat[] {
-    const result: GearSummaryStat[] = [];
-
-    const highestAttackFlat = this.getHighestAttackFlat();
-    if (highestAttackFlat.value !== 0) {
-      const { element, value } = highestAttackFlat;
-      result.push({
-        role: "Attack",
-        element,
-        displayName: "ATK",
-        value,
-        isPercentageBased: false,
-      });
-    }
-
-    const highestAttackPercent = this.getHighestAttackPercent();
-    if (highestAttackPercent.value !== 0) {
-      const { element, value } = highestAttackPercent;
-      result.push({
-        role: "Attack %",
-        element,
-        displayName: "ATK",
-        value,
-        isPercentageBased: true,
-      });
-    }
-
-    const highestDamagePercent = this.getHighestDamagePercent();
-    if (highestDamagePercent.value !== 0) {
-      const { element, value } = highestDamagePercent;
-      result.push({
-        role: "Damage %",
-        element,
-        displayName: "DMG",
-        value,
-        isPercentageBased: true,
-      });
-    }
-
-    const totalCritFlat = this.getTotalCritFlat();
-    if (totalCritFlat !== 0) {
-      result.push({
+    return {
+      element: {
+        Altered: getElementSummaryStats("Altered"),
+        Flame: getElementSummaryStats("Flame"),
+        Frost: getElementSummaryStats("Frost"),
+        Physical: getElementSummaryStats("Physical"),
+        Volt: getElementSummaryStats("Volt"),
+      },
+      critFlat: {
         role: "Crit",
         element: "All",
         displayName: "Crit",
-        value: totalCritFlat,
+        value: this.getTotalCritFlat(),
         isPercentageBased: false,
-      });
-    }
-
-    const totalCritPercent = this.getTotalCritPercent();
-    if (totalCritPercent !== 0) {
-      result.push({
+      },
+      critPercent: {
         role: "Crit %",
         element: "All",
         displayName: "Crit",
-        value: totalCritPercent,
+        value: this.getTotalCritPercent(),
         isPercentageBased: true,
-      });
-    }
-
-    return result;
+      },
+    };
   }
 
   public getRandomStatRollCombinations(): GearRandomStatRollCombinations[] {

@@ -10,7 +10,7 @@ export function RandomStatDisplay({ randomStat }: RandomStatDisplayProps) {
 
   return (
     <StatDisplay
-      typeRole={type.role}
+      role={type.role}
       element={type.elementalType}
       displayName={type.shortDisplayName}
       value={totalValue}

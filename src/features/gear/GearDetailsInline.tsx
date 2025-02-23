@@ -3,12 +3,15 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Paper,
   Stack,
 } from "@mui/material";
 import { useSnapshot } from "valtio";
 
 import type { PropsWithElevation } from "../../components/__helpers__/props-with-elevation";
+import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
 import { GearStars } from "../../components/gear/GearStars/GearStars";
+import { GearSummary } from "../../components/gear/GearSummary/GearSummary";
 import { GearTypeIcon } from "../../components/gear/GearTypeIcon/GearTypeIcon";
 import type { CoreElementalType } from "../../definitions/elemental-type";
 import type { Gear } from "../../models/gear/gear";
@@ -48,6 +51,11 @@ export function GearDetailsInline({
           />
         </Stack>
       </Stack>
+
+      <Paper elevation={(elevation ?? 0) + 1} sx={{ px: 2, py: 1 }}>
+        <SectionSubheading>Summary</SectionSubheading>
+        <GearSummary summary={gear.getSummary()} />
+      </Paper>
 
       <EditGearRandomStats gearProxy={gearProxy} />
 

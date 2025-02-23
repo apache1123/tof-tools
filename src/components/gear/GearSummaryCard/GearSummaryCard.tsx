@@ -1,10 +1,10 @@
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
 import type { GearTypeId } from "../../../definitions/gear-types";
 import type { Gear } from "../../../models/gear/gear";
 import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
-import { StatDisplay } from "../../stat/StatDisplay/StatDisplay";
+import { GearSummary } from "../GearSummary/GearSummary";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
 const width = 320;
@@ -16,33 +16,14 @@ export interface GearSummaryCardProps extends PropsWithElevation {
 }
 
 export function GearSummaryCard({ gear, elevation }: GearSummaryCardProps) {
-  const summaryStats = gear.getSummaryStats();
+  const summary = gear.getSummary();
 
   return (
     <Layout
       icon={
         <GearTypeIcon id={gear.type.id} rarity={gear.rarity} size={height} />
       }
-      stats={
-        <Stack
-          sx={{
-            gap: 1,
-            flexWrap: "wrap",
-          }}
-        >
-          {summaryStats.map((stat, i) => (
-            <StatDisplay
-              key={i}
-              typeRole={stat.role}
-              element={stat.element}
-              displayName={stat.displayName}
-              value={stat.value}
-              isPercentageBased={stat.isPercentageBased}
-              iconSize={20}
-            />
-          ))}
-        </Stack>
-      }
+      stats={<GearSummary summary={summary} small sx={{ gap: 1 }} />}
       elevation={elevation}
     />
   );
