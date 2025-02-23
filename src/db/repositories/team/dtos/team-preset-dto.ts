@@ -1,7 +1,7 @@
 import { TeamPreset } from "../../../../models/team/team-preset";
 import type { WeaponPreset } from "../../../../models/weapon/weapon-preset";
 import { logException } from "../../../../utils/exception-utils";
-import { DeserializationError } from "../../../error/deserialization-error";
+import { ForeignKeyDeserializationError } from "../../../error/foreign-key-deserialization-error";
 import type { Repository } from "../../../repository/types/repository";
 
 export interface TeamPresetDto {
@@ -38,9 +38,10 @@ export function dtoToTeamPreset(
 
       if (!weaponPreset) {
         logException(
-          new DeserializationError(
+          new ForeignKeyDeserializationError(
             `Weapon preset with id ${weaponPresetId} not found`,
             dto,
+            weaponPresetRepository,
           ),
         );
         return;
