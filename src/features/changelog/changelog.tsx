@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Alert, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 
@@ -249,5 +249,44 @@ export const changelog: Changelog = [
     semver: "3.21.0",
     date: new Date(Date.UTC(2025, 1, 8)),
     title: "Add Claudia Storm Eye",
+  },
+  {
+    semver: "4.0.0",
+    date: new Date(Date.UTC(2025, 1, 23)),
+    title: "Big new version redesign!",
+    description: (
+      <>
+        <ul>
+          <li>
+            &quot;Loadouts&quot; are now renamed to &quot;Presets&quot; to keep
+            it consistent to what they are called in-game
+          </li>
+          <li>
+            Added an inventory-like system. Everything is saved individually
+            (weapons, matrices, gear, teams, etc.) and you can share these
+            across different presets.
+            <Stack sx={{ my: 1, gap: 0.5 }}>
+              <Alert severity="warning">
+                This required some big changes on the structure of the data
+                being saved. Please check if anything is missing.
+              </Alert>
+              <Alert severity="warning">
+                If you had 2pc matrices on your weapons, unfortunately you will
+                need to create and add these again.
+              </Alert>
+            </Stack>
+          </li>
+          <li>Augmentation stats can now be added on a gear.</li>
+          <li>
+            You no longer assign an element to a preset/loadout. Instead, the
+            gear compare will use the main weapon&apos;s element
+          </li>
+          <li>
+            Gear compare can now take into account dual-elements (of the main
+            weapon) when calculating
+          </li>
+        </ul>
+      </>
+    ),
   },
 ];

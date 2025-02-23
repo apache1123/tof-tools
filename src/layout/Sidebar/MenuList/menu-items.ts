@@ -17,14 +17,19 @@ export const menuItems: NavGroupModel[] = [
         path: routes.presets.path,
       },
       {
+        id: "gear-set-presets",
+        title: routes.gearSetPresets.label,
+        path: routes.gearSetPresets.path,
+      },
+      {
         id: "gears",
         title: routes.gears.label,
         path: routes.gears.path,
       },
       {
-        id: "gear-set-presets",
-        title: routes.gearSetPresets.label,
-        path: routes.gearSetPresets.path,
+        id: "teams",
+        title: routes.teams.label,
+        path: routes.teams.path,
       },
       {
         id: "weapons",
@@ -35,11 +40,6 @@ export const menuItems: NavGroupModel[] = [
         id: "matrices",
         title: routes.matrices.label,
         path: routes.matrices.path,
-      },
-      {
-        id: "teams",
-        title: routes.teams.label,
-        path: routes.teams.path,
       },
     ],
   },
