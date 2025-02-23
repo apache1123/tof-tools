@@ -18,6 +18,7 @@ import type { GearTypeId } from "../../definitions/gear-types";
 import { getAllMatrixDefinitions } from "../../definitions/matrices/matrix-definitions";
 import { getWeaponDefinition } from "../../definitions/weapons/weapon-definitions";
 import type { MatrixTypeId } from "../../models/matrix/matrix-type";
+import { filterOutUndefined } from "../../utils/array-utils";
 import { logException } from "../../utils/exception-utils";
 import { DataMigrationError } from "../error/data-migration-error";
 import type { GearComparerStateDtoV3 } from "./deprecated/gear-comparer-state-dto";
@@ -104,9 +105,18 @@ export function migrateToRepos() {
         name: `${loadout.name} team`,
       };
 
-      if (loadout.team.weapons.length) {
+      // The `weapons` field was added to the DTO code later, but the data was never amended, so there is a chance the user data does not have it
+      const weapons =
+        loadout.team.weapons ??
+        filterOutUndefined([
+          loadout.team.weapon1,
+          loadout.team.weapon2,
+          loadout.team.weapon3,
+        ]);
+
+      if (weapons.length) {
         // QOL roughly check if user may be using weapon2 as main weapon, and not weapon1, by promoting the on-element weapon to first
-        const onElementWeapon = loadout.team.weapons.find(
+        const onElementWeapon = weapons.find(
           (weapon) =>
             getWeaponDefinition(weapon.definitionId).damageElement ===
             loadout.elementalType,
@@ -115,11 +125,9 @@ export function migrateToRepos() {
         const adjustedWeapons = onElementWeapon
           ? [
               onElementWeapon,
-              ...loadout.team.weapons.filter(
-                (weapon) => weapon !== onElementWeapon,
-              ),
+              ...weapons.filter((weapon) => weapon !== onElementWeapon),
             ]
-          : loadout.team.weapons;
+          : weapons;
 
         // Migrate weapons
         adjustedWeapons.forEach((oldWeapon) => {
