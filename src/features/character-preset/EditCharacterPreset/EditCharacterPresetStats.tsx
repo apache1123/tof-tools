@@ -8,7 +8,7 @@ import { CritRateFlatInput } from "../../../components/character-preset/CritRate
 import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
 import { NumericString } from "../../../components/common/NumericString/NumericString";
 import { ElementalStyledText } from "../../../components/elemental/ElementalStyledText/ElementalStyledText";
-import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
+import { WeaponIconWithElements } from "../../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../../models/character/character-data";
 import type { CharacterPreset } from "../../../models/character/character-preset";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
@@ -74,27 +74,16 @@ export function EditCharacterPresetStats({
       }
       details={
         mainWeaponDefinition && (
-          <Stack sx={{ gap: 3 }}>
-            <Alert severity="info">
+          <>
+            <Alert severity="info" sx={{ mb: 2 }}>
               Fill in these values according to what is on the Wanderer screen
               in-game when you have the above team and gear equipped. The
               element is based on the main weapon of the team.
             </Alert>
 
-            <Box>
-              <Typography>Using main weapon</Typography>
-              <WeaponIcon
-                weaponId={mainWeaponDefinition.id}
-                iconWeaponId={mainWeaponDefinition.iconWeaponId}
-                elementalIcon={mainWeaponDefinition.elementalIcon}
-              />
-              <Stack direction="row" sx={{ gap: 0.5 }}>
-                {mainWeaponDefinition.gearResonanceElements.map((element) => (
-                  <ElementalStyledText key={element} elementalType={element}>
-                    {element}
-                  </ElementalStyledText>
-                ))}
-              </Stack>
+            <Box sx={{ mb: 5 }}>
+              <Typography>Using main weapon:</Typography>
+              <WeaponIconWithElements definition={mainWeaponDefinition} />
             </Box>
 
             <Grid container spacing={2}>
@@ -128,7 +117,7 @@ export function EditCharacterPresetStats({
                 />
               </Grid>
             </Grid>
-          </Stack>
+          </>
         )
       }
       expand={expand}

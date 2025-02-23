@@ -14,6 +14,7 @@ import { NumericCompareString } from "../../components/common/NumericCompareStri
 import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
+import { WeaponIconWithElements } from "../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../models/character/character-data";
 import type { CharacterPreset } from "../../models/character/character-preset";
 import type { Gear } from "../../models/gear/gear";
@@ -80,6 +81,11 @@ export function GearCompareResults({
     <>
       <Paper sx={{ p: 3 }}>
         <SectionHeading>Results</SectionHeading>
+
+        <Box sx={{ mb: 5 }}>
+          <Typography>Comparing using main weapon:</Typography>
+          <WeaponIconWithElements definition={mainWeapon.definition} />
+        </Box>
 
         <Grid container spacing={2}>
           <Grid xs={12} md={6}>
