@@ -1,4 +1,9 @@
+import { addBreadcrumb } from "@sentry/nextjs";
+
 export class DeserializationError extends Error {
+  /** @param message
+   @param dto The dto object being deserialized
+   */
   public constructor(
     public override readonly message: string,
     public readonly dto: object,
@@ -11,5 +16,12 @@ export class DeserializationError extends Error {
     }
 
     this.name = "DeserializationError";
+
+    addBreadcrumb({
+      message,
+      data: dto,
+      type: "debug",
+      level: "error",
+    });
   }
 }

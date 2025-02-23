@@ -2,7 +2,7 @@ import { CharacterPreset } from "../../../models/character/character-preset";
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
 import type { TeamPreset } from "../../../models/team/team-preset";
 import { logException } from "../../../utils/exception-utils";
-import { DeserializationError } from "../../error/deserialization-error";
+import { ForeignKeyDeserializationError } from "../../error/foreign-key-deserialization-error";
 import type { Repository } from "../../repository/types/repository";
 import type { BaseAttacksDto } from "./base-attacks-dto";
 import { baseAttacksToDto, dtoToBaseAttacks } from "./base-attacks-dto";
@@ -61,9 +61,10 @@ export function dtoToCharacterPreset(
 
     if (!teamPreset) {
       logException(
-        new DeserializationError(
-          `No teamPreset found with id ${teamPresetId} found.`,
+        new ForeignKeyDeserializationError(
+          `No teamPreset found`,
           dto,
+          teamPresetRepository,
         ),
       );
     }
@@ -75,9 +76,10 @@ export function dtoToCharacterPreset(
 
     if (!gearSetPreset) {
       logException(
-        new DeserializationError(
-          `No gearSetPreset found with id ${gearSetPresetId} found.`,
+        new ForeignKeyDeserializationError(
+          `No gearSetPreset found`,
           dto,
+          gearSetPresetRepository,
         ),
       );
     }

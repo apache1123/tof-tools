@@ -3,7 +3,7 @@ import type { Matrix } from "../../../../models/matrix/matrix";
 import { MatrixSlot } from "../../../../models/matrix/matrix-slot";
 import type { MatrixTypeId } from "../../../../models/matrix/matrix-type";
 import { logException } from "../../../../utils/exception-utils";
-import { DeserializationError } from "../../../error/deserialization-error";
+import { ForeignKeyDeserializationError } from "../../../error/foreign-key-deserialization-error";
 import type { Repository } from "../../../repository/types/repository";
 
 export interface MatrixSlotDto {
@@ -32,7 +32,11 @@ export function dtoToMatrixSlot(
 
     if (!matrix) {
       logException(
-        new DeserializationError(`Matrix with id ${matrixId} not found`, dto),
+        new ForeignKeyDeserializationError(
+          `Matrix not found`,
+          dto,
+          matrixRepository,
+        ),
       );
       return matrixSlot;
     }

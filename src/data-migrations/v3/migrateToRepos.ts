@@ -205,7 +205,7 @@ export function migrateToRepos() {
                 if (!newDefinitionId) {
                   throw new DataMigrationError(
                     "Cannot match matrix definition id",
-                    { oldMatrixSet4pc },
+                    { oldMatrixSet4pc, oldData },
                   );
                 }
 

@@ -2,7 +2,7 @@ import type { GearTypeId } from "../../../../definitions/gear-types";
 import type { Gear } from "../../../../models/gear/gear";
 import { GearSet } from "../../../../models/gear/gear-set";
 import { logException } from "../../../../utils/exception-utils";
-import { DeserializationError } from "../../../error/deserialization-error";
+import { ForeignKeyDeserializationError } from "../../../error/foreign-key-deserialization-error";
 import type { Repository } from "../../../repository/types/repository";
 import type { GearSlotDto } from "./gear-slot-dto";
 import { gearSlotToDto } from "./gear-slot-dto";
@@ -52,7 +52,11 @@ export function dtoToGearSet(
 
       if (!gear) {
         logException(
-          new DeserializationError(`Gear with id ${gearId} not found`, dto),
+          new ForeignKeyDeserializationError(
+            `Gear not found`,
+            dto,
+            gearRepository,
+          ),
         );
         continue;
       }
