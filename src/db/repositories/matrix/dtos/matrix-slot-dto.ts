@@ -33,7 +33,7 @@ export function dtoToMatrixSlot(
     if (!matrix) {
       logException(
         new ForeignKeyDeserializationError(
-          `Matrix with id ${matrixId} not found`,
+          `Matrix not found`,
           dto,
           matrixRepository,
         ),

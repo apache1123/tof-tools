@@ -53,7 +53,7 @@ export function dtoToGearSet(
       if (!gear) {
         logException(
           new ForeignKeyDeserializationError(
-            `Gear with id ${gearId} not found`,
+            `Gear not found`,
             dto,
             gearRepository,
           ),

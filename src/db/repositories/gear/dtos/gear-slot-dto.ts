@@ -32,7 +32,7 @@ export function dtoToGearSlot(
     if (!gear) {
       logException(
         new ForeignKeyDeserializationError(
-          `Gear with id ${gearId} not found`,
+          `Gear not found`,
           dto,
           gearRepository,
         ),

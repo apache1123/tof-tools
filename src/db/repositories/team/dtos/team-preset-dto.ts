@@ -39,7 +39,7 @@ export function dtoToTeamPreset(
       if (!weaponPreset) {
         logException(
           new ForeignKeyDeserializationError(
-            `Weapon preset with id ${weaponPresetId} not found`,
+            `Weapon preset not found`,
             dto,
             weaponPresetRepository,
           ),

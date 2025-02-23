@@ -38,10 +38,7 @@ export function dtoToWeaponPreset(
 
   const definition = getWeaponDefinition(definitionId);
   if (!definition)
-    throw new DeserializationError(
-      `Weapon definition with id ${definitionId} not found`,
-      dto,
-    );
+    throw new DeserializationError(`Weapon definition not found`, dto);
 
   const preset = new WeaponPreset(
     characterId,

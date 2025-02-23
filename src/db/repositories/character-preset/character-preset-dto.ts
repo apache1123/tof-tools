@@ -62,7 +62,7 @@ export function dtoToCharacterPreset(
     if (!teamPreset) {
       logException(
         new ForeignKeyDeserializationError(
-          `No teamPreset found with id ${teamPresetId} found.`,
+          `No teamPreset found`,
           dto,
           teamPresetRepository,
         ),
@@ -77,7 +77,7 @@ export function dtoToCharacterPreset(
     if (!gearSetPreset) {
       logException(
         new ForeignKeyDeserializationError(
-          `No gearSetPreset found with id ${gearSetPresetId} found.`,
+          `No gearSetPreset found`,
           dto,
           gearSetPresetRepository,
         ),
