@@ -13,6 +13,7 @@ export interface EditCharacterPresetProps {
   expandTeam?: boolean;
   expandGearSet?: boolean;
   expandStats?: boolean;
+  showInfoForGearCompare?: boolean;
 }
 
 export function EditCharacterPreset({
@@ -21,6 +22,7 @@ export function EditCharacterPreset({
   expandTeam,
   expandGearSet,
   expandStats,
+  showInfoForGearCompare,
 }: EditCharacterPresetProps) {
   const { name } = useSnapshot(characterPresetProxy) as CharacterPreset;
 
@@ -49,6 +51,7 @@ export function EditCharacterPreset({
       <EditCharacterPresetGearPreset
         characterPresetProxy={characterPresetProxy}
         expand={expandGearSet}
+        showInfoForGearCompare={showInfoForGearCompare}
       />
 
       <EditCharacterPresetStats

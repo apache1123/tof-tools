@@ -21,6 +21,7 @@ export function EditCharacterPresetSection({
       <EditCharacterPreset
         characterPresetProxy={characterPresetProxy}
         characterDataProxy={characterDataProxy}
+        showInfoForGearCompare
       />
     </Paper>
   );

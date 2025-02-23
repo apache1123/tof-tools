@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Alert, Box, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
@@ -19,11 +19,13 @@ import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 export interface EditCharacterPresetGearPresetProps {
   characterPresetProxy: CharacterPreset;
   expand?: boolean;
+  showInfoForGearCompare?: boolean;
 }
 
 export function EditCharacterPresetGearPreset({
   characterPresetProxy,
   expand,
+  showInfoForGearCompare,
 }: EditCharacterPresetGearPresetProps) {
   const { characterId, gearSetPreset } = useSnapshot(
     characterPresetProxy,
@@ -84,6 +86,16 @@ export function EditCharacterPresetGearPreset({
         }
         details={
           <Stack sx={{ gap: 1 }}>
+            {showInfoForGearCompare && (
+              <Alert severity="info" sx={{ mb: 2 }}>
+                Add your current piece of gear you want to compare. You do not
+                need to add every single gear to do a compare, but it is
+                recommended you do. The result will be more accurate, especially
+                if the gear you are comparing has ATK% and another gear in the
+                preset also has it.
+              </Alert>
+            )}
+
             <Stack direction="row" sx={{ gap: 1, alignItems: "end" }}>
               <Button
                 onClick={() => {
