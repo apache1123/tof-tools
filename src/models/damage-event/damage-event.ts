@@ -114,7 +114,7 @@ export class DamageEvent {
   private getGearElementalDamageBuff(): ElementalDamageBuff {
     const element = this.attackHit.damageElement;
     return new ElementalDamageBuff(
-      `gear-${element}-elemental-damage`,
+      `Gear ${element} Elemental Damage`,
       this.character.getGearDamagePercent(element),
       "gear",
       {},
