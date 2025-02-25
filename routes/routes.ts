@@ -42,7 +42,7 @@ export const routes = {
   },
   gearCompare: {
     label: "Gear Compare",
-    path: "/gear-compare",
+    path: "/gear-comparer",
   },
   stats: {
     label: "Stats",
