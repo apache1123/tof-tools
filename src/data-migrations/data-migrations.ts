@@ -4,6 +4,7 @@ import { fixGearSetsGearTypeData } from "./v2/fix-gear-sets-gear-type-data";
 import { migrateToRepos } from "./v3/migrateToRepos";
 import { resetChangelogState } from "./v3/resetChangelogState";
 import { fixMissingTeamPresetsInCharacterPresets } from "./v4/fix-missing-team-presets-in-character-presets";
+import { fixOutOfRangeGearRandomStats } from "./v5/fix-out-of-range-gear-random-stats";
 
 /** Migrations needed to ensure that the user's data (the serialized DTO data stored in localStorage) is valid with the latest defined schema before it is used in the app.
  *
@@ -52,6 +53,12 @@ export const dataMigrations: DataMigration[] = [
     version: 4,
     migrate: () => {
       fixMissingTeamPresetsInCharacterPresets();
+    },
+  },
+  {
+    version: 5,
+    migrate: () => {
+      fixOutOfRangeGearRandomStats();
     },
   },
 ];
