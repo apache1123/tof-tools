@@ -7,7 +7,6 @@ import type { PropsWithElevation } from "../../__helpers__/props-with-elevation"
 import { GearSummary } from "../GearSummary/GearSummary";
 import { GearTypeIcon } from "../GearTypeIcon/GearTypeIcon";
 
-const width = 320;
 const height = 60;
 const iconWidth = 60;
 
@@ -40,10 +39,15 @@ export function EmptyGearSummaryCard({
   return (
     <Layout
       icon={
-        <GearTypeIcon id={gearTypeId} monochromeWhite size={height * 0.7} />
+        <GearTypeIcon
+          id={gearTypeId}
+          monochromeWhite
+          size={height * 0.7}
+          sx={{ mt: 1 }}
+        />
       }
       stats={
-        <Box sx={{ height: "100%", display: "flex", alignItems: "center" }}>
+        <Box sx={{ alignSelf: "center" }}>
           <Typography
             variant="body2"
             sx={{
@@ -70,21 +74,19 @@ function Layout({ icon, stats, elevation }: LayoutProps) {
     <Card
       elevation={elevation}
       sx={{
-        width,
-        height,
+        minHeight: height,
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "start",
       }}
     >
       <Box
         sx={{
           width: iconWidth,
-          height,
           mr: 1,
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "start",
         }}
       >
         {icon}
