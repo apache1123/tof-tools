@@ -17,7 +17,7 @@ export function BuffSummary({ buffSummary }: BuffSummaryProps) {
     isPercentageValue: boolean;
   } & BuffSummaryItemGroup)[] = [
     {
-      title: "Base attack",
+      title: "Base attack buffs",
       isPercentageValue: false,
       ...buffSummary.baseAttackBuffs,
     },
