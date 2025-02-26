@@ -35,6 +35,7 @@ export const simulacrumTraits: Data<SimulacrumId, SimulacrumTrait> = {
     "Ming Jing",
     "Nan Yin",
     "Nemesis",
+    "Nemesis Voidpiercer",
     "Nola",
     "Plotti",
     "Rei",
@@ -683,6 +684,11 @@ export const simulacrumTraits: Data<SimulacrumId, SimulacrumTrait> = {
     Nemesis: {
       id: "Nemesis",
       displayName: "Nemesis",
+      buffs: [],
+    },
+    "Nemesis Voidpiercer": {
+      id: "Nemesis Voidpiercer",
+      displayName: "Nemesis Voidpiercer",
       buffs: [],
     },
     Nola: {

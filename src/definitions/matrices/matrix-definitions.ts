@@ -34,6 +34,7 @@ import { mimi } from "./definitions/mimi";
 import { mingJing } from "./definitions/ming-jing";
 import { nanYin } from "./definitions/nan-yin";
 import { nemesis } from "./definitions/nemesis";
+import { nemesisVoidpiercer } from "./definitions/nemesis-voidpiercer";
 import { nola } from "./definitions/nola";
 import { plotti } from "./definitions/plotti";
 import { rei } from "./definitions/rei";
@@ -89,6 +90,7 @@ export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
     "Ming Jing",
     "Nan Yin",
     "Nemesis",
+    "Nemesis Voidpiercer",
     "Nola",
     "Plotti",
     "Rei",
@@ -141,6 +143,7 @@ export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
     "Ming Jing": mingJing,
     "Nan Yin": nanYin,
     Nemesis: nemesis,
+    "Nemesis Voidpiercer": nemesisVoidpiercer,
     Nola: nola,
     Plotti: plotti,
     Rei: rei,

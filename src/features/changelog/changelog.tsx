@@ -289,4 +289,11 @@ export const changelog: Changelog = [
       </>
     ),
   },
+  {
+    semver: "4.1.0",
+    date: new Date(Date.UTC(2025, 1, 26)),
+    title: "Add Nemesis Voidpiercer",
+    description:
+      "Choose the right elemental variant of Nemesis Voidpiercer for your team. The calculator is not able to automatically detect what element Nemesis Voidpiercer should be based on the other 2 weapons like in-game",
+  },
 ];
