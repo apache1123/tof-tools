@@ -31,6 +31,7 @@ export type SimulacrumId =
   | "Ming Jing"
   | "Nan Yin"
   | "Nemesis"
+  | "Nemesis Voidpiercer"
   | "Nola"
   | "Plotti"
   | "Rei"

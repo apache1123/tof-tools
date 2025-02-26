@@ -33,6 +33,12 @@ import { mimi } from "./definitions/mimi";
 import { mingJing } from "./definitions/ming-jing";
 import { nanYin } from "./definitions/nan-yin";
 import { nemesis } from "./definitions/nemesis";
+import { nemesisVoidpiercerAltered } from "./definitions/nemesis-voidpiercer-altered";
+import { nemesisVoidpiercerBase } from "./definitions/nemesis-voidpiercer-base";
+import { nemesisVoidpiercerFlamePhysical } from "./definitions/nemesis-voidpiercer-flame-physical";
+import { nemesisVoidpiercerFrostVolt } from "./definitions/nemesis-voidpiercer-frost-volt";
+import { nemesisVoidpiercerPhysicalFlame } from "./definitions/nemesis-voidpiercer-physical-flame";
+import { nemesisVoidpiercerVoltFrost } from "./definitions/nemesis-voidpiercer-volt-frost";
 import { nolaAltered } from "./definitions/nola-altered";
 import { nolaBase } from "./definitions/nola-base";
 import { nolaFlamePhysical } from "./definitions/nola-flame-physical";
@@ -57,6 +63,11 @@ import { zero } from "./definitions/zero";
 
 export type WeaponDefinitionId =
   | SimulacrumId
+  | "Nemesis Voidpiercer (Altered)"
+  | "Nemesis Voidpiercer (Flame-Physical)"
+  | "Nemesis Voidpiercer (Frost-Volt)"
+  | "Nemesis Voidpiercer (Physical-Flame)"
+  | "Nemesis Voidpiercer (Volt-Frost)"
   | "Nola (Altered)"
   | "Nola (Flame-Physical)"
   | "Nola (Frost-Volt)"
@@ -97,6 +108,11 @@ const weaponDefinitions: Data<WeaponDefinitionId, WeaponDefinition> = {
     "Ming Jing",
     "Nan Yin",
     "Nemesis",
+    "Nemesis Voidpiercer (Altered)",
+    "Nemesis Voidpiercer (Flame-Physical)",
+    "Nemesis Voidpiercer (Frost-Volt)",
+    "Nemesis Voidpiercer (Physical-Flame)",
+    "Nemesis Voidpiercer (Volt-Frost)",
     "Nola (Altered)",
     "Nola (Flame-Physical)",
     "Nola (Frost-Volt)",
@@ -151,6 +167,12 @@ const weaponDefinitions: Data<WeaponDefinitionId, WeaponDefinition> = {
     "Ming Jing": mingJing,
     "Nan Yin": nanYin,
     Nemesis: nemesis,
+    "Nemesis Voidpiercer": nemesisVoidpiercerBase,
+    "Nemesis Voidpiercer (Altered)": nemesisVoidpiercerAltered,
+    "Nemesis Voidpiercer (Flame-Physical)": nemesisVoidpiercerFlamePhysical,
+    "Nemesis Voidpiercer (Frost-Volt)": nemesisVoidpiercerFrostVolt,
+    "Nemesis Voidpiercer (Physical-Flame)": nemesisVoidpiercerPhysicalFlame,
+    "Nemesis Voidpiercer (Volt-Frost)": nemesisVoidpiercerVoltFrost,
     Nola: nolaBase,
     "Nola (Altered)": nolaAltered,
     "Nola (Flame-Physical)": nolaFlamePhysical,
