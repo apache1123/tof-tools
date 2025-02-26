@@ -1,8 +1,8 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
 import type { PropsWithElevation } from "../../__helpers__/props-with-elevation";
-import { CardList } from "../../common/CardList/CardList";
 import { SectionSubheading } from "../../common/SectionHeading/SectionSubheading";
 import {
   EmptyGearSummaryCard,
@@ -39,23 +39,25 @@ export function GearSetPresetSummaryCard({
       >
         <CardContent>
           <SectionSubheading>{preset.name}</SectionSubheading>
-          <CardList direction="row" gap={0.5}>
-            {gearSlots.map((gearSlot) =>
-              gearSlot.gear ? (
-                <GearSummaryCard
-                  key={gearSlot.gear.id}
-                  gear={gearSlot.gear}
-                  elevation={elevation + 1}
-                />
-              ) : (
-                <EmptyGearSummaryCard
-                  key={gearSlot.acceptsType.id}
-                  gearTypeId={gearSlot.acceptsType.id}
-                  elevation={elevation + 1}
-                />
-              ),
-            )}
-          </CardList>
+          <Grid container spacing={1}>
+            {gearSlots.map((gearSlot) => (
+              <Grid key={gearSlot.acceptsType.id} xs={12} sm={6} lg={4} xl={3}>
+                {gearSlot.gear ? (
+                  <GearSummaryCard
+                    key={gearSlot.gear.id}
+                    gear={gearSlot.gear}
+                    elevation={elevation + 1}
+                  />
+                ) : (
+                  <EmptyGearSummaryCard
+                    key={gearSlot.acceptsType.id}
+                    gearTypeId={gearSlot.acceptsType.id}
+                    elevation={elevation + 1}
+                  />
+                )}
+              </Grid>
+            ))}
+          </Grid>
         </CardContent>
       </CardActionArea>
     </Card>
