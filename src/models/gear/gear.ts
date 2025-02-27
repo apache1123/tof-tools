@@ -712,12 +712,22 @@ export class Gear {
     const rollBreakdown =
       gearStatRollCombinations[0].randomStatRollCombinations;
 
-    const highestStatTypeId = rollBreakdown.reduce((prev, current) =>
-      current.rollCombination.totalRollWeight >=
-      prev.rollCombination.totalRollWeight
-        ? current
-        : prev,
-    ).randomStatId;
+    const highestStatTypeId = rollBreakdown.reduce((prev, current) => {
+      if (
+        current.rollCombination.totalRollWeight >
+        prev.rollCombination.totalRollWeight
+      )
+        return current;
+
+      // If there is a tie-break, take the first stat
+      if (
+        current.rollCombination.totalRollWeight ===
+        prev.rollCombination.totalRollWeight
+      )
+        return prev;
+
+      return prev;
+    }).randomStatId;
 
     // Filter out those already used in random stats
     const isNotInRandomStats = (statTypeId: StatTypeId) =>
