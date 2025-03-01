@@ -2,9 +2,6 @@ import BigNumber from "bignumber.js";
 
 import type { WeaponElementalType } from "../../definitions/elemental-type";
 import { product, sum } from "../../utils/math-utils";
-import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
-import type { Buff } from "../buff/buff";
-import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { elementalDamageBuffAggregator } from "../buff/elemental-damage-buff/elemental-damage-buff-aggregator";
 import { finalDamageBuffAggregator } from "../buff/final-damage-buff/final-damage-buff-aggregator";
 import type { Character } from "../character/character";
@@ -17,19 +14,10 @@ export class DamageEvent {
     private readonly attackHit: AttackHit,
     private readonly character: Character,
     private readonly target: Target,
-    private readonly activeBuffs: ActiveBuffs,
   ) {}
 
   public getDamage(): Damage {
     return new Damage(this.getBaseDamage(), this.getFinalDamage());
-  }
-
-  public getUtilizedBuffs(): Buff[] {
-    return [
-      ...this.character.getUtilizedBuffs(),
-      ...this.getElementalDamageBuffs(),
-      ...this.getFinalDamageBuffs(),
-    ];
   }
 
   public getBaseAttackBuffs() {
@@ -57,16 +45,13 @@ export class DamageEvent {
   }
 
   public getElementalDamageBuffs() {
-    return [
-      this.getGearElementalDamageBuff(),
-      ...this.activeBuffs
-        .getElementalDamageBuffs()
-        .filter((buff) => buff.canApplyTo(this.attackHit)),
-    ];
+    return this.character
+      .getElementalDamageBuffs()
+      .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
   public getFinalDamageBuffs() {
-    return this.activeBuffs
+    return this.character
       .getFinalDamageBuffs()
       .filter((buff) => buff.canApplyTo(this.attackHit));
   }
@@ -109,17 +94,6 @@ export class DamageEvent {
   private getElementalDamagePercent(): number {
     return elementalDamageBuffAggregator(this.getElementalDamageBuffs())
       .totalValueByElement[this.attackHit.damageElement];
-  }
-
-  private getGearElementalDamageBuff(): ElementalDamageBuff {
-    const element = this.attackHit.damageElement;
-    return new ElementalDamageBuff(
-      `Gear ${element} Elemental Damage`,
-      this.character.getGearDamagePercent(element),
-      "gear",
-      {},
-      element,
-    );
   }
 
   private getFinalDamageBuffPercent(): number {

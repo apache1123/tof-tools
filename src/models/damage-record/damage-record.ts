@@ -32,12 +32,7 @@ export class DamageRecord implements EventSubscriber {
   }
 
   public recordHitDamage(attackHit: AttackHit) {
-    const damageEvent = new DamageEvent(
-      attackHit,
-      this.character,
-      this.target,
-      this.activeBuffs,
-    );
+    const damageEvent = new DamageEvent(attackHit, this.character, this.target);
 
     this.timeline.addEvent(
       new DamageRecordEvent(

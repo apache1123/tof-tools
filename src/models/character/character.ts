@@ -15,9 +15,9 @@ import { BaseAttacks } from "../base-attacks";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import { attackPercentBuffAggregator } from "../buff/attack-percent-buff/attack-percent-buff-aggregator";
 import { baseAttackBuffAggregator } from "../buff/base-attack-buff/base-attack-buff-aggregator";
-import type { Buff } from "../buff/buff";
 import { critDamageBuffAggregator } from "../buff/crit-damage-buff/crit-damage-buff-aggregator";
 import { critRateBuffAggregator } from "../buff/crit-rate-buff/crit-rate-buff-aggregator";
+import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { CharacterElementalAttacks } from "../elemental-attack/character-elemental-attacks";
 import { ElementalAttack } from "../elemental-attack/elemental-attack";
 import type { GearSet } from "../gear/gear-set";
@@ -152,21 +152,32 @@ export class Character {
     return this.gearSet.getTotalResistancePercent(element);
   }
 
-  public getUtilizedBuffs(): Buff[] {
-    return [
-      ...this.getBaseAttackBuffs(),
-      ...this.getAttackPercentBuffs(),
-      ...this.getCritRateBuffs(),
-      ...this.getCritDamageBuffs(),
-    ];
-  }
-
   public getBaseAttackBuffs() {
     return this.activeBuffs.getBaseAttackBuffs();
   }
 
   public getAttackPercentBuffs() {
     return this.activeBuffs.getAttackPercentBuffs();
+  }
+
+  public getElementalDamageBuffs() {
+    return [
+      ...weaponElementalTypes.map(
+        (element) =>
+          new ElementalDamageBuff(
+            `Gear ${element} Elemental Damage`,
+            this.getGearDamagePercent(element),
+            "gear",
+            {},
+            element,
+          ),
+      ),
+      ...this.activeBuffs.getElementalDamageBuffs(),
+    ];
+  }
+
+  public getFinalDamageBuffs() {
+    return this.activeBuffs.getFinalDamageBuffs();
   }
 
   public getCritRateBuffs() {
