@@ -7,15 +7,21 @@ import {
   type GearResonanceElements,
   weaponElementalTypes,
 } from "../../definitions/elemental-type";
-import { sum } from "../../utils/math-utils";
-import { getHighestNumber } from "../../utils/number-utils";
+import { product, sum } from "../../utils/math-utils";
+import {
+  getHighestNumber,
+  getItemWithHighestNumber,
+} from "../../utils/number-utils";
 import { calculateCritRatePercentFromFlat } from "../../utils/stat-calculation-utils";
 import type { ActiveWeapon } from "../active-weapon/active-weapon";
 import { BaseAttacks } from "../base-attacks";
 import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
+import { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-buff";
 import { attackPercentBuffAggregator } from "../buff/attack-percent-buff/attack-percent-buff-aggregator";
 import { baseAttackBuffAggregator } from "../buff/base-attack-buff/base-attack-buff-aggregator";
+import { CritDamageBuff } from "../buff/crit-damage-buff/crit-damage-buff";
 import { critDamageBuffAggregator } from "../buff/crit-damage-buff/crit-damage-buff-aggregator";
+import { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
 import { critRateBuffAggregator } from "../buff/crit-rate-buff/crit-rate-buff-aggregator";
 import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
 import { CharacterElementalAttacks } from "../elemental-attack/character-elemental-attacks";
@@ -66,25 +72,16 @@ export class Character {
       return this.getAttacks().getElementalAttack("Altered");
     }
 
-    const baseAttack = this.getPostBuffBaseAttack(element);
-    const attackPercent = this.getPostBuffAttackPercent(element);
+    const baseAttack = this.getBuffedFusionBaseAttack(element);
+    const attackPercent = this.getAttackPercent(element);
 
-    const totalAttack = baseAttack.times(attackPercent.plus(1));
+    const totalAttack = product(baseAttack, sum(attackPercent, 1));
 
     return new ElementalAttack(
       element,
       baseAttack.toNumber(),
       totalAttack.toNumber(),
     );
-  }
-
-  public getGearDamagePercent(element: WeaponElementalType): number {
-    if (element === "Altered") return 0;
-
-    const gearResonanceElements = this.getGearResonanceElements();
-    return gearResonanceElements.includes(element)
-      ? this.getHighestPreBuffElementalDamagePercent(gearResonanceElements)
-      : this.gearSet.getTotalDamagePercent(element);
   }
 
   /** The crit rate number (not yet converted to %) in the wanderer stats, depending on if stats are being overridden or not  */
@@ -94,28 +91,13 @@ export class Character {
       : this.gearSet.getTotalCritRateFlat();
   }
 
-  /** The crit rate % in the wanderer stats (= gear crit rate% + buff crit rate%). Does not include converted crit rate flat */
-  public getCritRatePercent(): number {
-    return sum(
-      this.gearSet.getTotalCritRatePercent(),
-      this.getBuffCritRatePercent(),
-    ).toNumber();
-  }
-
   /** The total crit rate % (crit rate % + crit rate flat converted to %) */
   public getTotalCritRatePercent(): number {
-    return sum(
-      calculateCritRatePercentFromFlat(this.getCritRateFlat(), this.info.level),
-      this.gearSet.getTotalCritRatePercent(),
-      this.getBuffCritRatePercent(),
-    ).toNumber();
+    return critRateBuffAggregator(this.getCritRateBuffs()).totalValue;
   }
 
   public getTotalCritDamagePercent(): number {
-    return sum(
-      defaultCritDamagePercent,
-      this.getBuffCritDamagePercent(),
-    ).toNumber();
+    return critDamageBuffAggregator(this.getCritDamageBuffs()).totalValue;
   }
 
   public getHp(): number {
@@ -152,27 +134,27 @@ export class Character {
     return this.gearSet.getTotalResistancePercent(element);
   }
 
-  public getBaseAttackBuffs() {
-    return this.activeBuffs.getBaseAttackBuffs();
+  public getBaseAttackBuffs(element: WeaponElementalType) {
+    return this.activeBuffs
+      .getBaseAttackBuffs()
+      .filter((buff) => buff.elementalType === element);
   }
 
-  public getAttackPercentBuffs() {
-    return this.activeBuffs.getAttackPercentBuffs();
-  }
-
-  public getElementalDamageBuffs() {
+  public getAttackPercentBuffs(element: WeaponElementalType) {
     return [
-      ...weaponElementalTypes.map(
-        (element) =>
-          new ElementalDamageBuff(
-            `Gear ${element} Elemental Damage`,
-            this.getGearDamagePercent(element),
-            "gear",
-            {},
-            element,
-          ),
-      ),
-      ...this.activeBuffs.getElementalDamageBuffs(),
+      this.getGearFusionAttackPercentBuff(element),
+      ...this.activeBuffs
+        .getAttackPercentBuffs()
+        .filter((buff) => buff.elementalType === element),
+    ];
+  }
+
+  public getElementalDamageBuffs(element: WeaponElementalType) {
+    return [
+      this.getGearFusionElementalDamagePercentBuff(element),
+      ...this.activeBuffs
+        .getElementalDamageBuffs()
+        .filter((buff) => buff.elementalType === element),
     ];
   }
 
@@ -181,84 +163,171 @@ export class Character {
   }
 
   public getCritRateBuffs() {
-    return this.activeBuffs.getCritRateBuffs();
+    return [
+      this.getGearCritRateFlatBuff(),
+      this.getGearCritRatePercentBuff(),
+      ...this.activeBuffs.getCritRateBuffs(),
+    ];
   }
 
   public getCritDamageBuffs() {
-    return this.activeBuffs.getCritDamageBuffs();
+    return [
+      new CritDamageBuff("Default crit damage %", defaultCritDamagePercent),
+      ...this.activeBuffs.getCritDamageBuffs(),
+    ];
   }
 
-  /** The base attack amount after buffs are applied. This also takes into account the active weapon's gear calculation elements (fusion elements) */
-  private getPostBuffBaseAttack(element: CoreElementalType) {
-    const gearResonanceElements = this.getGearResonanceElements();
-    const baseAttack = gearResonanceElements.includes(element)
-      ? this.getHighestPreBuffBaseAttack(gearResonanceElements)
-      : this.getPreBuffBaseAttack(element);
+  /** The base attack amount after buffs are applied, and also taking into account the active weapon's gear calculation elements (fusion elements) */
+  private getBuffedFusionBaseAttack(element: CoreElementalType) {
+    const unbuffedBaseAttack = this.getUnbuffedFusionBaseAttack(element);
 
-    const baseAttackBuffs = this.getBaseAttackBuffs();
+    const baseAttackBuffs = this.getBaseAttackBuffs(element);
     const baseAttackBuffValue =
       baseAttackBuffAggregator(baseAttackBuffs).totalValueByElement[element];
 
-    return sum(baseAttack, baseAttackBuffValue);
+    return sum(unbuffedBaseAttack, baseAttackBuffValue);
+  }
+
+  /** The base attack amount before buffs are applied, and also taking into account the active weapon's gear calculation elements (fusion elements) */
+  private getUnbuffedFusionBaseAttack(element: CoreElementalType) {
+    const gearResonanceElements = this.getGearResonanceElements();
+    return gearResonanceElements.includes(element)
+      ? this.getHighestUnbuffedBaseAttack(gearResonanceElements)
+      : this.getUnbuffedBaseAttack(element);
   }
 
   /** The base attack amount before buffs are applied. Comes only from gear, weapons, matrices etc. */
-  private getPreBuffBaseAttack(element: CoreElementalType) {
+  private getUnbuffedBaseAttack(element: CoreElementalType) {
     return this.useOverrideStats
       ? this.overrideBaseAttacks.get(element)
       : this.gearSet.getTotalAttackFlat(element);
   }
 
   /** The highest base attack amount before buffs are applied, amongst the given elements. */
-  private getHighestPreBuffBaseAttack(elements: GearResonanceElements) {
+  private getHighestUnbuffedBaseAttack(elements: GearResonanceElements) {
     return getHighestNumber(
-      elements.map((element) => this.getPreBuffBaseAttack(element)),
+      elements.map((element) => this.getUnbuffedBaseAttack(element)),
     );
   }
 
-  /** The attack percent amount after buffs are applied. This also takes into account the active weapon's gear calculation elements (fusion elements) */
-  private getPostBuffAttackPercent(element: CoreElementalType) {
+  private getAttackPercent(element: CoreElementalType) {
+    const attackBuffs = this.getAttackPercentBuffs(element);
+
+    return attackPercentBuffAggregator(attackBuffs).totalValueByElement[
+      element
+    ];
+  }
+
+  /** The attack percent buff coming from gear, taking into account the active weapon's gear calculation elements (fusion elements) */
+  private getGearFusionAttackPercentBuff(element: WeaponElementalType) {
+    // Altered does not take part in fusion elements
+    if (element === "Altered") return this.getGearAttackPercentBuff(element);
+
     const gearResonanceElements = this.getGearResonanceElements();
-    const gearAttackPercent = gearResonanceElements.includes(element)
-      ? this.getHighestPreBuffAttackPercent(gearResonanceElements)
-      : this.getPreBuffAttackPercent(element);
 
-    const attackBuffs = this.getAttackPercentBuffs();
-    const buffAttackPercent =
-      attackPercentBuffAggregator(attackBuffs).totalValueByElement[element];
+    if (gearResonanceElements.includes(element)) {
+      const highestBuff = this.getHighestGearAttackPercentBuff(
+        gearResonanceElements,
+      );
 
-    return sum(gearAttackPercent, buffAttackPercent);
+      // If highest buff is not from the same element, convert it to a new buff with the buff element replaced, so it will be treated as such
+      if (highestBuff.elementalType !== element) {
+        return new AttackPercentBuff(
+          `${highestBuff.elementalType} attack % converted to ${element} from all gear`,
+          highestBuff.value,
+          element,
+        );
+      }
+
+      return highestBuff;
+    }
+
+    return this.getGearAttackPercentBuff(element);
   }
 
-  /** The attack percent amount before buffs are applied. Comes only from gear at the moment. */
-  private getPreBuffAttackPercent(element: CoreElementalType) {
-    return this.gearSet.getTotalAttackPercent(element);
-  }
-
-  /** The highest attack percent amount before buffs are applied, amongst the given elements. */
-  private getHighestPreBuffAttackPercent(elements: GearResonanceElements) {
-    return getHighestNumber(
-      elements.map((element) => this.getPreBuffAttackPercent(element)),
+  /** The total attack percent buff coming from gear, converted to a single buff */
+  private getGearAttackPercentBuff(element: WeaponElementalType) {
+    return new AttackPercentBuff(
+      `${element} attack % from all gear`,
+      this.gearSet.getTotalAttackPercent(element),
+      element,
     );
   }
 
-  /** The highest damage percent amount before buffs are applied, amongst the given elements. */
-  private getHighestPreBuffElementalDamagePercent(
+  /** The highest attack percent buff coming from gear, amongst the given elements. */
+  private getHighestGearAttackPercentBuff(elements: GearResonanceElements) {
+    return getItemWithHighestNumber(
+      elements.map((element) => this.getGearAttackPercentBuff(element)),
+      (buff) => buff.value,
+    );
+  }
+
+  private getGearFusionElementalDamagePercentBuff(
+    element: WeaponElementalType,
+  ) {
+    // Altered does not take part in fusion elements
+    if (element === "Altered")
+      return this.getGearElementalDamagePercentBuff(element);
+
+    const gearResonanceElements = this.getGearResonanceElements();
+
+    if (gearResonanceElements.includes(element)) {
+      const highestBuff = this.getHighestGearElementalDamagePercentBuff(
+        gearResonanceElements,
+      );
+
+      // If highest buff is not from the same element, convert it to a new buff with the buff element replaced, so it will be treated as such
+      if (highestBuff.elementalType !== element) {
+        return new ElementalDamageBuff(
+          `${highestBuff.elementalType} elemental damage % converted to ${element} from all gear`,
+          highestBuff.value,
+          "gear",
+          {},
+          element,
+        );
+      }
+
+      return highestBuff;
+    }
+
+    return this.getGearElementalDamagePercentBuff(element);
+  }
+
+  private getGearElementalDamagePercentBuff(element: WeaponElementalType) {
+    return new ElementalDamageBuff(
+      `${element} elemental damage % from all gear`,
+      this.gearSet.getTotalDamagePercent(element),
+      "gear",
+      {},
+      element,
+    );
+  }
+
+  /** The highest damage percent amount coming from gear, amongst the given elements. */
+  private getHighestGearElementalDamagePercentBuff(
     elements: GearResonanceElements,
   ) {
-    return getHighestNumber(
-      elements.map((element) => this.gearSet.getTotalDamagePercent(element)),
+    return getItemWithHighestNumber(
+      elements.map((element) =>
+        this.getGearElementalDamagePercentBuff(element),
+      ),
+      (buff) => buff.value,
     );
   }
 
-  private getBuffCritRatePercent(): number {
-    const critRateBuffs = this.getCritRateBuffs();
-    return critRateBuffAggregator(critRateBuffs).totalValue;
+  private getGearCritRateFlatBuff() {
+    const critRateFlat = this.getCritRateFlat();
+    return new CritRateBuff(
+      `Crit from all gear (${critRateFlat}), converted to crit rate %`,
+      calculateCritRatePercentFromFlat(critRateFlat, this.info.level),
+    );
   }
 
-  private getBuffCritDamagePercent() {
-    const critDamageBuffs = this.getCritDamageBuffs();
-    return critDamageBuffAggregator(critDamageBuffs).totalValue;
+  private getGearCritRatePercentBuff() {
+    return new CritRateBuff(
+      "Crit rate % from all gear",
+      this.gearSet.getTotalCritRatePercent(),
+    );
   }
 
   private getGearResonanceElements() {
