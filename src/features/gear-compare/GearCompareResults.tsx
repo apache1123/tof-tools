@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
 import { NumericCompareString } from "../../components/common/NumericCompareString/NumericCompareString";
 import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
@@ -23,6 +22,7 @@ import { GearComparison } from "../../models/gear-compare/gear-comparison";
 import { Team } from "../../models/team/team";
 import type { TeamPreset } from "../../models/team/team-preset";
 import { Weapon } from "../../models/weapon/weapon";
+import { BuffSummaries } from "./BuffSummaries";
 
 export interface GearCompareResultsProps {
   characterData: CharacterData;
@@ -256,9 +256,42 @@ export function GearCompareResults({
         </Accordion>
       </Paper>
 
-      {currentGearResult.buffSummary && (
-        <BuffSummary buffSummary={currentGearResult.buffSummary} />
-      )}
+      <BuffSummaries
+        items={[
+          ...(currentGearResult.buffSummary
+            ? [
+                {
+                  label: "Current gear",
+                  buffSummary: currentGearResult.buffSummary,
+                },
+              ]
+            : []),
+          ...(currentGearResult.maxTitan?.buffSummary
+            ? [
+                {
+                  label: "Current gear max titan",
+                  buffSummary: currentGearResult.maxTitan.buffSummary,
+                },
+              ]
+            : []),
+          ...(newGearResult.buffSummary
+            ? [
+                {
+                  label: "New gear",
+                  buffSummary: newGearResult.buffSummary,
+                },
+              ]
+            : []),
+          ...(newGearResult.maxTitan?.buffSummary
+            ? [
+                {
+                  label: "New gear max titan",
+                  buffSummary: newGearResult.maxTitan.buffSummary,
+                },
+              ]
+            : []),
+        ]}
+      />
     </>
   );
 }

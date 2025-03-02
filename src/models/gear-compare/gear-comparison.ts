@@ -10,6 +10,7 @@ import { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team } from "../team/team";
 import type { Weapon } from "../weapon/weapon";
+import type { GearResult } from "./gear-result";
 
 /** Gear comparison of character damage with the equipped team, gear set, etc. vs. the same character with the new gear equipped. */
 export class GearComparison {
@@ -64,7 +65,7 @@ export class GearComparison {
     gear: Gear,
     baseAttacks: BaseAttacks,
     critRateFlat: number,
-  ) {
+  ): GearResult {
     const { damageSummary, buffSummary } = this.getSimulationResult(
       gearSet,
       baseAttacks,
@@ -116,11 +117,14 @@ export class GearComparison {
         maxTitanGear,
       );
 
-      const maxTitanGearDamageSummary = this.getSimulationResult(
+      const {
+        damageSummary: maxTitanGearDamageSummary,
+        buffSummary: maxTitanBuffSummary,
+      } = this.getSimulationResult(
         gearSetWithMaxTitanGear,
         newBaseAttacks,
         newCritRateFlat,
-      ).damageSummary;
+      );
 
       const maxTitanGearValue =
         damageWithoutGear > 0
@@ -132,6 +136,7 @@ export class GearComparison {
 
       maxTitanResult = {
         damageSummary: maxTitanGearDamageSummary,
+        buffSummary: maxTitanBuffSummary,
         gearValue: maxTitanGearValue,
       };
     }
