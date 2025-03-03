@@ -147,7 +147,7 @@ function createSummaryItemCommonFields(
 
   return {
     id,
-    displayName: buffAbility?.displayName ?? id, // This shouldn't happen, but just in case the buff ability isn't found
+    displayName: buffAbility?.displayName ?? id, // Some manually created buffs, e.g. gear buffs, don't come from a buff ability and don't have a display name yet, only id
     description: buffAbility?.description,
     stacks: buffsWithSameId.length,
   };

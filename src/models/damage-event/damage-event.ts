@@ -1,14 +1,13 @@
 import BigNumber from "bignumber.js";
 
-import type { WeaponElementalType } from "../../definitions/elemental-type";
 import { product, sum } from "../../utils/math-utils";
-import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
-import type { Buff } from "../buff/buff";
-import { ElementalDamageBuff } from "../buff/elemental-damage-buff/elemental-damage-buff";
+import { critDamageBuffAggregator } from "../buff/crit-damage-buff/crit-damage-buff-aggregator";
+import { critRateBuffAggregator } from "../buff/crit-rate-buff/crit-rate-buff-aggregator";
 import { elementalDamageBuffAggregator } from "../buff/elemental-damage-buff/elemental-damage-buff-aggregator";
 import { finalDamageBuffAggregator } from "../buff/final-damage-buff/final-damage-buff-aggregator";
 import type { Character } from "../character/character";
 import { Damage } from "../damage/damage";
+import type { ElementalAttack } from "../elemental-attack/elemental-attack";
 import type { AttackHit } from "../event/messages/attack-hit";
 import type { Target } from "../target/target";
 
@@ -17,30 +16,35 @@ export class DamageEvent {
     private readonly attackHit: AttackHit,
     private readonly character: Character,
     private readonly target: Target,
-    private readonly activeBuffs: ActiveBuffs,
   ) {}
 
   public getDamage(): Damage {
     return new Damage(this.getBaseDamage(), this.getFinalDamage());
   }
 
-  public getUtilizedBuffs(): Buff[] {
-    return [
-      ...this.character.getUtilizedBuffs(),
-      ...this.getElementalDamageBuffs(),
-      ...this.getFinalDamageBuffs(),
-    ];
+  public getAttack(): ElementalAttack {
+    return this.character.getAttack(this.attackHit.damageElement);
   }
 
   public getBaseAttackBuffs() {
-    return this.character
-      .getBaseAttackBuffs()
-      .filter((buff) => buff.canApplyTo(this.attackHit));
+    // Attack buffs don't get filtered by attack hit. We assume all attack buffs apply to all attack hits, as long as the element matches
+    return this.character.getBaseAttackBuffs(this.attackHit.damageElement);
   }
 
   public getAttackPercentBuffs() {
+    // Attack buffs don't get filtered by attack hit. We assume all attack buffs apply to all attack hits, as long as the element matches
+    return this.character.getAttackPercentBuffs(this.attackHit.damageElement);
+  }
+
+  public getElementalDamageBuffs() {
     return this.character
-      .getAttackPercentBuffs()
+      .getElementalDamageBuffs(this.attackHit.damageElement)
+      .filter((buff) => buff.canApplyTo(this.attackHit));
+  }
+
+  public getFinalDamageBuffs() {
+    return this.character
+      .getFinalDamageBuffs()
       .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
@@ -56,23 +60,8 @@ export class DamageEvent {
       .filter((buff) => buff.canApplyTo(this.attackHit));
   }
 
-  public getElementalDamageBuffs() {
-    return [
-      this.getGearElementalDamageBuff(),
-      ...this.activeBuffs
-        .getElementalDamageBuffs()
-        .filter((buff) => buff.canApplyTo(this.attackHit)),
-    ];
-  }
-
-  public getFinalDamageBuffs() {
-    return this.activeBuffs
-      .getFinalDamageBuffs()
-      .filter((buff) => buff.canApplyTo(this.attackHit));
-  }
-
   private getBaseDamage(): number {
-    const { damageElement, baseDamageModifiers } = this.attackHit;
+    const { baseDamageModifiers } = this.attackHit;
     const {
       attackMultiplier,
       attackFlat,
@@ -82,7 +71,7 @@ export class DamageEvent {
       resourceAmountMultiplier,
     } = baseDamageModifiers;
 
-    const totalAttack = this.getTotalAttack(damageElement);
+    const totalAttack = this.getAttack().totalAttack;
 
     const sumOfAllResistances = this.character.getSumOfAllResistances();
 
@@ -111,23 +100,8 @@ export class DamageEvent {
       .totalValueByElement[this.attackHit.damageElement];
   }
 
-  private getGearElementalDamageBuff(): ElementalDamageBuff {
-    const element = this.attackHit.damageElement;
-    return new ElementalDamageBuff(
-      `Gear ${element} Elemental Damage`,
-      this.character.getGearDamagePercent(element),
-      "gear",
-      {},
-      element,
-    );
-  }
-
   private getFinalDamageBuffPercent(): number {
     return finalDamageBuffAggregator(this.getFinalDamageBuffs()).totalValue;
-  }
-
-  private getTotalAttack(elementalType: WeaponElementalType) {
-    return this.character.getAttack(elementalType).totalAttack;
   }
 
   private getCritFlat() {
@@ -135,11 +109,11 @@ export class DamageEvent {
   }
 
   private getCritRatePercent(): number {
-    return this.character.getTotalCritRatePercent();
+    return critRateBuffAggregator(this.getCritRateBuffs()).totalValue;
   }
 
   private getCritDamagePercent(): number {
-    return this.character.getTotalCritDamagePercent();
+    return critDamageBuffAggregator(this.getCritDamageBuffs()).totalValue;
   }
 
   private getHp() {

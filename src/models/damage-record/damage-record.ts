@@ -1,8 +1,7 @@
-import type { ActiveBuffs } from "../buff/active-buff/active-buffs";
 import type { BuffAbilities } from "../buff/buff-abilities";
-import type { BuffSummary } from "../buff-summary/buff-summary";
 import { createBuffSummary } from "../buff-summary/buff-summary";
 import type { Character } from "../character/character";
+import type { DamageBreakdown } from "../damage-breakdown/damage-breakdown";
 import { DamageEvent } from "../damage-event/damage-event";
 import { DamageSummary } from "../damage-summary/damage-summary";
 import type { EventManager } from "../event/event-manager";
@@ -22,7 +21,6 @@ export class DamageRecord implements EventSubscriber {
     private readonly character: Character,
     private readonly target: Target,
     private readonly buffAbilities: BuffAbilities,
-    private readonly activeBuffs: ActiveBuffs,
   ) {}
 
   public subscribeToEvents() {
@@ -32,12 +30,7 @@ export class DamageRecord implements EventSubscriber {
   }
 
   public recordHitDamage(attackHit: AttackHit) {
-    const damageEvent = new DamageEvent(
-      attackHit,
-      this.character,
-      this.target,
-      this.activeBuffs,
-    );
+    const damageEvent = new DamageEvent(attackHit, this.character, this.target);
 
     this.timeline.addEvent(
       new DamageRecordEvent(
@@ -46,6 +39,7 @@ export class DamageRecord implements EventSubscriber {
         attackHit.attackType,
         attackHit.damageElement,
         attackHit.weaponId,
+        damageEvent.getAttack(),
         damageEvent.getBaseAttackBuffs(),
         damageEvent.getAttackPercentBuffs(),
         damageEvent.getElementalDamageBuffs(),
@@ -78,21 +72,25 @@ export class DamageRecord implements EventSubscriber {
     return summary;
   }
 
-  /** Returns a summary of the buffs applied for the last instance of damage */
-  public generateLastBuffSummary(): BuffSummary | undefined {
+  /** Returns a breakdown of the last instance of damage */
+  public generateLastDamageBreakdown(): DamageBreakdown | undefined {
     const damageEvent = this.timeline.lastEvent;
 
     if (!damageEvent) return undefined;
 
-    return createBuffSummary(
-      damageEvent.elementalType,
-      this.buffAbilities,
-      damageEvent.baseAttackBuffs,
-      damageEvent.attackPercentBuffs,
-      damageEvent.elementalDamageBuffs,
-      damageEvent.finalDamageBuffs,
-      damageEvent.critRateBuffs,
-      damageEvent.critDamageBuffs,
-    );
+    return {
+      element: damageEvent.elementalType,
+      attack: damageEvent.attack,
+      buffSummary: createBuffSummary(
+        damageEvent.elementalType,
+        this.buffAbilities,
+        damageEvent.baseAttackBuffs,
+        damageEvent.attackPercentBuffs,
+        damageEvent.elementalDamageBuffs,
+        damageEvent.finalDamageBuffs,
+        damageEvent.critRateBuffs,
+        damageEvent.critDamageBuffs,
+      ),
+    };
   }
 }

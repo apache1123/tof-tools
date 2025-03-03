@@ -10,6 +10,7 @@ import { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team } from "../team/team";
 import type { Weapon } from "../weapon/weapon";
+import type { GearResult } from "./gear-result";
 
 /** Gear comparison of character damage with the equipped team, gear set, etc. vs. the same character with the new gear equipped. */
 export class GearComparison {
@@ -64,8 +65,8 @@ export class GearComparison {
     gear: Gear,
     baseAttacks: BaseAttacks,
     critRateFlat: number,
-  ) {
-    const { damageSummary, buffSummary } = this.getSimulationResult(
+  ): GearResult {
+    const { damageSummary, damageBreakdown } = this.getSimulationResult(
       gearSet,
       baseAttacks,
       critRateFlat,
@@ -116,29 +117,33 @@ export class GearComparison {
         maxTitanGear,
       );
 
-      const maxTitanGearDamageSummary = this.getSimulationResult(
+      const {
+        damageSummary: maxTitanDamageSummary,
+        damageBreakdown: maxTitanDamageBreakdown,
+      } = this.getSimulationResult(
         gearSetWithMaxTitanGear,
         newBaseAttacks,
         newCritRateFlat,
-      ).damageSummary;
+      );
 
       const maxTitanGearValue =
         damageWithoutGear > 0
           ? calculateRelativeIncrease(
-              maxTitanGearDamageSummary.totalDamage.finalDamage,
+              maxTitanDamageSummary.totalDamage.finalDamage,
               damageWithoutGear,
             )
           : 0;
 
       maxTitanResult = {
-        damageSummary: maxTitanGearDamageSummary,
+        damageSummary: maxTitanDamageSummary,
+        damageBreakdown: maxTitanDamageBreakdown,
         gearValue: maxTitanGearValue,
       };
     }
 
     return {
       damageSummary,
-      buffSummary,
+      damageBreakdown,
       /** The damage when the piece of gear is equipped, relative to the damage when that piece of gear is not equipped.
        * a.k.a. the damage increase with vs without that piece of gear
        */
@@ -174,7 +179,7 @@ export class GearComparison {
 
     return {
       damageSummary: combatSimulator.generateDamageSummary(),
-      buffSummary: combatSimulator.generateLastBuffSummary(),
+      damageBreakdown: combatSimulator.generateLastDamageBreakdown(),
     };
   }
 

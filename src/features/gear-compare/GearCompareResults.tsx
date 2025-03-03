@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { BuffSummary } from "../../components/combat-simulator/BuffSummary/BuffSummary";
 import { NumericCompareString } from "../../components/common/NumericCompareString/NumericCompareString";
 import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
@@ -23,6 +22,7 @@ import { GearComparison } from "../../models/gear-compare/gear-comparison";
 import { Team } from "../../models/team/team";
 import type { TeamPreset } from "../../models/team/team-preset";
 import { Weapon } from "../../models/weapon/weapon";
+import { DamageBreakdowns } from "./DamageBreakdowns";
 
 export interface GearCompareResultsProps {
   characterData: CharacterData;
@@ -230,7 +230,8 @@ export function GearCompareResults({
 
               <Typography>
                 <b>Damage:</b> is the simulated damage with the gear (with a
-                dummy skill attack, see below).
+                dummy skill attack, see below). See the damage breakdown section
+                how this is calculated, and with what buffs.
               </Typography>
 
               <Typography>
@@ -256,9 +257,52 @@ export function GearCompareResults({
         </Accordion>
       </Paper>
 
-      {currentGearResult.buffSummary && (
-        <BuffSummary buffSummary={currentGearResult.buffSummary} />
-      )}
+      <DamageBreakdowns
+        items={[
+          ...(currentGearResult.damageBreakdown
+            ? [
+                {
+                  label: "Current gear",
+                  damageBreakdown: currentGearResult.damageBreakdown,
+                  finalDamage:
+                    currentGearResult.damageSummary.totalDamage.finalDamage,
+                },
+              ]
+            : []),
+          ...(currentGearResult.maxTitan?.damageBreakdown
+            ? [
+                {
+                  label: "Current gear max titan",
+                  damageBreakdown: currentGearResult.maxTitan.damageBreakdown,
+                  finalDamage:
+                    currentGearResult.maxTitan.damageSummary.totalDamage
+                      .finalDamage,
+                },
+              ]
+            : []),
+          ...(newGearResult.damageBreakdown
+            ? [
+                {
+                  label: "New gear",
+                  damageBreakdown: newGearResult.damageBreakdown,
+                  finalDamage:
+                    newGearResult.damageSummary.totalDamage.finalDamage,
+                },
+              ]
+            : []),
+          ...(newGearResult.maxTitan?.damageBreakdown
+            ? [
+                {
+                  label: "New gear max titan",
+                  damageBreakdown: newGearResult.maxTitan.damageBreakdown,
+                  finalDamage:
+                    newGearResult.maxTitan.damageSummary.totalDamage
+                      .finalDamage,
+                },
+              ]
+            : []),
+        ]}
+      />
     </>
   );
 }

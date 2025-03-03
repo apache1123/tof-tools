@@ -121,7 +121,6 @@ export class CombatSimulator {
       this.character,
       this.target,
       this.buffAbilities,
-      this.activeBuffs,
     );
   }
 
@@ -191,9 +190,9 @@ export class CombatSimulator {
     return this.damageRecord.generateSummary();
   }
 
-  /** Returns a buff summary of the last attack hit */
-  public generateLastBuffSummary() {
-    return this.damageRecord.generateLastBuffSummary();
+  /** Returns a damage breakdown the last attack hit */
+  public generateLastDamageBreakdown() {
+    return this.damageRecord.generateLastDamageBreakdown();
   }
 
   /** Perform a simple mock attack using the current active weapon for the purposes of testing damage. E.g. for gear comparison */

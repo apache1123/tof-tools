@@ -4,19 +4,19 @@ import type { WeaponElementalType } from "../../../definitions/elemental-type";
 import { NumericString } from "../../common/NumericString/NumericString";
 import { ElementalStyledText } from "../../elemental/ElementalStyledText/ElementalStyledText";
 
-export interface BuffLineProps {
+export interface DamageBreakdownLineProps {
   displayName: string;
   element: WeaponElementalType;
   totalValue: number;
   isPercentageValue: boolean;
 }
 
-export function BuffLine({
+export function DamageBreakdownLine({
   displayName,
   element,
   totalValue,
   isPercentageValue,
-}: BuffLineProps) {
+}: DamageBreakdownLineProps) {
   return (
     <Typography>
       {displayName} :{" "}

@@ -44,12 +44,25 @@ export function getHighestNumber(array: number[]) {
 }
 
 /** Returns the item with the highest number from an array objects, using a selector function to get the number to compare.
- * If there are multiple items with the highest number, returns the last one. */
+ * @param array Array of objects
+ * @param numberSelector The selector function to select the number to compare
+ * @param takeFirst If there are multiple items with the highest number, returns the first one. Default is return the last one
+ */
 export function getItemWithHighestNumber<T>(
   array: T[],
   numberSelector: (item: T) => number,
+  takeFirst?: boolean,
 ) {
   return array.reduce((prev, current) => {
-    return numberSelector(current) >= numberSelector(prev) ? current : prev;
+    const currentNumber = numberSelector(current);
+    const prevNumber = numberSelector(prev);
+
+    return currentNumber > prevNumber
+      ? current
+      : currentNumber === prevNumber
+        ? takeFirst
+          ? prev
+          : current
+        : prev;
   });
 }
