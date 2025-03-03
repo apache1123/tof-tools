@@ -46,15 +46,15 @@ export function DamageBreakdown({
     lines: DamageBreakdownLineProps[];
   } & DamageBreakdownGroupProps)[] = [
     {
-      ...mapGroup(buffSummary.baseAttackBuffs, "Base Attack", false),
+      ...mapGroup(buffSummary.baseAttackBuffs, "Base attack", false),
       element,
       totalValue: attack.baseAttack,
     },
     mapGroup(buffSummary.attackPercentBuffs, "Attack %", true),
-    mapGroup(buffSummary.elementalDamageBuffs, "Elemental Damage %", true),
-    mapGroup(buffSummary.finalDamageBuffs, "Final Damage %", true),
-    mapGroup(buffSummary.critRateBuffs, "Crits Rate %", true),
-    mapGroup(buffSummary.critDamageBuffs, "Crits Damage %", true),
+    mapGroup(buffSummary.elementalDamageBuffs, "Elemental damage %", true),
+    mapGroup(buffSummary.finalDamageBuffs, "Final damage %", true),
+    mapGroup(buffSummary.critRateBuffs, "Crit rate %", true),
+    mapGroup(buffSummary.critDamageBuffs, "Crit damage %", true),
   ];
 
   return (
@@ -94,10 +94,10 @@ export function DamageBreakdown({
 
       <Box>
         <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-          Final Damage
-          <br />= Base Attack &times; (1 + Attack %) &times; (1 + Elemental
-          Damage %) &times; (1 + Final Damage %) &times; (1 + Crit Rate %
-          &times; Crit Damage %)
+          Final damage
+          <br />= Base attack &times; (1 + Attack %) &times; (1 + Elemental
+          damage %) &times; (1 + Final damage %) &times; (1 + Crit rate %
+          &times; Crit damage %)
         </Typography>
         <Typography variant="body2">
           = {attack.baseAttack} &times; (1 +{" "}
