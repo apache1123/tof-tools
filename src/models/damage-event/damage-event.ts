@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 
-import type { WeaponElementalType } from "../../definitions/elemental-type";
 import { product, sum } from "../../utils/math-utils";
 import { critDamageBuffAggregator } from "../buff/crit-damage-buff/crit-damage-buff-aggregator";
 import { critRateBuffAggregator } from "../buff/crit-rate-buff/crit-rate-buff-aggregator";
@@ -8,6 +7,7 @@ import { elementalDamageBuffAggregator } from "../buff/elemental-damage-buff/ele
 import { finalDamageBuffAggregator } from "../buff/final-damage-buff/final-damage-buff-aggregator";
 import type { Character } from "../character/character";
 import { Damage } from "../damage/damage";
+import type { ElementalAttack } from "../elemental-attack/elemental-attack";
 import type { AttackHit } from "../event/messages/attack-hit";
 import type { Target } from "../target/target";
 
@@ -20,6 +20,10 @@ export class DamageEvent {
 
   public getDamage(): Damage {
     return new Damage(this.getBaseDamage(), this.getFinalDamage());
+  }
+
+  public getAttack(): ElementalAttack {
+    return this.character.getAttack(this.attackHit.damageElement);
   }
 
   public getBaseAttackBuffs() {
@@ -57,7 +61,7 @@ export class DamageEvent {
   }
 
   private getBaseDamage(): number {
-    const { damageElement, baseDamageModifiers } = this.attackHit;
+    const { baseDamageModifiers } = this.attackHit;
     const {
       attackMultiplier,
       attackFlat,
@@ -67,7 +71,7 @@ export class DamageEvent {
       resourceAmountMultiplier,
     } = baseDamageModifiers;
 
-    const totalAttack = this.getTotalAttack(damageElement);
+    const totalAttack = this.getAttack().totalAttack;
 
     const sumOfAllResistances = this.character.getSumOfAllResistances();
 
@@ -89,10 +93,6 @@ export class DamageEvent {
       product(this.getCritRatePercent(), this.getCritDamagePercent()).plus(1),
       BigNumber(1).minus(this.getTargetResistancePercent()),
     ).toNumber();
-  }
-
-  private getTotalAttack(elementalType: WeaponElementalType) {
-    return this.character.getAttack(elementalType).totalAttack;
   }
 
   private getElementalDamagePercent(): number {

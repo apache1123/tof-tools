@@ -1,14 +1,14 @@
-import type { BuffSummary } from "../buff-summary/buff-summary";
+import type { DamageBreakdown } from "../damage-breakdown/damage-breakdown";
 import type { DamageSummary } from "../damage-summary/damage-summary";
 
 export interface GearResult {
   damageSummary: DamageSummary;
-  buffSummary: BuffSummary | undefined;
+  damageBreakdown: DamageBreakdown | undefined;
   gearValue: number;
 
   maxTitan?: {
     damageSummary: DamageSummary;
-    buffSummary: BuffSummary | undefined;
+    damageBreakdown: DamageBreakdown | undefined;
     gearValue: number;
   };
 }

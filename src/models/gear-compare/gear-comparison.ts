@@ -66,7 +66,7 @@ export class GearComparison {
     baseAttacks: BaseAttacks,
     critRateFlat: number,
   ): GearResult {
-    const { damageSummary, buffSummary } = this.getSimulationResult(
+    const { damageSummary, damageBreakdown } = this.getSimulationResult(
       gearSet,
       baseAttacks,
       critRateFlat,
@@ -118,8 +118,8 @@ export class GearComparison {
       );
 
       const {
-        damageSummary: maxTitanGearDamageSummary,
-        buffSummary: maxTitanBuffSummary,
+        damageSummary: maxTitanDamageSummary,
+        damageBreakdown: maxTitanDamageBreakdown,
       } = this.getSimulationResult(
         gearSetWithMaxTitanGear,
         newBaseAttacks,
@@ -129,21 +129,21 @@ export class GearComparison {
       const maxTitanGearValue =
         damageWithoutGear > 0
           ? calculateRelativeIncrease(
-              maxTitanGearDamageSummary.totalDamage.finalDamage,
+              maxTitanDamageSummary.totalDamage.finalDamage,
               damageWithoutGear,
             )
           : 0;
 
       maxTitanResult = {
-        damageSummary: maxTitanGearDamageSummary,
-        buffSummary: maxTitanBuffSummary,
+        damageSummary: maxTitanDamageSummary,
+        damageBreakdown: maxTitanDamageBreakdown,
         gearValue: maxTitanGearValue,
       };
     }
 
     return {
       damageSummary,
-      buffSummary,
+      damageBreakdown,
       /** The damage when the piece of gear is equipped, relative to the damage when that piece of gear is not equipped.
        * a.k.a. the damage increase with vs without that piece of gear
        */
@@ -179,7 +179,7 @@ export class GearComparison {
 
     return {
       damageSummary: combatSimulator.generateDamageSummary(),
-      buffSummary: combatSimulator.generateLastBuffSummary(),
+      damageBreakdown: combatSimulator.generateLastDamageBreakdown(),
     };
   }
 

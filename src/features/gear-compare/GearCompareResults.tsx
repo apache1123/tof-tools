@@ -22,7 +22,7 @@ import { GearComparison } from "../../models/gear-compare/gear-comparison";
 import { Team } from "../../models/team/team";
 import type { TeamPreset } from "../../models/team/team-preset";
 import { Weapon } from "../../models/weapon/weapon";
-import { BuffSummaries } from "./BuffSummaries";
+import { DamageBreakdowns } from "./DamageBreakdowns";
 
 export interface GearCompareResultsProps {
   characterData: CharacterData;
@@ -230,7 +230,8 @@ export function GearCompareResults({
 
               <Typography>
                 <b>Damage:</b> is the simulated damage with the gear (with a
-                dummy skill attack, see below).
+                dummy skill attack, see below). See the damage breakdown section
+                how this is calculated, and with what buffs.
               </Typography>
 
               <Typography>
@@ -256,37 +257,47 @@ export function GearCompareResults({
         </Accordion>
       </Paper>
 
-      <BuffSummaries
+      <DamageBreakdowns
         items={[
-          ...(currentGearResult.buffSummary
+          ...(currentGearResult.damageBreakdown
             ? [
                 {
                   label: "Current gear",
-                  buffSummary: currentGearResult.buffSummary,
+                  damageBreakdown: currentGearResult.damageBreakdown,
+                  finalDamage:
+                    currentGearResult.damageSummary.totalDamage.finalDamage,
                 },
               ]
             : []),
-          ...(currentGearResult.maxTitan?.buffSummary
+          ...(currentGearResult.maxTitan?.damageBreakdown
             ? [
                 {
                   label: "Current gear max titan",
-                  buffSummary: currentGearResult.maxTitan.buffSummary,
+                  damageBreakdown: currentGearResult.maxTitan.damageBreakdown,
+                  finalDamage:
+                    currentGearResult.maxTitan.damageSummary.totalDamage
+                      .finalDamage,
                 },
               ]
             : []),
-          ...(newGearResult.buffSummary
+          ...(newGearResult.damageBreakdown
             ? [
                 {
                   label: "New gear",
-                  buffSummary: newGearResult.buffSummary,
+                  damageBreakdown: newGearResult.damageBreakdown,
+                  finalDamage:
+                    newGearResult.damageSummary.totalDamage.finalDamage,
                 },
               ]
             : []),
-          ...(newGearResult.maxTitan?.buffSummary
+          ...(newGearResult.maxTitan?.damageBreakdown
             ? [
                 {
                   label: "New gear max titan",
-                  buffSummary: newGearResult.maxTitan.buffSummary,
+                  damageBreakdown: newGearResult.maxTitan.damageBreakdown,
+                  finalDamage:
+                    newGearResult.maxTitan.damageSummary.totalDamage
+                      .finalDamage,
                 },
               ]
             : []),

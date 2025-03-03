@@ -5,20 +5,20 @@ import type { WeaponElementalType } from "../../../definitions/elemental-type";
 import { NumericString } from "../../common/NumericString/NumericString";
 import { ElementalStyledText } from "../../elemental/ElementalStyledText/ElementalStyledText";
 
-export interface BuffGroupProps extends PropsWithChildren {
+export interface DamageBreakdownGroupProps extends PropsWithChildren {
   title: string;
   element: WeaponElementalType;
   totalValue: number;
   isPercentageValue: boolean;
 }
 
-export function BuffGroup({
+export function DamageBreakdownGroup({
   title,
   element,
   totalValue,
   isPercentageValue,
   children,
-}: BuffGroupProps) {
+}: DamageBreakdownGroupProps) {
   return (
     <Box>
       <Typography fontWeight="bold" sx={{ mb: 2 }}>

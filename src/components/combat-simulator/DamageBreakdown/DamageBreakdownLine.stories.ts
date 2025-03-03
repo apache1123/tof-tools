@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { BuffGroup } from "./BuffGroup";
+import { DamageBreakdownLine } from "./DamageBreakdownLine";
 
-const meta: Meta<typeof BuffGroup> = {
-  component: BuffGroup,
+const meta: Meta<typeof DamageBreakdownLine> = {
+  component: DamageBreakdownLine,
   tags: ["autodocs"],
 };
 
 export default meta;
-type Story = StoryObj<typeof BuffGroup>;
+type Story = StoryObj<typeof DamageBreakdownLine>;
 
 export const Integer: Story = {
   args: {
-    title: "Attack % buffs",
+    displayName: "Buff name",
     element: "Flame",
     totalValue: 100,
     isPercentageValue: false,
@@ -21,7 +21,7 @@ export const Integer: Story = {
 
 export const Percentage: Story = {
   args: {
-    title: "Attack % buffs",
+    displayName: "Buff name",
     element: "Flame",
     totalValue: 0.23,
     isPercentageValue: true,
