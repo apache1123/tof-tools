@@ -259,6 +259,8 @@ export class Character {
     return getItemWithHighestNumber(
       elements.map((element) => this.getGearAttackPercentBuff(element)),
       (buff) => buff.value,
+      // Assuming the first element is the main element of the weapon, prioritize it if there is a tie
+      true,
     );
   }
 
@@ -312,6 +314,8 @@ export class Character {
         this.getGearElementalDamagePercentBuff(element),
       ),
       (buff) => buff.value,
+      // Assuming the first element is the main element of the weapon, prioritize it if there is a tie
+      true,
     );
   }
 

@@ -41,6 +41,22 @@ describe("Number utils", () => {
       });
     });
 
+    it("should return the first item with the highest number if there are multiple items with the highest number, if takeFirst is true", () => {
+      const items = [
+        { id: 1, name: "Item 1", value: 10 },
+        { id: 2, name: "Item 2", value: 30 },
+        { id: 3, name: "Item 3", value: 30 },
+      ];
+
+      expect(
+        getItemWithHighestNumber(items, (item) => item.value, true),
+      ).toEqual({
+        id: 2,
+        name: "Item 2",
+        value: 30,
+      });
+    });
+
     it("should throw an error if the array is empty", () => {
       const items: { value: number }[] = [];
 
