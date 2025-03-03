@@ -269,6 +269,16 @@ export function GearCompareResults({
                 },
               ]
             : []),
+          ...(newGearResult.damageBreakdown
+            ? [
+                {
+                  label: "New gear",
+                  damageBreakdown: newGearResult.damageBreakdown,
+                  finalDamage:
+                    newGearResult.damageSummary.totalDamage.finalDamage,
+                },
+              ]
+            : []),
           ...(currentGearResult.maxTitan?.damageBreakdown
             ? [
                 {
@@ -277,16 +287,6 @@ export function GearCompareResults({
                   finalDamage:
                     currentGearResult.maxTitan.damageSummary.totalDamage
                       .finalDamage,
-                },
-              ]
-            : []),
-          ...(newGearResult.damageBreakdown
-            ? [
-                {
-                  label: "New gear",
-                  damageBreakdown: newGearResult.damageBreakdown,
-                  finalDamage:
-                    newGearResult.damageSummary.totalDamage.finalDamage,
                 },
               ]
             : []),
