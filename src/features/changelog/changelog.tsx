@@ -296,4 +296,11 @@ export const changelog: Changelog = [
     description:
       "Choose the right elemental variant of Nemesis Voidpiercer for your team. The calculator is not able to automatically detect what element Nemesis Voidpiercer should be based on the other 2 weapons like in-game",
   },
+  {
+    semver: "4.2.0",
+    date: new Date(Date.UTC(2025, 2, 3)),
+    title: "Updated damage breakdown in gear compare",
+    description:
+      "This section is now clearer, and shows everything used to calculate damage. This includes attack %, damage %, crit and crit rate % from gear that wasn't shown before. (The calculation remains the same, they just weren't shown before)",
+  },
 ];
