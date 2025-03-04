@@ -2,6 +2,7 @@ export type SimulacrumId =
   | "Alyss"
   | "Anka"
   | "Annabella"
+  | "Antoria"
   | "Asuka"
   | "Asurada"
   | "Brevey"

@@ -4,6 +4,7 @@ import type { MatrixDefinition } from "../types/matrix/matrix-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
 import { annabella } from "./definitions/annabella";
+import { antoria } from "./definitions/antoria";
 import { asuka } from "./definitions/asuka";
 import { asurada } from "./definitions/asurada";
 import { brevey } from "./definitions/brevey";
@@ -60,6 +61,7 @@ export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
     "Alyss",
     "Anka",
     "Annabella",
+    "Antoria",
     "Asuka",
     "Asurada",
     "Brevey",
@@ -113,6 +115,7 @@ export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
     Alyss: alyss,
     Anka: anka,
     Annabella: annabella,
+    Antoria: antoria,
     Asuka: asuka,
     Asurada: asurada,
     Brevey: brevey,
