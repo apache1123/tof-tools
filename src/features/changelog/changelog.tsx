@@ -303,4 +303,9 @@ export const changelog: Changelog = [
     description:
       "This section is now clearer, and shows everything used to calculate damage. This includes attack %, damage %, crit and crit rate % from gear that wasn't shown before. (The calculation remains the same, they just weren't shown before)",
   },
+  {
+    semver: "4.3.0",
+    date: new Date(Date.UTC(2025, 2, 5)),
+    title: "Add Antoria",
+  },
 ];

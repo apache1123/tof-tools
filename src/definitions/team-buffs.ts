@@ -115,6 +115,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
       teamRequirements: {
         anyWeapon: [
           "Alyss",
+          "Antoria",
           "Brevey",
           "Cocoritter",
           "Frigg",
@@ -201,6 +202,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     requirements: {
       teamRequirements: {
         anyWeapon: [
+          "Antoria",
           "Brevey",
           "Fenrir",
           "Gray Fox",
