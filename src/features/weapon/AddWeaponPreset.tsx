@@ -7,21 +7,22 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import { getAllWeaponDefinitions } from "../../definitions/weapons/weapon-definitions";
 import type { CharacterId } from "../../models/character/character-data";
+import type { WeaponPresetId } from "../../models/weapon/weapon-preset";
 import { WeaponPreset } from "../../models/weapon/weapon-preset";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 
-export interface AddWeaponPresetGroupProps {
+export interface AddWeaponPresetProps {
   characterId: CharacterId;
   buttonText?: string;
 
-  onAdded?(weaponId: WeaponDefinitionId): void;
+  onAdded?(id: WeaponPresetId, weaponId: WeaponDefinitionId): void;
 }
 
-export function AddWeaponPresetGroup({
+export function AddWeaponPreset({
   characterId,
   onAdded,
   buttonText,
-}: AddWeaponPresetGroupProps) {
+}: AddWeaponPresetProps) {
   const weaponPresetRepo = db.get("weaponPresets");
 
   const { items } = useItemsBelongingToCharacter(weaponPresetRepo, characterId);
@@ -61,7 +62,7 @@ export function AddWeaponPresetGroup({
                 weaponPresetRepo.add(weaponPreset);
 
                 setIsAdding(false);
-                onAdded?.(weaponDefinition.id);
+                onAdded?.(weaponPreset.id, weaponDefinition.id);
               }}
             />
           }
