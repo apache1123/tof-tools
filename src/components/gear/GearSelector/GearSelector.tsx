@@ -2,7 +2,7 @@ import type { GearTypeId } from "../../../definitions/gear-types";
 import { InventoryLayout } from "../../../features/common/InventoryLayout";
 import { AddNewGear } from "../../../features/gear/AddNewGear";
 import type { CharacterId } from "../../../models/character/character-data";
-import type { Gear } from "../../../models/gear/gear";
+import type { Gear, GearId } from "../../../models/gear/gear";
 import { GearCard } from "../GearCard/GearCard";
 
 export interface GearSelectorProps {
@@ -10,7 +10,7 @@ export interface GearSelectorProps {
   gears: Gear[];
   /** Filter out gears that don't match the given gear type. */
   enforceGearType?: GearTypeId;
-  onSelect(gear: Gear): void;
+  onSelect(id: GearId): void;
 }
 
 export function GearSelector({
@@ -30,10 +30,14 @@ export function GearSelector({
         <AddNewGear
           characterId={characterId}
           enforceGearType={enforceGearType}
+          onConfirm={(id) => {
+            // Automatically select the newly created gear
+            onSelect(id);
+          }}
         />
       }
       items={filteredGears.map((gear) => (
-        <GearCard key={gear.id} gear={gear} onClick={() => onSelect(gear)} />
+        <GearCard key={gear.id} gear={gear} onClick={() => onSelect(gear.id)} />
       ))}
     />
   );

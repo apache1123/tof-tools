@@ -9,6 +9,7 @@ import { db } from "../../db/reactive-local-storage-db";
 import type { GearTypeId } from "../../definitions/gear-types";
 import { getGearType } from "../../definitions/gear-types";
 import type { CharacterId } from "../../models/character/character-data";
+import type { GearId } from "../../models/gear/gear";
 import { Gear } from "../../models/gear/gear";
 import { GearDetailsInline } from "./GearDetailsInline";
 import { GearOcrModal } from "./GearOcrModal";
@@ -17,8 +18,8 @@ export interface AddNewGearProps {
   characterId: CharacterId;
   enforceGearType?: GearTypeId;
   buttonProps?: ButtonModalProps["buttonProps"];
-  /** Returns the gear that has been added to the gear repo */
-  onConfirm?(gearProxy: Gear): void;
+  /** Returns the gear id that has been added to the gear repo */
+  onConfirm?(id: GearId): void;
 }
 
 /** Creates a new gear, allows edit, then add a new gear to the repo */
@@ -86,7 +87,7 @@ export function AddNewGear({
       onConfirm={() => {
         if (gearProxy) {
           db.get("gears").add(gearProxy);
-          onConfirm?.(gearProxy);
+          onConfirm?.(gearProxy.id);
         }
       }}
       onClose={() => {
