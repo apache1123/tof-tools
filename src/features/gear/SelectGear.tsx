@@ -22,10 +22,8 @@ export function SelectGear({
   onSelect,
   onClose,
 }: SelectGearProps) {
-  const { itemProxies, items } = useItemsBelongingToCharacter(
-    db.get("gears"),
-    characterId,
-  );
+  const gearRepo = db.get("gears");
+  const { items } = useItemsBelongingToCharacter(gearRepo, characterId);
 
   return (
     <StyledModal
@@ -34,11 +32,8 @@ export function SelectGear({
           characterId={characterId}
           gears={items}
           enforceGearType={enforceGearType}
-          onSelect={(gear) => {
-            const gearProxy = itemProxies.find(
-              (gearProxy) => gearProxy.id === gear.id,
-            );
-
+          onSelect={(id) => {
+            const gearProxy = gearRepo.find(id);
             if (gearProxy) onSelect(gearProxy);
           }}
         />

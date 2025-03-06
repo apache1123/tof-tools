@@ -39,7 +39,7 @@ export function NewMatrixModal({
       modalTitle="Add matrix"
       modalContent={
         <Stack sx={{ gap: 2, alignItems: "center" }}>
-          <Box sx={{ my: -4 }}>
+          <Box sx={{ mt: -2 }}>
             <MatrixIcon
               definitionId={definition.id}
               displayName={definition.displayName}

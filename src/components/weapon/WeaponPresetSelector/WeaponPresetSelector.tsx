@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import { FilterLayout } from "../../../features/common/FilterLayout";
 import { InventoryLayout } from "../../../features/common/InventoryLayout";
-import { AddWeaponPresetGroup } from "../../../features/weapon/AddWeaponPresetGroup";
+import { AddWeaponPreset } from "../../../features/weapon/AddWeaponPreset";
 import type { CharacterId } from "../../../models/character/character-data";
 import type {
   WeaponPreset,
@@ -68,9 +68,13 @@ export function WeaponPresetSelector({
         />
       }
       actions={
-        <AddWeaponPresetGroup
+        <AddWeaponPreset
           characterId={characterId}
           buttonText="Add weapon preset"
+          onAdded={(id) => {
+            // Automatically select the newly created preset
+            onSelect(id);
+          }}
         />
       }
       items={filteredWeaponPresets.map((weaponPreset) => (

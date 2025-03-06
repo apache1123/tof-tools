@@ -103,12 +103,14 @@ export function EditWeaponPreset({
             <MatrixSelector
               characterId={characterId}
               matrices={filteredMatrices}
-              onSelect={(matrix) => {
-                const matrixProxy = db.get("matrices").find(matrix.id);
+              matrixTypeId={addingMatrixTypeId}
+              onSelect={(id) => {
+                const matrixProxy = db.get("matrices").find(id);
                 if (!matrixProxy) throw new Error("Matrix not found");
 
-                weaponPresetProxy.matrixSlots.getSlot(matrix.type.id).matrix =
-                  matrixProxy;
+                weaponPresetProxy.matrixSlots.getSlot(
+                  matrixProxy.type.id,
+                ).matrix = matrixProxy;
 
                 setAddingMatrixTypeId(undefined);
               }}

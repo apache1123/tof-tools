@@ -10,7 +10,7 @@ import type { CharacterId } from "../../models/character/character-data";
 import { keysOf } from "../../utils/object-utils";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
-import { AddWeaponPresetGroup } from "./AddWeaponPresetGroup";
+import { AddWeaponPreset } from "./AddWeaponPreset";
 import { EditWeaponPresetGroup } from "./EditWeaponPresetGroup";
 
 export interface WeaponPresetsProps {
@@ -47,9 +47,9 @@ export function WeaponPresets({ characterId }: WeaponPresetsProps) {
       <InventoryLayout
         filter={undefined}
         actions={
-          <AddWeaponPresetGroup
+          <AddWeaponPreset
             characterId={characterId}
-            onAdded={(weaponDefinitionId) => {
+            onAdded={(weaponPresetId, weaponDefinitionId) => {
               setEditingWeaponDefinitionId(weaponDefinitionId);
             }}
           />

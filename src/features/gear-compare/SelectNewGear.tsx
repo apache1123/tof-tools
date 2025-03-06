@@ -25,8 +25,8 @@ export function SelectNewGear({ characterId }: SelectNewGearProps) {
           characterId={characterId}
           enforceGearType={gearTypeId}
           buttonProps={{ variant: "outlined" }}
-          onConfirm={(gearProxy) => {
-            $state.newGearId = gearProxy.id;
+          onConfirm={(id) => {
+            $state.newGearId = id;
           }}
         />
         <Typography>or</Typography>
