@@ -2,7 +2,7 @@ import type { Data } from "../../models/data";
 import type { SimulacrumTrait } from "../../models/simulacrum-trait";
 import type { SimulacrumId } from "./simulacrum-id";
 
-export const simulacrumTraits: Data<SimulacrumId, SimulacrumTrait> = {
+const simulacrumTraits: Data<SimulacrumId, SimulacrumTrait> = {
   allIds: [
     "Alyss",
     "Anka",
@@ -1193,3 +1193,13 @@ export const simulacrumTraits: Data<SimulacrumId, SimulacrumTrait> = {
     },
   },
 };
+
+export function getSimulacrumTrait(id: SimulacrumId) {
+  const simulacrumTrait = simulacrumTraits.byId[id];
+  if (!simulacrumTrait) throw new Error(`Cannot find simulacrum trait ${id}`);
+  return simulacrumTrait;
+}
+
+export function getAllSimulacrumTraits() {
+  return simulacrumTraits.allIds.map((id) => getSimulacrumTrait(id));
+}
