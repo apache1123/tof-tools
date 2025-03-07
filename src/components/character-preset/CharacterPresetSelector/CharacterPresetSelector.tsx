@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type { CharacterPreset } from "../../../models/character-preset/character-preset";
 
 export interface CharacterPresetSelectorProps {
   presets: CharacterPreset[];

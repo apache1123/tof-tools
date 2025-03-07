@@ -342,6 +342,7 @@ export function migrateToRepos() {
         teamPresetId: newTeamPreset.id,
         gearSetPresetId: newGearSetPreset.id,
         name: loadout.name,
+        simulacrumTraitId: undefined,
         baseAttacks: {
           values: {
             Altered: 0,

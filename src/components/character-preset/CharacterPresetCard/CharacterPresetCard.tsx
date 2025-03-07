@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type { CharacterPreset } from "../../../models/character-preset/character-preset";
 import { GearSetPresetSummaryCard } from "../../gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 import { TeamPresetCard } from "../../team/TeamPresetCard/TeamPresetCard";
 

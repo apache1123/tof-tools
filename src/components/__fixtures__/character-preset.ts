@@ -1,4 +1,4 @@
-import { CharacterPreset } from "../../models/character/character-preset";
+import { CharacterPreset } from "../../models/character-preset/character-preset";
 import { exampleCharacterId } from "./character";
 import { exampleGearSetPreset } from "./gear-set-preset";
 import { exampleTeamPreset } from "./team-preset";

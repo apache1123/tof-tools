@@ -1,5 +1,5 @@
 import type { CharacterData } from "../models/character/character-data";
-import type { CharacterPreset } from "../models/character/character-preset";
+import type { CharacterPreset } from "../models/character-preset/character-preset";
 import type { Gear } from "../models/gear/gear";
 import type { GearSetPreset } from "../models/gear/gear-set-preset";
 import type { Matrix } from "../models/matrix/matrix";

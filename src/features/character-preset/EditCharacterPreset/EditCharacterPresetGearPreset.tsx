@@ -8,7 +8,7 @@ import { StyledModal } from "../../../components/common/Modal/StyledModal";
 import { GearSetPresetSummaryCard } from "../../../components/gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 import { GearTypeIcon } from "../../../components/gear/GearTypeIcon/GearTypeIcon";
 import { db } from "../../../db/reactive-local-storage-db";
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type { CharacterPreset } from "../../../models/character-preset/character-preset";
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
 import { InventoryLayout } from "../../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";

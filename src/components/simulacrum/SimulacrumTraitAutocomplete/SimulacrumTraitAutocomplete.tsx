@@ -1,14 +1,20 @@
 import { Autocomplete, Box, ListItem, Stack, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
-import { getAllSimulacrumTraits } from "../../../definitions/simulacra/simulacrum-traits";
-import type { SimulacrumTrait } from "../../../models/simulacrum-trait";
+import {
+  getAllSimulacrumTraits,
+  getSimulacrumTrait,
+} from "../../../definitions/simulacra/simulacrum-traits";
+import type {
+  SimulacrumTrait,
+  SimulacrumTraitId,
+} from "../../../models/simulacrum-trait";
 import type { PropsWithSx } from "../../__helpers__/props-with-sx";
 import { SimulacrumIcon } from "../SimulacrumIcon/SimulacrumIcon";
 
 export interface SimulacrumTraitAutocompleteProps extends PropsWithSx {
-  value: SimulacrumTrait | undefined;
-  onChange(value: SimulacrumTrait | undefined): void;
+  value: SimulacrumTraitId | undefined;
+  onChange(value: SimulacrumTraitId | undefined): void;
 }
 
 const options = getAllSimulacrumTraits();
@@ -22,7 +28,7 @@ export function SimulacrumTraitAutocomplete({
   return (
     <Stack direction="row" sx={{ gap: 1, alignItems: "center", ...sx }}>
       <Box sx={{ width: iconSize, height: iconSize }}>
-        {value && <SimulacrumIcon simulacrumId={value.id} size={iconSize} />}
+        {value && <SimulacrumIcon simulacrumId={value} size={iconSize} />}
       </Box>
 
       <Autocomplete
@@ -36,9 +42,9 @@ export function SimulacrumTraitAutocomplete({
           </ListItem>
         )}
         getOptionLabel={(option) => option.displayName}
-        value={value ?? null}
-        onChange={(_, value) => {
-          onChange(value ?? undefined);
+        value={value ? getSimulacrumTrait(value) : null}
+        onChange={(_, trait) => {
+          onChange(trait?.id);
         }}
         sx={{ flex: "auto" }}
       />

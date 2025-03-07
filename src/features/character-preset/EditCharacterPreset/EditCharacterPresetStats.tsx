@@ -10,7 +10,7 @@ import { NumericString } from "../../../components/common/NumericString/NumericS
 import { ElementalStyledText } from "../../../components/elemental/ElementalStyledText/ElementalStyledText";
 import { WeaponIconWithElements } from "../../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../../models/character/character-data";
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type { CharacterPreset } from "../../../models/character-preset/character-preset";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
 export interface EditCharacterPresetStatsProps {
