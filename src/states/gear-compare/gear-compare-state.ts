@@ -1,7 +1,7 @@
 import { proxy } from "valtio";
 
 import type { GearTypeId } from "../../definitions/gear-types";
-import type { CharacterPresetId } from "../../models/character/character-preset";
+import type { CharacterPresetId } from "../../models/character-preset/character-preset";
 import type { GearId } from "../../models/gear/gear";
 
 export class GearCompareState {

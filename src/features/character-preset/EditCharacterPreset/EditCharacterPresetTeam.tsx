@@ -8,7 +8,7 @@ import { StyledModal } from "../../../components/common/Modal/StyledModal";
 import { TeamPresetCard } from "../../../components/team/TeamPresetCard/TeamPresetCard";
 import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
 import { db } from "../../../db/reactive-local-storage-db";
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type { CharacterPreset } from "../../../models/character-preset/character-preset";
 import { InventoryLayout } from "../../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
 import { AddTeamPreset } from "../../team/AddTeamPreset";

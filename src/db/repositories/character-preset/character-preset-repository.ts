@@ -1,4 +1,4 @@
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type { CharacterPreset } from "../../../models/character-preset/character-preset";
 import { ValtioRepository } from "../../repository/valtio-repository";
 import type { CharacterPresetDto } from "./character-preset-dto";
 import {

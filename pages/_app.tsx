@@ -15,7 +15,7 @@ import createEmotionCache from "../src/createEmotionCache";
 import { migrateDataToLatestVersion } from "../src/data-migrations/migrate-data-to-latest-version";
 import { db } from "../src/db/reactive-local-storage-db";
 import { CharacterData } from "../src/models/character/character-data";
-import { CharacterPreset } from "../src/models/character/character-preset";
+import { CharacterPreset } from "../src/models/character-preset/character-preset";
 import { GearSetPreset } from "../src/models/gear/gear-set-preset";
 import { TeamPreset } from "../src/models/team/team-preset";
 import {

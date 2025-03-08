@@ -1,11 +1,11 @@
 import { nanoid } from "nanoid";
 
 import { BaseAttacks } from "../base-attacks";
+import type { CharacterId } from "../character/character-data";
 import type { GearSetPreset } from "../gear/gear-set-preset";
 import type { Id } from "../identifiable";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { TeamPreset } from "../team/team-preset";
-import type { CharacterId } from "./character-data";
 
 export type CharacterPresetId = Id;
 

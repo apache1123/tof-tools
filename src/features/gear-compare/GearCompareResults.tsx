@@ -15,7 +15,7 @@ import { SectionHeading } from "../../components/common/SectionHeading/SectionHe
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
 import { WeaponIconWithElements } from "../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../models/character/character-data";
-import type { CharacterPreset } from "../../models/character/character-preset";
+import type { CharacterPreset } from "../../models/character-preset/character-preset";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
 import { GearComparison } from "../../models/gear-compare/gear-comparison";
@@ -41,7 +41,7 @@ export function GearCompareResults({
   currentGear,
   newGear,
 }: GearCompareResultsProps) {
-  const { baseAttacks, critRateFlat } = characterPreset;
+  const { baseAttacks, critRateFlat, simulacrumTrait } = characterPreset;
 
   const mainWeaponPreset = teamPreset.getMainWeaponPreset();
   let mainWeapon: Weapon | undefined;
@@ -68,7 +68,7 @@ export function GearCompareResults({
     critRateFlat,
     team,
     mainWeapon,
-    undefined,
+    simulacrumTrait,
     gearSet,
     currentGear,
     newGear,

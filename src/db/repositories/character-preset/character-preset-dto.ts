@@ -1,5 +1,10 @@
-import { CharacterPreset } from "../../../models/character/character-preset";
+import { getSimulacrumTrait } from "../../../definitions/simulacra/simulacrum-traits";
+import { CharacterPreset } from "../../../models/character-preset/character-preset";
 import type { GearSetPreset } from "../../../models/gear/gear-set-preset";
+import type {
+  SimulacrumTrait,
+  SimulacrumTraitId,
+} from "../../../models/simulacrum-trait";
 import type { TeamPreset } from "../../../models/team/team-preset";
 import { logException } from "../../../utils/exception-utils";
 import { ForeignKeyDeserializationError } from "../../error/foreign-key-deserialization-error";
@@ -13,6 +18,7 @@ export interface CharacterPresetDto {
   teamPresetId: string | undefined;
   gearSetPresetId: string | undefined;
   name: string;
+  simulacrumTraitId: SimulacrumTraitId | undefined;
   baseAttacks: BaseAttacksDto;
   critRateFlat: number;
 }
@@ -26,6 +32,7 @@ export function characterPresetToDto(
     teamPreset,
     gearSetPreset,
     name,
+    simulacrumTrait,
     baseAttacks,
     critRateFlat,
   } = characterPreset;
@@ -35,6 +42,7 @@ export function characterPresetToDto(
     teamPresetId: teamPreset?.id,
     gearSetPresetId: gearSetPreset?.id,
     name,
+    simulacrumTraitId: simulacrumTrait?.id,
     baseAttacks: baseAttacksToDto(baseAttacks),
     critRateFlat,
   };
@@ -51,6 +59,7 @@ export function dtoToCharacterPreset(
     teamPresetId,
     gearSetPresetId,
     name,
+    simulacrumTraitId,
     baseAttacks,
     critRateFlat,
   } = dto;
@@ -85,10 +94,20 @@ export function dtoToCharacterPreset(
     }
   }
 
+  let simulacrumTrait: SimulacrumTrait | undefined;
+  if (simulacrumTraitId) {
+    try {
+      simulacrumTrait = getSimulacrumTrait(simulacrumTraitId);
+    } catch (e) {
+      logException(e);
+    }
+  }
+
   const characterPreset = new CharacterPreset(characterId, id);
   characterPreset.teamPreset = teamPreset;
   characterPreset.gearSetPreset = gearSetPreset;
   characterPreset.name = name;
+  characterPreset.simulacrumTrait = simulacrumTrait;
   characterPreset.baseAttacks = dtoToBaseAttacks(baseAttacks);
   characterPreset.critRateFlat = critRateFlat;
 

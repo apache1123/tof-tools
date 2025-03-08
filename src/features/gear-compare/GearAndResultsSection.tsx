@@ -7,7 +7,7 @@ import type {
   CharacterData,
   CharacterId,
 } from "../../models/character/character-data";
-import type { CharacterPreset } from "../../models/character/character-preset";
+import type { CharacterPreset } from "../../models/character-preset/character-preset";
 import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { useRepositoryItem } from "../common/useRepositoryItem";
 import { GearCompareResults } from "./GearCompareResults";

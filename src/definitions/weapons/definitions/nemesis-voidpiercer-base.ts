@@ -1,4 +1,3 @@
-import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
 import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
 
 export const nemesisVoidpiercerBase = {
@@ -40,19 +39,3 @@ export const nemesisVoidpiercerBase = {
   ],
   resources: [],
 } as const satisfies WeaponDefinition;
-
-// TODO: this nemesis voidpiercer trait buff can be removed once traits can be selected in gear comparer
-export const nemesisVoidpiercerTraitBuffBase = {
-  id: "Nemesis Voidpiercer trait",
-  displayName:
-    "Nemesis Voidpiercer trait buff (assumes you may also equip her trait when using Nemesis Voidpiercer)",
-  description:
-    "Increase final damage by 18% and gain 12% of elemental damage boost based on the current stat of Star of Oblivion",
-  cooldown: 0,
-  requirements: {},
-  canBePlayerTriggered: false,
-  triggeredBy: { combatStart: true },
-  maxStacks: 1,
-  finalDamageBuffs: [{ value: 0.18 }],
-  starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-} as const satisfies Partial<WeaponBuffDefinition>;

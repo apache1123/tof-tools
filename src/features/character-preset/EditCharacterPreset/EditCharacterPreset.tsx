@@ -2,8 +2,9 @@ import { Alert, TextField } from "@mui/material";
 import { useSnapshot } from "valtio";
 
 import type { CharacterData } from "../../../models/character/character-data";
-import type { CharacterPreset } from "../../../models/character/character-preset";
+import type { CharacterPreset } from "../../../models/character-preset/character-preset";
 import { EditCharacterPresetGearPreset } from "./EditCharacterPresetGearPreset";
+import { EditCharacterPresetSimulacrumTrait } from "./EditCharacterPresetSimulacrumTrait";
 import { EditCharacterPresetStats } from "./EditCharacterPresetStats";
 import { EditCharacterPresetTeam } from "./EditCharacterPresetTeam";
 
@@ -52,6 +53,10 @@ export function EditCharacterPreset({
         characterPresetProxy={characterPresetProxy}
         expand={expandGearSet}
         showInfoForGearCompare={showInfoForGearCompare}
+      />
+
+      <EditCharacterPresetSimulacrumTrait
+        characterPresetProxy={characterPresetProxy}
       />
 
       <EditCharacterPresetStats

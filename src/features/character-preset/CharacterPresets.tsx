@@ -8,7 +8,7 @@ import type {
   CharacterData,
   CharacterId,
 } from "../../models/character/character-data";
-import { CharacterPreset } from "../../models/character/character-preset";
+import { CharacterPreset } from "../../models/character-preset/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
 import { EditCharacterPreset } from "./EditCharacterPreset/EditCharacterPreset";
