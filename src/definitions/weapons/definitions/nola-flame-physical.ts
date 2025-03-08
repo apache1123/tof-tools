@@ -16,7 +16,25 @@ export const nolaFlamePhysical = {
   skills: [...nolaBase.skills],
   discharges: [...nolaBase.discharges],
 
-  // TODO: the flame-physical skill flame base attack buff
-  buffs: [...nolaBase.buffs],
+  buffs: [
+    ...nolaBase.buffs,
+    {
+      id: "Nola (Flame-Physical) skill buff",
+      displayName: "Nola (Flame-Physical) skill buff (assume 8 Spark stacks)",
+      description:
+        "When entering Superspeed Mode, consume all Sparks. For every stack consumed, receive 600 base flame ATK and increase Rumble's final damage by 6%",
+      cooldown: 25000,
+      duration: 23000,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: {}, // TODO:
+      maxStacks: 1,
+      baseAttackBuffs: [{ value: 4800, elementalTypes: ["Flame"] }],
+      finalDamageBuffs: [
+        { value: 0.06, restrictedTo: { weapon: "Nola (Flame-Physical)" } },
+      ],
+      starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
+    },
+  ],
   resources: [...nolaBase.resources],
 } as const satisfies WeaponDefinition;
