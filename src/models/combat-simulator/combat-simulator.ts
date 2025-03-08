@@ -312,7 +312,7 @@ export class CombatSimulator {
       },
       { source: "team", abilityDefinitions: teamBuffs },
       {
-        source: "simulacra",
+        source: "simulacrum-trait",
         abilityDefinitions: this.simulacrumTrait?.buffs ?? [],
       },
       // { source: "relic", abilityDefinitions: relics.passiveRelicBuffs },

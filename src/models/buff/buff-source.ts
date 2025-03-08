@@ -2,7 +2,7 @@ export type BuffSource =
   | "weapon"
   | "matrix"
   | "relic"
-  | "simulacra"
+  | "simulacrum-trait"
   | "team"
   | "gear"
   | "titan";

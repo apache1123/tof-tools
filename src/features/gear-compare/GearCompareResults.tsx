@@ -41,7 +41,7 @@ export function GearCompareResults({
   currentGear,
   newGear,
 }: GearCompareResultsProps) {
-  const { baseAttacks, critRateFlat } = characterPreset;
+  const { baseAttacks, critRateFlat, simulacrumTrait } = characterPreset;
 
   const mainWeaponPreset = teamPreset.getMainWeaponPreset();
   let mainWeapon: Weapon | undefined;
@@ -68,7 +68,7 @@ export function GearCompareResults({
     critRateFlat,
     team,
     mainWeapon,
-    undefined,
+    simulacrumTrait,
     gearSet,
     currentGear,
     newGear,
