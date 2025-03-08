@@ -1,8 +1,5 @@
 import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
-import {
-  nemesisVoidpiercerBase,
-  nemesisVoidpiercerTraitBuffBase,
-} from "./nemesis-voidpiercer-base";
+import { nemesisVoidpiercerBase } from "./nemesis-voidpiercer-base";
 
 export const nemesisVoidpiercerFlamePhysical = {
   ...nemesisVoidpiercerBase,
@@ -39,11 +36,6 @@ export const nemesisVoidpiercerFlamePhysical = {
       maxStacks: 1,
       elementalDamageBuffs: [{ value: 0.17, elementalTypes: ["Flame"] }],
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-    },
-    // TODO: this nemesis voidpiercer trait buffs can be removed once traits can be selected in gear comparer
-    {
-      ...nemesisVoidpiercerTraitBuffBase,
-      elementalDamageBuffs: [{ value: 0.12, elementalTypes: ["Flame"] }],
     },
   ],
   resources: [...nemesisVoidpiercerBase.resources],
