@@ -308,4 +308,29 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2025, 2, 5)),
     title: "Add Antoria",
   },
+  {
+    semver: "4.3.1",
+    date: new Date(Date.UTC(2025, 2, 8)),
+    title:
+      "Add a missing base attack buff for Nola (Flame-Physical) when using her skill",
+  },
+  {
+    semver: "4.4.0",
+    date: new Date(Date.UTC(2025, 2, 8)),
+    title: "Add simulacrum trait selection to presets",
+    description: (
+      <>
+        <Typography gutterBottom>
+          You can now select the simulacrum trait you want to use when using a
+          preset. This will be used in the gear comparer when you select the
+          preset.
+        </Typography>
+        <Typography gutterBottom>
+          Most traits don&apos;t affect gear comparison. Only traits that buff
+          ATK, crit rate, or crit damage will affect the comparison (only Roslyn
+          and Nola trait so far). Nevertheless, it is there for you to select.
+        </Typography>
+      </>
+    ),
+  },
 ];
