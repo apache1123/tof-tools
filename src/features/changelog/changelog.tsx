@@ -335,9 +335,15 @@ export const changelog: Changelog = [
   },
   {
     semver: "4.4.1",
-    date: new Date(Date.UTC(2025, 2, 10)),
+    date: new Date(Date.UTC(2025, 2, 19)),
     title: "Fixed import gear using screenshot",
     description:
       "Fixed Attack stat not being imported properly because the stat name was changed from 'Attack' to 'ATK' in-game",
+  },
+  {
+    semver: "4.5.0",
+    date: new Date(Date.UTC(2025, 2, 19)),
+    title:
+      "Added a button to swap the current preset gear with the new gear in the gear compare tool",
   },
 ];

@@ -23,6 +23,7 @@ import { Team } from "../../models/team/team";
 import type { TeamPreset } from "../../models/team/team-preset";
 import { Weapon } from "../../models/weapon/weapon";
 import { DamageBreakdowns } from "./DamageBreakdowns";
+import { SwapCurrentAndNewGear } from "./SwapCurrentAndNewGear";
 
 export interface GearCompareResultsProps {
   characterData: CharacterData;
@@ -140,7 +141,10 @@ export function GearCompareResults({
           </Grid>
 
           <Grid xs={12} md={6}>
-            <SectionSubheading>New gear</SectionSubheading>
+            <Stack direction="row" sx={{ gap: 1, alignItems: "start" }}>
+              <SectionSubheading>New gear</SectionSubheading>
+              <SwapCurrentAndNewGear />
+            </Stack>
 
             <Stack spacing={1}>
               <Box>
