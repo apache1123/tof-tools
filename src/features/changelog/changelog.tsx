@@ -333,4 +333,11 @@ export const changelog: Changelog = [
       </>
     ),
   },
+  {
+    semver: "4.4.1",
+    date: new Date(Date.UTC(2025, 2, 10)),
+    title: "Fixed import gear using screenshot",
+    description:
+      "Fixed Attack stat not being imported properly because the stat name was changed from 'Attack' to 'ATK' in-game",
+  },
 ];

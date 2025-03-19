@@ -122,7 +122,7 @@ export const statTypesLookup: Data<StatTypeId, StatType> = {
       id: "Attack",
       displayName: "Attack",
       shortDisplayName: "ATK",
-      inGameName: "Attack",
+      inGameName: "ATK",
       role: "Attack",
       elementalType: "All",
       isPercentageBased: false,
