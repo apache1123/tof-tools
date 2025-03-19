@@ -1,6 +1,5 @@
 import { Paper } from "@mui/material";
 import { useSnapshot } from "valtio";
-import { useProxy } from "valtio/utils";
 
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import type {
@@ -8,10 +7,10 @@ import type {
   CharacterId,
 } from "../../models/character/character-data";
 import type { CharacterPreset } from "../../models/character-preset/character-preset";
-import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
-import { useRepositoryItem } from "../common/useRepositoryItem";
 import { GearCompareResults } from "./GearCompareResults";
 import { GearSection } from "./GearSection";
+import { useCurrentGear } from "./hooks/useCurrentGear";
+import { useNewGear } from "./hooks/useNewGear";
 
 export interface GearAndResultsSectionProps {
   characterId: CharacterId;
@@ -28,21 +27,8 @@ export function GearAndResultsSection({
 
   const mainWeaponPreset = characterPreset.teamPreset?.getMainWeaponPreset();
 
-  const $state = useProxy(gearCompareState);
-  const { gearTypeId, newGearId } = $state;
-
-  const getCurrentGear = (characterPreset: CharacterPreset) => {
-    return gearTypeId
-      ? characterPreset.gearSetPreset?.gearSet.getSlot(gearTypeId).gear
-      : undefined;
-  };
-  const currentGear = getCurrentGear(characterPreset);
-  const currentGearProxy = getCurrentGear(characterPresetProxy);
-
-  const { item: newGear, itemProxy: newGearProxy } = useRepositoryItem(
-    "gears",
-    (repository) => (newGearId ? repository.find(newGearId) : undefined),
-  );
+  const { currentGear, currentGearProxy } = useCurrentGear();
+  const { newGear, newGearProxy } = useNewGear();
 
   return mainWeaponPreset ? (
     <>

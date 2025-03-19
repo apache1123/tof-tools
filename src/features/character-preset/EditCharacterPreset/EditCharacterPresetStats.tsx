@@ -3,14 +3,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
 import { CharacterLevelInput } from "../../../components/character/CharacterLevelInput/CharacterLevelInput";
-import { BaseAttackInput } from "../../../components/character-preset/BaseAttackInput/BaseAttackInput";
-import { CritRateFlatInput } from "../../../components/character-preset/CritRateFlatInput/CritRateFlatInput";
 import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
 import { NumericString } from "../../../components/common/NumericString/NumericString";
 import { ElementalStyledText } from "../../../components/elemental/ElementalStyledText/ElementalStyledText";
 import { WeaponIconWithElements } from "../../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../../models/character/character-data";
 import type { CharacterPreset } from "../../../models/character-preset/character-preset";
+import { EditCharacterPresetOverrideStats } from "./EditCharacterPresetOverrideStats";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
 export interface EditCharacterPresetStatsProps {
@@ -87,26 +86,9 @@ export function EditCharacterPresetStats({
             </Box>
 
             <Grid container spacing={2}>
-              {mainWeaponDefinition.gearResonanceElements.map((element) => (
-                <Grid key={element} xs={12} sm={6} md={4} lg={3}>
-                  <BaseAttackInput
-                    element={element}
-                    value={baseAttacks.get(element)}
-                    onChange={(value) => {
-                      characterPresetProxy.baseAttacks.set(element, value);
-                    }}
-                  />
-                </Grid>
-              ))}
-
-              <Grid xs={12} sm={6} md={4} lg={3}>
-                <CritRateFlatInput
-                  value={critRateFlat}
-                  onChange={(value) => {
-                    characterPresetProxy.critRateFlat = value;
-                  }}
-                />
-              </Grid>
+              <EditCharacterPresetOverrideStats
+                characterPresetProxy={characterPresetProxy}
+              />
 
               <Grid xs={12} sm={6} md={4} lg={3}>
                 <CharacterLevelInput

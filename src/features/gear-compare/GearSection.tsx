@@ -13,6 +13,7 @@ import { gearCompareState } from "../../states/gear-compare/gear-compare-state";
 import { GearCompareGear } from "./GearCompareGear";
 import { SelectGearType } from "./SelectGearType";
 import { SelectNewGear } from "./SelectNewGear";
+import { SwapCurrentAndNewGear } from "./SwapCurrentAndNewGear";
 
 export interface GearSectionProps {
   characterId: CharacterId;
@@ -65,14 +66,18 @@ export function GearSection({
               >
                 <SectionSubheading>New gear to compare</SectionSubheading>
                 {newGear && newGearProxy && (
-                  <Button
-                    buttonProps={{ size: "small" }}
-                    onClick={() => {
-                      $state.newGearId = undefined;
-                    }}
-                  >
-                    Clear
-                  </Button>
+                  <>
+                    <Button
+                      buttonProps={{ size: "small" }}
+                      onClick={() => {
+                        $state.newGearId = undefined;
+                      }}
+                    >
+                      Clear
+                    </Button>
+
+                    <SwapCurrentAndNewGear />
+                  </>
                 )}
               </Stack>
 
