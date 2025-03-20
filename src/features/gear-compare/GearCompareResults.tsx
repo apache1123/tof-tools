@@ -18,7 +18,7 @@ import type { CharacterData } from "../../models/character/character-data";
 import type { CharacterPreset } from "../../models/character-preset/character-preset";
 import type { Gear } from "../../models/gear/gear";
 import type { GearSet } from "../../models/gear/gear-set";
-import { GearComparison } from "../../models/gear-compare/gear-comparison";
+import { GearValueSimulator } from "../../models/gear-compare/gear-value-simulator";
 import { Team } from "../../models/team/team";
 import type { TeamPreset } from "../../models/team/team-preset";
 import { Weapon } from "../../models/weapon/weapon";
@@ -63,7 +63,7 @@ export function GearCompareResults({
 
   if (!mainWeapon) return "No main weapon";
 
-  const gearComparison = new GearComparison(
+  const gearValueSimulator = new GearValueSimulator(
     characterData,
     baseAttacks,
     critRateFlat,
@@ -71,12 +71,12 @@ export function GearCompareResults({
     mainWeapon,
     simulacrumTrait,
     gearSet,
-    currentGear,
-    newGear,
   );
 
-  const currentGearResult = gearComparison.getCurrentGearResult();
-  const newGearResult = gearComparison.getNewGearResult();
+  const currentGearResult = gearValueSimulator.getCurrentGearResult(
+    currentGear.type.id,
+  );
+  const newGearResult = gearValueSimulator.getNewGearResult(newGear);
 
   return (
     <>

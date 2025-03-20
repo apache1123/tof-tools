@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 
 import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { GearTypeId } from "../../definitions/gear-types";
 import { calculateRelativeIncrease } from "../../utils/math-utils";
 import { BaseAttacks } from "../base-attacks";
 import type { CharacterData } from "../character/character-data";
@@ -10,10 +11,10 @@ import { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team } from "../team/team";
 import type { Weapon } from "../weapon/weapon";
-import type { GearResult } from "./gear-result";
+import type { GearValueResult } from "./gear-value-result";
 
-/** Gear comparison of character damage with the equipped team, gear set, etc. vs. the same character with the new gear equipped. */
-export class GearComparison {
+/** Gear value results using the equipped team, gear set, etc. as base  */
+export class GearValueSimulator {
   public constructor(
     private readonly characterData: CharacterData,
     private readonly baseAttacks: BaseAttacks,
@@ -21,40 +22,40 @@ export class GearComparison {
     private readonly team: Team,
     private readonly mainWeapon: Weapon,
     private readonly simulacrumTrait: SimulacrumTrait | undefined,
-    private readonly currentGearSet: GearSet,
-    /** The current piece of gear in the current gear set that is being compared */
-    private readonly currentGear: Gear,
-    /** The new piece of gear that is being compared */
-    private readonly newGear: Gear,
+    private readonly gearSet: GearSet,
   ) {}
 
-  /** The results of the current gear */
-  public getCurrentGearResult() {
+  /** The results of a gear currently in the gear set, specified by its gear type */
+  public getCurrentGearResult(gearTypeId: GearTypeId) {
     return this.getGearResult(
-      this.currentGearSet,
-      this.currentGear,
+      this.gearSet,
+      gearTypeId,
       this.baseAttacks,
       this.critRateFlat,
     );
   }
 
-  /** The results of the new piece of gear */
-  public getNewGearResult() {
+  /** The results of a new piece of gear if it replaces the corresponding gear type in the gear set
+   * @param newGear The new piece of gear that will replace the current gear in the gear set */
+  public getNewGearResult(newGear: Gear) {
+    const typeId = newGear.type.id;
+
     // Create a copy of the current gear set with the gear replaced with the new gear
-    const newGearSet = GearSet.createCopy(this.currentGearSet);
-    newGearSet.getSlot(this.newGear.type.id).gear = this.newGear;
+    const newGearSet = GearSet.createCopy(this.gearSet);
+    newGearSet.getSlot(typeId).gear = newGear;
 
     // Adjust stats
+    const currentGear = this.gearSet.getSlot(typeId).gear;
     const { newBaseAttacks, newCritRateFlat } = this.getAdjustedStats(
       this.baseAttacks,
       this.critRateFlat,
-      this.currentGear,
-      this.newGear,
+      currentGear,
+      newGear,
     );
 
     return this.getGearResult(
       newGearSet,
-      this.newGear,
+      typeId,
       newBaseAttacks,
       newCritRateFlat,
     );
@@ -62,19 +63,29 @@ export class GearComparison {
 
   private getGearResult(
     gearSet: GearSet,
-    gear: Gear,
+    gearTypeId: GearTypeId,
     baseAttacks: BaseAttacks,
     critRateFlat: number,
-  ): GearResult {
+  ): GearValueResult {
     const { damageSummary, damageBreakdown } = this.getSimulationResult(
       gearSet,
       baseAttacks,
       critRateFlat,
     );
 
+    const gear = gearSet.getSlot(gearTypeId).gear;
+
+    if (!gear) {
+      return {
+        damageSummary,
+        damageBreakdown,
+        gearValue: 0,
+      };
+    }
+
     // Copy the gear set with the gear removed
     const gearSetWithoutGear = GearSet.createCopy(gearSet);
-    gearSetWithoutGear.getSlot(gear.type.id).gear = undefined;
+    gearSetWithoutGear.getSlot(gearTypeId).gear = undefined;
 
     // Adjust stats
     const { newBaseAttacks, newCritRateFlat } = this.getAdjustedStats(
@@ -183,14 +194,16 @@ export class GearComparison {
     };
   }
 
-  /** Returns new adjusted stats based on the difference between the original and new gear. It is assumed the stat inputs include the stats of the original gear already. If the new gear is undefined, the result is the stat inputs minus the stats of the original gear. */
+  /** Returns new adjusted stats based on the difference between the original and new gear. It is assumed the stat inputs include the stats of the original gear already.
+   * If the original gear is undefined, the result is the stat inputs plus the stats of the new gear.
+   * If the new gear is undefined, the result is the stat inputs minus the stats of the original gear. */
   private getAdjustedStats(
     baseAttacks: BaseAttacks,
     critRateFlat: number,
-    originalGear: Gear,
+    originalGear: Gear | undefined,
     newGear: Gear | undefined,
   ) {
-    if (newGear) {
+    if (originalGear && newGear) {
       const statDifference = Gear.calculateStatDifference(
         originalGear,
         newGear,
@@ -216,24 +229,51 @@ export class GearComparison {
       return { newBaseAttacks, newCritRateFlat };
     }
 
-    // No new gear, so the new stats are the original stats minus the stats of the original gear
-    const calculateNewBaseAttack = (element: WeaponElementalType) => {
-      return BigNumber(baseAttacks.get(element))
-        .minus(originalGear.getTotalAttackFlat(element))
+    // Has original gear + no new gear, so the new stats are the original stats minus the stats of the original gear
+    if (originalGear && !newGear) {
+      const calculateNewBaseAttack = (element: WeaponElementalType) => {
+        return BigNumber(baseAttacks.get(element))
+          .minus(originalGear.getTotalAttackFlat(element))
+          .toNumber();
+      };
+      const newBaseAttacks = new BaseAttacks({
+        Altered: calculateNewBaseAttack("Altered"),
+        Flame: calculateNewBaseAttack("Flame"),
+        Frost: calculateNewBaseAttack("Frost"),
+        Physical: calculateNewBaseAttack("Physical"),
+        Volt: calculateNewBaseAttack("Volt"),
+      });
+
+      const newCritRateFlat = BigNumber(critRateFlat)
+        .minus(originalGear.getTotalCritFlat())
         .toNumber();
-    };
-    const newBaseAttacks = new BaseAttacks({
-      Altered: calculateNewBaseAttack("Altered"),
-      Flame: calculateNewBaseAttack("Flame"),
-      Frost: calculateNewBaseAttack("Frost"),
-      Physical: calculateNewBaseAttack("Physical"),
-      Volt: calculateNewBaseAttack("Volt"),
-    });
 
-    const newCritRateFlat = BigNumber(critRateFlat)
-      .minus(originalGear.getTotalCritFlat())
-      .toNumber();
+      return { newBaseAttacks, newCritRateFlat };
+    }
 
-    return { newBaseAttacks, newCritRateFlat };
+    // No original gear + has new gear, so the new stats are the original stats plus the stats of the new gear
+    if (!originalGear && newGear) {
+      const calculateNewBaseAttack = (element: WeaponElementalType) => {
+        return BigNumber(baseAttacks.get(element))
+          .plus(newGear.getTotalAttackFlat(element))
+          .toNumber();
+      };
+      const newBaseAttacks = new BaseAttacks({
+        Altered: calculateNewBaseAttack("Altered"),
+        Flame: calculateNewBaseAttack("Flame"),
+        Frost: calculateNewBaseAttack("Frost"),
+        Physical: calculateNewBaseAttack("Physical"),
+        Volt: calculateNewBaseAttack("Volt"),
+      });
+
+      const newCritRateFlat = BigNumber(critRateFlat)
+        .plus(newGear.getTotalCritFlat())
+        .toNumber();
+
+      return { newBaseAttacks, newCritRateFlat };
+    }
+
+    // No original and new gear, nothing to be adjusted
+    return { newBaseAttacks: baseAttacks, newCritRateFlat: critRateFlat };
   }
 }
