@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
+import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { NumericCompareString } from "../../components/common/NumericCompareString/NumericCompareString";
 import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
@@ -17,19 +18,14 @@ import { WeaponIconWithElements } from "../../components/weapon/WeaponIconWithEl
 import type { CharacterData } from "../../models/character/character-data";
 import type { CharacterPreset } from "../../models/character-preset/character-preset";
 import type { Gear } from "../../models/gear/gear";
-import type { GearSet } from "../../models/gear/gear-set";
-import { GearComparison } from "../../models/gear-compare/gear-comparison";
-import { Team } from "../../models/team/team";
-import type { TeamPreset } from "../../models/team/team-preset";
-import { Weapon } from "../../models/weapon/weapon";
+import { GearDamageSimulator } from "../../models/gear-compare/gear-damage-simulator";
+import { createTeamFromPreset } from "../../models/team/create-team-from-preset";
 import { DamageBreakdowns } from "./DamageBreakdowns";
 import { SwapCurrentAndNewGear } from "./SwapCurrentAndNewGear";
 
 export interface GearCompareResultsProps {
   characterData: CharacterData;
   characterPreset: CharacterPreset;
-  teamPreset: TeamPreset;
-  gearSet: GearSet;
   currentGear: Gear;
   newGear: Gear;
 }
@@ -37,46 +33,38 @@ export interface GearCompareResultsProps {
 export function GearCompareResults({
   characterData,
   characterPreset,
-  teamPreset,
-  gearSet,
   currentGear,
   newGear,
 }: GearCompareResultsProps) {
-  const { baseAttacks, critRateFlat, simulacrumTrait } = characterPreset;
+  const {
+    teamPreset,
+    gearSetPreset,
+    baseAttacks,
+    critRateFlat,
+    simulacrumTrait,
+  } = characterPreset;
 
-  const mainWeaponPreset = teamPreset.getMainWeaponPreset();
-  let mainWeapon: Weapon | undefined;
+  if (!teamPreset) return <ErrorText>No team</ErrorText>;
+  if (!gearSetPreset) return <ErrorText>No gear preset</ErrorText>;
 
-  const team = new Team();
-  teamPreset.getWeaponPresets().forEach((weaponPreset, i) => {
-    if (i < Team.maxNumOfWeapons && weaponPreset) {
-      const weapon = new Weapon(weaponPreset.definition);
-      weapon.applyPreset(weaponPreset);
+  const { team, mainWeapon } = createTeamFromPreset(teamPreset);
 
-      team.setWeapon(i, weapon);
+  if (!mainWeapon) return <ErrorText>No main weapon</ErrorText>;
 
-      if (weaponPreset === mainWeaponPreset) {
-        mainWeapon = weapon;
-      }
-    }
-  });
-
-  if (!mainWeapon) return "No main weapon";
-
-  const gearComparison = new GearComparison(
+  const gearDamageSimulator = new GearDamageSimulator(
     characterData,
     baseAttacks,
     critRateFlat,
     team,
     mainWeapon,
     simulacrumTrait,
-    gearSet,
-    currentGear,
-    newGear,
+    gearSetPreset.gearSet,
   );
 
-  const currentGearResult = gearComparison.getCurrentGearResult();
-  const newGearResult = gearComparison.getNewGearResult();
+  const currentGearResult = gearDamageSimulator.getCurrentGearResult(
+    currentGear.type.id,
+  );
+  const newGearResult = gearDamageSimulator.getNewGearResult(newGear);
 
   return (
     <>
@@ -94,9 +82,9 @@ export function GearCompareResults({
 
             <Stack spacing={1}>
               <Box>
-                Value:{" "}
+                Damage increase:{" "}
                 <NumericString
-                  value={currentGearResult.gearValue}
+                  value={currentGearResult.damageIncrease}
                   variant="percentage2dp"
                 />
               </Box>
@@ -119,9 +107,9 @@ export function GearCompareResults({
 
                 <Stack spacing={1}>
                   <Box>
-                    Value:{" "}
+                    Damage increase:{" "}
                     <NumericString
-                      value={currentGearResult.maxTitan.gearValue}
+                      value={currentGearResult.maxTitan.damageIncrease}
                       variant="percentage2dp"
                     />
                   </Box>
@@ -148,10 +136,10 @@ export function GearCompareResults({
 
             <Stack spacing={1}>
               <Box>
-                Value:{" "}
+                Damage increase:{" "}
                 <NumericCompareString
-                  value={newGearResult.gearValue}
-                  otherValue={currentGearResult.gearValue}
+                  value={newGearResult.damageIncrease}
+                  otherValue={currentGearResult.damageIncrease}
                   variant="percentage2dp"
                 />
               </Box>
@@ -175,16 +163,16 @@ export function GearCompareResults({
 
                 <Stack spacing={1}>
                   <Box>
-                    Value:{" "}
+                    Damage increase:{" "}
                     {currentGearResult.maxTitan ? (
                       <NumericCompareString
-                        value={newGearResult.maxTitan.gearValue}
-                        otherValue={currentGearResult.maxTitan.gearValue}
+                        value={newGearResult.maxTitan.damageIncrease}
+                        otherValue={currentGearResult.maxTitan.damageIncrease}
                         variant="percentage2dp"
                       />
                     ) : (
                       <NumericString
-                        value={newGearResult.maxTitan.gearValue}
+                        value={newGearResult.maxTitan.damageIncrease}
                         variant="percentage2dp"
                       />
                     )}
@@ -226,10 +214,10 @@ export function GearCompareResults({
           <AccordionDetails>
             <Stack sx={{ gap: 2 }}>
               <Typography>
-                <b>Value:</b> is the damage increase you get from the piece of
-                gear, compared to without it. (This only accounts for the
-                gear&apos;s random stats and augmentation stats, and not the
-                gear&apos;s base stats)
+                <b>Damage increase:</b> is the increase in damage you get from
+                the piece of gear, compared to without that piece of gear. (This
+                only accounts for the gear&apos;s random stats and augmentation
+                stats, not the gear&apos;s base stats)
               </Typography>
 
               <Typography>
