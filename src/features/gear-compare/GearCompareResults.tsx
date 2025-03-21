@@ -27,7 +27,7 @@ export interface GearCompareResultsProps {
   characterData: CharacterData;
   characterPreset: CharacterPreset;
   currentGear: Gear;
-  newGear: Gear;
+  newGear: Gear | undefined;
 }
 
 export function GearCompareResults({
@@ -64,7 +64,9 @@ export function GearCompareResults({
   const currentGearResult = gearDamageSimulator.getCurrentGearResult(
     currentGear.type.id,
   );
-  const newGearResult = gearDamageSimulator.getNewGearResult(newGear);
+  const newGearResult = newGear
+    ? gearDamageSimulator.getNewGearResult(newGear)
+    : undefined;
 
   return (
     <>
@@ -134,75 +136,84 @@ export function GearCompareResults({
               <SwapCurrentAndNewGear />
             </Stack>
 
-            <Stack spacing={1}>
-              <Box>
-                Damage increase:{" "}
-                <NumericCompareString
-                  value={newGearResult.damageIncrease}
-                  otherValue={currentGearResult.damageIncrease}
-                  variant="percentage2dp"
-                />
-              </Box>
-              <Box>
-                Damage:{" "}
-                <NumericCompareString
-                  value={newGearResult.damageSummary.totalDamage.finalDamage}
-                  otherValue={
-                    currentGearResult.damageSummary.totalDamage.finalDamage
-                  }
-                  variant="integer"
-                />
-              </Box>
-            </Stack>
-
-            {newGearResult.maxTitan && (
+            {newGearResult ? (
               <>
-                <SectionSubheading sx={{ mt: 3 }}>
-                  New gear when at max titan
-                </SectionSubheading>
-
                 <Stack spacing={1}>
                   <Box>
                     Damage increase:{" "}
-                    {currentGearResult.maxTitan ? (
-                      <NumericCompareString
-                        value={newGearResult.maxTitan.damageIncrease}
-                        otherValue={currentGearResult.maxTitan.damageIncrease}
-                        variant="percentage2dp"
-                      />
-                    ) : (
-                      <NumericString
-                        value={newGearResult.maxTitan.damageIncrease}
-                        variant="percentage2dp"
-                      />
-                    )}
+                    <NumericCompareString
+                      value={newGearResult.damageIncrease}
+                      otherValue={currentGearResult.damageIncrease}
+                      variant="percentage2dp"
+                    />
                   </Box>
                   <Box>
                     Damage:{" "}
-                    {currentGearResult.maxTitan ? (
-                      <NumericCompareString
-                        value={
-                          newGearResult.maxTitan.damageSummary.totalDamage
-                            .finalDamage
-                        }
-                        otherValue={
-                          currentGearResult.maxTitan.damageSummary.totalDamage
-                            .finalDamage
-                        }
-                        variant="integer"
-                      />
-                    ) : (
-                      <NumericString
-                        value={
-                          newGearResult.maxTitan.damageSummary.totalDamage
-                            .finalDamage
-                        }
-                        variant="integer"
-                      />
-                    )}
+                    <NumericCompareString
+                      value={
+                        newGearResult.damageSummary.totalDamage.finalDamage
+                      }
+                      otherValue={
+                        currentGearResult.damageSummary.totalDamage.finalDamage
+                      }
+                      variant="integer"
+                    />
                   </Box>
                 </Stack>
+                {newGearResult.maxTitan && (
+                  <>
+                    <SectionSubheading sx={{ mt: 3 }}>
+                      New gear when at max titan
+                    </SectionSubheading>
+
+                    <Stack spacing={1}>
+                      <Box>
+                        Damage increase:{" "}
+                        {currentGearResult.maxTitan ? (
+                          <NumericCompareString
+                            value={newGearResult.maxTitan.damageIncrease}
+                            otherValue={
+                              currentGearResult.maxTitan.damageIncrease
+                            }
+                            variant="percentage2dp"
+                          />
+                        ) : (
+                          <NumericString
+                            value={newGearResult.maxTitan.damageIncrease}
+                            variant="percentage2dp"
+                          />
+                        )}
+                      </Box>
+                      <Box>
+                        Damage:{" "}
+                        {currentGearResult.maxTitan ? (
+                          <NumericCompareString
+                            value={
+                              newGearResult.maxTitan.damageSummary.totalDamage
+                                .finalDamage
+                            }
+                            otherValue={
+                              currentGearResult.maxTitan.damageSummary
+                                .totalDamage.finalDamage
+                            }
+                            variant="integer"
+                          />
+                        ) : (
+                          <NumericString
+                            value={
+                              newGearResult.maxTitan.damageSummary.totalDamage
+                                .finalDamage
+                            }
+                            variant="integer"
+                          />
+                        )}
+                      </Box>
+                    </Stack>
+                  </>
+                )}
               </>
+            ) : (
+              <ErrorText>No new gear</ErrorText>
             )}
           </Grid>
         </Grid>
@@ -261,7 +272,7 @@ export function GearCompareResults({
                 },
               ]
             : []),
-          ...(newGearResult.damageBreakdown
+          ...(newGearResult?.damageBreakdown
             ? [
                 {
                   label: "New gear",
@@ -282,7 +293,7 @@ export function GearCompareResults({
                 },
               ]
             : []),
-          ...(newGearResult.maxTitan?.damageBreakdown
+          ...(newGearResult?.maxTitan?.damageBreakdown
             ? [
                 {
                   label: "New gear max titan",
