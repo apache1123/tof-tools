@@ -11,7 +11,7 @@ import type {
 import { CharacterPreset } from "../../models/character-preset/character-preset";
 import { InventoryLayout } from "../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../common/useItemsBelongingToCharacter";
-import { EditCharacterPreset } from "./EditCharacterPreset/EditCharacterPreset";
+import { CharacterPresetDetails } from "./CharacterPresetDetails";
 
 export interface CharacterPresetsProps {
   characterId: CharacterId;
@@ -72,12 +72,12 @@ export function CharacterPresets({
         <EditorModal
           open={!!editingPresetProxy}
           modalContent={
-            <EditCharacterPreset
+            <CharacterPresetDetails
               characterPresetProxy={editingPresetProxy}
               characterDataProxy={characterDataProxy}
             />
           }
-          modalTitle="Edit preset"
+          modalTitle="Preset details"
           itemName="this preset"
           onClose={() => {
             setEditingPresetProxy(undefined);

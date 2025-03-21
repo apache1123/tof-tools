@@ -4,7 +4,6 @@ import { maxNumOfWeaponStars } from "../../definitions/weapons/weapon-stars";
 import type { Id } from "../identifiable";
 import { MatrixSlots } from "../matrix/matrix-slots";
 import { hasMetStarRequirement } from "../star-requirement";
-import type { WeaponPreset } from "./weapon-preset";
 import type { WeaponStarRequirement } from "./weapon-star-requirement";
 
 export type WeaponId = Id;
@@ -69,15 +68,6 @@ export class Weapon {
 
   public set stars(value: number) {
     this._stars = Math.min(Math.max(Math.floor(value), 0), maxNumOfWeaponStars);
-  }
-
-  public applyPreset(preset: WeaponPreset) {
-    if (preset.definition !== this.definition) {
-      throw new Error("Weapon preset weapon definition does not match weapon");
-    }
-
-    this.stars = preset.stars;
-    this.matrixSlots.equipMatricesFrom(preset.matrixSlots);
   }
 
   private hasMetStarRequirement(requirement: WeaponStarRequirement) {

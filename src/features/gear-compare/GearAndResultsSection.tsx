@@ -46,19 +46,14 @@ export function GearAndResultsSection({
         }
       />
 
-      {characterPreset.teamPreset &&
-        characterPreset.gearSetPreset?.gearSet &&
-        currentGear &&
-        newGear && (
-          <GearCompareResults
-            characterData={characterData}
-            characterPreset={characterPreset}
-            teamPreset={characterPreset.teamPreset}
-            gearSet={characterPreset.gearSetPreset.gearSet}
-            currentGear={currentGear}
-            newGear={newGear}
-          />
-        )}
+      {currentGear && newGear && (
+        <GearCompareResults
+          characterData={characterData}
+          characterPreset={characterPreset}
+          currentGear={currentGear}
+          newGear={newGear}
+        />
+      )}
     </>
   ) : (
     <Paper sx={{ p: 3 }}>

@@ -346,4 +346,12 @@ export const changelog: Changelog = [
     title:
       "Added a button to swap the current preset gear with the new gear in the gear compare tool",
   },
+  {
+    semver: "4.6.0",
+    date: new Date(Date.UTC(2025, 2, 21)),
+    title:
+      'Renamed "Value" to "Damage increase" in gear compare page for clarity + Show gear comparison in preset page',
+    description:
+      "You can now see the damage increase of each gear in a preset. This can help you see which gear has the lowest value, to decide which gear to focus on. Note this is shown only in the Preset, and not the Gear preset",
+  },
 ];

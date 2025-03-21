@@ -11,10 +11,10 @@ import { GearSet } from "../gear/gear-set";
 import type { SimulacrumTrait } from "../simulacrum-trait";
 import type { Team } from "../team/team";
 import type { Weapon } from "../weapon/weapon";
-import type { GearValueResult } from "./gear-value-result";
+import type { GearDamageResult } from "./gear-damage-result";
 
-/** Gear value results using the equipped team, gear set, etc. as base  */
-export class GearValueSimulator {
+/** Simulate gear damage results using the equipped team, gear set, etc. as base  */
+export class GearDamageSimulator {
   public constructor(
     private readonly characterData: CharacterData,
     private readonly baseAttacks: BaseAttacks,
@@ -66,7 +66,7 @@ export class GearValueSimulator {
     gearTypeId: GearTypeId,
     baseAttacks: BaseAttacks,
     critRateFlat: number,
-  ): GearValueResult {
+  ): GearDamageResult {
     const { damageSummary, damageBreakdown } = this.getSimulationResult(
       gearSet,
       baseAttacks,
@@ -79,7 +79,7 @@ export class GearValueSimulator {
       return {
         damageSummary,
         damageBreakdown,
-        gearValue: 0,
+        damageIncrease: 0,
       };
     }
 
@@ -101,7 +101,7 @@ export class GearValueSimulator {
       newCritRateFlat,
     ).damageSummary.totalDamage.finalDamage;
 
-    const gearValue =
+    const damageIncrease =
       damageWithoutGear > 0
         ? calculateRelativeIncrease(
             damageSummary.totalDamage.finalDamage,
@@ -137,7 +137,7 @@ export class GearValueSimulator {
         newCritRateFlat,
       );
 
-      const maxTitanGearValue =
+      const maxTitanDamageIncrease =
         damageWithoutGear > 0
           ? calculateRelativeIncrease(
               maxTitanDamageSummary.totalDamage.finalDamage,
@@ -146,19 +146,16 @@ export class GearValueSimulator {
           : 0;
 
       maxTitanResult = {
+        damageIncrease: maxTitanDamageIncrease,
         damageSummary: maxTitanDamageSummary,
         damageBreakdown: maxTitanDamageBreakdown,
-        gearValue: maxTitanGearValue,
       };
     }
 
     return {
+      damageIncrease,
       damageSummary,
       damageBreakdown,
-      /** The damage when the piece of gear is equipped, relative to the damage when that piece of gear is not equipped.
-       * a.k.a. the damage increase with vs without that piece of gear
-       */
-      gearValue,
       maxTitan: maxTitanResult,
     };
   }
