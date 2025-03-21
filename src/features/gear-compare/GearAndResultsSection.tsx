@@ -46,7 +46,7 @@ export function GearAndResultsSection({
         }
       />
 
-      {currentGear && newGear && (
+      {currentGear && (
         <GearCompareResults
           characterData={characterData}
           characterPreset={characterPreset}
