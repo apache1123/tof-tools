@@ -21,7 +21,9 @@ export function dtoToRandomStat(randomStatDto: RandomStatDto) {
   const { typeId, value, augmentIncreaseValue } = randomStatDto;
 
   const randomStat = new RandomStat(getStatType(typeId));
-  randomStat.value = value;
-  randomStat.augmentIncreaseValue = augmentIncreaseValue ?? 0;
+  randomStat.setValueAndAdjustTotalValue(value);
+  randomStat.setAugmentIncreaseValueAndAdjustTotalValue(
+    augmentIncreaseValue ?? 0,
+  );
   return randomStat;
 }

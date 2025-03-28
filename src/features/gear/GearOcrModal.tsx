@@ -282,7 +282,7 @@ export function GearOcrModal({
           if (gear) {
             const randomStat = new RandomStat(randomStatType);
             gear.setRandomStat(numOfRandomStatsFound, randomStat);
-            randomStat.value = value;
+            randomStat.setValueAndAdjustTotalValue(value);
             hasMatch = true;
           }
         }

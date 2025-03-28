@@ -18,23 +18,23 @@ describe("Gear", () => {
       const flameAttackFlat = new RandomStat(
         statTypesLookup.byId["Flame Attack"],
       );
-      flameAttackFlat.value = 200;
+      flameAttackFlat.setValueAndAdjustTotalValue(200);
       sut.setRandomStat(0, flameAttackFlat);
 
       const attackFlat = new RandomStat(statTypesLookup.byId["Attack"]);
-      attackFlat.value = 150;
+      attackFlat.setValueAndAdjustTotalValue(150);
       sut.setRandomStat(1, attackFlat);
 
       const flameAttackPercent = new RandomStat(
         statTypesLookup.byId["Flame Attack %"],
       );
-      flameAttackPercent.value = 0.5;
+      flameAttackPercent.setValueAndAdjustTotalValue(0.5);
       sut.setRandomStat(2, flameAttackPercent);
 
       const frostAttackFlat = new RandomStat(
         statTypesLookup.byId["Frost Attack"],
       );
-      frostAttackFlat.value = 75;
+      frostAttackFlat.setValueAndAdjustTotalValue(75);
       sut.setRandomStat(3, frostAttackFlat);
 
       expect(sut.getTotalAttackFlat("Flame")).toBe(350);
@@ -44,17 +44,17 @@ describe("Gear", () => {
       const alteredAttackFlat = new RandomStat(
         statTypesLookup.byId["Altered Attack"],
       );
-      alteredAttackFlat.value = 200;
+      alteredAttackFlat.setValueAndAdjustTotalValue(200);
       sut.setRandomStat(0, alteredAttackFlat);
 
       const attackFlat = new RandomStat(statTypesLookup.byId["Attack"]);
-      attackFlat.value = 75;
+      attackFlat.setValueAndAdjustTotalValue(75);
       sut.setRandomStat(1, attackFlat);
 
       const flameAttackFlat = new RandomStat(
         statTypesLookup.byId["Flame Attack"],
       );
-      flameAttackFlat.value = 75;
+      flameAttackFlat.setValueAndAdjustTotalValue(75);
       sut.setRandomStat(2, flameAttackFlat);
 
       expect(sut.getTotalAttackFlat("Altered")).toBe(200);
@@ -64,13 +64,13 @@ describe("Gear", () => {
       const flameAttackPercent = new RandomStat(
         statTypesLookup.byId["Flame Attack %"],
       );
-      flameAttackPercent.value = 0.4;
+      flameAttackPercent.setValueAndAdjustTotalValue(0.4);
       sut.setRandomStat(0, flameAttackPercent);
 
       const frostAttackPercent = new RandomStat(
         statTypesLookup.byId["Frost Attack %"],
       );
-      frostAttackPercent.value = 0.3;
+      frostAttackPercent.setValueAndAdjustTotalValue(0.3);
       sut.setRandomStat(1, frostAttackPercent);
 
       expect(sut.getTotalAttackPercent("Flame")).toBe(0.4);
@@ -80,13 +80,13 @@ describe("Gear", () => {
       const flameDamagePercent = new RandomStat(
         statTypesLookup.byId["Flame Damage %"],
       );
-      flameDamagePercent.value = 0.4;
+      flameDamagePercent.setValueAndAdjustTotalValue(0.4);
       sut.setRandomStat(0, flameDamagePercent);
 
       const frostDamagePercent = new RandomStat(
         statTypesLookup.byId["Frost Damage %"],
       );
-      frostDamagePercent.value = 0.3;
+      frostDamagePercent.setValueAndAdjustTotalValue(0.3);
       sut.setRandomStat(1, frostDamagePercent);
 
       expect(sut.getTotalElementalDamagePercent("Flame")).toBe(0.4);
@@ -94,11 +94,11 @@ describe("Gear", () => {
 
     it("can return total crit flat value", () => {
       const critFlat = new RandomStat(statTypesLookup.byId["Crit"]);
-      critFlat.value = 2000;
+      critFlat.setValueAndAdjustTotalValue(2000);
       sut.setRandomStat(0, critFlat);
 
       const critPercent = new RandomStat(statTypesLookup.byId["Crit Rate %"]);
-      critPercent.value = 0.2;
+      critPercent.setValueAndAdjustTotalValue(0.2);
       sut.setRandomStat(1, critPercent);
 
       expect(sut.getTotalCritFlat()).toBe(2000);
@@ -106,11 +106,11 @@ describe("Gear", () => {
 
     it("can return total crit rate % value", () => {
       const critFlat = new RandomStat(statTypesLookup.byId["Crit"]);
-      critFlat.value = 2000;
+      critFlat.setValueAndAdjustTotalValue(2000);
       sut.setRandomStat(0, critFlat);
 
       const critPercent = new RandomStat(statTypesLookup.byId["Crit Rate %"]);
-      critPercent.value = 0.2;
+      critPercent.setValueAndAdjustTotalValue(0.2);
       sut.setRandomStat(1, critPercent);
 
       expect(sut.getTotalCritPercent()).toBe(0.2);
@@ -118,11 +118,11 @@ describe("Gear", () => {
 
     it("can return total hp flat value", () => {
       const hpFlat = new RandomStat(statTypesLookup.byId["HP"]);
-      hpFlat.value = 2000;
+      hpFlat.setValueAndAdjustTotalValue(2000);
       sut.setRandomStat(0, hpFlat);
 
       const hpPercent = new RandomStat(statTypesLookup.byId["HP %"]);
-      hpPercent.value = 0.2;
+      hpPercent.setValueAndAdjustTotalValue(0.2);
       sut.setRandomStat(1, hpPercent);
 
       expect(sut.getTotalHpFlat()).toBe(2000);
@@ -130,11 +130,11 @@ describe("Gear", () => {
 
     it("can return total hp % value", () => {
       const hpFlat = new RandomStat(statTypesLookup.byId["HP"]);
-      hpFlat.value = 2000;
+      hpFlat.setValueAndAdjustTotalValue(2000);
       sut.setRandomStat(0, hpFlat);
 
       const hpPercent = new RandomStat(statTypesLookup.byId["HP %"]);
-      hpPercent.value = 0.2;
+      hpPercent.setValueAndAdjustTotalValue(0.2);
       sut.setRandomStat(1, hpPercent);
 
       expect(sut.getTotalHpPercent()).toBe(0.2);
@@ -144,23 +144,23 @@ describe("Gear", () => {
       const flameResistanceFlat = new RandomStat(
         statTypesLookup.byId["Flame Resistance"],
       );
-      flameResistanceFlat.value = 200;
+      flameResistanceFlat.setValueAndAdjustTotalValue(200);
       sut.setRandomStat(0, flameResistanceFlat);
 
       const flameResistancePercent = new RandomStat(
         statTypesLookup.byId["Flame Resistance %"],
       );
-      flameResistancePercent.value = 0.5;
+      flameResistancePercent.setValueAndAdjustTotalValue(0.5);
       sut.setRandomStat(1, flameResistancePercent);
 
       const alteredResistanceFlat = new RandomStat(
         statTypesLookup.byId["Altered Resistance"],
       );
-      alteredResistanceFlat.value = 100;
+      alteredResistanceFlat.setValueAndAdjustTotalValue(100);
       sut.setRandomStat(2, alteredResistanceFlat);
 
       const resistanceFlat = new RandomStat(statTypesLookup.byId["Resistance"]);
-      resistanceFlat.value = 50;
+      resistanceFlat.setValueAndAdjustTotalValue(50);
       sut.setRandomStat(3, resistanceFlat);
 
       expect(sut.getTotalResistanceFlat("Flame")).toBe(250);
@@ -171,13 +171,13 @@ describe("Gear", () => {
       const flameResistancePercent = new RandomStat(
         statTypesLookup.byId["Flame Resistance %"],
       );
-      flameResistancePercent.value = 0.4;
+      flameResistancePercent.setValueAndAdjustTotalValue(0.4);
       sut.setRandomStat(0, flameResistancePercent);
 
       const frostResistancePercent = new RandomStat(
         statTypesLookup.byId["Frost Resistance %"],
       );
-      frostResistancePercent.value = 0.3;
+      frostResistancePercent.setValueAndAdjustTotalValue(0.3);
       sut.setRandomStat(1, frostResistancePercent);
 
       expect(sut.getTotalResistancePercent("Flame")).toBe(0.4);

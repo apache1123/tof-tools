@@ -3,6 +3,7 @@ import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp
 import { Box, Stack, Tooltip, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import type { ReactNode } from "react";
+import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import type { NumericInputProps } from "../../components/common/NumericInput/NumericInput";
@@ -23,6 +24,10 @@ export interface StatEditorProps {
   showTotalValueOnly?: boolean;
 }
 
+type InputField = "value" | "augmentIncrease" | "total";
+
+/** The stat editor is made up of a stat type selector and three value input fields - the value, the augment increase and the total value (value + augment increase = total value).
+ * It adjusts the three values based on what the user has inputted, by assuming whatever field the user has inputted into should remain "fixed". E.g. If user inputs value, then inputs augment value => adjust total value. On the other hand, if user inputs value, then inputs total value => adjust augment value. */
 export const StatEditor = ({
   statProxy,
   possibleStatTypes = [],
@@ -34,6 +39,18 @@ export const StatEditor = ({
   const { type, value, augmentIncreaseValue, totalValue } = useSnapshot(
     statProxy,
   ) as RandomStat;
+
+  const [editedInputs, setEditedInputs] = useState<InputField[]>([]);
+  /** Returns the last user edited input field, optionally excluding a specific input field */
+  function getLastEditedInput(apartFrom?: InputField) {
+    return editedInputs.findLast((input) => input !== apartFrom);
+  }
+  /** Records the last user edited input field. Will not do anything if the input is already the last recorded */
+  function recordLastEditedInput(input: InputField) {
+    if (editedInputs[editedInputs.length - 1] !== input) {
+      setEditedInputs([...editedInputs, input]);
+    }
+  }
 
   return (
     <Layout
@@ -58,8 +75,14 @@ export const StatEditor = ({
           <StatInput
             isPercentageBased={type.isPercentageBased}
             value={value}
-            onChange={(value) => {
-              statProxy.value = value;
+            onChangeCommitted={(value) => {
+              if (getLastEditedInput("value") === "total") {
+                statProxy.setValueAndKeepTotalValue(value);
+              } else {
+                statProxy.setValueAndAdjustTotalValue(value);
+              }
+
+              recordLastEditedInput("value");
             }}
             label={isAugmented ? "Base" : undefined}
             aria-label="stat-value-input"
@@ -72,8 +95,14 @@ export const StatEditor = ({
           <StatInput
             isPercentageBased={type.isPercentageBased}
             value={augmentIncreaseValue}
-            onChange={(value) => {
-              statProxy.augmentIncreaseValue = value;
+            onChangeCommitted={(value) => {
+              if (getLastEditedInput("augmentIncrease") === "total") {
+                statProxy.setAugmentIncreaseValueAndKeepTotalValue(value);
+              } else {
+                statProxy.setAugmentIncreaseValueAndAdjustTotalValue(value);
+              }
+
+              recordLastEditedInput("augmentIncrease");
             }}
             label={<Typography color="titan.main">Increase</Typography>}
             aria-label="stat-augment-increase-value-input"
@@ -85,8 +114,14 @@ export const StatEditor = ({
           <StatInput
             isPercentageBased={type.isPercentageBased}
             value={totalValue}
-            onChange={(value) => {
-              statProxy.totalValue = value;
+            onChangeCommitted={(value) => {
+              if (getLastEditedInput("total") === "augmentIncrease") {
+                statProxy.setTotalValueAndAdjustValue(value);
+              } else {
+                statProxy.setTotalValueAndAdjustAugmentIncreaseValue(value);
+              }
+
+              recordLastEditedInput("total");
             }}
             label={<Typography color="titan.main">Total</Typography>}
             aria-label="stat-total-value-input"
@@ -167,7 +202,7 @@ export const EmptyStatEditor = ({
 function StatInput({
   isPercentageBased,
   value,
-  onChange,
+  onChangeCommitted,
   disabled,
   label,
   ["aria-label"]: ariaLabel,
@@ -175,12 +210,12 @@ function StatInput({
   isPercentageBased: boolean;
 } & Pick<
   NumericInputProps,
-  "value" | "onChange" | "disabled" | "label" | "aria-label"
+  "value" | "onChangeCommitted" | "disabled" | "label" | "aria-label"
 >) {
   return isPercentageBased ? (
     <PercentageNumericInput
       value={value}
-      onChange={onChange}
+      onChangeCommitted={onChangeCommitted}
       disabled={disabled}
       label={label}
       size="small"
@@ -189,7 +224,7 @@ function StatInput({
   ) : (
     <NumericInput
       value={value}
-      onChange={onChange}
+      onChangeCommitted={onChangeCommitted}
       disabled={disabled}
       label={label}
       size="small"

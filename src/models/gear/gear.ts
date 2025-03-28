@@ -598,7 +598,9 @@ export class Gear {
     ) {
       stats.forEach((stat) => {
         if (stat) {
-          stat.augmentIncreaseValue = stat.getMaxAugmentIncrease();
+          stat.setAugmentIncreaseValueAndAdjustTotalValue(
+            stat.getMaxAugmentIncrease(),
+          );
         }
       });
     }
@@ -662,9 +664,9 @@ export class Gear {
                   ).times(pullUpFactor);
 
                   const { randomStat } = randomStatAndType;
-                  randomStat.augmentIncreaseValue = pullUptoValue
-                    .minus(randomStat.value)
-                    .toNumber();
+                  randomStat.setAugmentIncreaseValueAndAdjustTotalValue(
+                    pullUptoValue.minus(randomStat.value).toNumber(),
+                  );
                 }
               }
             });
@@ -689,9 +691,9 @@ export class Gear {
           const pullUptoValue = BigNumber(valueWithAugmentOfHighestStat).times(
             augmentStatsPullUpFactor1,
           );
-          augmentStat.augmentIncreaseValue = pullUptoValue
-            .minus(augmentStat.value)
-            .toNumber();
+          augmentStat.setAugmentIncreaseValueAndAdjustTotalValue(
+            pullUptoValue.minus(augmentStat.value).toNumber(),
+          );
         }
       });
     }
@@ -805,7 +807,7 @@ export class Gear {
   private resetRandomStatsAugment() {
     for (const randomStat of this.randomStats) {
       if (randomStat) {
-        randomStat.augmentIncreaseValue = 0;
+        randomStat.setAugmentIncreaseValueAndAdjustTotalValue(0);
       }
     }
   }

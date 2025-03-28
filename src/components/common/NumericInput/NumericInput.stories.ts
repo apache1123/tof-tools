@@ -10,7 +10,7 @@ const meta: Meta<typeof NumericInput> = {
 export default meta;
 type Story = StoryObj<typeof NumericInput>;
 
-export const Initial: Story = {
+export const Default: Story = {
   args: {
     value: 69,
   },
@@ -19,5 +19,11 @@ export const Initial: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+  },
+};
+
+export const OnChangeNotDebounced: Story = {
+  args: {
+    debounce: false,
   },
 };
