@@ -1,5 +1,6 @@
-import { Alert, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
+import { InfoText } from "../../components/common/Text/InfoText";
 import { WeaponDefinitionCardContent } from "../../components/weapon/WeaponDefinitionCard/WeaponDefinitionCardContent";
 import { WeaponStarsSelector } from "../../components/weapon/WeaponStarsSelector/WeaponStarsSelector";
 import { db } from "../../db/reactive-local-storage-db";
@@ -66,9 +67,9 @@ export function EditWeaponPresetGroupCommon({
         />
       </Stack>
 
-      <Alert severity="info">
+      <InfoText>
         Changes to the weapon star will apply to all presets of this weapon
-      </Alert>
+      </InfoText>
     </Stack>
   );
 }

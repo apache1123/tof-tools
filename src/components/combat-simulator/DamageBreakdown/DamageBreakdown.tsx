@@ -1,10 +1,11 @@
-import { Alert, Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import type { WeaponElementalType } from "../../../definitions/elemental-type";
 import type { BuffSummary as BuffSummaryModel } from "../../../models/buff-summary/buff-summary";
 import type { BuffSummaryItemGroup } from "../../../models/buff-summary/buff-summary-item-group";
 import type { ElementalAttack } from "../../../models/elemental-attack/elemental-attack";
+import { InfoText } from "../../common/Text/InfoText";
 import type { DamageBreakdownGroupProps } from "./DamageBreakdownGroup";
 import { DamageBreakdownGroup } from "./DamageBreakdownGroup";
 import type { DamageBreakdownLineProps } from "./DamageBreakdownLine";
@@ -84,13 +85,13 @@ export function DamageBreakdown({
         ))}
       </Grid>
 
-      <Alert severity="info">
+      <InfoText>
         You may find that there are elemental damage buffs or final damage buffs
         missing for some older weapons and matrices. This is because I
         haven&apos;t gone back to add them yet. However, this will not affect
         the result of your gear comparison since these buffs remain constant
         between the two gears.
-      </Alert>
+      </InfoText>
 
       <Box>
         <Typography variant="body2" sx={{ fontStyle: "italic" }}>

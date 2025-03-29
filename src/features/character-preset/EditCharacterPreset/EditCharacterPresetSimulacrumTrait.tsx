@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useSnapshot } from "valtio";
 
-import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
+import { ErrorText } from "../../../components/common/Text/ErrorText";
 import { SimulacrumIcon } from "../../../components/simulacrum/SimulacrumIcon/SimulacrumIcon";
 import { SimulacrumTraitAutocomplete } from "../../../components/simulacrum/SimulacrumTraitAutocomplete/SimulacrumTraitAutocomplete";
 import { getSimulacrumTrait } from "../../../definitions/simulacra/simulacrum-traits";

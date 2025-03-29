@@ -6,6 +6,10 @@ export function indexOfIgnoringCase(text: string, searchString: string) {
   return text.toLowerCase().indexOf(searchString.toLowerCase());
 }
 
+export function splitIntoLines(text: string) {
+  return text.split(/\r?\n/g);
+}
+
 export function splitIntoWords(text: string) {
   return text.split(" ").filter((word) => word !== "");
 }

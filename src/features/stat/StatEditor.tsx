@@ -22,6 +22,8 @@ export interface StatEditorProps {
   isRolled?: boolean;
   isHighestRolled?: boolean;
   showTotalValueOnly?: boolean;
+  /** Initially (when user hasn't edited anything) treat total value as fixed. Whatever the user inputs next, the component will prioritize adjusting the value or augment increase value to maintain the total value. */
+  initialFixedTotalValue?: boolean;
 }
 
 type InputField = "value" | "augmentIncrease" | "total";
@@ -35,12 +37,15 @@ export const StatEditor = ({
   isRolled,
   isHighestRolled,
   showTotalValueOnly,
+  initialFixedTotalValue,
 }: StatEditorProps) => {
   const { type, value, augmentIncreaseValue, totalValue } = useSnapshot(
     statProxy,
   ) as RandomStat;
 
-  const [editedInputs, setEditedInputs] = useState<InputField[]>([]);
+  const [editedInputs, setEditedInputs] = useState<InputField[]>(
+    initialFixedTotalValue ? ["total"] : [],
+  );
   /** Returns the last user edited input field, optionally excluding a specific input field */
   function getLastEditedInput(apartFrom?: InputField) {
     return editedInputs.findLast((input) => input !== apartFrom);

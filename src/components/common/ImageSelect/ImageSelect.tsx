@@ -26,9 +26,9 @@ const PasteInput = withPasteUpload(
     <InputBase
       {...props}
       ref={ref}
-      placeholder="Drag & drop, select or paste screenshot of gear"
+      placeholder="Drag & drop, select or paste (ctrl+v) screenshot"
       inputProps={{
-        "aria-label": "Drag & drop, select or paste screenshot of gear",
+        "aria-label": "Drag & drop, select or paste (ctrl+v) screenshot",
       }}
       fullWidth
     />

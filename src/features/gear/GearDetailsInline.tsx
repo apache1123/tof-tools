@@ -5,6 +5,7 @@ import {
   Box,
   Paper,
   Stack,
+  Typography,
 } from "@mui/material";
 import { useSnapshot } from "valtio";
 
@@ -21,6 +22,7 @@ import { EditGearRarity } from "./EditGearRarity";
 import { EditGearTitanStats } from "./EditGearTitanStats";
 import { GearRollBreakdown } from "./GearRollBreakdown";
 import { MaxTitanGearPreview } from "./MaxTitanGearPreview";
+import { RandomStatsOcr } from "./ocr/RandomStatsOcr";
 
 export interface GearDetailsInlineProps extends PropsWithElevation {
   gearProxy: Gear;
@@ -33,7 +35,7 @@ export function GearDetailsInline({
   elevation,
 }: GearDetailsInlineProps) {
   const gear = useSnapshot(gearProxy) as Gear;
-  const { type, rarity } = gear;
+  const { type, rarity, isAugmented } = gear;
 
   return (
     <Stack gap={3}>
@@ -57,7 +59,34 @@ export function GearDetailsInline({
         <GearSummary summary={gear.getSummary()} />
       </Paper>
 
-      <EditGearRandomStats gearProxy={gearProxy} />
+      <Box>
+        <Stack direction="row" sx={{ gap: 1 }}>
+          <Stack direction="row" sx={{ gap: 0.5, alignItems: "baseline" }}>
+            <SectionSubheading>Random Stats</SectionSubheading>
+            {isAugmented && (
+              <Typography
+                variant="subtitle1"
+                sx={{ color: (theme) => theme.palette.titan.main }}
+              >
+                (Augmented)
+              </Typography>
+            )}
+          </Stack>
+
+          <RandomStatsOcr
+            gearTypeId={type.id}
+            rarity={rarity}
+            isAugmented={isAugmented}
+            onConfirm={(randomStats) => {
+              randomStats.forEach((randomStat, i) => {
+                gearProxy.setRandomStat(i, randomStat);
+              });
+            }}
+          />
+        </Stack>
+
+        <EditGearRandomStats gearProxy={gearProxy} />
+      </Box>
 
       <EditGearAugmentStats gearProxy={gearProxy} />
 

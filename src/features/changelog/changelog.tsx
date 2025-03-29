@@ -1,7 +1,8 @@
-import { Alert, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 
+import { WarningText } from "../../components/common/Text/WarningText";
 import type { Changelog } from "../../models/changelog";
 
 export const changelog: Changelog = [
@@ -266,14 +267,14 @@ export const changelog: Changelog = [
             (weapons, matrices, gear, teams, etc.) and you can share these
             across different presets.
             <Stack sx={{ my: 1, gap: 0.5 }}>
-              <Alert severity="warning">
+              <WarningText>
                 This required some big changes on the structure of the data
                 being saved. Please check if anything is missing.
-              </Alert>
-              <Alert severity="warning">
+              </WarningText>
+              <WarningText>
                 If you had 2pc matrices on your weapons, unfortunately you will
                 need to create and add these again.
-              </Alert>
+              </WarningText>
             </Stack>
           </li>
           <li>Augmentation stats can now be added on a gear.</li>

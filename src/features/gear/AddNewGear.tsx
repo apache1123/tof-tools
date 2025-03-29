@@ -12,7 +12,6 @@ import type { CharacterId } from "../../models/character/character-data";
 import type { GearId } from "../../models/gear/gear";
 import { Gear } from "../../models/gear/gear";
 import { GearDetailsInline } from "./GearDetailsInline";
-import { GearOcrModal } from "./GearOcrModal";
 
 export interface AddNewGearProps {
   characterId: CharacterId;
@@ -58,13 +57,6 @@ export function AddNewGear({
       modalTitle="Add new gear"
       modalContent={
         <Stack sx={{ gap: 3, alignItems: "center" }}>
-          <GearOcrModal
-            characterId={characterId}
-            enforceGearType={enforceGearType}
-            onFinalizeGear={(gear) => {
-              setGearProxy(proxy(gear));
-            }}
-          />
           <GearTypeToggle
             values={gearProxy ? [gearProxy.type.id] : []}
             exclusive
