@@ -5,8 +5,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { Button } from "../../../components/common/Button/Button";
 import { ImageOcr } from "../../../components/common/ImageOcr/ImageOcr";
 import { ButtonModal } from "../../../components/common/Modal/ButtonModal";
+import { ErrorText } from "../../../components/common/Text/ErrorText";
 import { InfoText } from "../../../components/common/Text/InfoText";
 import type { GearTypeId } from "../../../definitions/gear-types";
 import { getGearType } from "../../../definitions/gear-types";
@@ -46,6 +48,11 @@ export function RandomStatsOcr({
 
   const [imageUrl, setImageUrl] = useState<string>();
 
+  const reset = () => {
+    ocrTempGearState.tempGear = undefined;
+    setImageUrl(undefined);
+  };
+
   return (
     <ButtonModal
       buttonContent="Import"
@@ -72,7 +79,8 @@ export function RandomStatsOcr({
 
           <Divider sx={{ my: 4 }} />
 
-          <Grid container sx={{ mb: 2 }}>
+          {/*Hide ImageOcr instead of unmount because it holds the reference to the image (url)*/}
+          <Grid container sx={{ display: imageUrl ? "none" : "flex", mb: 2 }}>
             <Grid xs></Grid>
             <Grid
               xs={12}
@@ -83,7 +91,9 @@ export function RandomStatsOcr({
             >
               <ImageOcr
                 ocrWorker={worker}
-                onOcrTextChange={(text) => {
+                onChange={(imageUrl, text) => {
+                  setImageUrl(imageUrl);
+
                   const gearType = getGearType(gearTypeId);
                   const ocrRandomStats = getRandomStatsFromOcr(
                     text,
@@ -101,29 +111,33 @@ export function RandomStatsOcr({
                     ocrTempGearState.tempGear = tempGear;
                   }
                 }}
-                onImageUrlChange={setImageUrl}
               />
             </Grid>
             <Grid xs></Grid>
           </Grid>
 
-          <Stack sx={{ gap: 2, alignItems: "center" }}>
-            {imageUrl && (
+          {imageUrl && (
+            <Stack sx={{ gap: 2, alignItems: "center" }}>
               <Image
                 src={imageUrl}
                 width={275}
                 height={175}
                 alt="uploaded-image-preview"
               />
-            )}
 
-            {tempGear && ocrTempGearState.tempGear && (
-              <EditGearRandomStats
-                gearProxy={ocrTempGearState.tempGear}
-                initialFixedTotalValue
-              />
-            )}
-          </Stack>
+              {tempGear && ocrTempGearState.tempGear ? (
+                <EditGearRandomStats
+                  gearProxy={ocrTempGearState.tempGear}
+                  initialFixedTotalValue
+                />
+              ) : (
+                // No temp gear created = unable to OCR stats
+                <ErrorText>Unable to read random stats from image</ErrorText>
+              )}
+
+              <Button onClick={reset}>Reset</Button>
+            </Stack>
+          )}
         </>
       }
       buttonProps={{ size: "small", sx: { height: "fit-content" } }}
@@ -135,10 +149,7 @@ export function RandomStatsOcr({
           filterOutUndefined(ocrTempGearState.tempGear?.randomStats ?? []),
         );
       }}
-      onClose={() => {
-        ocrTempGearState.tempGear = undefined;
-        setImageUrl(undefined);
-      }}
+      onClose={reset}
       fullWidth
       maxWidth="md"
       aria-label="import-random-stat"

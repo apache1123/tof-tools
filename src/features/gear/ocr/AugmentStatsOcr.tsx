@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { Button } from "../../../components/common/Button/Button";
 import { ImageOcr } from "../../../components/common/ImageOcr/ImageOcr";
 import { ButtonModal } from "../../../components/common/Modal/ButtonModal";
 import { ErrorText } from "../../../components/common/Text/ErrorText";
@@ -40,6 +41,11 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
   // The uploaded image, also used as an indication of whether the OCR has been run
   const [imageUrl, setImageUrl] = useState<string>();
 
+  const reset = () => {
+    ocrTempGearState.tempGear = undefined;
+    setImageUrl(undefined);
+  };
+
   return (
     <>
       <ButtonModal
@@ -51,7 +57,8 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
 
             <Divider sx={{ my: 4 }} />
 
-            <Grid container sx={{ mb: 2 }}>
+            {/*Hide ImageOcr instead of unmount because it holds the reference to the image (url)*/}
+            <Grid container sx={{ display: imageUrl ? "none" : "flex", mb: 2 }}>
               <Grid xs></Grid>
               <Grid
                 xs={12}
@@ -62,8 +69,10 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
               >
                 <ImageOcr
                   ocrWorker={worker}
-                  onOcrTextChange={(text) => {
+                  onChange={(imageUrl, text) => {
                     if (!possibleAugmentStats) return;
+
+                    setImageUrl(imageUrl);
 
                     const possibleStatTypes = [
                       ...possibleAugmentStats.priority,
@@ -90,7 +99,6 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
 
                     ocrTempGearState.tempGear = tempGear;
                   }}
-                  onImageUrlChange={setImageUrl}
                 />
               </Grid>
               <Grid xs></Grid>
@@ -113,6 +121,8 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
                     Unable to read augmentation stats from image
                   </ErrorText>
                 )}
+
+                <Button onClick={reset}>Reset</Button>
               </Stack>
             )}
           </>
@@ -130,10 +140,7 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
             filterOutUndefined(ocrTempGearState.tempGear?.augmentStats ?? []),
           );
         }}
-        onClose={() => {
-          ocrTempGearState.tempGear = undefined;
-          setImageUrl(undefined);
-        }}
+        onClose={reset}
         fullWidth
         maxWidth="md"
         aria-label="import-augmentation-stat"
