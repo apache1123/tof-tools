@@ -248,7 +248,7 @@ function Layout({
 }: {
   typeIcon: ReactNode;
   typeSelector: ReactNode;
-  valueInput: ReactNode;
+  valueInput?: ReactNode;
   augmentIncreaseValueInput?: ReactNode;
   totalValueInput?: ReactNode;
   rolledIcon?: ReactNode;
@@ -272,11 +272,21 @@ function Layout({
             {typeSelector}
           </Stack>
         </Grid>
-        <Grid xs={inputWidth}>{valueInput}</Grid>
+        {valueInput && <Grid xs={inputWidth}>{valueInput}</Grid>}
         {augmentIncreaseValueInput && (
           <Grid xs={inputWidth}>{augmentIncreaseValueInput}</Grid>
         )}
-        {totalValueInput && <Grid xs={inputWidth}>{totalValueInput}</Grid>}
+        {totalValueInput && (
+          <Grid
+            xs={
+              valueInput || augmentIncreaseValueInput
+                ? inputWidth
+                : inputWidth * 2
+            }
+          >
+            {totalValueInput}
+          </Grid>
+        )}
         <Box sx={{ width: 24, alignSelf: "center" }}>{rolledIcon}</Box>
       </Grid>
     </Box>

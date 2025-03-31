@@ -22,7 +22,9 @@ import { EditGearRarity } from "./EditGearRarity";
 import { EditGearTitanStats } from "./EditGearTitanStats";
 import { GearRollBreakdown } from "./GearRollBreakdown";
 import { MaxTitanGearPreview } from "./MaxTitanGearPreview";
+import { AugmentStatsOcr } from "./ocr/AugmentStatsOcr";
 import { RandomStatsOcr } from "./ocr/RandomStatsOcr";
+import { PossibleAugmentStats } from "./PossibleAugmentStats";
 
 export interface GearDetailsInlineProps extends PropsWithElevation {
   gearProxy: Gear;
@@ -36,6 +38,8 @@ export function GearDetailsInline({
 }: GearDetailsInlineProps) {
   const gear = useSnapshot(gearProxy) as Gear;
   const { type, rarity, isAugmented } = gear;
+
+  const allPossibleAugmentStats = gear.getPossibleAugmentStats(true);
 
   return (
     <Stack gap={3}>
@@ -88,7 +92,28 @@ export function GearDetailsInline({
         <EditGearRandomStats gearProxy={gearProxy} />
       </Box>
 
-      <EditGearAugmentStats gearProxy={gearProxy} />
+      <Stack sx={{ gap: 1 }}>
+        {isAugmented && (
+          <>
+            <Stack direction="row" sx={{ gap: 1 }}>
+              <SectionSubheading>Augmentation Stats</SectionSubheading>
+
+              <AugmentStatsOcr
+                gear={gear}
+                onConfirm={(augmentStats) => {
+                  augmentStats.forEach((augmentStat, i) => {
+                    gearProxy.setAugmentStat(i, augmentStat);
+                  });
+                }}
+              />
+            </Stack>
+
+            <EditGearAugmentStats gearProxy={gearProxy} />
+          </>
+        )}
+
+        <PossibleAugmentStats possibleAugmentStats={allPossibleAugmentStats} />
+      </Stack>
 
       <EditGearTitanStats gearProxy={gearProxy} />
 

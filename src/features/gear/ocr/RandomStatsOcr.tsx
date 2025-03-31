@@ -1,7 +1,6 @@
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import BigNumber from "bignumber.js";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -16,16 +15,11 @@ import { Gear } from "../../../models/gear/gear";
 import type { GearRarity } from "../../../models/gear/gear-rarity";
 import type { GearType } from "../../../models/gear/gear-type";
 import { RandomStat } from "../../../models/gear/random-stat";
-import type { StatType } from "../../../models/gear/stat-type";
 import { ocrTempGearState } from "../../../states/gear/ocr-temp-gear-state";
 import { ocrState } from "../../../states/ocr/ocr-state";
 import { filterOutUndefined } from "../../../utils/array-utils";
-import {
-  indexOfIgnoringCase,
-  splitIntoLines,
-  splitIntoWords,
-} from "../../../utils/string-utils";
 import { EditGearRandomStats } from "../EditGearRandomStats";
+import { getStatsFromOcr } from "./get-stats-from-ocr";
 
 export interface RandomStatsOcrProps {
   gearTypeId: GearTypeId;
@@ -157,77 +151,27 @@ function getRandomStatsFromOcr(
   gearType: GearType,
   isAugmented: boolean,
 ): RandomStat[] {
-  const lines = splitIntoLines(text);
+  const numberOfStats = gearType.numberOfRandomStats;
+  const possibleStatTypes = gearType.possibleRandomStatTypeIds.map((id) =>
+    getStatType(id),
+  );
+  const ocrStatResults = getStatsFromOcr(
+    text,
+    numberOfStats,
+    possibleStatTypes,
+  );
 
-  const result: RandomStat[] = [];
-  const numOfRandomStatsToFind = gearType.numberOfRandomStats;
+  return ocrStatResults.map(({ statType, value }) => {
+    const randomStat = new RandomStat(statType);
 
-  // Possible random stat types to match from, according to the gear type.
-  // Sort by inGameName length to aid OCR
-  // e.g. 'Altered Attack' should be matched after 'Attack' to overwrite the 'Attack' match
-  const randomStatTypes: StatType[] = gearType.possibleRandomStatTypeIds
-    .map((id) => getStatType(id))
-    .sort((a, b) => a.inGameName.length - b.inGameName.length);
-
-  lines.forEach((line) => {
-    // Read up to the max number of random stats of the gear type, if available.
-    if (numOfRandomStatsToFind > result.length) {
-      let matchedRandomStat: RandomStat | undefined;
-
-      // Try to match ALL the random stat types since we can match 'Attack' then match 'Altered Attack' for example
-      // The last match should be the correct one
-      for (const randomStatType of randomStatTypes) {
-        const indexOfRandomStatName = indexOfIgnoringCase(
-          line,
-          randomStatType.inGameName,
-        );
-
-        if (indexOfRandomStatName === -1) continue;
-
-        // Matched random stat name, assume the word after the name is the value and try to match it
-        const stringAfterRandomStatName = line.slice(
-          indexOfRandomStatName + randomStatType.inGameName.length,
-        );
-        const firstWordAfterRandomStatName = splitIntoWords(
-          stringAfterRandomStatName,
-        )[0];
-
-        if (!firstWordAfterRandomStatName) continue;
-
-        const hasPercentage = firstWordAfterRandomStatName.includes("%");
-
-        // e.g. 'Physical Resistance +7.87%' has to be matched to 'Physical Resistance %', not 'Physical Resistance'
-        if (hasPercentage !== randomStatType.isPercentageBased) continue;
-
-        // Percentage values are in the format '+7.8%' (string)
-        // Non-percentage values are in the format '+4,125'
-        // Assume the in-game locale is always ',' thousand separator and '.' decimal separator
-        const value = hasPercentage
-          ? BigNumber(
-              firstWordAfterRandomStatName.replace("%", "").replace(",", ""),
-            )
-              .dividedBy(100)
-              .toNumber()
-          : +firstWordAfterRandomStatName.replace(",", "");
-
-        if (Number.isNaN(value)) continue;
-
-        matchedRandomStat = new RandomStat(randomStatType);
-
-        if (isAugmented) {
-          matchedRandomStat.setTotalValueAndAdjustAugmentIncreaseValue(value);
-        } else {
-          matchedRandomStat.setValueAndAdjustTotalValue(value);
-        }
-      }
-
-      if (matchedRandomStat) {
-        result.push(matchedRandomStat);
-      }
+    if (isAugmented) {
+      randomStat.setTotalValueAndAdjustAugmentIncreaseValue(value);
+    } else {
+      randomStat.setValueAndAdjustTotalValue(value);
     }
-  });
 
-  return result;
+    return randomStat;
+  });
 }
 
 function Instructions({ isAugmented }: { isAugmented: boolean }) {
