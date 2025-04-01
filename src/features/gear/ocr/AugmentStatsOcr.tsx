@@ -1,5 +1,5 @@
 import InfoIcon from "@mui/icons-material/Info";
-import { Box, Divider, Stack, Tooltip, Typography } from "@mui/material";
+import { Box, Divider, Tooltip, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -105,7 +105,13 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
             </Grid>
 
             {imageUrl && (
-              <Stack sx={{ gap: 2, alignItems: "center" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <Image
                   src={imageUrl}
                   width={245}
@@ -113,17 +119,23 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
                   alt="uploaded-image-preview"
                 />
 
-                {tempGear && ocrTempGearState.tempGear ? (
-                  <EditGearAugmentStats gearProxy={ocrTempGearState.tempGear} />
-                ) : (
-                  // No temp gear created = unable to OCR stats
-                  <ErrorText>
-                    Unable to read augmentation stats from image
-                  </ErrorText>
-                )}
+                <Box sx={{ mt: 4 }}>
+                  {tempGear && ocrTempGearState.tempGear ? (
+                    <EditGearAugmentStats
+                      gearProxy={ocrTempGearState.tempGear}
+                    />
+                  ) : (
+                    // No temp gear created = unable to OCR stats
+                    <ErrorText>
+                      Unable to read augmentation stats from image
+                    </ErrorText>
+                  )}
+                </Box>
 
-                <Button onClick={reset}>Reset</Button>
-              </Stack>
+                <Button onClick={reset} sx={{ mt: 2 }}>
+                  Reset
+                </Button>
+              </Box>
             )}
           </>
         }

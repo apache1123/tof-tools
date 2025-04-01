@@ -47,7 +47,7 @@ describe("Gear set", () => {
     critRatePercent.setValueAndAdjustTotalValue(0.2);
 
     const hpFlat = new RandomStat(statTypesLookup.byId["HP"]);
-    hpFlat.setValueAndAdjustTotalValue(2300);
+    hpFlat.setValueAndAdjustTotalValue(5000);
 
     const hpPercent1 = new RandomStat(statTypesLookup.byId["HP %"]);
     hpPercent1.setValueAndAdjustTotalValue(0.21);
@@ -140,7 +140,7 @@ describe("Gear set", () => {
     });
 
     it("can return total hp flat value", () => {
-      expect(sut.getTotalHpFlat()).toBe(2300);
+      expect(sut.getTotalHpFlat()).toBe(5000);
     });
 
     it("can return total hp % value", () => {

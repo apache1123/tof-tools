@@ -25,7 +25,7 @@ export function EditGearAugmentStats({ gearProxy }: EditGearAugmentStatsProps) {
     : [];
 
   return (
-    <Stack sx={{ gap: 2 }}>
+    <Stack sx={{ gap: 0.5, mb: -2 }}>
       {[...Array(maxNumOfAugmentStats)].map((_, i) => {
         const augmentStatProxy = gearProxy.getAugmentStat(i);
         const augmentStat = gear.getAugmentStat(i);

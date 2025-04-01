@@ -64,19 +64,16 @@ export function GearDetailsInline({
       </Paper>
 
       <Box>
-        <Stack direction="row" sx={{ gap: 1 }}>
-          <Stack direction="row" sx={{ gap: 0.5, alignItems: "baseline" }}>
-            <SectionSubheading>Random Stats</SectionSubheading>
-            {isAugmented && (
-              <Typography
-                variant="subtitle1"
-                sx={{ color: (theme) => theme.palette.titan.main }}
-              >
-                (Augmented)
-              </Typography>
-            )}
-          </Stack>
-
+        <Stack direction="row" sx={{ mb: 0.5, gap: 1 }}>
+          <SectionSubheading>Random Stats</SectionSubheading>
+          {isAugmented && (
+            <Typography
+              variant="h6"
+              sx={{ color: (theme) => theme.palette.titan.main }}
+            >
+              (Augmented)
+            </Typography>
+          )}
           <RandomStatsOcr
             gearTypeId={type.id}
             rarity={rarity}

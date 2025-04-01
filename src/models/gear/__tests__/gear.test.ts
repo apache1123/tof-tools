@@ -118,14 +118,14 @@ describe("Gear", () => {
 
     it("can return total hp flat value", () => {
       const hpFlat = new RandomStat(statTypesLookup.byId["HP"]);
-      hpFlat.setValueAndAdjustTotalValue(2000);
+      hpFlat.setValueAndAdjustTotalValue(5000);
       sut.setRandomStat(0, hpFlat);
 
       const hpPercent = new RandomStat(statTypesLookup.byId["HP %"]);
       hpPercent.setValueAndAdjustTotalValue(0.2);
       sut.setRandomStat(1, hpPercent);
 
-      expect(sut.getTotalHpFlat()).toBe(2000);
+      expect(sut.getTotalHpFlat()).toBe(5000);
     });
 
     it("can return total hp % value", () => {
@@ -144,7 +144,7 @@ describe("Gear", () => {
       const flameResistanceFlat = new RandomStat(
         statTypesLookup.byId["Flame Resistance"],
       );
-      flameResistanceFlat.setValueAndAdjustTotalValue(200);
+      flameResistanceFlat.setValueAndAdjustTotalValue(300);
       sut.setRandomStat(0, flameResistanceFlat);
 
       const flameResistancePercent = new RandomStat(
@@ -156,15 +156,15 @@ describe("Gear", () => {
       const alteredResistanceFlat = new RandomStat(
         statTypesLookup.byId["Altered Resistance"],
       );
-      alteredResistanceFlat.setValueAndAdjustTotalValue(100);
+      alteredResistanceFlat.setValueAndAdjustTotalValue(400);
       sut.setRandomStat(2, alteredResistanceFlat);
 
       const resistanceFlat = new RandomStat(statTypesLookup.byId["Resistance"]);
-      resistanceFlat.setValueAndAdjustTotalValue(50);
+      resistanceFlat.setValueAndAdjustTotalValue(75);
       sut.setRandomStat(3, resistanceFlat);
 
-      expect(sut.getTotalResistanceFlat("Flame")).toBe(250);
-      expect(sut.getTotalResistanceFlat("Altered")).toBe(150);
+      expect(sut.getTotalResistanceFlat("Flame")).toBe(375);
+      expect(sut.getTotalResistanceFlat("Altered")).toBe(475);
     });
 
     it("can return total elemental resistance % value", () => {

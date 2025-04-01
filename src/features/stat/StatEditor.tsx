@@ -39,9 +39,8 @@ export const StatEditor = ({
   showTotalValueOnly,
   initialFixedTotalValue,
 }: StatEditorProps) => {
-  const { type, value, augmentIncreaseValue, totalValue } = useSnapshot(
-    statProxy,
-  ) as RandomStat;
+  const { type, value, augmentIncreaseValue, totalValue, minValue } =
+    useSnapshot(statProxy) as RandomStat;
 
   const [editedInputs, setEditedInputs] = useState<InputField[]>(
     initialFixedTotalValue ? ["total"] : [],
@@ -89,6 +88,7 @@ export const StatEditor = ({
 
               recordLastEditedInput("value");
             }}
+            min={minValue}
             label={isAugmented ? "Base" : undefined}
             aria-label="stat-value-input"
           />
@@ -109,6 +109,7 @@ export const StatEditor = ({
 
               recordLastEditedInput("augmentIncrease");
             }}
+            min={0}
             label={<Typography color="titan.main">Increase</Typography>}
             aria-label="stat-augment-increase-value-input"
           />
@@ -128,6 +129,7 @@ export const StatEditor = ({
 
               recordLastEditedInput("total");
             }}
+            min={minValue}
             label={<Typography color="titan.main">Total</Typography>}
             aria-label="stat-total-value-input"
           />
@@ -206,35 +208,18 @@ export const EmptyStatEditor = ({
 
 function StatInput({
   isPercentageBased,
-  value,
-  onChangeCommitted,
-  disabled,
-  label,
   ["aria-label"]: ariaLabel,
+  ...rest
 }: {
   isPercentageBased: boolean;
 } & Pick<
   NumericInputProps,
-  "value" | "onChangeCommitted" | "disabled" | "label" | "aria-label"
+  "value" | "onChangeCommitted" | "min" | "disabled" | "label" | "aria-label"
 >) {
   return isPercentageBased ? (
-    <PercentageNumericInput
-      value={value}
-      onChangeCommitted={onChangeCommitted}
-      disabled={disabled}
-      label={label}
-      size="small"
-      aria-label={ariaLabel}
-    />
+    <PercentageNumericInput size="small" aria-label={ariaLabel} {...rest} />
   ) : (
-    <NumericInput
-      value={value}
-      onChangeCommitted={onChangeCommitted}
-      disabled={disabled}
-      label={label}
-      size="small"
-      aria-label={ariaLabel}
-    />
+    <NumericInput size="small" aria-label={ariaLabel} {...rest} />
   );
 }
 
@@ -262,7 +247,7 @@ function Layout({
         container
         spacing={1}
         justifyContent="space-between"
-        alignItems="end"
+        alignItems="start"
       >
         <Grid xs>
           <Stack direction="row" spacing={1} alignItems="center">
@@ -287,7 +272,7 @@ function Layout({
             {totalValueInput}
           </Grid>
         )}
-        <Box sx={{ width: 24, alignSelf: "center" }}>{rolledIcon}</Box>
+        <Box sx={{ width: 24, mt: 1.5 }}>{rolledIcon}</Box>
       </Grid>
     </Box>
   );

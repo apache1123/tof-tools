@@ -123,7 +123,7 @@ export const NumericInput = ({
       variant={variant}
       fullWidth={fullWidth}
       error={hasError}
-      helperText={hasError && `Minimum is ${min}`}
+      helperText={hasError ? `Minimum is ${min}` : " "} // Passing a space to keep layout consistent: https://v5.mui.com/material-ui/react-text-field/#helper-text
       {...rest}
     />
   );

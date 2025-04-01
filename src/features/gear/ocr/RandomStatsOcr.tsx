@@ -117,7 +117,13 @@ export function RandomStatsOcr({
           </Grid>
 
           {imageUrl && (
-            <Stack sx={{ gap: 2, alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <Image
                 src={imageUrl}
                 width={275}
@@ -125,18 +131,22 @@ export function RandomStatsOcr({
                 alt="uploaded-image-preview"
               />
 
-              {tempGear && ocrTempGearState.tempGear ? (
-                <EditGearRandomStats
-                  gearProxy={ocrTempGearState.tempGear}
-                  initialFixedTotalValue
-                />
-              ) : (
-                // No temp gear created = unable to OCR stats
-                <ErrorText>Unable to read random stats from image</ErrorText>
-              )}
+              <Box sx={{ mt: 4 }}>
+                {tempGear && ocrTempGearState.tempGear ? (
+                  <EditGearRandomStats
+                    gearProxy={ocrTempGearState.tempGear}
+                    initialFixedTotalValue
+                  />
+                ) : (
+                  // No temp gear created = unable to OCR stats
+                  <ErrorText>Unable to read random stats from image</ErrorText>
+                )}
+              </Box>
 
-              <Button onClick={reset}>Reset</Button>
-            </Stack>
+              <Button onClick={reset} sx={{ mt: 2 }}>
+                Reset
+              </Button>
+            </Box>
           )}
         </>
       }

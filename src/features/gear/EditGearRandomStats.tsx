@@ -24,7 +24,7 @@ export function EditGearRandomStats({
   const highestRolledStat = gear.getHighestRolledRandomStat();
 
   return (
-    <Stack gap={2}>
+    <Stack sx={{ gap: 0.5, mb: -2 }}>
       {[...Array(maxNumOfRandomStats)].map((_, i) => {
         const randomStatProxy = gearProxy.getRandomStat(i);
         const randomStat = gear.getRandomStat(i);

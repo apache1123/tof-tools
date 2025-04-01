@@ -42,6 +42,11 @@ export class RandomStat {
     return BigNumber(this._value).plus(this._augmentIncreaseValue).toNumber();
   }
 
+  /** The minimum value for the `value` (base value) */
+  public get minValue(): number {
+    return this._type.randomStatDefaultValue;
+  }
+
   public static copy(from: RandomStat, to: RandomStat) {
     to.type = from.type;
     to._value = from._value;
@@ -56,7 +61,9 @@ export class RandomStat {
    * => 6 + 5 = 11
    * */
   public setValueAndAdjustTotalValue(number: number): void {
-    this._value = number;
+    if (number >= this.minValue) {
+      this._value = number;
+    }
   }
 
   /** Sets the value whilst keeping the total value the same (adjusts the augmentIncreaseValue). If the total value cannot be kept the same (if the value being set is greater than the total value), it will fall back to the default behaviour of adjusting the total value.
@@ -68,6 +75,8 @@ export class RandomStat {
    * => 10 + 1 = 11 // fallback
    * */
   public setValueAndKeepTotalValue(number: number): void {
+    if (number < this.minValue) return;
+
     if (number <= this.totalValue) {
       const total = this.totalValue;
       this._value = number;
@@ -87,7 +96,9 @@ export class RandomStat {
    * => 2 + 10 = 12
    * */
   public setAugmentIncreaseValueAndAdjustTotalValue(number: number): void {
-    this._augmentIncreaseValue = number;
+    if (number >= 0) {
+      this._augmentIncreaseValue = number;
+    }
   }
 
   /** Sets the augment increase value whilst keeping the total value the same (adjusts the value). If the total value cannot be kept the same (if the augment increase value being set is greater than the total value), it will fall back to the default behaviour of adjusting the total value.
@@ -99,6 +110,8 @@ export class RandomStat {
    * => 1 + 10 = 11 // fallback
    * */
   public setAugmentIncreaseValueAndKeepTotalValue(number: number): void {
+    if (number < 0) return;
+
     if (number <= this.totalValue) {
       const total = this.totalValue;
       this._augmentIncreaseValue = number;
@@ -119,7 +132,7 @@ export class RandomStat {
    * => 2 + 10 = 1 // This will do nothing. Total value is still 12
    * */
   public setTotalValueAndAdjustAugmentIncreaseValue(number: number): void {
-    if (number >= this._value) {
+    if (number >= this.minValue && number >= this._value) {
       this._augmentIncreaseValue = BigNumber(number)
         .minus(this._value)
         .toNumber();
@@ -135,7 +148,7 @@ export class RandomStat {
    * => 7 + 5 = 1 // This will do nothing. Total value is still 12
    * */
   public setTotalValueAndAdjustValue(number: number): void {
-    if (number >= this._augmentIncreaseValue) {
+    if (number >= this.minValue && number >= this._augmentIncreaseValue) {
       this._value = BigNumber(number)
         .minus(this.augmentIncreaseValue)
         .toNumber();
