@@ -23,6 +23,7 @@ export interface NumericInputProps {
   id?: string;
   variant?: TextFieldVariants;
   size?: TextFieldProps["size"];
+  min?: number;
   allowNegative?: boolean;
   decimalScale?: number;
   prefix?: string;
@@ -43,6 +44,7 @@ export const NumericInput = ({
   onChangeCommitted,
   debounce = true,
   onBlur,
+  min,
   variant = "outlined",
   allowNegative = false,
   decimalScale = 3,
@@ -75,9 +77,26 @@ export const NumericInput = ({
 
   const handleCommitChange = () => {
     if (onChangeCommitted && uncommittedValue !== value) {
+      if (min !== undefined && (uncommittedValue ?? 0) < min) {
+        // Reject the change if the changed value is less than the minimum, and revert it back to previous value.
+        // If the previous value is lower than the minimum, then commit the minimum instead.
+        if ((value ?? 0) >= min) {
+          setUncommittedValue(value);
+        } else {
+          setUncommittedValue(min);
+          onChangeCommitted(min);
+        }
+
+        return;
+      }
+
       onChangeCommitted(uncommittedValue ?? 0);
     }
   };
+
+  const hasError =
+    min !== undefined &&
+    (uncommittedValue === undefined || uncommittedValue < min);
 
   return (
     <NumericFormat
@@ -103,6 +122,8 @@ export const NumericInput = ({
       }}
       variant={variant}
       fullWidth={fullWidth}
+      error={hasError}
+      helperText={hasError && `Minimum is ${min}`}
       {...rest}
     />
   );

@@ -22,6 +22,13 @@ export const Disabled: Story = {
   },
 };
 
+export const Minimum: Story = {
+  args: {
+    value: 1,
+    min: 10,
+  },
+};
+
 export const OnChangeNotDebounced: Story = {
   args: {
     debounce: false,
