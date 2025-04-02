@@ -3,11 +3,13 @@ import type {
   TextFieldVariants,
 } from "@mui/material/TextField";
 import TextField from "@mui/material/TextField";
+import BigNumber from "bignumber.js";
 import type { KeyboardEvent, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 
 import { getNumberSeparators } from "../../../utils/locale-utils";
+import { toPercentageString2dp } from "../../../utils/number-utils";
 
 export interface NumericInputProps {
   value?: number;
@@ -19,6 +21,8 @@ export interface NumericInputProps {
   id?: string;
   variant?: TextFieldVariants;
   size?: TextFieldProps["size"];
+  /** Show & input number as a % */
+  percentageMode?: boolean;
   min?: number;
   allowNegative?: boolean;
   decimalScale?: number;
@@ -38,6 +42,7 @@ export const NumericInput = ({
   value,
   onChangeCommitted,
   onBlur,
+  percentageMode = false,
   min,
   variant = "outlined",
   allowNegative = false,
@@ -80,9 +85,19 @@ export const NumericInput = ({
 
   return (
     <NumericFormat
-      value={uncommittedValue}
+      value={
+        percentageMode
+          ? uncommittedValue !== undefined
+            ? BigNumber(uncommittedValue).multipliedBy(100).toNumber()
+            : undefined
+          : uncommittedValue
+      }
       onValueChange={(values) => {
-        const value = values.floatValue;
+        const value = percentageMode
+          ? values.floatValue !== undefined
+            ? BigNumber(values.floatValue).dividedBy(100).toNumber()
+            : undefined
+          : values.floatValue;
         setUncommittedValue(value);
       }}
       thousandSeparator={groupSeparator}
@@ -90,6 +105,7 @@ export const NumericInput = ({
       allowedDecimalSeparators={[decimalSeparator]}
       allowNegative={allowNegative}
       decimalScale={decimalScale}
+      suffix={percentageMode ? "%" : undefined}
       customInput={TextField}
       inputProps={{ inputMode: "decimal" }}
       onBlur={() => {
@@ -102,7 +118,11 @@ export const NumericInput = ({
       variant={variant}
       fullWidth={fullWidth}
       error={hasError}
-      helperText={hasError ? `Minimum is ${min}` : " "} // Passing a space to keep layout consistent: https://v5.mui.com/material-ui/react-text-field/#helper-text
+      helperText={
+        hasError
+          ? `Minimum is ${percentageMode ? toPercentageString2dp(min) : min}`
+          : " "
+      } // Passing a space to keep layout consistent: https://v5.mui.com/material-ui/react-text-field/#helper-text
       {...rest}
     />
   );

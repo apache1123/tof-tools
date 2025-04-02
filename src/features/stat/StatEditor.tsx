@@ -8,7 +8,6 @@ import { useSnapshot } from "valtio";
 
 import type { NumericInputProps } from "../../components/common/NumericInput/NumericInput";
 import { NumericInput } from "../../components/common/NumericInput/NumericInput";
-import { PercentageNumericInput } from "../../components/common/NumericInput/PercentageNumericInput";
 import { StatTypeIcon } from "../../components/stat/StatTypeIcon/StatTypeIcon";
 import { StatTypeSelector } from "../../components/stat/StatTypeSelector/StatTypeSelector";
 import type { AugmentStat } from "../../models/gear/augment-stat";
@@ -216,10 +215,13 @@ function StatInput({
   NumericInputProps,
   "value" | "onChangeCommitted" | "min" | "disabled" | "label" | "aria-label"
 >) {
-  return isPercentageBased ? (
-    <PercentageNumericInput size="small" aria-label={ariaLabel} {...rest} />
-  ) : (
-    <NumericInput size="small" aria-label={ariaLabel} {...rest} />
+  return (
+    <NumericInput
+      percentageMode={isPercentageBased}
+      size="small"
+      aria-label={ariaLabel}
+      {...rest}
+    />
   );
 }
 

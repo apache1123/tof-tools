@@ -28,3 +28,18 @@ export const Minimum: Story = {
     min: 10,
   },
 };
+
+export const PercentageMode: Story = {
+  args: {
+    value: 0.0692,
+    percentageMode: true,
+  },
+};
+
+export const PercentageModeMinimum: Story = {
+  args: {
+    value: 0.0692,
+    percentageMode: true,
+    min: 0.1,
+  },
+};
