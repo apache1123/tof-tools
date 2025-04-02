@@ -16,7 +16,7 @@ export function CritRateFlatInput({ value, onChange }: CritRateFlatInputProps) {
       required
       error={!value}
       value={value}
-      onChange={onChange}
+      onChangeCommitted={onChange}
       helperText={
         <Tooltip
           title={

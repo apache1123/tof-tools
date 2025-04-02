@@ -7,12 +7,13 @@ export type PercentageNumericInputProps = NumericInputProps;
 
 export const PercentageNumericInput = ({
   value,
-  onChange,
+  onChangeCommitted,
   ...others
 }: PercentageNumericInputProps) => {
   const handleChange = (value: number) => {
-    if (onChange) onChange(BigNumber(value).dividedBy(100).toNumber());
+    onChangeCommitted?.(BigNumber(value).dividedBy(100).toNumber());
   };
+
   return (
     <NumericInput
       {...others}
@@ -22,7 +23,7 @@ export const PercentageNumericInput = ({
           ? BigNumber(value).multipliedBy(100).toNumber()
           : undefined
       }
-      onChange={handleChange}
+      onChangeCommitted={handleChange}
       suffix="%"
     />
   );

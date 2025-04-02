@@ -3,19 +3,15 @@ import type {
   TextFieldVariants,
 } from "@mui/material/TextField";
 import TextField from "@mui/material/TextField";
-import debounceFn from "lodash.debounce";
 import type { KeyboardEvent, ReactNode } from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 
 import { getNumberSeparators } from "../../../utils/locale-utils";
 
 export interface NumericInputProps {
   value?: number;
-  onChange?: (value: number) => unknown;
   onChangeCommitted?: (value: number) => unknown;
-  /** onChange debounce */
-  debounce?: boolean;
   onBlur?: () => unknown;
 
   label?: ReactNode;
@@ -40,9 +36,7 @@ const { decimalSeparator, groupSeparator } = getNumberSeparators();
 
 export const NumericInput = ({
   value,
-  onChange,
   onChangeCommitted,
-  debounce = true,
   onBlur,
   min,
   variant = "outlined",
@@ -60,20 +54,6 @@ export const NumericInput = ({
   useEffect(() => {
     setUncommittedValue(value);
   }, [value]);
-
-  const handleChange = useCallback(
-    (value: number | undefined) => {
-      if (onChange) {
-        onChange(value ?? 0);
-      }
-    },
-    [onChange],
-  );
-
-  const debouncedHandleChange = useMemo(
-    () => (debounce ? debounceFn(handleChange, 300) : handleChange),
-    [debounce, handleChange],
-  );
 
   const handleCommitChange = () => {
     if (onChangeCommitted && uncommittedValue !== value) {
@@ -104,7 +84,6 @@ export const NumericInput = ({
       onValueChange={(values) => {
         const value = values.floatValue;
         setUncommittedValue(value);
-        debouncedHandleChange(value);
       }}
       thousandSeparator={groupSeparator}
       decimalSeparator={decimalSeparator}

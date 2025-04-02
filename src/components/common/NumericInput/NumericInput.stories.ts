@@ -28,9 +28,3 @@ export const Minimum: Story = {
     min: 10,
   },
 };
-
-export const OnChangeNotDebounced: Story = {
-  args: {
-    debounce: false,
-  },
-};
