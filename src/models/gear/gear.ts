@@ -641,7 +641,8 @@ export class Gear {
                 randomStatAndType.statType.elementalType !== "All",
             )
             .sort(
-              (a, b) => (b.randomStat?.value ?? 0) - (a.randomStat?.value ?? 0),
+              (a, b) =>
+                (b.randomStat?.baseValue ?? 0) - (a.randomStat?.baseValue ?? 0),
             )
             .forEach((randomStatAndType, i) => {
               if (randomStatAndType.randomStat) {
@@ -668,7 +669,7 @@ export class Gear {
 
                   const { randomStat } = randomStatAndType;
                   randomStat.setAugmentIncreaseValue(
-                    pullUptoValue.minus(randomStat.value).toNumber(),
+                    pullUptoValue.minus(randomStat.baseValue).toNumber(),
                   );
                 }
               }
@@ -695,7 +696,7 @@ export class Gear {
             augmentStatsPullUpFactor1,
           );
           augmentStat.setAugmentIncreaseValue(
-            pullUptoValue.minus(augmentStat.value).toNumber(),
+            pullUptoValue.minus(augmentStat.baseValue).toNumber(),
           );
         }
       });

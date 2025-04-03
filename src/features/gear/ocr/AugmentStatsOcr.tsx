@@ -90,7 +90,7 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
                     Gear.copy(gear, tempGear);
                     ocrStatResults.forEach(({ statType, value }, i) => {
                       const augmentStat = new AugmentStat(statType);
-                      augmentStat.setTotalValueTryKeepValue(value);
+                      augmentStat.setTotalValueTryKeepBaseValue(value);
 
                       tempGear.setAugmentStat(i, augmentStat);
                     });

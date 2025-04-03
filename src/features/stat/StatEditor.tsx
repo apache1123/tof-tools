@@ -25,7 +25,7 @@ export interface StatEditorProps {
   initialFixedTotalValue?: boolean;
 }
 
-type InputField = "value" | "augmentIncrease" | "total";
+type InputField = "base" | "augmentIncrease" | "total";
 
 /** The stat editor is made up of a stat type selector and three value input fields - the value, the augment increase and the total value (value + augment increase = total value).
  * It adjusts the three values based on what the user has inputted, by assuming whatever field the user has inputted into should remain "fixed". E.g. If user inputs value, then inputs augment value => adjust total value. On the other hand, if user inputs value, then inputs total value => adjust augment value. */
@@ -38,7 +38,7 @@ export const StatEditor = ({
   showTotalValueOnly,
   initialFixedTotalValue,
 }: StatEditorProps) => {
-  const { type, value, augmentIncreaseValue, totalValue, minValue } =
+  const { type, baseValue, augmentIncreaseValue, totalValue, minValue } =
     useSnapshot(statProxy) as RandomStat;
 
   const [editedInputs, setEditedInputs] = useState<InputField[]>(
@@ -73,19 +73,19 @@ export const StatEditor = ({
           }}
         />
       }
-      valueInput={
+      baseValueInput={
         !showTotalValueOnly && (
           <StatInput
             isPercentageBased={type.isPercentageBased}
-            value={value}
+            value={baseValue}
             onChangeCommitted={(value) => {
-              if (getLastEditedInput("value") === "total") {
-                statProxy.setValueTryKeepTotalValue(value);
+              if (getLastEditedInput("base") === "total") {
+                statProxy.setBaseValueTryKeepTotalValue(value);
               } else {
-                statProxy.setValue(value);
+                statProxy.setBaseValue(value);
               }
 
-              recordLastEditedInput("value");
+              recordLastEditedInput("base");
             }}
             min={minValue}
             label={isAugmented ? "Base" : undefined}
@@ -123,7 +123,7 @@ export const StatEditor = ({
               if (getLastEditedInput("total") === "augmentIncrease") {
                 statProxy.setTotalValueTryKeepAugmentIncreaseValue(value);
               } else {
-                statProxy.setTotalValueTryKeepValue(value);
+                statProxy.setTotalValueTryKeepBaseValue(value);
               }
 
               recordLastEditedInput("total");
@@ -173,7 +173,7 @@ export const EmptyStatEditor = ({
           onChange={onStatTypeChange}
         />
       }
-      valueInput={
+      baseValueInput={
         !showTotalValueOnly && (
           <StatInput
             isPercentageBased={false}
@@ -228,14 +228,14 @@ function StatInput({
 function Layout({
   typeIcon,
   typeSelector,
-  valueInput,
+  baseValueInput,
   augmentIncreaseValueInput,
   totalValueInput,
   rolledIcon,
 }: {
   typeIcon: ReactNode;
   typeSelector: ReactNode;
-  valueInput?: ReactNode;
+  baseValueInput?: ReactNode;
   augmentIncreaseValueInput?: ReactNode;
   totalValueInput?: ReactNode;
   rolledIcon?: ReactNode;
@@ -259,14 +259,14 @@ function Layout({
             {typeSelector}
           </Stack>
         </Grid>
-        {valueInput && <Grid xs={inputWidth}>{valueInput}</Grid>}
+        {baseValueInput && <Grid xs={inputWidth}>{baseValueInput}</Grid>}
         {augmentIncreaseValueInput && (
           <Grid xs={inputWidth}>{augmentIncreaseValueInput}</Grid>
         )}
         {totalValueInput && (
           <Grid
             xs={
-              valueInput || augmentIncreaseValueInput
+              baseValueInput || augmentIncreaseValueInput
                 ? inputWidth
                 : inputWidth * 2
             }

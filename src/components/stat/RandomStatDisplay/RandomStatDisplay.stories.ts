@@ -13,7 +13,7 @@ export default meta;
 type Story = StoryObj<typeof RandomStatDisplay>;
 
 const randomStat = new RandomStat(statTypesLookup.byId["Frost Attack"]);
-randomStat.setTotalValueTryKeepValue(2000);
+randomStat.setTotalValueTryKeepBaseValue(2000);
 export const Default: Story = {
   args: {
     randomStat,
@@ -23,7 +23,7 @@ export const Default: Story = {
 const percentageRandomStat = new RandomStat(
   statTypesLookup.byId["Frost Attack %"],
 );
-randomStat.setTotalValueTryKeepValue(0.03);
+randomStat.setTotalValueTryKeepBaseValue(0.03);
 export const Percentage: Story = {
   args: {
     randomStat: percentageRandomStat,
