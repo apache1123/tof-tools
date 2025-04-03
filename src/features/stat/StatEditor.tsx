@@ -80,9 +80,9 @@ export const StatEditor = ({
             value={value}
             onChangeCommitted={(value) => {
               if (getLastEditedInput("value") === "total") {
-                statProxy.setValueAndKeepTotalValue(value);
+                statProxy.setValueTryKeepTotalValue(value);
               } else {
-                statProxy.setValueAndAdjustTotalValue(value);
+                statProxy.setValue(value);
               }
 
               recordLastEditedInput("value");
@@ -101,9 +101,9 @@ export const StatEditor = ({
             value={augmentIncreaseValue}
             onChangeCommitted={(value) => {
               if (getLastEditedInput("augmentIncrease") === "total") {
-                statProxy.setAugmentIncreaseValueAndKeepTotalValue(value);
+                statProxy.setAugmentIncreaseValueTryKeepTotalValue(value);
               } else {
-                statProxy.setAugmentIncreaseValueAndAdjustTotalValue(value);
+                statProxy.setAugmentIncreaseValue(value);
               }
 
               recordLastEditedInput("augmentIncrease");
@@ -121,9 +121,9 @@ export const StatEditor = ({
             value={totalValue}
             onChangeCommitted={(value) => {
               if (getLastEditedInput("total") === "augmentIncrease") {
-                statProxy.setTotalValueAndAdjustValue(value);
+                statProxy.setTotalValueTryKeepAugmentIncreaseValue(value);
               } else {
-                statProxy.setTotalValueAndAdjustAugmentIncreaseValue(value);
+                statProxy.setTotalValueTryKeepValue(value);
               }
 
               recordLastEditedInput("total");

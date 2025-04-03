@@ -16,53 +16,53 @@ describe("Gear set", () => {
     const flameAttackFlat1 = new RandomStat(
       statTypesLookup.byId["Flame Attack"],
     );
-    flameAttackFlat1.setValueAndAdjustTotalValue(234);
+    flameAttackFlat1.setValue(234);
     const flameAttackFlat2 = new RandomStat(
       statTypesLookup.byId["Flame Attack"],
     );
-    flameAttackFlat2.setValueAndAdjustTotalValue(129);
+    flameAttackFlat2.setValue(129);
 
     const alteredAttackFlat = new RandomStat(
       statTypesLookup.byId["Altered Attack"],
     );
-    alteredAttackFlat.setValueAndAdjustTotalValue(497);
+    alteredAttackFlat.setValue(497);
 
     const attackFlat = new RandomStat(statTypesLookup.byId["Attack"]);
-    attackFlat.setValueAndAdjustTotalValue(399);
+    attackFlat.setValue(399);
 
     const flameAttackPercent = new RandomStat(
       statTypesLookup.byId["Flame Attack %"],
     );
-    flameAttackPercent.setValueAndAdjustTotalValue(0.5);
+    flameAttackPercent.setValue(0.5);
 
     const flameDamagePercent = new RandomStat(
       statTypesLookup.byId["Flame Damage %"],
     );
-    flameDamagePercent.setValueAndAdjustTotalValue(0.4);
+    flameDamagePercent.setValue(0.4);
 
     const critRateFlat = new RandomStat(statTypesLookup.byId["Crit"]);
-    critRateFlat.setValueAndAdjustTotalValue(2000);
+    critRateFlat.setValue(2000);
 
     const critRatePercent = new RandomStat(statTypesLookup.byId["Crit Rate %"]);
-    critRatePercent.setValueAndAdjustTotalValue(0.2);
+    critRatePercent.setValue(0.2);
 
     const hpFlat = new RandomStat(statTypesLookup.byId["HP"]);
-    hpFlat.setValueAndAdjustTotalValue(5000);
+    hpFlat.setValue(5000);
 
     const hpPercent1 = new RandomStat(statTypesLookup.byId["HP %"]);
-    hpPercent1.setValueAndAdjustTotalValue(0.21);
+    hpPercent1.setValue(0.21);
     const hpPercent2 = new RandomStat(statTypesLookup.byId["HP %"]);
-    hpPercent2.setValueAndAdjustTotalValue(0.22);
+    hpPercent2.setValue(0.22);
 
     const flameResistanceFlat = new RandomStat(
       statTypesLookup.byId["Flame Resistance"],
     );
-    flameResistanceFlat.setValueAndAdjustTotalValue(2090);
+    flameResistanceFlat.setValue(2090);
 
     const flameResistancePercent = new RandomStat(
       statTypesLookup.byId["Flame Resistance %"],
     );
-    flameResistancePercent.setValueAndAdjustTotalValue(0.4);
+    flameResistancePercent.setValue(0.4);
 
     const helmet = new Gear(getGearType("Helmet"), characterId);
     helmet.setRandomStat(0, flameAttackFlat1);

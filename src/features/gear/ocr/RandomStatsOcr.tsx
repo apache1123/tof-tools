@@ -186,9 +186,9 @@ function getRandomStatsFromOcr(
     const randomStat = new RandomStat(statType);
 
     if (isAugmented) {
-      randomStat.setTotalValueAndAdjustAugmentIncreaseValue(value);
+      randomStat.setTotalValueTryKeepValue(value);
     } else {
-      randomStat.setValueAndAdjustTotalValue(value);
+      randomStat.setValue(value);
     }
 
     return randomStat;

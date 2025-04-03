@@ -26,6 +26,7 @@ export class RandomStat {
     this.resetValueToDefault();
   }
 
+  /** This is the base (SSR) value of the stat. */
   public get value(): number {
     return this._value;
   }
@@ -60,13 +61,13 @@ export class RandomStat {
    * => 3 + 5 = 8
    * => 6 + 5 = 11
    * */
-  public setValueAndAdjustTotalValue(number: number): void {
+  public setValue(number: number): void {
     if (number >= this.minValue) {
       this._value = number;
     }
   }
 
-  /** Sets the value whilst keeping the total value the same (adjusts the augmentIncreaseValue). If the total value cannot be kept the same (if the value being set is greater than the total value), it will fall back to the default behaviour of adjusting the total value.
+  /** Sets the value whilst making the best effort to keep the total value the same (adjusts the augmentIncreaseValue). If the total value cannot be kept the same (if the value being set is greater than the total value), it will fall back to the default behaviour of adjusting the total value.
    * @example
    * => [value] + [augmentIncreaseValue] = [totalValue]
    * => 2 + 5 = 7
@@ -74,7 +75,7 @@ export class RandomStat {
    * => 6 + 1 = 7
    * => 10 + 1 = 11 // fallback
    * */
-  public setValueAndKeepTotalValue(number: number): void {
+  public setValueTryKeepTotalValue(number: number): void {
     if (number < this.minValue) return;
 
     if (number <= this.totalValue) {
@@ -84,74 +85,92 @@ export class RandomStat {
         .minus(this._value)
         .toNumber();
     } else {
-      this.setValueAndAdjustTotalValue(number);
+      this.setValue(number);
     }
   }
 
-  /** Sets the augment increase value and adjusts the total value (keeping the value the same). This should be the default behaviour in most use cases.
+  /** Sets the augment increase value and adjusts the total value (keeping the value the same). This should be the default behaviour in most use cases. Will do nothing if trying to set below 0.
    * @example
    * => [value] + [augmentIncreaseValue] = [totalValue]
    * => 2 + 5 = 7
    * => 2 + 6 = 8
    * => 2 + 10 = 12
    * */
-  public setAugmentIncreaseValueAndAdjustTotalValue(number: number): void {
+  public setAugmentIncreaseValue(number: number): void {
     if (number >= 0) {
       this._augmentIncreaseValue = number;
     }
   }
 
-  /** Sets the augment increase value whilst keeping the total value the same (adjusts the value). If the total value cannot be kept the same (if the augment increase value being set is greater than the total value), it will fall back to the default behaviour of adjusting the total value.
+  /** Sets the augment increase value whilst making the best effort to keep the total value the same (adjusts the value). If the total value cannot be kept the same (if the augment increase value being set is greater than the total value, or if the resulting (base) value will be less than the minimum allowed value), it will fall back to the default behaviour of adjusting the total value. Will do nothing if trying to set below 0.
    * @example
-   * => [value] + [augmentIncreaseValue] = [totalValue]
+   * => [value](min:2) + [augmentIncreaseValue] = [totalValue]
    * => 5 + 2 = 7
    * => 4 + 3 = 7
-   * => 1 + 6 = 7
-   * => 1 + 10 = 11 // fallback
+   * => 4 + 12 = 16 // Total cannot be kept the same as the value being set is higher than total. Fallback to adjusting the total
+   * => 4 + 15 = 19 // Total cannot be kept the same without the value dropping below the minimum allowed value. Fallback to adjusting the total
+   * => 4 + -1 = 19 // Will do nothing
    * */
-  public setAugmentIncreaseValueAndKeepTotalValue(number: number): void {
+  public setAugmentIncreaseValueTryKeepTotalValue(number: number): void {
     if (number < 0) return;
 
     if (number <= this.totalValue) {
       const total = this.totalValue;
-      this._augmentIncreaseValue = number;
-      this._value = BigNumber(total)
-        .minus(this._augmentIncreaseValue)
-        .toNumber();
+      const newBaseValue = BigNumber(total).minus(number).toNumber();
+
+      if (newBaseValue < this.minValue) {
+        this.setAugmentIncreaseValue(number);
+      } else {
+        this._augmentIncreaseValue = number;
+        this._value = newBaseValue;
+      }
     } else {
-      this.setAugmentIncreaseValueAndAdjustTotalValue(number);
+      this.setAugmentIncreaseValue(number);
     }
   }
 
-  /** Sets the total value and adjusts the augment increase value (keeping the value the same). This should be the default behaviour in most use cases. If the total value is less than the value, this will do nothing.
+  /** Sets the total value whilst making the best effort to keep the value the same (adjusts the augment increase value). This should be the default behaviour in most use cases. If the value cannot be kept the same (e.g. if in doing so will cause the resulting augment increase value to be less than 0), then the fallback behaviour is to set the augment increase value to 0 instead and adjust the value. Will do nothing if trying to set below the minimum value.
    * @example
-   * => [value] + [augmentIncreaseValue] = [totalValue]
-   * => 2 + 5 = 7
-   * => 2 + 6 = 8
-   * => 2 + 10 = 12
-   * => 2 + 10 = 1 // This will do nothing. Total value is still 12
+   * => [value](min:2) + [augmentIncreaseValue] = [totalValue]
+   * => 4 + 9 = 13
+   * => 4 + 6 = 10
+   * => 4 + 1 = 5
+   * => 3 + 0 = 3 // Value cannot be kept at 4 as augmentIncrease will then be -1. Fallback behaviour, adjust value instead, set augmentIncreaseValue to 0
+   * => 3 + 0 = 1 // Will do nothing. Below minimum value
    * */
-  public setTotalValueAndAdjustAugmentIncreaseValue(number: number): void {
-    if (number >= this.minValue && number >= this._value) {
-      this._augmentIncreaseValue = BigNumber(number)
-        .minus(this._value)
-        .toNumber();
+  public setTotalValueTryKeepValue(number: number): void {
+    if (number < this.minValue) return;
+
+    const newAugmentIncreaseValue = BigNumber(number)
+      .minus(this._value)
+      .toNumber();
+    if (newAugmentIncreaseValue >= 0) {
+      this._augmentIncreaseValue = newAugmentIncreaseValue;
+    } else {
+      this._augmentIncreaseValue = 0;
+      this._value = number;
     }
   }
 
-  /** Sets the total value and adjusts the value (keeping the augment increase value the same). If the total value is less than the augment value, this will do nothing.
+  /** Sets the total value whilst making the best effort to keep the augment increase value the same (adjusts the value). If the augment increase value cannot be kept the same (e.g. if in doing so the value will fall below the minimum value), fallback to trying to keep the value the same instead. Will do nothing if trying to set below the minimum value.
    * @example
-   * => [value] + [augmentIncreaseValue] = [totalValue]
-   * => 2 + 5 = 7
-   * => 3 + 5 = 8
-   * => 7 + 5 = 12
-   * => 7 + 5 = 1 // This will do nothing. Total value is still 12
+   * => [value](min:2) + [augmentIncreaseValue] = [totalValue]
+   * => 4 + 9 = 13
+   * => 5 + 9 = 14
+   * => 5 + 5 = 10 // augmentValue cannot be kept at 9 as value will fall below min. Fallback to try to keep the value the same instead
+   * => 4 + 0 = 4 // augmentValue cannot be kept at 5 as value will fall below min. Fallback to try to keep the value the same instead. In this case, that cannot be done also, which then has a fallback behaviour of adjusting the value if it also cannot be kept.
+   * => 2 + 1 = 1 // Will do nothing
    * */
-  public setTotalValueAndAdjustValue(number: number): void {
-    if (number >= this.minValue && number >= this._augmentIncreaseValue) {
-      this._value = BigNumber(number)
-        .minus(this.augmentIncreaseValue)
-        .toNumber();
+  public setTotalValueTryKeepAugmentIncreaseValue(number: number): void {
+    if (number < this.minValue) return;
+
+    const newValue = BigNumber(number)
+      .minus(this.augmentIncreaseValue)
+      .toNumber();
+    if (newValue >= this.minValue) {
+      this._value = newValue;
+    } else {
+      this.setTotalValueTryKeepValue(number);
     }
   }
 
