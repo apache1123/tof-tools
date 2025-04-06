@@ -355,4 +355,44 @@ export const changelog: Changelog = [
     description:
       "You can now see the damage increase of each gear in a preset. This can help you see which gear has the lowest value, to decide which gear to focus on. Note this is shown only in the Preset, and not the Gear preset",
   },
+  {
+    semver: "4.7.0",
+    date: new Date(Date.UTC(2025, 3, 7)),
+    title: "Added import augmentation stats",
+    description: (
+      <ul>
+        <li>Import random stats and augmentation stats separately</li>
+        <li>
+          <>
+            <Typography gutterBottom>Import random stats:</Typography>
+            <Image
+              src="/ocr/random_stats_example_1.png"
+              width={180}
+              height={120}
+              alt="Random stats example 1"
+            />
+          </>
+        </li>
+        <li>
+          <>
+            <Typography gutterBottom>Import augmentation stats:</Typography>
+            <Stack direction="row" sx={{ gap: 1, alignItems: "start" }}>
+              <Image
+                src="/ocr/augmentation_stats_example_gear_card.png"
+                width={160}
+                height={60}
+                alt="Augmentation stats example"
+              />
+              <Image
+                src="/ocr/augmentation_stats_example_augment_screen.png"
+                width={140}
+                height={100}
+                alt="Augmentation stats example"
+              />
+            </Stack>
+          </>
+        </li>
+      </ul>
+    ),
+  },
 ];

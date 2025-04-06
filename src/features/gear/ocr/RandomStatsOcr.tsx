@@ -66,11 +66,10 @@ export function RandomStatsOcr({
               sx={{ color: (theme) => theme.palette.titan.main }}
             >
               (Augmented)
-            </Typography>{" "}
-            by using screenshot
+            </Typography>
           </Typography>
         ) : (
-          "Import Random Stats by using screenshot"
+          "Import Random Stats"
         )
       }
       modalContent={

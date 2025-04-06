@@ -63,7 +63,7 @@ export function AugmentStatsOcr({ gear, onConfirm }: AugmentStatsOcrProps) {
     <>
       <ButtonModal
         buttonContent="Import"
-        modalTitle="Import Augmentation Stats by using screenshot"
+        modalTitle="Import Augmentation Stats"
         modalContent={
           <>
             <Instructions
