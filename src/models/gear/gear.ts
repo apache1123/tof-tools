@@ -120,6 +120,14 @@ export class Gear {
     }
   }
 
+  /** Based on the random stats rolled, this could be a valid 5-star gear */
+  public get isValid5Star(): boolean {
+    return (
+      this.getRandomStatRollCombinations().filter((x) => x.stars === 5).length >
+      0
+    );
+  }
+
   /** Augmented gear and titan gear are both considered augmented */
   public get isAugmented(): boolean {
     return this.rarity === "Augmented" || this.rarity === "Titan";

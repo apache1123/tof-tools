@@ -230,7 +230,7 @@ function Instructions({
         Upload a screenshot of the augmentation stats section
       </InfoText>
 
-      <Typography>Select image type:</Typography>
+      <Typography>Select screenshot type:</Typography>
 
       <Stack
         direction="row"
@@ -268,7 +268,7 @@ function Instructions({
               alt="Augmentation stats example"
             />
           }
-          note="(The numbers don't import very good for this type)"
+          note="(The numbers don't import well for this screenshot type)"
           onSelect={onImageSourceSelect}
         />
       </Stack>

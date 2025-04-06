@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import { useSnapshot } from "valtio";
 
+import { WarningText } from "../../components/common/Text/WarningText";
 import { maxNumOfRandomStats } from "../../definitions/gear";
 import type { Gear } from "../../models/gear/gear";
 import { RandomStat } from "../../models/gear/random-stat";
@@ -16,7 +17,7 @@ export function EditGearRandomStats({
   initialFixedTotalValue,
 }: EditGearRandomStatsProps) {
   const gear = useSnapshot(gearProxy) as Gear;
-  const { isAugmented } = gear;
+  const { isAugmented, isValid5Star } = gear;
 
   const possibleStatTypes = gear.getPossibleRandomStats();
 
@@ -24,7 +25,7 @@ export function EditGearRandomStats({
   const highestRolledStat = gear.getHighestRolledRandomStat();
 
   return (
-    <Stack sx={{ gap: 0.5, mb: -2 }}>
+    <Stack sx={{ gap: 0.5 }}>
       {[...Array(maxNumOfRandomStats)].map((_, i) => {
         const randomStatProxy = gearProxy.getRandomStat(i);
         const randomStat = gear.getRandomStat(i);
@@ -53,6 +54,9 @@ export function EditGearRandomStats({
           />
         );
       })}
+      {!isValid5Star && (
+        <WarningText>Random stats not valid for a 5-star gear</WarningText>
+      )}
     </Stack>
   );
 }

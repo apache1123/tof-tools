@@ -203,8 +203,15 @@ function Instructions({ isAugmented }: { isAugmented: boolean }) {
       {isAugmented ? (
         <>
           <InfoText sx={{ mb: 2 }}>
-            Upload a screenshot of the random stats section, then adjust the
-            base/increase values of each stat according to the Augmentation page
+            Upload a screenshot of the random stats section, then{" "}
+            <Typography
+              component="span"
+              variant="inherit"
+              sx={{ color: (theme) => theme.palette.titan.main }}
+            >
+              adjust the base/increase values
+            </Typography>{" "}
+            of each stat according to the Augmentation page
           </InfoText>
 
           <Typography variant="body2">Example:</Typography>
