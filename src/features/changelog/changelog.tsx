@@ -1,7 +1,8 @@
-import { Alert, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
 
+import { WarningText } from "../../components/common/Text/WarningText";
 import type { Changelog } from "../../models/changelog";
 
 export const changelog: Changelog = [
@@ -266,14 +267,14 @@ export const changelog: Changelog = [
             (weapons, matrices, gear, teams, etc.) and you can share these
             across different presets.
             <Stack sx={{ my: 1, gap: 0.5 }}>
-              <Alert severity="warning">
+              <WarningText>
                 This required some big changes on the structure of the data
                 being saved. Please check if anything is missing.
-              </Alert>
-              <Alert severity="warning">
+              </WarningText>
+              <WarningText>
                 If you had 2pc matrices on your weapons, unfortunately you will
                 need to create and add these again.
-              </Alert>
+              </WarningText>
             </Stack>
           </li>
           <li>Augmentation stats can now be added on a gear.</li>
@@ -353,5 +354,45 @@ export const changelog: Changelog = [
       'Renamed "Value" to "Damage increase" in gear compare page for clarity + Show gear comparison in preset page',
     description:
       "You can now see the damage increase of each gear in a preset. This can help you see which gear has the lowest value, to decide which gear to focus on. Note this is shown only in the Preset, and not the Gear preset",
+  },
+  {
+    semver: "4.7.0",
+    date: new Date(Date.UTC(2025, 3, 7)),
+    title: "Added import augmentation stats",
+    description: (
+      <ul>
+        <li>Import random stats and augmentation stats separately</li>
+        <li>
+          <>
+            <Typography gutterBottom>Import random stats:</Typography>
+            <Image
+              src="/ocr/random_stats_example_1.png"
+              width={180}
+              height={120}
+              alt="Random stats example 1"
+            />
+          </>
+        </li>
+        <li>
+          <>
+            <Typography gutterBottom>Import augmentation stats:</Typography>
+            <Stack direction="row" sx={{ gap: 1, alignItems: "start" }}>
+              <Image
+                src="/ocr/augmentation_stats_example_gear_card.png"
+                width={160}
+                height={60}
+                alt="Augmentation stats example"
+              />
+              <Image
+                src="/ocr/augmentation_stats_example_augment_screen.png"
+                width={140}
+                height={100}
+                alt="Augmentation stats example"
+              />
+            </Stack>
+          </>
+        </li>
+      </ul>
+    ),
   },
 ];

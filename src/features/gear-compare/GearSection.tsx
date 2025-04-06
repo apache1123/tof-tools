@@ -3,9 +3,9 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useProxy } from "valtio/utils";
 
 import { Button } from "../../components/common/Button/Button";
-import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
+import { ErrorText } from "../../components/common/Text/ErrorText";
 import type { CoreElementalType } from "../../definitions/elemental-type";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Gear } from "../../models/gear/gear";

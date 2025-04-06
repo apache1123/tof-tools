@@ -1,10 +1,11 @@
-import { Alert, Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
 import { Button } from "../../../components/common/Button/Button";
-import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
 import { StyledModal } from "../../../components/common/Modal/StyledModal";
+import { ErrorText } from "../../../components/common/Text/ErrorText";
+import { InfoText } from "../../../components/common/Text/InfoText";
 import { GearSetPresetSummaryCard } from "../../../components/gear/GearSetPresetSummaryCard/GearSetPresetSummaryCard";
 import { GearTypeIcon } from "../../../components/gear/GearTypeIcon/GearTypeIcon";
 import { db } from "../../../db/reactive-local-storage-db";
@@ -87,13 +88,13 @@ export function EditCharacterPresetGearPreset({
         details={
           <Stack sx={{ gap: 1 }}>
             {showInfoForGearCompare && (
-              <Alert severity="info" sx={{ mb: 2 }}>
+              <InfoText sx={{ mb: 2 }}>
                 Add your current piece of gear you want to compare. You do not
                 need to add every single gear to do a compare, but it is
                 recommended you do. The result will be more accurate, especially
                 if the gear you are comparing has ATK% and another gear in the
                 preset also has it.
-              </Alert>
+              </InfoText>
             )}
 
             <Stack direction="row" sx={{ gap: 1, alignItems: "end" }}>

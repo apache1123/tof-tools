@@ -2,8 +2,8 @@ import { Stack } from "@mui/material";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
 
-import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { NumericString } from "../../components/common/NumericString/NumericString";
+import { ErrorText } from "../../components/common/Text/ErrorText";
 import { GearTypeIcon } from "../../components/gear/GearTypeIcon/GearTypeIcon";
 import type { GearTypeId } from "../../definitions/gear-types";
 import { getGearType, getGearTypeOrder } from "../../definitions/gear-types";

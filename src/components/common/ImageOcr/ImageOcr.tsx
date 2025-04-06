@@ -5,25 +5,19 @@ import { ImageSelect } from "../ImageSelect/ImageSelect";
 
 export interface ImageOcrProps {
   ocrWorker: Worker | undefined;
-  onOcrTextChange?(text: string): void;
-  onImageUrlChange?(imageUrl: string): void;
+  /** The image url and ocr text of the image that was read */
+  onChange?(imageUrl: string, text: string): void;
 }
 
-export const ImageOcr = ({
-  ocrWorker,
-  onOcrTextChange,
-  onImageUrlChange,
-}: ImageOcrProps) => {
+export const ImageOcr = ({ ocrWorker, onChange }: ImageOcrProps) => {
   const handleSelectedImageUrlChange = (imageUrl: string) => {
-    if (onImageUrlChange) onImageUrlChange(imageUrl);
-
     if (imageUrl) {
       (async () => {
         if (ocrWorker) {
           const {
             data: { text },
           } = await ocrWorker.recognize(imageUrl);
-          if (onOcrTextChange) onOcrTextChange(text);
+          onChange?.(imageUrl, text);
         }
       })();
     }

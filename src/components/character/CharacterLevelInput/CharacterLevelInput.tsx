@@ -18,7 +18,7 @@ export function CharacterLevelInput({
       label="Wanderer level"
       variant="outlined"
       value={value}
-      onChange={onChange}
+      onChangeCommitted={onChange}
       helperText={
         value !== maxCharacterLevel ? (
           <Box

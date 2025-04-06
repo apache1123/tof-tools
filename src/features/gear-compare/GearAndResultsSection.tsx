@@ -1,7 +1,7 @@
 import { Paper } from "@mui/material";
 import { useSnapshot } from "valtio";
 
-import { ErrorText } from "../../components/common/ErrorText/ErrorText";
+import { ErrorText } from "../../components/common/Text/ErrorText";
 import type {
   CharacterData,
   CharacterId,

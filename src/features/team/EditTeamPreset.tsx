@@ -1,9 +1,10 @@
-import { Alert, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { CardList } from "../../components/common/CardList/CardList";
 import { EditorModal } from "../../components/common/Modal/EditorModal";
+import { InfoText } from "../../components/common/Text/InfoText";
 import { db } from "../../db/reactive-local-storage-db";
 import { TeamPreset } from "../../models/team/team-preset";
 import type { WeaponPreset } from "../../models/weapon/weapon-preset";
@@ -39,11 +40,11 @@ export function EditTeamPreset({
               }}
             />
 
-            <Alert severity="info">
+            <InfoText>
               The first weapon in the team must be set. It will be used as the
               main on-field weapon when comparing gear and should the weapon
               that deals the majority of the team&apos;s damage.
-            </Alert>
+            </InfoText>
 
             <CardList direction="row" gap={1}>
               {[...Array(TeamPreset.maxNumOfWeapons)].map((_, i) => (

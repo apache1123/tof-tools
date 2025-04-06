@@ -9,8 +9,8 @@ import Head from "next/head";
 import * as React from "react";
 import { useEffect, useState } from "react";
 
-import { ErrorText } from "../src/components/common/ErrorText/ErrorText";
 import { StyledModal } from "../src/components/common/Modal/StyledModal";
+import { ErrorText } from "../src/components/common/Text/ErrorText";
 import createEmotionCache from "../src/createEmotionCache";
 import { migrateDataToLatestVersion } from "../src/data-migrations/migrate-data-to-latest-version";
 import { db } from "../src/db/reactive-local-storage-db";

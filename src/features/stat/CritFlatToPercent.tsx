@@ -32,7 +32,7 @@ export function CritFlatToPercent() {
               label="Crit"
               variant="filled"
               value={snap.critFlat}
-              onChange={(value) => {
+              onChangeCommitted={(value) => {
                 state.critFlat = value;
               }}
             />
@@ -43,7 +43,7 @@ export function CritFlatToPercent() {
               label="Character level"
               variant="filled"
               value={snap.characterLevel}
-              onChange={(value) => {
+              onChangeCommitted={(value) => {
                 state.characterLevel = value;
               }}
               helperText={

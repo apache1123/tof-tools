@@ -5,6 +5,7 @@ import {
   Box,
   Paper,
   Stack,
+  Typography,
 } from "@mui/material";
 import { useSnapshot } from "valtio";
 
@@ -21,6 +22,9 @@ import { EditGearRarity } from "./EditGearRarity";
 import { EditGearTitanStats } from "./EditGearTitanStats";
 import { GearRollBreakdown } from "./GearRollBreakdown";
 import { MaxTitanGearPreview } from "./MaxTitanGearPreview";
+import { AugmentStatsOcr } from "./ocr/AugmentStatsOcr";
+import { RandomStatsOcr } from "./ocr/RandomStatsOcr";
+import { PossibleAugmentStats } from "./PossibleAugmentStats";
 
 export interface GearDetailsInlineProps extends PropsWithElevation {
   gearProxy: Gear;
@@ -33,7 +37,9 @@ export function GearDetailsInline({
   elevation,
 }: GearDetailsInlineProps) {
   const gear = useSnapshot(gearProxy) as Gear;
-  const { type, rarity } = gear;
+  const { type, rarity, isAugmented } = gear;
+
+  const allPossibleAugmentStats = gear.getPossibleAugmentStats(true);
 
   return (
     <Stack gap={3}>
@@ -57,9 +63,54 @@ export function GearDetailsInline({
         <GearSummary summary={gear.getSummary()} />
       </Paper>
 
-      <EditGearRandomStats gearProxy={gearProxy} />
+      <Box>
+        <Stack direction="row" sx={{ mb: 0.5, gap: 1 }}>
+          <SectionSubheading>Random Stats</SectionSubheading>
+          {isAugmented && (
+            <Typography
+              variant="h6"
+              sx={{ color: (theme) => theme.palette.titan.main }}
+            >
+              (Augmented)
+            </Typography>
+          )}
+          <RandomStatsOcr
+            gearTypeId={type.id}
+            rarity={rarity}
+            isAugmented={isAugmented}
+            onConfirm={(randomStats) => {
+              randomStats.forEach((randomStat, i) => {
+                gearProxy.setRandomStat(i, randomStat);
+              });
+            }}
+          />
+        </Stack>
 
-      <EditGearAugmentStats gearProxy={gearProxy} />
+        <EditGearRandomStats gearProxy={gearProxy} />
+      </Box>
+
+      <Stack sx={{ gap: 1 }}>
+        {isAugmented && (
+          <>
+            <Stack direction="row" sx={{ gap: 1 }}>
+              <SectionSubheading>Augmentation Stats</SectionSubheading>
+
+              <AugmentStatsOcr
+                gear={gear}
+                onConfirm={(augmentStats) => {
+                  augmentStats.forEach((augmentStat, i) => {
+                    gearProxy.setAugmentStat(i, augmentStat);
+                  });
+                }}
+              />
+            </Stack>
+
+            <EditGearAugmentStats gearProxy={gearProxy} />
+          </>
+        )}
+
+        <PossibleAugmentStats possibleAugmentStats={allPossibleAugmentStats} />
+      </Stack>
 
       <EditGearTitanStats gearProxy={gearProxy} />
 

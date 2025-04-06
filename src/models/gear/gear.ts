@@ -120,6 +120,14 @@ export class Gear {
     }
   }
 
+  /** Based on the random stats rolled, this could be a valid 5-star gear */
+  public get isValid5Star(): boolean {
+    return (
+      this.getRandomStatRollCombinations().filter((x) => x.stars === 5).length >
+      0
+    );
+  }
+
   /** Augmented gear and titan gear are both considered augmented */
   public get isAugmented(): boolean {
     return this.rarity === "Augmented" || this.rarity === "Titan";
@@ -263,12 +271,14 @@ export class Gear {
   public getRandomStat(index: number): RandomStatSlot {
     return this._randomStats[index];
   }
-
   public setRandomStat(index: number, randomStat: RandomStatSlot) {
     if (index < 0 || index >= maxNumOfRandomStats)
       throw new Error("Invalid random stat index");
 
     this._randomStats[index] = randomStat;
+  }
+  public clearRandomStats() {
+    this._randomStats = [];
   }
 
   public hasRandomStat(statTypeId: StatTypeId): boolean {
@@ -289,6 +299,9 @@ export class Gear {
       throw new Error("Invalid augment stat index");
 
     this._augmentStats[index] = augmentStat;
+  }
+  public clearAugmentStats() {
+    this._augmentStats.length = 0;
   }
 
   public hasAugmentStat(statTypeId: StatTypeId): boolean {
@@ -598,7 +611,7 @@ export class Gear {
     ) {
       stats.forEach((stat) => {
         if (stat) {
-          stat.augmentIncreaseValue = stat.getMaxAugmentIncrease();
+          stat.setAugmentIncreaseValue(stat.getMaxAugmentIncrease());
         }
       });
     }
@@ -636,7 +649,8 @@ export class Gear {
                 randomStatAndType.statType.elementalType !== "All",
             )
             .sort(
-              (a, b) => (b.randomStat?.value ?? 0) - (a.randomStat?.value ?? 0),
+              (a, b) =>
+                (b.randomStat?.baseValue ?? 0) - (a.randomStat?.baseValue ?? 0),
             )
             .forEach((randomStatAndType, i) => {
               if (randomStatAndType.randomStat) {
@@ -662,9 +676,9 @@ export class Gear {
                   ).times(pullUpFactor);
 
                   const { randomStat } = randomStatAndType;
-                  randomStat.augmentIncreaseValue = pullUptoValue
-                    .minus(randomStat.value)
-                    .toNumber();
+                  randomStat.setAugmentIncreaseValue(
+                    pullUptoValue.minus(randomStat.baseValue).toNumber(),
+                  );
                 }
               }
             });
@@ -689,9 +703,9 @@ export class Gear {
           const pullUptoValue = BigNumber(valueWithAugmentOfHighestStat).times(
             augmentStatsPullUpFactor1,
           );
-          augmentStat.augmentIncreaseValue = pullUptoValue
-            .minus(augmentStat.value)
-            .toNumber();
+          augmentStat.setAugmentIncreaseValue(
+            pullUptoValue.minus(augmentStat.baseValue).toNumber(),
+          );
         }
       });
     }
@@ -805,12 +819,8 @@ export class Gear {
   private resetRandomStatsAugment() {
     for (const randomStat of this.randomStats) {
       if (randomStat) {
-        randomStat.augmentIncreaseValue = 0;
+        randomStat.setAugmentIncreaseValue(0);
       }
     }
-  }
-
-  private clearAugmentStats() {
-    this._augmentStats.length = 0;
   }
 }

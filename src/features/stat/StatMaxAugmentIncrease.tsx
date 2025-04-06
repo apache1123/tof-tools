@@ -82,7 +82,7 @@ export function StatMaxAugmentIncrease() {
               statSnap.type.isPercentageBased ? (
                 <>
                   <NumericString
-                    value={statSnap.value}
+                    value={statSnap.baseValue}
                     variant="percentage2dp"
                   />{" "}
                   +{" "}
@@ -98,7 +98,8 @@ export function StatMaxAugmentIncrease() {
                 </>
               ) : (
                 <>
-                  <NumericString value={statSnap.value} variant="integer" /> +{" "}
+                  <NumericString value={statSnap.baseValue} variant="integer" />{" "}
+                  +{" "}
                   <NumericString
                     value={statSnap.getMaxAugmentIncrease()}
                     variant="integer"

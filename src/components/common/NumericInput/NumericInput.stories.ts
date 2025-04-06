@@ -10,7 +10,7 @@ const meta: Meta<typeof NumericInput> = {
 export default meta;
 type Story = StoryObj<typeof NumericInput>;
 
-export const Initial: Story = {
+export const Default: Story = {
   args: {
     value: 69,
   },
@@ -19,5 +19,27 @@ export const Initial: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+  },
+};
+
+export const Minimum: Story = {
+  args: {
+    value: 1,
+    min: 10,
+  },
+};
+
+export const PercentageMode: Story = {
+  args: {
+    value: 0.0692,
+    percentageMode: true,
+  },
+};
+
+export const PercentageModeMinimum: Story = {
+  args: {
+    value: 0.0692,
+    percentageMode: true,
+    min: 0.1,
   },
 };

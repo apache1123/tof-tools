@@ -6,12 +6,31 @@ import type {
 } from "../../models/gear/possible-augment-stats";
 
 export interface PossibleAugmentStatsProps {
-  possibleAugmentStats: PossibleAugmentStats;
+  possibleAugmentStats: PossibleAugmentStats | undefined;
 }
 
 export function PossibleAugmentStats({
   possibleAugmentStats,
 }: PossibleAugmentStatsProps) {
+  if (
+    !possibleAugmentStats ||
+    (!possibleAugmentStats.priority.length &&
+      !possibleAugmentStats.fallback.length)
+  )
+    return (
+      <Box sx={{ fontSize: (theme) => theme.typography.body2.fontSize }}>
+        <Typography sx={{ fontSize: "inherit" }}>
+          Possible augmentation stats:
+        </Typography>
+        <Typography
+          component="div"
+          sx={{ fontStyle: "italic", fontSize: "inherit" }}
+        >
+          No possible augmentation stats. Check if random stats are correct.
+        </Typography>
+      </Box>
+    );
+
   const possibleStatsToString = (possibleAugmentStats: PossibleAugmentStat[]) =>
     possibleAugmentStats
       .map((possibleStat) => possibleStat.type.displayName)

@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useSnapshot } from "valtio/index";
 
 import { Button } from "../../../components/common/Button/Button";
-import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
 import { StyledModal } from "../../../components/common/Modal/StyledModal";
+import { ErrorText } from "../../../components/common/Text/ErrorText";
 import { TeamPresetCard } from "../../../components/team/TeamPresetCard/TeamPresetCard";
 import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
 import { db } from "../../../db/reactive-local-storage-db";

@@ -1,10 +1,11 @@
-import { Alert, Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSnapshot } from "valtio";
 
 import { CharacterLevelInput } from "../../../components/character/CharacterLevelInput/CharacterLevelInput";
-import { ErrorText } from "../../../components/common/ErrorText/ErrorText";
 import { NumericString } from "../../../components/common/NumericString/NumericString";
+import { ErrorText } from "../../../components/common/Text/ErrorText";
+import { InfoText } from "../../../components/common/Text/InfoText";
 import { ElementalStyledText } from "../../../components/elemental/ElementalStyledText/ElementalStyledText";
 import { WeaponIconWithElements } from "../../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../../models/character/character-data";
@@ -74,11 +75,11 @@ export function EditCharacterPresetStats({
       details={
         mainWeaponDefinition && (
           <>
-            <Alert severity="info" sx={{ mb: 2 }}>
+            <InfoText sx={{ mb: 2 }}>
               Fill in these values according to what is on the Wanderer screen
               in-game when you have the above team and gear equipped. The
               element is based on the main weapon of the team.
-            </Alert>
+            </InfoText>
 
             <Box sx={{ mb: 5 }}>
               <Typography>Using main weapon:</Typography>

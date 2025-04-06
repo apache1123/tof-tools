@@ -9,11 +9,11 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { NumericCompareString } from "../../components/common/NumericCompareString/NumericCompareString";
 import { NumericString } from "../../components/common/NumericString/NumericString";
 import { SectionHeading } from "../../components/common/SectionHeading/SectionHeading";
 import { SectionSubheading } from "../../components/common/SectionHeading/SectionSubheading";
+import { ErrorText } from "../../components/common/Text/ErrorText";
 import { WeaponIconWithElements } from "../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../models/character/character-data";
 import type { CharacterPreset } from "../../models/character-preset/character-preset";
