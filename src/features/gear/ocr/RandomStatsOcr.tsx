@@ -16,12 +16,12 @@ import { getStatType } from "../../../definitions/stat-types";
 import { Gear } from "../../../models/gear/gear";
 import type { GearRarity } from "../../../models/gear/gear-rarity";
 import type { GearType } from "../../../models/gear/gear-type";
+import { getStatsFromGearCardOcr } from "../../../models/gear/ocr/get-stats-from-gear-card-ocr";
 import { RandomStat } from "../../../models/gear/random-stat";
 import { ocrTempGearState } from "../../../states/gear/ocr-temp-gear-state";
 import { ocrState } from "../../../states/ocr/ocr-state";
 import { filterOutUndefined } from "../../../utils/array-utils";
 import { EditGearRandomStats } from "../EditGearRandomStats";
-import { getStatsFromOcr } from "./get-stats-from-ocr";
 
 export interface RandomStatsOcrProps {
   gearTypeId: GearTypeId;
@@ -176,7 +176,7 @@ function getRandomStatsFromOcr(
   const possibleStatTypes = gearType.possibleRandomStatTypeIds.map((id) =>
     getStatType(id),
   );
-  const ocrStatResults = getStatsFromOcr(
+  const ocrStatResults = getStatsFromGearCardOcr(
     text,
     numberOfStats,
     possibleStatTypes,
@@ -185,10 +185,12 @@ function getRandomStatsFromOcr(
   return ocrStatResults.map(({ statType, value }) => {
     const randomStat = new RandomStat(statType);
 
-    if (isAugmented) {
-      randomStat.setTotalValueTryKeepBaseValue(value);
-    } else {
-      randomStat.setBaseValue(value);
+    if (value !== undefined) {
+      if (isAugmented) {
+        randomStat.setTotalValueTryKeepBaseValue(value);
+      } else {
+        randomStat.setBaseValue(value);
+      }
     }
 
     return randomStat;
@@ -208,7 +210,12 @@ function Instructions({ isAugmented }: { isAugmented: boolean }) {
           <Typography variant="body2">Example:</Typography>
           <Stack
             direction="row"
-            sx={{ gap: 2, justifyContent: "center", alignItems: "center" }}
+            sx={{
+              flexWrap: "wrap",
+              gap: 2,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <Image
               src="/ocr/random_stats_example_1.png"

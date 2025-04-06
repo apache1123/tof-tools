@@ -1,18 +1,13 @@
-import BigNumber from "bignumber.js";
-
-import type { StatType } from "../../../models/gear/stat-type";
+import { parseOcrInGameWordToNumber } from "../../../utils/ocr-utils";
 import {
   indexOfIgnoringCase,
   splitIntoLines,
   splitIntoWords,
 } from "../../../utils/string-utils";
+import type { StatType } from "../stat-type";
+import type { OcrStatResult } from "./ocr-stat-result";
 
-export type OcrStatResult = {
-  statType: StatType;
-  value: number;
-};
-
-export function getStatsFromOcr(
+export function getStatsFromGearCardOcr(
   text: string,
   maxNumOfStats: number,
   possibleStatTypes: StatType[],
@@ -55,16 +50,9 @@ export function getStatsFromOcr(
         // e.g. 'Physical Resistance +7.87%' has to be matched to 'Physical Resistance %', not 'Physical Resistance'
         if (hasPercentage !== statType.isPercentageBased) continue;
 
-        // Percentage values are in the format '+7.8%' (string)
-        // Non-percentage values are in the format '+4,125'
-        // Assume the in-game locale is always ',' thousand separator and '.' decimal separator
-        const value = hasPercentage
-          ? BigNumber(firstWordAfterStatName.replace("%", "").replace(",", ""))
-              .dividedBy(100)
-              .toNumber()
-          : +firstWordAfterStatName.replace(",", "");
+        const value = parseOcrInGameWordToNumber(firstWordAfterStatName);
 
-        if (Number.isNaN(value)) continue;
+        if (value === undefined) continue;
 
         matchedResult = { statType, value };
       }
