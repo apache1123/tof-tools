@@ -38,7 +38,7 @@ export function TeamPresets({ characterId }: TeamPresetsProps) {
               <ViewAndEditTeamPreset
                 key={teamPresetProxy.id}
                 teamPresetProxy={teamPresetProxy}
-                defaultEdit={teamPreset.id === editPresetId}
+                forceEdit={teamPreset.id === editPresetId}
                 onFinishEdit={() => {
                   setEditPresetId(undefined);
                 }}

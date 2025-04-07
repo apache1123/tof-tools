@@ -9,6 +9,7 @@ import { TeamPresetCard } from "../../../components/team/TeamPresetCard/TeamPres
 import { WeaponIcon } from "../../../components/weapon/WeaponIcon/WeaponIcon";
 import { db } from "../../../db/reactive-local-storage-db";
 import type { CharacterPreset } from "../../../models/character-preset/character-preset";
+import type { TeamPresetId } from "../../../models/team/team-preset";
 import { InventoryLayout } from "../../common/InventoryLayout";
 import { useItemsBelongingToCharacter } from "../../common/useItemsBelongingToCharacter";
 import { AddTeamPreset } from "../../team/AddTeamPreset";
@@ -32,7 +33,19 @@ export function EditCharacterPresetTeam({
     db.get("teamPresets"),
     characterId,
   );
+
   const [isSelectingTeamPreset, setIsSelectingTeamPreset] = useState(false);
+  const selectTeamPreset = (id: TeamPresetId) => {
+    const teamPresetProxy = db.get("teamPresets").find(id);
+    if (teamPresetProxy) {
+      characterPresetProxy.teamPreset = teamPresetProxy;
+    }
+
+    setIsSelectingTeamPreset(false);
+  };
+
+  // Force open editor of the current selected team preset e.g. right after adding a new team preset
+  const [forceEdit, setForceEdit] = useState(false);
 
   return (
     <>
@@ -97,6 +110,12 @@ export function EditCharacterPresetTeam({
             {teamPreset && characterPresetProxy.teamPreset && (
               <ViewAndEditTeamPreset
                 teamPresetProxy={characterPresetProxy.teamPreset}
+                forceEdit={forceEdit}
+                onFinishEdit={() => {
+                  if (forceEdit) {
+                    setForceEdit(false);
+                  }
+                }}
                 elevation={2}
               />
             )}
@@ -110,21 +129,21 @@ export function EditCharacterPresetTeam({
           modalContent={
             <InventoryLayout
               filter={undefined}
-              actions={<AddTeamPreset characterId={characterId} />}
+              actions={
+                <AddTeamPreset
+                  characterId={characterId}
+                  onAdded={(id) => {
+                    selectTeamPreset(id);
+                    setForceEdit(true);
+                  }}
+                />
+              }
               items={teamPresets.map((teamPreset) => (
                 <TeamPresetCard
                   key={teamPreset.id}
                   teamPreset={teamPreset}
                   onClick={() => {
-                    const teamPresetProxy = db
-                      .get("teamPresets")
-                      .find(teamPreset.id);
-
-                    if (teamPresetProxy) {
-                      characterPresetProxy.teamPreset = teamPresetProxy;
-                    }
-
-                    setIsSelectingTeamPreset(false);
+                    selectTeamPreset(teamPreset.id);
                   }}
                 />
               ))}
