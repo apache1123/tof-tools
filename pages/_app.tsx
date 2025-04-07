@@ -101,7 +101,7 @@ export default function MyApp(props: MyAppProps) {
     }
   }, []);
 
-  BigNumber.config({ DECIMAL_PLACES: 4 });
+  BigNumber.config({ DECIMAL_PLACES: 5 });
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
