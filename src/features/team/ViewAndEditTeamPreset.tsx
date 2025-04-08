@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import type { PropsWithElevation } from "../../components/__helpers__/props-with-elevation";
@@ -8,20 +8,25 @@ import { EditTeamPreset } from "./EditTeamPreset";
 
 export interface ViewAndEditTeamPresetProps extends PropsWithElevation {
   teamPresetProxy: TeamPreset;
-  /** Is in edit state by default */
-  defaultEdit?: boolean;
+  /** Force into edit state. By default, edit is triggered by clicking on the card. */
+  forceEdit?: boolean;
   onFinishEdit?(): void;
 }
 
 export function ViewAndEditTeamPreset({
   teamPresetProxy,
-  defaultEdit,
+  forceEdit,
   onFinishEdit,
   elevation,
 }: ViewAndEditTeamPresetProps) {
   const teamPreset = useSnapshot(teamPresetProxy) as TeamPreset;
 
-  const [isEditing, setIsEditing] = useState<boolean>(!!defaultEdit);
+  const [isEditing, setIsEditing] = useState<boolean>(!!forceEdit);
+  useEffect(() => {
+    if (forceEdit !== undefined) {
+      setIsEditing(forceEdit);
+    }
+  }, [forceEdit]);
 
   return (
     <>
