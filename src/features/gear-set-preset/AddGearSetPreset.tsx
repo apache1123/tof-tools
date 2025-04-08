@@ -7,7 +7,7 @@ import { GearSetPreset } from "../../models/gear/gear-set-preset";
 
 export interface AddGearSetPresetProps {
   characterId: CharacterId;
-  onAdded?(gearSetPresetId: GearSetPresetId): void;
+  onAdded?(id: GearSetPresetId): void;
 }
 
 export function AddGearSetPreset({

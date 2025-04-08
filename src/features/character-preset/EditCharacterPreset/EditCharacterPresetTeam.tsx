@@ -37,10 +37,9 @@ export function EditCharacterPresetTeam({
   const [isSelectingTeamPreset, setIsSelectingTeamPreset] = useState(false);
   const selectTeamPreset = (id: TeamPresetId) => {
     const teamPresetProxy = db.get("teamPresets").find(id);
-    if (teamPresetProxy) {
-      characterPresetProxy.teamPreset = teamPresetProxy;
-    }
+    if (!teamPresetProxy) throw new Error("Team preset not found");
 
+    characterPresetProxy.teamPreset = teamPresetProxy;
     setIsSelectingTeamPreset(false);
   };
 
