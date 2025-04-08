@@ -12,7 +12,7 @@ import {
 } from "../../../models/matrix/matrix-filter";
 import type { MatrixTypeId } from "../../../models/matrix/matrix-type";
 import { MatrixCard } from "../MatrixCard/MatrixCard";
-import { MatrixFilterSelector } from "../MatrixFilterSelector/MatrixFilterSelector";
+import { MatrixFilterEditor } from "../MatrixFilterEditor/MatrixFilterEditor";
 
 export interface MatrixSelectorProps {
   characterId: CharacterId;
@@ -37,7 +37,7 @@ export function MatrixSelector({
       filter={
         <FilterLayout
           filterContent={
-            <MatrixFilterSelector filter={filter} onChange={setFilter} />
+            <MatrixFilterEditor filter={filter} onChange={setFilter} />
           }
           onResetFilter={() => setFilter(getEmptyMatrixFilter())}
         />

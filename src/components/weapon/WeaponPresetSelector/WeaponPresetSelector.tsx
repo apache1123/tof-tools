@@ -1,7 +1,5 @@
-import groupBy from "lodash.groupby";
 import { useState } from "react";
 
-import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import { FilterLayout } from "../../../features/common/FilterLayout";
 import { InventoryLayout } from "../../../features/common/InventoryLayout";
 import { AddWeaponPreset } from "../../../features/weapon/AddWeaponPreset";
@@ -10,9 +8,13 @@ import type {
   WeaponPreset,
   WeaponPresetId,
 } from "../../../models/weapon/weapon-preset";
-import { keysOf } from "../../../utils/object-utils";
-import { WeaponDefinitionAutocomplete } from "../WeaponDefinitionAutocomplete/WeaponDefinitionAutocomplete";
+import type { WeaponPresetFilter } from "../../../models/weapon/weapon-preset-filter";
+import {
+  getEmptyWeaponPresetFilter,
+  getFilteredWeaponPresets,
+} from "../../../models/weapon/weapon-preset-filter";
 import { WeaponPresetCard } from "../WeaponPresetCard/WeaponPresetCard";
+import { WeaponPresetFilterEditor } from "../WeaponPresetFilterEditor/WeaponPresetFilterEditor";
 
 export interface WeaponPresetSelectorProps {
   characterId: CharacterId;
@@ -25,45 +27,21 @@ export function WeaponPresetSelector({
   weaponPresets,
   onSelect,
 }: WeaponPresetSelectorProps) {
-  // Get list of unique weapon definitions used by the weapon presets
-  const weaponPresetsByDefinitionId = groupBy(
-    weaponPresets,
-    (weaponPreset) => weaponPreset.definition.id,
+  const [filter, setFilter] = useState<WeaponPresetFilter>(
+    getEmptyWeaponPresetFilter(),
   );
-  const nonUniqueWeaponDefinitions = keysOf(weaponPresetsByDefinitionId).map(
-    (definitionId) => {
-      return weaponPresetsByDefinitionId[definitionId][0].definition;
-    },
-  );
-  const weaponDefinitions = [...new Set(nonUniqueWeaponDefinitions)];
 
-  const [definitionIdFilter, setDefinitionIdFilter] = useState<
-    WeaponDefinitionId | undefined
-  >(undefined);
-
-  const filteredWeaponPresets = weaponPresets.filter((weaponPreset) => {
-    if (definitionIdFilter) {
-      return weaponPreset.definition.id === definitionIdFilter;
-    }
-
-    return true;
-  });
+  const filteredWeaponPresets = getFilteredWeaponPresets(weaponPresets, filter);
 
   return (
     <InventoryLayout
       filter={
         <FilterLayout
           filterContent={
-            <WeaponDefinitionAutocomplete
-              options={weaponDefinitions}
-              value={weaponDefinitions.find(
-                (definition) => definition.id === definitionIdFilter,
-              )}
-              onChange={(value) => setDefinitionIdFilter(value?.id)}
-            />
+            <WeaponPresetFilterEditor filter={filter} onChange={setFilter} />
           }
           onResetFilter={() => {
-            setDefinitionIdFilter(undefined);
+            setFilter(getEmptyWeaponPresetFilter());
           }}
         />
       }

@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 
 import { EditorModal } from "../../components/common/Modal/EditorModal";
 import { MatrixCard } from "../../components/matrix/MatrixCard/MatrixCard";
-import { MatrixFilterSelector } from "../../components/matrix/MatrixFilterSelector/MatrixFilterSelector";
+import { MatrixFilterEditor } from "../../components/matrix/MatrixFilterEditor/MatrixFilterEditor";
 import { db } from "../../db/reactive-local-storage-db";
 import type { CharacterId } from "../../models/character/character-data";
 import type { Matrix } from "../../models/matrix/matrix";
@@ -38,7 +38,7 @@ export function Matrices({ characterId }: MatricesProps) {
         filter={
           <FilterLayout
             filterContent={
-              <MatrixFilterSelector
+              <MatrixFilterEditor
                 filter={filter}
                 onChange={(filter) => {
                   matrixState.filter = filter;
