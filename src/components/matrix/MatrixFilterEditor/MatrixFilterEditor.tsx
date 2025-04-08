@@ -2,12 +2,15 @@ import { getAllMatrixDefinitions } from "../../../definitions/matrices/matrix-de
 import type { MatrixFilter } from "../../../models/matrix/matrix-filter";
 import { MatrixDefinitionAutocomplete } from "../MatrixDefinitionAutocomplete/MatrixDefinitionAutocomplete";
 
-export interface MatrixFilterProps {
+export interface MatrixFilterEditorProps {
   filter: MatrixFilter;
   onChange(filter: MatrixFilter): void;
 }
 
-export function MatrixFilterSelector({ filter, onChange }: MatrixFilterProps) {
+export function MatrixFilterEditor({
+  filter,
+  onChange,
+}: MatrixFilterEditorProps) {
   const allDefinitions = getAllMatrixDefinitions();
 
   return (
