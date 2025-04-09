@@ -6,6 +6,7 @@ export type SimulacrumId =
   | "Asuka"
   | "Asurada"
   | "Brevey"
+  | "Carrot"
   | "Claudia"
   | "Claudia Storm Eye"
   | "Cobalt-B"
