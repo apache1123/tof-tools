@@ -395,4 +395,9 @@ export const changelog: Changelog = [
       </ul>
     ),
   },
+  {
+    semver: "4.8.0",
+    date: new Date(Date.UTC(2025, 3, 9)),
+    title: "Add Carrot",
+  },
 ];

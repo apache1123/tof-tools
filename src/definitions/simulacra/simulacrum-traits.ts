@@ -10,6 +10,7 @@ import { antoria } from "./definitions/antoria";
 import { asuka } from "./definitions/asuka";
 import { asurada } from "./definitions/asurada";
 import { brevey } from "./definitions/brevey";
+import { carrot } from "./definitions/carrot";
 import { claudia } from "./definitions/claudia";
 import { claudiaStormEye } from "./definitions/claudia-storm-eye";
 import { cobaltB } from "./definitions/cobalt-b";
@@ -62,6 +63,7 @@ const simulacrumTraits: Data<SimulacrumTraitId, SimulacrumTrait> = {
     "Asuka",
     "Asurada",
     "Brevey",
+    "Carrot",
     "Claudia",
     "Claudia Storm Eye",
     "Cobalt-B",
@@ -113,6 +115,7 @@ const simulacrumTraits: Data<SimulacrumTraitId, SimulacrumTrait> = {
     Asuka: asuka,
     Asurada: asurada,
     Brevey: brevey,
+    Carrot: carrot,
     Claudia: claudia,
     "Claudia Storm Eye": claudiaStormEye,
     "Cobalt-B": cobaltB,
