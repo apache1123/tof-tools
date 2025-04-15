@@ -1,6 +1,6 @@
 import type {
   CoreElementalType,
-  WeaponElementalType,
+  ElementalType,
 } from "../../definitions/elemental-type";
 import { ElementalAttack } from "./elemental-attack";
 
@@ -19,7 +19,7 @@ export class CharacterElementalAttacks {
     ];
   }
 
-  public getElementalAttack(element: WeaponElementalType): ElementalAttack {
+  public getElementalAttack(element: ElementalType): ElementalAttack {
     if (element === "Altered") {
       const highestElementalAttack = this.getHighestElementalAttack();
       return new ElementalAttack(

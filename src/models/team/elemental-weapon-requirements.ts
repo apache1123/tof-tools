@@ -1,6 +1,6 @@
 import groupBy from "lodash.groupby";
 
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import type { Requirements } from "../requirements/requirements";
 import type { Team } from "./team";
 
@@ -8,12 +8,12 @@ export class ElementalWeaponRequirements implements Requirements {
   public constructor(
     /** If multiple are defined, it will be an "OR" check between them */
     private readonly numOfElementalWeapons?: {
-      element: WeaponElementalType;
+      element: ElementalType;
       numOfWeapons: number;
     }[],
     /** e.g. for every non-[elemental type] weapon equipped, increase damage by x% */
     private readonly numOfNotElementalWeapons?: {
-      notElement: WeaponElementalType;
+      notElement: ElementalType;
       numOfWeapons: number;
     },
     private readonly numOfDifferentElementalTypes?: number,

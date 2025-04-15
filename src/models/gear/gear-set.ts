@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import type { GearTypeId } from "../../definitions/gear-types";
 import { getGearType, getGearTypeOrder } from "../../definitions/gear-types";
 import { sum } from "../../utils/math-utils";
@@ -67,19 +67,19 @@ export class GearSet {
     return this.getSlots().flatMap((slot) => (slot.gear ? [slot.gear] : []));
   }
 
-  public getTotalAttackFlat(element: WeaponElementalType): number {
+  public getTotalAttackFlat(element: ElementalType): number {
     return this.additiveSumStatValueOfAllGears((gear) =>
       gear.getTotalAttackFlat(element),
     );
   }
 
-  public getTotalAttackPercent(element: WeaponElementalType): number {
+  public getTotalAttackPercent(element: ElementalType): number {
     return this.additiveSumStatValueOfAllGears((gear) =>
       gear.getTotalAttackPercent(element),
     );
   }
 
-  public getTotalDamagePercent(element: WeaponElementalType): number {
+  public getTotalDamagePercent(element: ElementalType): number {
     return this.additiveSumStatValueOfAllGears((gear) =>
       gear.getTotalElementalDamagePercent(element),
     );
@@ -109,13 +109,13 @@ export class GearSet {
     );
   }
 
-  public getTotalResistanceFlat(element: WeaponElementalType) {
+  public getTotalResistanceFlat(element: ElementalType) {
     return this.additiveSumStatValueOfAllGears((gear) =>
       gear.getTotalResistanceFlat(element),
     );
   }
 
-  public getTotalResistancePercent(element: WeaponElementalType) {
+  public getTotalResistancePercent(element: ElementalType) {
     return this.additiveSumStatValueOfAllGears((gear) =>
       gear.getTotalResistancePercent(element),
     );

@@ -1,11 +1,11 @@
 import BigNumber from "bignumber.js";
 
 import { defaultCritDamagePercent } from "../../definitions/damage-formula";
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import {
+  allElementalTypes,
   type CoreElementalType,
   type GearResonanceElements,
-  weaponElementalTypes,
 } from "../../definitions/elemental-type";
 import { product, sum } from "../../utils/math-utils";
 import {
@@ -67,7 +67,7 @@ export class Character {
     });
   }
 
-  public getAttack(element: WeaponElementalType): ElementalAttack {
+  public getAttack(element: ElementalType): ElementalAttack {
     if (element === "Altered") {
       return this.getAttacks().getElementalAttack("Altered");
     }
@@ -116,31 +116,31 @@ export class Character {
 
   public getSumOfAllResistances(): number {
     return sum(
-      ...weaponElementalTypes.map((element) => this.getResistance(element)),
+      ...allElementalTypes.map((element) => this.getResistance(element)),
     ).toNumber();
   }
 
-  public getResistance(element: WeaponElementalType): number {
+  public getResistance(element: ElementalType): number {
     return BigNumber(this.getResistanceFlat(element))
       .times(this.getResistancePercent(element) + 1)
       .toNumber();
   }
 
-  public getResistanceFlat(element: WeaponElementalType): number {
+  public getResistanceFlat(element: ElementalType): number {
     return this.gearSet.getTotalResistanceFlat(element);
   }
 
-  public getResistancePercent(element: WeaponElementalType): number {
+  public getResistancePercent(element: ElementalType): number {
     return this.gearSet.getTotalResistancePercent(element);
   }
 
-  public getBaseAttackBuffs(element: WeaponElementalType) {
+  public getBaseAttackBuffs(element: ElementalType) {
     return this.activeBuffs
       .getBaseAttackBuffs()
       .filter((buff) => buff.elementalType === element);
   }
 
-  public getAttackPercentBuffs(element: WeaponElementalType) {
+  public getAttackPercentBuffs(element: ElementalType) {
     return [
       this.getGearFusionAttackPercentBuff(element),
       ...this.activeBuffs
@@ -149,7 +149,7 @@ export class Character {
     ];
   }
 
-  public getElementalDamageBuffs(element: WeaponElementalType) {
+  public getElementalDamageBuffs(element: ElementalType) {
     return [
       this.getGearFusionElementalDamagePercentBuff(element),
       ...this.activeBuffs
@@ -219,7 +219,7 @@ export class Character {
   }
 
   /** The attack percent buff coming from gear, taking into account the active weapon's gear calculation elements (fusion elements) */
-  private getGearFusionAttackPercentBuff(element: WeaponElementalType) {
+  private getGearFusionAttackPercentBuff(element: ElementalType) {
     // Altered does not take part in fusion elements
     if (element === "Altered") return this.getGearAttackPercentBuff(element);
 
@@ -246,7 +246,7 @@ export class Character {
   }
 
   /** The total attack percent buff coming from gear, converted to a single buff */
-  private getGearAttackPercentBuff(element: WeaponElementalType) {
+  private getGearAttackPercentBuff(element: ElementalType) {
     return new AttackPercentBuff(
       `${element} attack % from all gear`,
       this.gearSet.getTotalAttackPercent(element),
@@ -264,9 +264,7 @@ export class Character {
     );
   }
 
-  private getGearFusionElementalDamagePercentBuff(
-    element: WeaponElementalType,
-  ) {
+  private getGearFusionElementalDamagePercentBuff(element: ElementalType) {
     // Altered does not take part in fusion elements
     if (element === "Altered")
       return this.getGearElementalDamagePercentBuff(element);
@@ -295,7 +293,7 @@ export class Character {
     return this.getGearElementalDamagePercentBuff(element);
   }
 
-  private getGearElementalDamagePercentBuff(element: WeaponElementalType) {
+  private getGearElementalDamagePercentBuff(element: ElementalType) {
     return new ElementalDamageBuff(
       `${element} elemental damage % from all gear`,
       this.gearSet.getTotalDamagePercent(element),

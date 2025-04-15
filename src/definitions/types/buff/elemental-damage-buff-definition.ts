@@ -1,6 +1,3 @@
-import type { WeaponElementalType } from "../../elemental-type";
-import type { BuffDefinition } from "./buff-definition";
+import type { ElementalBuffDefinition } from "./elemental-buff-definition";
 
-export interface ElementalDamageBuffDefinition extends BuffDefinition {
-  elementalTypes: WeaponElementalType[];
-}
+export type ElementalDamageBuffDefinition = ElementalBuffDefinition;

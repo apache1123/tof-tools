@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import type { GearTypeId } from "../../definitions/gear-types";
 import { calculateRelativeIncrease } from "../../utils/math-utils";
 import { BaseAttacks } from "../base-attacks";
@@ -206,7 +206,7 @@ export class GearDamageSimulator {
         newGear,
       );
 
-      const calculateNewBaseAttack = (element: WeaponElementalType) => {
+      const calculateNewBaseAttack = (element: ElementalType) => {
         return BigNumber(baseAttacks.get(element))
           .plus(statDifference.elementalAttackFlats[element])
           .toNumber();
@@ -228,7 +228,7 @@ export class GearDamageSimulator {
 
     // Has original gear + no new gear, so the new stats are the original stats minus the stats of the original gear
     if (originalGear && !newGear) {
-      const calculateNewBaseAttack = (element: WeaponElementalType) => {
+      const calculateNewBaseAttack = (element: ElementalType) => {
         return BigNumber(baseAttacks.get(element))
           .minus(originalGear.getTotalAttackFlat(element))
           .toNumber();
@@ -250,7 +250,7 @@ export class GearDamageSimulator {
 
     // No original gear + has new gear, so the new stats are the original stats plus the stats of the new gear
     if (!originalGear && newGear) {
-      const calculateNewBaseAttack = (element: WeaponElementalType) => {
+      const calculateNewBaseAttack = (element: ElementalType) => {
         return BigNumber(baseAttacks.get(element))
           .plus(newGear.getTotalAttackFlat(element))
           .toNumber();

@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 
-import { weaponElementalTypes } from "../../../definitions/elemental-type";
+import { allElementalTypes } from "../../../definitions/elemental-type";
 import type {
   GearSummary,
   GearSummaryStatsForElement,
@@ -24,7 +24,7 @@ export function GearSummary({ summary, sx }: GearSummaryProps) {
     <Stack direction="row" sx={{ gap: 2, flexWrap: "wrap", ...sx }}>
       {/* Show first attack flat by element, then attack percent by element, then damage percent by element */}
       {statOrder.map((statType) => {
-        return weaponElementalTypes.map((element) => {
+        return allElementalTypes.map((element) => {
           const stats = summary.element[element];
           return (
             <StatItem

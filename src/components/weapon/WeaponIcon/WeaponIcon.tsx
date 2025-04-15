@@ -2,7 +2,7 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
-import type { FusionWeaponElementalType } from "../../../definitions/elemental-type";
+import type { FusionElementalType } from "../../../definitions/elemental-type";
 import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { WeaponType } from "../../../definitions/weapons/weapon-type";
 import { normalCaseToKebabCase } from "../../../utils/string-utils";
@@ -16,7 +16,7 @@ export interface WeaponIconProps extends PropsWithSx {
   iconWeaponId: WeaponDefinitionId | undefined;
   size?: number;
   /** If defined, will overlay the elemental type icon on top of the weapon icon */
-  elementalIcon?: FusionWeaponElementalType;
+  elementalIcon?: FusionElementalType;
   /** If defined, will overlay the weapon type icon on top of the weapon icon */
   weaponType?: WeaponType;
 }

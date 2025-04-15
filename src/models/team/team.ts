@@ -1,4 +1,4 @@
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import { numWeaponsInTeam } from "../../definitions/team";
 import type { MatrixBuffDefinition } from "../../definitions/types/matrix/matrix-buff-definition";
 import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
@@ -39,7 +39,7 @@ export class Team {
   }
 
   /** Convenience method to return all equipped weapon elemental types, as is. Useful for counting the number of weapons for a given elemental type */
-  public getWeaponElementalTypes(): WeaponElementalType[] {
+  public getWeaponElementalTypes(): ElementalType[] {
     return this.getEquippedWeapons().flatMap(
       (weapon) => weapon.resonanceElements,
     );

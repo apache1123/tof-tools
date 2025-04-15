@@ -1,5 +1,5 @@
 import type { ResourceId } from "../../../models/resource/resource-definition";
-import type { WeaponElementalType } from "../../elemental-type";
+import type { ElementalType } from "../../elemental-type";
 import type { WeaponDefinitionId } from "../../weapons/weapon-definitions";
 import type { WeaponResonance } from "../../weapons/weapon-resonance";
 
@@ -26,12 +26,12 @@ export interface AbilityRequirementsDefinition {
     elementalWeapons?: {
       /** If multiple are defined, it will be an "OR" check between them */
       numOfElementalWeapons?: {
-        element: WeaponElementalType;
+        element: ElementalType;
         numOfWeapons: number;
       }[];
       /** e.g. for every non-[elemental type] weapon equipped, increase damage by x% */
       numOfNotElementalWeapons?: {
-        notElement: WeaponElementalType;
+        notElement: ElementalType;
         numOfWeapons: number;
       };
       /** The specified number of different elemental weapon types must be in team */

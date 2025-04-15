@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
 
-import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { ElementalType } from "../../../definitions/elemental-type";
 import { NumericString } from "../../common/NumericString/NumericString";
 import { ElementalStyledText } from "../../elemental/ElementalStyledText/ElementalStyledText";
 
 export interface DamageBreakdownLineProps {
   displayName: string;
-  element: WeaponElementalType;
+  element: ElementalType;
   totalValue: number;
   isPercentageValue: boolean;
 }

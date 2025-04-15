@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import type { FusionWeaponElementalType } from "../../../definitions/elemental-type";
+import type { FusionElementalType } from "../../../definitions/elemental-type";
 import type { WeaponDefinitionId } from "../../../definitions/weapons/weapon-definitions";
 import type { WeaponType } from "../../../definitions/weapons/weapon-type";
 import { ElementalTypeIcon } from "../../elemental/ElementalTypeIcon/ElementalTypeIcon";
@@ -12,7 +12,7 @@ export interface WeaponDefinitionCardContentProps {
   weaponDisplayName: string;
   simulacrumDisplayName: string;
   iconWeaponId?: WeaponDefinitionId;
-  elementalIcon: FusionWeaponElementalType;
+  elementalIcon: FusionElementalType;
   type: WeaponType;
   iconSize?: number;
   showWeaponDescription?: boolean;
