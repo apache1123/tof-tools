@@ -60,7 +60,7 @@ describe("Attack event", () => {
     finalDamageModifiersDefinition = {};
     type = "normal";
     hitCount = { numberOfHitsFixed: 3 };
-    weapon = new Weapon({ id: "Meryl" } as WeaponDefinition, "characterId");
+    weapon = new Weapon({ id: "Meryl" } as WeaponDefinition);
 
     resetSut();
   });
