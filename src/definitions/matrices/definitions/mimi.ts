@@ -1,4 +1,4 @@
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 export const mimi = {
   id: "Huang (Mimi)",
@@ -21,4 +21,4 @@ export const mimi = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 3 },
     },
   ],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

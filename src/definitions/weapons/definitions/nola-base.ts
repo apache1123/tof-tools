@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 export const nolaBase = {
   id: "Nola",
@@ -18,4 +18,4 @@ export const nolaBase = {
 
   buffs: [],
   resources: [],
-} as const satisfies WeaponDefinition;
+} as const satisfies PartialWeaponDefinition;

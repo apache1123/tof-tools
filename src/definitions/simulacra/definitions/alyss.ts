@@ -1,6 +1,6 @@
-import type { SimulacrumTrait } from "../../../models/simulacrum-trait";
+import type { PartialSimulacrumTrait } from "../../types/simulacrum/partial-simulacrum-trait";
 
-export const alyss: SimulacrumTrait = {
+export const alyss: PartialSimulacrumTrait = {
   id: "Alyss",
   displayName: "Alyss",
   buffs: [

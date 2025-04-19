@@ -1,5 +1,5 @@
-import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponBuffAbilityDefinition } from "../../types/weapon/partial-weapon-buff-ability-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 const frostDomainBuffBase = {
   id: "Frost Domain",
@@ -9,7 +9,7 @@ const frostDomainBuffBase = {
   canBePlayerTriggered: false,
   triggeredBy: {}, // TODO:
   maxStacks: 1,
-} as const satisfies Partial<WeaponBuffDefinition>;
+} as const satisfies Partial<PartialWeaponBuffAbilityDefinition>;
 
 export const frigg = {
   id: "Frigg",
@@ -41,4 +41,4 @@ export const frigg = {
     },
   ],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies PartialWeaponDefinition;

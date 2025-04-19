@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 export const antoria = {
   id: "Antoria",
@@ -48,4 +48,4 @@ export const antoria = {
     },
   ],
   resources: [],
-} as const satisfies WeaponDefinition;
+} as const satisfies PartialWeaponDefinition;

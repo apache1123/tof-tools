@@ -1,5 +1,5 @@
-import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponBuffAbilityDefinition } from "../../types/weapon/partial-weapon-buff-ability-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 const tranquilHeartBuffBase = {
   id: "Tranquil Heart",
@@ -10,7 +10,7 @@ const tranquilHeartBuffBase = {
   canBePlayerTriggered: false,
   triggeredBy: { hitOfWeapon: "Annabella" },
   maxStacks: 3,
-} as const satisfies Partial<WeaponBuffDefinition>;
+} as const satisfies Partial<PartialWeaponBuffAbilityDefinition>;
 
 export const annabella = {
   id: "Annabella",
@@ -44,4 +44,4 @@ export const annabella = {
     },
   ],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies PartialWeaponDefinition;

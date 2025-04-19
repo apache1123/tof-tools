@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 export const rei = {
   id: "Rei",
@@ -48,4 +48,4 @@ export const rei = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
     },
   ],
-} satisfies WeaponDefinition;
+} satisfies PartialWeaponDefinition;

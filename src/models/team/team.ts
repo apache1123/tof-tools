@@ -1,6 +1,6 @@
 import type { ElementalType } from "../../definitions/elemental-type";
 import { numWeaponsInTeam } from "../../definitions/team";
-import type { MatrixBuffDefinition } from "../../definitions/types/matrix/matrix-buff-definition";
+import type { MatrixBuffAbilityDefinition } from "../../definitions/types/matrix/matrix-buff-ability-definition";
 import type { WeaponDefinitionId } from "../../definitions/weapons/weapon-definitions";
 import type { WeaponResonance } from "../../definitions/weapons/weapon-resonance";
 import { filterOutUndefined } from "../../utils/array-utils";
@@ -75,7 +75,7 @@ export class Team {
   public getMatrixBuffDefinitions() {
     // TODO: Some matrix buffs can stack?
     // Assuming buff definition objects are reused and can be "uniqued" by object instance
-    const results = new Set<MatrixBuffDefinition>();
+    const results = new Set<MatrixBuffAbilityDefinition>();
     for (const weapon of this.getEquippedWeapons()) {
       for (const buffDefinition of weapon.matrixSlots.buffDefinitions) {
         results.add(buffDefinition);

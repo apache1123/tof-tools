@@ -21,14 +21,13 @@ export class ElementalDamageBuff extends DamageBuff implements ElementalBuff {
   public static create(
     definition: ElementalDamageBuffDefinition,
     id: BuffId,
-    source: BuffSource,
   ): ElementalDamageBuff[] {
     return definition.elementalTypes.map(
       (elementalType) =>
         new ElementalDamageBuff(
           id,
           definition.value,
-          source,
+          definition.source,
           definition.restrictedTo ?? {},
           elementalType,
         ),

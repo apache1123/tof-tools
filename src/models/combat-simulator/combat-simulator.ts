@@ -27,7 +27,6 @@ import { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-bu
 import { BaseAttackBuff } from "../buff/base-attack-buff/base-attack-buff";
 import { BuffAbilities } from "../buff/buff-abilities";
 import { BuffAbility } from "../buff/buff-ability";
-import type { BuffSource } from "../buff/buff-source";
 import { BuffTimeline } from "../buff/buff-timeline";
 import { CritDamageBuff } from "../buff/crit-damage-buff/crit-damage-buff";
 import { CritRateBuff } from "../buff/crit-rate-buff/crit-rate-buff";
@@ -298,86 +297,71 @@ export class CombatSimulator {
   }
 
   private registerBuffs() {
-    const buffAbilityDefinitions: {
-      source: BuffSource;
-      abilityDefinitions: BuffAbilityDefinition[];
-    }[] = [
-      {
-        source: "weapon",
-        abilityDefinitions: this.team.getWeaponBuffDefinitions(),
-      },
-      {
-        source: "matrix",
-        abilityDefinitions: this.team.getMatrixBuffDefinitions(),
-      },
-      { source: "team", abilityDefinitions: teamBuffs },
-      {
-        source: "simulacrum-trait",
-        abilityDefinitions: this.simulacrumTrait?.buffs ?? [],
-      },
-      // { source: "relic", abilityDefinitions: relics.passiveRelicBuffs },
+    const buffAbilityDefinitions: BuffAbilityDefinition[] = [
+      ...this.team.getWeaponBuffDefinitions(),
+      ...this.team.getMatrixBuffDefinitions(),
+      ...teamBuffs,
+      ...(this.simulacrumTrait?.buffs ?? []),
     ];
 
-    for (const { source, abilityDefinitions } of buffAbilityDefinitions) {
-      for (const abilityDef of abilityDefinitions) {
-        const { id } = abilityDef;
+    for (const abilityDef of buffAbilityDefinitions) {
+      const { id } = abilityDef;
 
-        const baseAttackBuffs =
-          abilityDef.baseAttackBuffs?.flatMap((baseAttackBuffDef) =>
-            BaseAttackBuff.create(baseAttackBuffDef, id),
-          ) ?? [];
+      const baseAttackBuffs =
+        abilityDef.baseAttackBuffs?.flatMap((baseAttackBuffDef) =>
+          BaseAttackBuff.create(baseAttackBuffDef, id),
+        ) ?? [];
 
-        const attackPercentBuffs =
-          abilityDef.attackPercentBuffs?.flatMap((attackBuffDef) =>
-            AttackPercentBuff.create(attackBuffDef, id),
-          ) ?? [];
+      const attackPercentBuffs =
+        abilityDef.attackPercentBuffs?.flatMap((attackBuffDef) =>
+          AttackPercentBuff.create(attackBuffDef, id),
+        ) ?? [];
 
-        const elementalDamageBuffs =
-          abilityDef.elementalDamageBuffs?.flatMap((elementalDamageBuffDef) =>
-            ElementalDamageBuff.create(elementalDamageBuffDef, id, source),
-          ) ?? [];
+      const elementalDamageBuffs =
+        abilityDef.elementalDamageBuffs?.flatMap((elementalDamageBuffDef) =>
+          ElementalDamageBuff.create(elementalDamageBuffDef, id),
+        ) ?? [];
 
-        const finalDamageBuffs =
-          abilityDef.finalDamageBuffs?.map((finalDamageBuffDef) =>
-            FinalDamageBuff.create(finalDamageBuffDef, id, source),
-          ) ?? [];
+      const finalDamageBuffs =
+        abilityDef.finalDamageBuffs?.map((finalDamageBuffDef) =>
+          FinalDamageBuff.create(finalDamageBuffDef, id),
+        ) ?? [];
 
-        const critRateBuffs =
-          abilityDef.critRateBuffs?.map((critRateBuffDef) =>
-            CritRateBuff.create(critRateBuffDef, id),
-          ) ?? [];
+      const critRateBuffs =
+        abilityDef.critRateBuffs?.map((critRateBuffDef) =>
+          CritRateBuff.create(critRateBuffDef, id),
+        ) ?? [];
 
-        const critDamageBuffs =
-          abilityDef.critDamageBuffs?.map((critDamageBuffDef) =>
-            CritDamageBuff.create(critDamageBuffDef, id),
-          ) ?? [];
+      const critDamageBuffs =
+        abilityDef.critDamageBuffs?.map((critDamageBuffDef) =>
+          CritDamageBuff.create(critDamageBuffDef, id),
+        ) ?? [];
 
-        const buffAbility = new BuffAbility(
-          id,
-          abilityDef.displayName,
-          abilityDef.description,
-          abilityDef.cooldown,
-          abilityDef.duration,
-          abilityDef.canBePlayerTriggered,
-          this.createRequirements(abilityDef.requirements),
-          abilityDef.updatesResources ?? [],
-          new BuffTimeline(this.combatDuration),
-          this.eventManager,
-          this.currentTick,
-          abilityDef.maxStacks,
-          baseAttackBuffs,
-          attackPercentBuffs,
-          elementalDamageBuffs,
-          finalDamageBuffs,
-          critRateBuffs,
-          critDamageBuffs,
-        );
-        this.buffAbilities.add(buffAbility);
+      const buffAbility = new BuffAbility(
+        id,
+        abilityDef.displayName,
+        abilityDef.description,
+        abilityDef.cooldown,
+        abilityDef.duration,
+        abilityDef.canBePlayerTriggered,
+        this.createRequirements(abilityDef.requirements),
+        abilityDef.updatesResources ?? [],
+        new BuffTimeline(this.combatDuration),
+        this.eventManager,
+        this.currentTick,
+        abilityDef.maxStacks,
+        baseAttackBuffs,
+        attackPercentBuffs,
+        elementalDamageBuffs,
+        finalDamageBuffs,
+        critRateBuffs,
+        critDamageBuffs,
+      );
+      this.buffAbilities.add(buffAbility);
 
-        this.abilityTriggers.add(
-          this.createAbilityTrigger(buffAbility, abilityDef),
-        );
-      }
+      this.abilityTriggers.add(
+        this.createAbilityTrigger(buffAbility, abilityDef),
+      );
     }
   }
 

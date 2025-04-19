@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 export const nanYin = {
   id: "Nan Yin",
@@ -41,4 +41,4 @@ export const nanYin = {
     },
   ],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies PartialWeaponDefinition;

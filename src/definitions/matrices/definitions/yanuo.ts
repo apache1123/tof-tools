@@ -1,4 +1,4 @@
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 export const yanuo = {
   id: "Yanuo",
@@ -18,4 +18,4 @@ export const yanuo = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 3 },
     },
   ],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

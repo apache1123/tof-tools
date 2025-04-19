@@ -1,7 +1,7 @@
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 export const icarus = {
   id: "Icarus",
   displayName: "Icarus",
   buffs: [],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

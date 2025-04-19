@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 import { nemesisVoidpiercerBase } from "./nemesis-voidpiercer-base";
 
 export const nemesisVoidpiercerFrostVolt = {
@@ -44,4 +44,4 @@ export const nemesisVoidpiercerFrostVolt = {
     },
   ],
   resources: [...nemesisVoidpiercerBase.resources],
-} as const satisfies WeaponDefinition;
+} as const satisfies PartialWeaponDefinition;

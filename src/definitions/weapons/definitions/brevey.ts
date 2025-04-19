@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 export const brevey = {
   id: "Brevey",
@@ -38,4 +38,4 @@ export const brevey = {
         "Used to track the amount of damage accumulated, one unit is 1 times the total ATK",
     },
   ],
-} satisfies WeaponDefinition;
+} satisfies PartialWeaponDefinition;

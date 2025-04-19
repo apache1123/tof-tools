@@ -1,18 +1,18 @@
 import type {
-  DischargeAttackDefinition,
-  DodgeAttackDefinition,
-  NormalAttackDefinition,
-  SkillAttackDefinition,
-} from "../../../models/weapon/weapon-attack-definition";
-import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
-import type { WeaponResourceDefinition } from "../../../models/weapon/weapon-resource-definition";
-import type {
   ElementalType,
   FusionElementalType,
   GearResonanceElements,
 } from "../../elemental-type";
 import type { WeaponDefinitionId } from "../../weapons/weapon-definitions";
 import type { WeaponType } from "../../weapons/weapon-type";
+import type {
+  DischargeAttackDefinition,
+  DodgeAttackDefinition,
+  NormalAttackDefinition,
+  SkillAttackDefinition,
+} from "./weapon-attack-definition";
+import type { WeaponBuffAbilityDefinition } from "./weapon-buff-ability-definition";
+import type { WeaponResourceDefinition } from "./weapon-resource-definition";
 
 export interface WeaponDefinition {
   id: WeaponDefinitionId;
@@ -41,7 +41,7 @@ export interface WeaponDefinition {
   skills: SkillAttackDefinition[];
   discharges: DischargeAttackDefinition[];
 
-  buffs: WeaponBuffDefinition[];
+  buffs: WeaponBuffAbilityDefinition[];
 
   resources: WeaponResourceDefinition[];
 }
