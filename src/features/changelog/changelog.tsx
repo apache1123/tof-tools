@@ -400,4 +400,24 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2025, 3, 9)),
     title: "Add Carrot",
   },
+  {
+    semver: "4.9.0",
+    date: new Date(Date.UTC(2025, 3, 21)),
+    title: "Added feature to add your own custom buffs",
+    description: (
+      <>
+        <Typography gutterBottom>
+          You can now add any buffs that you know will affect gear comparison
+          calculations, but are not already included in the calculator. E.g.
+          Supercomputing evolution, food buffs etc.
+        </Typography>
+        <Image
+          src="/changelog/custom-buffs.png"
+          width={370}
+          height={380}
+          alt="Custom buffs example"
+        />
+      </>
+    ),
+  },
 ];

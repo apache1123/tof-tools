@@ -11,6 +11,7 @@ import { ForeignKeyDeserializationError } from "../../error/foreign-key-deserial
 import type { Repository } from "../../repository/types/repository";
 import type { BaseAttacksDto } from "./base-attacks-dto";
 import { baseAttacksToDto, dtoToBaseAttacks } from "./base-attacks-dto";
+import type { BuffAbilityDefinitionDto } from "./buff-ability-definition-dto";
 
 export interface CharacterPresetDto {
   id: string;
@@ -21,6 +22,7 @@ export interface CharacterPresetDto {
   simulacrumTraitId: SimulacrumTraitId | undefined;
   baseAttacks: BaseAttacksDto;
   critRateFlat: number;
+  customBuffAbilities?: BuffAbilityDefinitionDto[];
 }
 
 export function characterPresetToDto(
@@ -35,6 +37,7 @@ export function characterPresetToDto(
     simulacrumTrait,
     baseAttacks,
     critRateFlat,
+    customBuffAbilities,
   } = characterPreset;
   return {
     id,
@@ -45,6 +48,7 @@ export function characterPresetToDto(
     simulacrumTraitId: simulacrumTrait?.id,
     baseAttacks: baseAttacksToDto(baseAttacks),
     critRateFlat,
+    customBuffAbilities,
   };
 }
 
@@ -62,6 +66,7 @@ export function dtoToCharacterPreset(
     simulacrumTraitId,
     baseAttacks,
     critRateFlat,
+    customBuffAbilities,
   } = dto;
 
   let teamPreset: TeamPreset | undefined;
@@ -110,6 +115,9 @@ export function dtoToCharacterPreset(
   characterPreset.simulacrumTrait = simulacrumTrait;
   characterPreset.baseAttacks = dtoToBaseAttacks(baseAttacks);
   characterPreset.critRateFlat = critRateFlat;
+  if (customBuffAbilities) {
+    characterPreset.customBuffAbilities = customBuffAbilities;
+  }
 
   return characterPreset;
 }

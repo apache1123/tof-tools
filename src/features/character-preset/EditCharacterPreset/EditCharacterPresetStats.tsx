@@ -10,6 +10,7 @@ import { ElementalStyledText } from "../../../components/elemental/ElementalStyl
 import { WeaponIconWithElements } from "../../../components/weapon/WeaponIconWithElements/WeaponIconWithElements";
 import type { CharacterData } from "../../../models/character/character-data";
 import type { CharacterPreset } from "../../../models/character-preset/character-preset";
+import { EditCharacterPresetCustomBuffs } from "./EditCharacterPresetCustomBuffs";
 import { EditCharacterPresetOverrideStats } from "./EditCharacterPresetOverrideStats";
 import { EditCharacterPresetSection } from "./EditCharacterPresetSection";
 
@@ -100,6 +101,11 @@ export function EditCharacterPresetStats({
                 />
               </Grid>
             </Grid>
+
+            <EditCharacterPresetCustomBuffs
+              characterPresetProxy={characterPresetProxy}
+              sx={{ mt: 4 }}
+            />
           </>
         )
       }

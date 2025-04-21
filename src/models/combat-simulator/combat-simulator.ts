@@ -66,8 +66,8 @@ export class CombatSimulator {
     overrideBaseAttacks: BaseAttacks,
     overrideCritRateFlat: number,
     simulacrumTrait: SimulacrumTrait | undefined,
-    // relics: Relics,
     options: CombatSimulatorOptions,
+    customBuffAbilities: BuffAbilityDefinition[],
   ) {
     const { combatDuration, targetResistance } = options;
 
@@ -75,6 +75,7 @@ export class CombatSimulator {
     this.target = { resistance: targetResistance };
     this.team = team;
     this.simulacrumTrait = simulacrumTrait;
+    this.customBuffAbilities = customBuffAbilities;
 
     this.eventManager = new EventManager();
 
@@ -127,6 +128,7 @@ export class CombatSimulator {
   private readonly target: Target;
   private readonly team: Team;
   private readonly simulacrumTrait: SimulacrumTrait | undefined;
+  private readonly customBuffAbilities: BuffAbilityDefinition[];
   private readonly eventManager: EventManager;
   private readonly currentTick: CurrentTick;
   private readonly activeWeapon: ActiveWeapon;
@@ -302,6 +304,7 @@ export class CombatSimulator {
       ...this.team.getMatrixBuffDefinitions(),
       ...teamBuffs,
       ...(this.simulacrumTrait?.buffs ?? []),
+      ...this.customBuffAbilities,
     ];
 
     for (const abilityDef of buffAbilityDefinitions) {

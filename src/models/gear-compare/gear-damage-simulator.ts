@@ -2,6 +2,7 @@ import BigNumber from "bignumber.js";
 
 import type { ElementalType } from "../../definitions/elemental-type";
 import type { GearTypeId } from "../../definitions/gear-types";
+import type { BuffAbilityDefinition } from "../../definitions/types/buff/buff-ability-definition";
 import { calculateRelativeIncrease } from "../../utils/math-utils";
 import { BaseAttacks } from "../base-attacks";
 import type { CharacterData } from "../character/character-data";
@@ -23,6 +24,7 @@ export class GearDamageSimulator {
     private readonly mainWeapon: Weapon,
     private readonly simulacrumTrait: SimulacrumTrait | undefined,
     private readonly gearSet: GearSet,
+    private readonly customBuffAbilities: BuffAbilityDefinition[],
   ) {}
 
   /** The results of a gear currently in the gear set, specified by its gear type */
@@ -173,6 +175,7 @@ export class GearDamageSimulator {
       critRateFlat,
       this.simulacrumTrait,
       { combatDuration: 10000, targetResistance: 0 },
+      this.customBuffAbilities,
     );
 
     combatSimulator.beginCombat();

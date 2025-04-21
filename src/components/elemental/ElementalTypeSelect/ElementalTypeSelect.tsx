@@ -1,4 +1,4 @@
-import type { FormControlProps, SelectChangeEvent } from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
 import {
   Box,
   Chip,
@@ -20,7 +20,6 @@ export interface ElementalTypeSelectProps {
   label?: ReactNode;
   size?: "small" | "medium";
   required?: boolean;
-  variant?: FormControlProps["variant"];
   disabled?: boolean;
 
   onChange?(values: ElementalType[]): void;
@@ -33,7 +32,6 @@ export function ElementalTypeSelect({
   label = "Elemental type",
   size = "medium",
   required = false,
-  variant = "standard",
   disabled,
 }: ElementalTypeSelectProps) {
   const options = ["All", ...possibleElements] as const;
@@ -44,10 +42,9 @@ export function ElementalTypeSelect({
 
   return (
     <FormControl
-      variant={variant}
       fullWidth
       required={required}
-      error={required && !values}
+      error={required && !values.length}
       size={size}
       disabled={disabled}
     >
@@ -70,7 +67,9 @@ export function ElementalTypeSelect({
 
           if (values.includes("All")) {
             if (isAllElementsSelected) {
-              onChange(values.filter((value) => value !== "All"));
+              onChange(
+                values.filter((value) => value !== "All") as ElementalType[],
+              );
             } else {
               onChange([...possibleElements]);
             }
@@ -88,9 +87,15 @@ export function ElementalTypeSelect({
           const values = isAllElementsSelected ? ["All"] : selected;
 
           return (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 0.5,
+                overflow: "hidden",
+              }}
+            >
               {values.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value} label={value} size="small" />
               ))}
             </Box>
           );
