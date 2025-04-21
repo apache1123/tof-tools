@@ -28,7 +28,7 @@ export function EditCharacterPresetCustomBuffs({
     <Accordion elevation={2} sx={sx}>
       <AccordionSummary>
         Custom buffs (advanced)
-        {customBuffAbilities.length && (
+        {!!customBuffAbilities.length && (
           <Chip
             label={customBuffAbilities.length}
             color="primary"
