@@ -1,6 +1,6 @@
 import groupBy from "lodash.groupby";
 
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import { keysOf } from "../../utils/object-utils";
 import type { AttackPercentBuff } from "../buff/attack-percent-buff/attack-percent-buff";
 import { attackPercentBuffAggregator } from "../buff/attack-percent-buff/attack-percent-buff-aggregator";
@@ -24,7 +24,7 @@ import type { BuffSummaryItemGroup } from "./buff-summary-item-group";
 
 /** A summary of buffs used for a single element */
 export interface BuffSummary {
-  element: WeaponElementalType;
+  element: ElementalType;
   baseAttackBuffs: BuffSummaryItemGroup;
   attackPercentBuffs: BuffSummaryItemGroup;
   elementalDamageBuffs: BuffSummaryItemGroup;
@@ -34,7 +34,7 @@ export interface BuffSummary {
 }
 
 export function createBuffSummary(
-  element: WeaponElementalType,
+  element: ElementalType,
   buffAbilities: BuffAbilities,
   baseAttackBuffs: BaseAttackBuff[],
   attackPercentBuffs: AttackPercentBuff[],
@@ -112,7 +112,7 @@ function createElementalBuffSummaryItemGroup<
 >(
   buffs: T[],
   buffAggregator: ElementalBuffAggregator<T>,
-  element: WeaponElementalType,
+  element: ElementalType,
   buffAbilities: BuffAbilities,
 ) {
   // Group same buffs together

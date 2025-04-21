@@ -1,5 +1,5 @@
-import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-definition";
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixBuffAbilityDefinition } from "../../types/matrix/partial-matrix-buff-ability-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 const attackBuff2pcBase = {
   id: "Antoria 2pc",
@@ -11,7 +11,7 @@ const attackBuff2pcBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   minMatrixPieces: 2,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 const damageBuff4pcBase = {
   id: "Antoria 4pc volt damage",
@@ -23,7 +23,7 @@ const damageBuff4pcBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   minMatrixPieces: 4,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 export const antoria = {
   id: "Antoria",
@@ -85,4 +85,4 @@ export const antoria = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 3 },
     },
   ],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

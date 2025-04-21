@@ -1,6 +1,6 @@
-import type { SimulacrumTrait } from "../../../models/simulacrum-trait";
+import type { PartialSimulacrumTrait } from "../../types/simulacrum/partial-simulacrum-trait";
 
-export const tianLang: SimulacrumTrait = {
+export const tianLang: PartialSimulacrumTrait = {
   id: "Tian Lang",
   displayName: "Tian Lang",
   buffs: [

@@ -1,6 +1,6 @@
-import type { SimulacrumTrait } from "../../../models/simulacrum-trait";
+import type { PartialSimulacrumTrait } from "../../types/simulacrum/partial-simulacrum-trait";
 
-export const mimi: SimulacrumTrait = {
+export const mimi: PartialSimulacrumTrait = {
   id: "Huang (Mimi)",
   displayName: "Huang (Mimi)",
   buffs: [

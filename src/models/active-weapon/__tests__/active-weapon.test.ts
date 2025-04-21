@@ -1,12 +1,10 @@
 import { getWeaponDefinition } from "../../../definitions/weapons/weapon-definitions";
-import type { CharacterId } from "../../character/character-data";
 import { EventManager } from "../../event/event-manager";
 import { CurrentTick } from "../../tick/current-tick";
 import { Weapon } from "../../weapon/weapon";
 import { ActiveWeapon } from "../active-weapon";
 import { ActiveWeaponTimeline } from "../active-weapon-timeline";
 
-let characterId: CharacterId;
 let weapon1: Weapon;
 let weapon2: Weapon;
 let weapon3: Weapon;
@@ -19,10 +17,9 @@ let activeWeapon: ActiveWeapon;
 
 describe("Active weapon", () => {
   beforeEach(() => {
-    characterId = "characterId";
-    weapon1 = new Weapon(getWeaponDefinition("Fenrir"), characterId);
-    weapon2 = new Weapon(getWeaponDefinition("Huang (Mimi)"), characterId);
-    weapon3 = new Weapon(getWeaponDefinition("Anka"), characterId);
+    weapon1 = new Weapon(getWeaponDefinition("Fenrir"));
+    weapon2 = new Weapon(getWeaponDefinition("Huang (Mimi)"));
+    weapon3 = new Weapon(getWeaponDefinition("Anka"));
     weapons = [weapon1, weapon2, weapon3];
     timeline = new ActiveWeaponTimeline(10000);
     eventManager = new EventManager();

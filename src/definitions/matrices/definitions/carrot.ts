@@ -1,5 +1,5 @@
-import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-definition";
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixBuffAbilityDefinition } from "../../types/matrix/partial-matrix-buff-ability-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 const attackBuff2pcBase = {
   id: "Carrot 2pc",
@@ -11,7 +11,7 @@ const attackBuff2pcBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   minMatrixPieces: 2,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 const damageBuff4pcBase = {
   id: "Carrot 4pc flame damage",
@@ -23,7 +23,7 @@ const damageBuff4pcBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   minMatrixPieces: 4,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 export const carrot = {
   id: "Carrot",
@@ -87,4 +87,4 @@ export const carrot = {
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 3 },
     },
   ],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

@@ -1,5 +1,5 @@
 import type { Dto } from "../../../db/repository/dto";
-import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { ElementalType } from "../../../definitions/elemental-type";
 import type { ElementalAttackDtoV3 } from "./elemental-attack-dto";
 
 /** @deprecated Removed in v4 rewrite */
@@ -12,6 +12,6 @@ export interface LoadoutStatsDtoV3 extends Dto {
   critPercent: number;
   critDamage: number;
   hp: number;
-  elementalResistances: Record<WeaponElementalType, number>;
+  elementalResistances: Record<ElementalType, number>;
   version: 1;
 }

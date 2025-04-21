@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 import { prioritizedAugmentationStatTypesLookup } from "../../definitions/augmentation-stats";
 import type {
   CoreElementalType,
-  WeaponElementalType,
+  ElementalType,
 } from "../../definitions/elemental-type";
 import {
   augmentStatsPullUpFactor1,
@@ -207,7 +207,7 @@ export class Gear {
       },
     };
 
-    function getAttackFlatDifference(element: WeaponElementalType): number {
+    function getAttackFlatDifference(element: ElementalType): number {
       return BigNumber(newGear.getTotalAttackFlat(element))
         .minus(baseGear.getTotalAttackFlat(element))
         .toNumber();
@@ -225,15 +225,13 @@ export class Gear {
         .toNumber();
     }
 
-    function getResistanceFlatDifference(element: WeaponElementalType): number {
+    function getResistanceFlatDifference(element: ElementalType): number {
       return BigNumber(newGear.getTotalResistanceFlat(element))
         .minus(baseGear.getTotalResistanceFlat(element))
         .toNumber();
     }
 
-    function getResistancePercentDifference(
-      element: WeaponElementalType,
-    ): number {
+    function getResistancePercentDifference(element: ElementalType): number {
       return BigNumber(newGear.getTotalResistancePercent(element))
         .minus(baseGear.getTotalResistancePercent(element))
         .toNumber();
@@ -375,14 +373,14 @@ export class Gear {
   }
 
   /** Returns total attack flat value for an element which will include ele atk flat + atk flat. Except for altered attack, which will not include atk flat */
-  public getTotalAttackFlat(elementalType: WeaponElementalType): number {
+  public getTotalAttackFlat(elementalType: ElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isElementalAttackFlat,
     );
   }
 
-  public getTotalAttackPercent(elementalType: WeaponElementalType): number {
+  public getTotalAttackPercent(elementalType: ElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isElementalAttackPercent,
@@ -397,9 +395,7 @@ export class Gear {
     return this.additiveSumStatValues(isCritPercent);
   }
 
-  public getTotalElementalDamagePercent(
-    elementalType: WeaponElementalType,
-  ): number {
+  public getTotalElementalDamagePercent(elementalType: ElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isElementalDamagePercent,
@@ -415,11 +411,11 @@ export class Gear {
   }
 
   /** Returns total resistance flat value for an element which will include ele resistance flat + resistance flat */
-  public getTotalResistanceFlat(elementalType: WeaponElementalType): number {
+  public getTotalResistanceFlat(elementalType: ElementalType): number {
     return this.additiveSumElementalStatValues(elementalType, isResistanceFlat);
   }
 
-  public getTotalResistancePercent(elementalType: WeaponElementalType): number {
+  public getTotalResistancePercent(elementalType: ElementalType): number {
     return this.additiveSumElementalStatValues(
       elementalType,
       isResistancePercent,
@@ -428,7 +424,7 @@ export class Gear {
 
   public getSummary(): GearSummary {
     const getElementSummaryStats = (
-      element: WeaponElementalType,
+      element: ElementalType,
     ): GearSummaryStatsForElement => {
       return {
         attackFlat: {
@@ -800,11 +796,8 @@ export class Gear {
 
   // Additively sum up all random stat & augment values based on a stat type & elemental type condition
   private additiveSumElementalStatValues(
-    elementalType: WeaponElementalType,
-    predicate: (
-      statType: StatType,
-      elementalType: WeaponElementalType,
-    ) => boolean,
+    elementalType: ElementalType,
+    predicate: (statType: StatType, elementalType: ElementalType) => boolean,
   ): number {
     return sum(
       ...this.randomStats.concat(this.augmentStats).map((stat) => {

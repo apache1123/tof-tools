@@ -8,7 +8,6 @@ import type { AbilityRequirements } from "../../ability/ability-requirements";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
 import { ActiveWeapon } from "../../active-weapon/active-weapon";
 import { ActiveWeaponTimeline } from "../../active-weapon/active-weapon-timeline";
-import type { CharacterId } from "../../character/character-data";
 import type { BaseDamageModifiersDefinition } from "../../damage-modifiers/base-damage-modifiers-definition";
 import type { FinalDamageModifiersDefinition } from "../../damage-modifiers/final-damage-modifiers-definition";
 import { EventManager } from "../../event/event-manager";
@@ -31,7 +30,6 @@ let updatesResources: AbilityUpdatesResource[];
 let timeline: AttackTimeline;
 let eventManager: EventManager;
 let currentTick: CurrentTick;
-let characterId: CharacterId;
 let weapon: Weapon;
 let elementalType: AttackElementalType;
 let type: AttackType;
@@ -60,8 +58,7 @@ describe("Attack ability", () => {
     timeline = new AttackTimeline(100000);
     eventManager = new EventManager();
     currentTick = new CurrentTick(0, 1000, eventManager);
-    characterId = "characterId";
-    weapon = new Weapon(getWeaponDefinition("Huang (Mimi)"), characterId);
+    weapon = new Weapon(getWeaponDefinition("Huang (Mimi)"));
     elementalType = { defaultElementalType: "Altered" };
     type = "normal";
     isForegroundAttack = true;
@@ -69,7 +66,7 @@ describe("Attack ability", () => {
     finalDamageModifiers = mock<FinalDamageModifiersDefinition>();
     hitCount = mock<AttackHitCount>();
     doesNotTriggerEvents = false;
-    anotherWeapon = new Weapon(getWeaponDefinition("Meryl"), characterId);
+    anotherWeapon = new Weapon(getWeaponDefinition("Meryl"));
     activeWeapon = new ActiveWeapon(
       [weapon, anotherWeapon],
       new ActiveWeaponTimeline(100000),
@@ -141,9 +138,7 @@ describe("Attack ability", () => {
 
     describe("When the attack is a foreground attack and the attack's weapon is not the active weapon", () => {
       beforeEach(() => {
-        activeWeapon.switchTo(
-          new Weapon(getWeaponDefinition("Meryl"), characterId),
-        );
+        activeWeapon.switchTo(new Weapon(getWeaponDefinition("Meryl")));
         currentTick.advance(); // Active weapon takes effect at the next tick
       });
 
@@ -223,9 +218,7 @@ describe("Attack ability", () => {
 
       describe("The attack's weapon is not the active weapon", () => {
         beforeEach(() => {
-          activeWeapon.switchTo(
-            new Weapon(getWeaponDefinition("Meryl"), characterId),
-          );
+          activeWeapon.switchTo(new Weapon(getWeaponDefinition("Meryl")));
           currentTick.advance(); // Active weapon takes effect at the next tick
         });
 

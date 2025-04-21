@@ -1,6 +1,6 @@
-import type { SimulacrumTrait } from "../../../models/simulacrum-trait";
+import type { PartialSimulacrumTrait } from "../../types/simulacrum/partial-simulacrum-trait";
 
-export const nemesisVoidpiercer: SimulacrumTrait = {
+export const nemesisVoidpiercer: PartialSimulacrumTrait = {
   id: "Nemesis Voidpiercer",
   displayName: "Nemesis Voidpiercer",
   buffs: [

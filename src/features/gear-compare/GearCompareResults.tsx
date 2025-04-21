@@ -42,6 +42,7 @@ export function GearCompareResults({
     baseAttacks,
     critRateFlat,
     simulacrumTrait,
+    customBuffAbilities,
   } = characterPreset;
 
   if (!teamPreset) return <ErrorText>No team</ErrorText>;
@@ -59,6 +60,7 @@ export function GearCompareResults({
     mainWeapon,
     simulacrumTrait,
     gearSetPreset.gearSet,
+    customBuffAbilities,
   );
 
   const currentGearResult = gearDamageSimulator.getCurrentGearResult(

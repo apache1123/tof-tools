@@ -1,5 +1,5 @@
-import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-definition";
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixBuffAbilityDefinition } from "../../types/matrix/partial-matrix-buff-ability-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 const buff4pcBase = {
   id: "Tsubasa 4pc",
@@ -13,7 +13,7 @@ const buff4pcBase = {
   triggeredBy: {},
   maxStacks: 1,
   minMatrixPieces: 4,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 export const tsubasa = {
   id: "Tsubasa",
@@ -60,4 +60,4 @@ export const tsubasa = {
       starRequirement: { minStarRequirement: 3, maxStarRequirement: 3 },
     },
   ],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

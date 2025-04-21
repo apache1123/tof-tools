@@ -1,9 +1,9 @@
-import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { ElementalType } from "../../../definitions/elemental-type";
 import { BaseAttacks } from "../../../models/base-attacks";
 import type { DataById } from "../../../models/data";
 
 export interface BaseAttacksDto {
-  values: DataById<WeaponElementalType, number>;
+  values: DataById<ElementalType, number>;
 }
 
 export function baseAttacksToDto(baseAttacks: BaseAttacks): BaseAttacksDto {

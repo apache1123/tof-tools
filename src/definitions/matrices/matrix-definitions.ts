@@ -1,6 +1,10 @@
 import type { Data } from "../../models/data";
+import { keysOf } from "../../utils/object-utils";
 import type { SimulacrumId } from "../simulacra/simulacrum-id";
+import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-ability-definition";
+import type { MatrixBuffAbilityDefinition } from "../types/matrix/matrix-buff-ability-definition";
 import type { MatrixDefinition } from "../types/matrix/matrix-definition";
+import type { PartialMatrixDefinition } from "../types/matrix/partial-matrix-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
 import { annabella } from "./definitions/annabella";
@@ -57,7 +61,11 @@ import { zero } from "./definitions/zero";
 
 export type MatrixDefinitionId = SimulacrumId | "Haboela" | "Scylla";
 
-export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
+// Hard-coded defined matrix definitions. Partial for ease-of-input
+const partialMatrixDefinitions: Data<
+  MatrixDefinitionId,
+  PartialMatrixDefinition
+> = {
   allIds: [
     "Alyss",
     "Anka",
@@ -170,12 +178,31 @@ export const matrixDefinitions: Data<MatrixDefinitionId, MatrixDefinition> = {
   },
 };
 
-export function getMatrixDefinition(id: MatrixDefinitionId) {
-  const matrixDefinition = matrixDefinitions.byId[id];
+// Map full matrix definitions by using the partial definitions and defaults
+const fullMatrixDefinitions: Partial<
+  Record<MatrixDefinitionId, MatrixDefinition>
+> = {};
+keysOf(partialMatrixDefinitions.byId).forEach((id) => {
+  const partialDefinition = partialMatrixDefinitions.byId[id];
+
+  fullMatrixDefinitions[id] = {
+    ...partialDefinition,
+    buffs: partialDefinition.buffs.map(
+      (ability): MatrixBuffAbilityDefinition => ({
+        ...mapToFullBuffAbilityDefinition(ability, "matrix"),
+        starRequirement: ability.starRequirement,
+        minMatrixPieces: ability.minMatrixPieces,
+      }),
+    ),
+  };
+});
+
+export function getMatrixDefinition(id: MatrixDefinitionId): MatrixDefinition {
+  const matrixDefinition = fullMatrixDefinitions[id];
   if (!matrixDefinition) throw new Error(`Cannot find matrix definition ${id}`);
   return matrixDefinition;
 }
 
 export function getAllMatrixDefinitions() {
-  return matrixDefinitions.allIds.map((id) => matrixDefinitions.byId[id]);
+  return partialMatrixDefinitions.allIds.map((id) => getMatrixDefinition(id));
 }

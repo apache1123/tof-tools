@@ -1,6 +1,6 @@
 import groupBy from "lodash.groupby";
 
-import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { ElementalType } from "../../../definitions/elemental-type";
 import type { ElementalBuffAggregator } from "../buff-aggregator/elemental-buff-aggregator";
 import { damageBuffAggregator } from "../damage-buff/damage-buff-aggregator";
 import type { ElementalDamageBuff } from "./elemental-damage-buff";
@@ -8,7 +8,7 @@ import type { ElementalDamageBuff } from "./elemental-damage-buff";
 export const elementalDamageBuffAggregator: ElementalBuffAggregator<
   ElementalDamageBuff
 > = (buffs: ElementalDamageBuff[]) => {
-  const totalValueByElement: Record<WeaponElementalType, number> = {
+  const totalValueByElement: Record<ElementalType, number> = {
     Altered: 0,
     Flame: 0,
     Frost: 0,
@@ -18,15 +18,12 @@ export const elementalDamageBuffAggregator: ElementalBuffAggregator<
 
   const buffsByElement = groupBy(buffs, (buff) => buff.elementalType);
 
-  (Object.keys(buffsByElement) as WeaponElementalType[]).forEach(
-    (elementalType) => {
-      const buffs = buffsByElement[elementalType];
-      if (!buffs) return;
+  (Object.keys(buffsByElement) as ElementalType[]).forEach((elementalType) => {
+    const buffs = buffsByElement[elementalType];
+    if (!buffs) return;
 
-      totalValueByElement[elementalType] =
-        damageBuffAggregator(buffs).totalValue;
-    },
-  );
+    totalValueByElement[elementalType] = damageBuffAggregator(buffs).totalValue;
+  });
 
   return { totalValueByElement };
 };

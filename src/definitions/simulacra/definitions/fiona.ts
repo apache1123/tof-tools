@@ -1,7 +1,7 @@
-import type { SimulacrumTrait } from "../../../models/simulacrum-trait";
+import type { PartialSimulacrumTrait } from "../../types/simulacrum/partial-simulacrum-trait";
 
 // TODO: Fiona skills are specifically buffed by trait
-export const fiona: SimulacrumTrait = {
+export const fiona: PartialSimulacrumTrait = {
   id: "Fiona",
   displayName: "Fiona",
   buffs: [

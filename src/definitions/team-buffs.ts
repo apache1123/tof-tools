@@ -7,7 +7,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     displayName: "Attack Resonance",
     description:
       "Equip at least 2 DPS-type weapons to activate. Increase final damage by 10%, which in team play is further increased to 40%.",
-    finalDamageBuffs: [{ value: 0.1 }],
+    finalDamageBuffs: [{ value: 0.1, source: "team" }],
     maxStacks: 1,
     requirements: { teamRequirements: { weaponResonance: { is: "Attack" } } },
     canBePlayerTriggered: false,
@@ -19,7 +19,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     displayName: "Balance Resonance",
     description:
       "Equip at least 1 weapon of any type. Increase final damage and damage reduction by 5%, shatter and healing effect by 20%. In team play, increase final damage by an additional 35% and damage reduction by an additional 10%.",
-    finalDamageBuffs: [{ value: 0.05 }],
+    finalDamageBuffs: [{ value: 0.05, source: "team" }],
     maxStacks: 1,
     requirements: { teamRequirements: { weaponResonance: { is: "Balance" } } },
     canBePlayerTriggered: false,

@@ -37,6 +37,7 @@ export function CharacterPresetGearComparison({
     baseAttacks,
     critRateFlat,
     simulacrumTrait,
+    customBuffAbilities,
   } = characterPreset;
 
   if (!teamPreset) return <ErrorText>No team</ErrorText>;
@@ -54,6 +55,7 @@ export function CharacterPresetGearComparison({
     mainWeapon,
     simulacrumTrait,
     gearSetPreset.gearSet,
+    customBuffAbilities,
   );
 
   const columns: GridColDef<Row>[] = [

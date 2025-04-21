@@ -1,12 +1,12 @@
-import type { WeaponElementalType } from "../definitions/elemental-type";
+import type { ElementalType } from "../definitions/elemental-type";
 import type { DataById } from "./data";
 
 export class BaseAttacks {
-  public constructor(values: DataById<WeaponElementalType, number>) {
+  public constructor(values: DataById<ElementalType, number>) {
     this.values = values;
   }
 
-  private values: DataById<WeaponElementalType, number>;
+  private values: DataById<ElementalType, number>;
 
   public static create(): BaseAttacks {
     return new BaseAttacks({
@@ -28,15 +28,15 @@ export class BaseAttacks {
     });
   }
 
-  public getAll(): DataById<WeaponElementalType, number> {
+  public getAll(): DataById<ElementalType, number> {
     return this.values;
   }
 
-  public get(element: WeaponElementalType) {
+  public get(element: ElementalType) {
     return this.values[element];
   }
 
-  public set(element: WeaponElementalType, value: number) {
+  public set(element: ElementalType, value: number) {
     this.values[element] = value;
   }
 }

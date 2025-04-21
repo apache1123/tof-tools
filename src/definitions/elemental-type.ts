@@ -1,27 +1,27 @@
-export const coreElementalTypes = [
+export const allCoreElementalTypes = [
   "Flame",
   "Frost",
   "Physical",
   "Volt",
 ] as const;
-export type CoreElementalType = (typeof coreElementalTypes)[number];
+export type CoreElementalType = (typeof allCoreElementalTypes)[number];
 
-export const weaponElementalTypes = [...coreElementalTypes, "Altered"] as const;
-export type WeaponElementalType = (typeof weaponElementalTypes)[number];
+export const allElementalTypes = [...allCoreElementalTypes, "Altered"] as const;
+export type ElementalType = (typeof allElementalTypes)[number];
 
-// TODO: merge this with `WeaponElementalType` above in the future
-export type FusionWeaponElementalType =
-  | WeaponElementalType
+// TODO: merge this with `ElementalType` above in the future
+export type FusionElementalType =
+  | ElementalType
   | "Flame-Physical"
   | "Frost-Volt"
   | "Physical-Flame"
   | "Volt-Frost";
 
-export type StatTypeElementalType = WeaponElementalType | "None" | "All";
+export type StatTypeElementalType = ElementalType | "None" | "All";
 
 export function mapFusionElementToElementArray(
-  fusionElement: FusionWeaponElementalType,
-): WeaponElementalType[] {
+  fusionElement: FusionElementalType,
+): ElementalType[] {
   switch (fusionElement) {
     case "Flame-Physical":
       return ["Flame", "Physical"];

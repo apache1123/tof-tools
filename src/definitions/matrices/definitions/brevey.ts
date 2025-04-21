@@ -1,5 +1,5 @@
-import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-definition";
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixBuffAbilityDefinition } from "../../types/matrix/partial-matrix-buff-ability-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 const noneBenedictionBuff4pcBase = {
   id: "brevey-matrix-4pc-non-benediction",
@@ -13,7 +13,7 @@ const noneBenedictionBuff4pcBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   minMatrixPieces: 4,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 const benedictionBuff4pcBase = {
   id: "brevey-matrix-4pc-benediction",
@@ -27,7 +27,7 @@ const benedictionBuff4pcBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   minMatrixPieces: 4,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 export const brevey = {
   id: "Brevey",
@@ -114,4 +114,4 @@ export const brevey = {
       starRequirement: { minStarRequirement: 3, maxStarRequirement: 3 },
     },
   ],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

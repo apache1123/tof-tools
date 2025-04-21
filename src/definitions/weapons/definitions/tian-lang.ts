@@ -1,5 +1,5 @@
-import type { WeaponBuffDefinition } from "../../../models/weapon/weapon-buff-definition";
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponBuffAbilityDefinition } from "../../types/weapon/partial-weapon-buff-ability-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 const voltSenseBuffBase = {
   displayName: "Volt sense",
@@ -9,7 +9,7 @@ const voltSenseBuffBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   starRequirement: { minStarRequirement: 0, maxStarRequirement: 6 },
-} as const satisfies Partial<WeaponBuffDefinition>;
+} as const satisfies Partial<PartialWeaponBuffAbilityDefinition>;
 
 export const tianLang = {
   id: "Tian Lang",
@@ -53,4 +53,4 @@ export const tianLang = {
     },
   ],
   resources: [],
-} satisfies WeaponDefinition;
+} satisfies PartialWeaponDefinition;

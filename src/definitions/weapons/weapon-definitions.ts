@@ -1,5 +1,9 @@
 import type { Data } from "../../models/data";
+import { keysOf } from "../../utils/object-utils";
 import type { SimulacrumId } from "../simulacra/simulacrum-id";
+import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-ability-definition";
+import type { PartialWeaponDefinition } from "../types/weapon/partial-weapon-definition";
+import type { WeaponBuffAbilityDefinition } from "../types/weapon/weapon-buff-ability-definition";
 import type { WeaponDefinition } from "../types/weapon/weapon-definition";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
@@ -76,7 +80,11 @@ export type WeaponDefinitionId =
   | "Nola (Physical-Flame)"
   | "Nola (Volt-Frost)";
 
-const weaponDefinitions: Data<WeaponDefinitionId, WeaponDefinition> = {
+// Hard-coded defined weapon definitions. Partial for ease-of-input
+const partialWeaponDefinitions: Data<
+  WeaponDefinitionId,
+  PartialWeaponDefinition
+> = {
   allIds: [
     "Alyss",
     "Anka",
@@ -203,12 +211,30 @@ const weaponDefinitions: Data<WeaponDefinitionId, WeaponDefinition> = {
   },
 };
 
-export function getWeaponDefinition(id: WeaponDefinitionId) {
-  const weaponDefinition = weaponDefinitions.byId[id];
+// Map full weapon definitions by using the partial definitions and defaults
+const fullWeaponDefinitions: Partial<
+  Record<WeaponDefinitionId, WeaponDefinition>
+> = {};
+keysOf(partialWeaponDefinitions.byId).forEach((id) => {
+  const partialDefinition = partialWeaponDefinitions.byId[id];
+
+  fullWeaponDefinitions[id] = {
+    ...partialDefinition,
+    buffs: partialDefinition.buffs.map(
+      (ability): WeaponBuffAbilityDefinition => ({
+        ...mapToFullBuffAbilityDefinition(ability, "weapon"),
+        starRequirement: ability.starRequirement,
+      }),
+    ),
+  };
+});
+
+export function getWeaponDefinition(id: WeaponDefinitionId): WeaponDefinition {
+  const weaponDefinition = fullWeaponDefinitions[id];
   if (!weaponDefinition) throw new Error(`Cannot find weapon definition ${id}`);
   return weaponDefinition;
 }
 
 export function getAllWeaponDefinitions() {
-  return weaponDefinitions.allIds.map((id) => getWeaponDefinition(id));
+  return partialWeaponDefinitions.allIds.map((id) => getWeaponDefinition(id));
 }

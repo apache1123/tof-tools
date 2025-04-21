@@ -1,7 +1,7 @@
 import { Box, Card, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { ElementalType } from "../../../definitions/elemental-type";
 import type { BuffSummary as BuffSummaryModel } from "../../../models/buff-summary/buff-summary";
 import type { BuffSummaryItemGroup } from "../../../models/buff-summary/buff-summary-item-group";
 import type { ElementalAttack } from "../../../models/elemental-attack/elemental-attack";
@@ -12,7 +12,7 @@ import type { DamageBreakdownLineProps } from "./DamageBreakdownLine";
 import { DamageBreakdownLine } from "./DamageBreakdownLine";
 
 export interface DamageBreakdownProps {
-  element: WeaponElementalType;
+  element: ElementalType;
   attack: ElementalAttack;
   buffSummary: BuffSummaryModel;
   finalDamage: number;

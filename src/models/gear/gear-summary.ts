@@ -1,8 +1,8 @@
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import type { GearSummaryStat } from "./gear-summary-stat";
 
 export interface GearSummary {
-  element: Record<WeaponElementalType, GearSummaryStatsForElement>;
+  element: Record<ElementalType, GearSummaryStatsForElement>;
   critFlat: GearSummaryStat;
   critPercent: GearSummaryStat;
 }

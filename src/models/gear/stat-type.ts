@@ -1,6 +1,6 @@
 import type {
+  ElementalType,
   StatTypeElementalType,
-  WeaponElementalType,
 } from "../../definitions/elemental-type";
 import type { StatRole, StatTypeId } from "../../definitions/stat-types";
 
@@ -22,7 +22,7 @@ export interface StatType {
 
 export function isElementalAttackFlat(
   statType: StatType,
-  elementalType: WeaponElementalType,
+  elementalType: ElementalType,
 ) {
   if (elementalType === "Altered")
     return (
@@ -40,7 +40,7 @@ export function isElementalAttackFlat(
 
 export function isElementalAttackPercent(
   statType: StatType,
-  elementalType: WeaponElementalType,
+  elementalType: ElementalType,
 ) {
   return (
     statType.role === "Attack %" &&
@@ -59,7 +59,7 @@ export function isCritPercent(statType: StatType) {
 
 export function isElementalDamagePercent(
   statType: StatType,
-  elementalType: WeaponElementalType,
+  elementalType: ElementalType,
 ) {
   return (
     statType.role === "Damage %" &&
@@ -78,7 +78,7 @@ export function isHpPercent(statType: StatType) {
 
 export function isResistanceFlat(
   statType: StatType,
-  elementalType: WeaponElementalType,
+  elementalType: ElementalType,
 ) {
   return (
     statType.role === "Resistance" &&
@@ -89,7 +89,7 @@ export function isResistanceFlat(
 
 export function isResistancePercent(
   statType: StatType,
-  elementalType: WeaponElementalType,
+  elementalType: ElementalType,
 ) {
   return (
     statType.role === "Resistance %" &&

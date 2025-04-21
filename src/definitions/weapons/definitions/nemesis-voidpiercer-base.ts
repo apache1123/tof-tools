@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 export const nemesisVoidpiercerBase = {
   id: "Nemesis Voidpiercer",
@@ -38,4 +38,4 @@ export const nemesisVoidpiercerBase = {
     },
   ],
   resources: [],
-} as const satisfies WeaponDefinition;
+} as const satisfies PartialWeaponDefinition;

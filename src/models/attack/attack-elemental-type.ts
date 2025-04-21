@@ -1,7 +1,7 @@
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 
 export interface AttackElementalType {
-  defaultElementalType: WeaponElementalType;
+  defaultElementalType: ElementalType;
   followLastWeaponElementalType?: boolean;
   followCurrentWeaponElementalType?: boolean;
 }

@@ -1,5 +1,5 @@
-import type { MatrixBuffDefinition } from "../../types/matrix/matrix-buff-definition";
-import type { MatrixDefinition } from "../../types/matrix/matrix-definition";
+import type { PartialMatrixBuffAbilityDefinition } from "../../types/matrix/partial-matrix-buff-ability-definition";
+import type { PartialMatrixDefinition } from "../../types/matrix/partial-matrix-definition";
 
 // TODO:
 const buff2pcBase = {
@@ -12,7 +12,7 @@ const buff2pcBase = {
   triggeredBy: { combatStart: true },
   maxStacks: 1,
   minMatrixPieces: 2,
-} as const satisfies Partial<MatrixBuffDefinition>;
+} as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
 export const yanMiao = {
   id: "Yan Miao",
@@ -47,4 +47,4 @@ export const yanMiao = {
       starRequirement: { minStarRequirement: 3, maxStarRequirement: 3 },
     },
   ],
-} as const satisfies MatrixDefinition;
+} as const satisfies PartialMatrixDefinition;

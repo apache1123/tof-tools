@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 
+import type { BuffAbilityDefinition } from "../../definitions/types/buff/buff-ability-definition";
 import { BaseAttacks } from "../base-attacks";
 import type { CharacterId } from "../character/character-data";
 import type { GearSetPreset } from "../gear/gear-set-preset";
@@ -17,6 +18,7 @@ export class CharacterPreset {
     this.name = "Preset name";
     this.baseAttacks = BaseAttacks.create();
     this._critRateFlat = 0;
+    this.customBuffAbilities = [];
   }
 
   public readonly id: CharacterPresetId;
@@ -26,6 +28,8 @@ export class CharacterPreset {
   public name: string;
   public simulacrumTrait: SimulacrumTrait | undefined;
   public baseAttacks: BaseAttacks;
+  public customBuffAbilities: BuffAbilityDefinition[];
+
   private _critRateFlat: number;
 
   public get critRateFlat(): number {

@@ -1,4 +1,4 @@
-import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { ElementalType } from "../../../definitions/elemental-type";
 import type { BaseAttackBuffDefinition as BaseAttackBuffDefinition } from "../../../definitions/types/buff/base-attack-buff-definition";
 import type { BuffId } from "../../../definitions/types/buff/buff-ability-definition";
 import type { AttackHit } from "../../event/messages/attack-hit";
@@ -8,7 +8,7 @@ export class BaseAttackBuff implements ElementalBuff {
   public constructor(
     public readonly id: BuffId,
     public readonly value: number,
-    public readonly elementalType: WeaponElementalType,
+    public readonly elementalType: ElementalType,
   ) {}
 
   public static create(

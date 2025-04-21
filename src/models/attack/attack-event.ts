@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 
 import type { AttackType } from "../../definitions/attack-type";
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 import { oneSecondDuration } from "../../utils/time-utils";
 import { AbilityEvent } from "../ability/ability-event";
 import type { AbilityId } from "../ability/ability-id";
@@ -32,7 +32,7 @@ export class AttackEvent
     updatesResources: AbilityUpdatesResource[],
     eventManager: EventManager,
     currentTick: CurrentTick,
-    public readonly elementalType: WeaponElementalType,
+    public readonly elementalType: ElementalType,
     public readonly type: AttackType,
     private readonly baseDamageModifiersDefinition: BaseDamageModifiersDefinition,
     private readonly finalDamageModifiersDefinition: FinalDamageModifiersDefinition,

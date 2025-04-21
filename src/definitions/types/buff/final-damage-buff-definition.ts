@@ -1,3 +1,3 @@
-import type { BuffDefinition } from "./buff-definition";
+import type { DamageBuffDefinition } from "./damage-buff-definition";
 
-export type FinalDamageBuffDefinition = BuffDefinition;
+export type FinalDamageBuffDefinition = DamageBuffDefinition;

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { matrixDefinitions } from "../../../definitions/matrices/matrix-definitions";
+import { getAllMatrixDefinitions } from "../../../definitions/matrices/matrix-definitions";
 import { getMatrixType } from "../../../definitions/matrices/matrix-type";
 import { Matrix } from "../../../models/matrix/matrix";
 import { exampleCharacterId } from "../../__fixtures__/character";
@@ -27,7 +27,7 @@ function generateMatrices() {
   for (let i = 0; i < 5; i++) {
     const matrix = new Matrix(
       getMatrixType("mind"),
-      matrixDefinitions.byId[matrixDefinitions.allIds[i]],
+      getAllMatrixDefinitions()[i],
       "characterId",
     );
     matrices.push(matrix);

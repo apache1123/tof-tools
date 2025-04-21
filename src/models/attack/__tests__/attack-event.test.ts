@@ -2,7 +2,7 @@ import type { MockProxy } from "jest-mock-extended";
 import { mock } from "jest-mock-extended";
 
 import type { AttackType } from "../../../definitions/attack-type";
-import type { WeaponElementalType } from "../../../definitions/elemental-type";
+import type { ElementalType } from "../../../definitions/elemental-type";
 import type { WeaponDefinition } from "../../../definitions/types/weapon/weapon-definition";
 import type { AbilityId } from "../../ability/ability-id";
 import type { AbilityUpdatesResource } from "../../ability/ability-updates-resource";
@@ -25,7 +25,7 @@ let eventManager: EventManager;
 let currentTick: CurrentTick;
 let currentResources: MockProxy<CurrentResources>;
 
-let elementalType: WeaponElementalType;
+let elementalType: ElementalType;
 let baseDamageModifiersDefinition: BaseDamageModifiersDefinition;
 let finalDamageModifiersDefinition: FinalDamageModifiersDefinition;
 let type: AttackType;
@@ -60,7 +60,7 @@ describe("Attack event", () => {
     finalDamageModifiersDefinition = {};
     type = "normal";
     hitCount = { numberOfHitsFixed: 3 };
-    weapon = new Weapon({ id: "Meryl" } as WeaponDefinition, "characterId");
+    weapon = new Weapon({ id: "Meryl" } as WeaponDefinition);
 
     resetSut();
   });

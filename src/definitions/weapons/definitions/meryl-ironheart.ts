@@ -1,4 +1,4 @@
-import type { WeaponDefinition } from "../../types/weapon/weapon-definition";
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
 
 export const merylIronheart = {
   id: "Meryl Ironheart",
@@ -31,4 +31,4 @@ export const merylIronheart = {
     },
   ],
   resources: [],
-} as const satisfies WeaponDefinition;
+} as const satisfies PartialWeaponDefinition;

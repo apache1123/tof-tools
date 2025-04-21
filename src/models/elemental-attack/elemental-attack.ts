@@ -1,10 +1,10 @@
 import BigNumber from "bignumber.js";
 
-import type { WeaponElementalType } from "../../definitions/elemental-type";
+import type { ElementalType } from "../../definitions/elemental-type";
 
 export class ElementalAttack {
   public constructor(
-    public readonly element: WeaponElementalType,
+    public readonly element: ElementalType,
     baseAttack: number,
     totalAttack: number,
   ) {

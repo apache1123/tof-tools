@@ -3,8 +3,6 @@ import type { WeaponResonance } from "../../../definitions/weapons/weapon-resona
 import { Weapon } from "../../weapon/weapon";
 import { Team } from "../team";
 
-let characterId: string;
-
 let sut: Team;
 
 let alyss: Weapon;
@@ -21,15 +19,15 @@ describe("Team", () => {
   beforeEach(() => {
     sut = new Team();
 
-    alyss = new Weapon(getWeaponDefinition("Alyss"), characterId);
-    annabella = new Weapon(getWeaponDefinition("Annabella"), characterId);
-    claudia = new Weapon(getWeaponDefinition("Claudia"), characterId);
-    huma = new Weapon(getWeaponDefinition("Huma"), characterId);
-    mimi = new Weapon(getWeaponDefinition("Huang (Mimi)"), characterId);
-    lan = new Weapon(getWeaponDefinition("Lan"), characterId);
-    brevey = new Weapon(getWeaponDefinition("Brevey"), characterId);
-    coco = new Weapon(getWeaponDefinition("Cocoritter"), characterId);
-    fiona = new Weapon(getWeaponDefinition("Fiona"), characterId);
+    alyss = new Weapon(getWeaponDefinition("Alyss"));
+    annabella = new Weapon(getWeaponDefinition("Annabella"));
+    claudia = new Weapon(getWeaponDefinition("Claudia"));
+    huma = new Weapon(getWeaponDefinition("Huma"));
+    mimi = new Weapon(getWeaponDefinition("Huang (Mimi)"));
+    lan = new Weapon(getWeaponDefinition("Lan"));
+    brevey = new Weapon(getWeaponDefinition("Brevey"));
+    coco = new Weapon(getWeaponDefinition("Cocoritter"));
+    fiona = new Weapon(getWeaponDefinition("Fiona"));
   });
 
   describe("Weapon resonance", () => {
