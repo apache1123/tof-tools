@@ -20,7 +20,7 @@ export const carrot = {
       id: "Carrot Kombat flame damage buff",
       displayName: "Carrot Kombat flame damage buff",
       description:
-        "Increases flame damage by 10% for 25s after casing Carrot Kombat",
+        "Increases flame damage by 10% for 25s after casting Carrot Kombat",
       cooldown: 0,
       duration: 25000,
       requirements: {},

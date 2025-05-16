@@ -420,4 +420,9 @@ export const changelog: Changelog = [
       </>
     ),
   },
+  {
+    semver: "4.10.0",
+    date: new Date(Date.UTC(2025, 4, 16)),
+    title: "Added Lyncis",
+  },
 ];

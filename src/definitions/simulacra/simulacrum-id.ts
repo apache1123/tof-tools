@@ -27,6 +27,7 @@ export type SimulacrumId =
   | "Lin"
   | "Ling Han"
   | "Liu Huo"
+  | "Lyncis"
   | "Lyra"
   | "Meryl"
   | "Meryl Ironheart"
