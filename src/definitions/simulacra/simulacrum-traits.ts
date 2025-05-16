@@ -34,6 +34,7 @@ import { lan } from "./definitions/lan";
 import { lin } from "./definitions/lin";
 import { lingHan } from "./definitions/ling-han";
 import { liuHuo } from "./definitions/liu-huo";
+import { lyncis } from "./definitions/lyncis";
 import { lyra } from "./definitions/lyra";
 import { meryl } from "./definitions/meryl";
 import { merylIronheart } from "./definitions/meryl-ironheart";
@@ -89,6 +90,7 @@ const partialSimulacrumTraits: Data<SimulacrumTraitId, PartialSimulacrumTrait> =
       "Lin",
       "Ling Han",
       "Liu Huo",
+      "Lyncis",
       "Lyra",
       "Meryl",
       "Meryl Ironheart",
@@ -142,6 +144,7 @@ const partialSimulacrumTraits: Data<SimulacrumTraitId, PartialSimulacrumTrait> =
       Lin: lin,
       "Ling Han": lingHan,
       "Liu Huo": liuHuo,
+      Lyncis: lyncis,
       Lyra: lyra,
       Meryl: meryl,
       "Meryl Ironheart": merylIronheart,
