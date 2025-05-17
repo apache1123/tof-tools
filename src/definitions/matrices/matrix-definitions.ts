@@ -1,6 +1,6 @@
-import type { Data } from "../../models/data";
+import { sortAlphabetically } from "../../utils/locale-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { SimulacrumId } from "../simulacra/simulacrum-id";
+import { simulacrumIds } from "../simulacra/simulacrum-id";
 import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-ability-definition";
 import type { MatrixBuffAbilityDefinition } from "../types/matrix/matrix-buff-ability-definition";
 import type { MatrixDefinition } from "../types/matrix/matrix-definition";
@@ -60,133 +60,77 @@ import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
-export type MatrixDefinitionId = SimulacrumId | "Haboela" | "Scylla";
+const matrixDefinitionIds = [...simulacrumIds, "Haboela", "Scylla"] as const;
+
+export type MatrixDefinitionId = (typeof matrixDefinitionIds)[number];
 
 // Hard-coded defined matrix definitions. Partial for ease-of-input
-const partialMatrixDefinitions: Data<
+const partialMatrixDefinitions: Record<
   MatrixDefinitionId,
   PartialMatrixDefinition
 > = {
-  allIds: [
-    "Alyss",
-    "Anka",
-    "Annabella",
-    "Antoria",
-    "Asuka",
-    "Asurada",
-    "Brevey",
-    "Carrot",
-    "Claudia",
-    "Claudia Storm Eye",
-    "Cobalt-B",
-    "Cocoritter",
-    "Crow",
-    "Fei Se",
-    "Fenrir",
-    "Fiona",
-    "Frigg",
-    "Gnonno",
-    "Gray Fox",
-    "Haboela",
-    "Huang (Mimi)",
-    "Huma",
-    "Icarus",
-    "Ji Yu",
-    "King",
-    "Lan",
-    "Lin",
-    "Ling Han",
-    "Liu Huo",
-    "Lyncis",
-    "Lyra",
-    "Meryl",
-    "Meryl Ironheart",
-    "Ming Jing",
-    "Nan Yin",
-    "Nemesis",
-    "Nemesis Voidpiercer",
-    "Nola",
-    "Plotti",
-    "Rei",
-    "Roslyn",
-    "Rubilia",
-    "Ruby",
-    "Saki Fuwa",
-    "Samir",
-    "Scylla",
-    "Shiro",
-    "Tian Lang",
-    "Tsubasa",
-    "Umi",
-    "Yan Miao",
-    "Yanuo",
-    "Yu Lan",
-    "Zero",
-  ],
-  byId: {
-    Alyss: alyss,
-    Anka: anka,
-    Annabella: annabella,
-    Antoria: antoria,
-    Asuka: asuka,
-    Asurada: asurada,
-    Brevey: brevey,
-    Carrot: carrot,
-    Claudia: claudia,
-    "Claudia Storm Eye": claudiaStormEye,
-    "Cobalt-B": cobaltB,
-    Cocoritter: cocoritter,
-    Crow: crow,
-    "Fei Se": feiSe,
-    Fenrir: fenrir,
-    Fiona: fiona,
-    Frigg: frigg,
-    Gnonno: gnonno,
-    "Gray Fox": grayFox,
-    Haboela: haboela,
-    "Huang (Mimi)": mimi,
-    Huma: huma,
-    Icarus: icarus,
-    "Ji Yu": jiYu,
-    King: king,
-    Lan: lan,
-    Lin: lin,
-    "Ling Han": lingHan,
-    "Liu Huo": liuHuo,
-    Lyncis: lyncis,
-    Lyra: lyra,
-    Meryl: meryl,
-    "Meryl Ironheart": merylIronheart,
-    "Ming Jing": mingJing,
-    "Nan Yin": nanYin,
-    Nemesis: nemesis,
-    "Nemesis Voidpiercer": nemesisVoidpiercer,
-    Nola: nola,
-    Plotti: plotti,
-    Rei: rei,
-    Roslyn: roslyn,
-    Rubilia: rubilia,
-    Ruby: ruby,
-    "Saki Fuwa": sakiFuwa,
-    Samir: samir,
-    Scylla: scylla,
-    Shiro: shiro,
-    "Tian Lang": tianLang,
-    Tsubasa: tsubasa,
-    Umi: umi,
-    "Yan Miao": yanMiao,
-    Yanuo: yanuo,
-    "Yu Lan": yuLan,
-    Zero: zero,
-  },
+  Alyss: alyss,
+  Anka: anka,
+  Annabella: annabella,
+  Antoria: antoria,
+  Asuka: asuka,
+  Asurada: asurada,
+  Brevey: brevey,
+  Carrot: carrot,
+  Claudia: claudia,
+  "Claudia Storm Eye": claudiaStormEye,
+  "Cobalt-B": cobaltB,
+  Cocoritter: cocoritter,
+  Crow: crow,
+  "Fei Se": feiSe,
+  Fenrir: fenrir,
+  Fiona: fiona,
+  Frigg: frigg,
+  Gnonno: gnonno,
+  "Gray Fox": grayFox,
+  Haboela: haboela,
+  "Huang (Mimi)": mimi,
+  Huma: huma,
+  Icarus: icarus,
+  "Ji Yu": jiYu,
+  King: king,
+  Lan: lan,
+  Lin: lin,
+  "Ling Han": lingHan,
+  "Liu Huo": liuHuo,
+  Lyncis: lyncis,
+  Lyra: lyra,
+  Meryl: meryl,
+  "Meryl Ironheart": merylIronheart,
+  "Ming Jing": mingJing,
+  "Nan Yin": nanYin,
+  Nemesis: nemesis,
+  "Nemesis Voidpiercer": nemesisVoidpiercer,
+  Nola: nola,
+  Plotti: plotti,
+  Rei: rei,
+  Roslyn: roslyn,
+  Rubilia: rubilia,
+  Ruby: ruby,
+  "Saki Fuwa": sakiFuwa,
+  Samir: samir,
+  Scylla: scylla,
+  Shiro: shiro,
+  "Tian Lang": tianLang,
+  Tsubasa: tsubasa,
+  Umi: umi,
+  "Yan Miao": yanMiao,
+  Yanuo: yanuo,
+  "Yu Lan": yuLan,
+  Zero: zero,
 };
 
 // Map full matrix definitions by using the partial definitions and defaults
 const fullMatrixDefinitions: Partial<
   Record<MatrixDefinitionId, MatrixDefinition>
 > = {};
-keysOf(partialMatrixDefinitions.byId).forEach((id) => {
-  const partialDefinition = partialMatrixDefinitions.byId[id];
+keysOf(partialMatrixDefinitions).forEach((id) => {
+  const partialDefinition = partialMatrixDefinitions[id];
 
   fullMatrixDefinitions[id] = {
     ...partialDefinition,
@@ -207,5 +151,7 @@ export function getMatrixDefinition(id: MatrixDefinitionId): MatrixDefinition {
 }
 
 export function getAllMatrixDefinitions() {
-  return partialMatrixDefinitions.allIds.map((id) => getMatrixDefinition(id));
+  return matrixDefinitionIds
+    .toSorted(sortAlphabetically) // This may need to sort by displayName instead if localization is ever added
+    .map((id) => getMatrixDefinition(id));
 }

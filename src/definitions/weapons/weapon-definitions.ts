@@ -1,6 +1,6 @@
-import type { Data } from "../../models/data";
+import { sortAlphabetically } from "../../utils/locale-utils";
 import { keysOf } from "../../utils/object-utils";
-import type { SimulacrumId } from "../simulacra/simulacrum-id";
+import { simulacrumIds } from "../simulacra/simulacrum-id";
 import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-ability-definition";
 import type { PartialWeaponDefinition } from "../types/weapon/partial-weapon-definition";
 import type { WeaponBuffAbilityDefinition } from "../types/weapon/weapon-buff-ability-definition";
@@ -68,158 +68,97 @@ import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
 
-export type WeaponDefinitionId =
-  | SimulacrumId
-  | "Nemesis Voidpiercer (Altered)"
-  | "Nemesis Voidpiercer (Flame-Physical)"
-  | "Nemesis Voidpiercer (Frost-Volt)"
-  | "Nemesis Voidpiercer (Physical-Flame)"
-  | "Nemesis Voidpiercer (Volt-Frost)"
-  | "Nola (Altered)"
-  | "Nola (Flame-Physical)"
-  | "Nola (Frost-Volt)"
-  | "Nola (Physical-Flame)"
-  | "Nola (Volt-Frost)";
+const weaponDefinitionIds = [
+  ...simulacrumIds,
+  "Nemesis Voidpiercer (Altered)",
+  "Nemesis Voidpiercer (Flame-Physical)",
+  "Nemesis Voidpiercer (Frost-Volt)",
+  "Nemesis Voidpiercer (Physical-Flame)",
+  "Nemesis Voidpiercer (Volt-Frost)",
+  "Nola (Altered)",
+  "Nola (Flame-Physical)",
+  "Nola (Frost-Volt)",
+  "Nola (Physical-Flame)",
+  "Nola (Volt-Frost)",
+] as const;
+
+export type WeaponDefinitionId = (typeof weaponDefinitionIds)[number];
 
 // Hard-coded defined weapon definitions. Partial for ease-of-input
-const partialWeaponDefinitions: Data<
+const partialWeaponDefinitions: Record<
   WeaponDefinitionId,
   PartialWeaponDefinition
 > = {
-  allIds: [
-    "Alyss",
-    "Anka",
-    "Annabella",
-    "Antoria",
-    "Asuka",
-    "Asurada",
-    "Brevey",
-    "Carrot",
-    "Claudia",
-    "Claudia Storm Eye",
-    "Cobalt-B",
-    "Cocoritter",
-    "Crow",
-    "Fei Se",
-    "Fenrir",
-    "Fiona",
-    "Frigg",
-    "Gnonno",
-    "Gray Fox",
-    "Huang (Mimi)",
-    "Huma",
-    "Icarus",
-    "Ji Yu",
-    "King",
-    "Lan",
-    "Lin",
-    "Ling Han",
-    "Liu Huo",
-    "Lyncis",
-    "Lyra",
-    "Meryl",
-    "Meryl Ironheart",
-    "Ming Jing",
-    "Nan Yin",
-    "Nemesis",
-    "Nemesis Voidpiercer (Altered)",
-    "Nemesis Voidpiercer (Flame-Physical)",
-    "Nemesis Voidpiercer (Frost-Volt)",
-    "Nemesis Voidpiercer (Physical-Flame)",
-    "Nemesis Voidpiercer (Volt-Frost)",
-    "Nola (Altered)",
-    "Nola (Flame-Physical)",
-    "Nola (Frost-Volt)",
-    "Nola (Physical-Flame)",
-    "Nola (Volt-Frost)",
-    "Plotti",
-    "Rei",
-    "Roslyn",
-    "Rubilia",
-    "Ruby",
-    "Saki Fuwa",
-    "Samir",
-    "Shiro",
-    "Tian Lang",
-    "Tsubasa",
-    "Umi",
-    "Yan Miao",
-    "Yanuo",
-    "Yu Lan",
-    "Zero",
-  ],
-  byId: {
-    Alyss: alyss,
-    Anka: anka,
-    Annabella: annabella,
-    Antoria: antoria,
-    Asuka: asuka,
-    Asurada: asurada,
-    Brevey: brevey,
-    Carrot: carrot,
-    Claudia: claudia,
-    "Claudia Storm Eye": claudiaStormEye,
-    "Cobalt-B": cobaltB,
-    Cocoritter: cocoritter,
-    Crow: crow,
-    "Fei Se": feiSe,
-    Fenrir: fenrir,
-    Fiona: fiona,
-    Frigg: frigg,
-    Gnonno: gnonno,
-    "Gray Fox": grayFox,
-    "Huang (Mimi)": mimi,
-    Huma: huma,
-    Icarus: icarus,
-    "Ji Yu": jiYu,
-    King: king,
-    Lan: lan,
-    Lin: lin,
-    "Ling Han": lingHan,
-    "Liu Huo": liuHuo,
-    Lyncis: lyncis,
-    Lyra: lyra,
-    Meryl: meryl,
-    "Meryl Ironheart": merylIronheart,
-    "Ming Jing": mingJing,
-    "Nan Yin": nanYin,
-    Nemesis: nemesis,
-    "Nemesis Voidpiercer": nemesisVoidpiercerBase,
-    "Nemesis Voidpiercer (Altered)": nemesisVoidpiercerAltered,
-    "Nemesis Voidpiercer (Flame-Physical)": nemesisVoidpiercerFlamePhysical,
-    "Nemesis Voidpiercer (Frost-Volt)": nemesisVoidpiercerFrostVolt,
-    "Nemesis Voidpiercer (Physical-Flame)": nemesisVoidpiercerPhysicalFlame,
-    "Nemesis Voidpiercer (Volt-Frost)": nemesisVoidpiercerVoltFrost,
-    Nola: nolaBase,
-    "Nola (Altered)": nolaAltered,
-    "Nola (Flame-Physical)": nolaFlamePhysical,
-    "Nola (Frost-Volt)": nolaFrostVolt,
-    "Nola (Physical-Flame)": nolaPhysicalFlame,
-    "Nola (Volt-Frost)": nolaVoltFrost,
-    Plotti: plotti,
-    Rei: rei,
-    Roslyn: roslyn,
-    Rubilia: rubilia,
-    Ruby: ruby,
-    "Saki Fuwa": sakiFuwa,
-    Samir: samir,
-    Shiro: shiro,
-    "Tian Lang": tianLang,
-    Tsubasa: tsubasa,
-    Umi: umi,
-    "Yan Miao": yanMiao,
-    Yanuo: yanuo,
-    "Yu Lan": yuLan,
-    Zero: zero,
-  },
+  Alyss: alyss,
+  Anka: anka,
+  Annabella: annabella,
+  Antoria: antoria,
+  Asuka: asuka,
+  Asurada: asurada,
+  Brevey: brevey,
+  Carrot: carrot,
+  Claudia: claudia,
+  "Claudia Storm Eye": claudiaStormEye,
+  "Cobalt-B": cobaltB,
+  Cocoritter: cocoritter,
+  Crow: crow,
+  "Fei Se": feiSe,
+  Fenrir: fenrir,
+  Fiona: fiona,
+  Frigg: frigg,
+  Gnonno: gnonno,
+  "Gray Fox": grayFox,
+  "Huang (Mimi)": mimi,
+  Huma: huma,
+  Icarus: icarus,
+  "Ji Yu": jiYu,
+  King: king,
+  Lan: lan,
+  Lin: lin,
+  "Ling Han": lingHan,
+  "Liu Huo": liuHuo,
+  Lyncis: lyncis,
+  Lyra: lyra,
+  Meryl: meryl,
+  "Meryl Ironheart": merylIronheart,
+  "Ming Jing": mingJing,
+  "Nan Yin": nanYin,
+  Nemesis: nemesis,
+  "Nemesis Voidpiercer": nemesisVoidpiercerBase,
+  "Nemesis Voidpiercer (Altered)": nemesisVoidpiercerAltered,
+  "Nemesis Voidpiercer (Flame-Physical)": nemesisVoidpiercerFlamePhysical,
+  "Nemesis Voidpiercer (Frost-Volt)": nemesisVoidpiercerFrostVolt,
+  "Nemesis Voidpiercer (Physical-Flame)": nemesisVoidpiercerPhysicalFlame,
+  "Nemesis Voidpiercer (Volt-Frost)": nemesisVoidpiercerVoltFrost,
+  Nola: nolaBase,
+  "Nola (Altered)": nolaAltered,
+  "Nola (Flame-Physical)": nolaFlamePhysical,
+  "Nola (Frost-Volt)": nolaFrostVolt,
+  "Nola (Physical-Flame)": nolaPhysicalFlame,
+  "Nola (Volt-Frost)": nolaVoltFrost,
+  Plotti: plotti,
+  Rei: rei,
+  Roslyn: roslyn,
+  Rubilia: rubilia,
+  Ruby: ruby,
+  "Saki Fuwa": sakiFuwa,
+  Samir: samir,
+  Shiro: shiro,
+  "Tian Lang": tianLang,
+  Tsubasa: tsubasa,
+  Umi: umi,
+  "Yan Miao": yanMiao,
+  Yanuo: yanuo,
+  "Yu Lan": yuLan,
+  Zero: zero,
 };
 
 // Map full weapon definitions by using the partial definitions and defaults
 const fullWeaponDefinitions: Partial<
   Record<WeaponDefinitionId, WeaponDefinition>
 > = {};
-keysOf(partialWeaponDefinitions.byId).forEach((id) => {
-  const partialDefinition = partialWeaponDefinitions.byId[id];
+keysOf(partialWeaponDefinitions).forEach((id) => {
+  const partialDefinition = partialWeaponDefinitions[id];
 
   fullWeaponDefinitions[id] = {
     ...partialDefinition,
@@ -239,5 +178,7 @@ export function getWeaponDefinition(id: WeaponDefinitionId): WeaponDefinition {
 }
 
 export function getAllWeaponDefinitions() {
-  return partialWeaponDefinitions.allIds.map((id) => getWeaponDefinition(id));
+  return weaponDefinitionIds
+    .toSorted(sortAlphabetically) // This may need to sort by displayName instead if localization is ever added
+    .map((id) => getWeaponDefinition(id));
 }
