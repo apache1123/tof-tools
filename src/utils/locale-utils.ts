@@ -18,3 +18,6 @@ export function toShortNumberFormat(number: number) {
   });
   return formatter.format(number);
 }
+
+/** Sorting function two sort two strings alphabetically. For use in Array sort() etc. */
+export const sortAlphabetically = (a: string, b: string) => a.localeCompare(b);

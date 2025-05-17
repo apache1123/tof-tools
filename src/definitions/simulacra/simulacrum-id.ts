@@ -1,53 +1,56 @@
-export type SimulacrumId =
-  | "Alyss"
-  | "Anka"
-  | "Annabella"
-  | "Antoria"
-  | "Asuka"
-  | "Asurada"
-  | "Brevey"
-  | "Carrot"
-  | "Claudia"
-  | "Claudia Storm Eye"
-  | "Cobalt-B"
-  | "Cocoritter"
-  | "Crow"
-  | "Fei Se"
-  | "Fenrir"
-  | "Fiona"
-  | "Frigg"
-  | "Gnonno"
-  | "Gray Fox"
-  | "Huang (Mimi)"
-  | "Huma"
-  | "Icarus"
-  | "Ji Yu"
-  | "King"
-  | "Lan"
-  | "Lin"
-  | "Ling Han"
-  | "Liu Huo"
-  | "Lyncis"
-  | "Lyra"
-  | "Meryl"
-  | "Meryl Ironheart"
-  | "Ming Jing"
-  | "Nan Yin"
-  | "Nemesis"
-  | "Nemesis Voidpiercer"
-  | "Nola"
-  | "Plotti"
-  | "Rei"
-  | "Roslyn"
-  | "Rubilia"
-  | "Ruby"
-  | "Saki Fuwa"
-  | "Samir"
-  | "Shiro"
-  | "Tian Lang"
-  | "Tsubasa"
-  | "Umi"
-  | "Yan Miao"
-  | "Yanuo"
-  | "Yu Lan"
-  | "Zero";
+export const simulacrumIds = [
+  "Alyss",
+  "Anka",
+  "Annabella",
+  "Antoria",
+  "Asuka",
+  "Asurada",
+  "Brevey",
+  "Carrot",
+  "Claudia",
+  "Claudia Storm Eye",
+  "Cobalt-B",
+  "Cocoritter",
+  "Crow",
+  "Fei Se",
+  "Fenrir",
+  "Fiona",
+  "Frigg",
+  "Gnonno",
+  "Gray Fox",
+  "Huang (Mimi)",
+  "Huma",
+  "Icarus",
+  "Ji Yu",
+  "King",
+  "Lan",
+  "Lin",
+  "Ling Han",
+  "Liu Huo",
+  "Lyncis",
+  "Lyra",
+  "Meryl",
+  "Meryl Ironheart",
+  "Ming Jing",
+  "Nan Yin",
+  "Nemesis",
+  "Nemesis Voidpiercer",
+  "Nola",
+  "Plotti",
+  "Rei",
+  "Roslyn",
+  "Rubilia",
+  "Ruby",
+  "Saki Fuwa",
+  "Samir",
+  "Shiro",
+  "Tian Lang",
+  "Tsubasa",
+  "Umi",
+  "Yan Miao",
+  "Yanuo",
+  "Yu Lan",
+  "Zero",
+] as const;
+
+export type SimulacrumId = (typeof simulacrumIds)[number];

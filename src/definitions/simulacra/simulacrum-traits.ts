@@ -1,8 +1,8 @@
-import type { Data } from "../../models/data";
 import type {
   SimulacrumTrait,
   SimulacrumTraitId,
 } from "../../models/simulacrum-trait";
+import { sortAlphabetically } from "../../utils/locale-utils";
 import { keysOf } from "../../utils/object-utils";
 import type { BuffAbilityDefinition } from "../types/buff/buff-ability-definition";
 import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-ability-definition";
@@ -59,124 +59,73 @@ import { yanMiao } from "./definitions/yan-miao";
 import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
+import { simulacrumIds } from "./simulacrum-id";
 
 // Hard-coded defined simulacrum trait definitions. Partial for ease-of-input
-const partialSimulacrumTraits: Data<SimulacrumTraitId, PartialSimulacrumTrait> =
-  {
-    allIds: [
-      "Alyss",
-      "Anka",
-      "Annabella",
-      "Asuka",
-      "Asurada",
-      "Brevey",
-      "Carrot",
-      "Claudia",
-      "Claudia Storm Eye",
-      "Cobalt-B",
-      "Cocoritter",
-      "Crow",
-      "Fei Se",
-      "Fenrir",
-      "Fiona",
-      "Frigg",
-      "Gnonno",
-      "Gray Fox",
-      "Huang (Mimi)",
-      "Huma",
-      "Icarus",
-      "King",
-      "Lan",
-      "Lin",
-      "Ling Han",
-      "Liu Huo",
-      "Lyncis",
-      "Lyra",
-      "Meryl",
-      "Meryl Ironheart",
-      "Ming Jing",
-      "Nan Yin",
-      "Nemesis",
-      "Nemesis Voidpiercer",
-      "Nola",
-      "Plotti",
-      "Rei",
-      "Roslyn",
-      "Rubilia",
-      "Ruby",
-      "Saki Fuwa",
-      "Samir",
-      "Shiro",
-      "Tian Lang",
-      "Tsubasa",
-      "Umi",
-      "Yan Miao",
-      "Yanuo",
-      "Yu Lan",
-      "Zero",
-    ],
-    byId: {
-      Alyss: alyss,
-      Anka: anka,
-      Annabella: annabella,
-      Antoria: antoria,
-      Asuka: asuka,
-      Asurada: asurada,
-      Brevey: brevey,
-      Carrot: carrot,
-      Claudia: claudia,
-      "Claudia Storm Eye": claudiaStormEye,
-      "Cobalt-B": cobaltB,
-      Cocoritter: cocoritter,
-      Crow: crow,
-      "Fei Se": feiSe,
-      Fenrir: fenrir,
-      Fiona: fiona,
-      Frigg: frigg,
-      Gnonno: gnonno,
-      "Gray Fox": grayFox,
-      "Huang (Mimi)": mimi,
-      Huma: huma,
-      Icarus: icarus,
-      "Ji Yu": jiYu,
-      King: king,
-      Lan: lan,
-      Lin: lin,
-      "Ling Han": lingHan,
-      "Liu Huo": liuHuo,
-      Lyncis: lyncis,
-      Lyra: lyra,
-      Meryl: meryl,
-      "Meryl Ironheart": merylIronheart,
-      "Ming Jing": mingJing,
-      "Nan Yin": nanYin,
-      Nemesis: nemesis,
-      "Nemesis Voidpiercer": nemesisVoidpiercer,
-      Nola: nola,
-      Plotti: plotti,
-      Rei: rei,
-      Roslyn: roslyn,
-      Rubilia: rubilia,
-      Ruby: ruby,
-      "Saki Fuwa": sakiFuwa,
-      Samir: samir,
-      Shiro: shiro,
-      "Tian Lang": tianLang,
-      Tsubasa: tsubasa,
-      Umi: umi,
-      "Yan Miao": yanMiao,
-      Yanuo: yanuo,
-      "Yu Lan": yuLan,
-      Zero: zero,
-    },
-  };
+const partialSimulacrumTraits: Record<
+  SimulacrumTraitId,
+  PartialSimulacrumTrait
+> = {
+  Alyss: alyss,
+  Anka: anka,
+  Annabella: annabella,
+  Antoria: antoria,
+  Asuka: asuka,
+  Asurada: asurada,
+  Brevey: brevey,
+  Carrot: carrot,
+  Claudia: claudia,
+  "Claudia Storm Eye": claudiaStormEye,
+  "Cobalt-B": cobaltB,
+  Cocoritter: cocoritter,
+  Crow: crow,
+  "Fei Se": feiSe,
+  Fenrir: fenrir,
+  Fiona: fiona,
+  Frigg: frigg,
+  Gnonno: gnonno,
+  "Gray Fox": grayFox,
+  "Huang (Mimi)": mimi,
+  Huma: huma,
+  Icarus: icarus,
+  "Ji Yu": jiYu,
+  King: king,
+  Lan: lan,
+  Lin: lin,
+  "Ling Han": lingHan,
+  "Liu Huo": liuHuo,
+  Lyncis: lyncis,
+  Lyra: lyra,
+  Meryl: meryl,
+  "Meryl Ironheart": merylIronheart,
+  "Ming Jing": mingJing,
+  "Nan Yin": nanYin,
+  Nemesis: nemesis,
+  "Nemesis Voidpiercer": nemesisVoidpiercer,
+  Nola: nola,
+  Plotti: plotti,
+  Rei: rei,
+  Roslyn: roslyn,
+  Rubilia: rubilia,
+  Ruby: ruby,
+  "Saki Fuwa": sakiFuwa,
+  Samir: samir,
+  Shiro: shiro,
+  "Tian Lang": tianLang,
+  Tsubasa: tsubasa,
+  Umi: umi,
+  "Yan Miao": yanMiao,
+  Yanuo: yanuo,
+  "Yu Lan": yuLan,
+  Zero: zero,
+};
 
 // Map full simulacrum traits by using the partial definitions and defaults
 const fullSimulacrumTraits: Partial<
   Record<SimulacrumTraitId, SimulacrumTrait>
 > = {};
-keysOf(partialSimulacrumTraits.byId).forEach((id) => {
-  const partialDefinition = partialSimulacrumTraits.byId[id];
+keysOf(partialSimulacrumTraits).forEach((id) => {
+  const partialDefinition = partialSimulacrumTraits[id];
 
   fullSimulacrumTraits[id] = {
     ...partialDefinition,
@@ -194,5 +143,7 @@ export function getSimulacrumTrait(id: SimulacrumTraitId): SimulacrumTrait {
 }
 
 export function getAllSimulacrumTraits() {
-  return partialSimulacrumTraits.allIds.map((id) => getSimulacrumTrait(id));
+  return simulacrumIds
+    .toSorted(sortAlphabetically) // This may need to sort by displayName instead if localization is ever added
+    .map((id) => getSimulacrumTrait(id));
 }
