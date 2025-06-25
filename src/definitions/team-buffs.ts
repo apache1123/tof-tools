@@ -70,6 +70,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
         anyWeapon: [
           "Anka",
           "Annabella",
+          "Aster",
           "Asuka",
           "Asurada",
           "Carrot",
@@ -162,6 +163,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
       teamRequirements: {
         anyWeapon: [
           "Anka",
+          "Aster",
           "Asuka",
           "Asurada",
           "Carrot",
