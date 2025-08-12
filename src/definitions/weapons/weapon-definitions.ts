@@ -25,6 +25,7 @@ import { fiona } from "./definitions/fiona";
 import { frigg } from "./definitions/frigg";
 import { gnonno } from "./definitions/gnonno";
 import { grayFox } from "./definitions/gray-fox";
+import { hipper } from "./definitions/hipper";
 import { huma } from "./definitions/huma";
 import { icarus } from "./definitions/icarus";
 import { jiYu } from "./definitions/ji-yu";
@@ -110,6 +111,7 @@ const partialWeaponDefinitions: Record<
   Frigg: frigg,
   Gnonno: gnonno,
   "Gray Fox": grayFox,
+  Hipper: hipper,
   "Huang (Mimi)": mimi,
   Huma: huma,
   Icarus: icarus,

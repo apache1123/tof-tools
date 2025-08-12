@@ -26,6 +26,7 @@ import { frigg } from "./definitions/frigg";
 import { gnonno } from "./definitions/gnonno";
 import { grayFox } from "./definitions/gray-fox";
 import { haboela } from "./definitions/haboela";
+import { hipper } from "./definitions/hipper";
 import { huma } from "./definitions/huma";
 import { icarus } from "./definitions/icarus";
 import { jiYu } from "./definitions/ji-yu";
@@ -91,6 +92,7 @@ const partialMatrixDefinitions: Record<
   Gnonno: gnonno,
   "Gray Fox": grayFox,
   Haboela: haboela,
+  Hipper: hipper,
   "Huang (Mimi)": mimi,
   Huma: huma,
   Icarus: icarus,
