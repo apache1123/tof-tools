@@ -63,7 +63,6 @@ export function EditCustomBuffAbility({
             label="Base attack"
             property="baseAttackBuffs"
             percentageMode={false}
-            helperText="e.g. Adrenalin Serum (mentor shop) buff"
           />
         </Grid>
       </Grid>
