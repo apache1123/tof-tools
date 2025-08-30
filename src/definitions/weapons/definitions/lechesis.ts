@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const lechesis = {
+  id: "Lechesis",
+  simulacrumDisplayName: "Lechesis",
+  weaponDisplayName: "Eternal Salvation",
+  elementalIcon: "Flame-Physical",
+  resonanceElements: ["Flame", "Physical"],
+  gearResonanceElements: ["Flame", "Physical"],
+  damageElement: "Flame",
+  type: "Support",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Lechesis 1*",
+      displayName: "Lechesis 1*",
+      description: "Increases Final Damage by 5%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.05 }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Lechesis 5*",
+      displayName: "Lechesis 5*",
+      description: "Increases Final Damage by 5%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.05 }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Lechesis 6*",
+      displayName: "Lechesis 6*",
+      description: "Increases Flame Damage by 22%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.22, elementalTypes: ["Flame"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;

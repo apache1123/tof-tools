@@ -33,6 +33,7 @@ import { icarus } from "./definitions/icarus";
 import { jiYu } from "./definitions/ji-yu";
 import { king } from "./definitions/king";
 import { lan } from "./definitions/lan";
+import { lechesis } from "./definitions/lechesis";
 import { lin } from "./definitions/lin";
 import { lingHan } from "./definitions/ling-han";
 import { liuHuo } from "./definitions/liu-huo";
@@ -95,6 +96,7 @@ const partialSimulacrumTraits: Record<
   "Ji Yu": jiYu,
   King: king,
   Lan: lan,
+  Lechesis: lechesis,
   Lin: lin,
   "Ling Han": lingHan,
   "Liu Huo": liuHuo,
