@@ -27,6 +27,7 @@ import { fiona } from "./definitions/fiona";
 import { frigg } from "./definitions/frigg";
 import { gnonno } from "./definitions/gnonno";
 import { grayFox } from "./definitions/gray-fox";
+import { helene } from "./definitions/helene";
 import { hipper } from "./definitions/hipper";
 import { huma } from "./definitions/huma";
 import { icarus } from "./definitions/icarus";
@@ -89,6 +90,7 @@ const partialSimulacrumTraits: Record<
   Frigg: frigg,
   Gnonno: gnonno,
   "Gray Fox": grayFox,
+  Helene: helene,
   Hipper: hipper,
   "Huang (Mimi)": mimi,
   Huma: huma,
