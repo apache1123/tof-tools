@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const helene = {
+  id: "Helene",
+  simulacrumDisplayName: "Helene",
+  weaponDisplayName: "Pollux",
+  elementalIcon: "Frost-Volt",
+  resonanceElements: ["Frost", "Volt"],
+  gearResonanceElements: ["Frost", "Volt"],
+  damageElement: "Frost",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Helene 1*",
+      displayName: "Helene 1*",
+      description: "Increases Final Damage by 6%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.06 }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Helene 5*",
+      displayName: "Helene 5*",
+      description: "Increases Final Damage by 6%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.06 }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Helene 6*",
+      displayName: "Helene 6*",
+      description: "Increases Frost Damage by 21%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.21, elementalTypes: ["Frost"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;
