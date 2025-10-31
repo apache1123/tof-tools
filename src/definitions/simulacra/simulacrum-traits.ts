@@ -45,6 +45,7 @@ import { merylIronheart } from "./definitions/meryl-ironheart";
 import { mimi } from "./definitions/mimi";
 import { mingJing } from "./definitions/ming-jing";
 import { nanYin } from "./definitions/nan-yin";
+import { nanto } from "./definitions/nanto";
 import { nemesis } from "./definitions/nemesis";
 import { nemesisVoidpiercer } from "./definitions/nemesis-voidpiercer";
 import { nola } from "./definitions/nola";
@@ -108,6 +109,7 @@ const partialSimulacrumTraits: Record<
   "Meryl Ironheart": merylIronheart,
   "Ming Jing": mingJing,
   "Nan Yin": nanYin,
+  Nanto: nanto,
   Nemesis: nemesis,
   "Nemesis Voidpiercer": nemesisVoidpiercer,
   Nola: nola,
