@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const nanto = {
+  id: "Nanto",
+  simulacrumDisplayName: "Nanto",
+  weaponDisplayName: "Frostfang",
+  elementalIcon: "Physical-Flame",
+  resonanceElements: ["Physical", "Flame"],
+  gearResonanceElements: ["Physical", "Flame"],
+  damageElement: "Physical",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Nanto 1*",
+      displayName: "Nanto 1*",
+      description: "Increases Physical Damage by 7%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.07, elementalTypes: ["Physical"] }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Nanto 5*",
+      displayName: "Nanto 5*",
+      description: "Increases Final Damage by 10%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.1 }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Nanto 6*",
+      displayName: "Nanto 6*",
+      description: "Increases Physical Damage by 24%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.24, elementalTypes: ["Physical"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;

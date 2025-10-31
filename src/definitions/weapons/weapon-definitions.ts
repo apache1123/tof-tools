@@ -43,6 +43,7 @@ import { merylIronheart } from "./definitions/meryl-ironheart";
 import { mimi } from "./definitions/mimi";
 import { mingJing } from "./definitions/ming-jing";
 import { nanYin } from "./definitions/nan-yin";
+import { nanto } from "./definitions/nanto";
 import { nemesis } from "./definitions/nemesis";
 import { nemesisVoidpiercerAltered } from "./definitions/nemesis-voidpiercer-altered";
 import { nemesisVoidpiercerBase } from "./definitions/nemesis-voidpiercer-base";
@@ -131,6 +132,7 @@ const partialWeaponDefinitions: Record<
   "Meryl Ironheart": merylIronheart,
   "Ming Jing": mingJing,
   "Nan Yin": nanYin,
+  Nanto: nanto,
   Nemesis: nemesis,
   "Nemesis Voidpiercer": nemesisVoidpiercerBase,
   "Nemesis Voidpiercer (Altered)": nemesisVoidpiercerAltered,

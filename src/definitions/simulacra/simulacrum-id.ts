@@ -37,6 +37,7 @@ export const simulacrumIds = [
   "Meryl Ironheart",
   "Ming Jing",
   "Nan Yin",
+  "Nanto",
   "Nemesis",
   "Nemesis Voidpiercer",
   "Nola",
