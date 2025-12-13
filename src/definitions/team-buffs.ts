@@ -137,6 +137,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Rei",
           "Roslyn",
           "Saki Fuwa",
+          "Veronika",
           "Yanuo",
           "Yu Lan",
         ],
@@ -231,6 +232,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Roslyn",
           "Rubilia",
           "Tian Lang",
+          "Veronika",
           "Yanuo",
         ],
         elementalWeapons: {

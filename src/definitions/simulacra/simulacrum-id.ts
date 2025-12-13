@@ -52,6 +52,7 @@ export const simulacrumIds = [
   "Tian Lang",
   "Tsubasa",
   "Umi",
+  "Veronika",
   "Yan Miao",
   "Yanuo",
   "Yu Lan",
