@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const veronika = {
+  id: "Veronika",
+  simulacrumDisplayName: "Veronika",
+  weaponDisplayName: "Visios",
+  elementalIcon: "Volt-Frost",
+  resonanceElements: ["Volt", "Frost"],
+  gearResonanceElements: ["Volt", "Frost"],
+  damageElement: "Volt",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Veronika 1*",
+      displayName: "Veronika 1*",
+      description: "Increases Volt Damage by 10%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.1, elementalTypes: ["Volt"] }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Veronika 3*",
+      displayName: "Veronika 3*",
+      description: "Increases Final Damage by 11%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.11 }],
+      starRequirement: { minStarRequirement: 3, maxStarRequirement: 6 },
+    },
+    {
+      id: "Veronika 6*",
+      displayName: "Veronika 6*",
+      description: "Increases Volt Damage by 23%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.23, elementalTypes: ["Volt"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;

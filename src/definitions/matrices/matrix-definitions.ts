@@ -60,6 +60,7 @@ import { shiro } from "./definitions/shiro";
 import { tianLang } from "./definitions/tian-lang";
 import { tsubasa } from "./definitions/tsubasa";
 import { umi } from "./definitions/umi";
+import { veronika } from "./definitions/veronika";
 import { yanMiao } from "./definitions/yan-miao";
 import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
@@ -129,6 +130,7 @@ const partialMatrixDefinitions: Record<
   "Tian Lang": tianLang,
   Tsubasa: tsubasa,
   Umi: umi,
+  Veronika: veronika,
   "Yan Miao": yanMiao,
   Yanuo: yanuo,
   "Yu Lan": yuLan,
