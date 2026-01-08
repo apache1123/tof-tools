@@ -27,6 +27,7 @@ export const simulacrumIds = [
   "Ji Yu",
   "King",
   "Lan",
+  "Lana",
   "Lechesis",
   "Lin",
   "Ling Han",

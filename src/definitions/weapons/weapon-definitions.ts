@@ -32,6 +32,12 @@ import { icarus } from "./definitions/icarus";
 import { jiYu } from "./definitions/ji-yu";
 import { king } from "./definitions/king";
 import { lan } from "./definitions/lan";
+import { lanaAltered } from "./definitions/lana-altered";
+import { lanaBase } from "./definitions/lana-base";
+import { lanaFlamePhysical } from "./definitions/lana-flame-physical";
+import { lanaFrostVolt } from "./definitions/lana-frost-volt";
+import { lanaPhysicalFlame } from "./definitions/lana-physical-flame";
+import { lanaVoltFrost } from "./definitions/lana-volt-frost";
 import { lechesis } from "./definitions/lechesis";
 import { lin } from "./definitions/lin";
 import { lingHan } from "./definitions/ling-han";
@@ -76,6 +82,11 @@ import { zero } from "./definitions/zero";
 
 const weaponDefinitionIds = [
   ...simulacrumIds,
+  "Lana (Altered)",
+  "Lana (Flame-Physical)",
+  "Lana (Frost-Volt)",
+  "Lana (Physical-Flame)",
+  "Lana (Volt-Frost)",
   "Nemesis Voidpiercer (Altered)",
   "Nemesis Voidpiercer (Flame-Physical)",
   "Nemesis Voidpiercer (Frost-Volt)",
@@ -123,6 +134,12 @@ const partialWeaponDefinitions: Record<
   "Ji Yu": jiYu,
   King: king,
   Lan: lan,
+  Lana: lanaBase,
+  "Lana (Altered)": lanaAltered,
+  "Lana (Flame-Physical)": lanaFlamePhysical,
+  "Lana (Frost-Volt)": lanaFrostVolt,
+  "Lana (Physical-Flame)": lanaPhysicalFlame,
+  "Lana (Volt-Frost)": lanaVoltFrost,
   Lechesis: lechesis,
   Lin: lin,
   "Ling Han": lingHan,
@@ -190,7 +207,13 @@ export function getWeaponDefinition(id: WeaponDefinitionId): WeaponDefinition {
 }
 
 export function getAllWeaponDefinitions() {
-  return weaponDefinitionIds
-    .toSorted(sortAlphabetically) // This may need to sort by displayName instead if localization is ever added
-    .map((id) => getWeaponDefinition(id));
+  return (
+    weaponDefinitionIds
+      // Include all except for newer altered weapons. These new weapons have a switch to switch their element type to altered, flame,... etc. so user should use the specific variant they want, instead of a generic one
+      .filter(
+        (id) => id !== "Lana" && id !== "Nemesis Voidpiercer" && id !== "Nola",
+      )
+      .toSorted(sortAlphabetically) // This may need to sort by displayName instead if localization is ever added
+      .map((id) => getWeaponDefinition(id))
+  );
 }
