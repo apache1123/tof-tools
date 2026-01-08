@@ -33,6 +33,7 @@ import { icarus } from "./definitions/icarus";
 import { jiYu } from "./definitions/ji-yu";
 import { king } from "./definitions/king";
 import { lan } from "./definitions/lan";
+import { lana } from "./definitions/lana";
 import { lechesis } from "./definitions/lechesis";
 import { lin } from "./definitions/lin";
 import { lingHan } from "./definitions/ling-han";
@@ -104,6 +105,7 @@ const partialMatrixDefinitions: Record<
   "Ji Yu": jiYu,
   King: king,
   Lan: lan,
+  Lana: lana,
   Lechesis: lechesis,
   Lin: lin,
   "Ling Han": lingHan,

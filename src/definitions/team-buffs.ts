@@ -41,7 +41,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
     maxStacks: 1,
     requirements: {
       teamRequirements: {
-        anyWeapon: ["Fiona"],
+        anyWeapon: ["Fiona", "Lana (Altered)"],
         elementalWeapons: {
           numOfElementalWeapons: [
             { element: "Altered", numOfWeapons: 2 },
@@ -79,6 +79,8 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Fei Se",
           "Ji Yu",
           "Lan",
+          "Lana (Flame-Physical)",
+          "Lana (Physical-Flame)",
           "Lechesis",
           "Liu Huo",
           "Ming Jing",
@@ -127,6 +129,8 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Helene",
           "Hipper",
           "Icarus",
+          "Lana (Frost-Volt)",
+          "Lana (Volt-Frost)",
           "Ling Han",
           "Lyncis",
           "Meryl Ironheart",
@@ -176,6 +180,8 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Claudia Storm Eye",
           "Gnonno",
           "Ji Yu",
+          "Lana (Flame-Physical)",
+          "Lana (Physical-Flame)",
           "Lechesis",
           "Lyra",
           "Ming Jing",
@@ -221,6 +227,8 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Helene",
           "Hipper",
           "Huang (Mimi)",
+          "Lana (Frost-Volt)",
+          "Lana (Volt-Frost)",
           "Lyncis",
           "Meryl Ironheart",
           "Nemesis",
