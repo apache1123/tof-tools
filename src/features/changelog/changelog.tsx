@@ -460,4 +460,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2026, 0, 8)),
     title: "Added Lana",
   },
+  {
+    semver: "4.18.0",
+    date: new Date(Date.UTC(2026, 1, 6)),
+    title: "Added Salidy",
+  },
 ];

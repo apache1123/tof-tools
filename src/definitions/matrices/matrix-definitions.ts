@@ -55,6 +55,7 @@ import { roslyn } from "./definitions/roslyn";
 import { rubilia } from "./definitions/rubilia";
 import { ruby } from "./definitions/ruby";
 import { sakiFuwa } from "./definitions/saki-fuwa";
+import { salidy } from "./definitions/salidy";
 import { samir } from "./definitions/samir";
 import { scylla } from "./definitions/scylla";
 import { shiro } from "./definitions/shiro";
@@ -126,6 +127,7 @@ const partialMatrixDefinitions: Record<
   Rubilia: rubilia,
   Ruby: ruby,
   "Saki Fuwa": sakiFuwa,
+  Salidy: salidy,
   Samir: samir,
   Scylla: scylla,
   Shiro: shiro,
