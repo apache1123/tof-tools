@@ -48,6 +48,7 @@ export const simulacrumIds = [
   "Rubilia",
   "Ruby",
   "Saki Fuwa",
+  "Salidy",
   "Samir",
   "Shiro",
   "Tian Lang",

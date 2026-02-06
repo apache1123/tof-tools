@@ -69,6 +69,7 @@ import { roslyn } from "./definitions/roslyn";
 import { rubilia } from "./definitions/rubilia";
 import { ruby } from "./definitions/ruby";
 import { sakiFuwa } from "./definitions/saki-fuwa";
+import { salidy } from "./definitions/salidy";
 import { samir } from "./definitions/samir";
 import { shiro } from "./definitions/shiro";
 import { tianLang } from "./definitions/tian-lang";
@@ -170,6 +171,7 @@ const partialWeaponDefinitions: Record<
   Rubilia: rubilia,
   Ruby: ruby,
   "Saki Fuwa": sakiFuwa,
+  Salidy: salidy,
   Samir: samir,
   Shiro: shiro,
   "Tian Lang": tianLang,
