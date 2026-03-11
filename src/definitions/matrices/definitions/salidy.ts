@@ -13,7 +13,7 @@ const attackBuff2pcBase = {
   minMatrixPieces: 2,
 } as const satisfies Partial<PartialMatrixBuffAbilityDefinition>;
 
-const finalDamageBuff4pcBase = {
+const flameDamageBuff4pcBase = {
   id: "Salidy 4pc flame damage",
   displayName: "Salidy 4pc flame damage",
   description: "Increases Flame DMG by 22%/26%/30%/34%",
@@ -69,22 +69,22 @@ export const salidy = {
     },
 
     {
-      ...finalDamageBuff4pcBase,
+      ...flameDamageBuff4pcBase,
       elementalDamageBuffs: [{ value: 0.22, elementalTypes: ["Flame"] }],
       starRequirement: { minStarRequirement: 0, maxStarRequirement: 0 },
     },
     {
-      ...finalDamageBuff4pcBase,
+      ...flameDamageBuff4pcBase,
       elementalDamageBuffs: [{ value: 0.26, elementalTypes: ["Flame"] }],
       starRequirement: { minStarRequirement: 1, maxStarRequirement: 1 },
     },
     {
-      ...finalDamageBuff4pcBase,
+      ...flameDamageBuff4pcBase,
       elementalDamageBuffs: [{ value: 0.3, elementalTypes: ["Flame"] }],
       starRequirement: { minStarRequirement: 2, maxStarRequirement: 2 },
     },
     {
-      ...finalDamageBuff4pcBase,
+      ...flameDamageBuff4pcBase,
       elementalDamageBuffs: [{ value: 0.34, elementalTypes: ["Flame"] }],
       starRequirement: { minStarRequirement: 3, maxStarRequirement: 3 },
     },

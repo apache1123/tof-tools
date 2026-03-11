@@ -5,6 +5,7 @@ import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-abili
 import type { PartialWeaponDefinition } from "../types/weapon/partial-weapon-definition";
 import type { WeaponBuffAbilityDefinition } from "../types/weapon/weapon-buff-ability-definition";
 import type { WeaponDefinition } from "../types/weapon/weapon-definition";
+import { agleia } from "./definitions/agleia";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
 import { annabella } from "./definitions/annabella";
@@ -107,6 +108,7 @@ const partialWeaponDefinitions: Record<
   WeaponDefinitionId,
   PartialWeaponDefinition
 > = {
+  Agleia: agleia,
   Alyss: alyss,
   Anka: anka,
   Annabella: annabella,

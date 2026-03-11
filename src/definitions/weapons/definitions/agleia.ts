@@ -1,0 +1,58 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const agleia = {
+  id: "Agleia",
+  simulacrumDisplayName: "Agleia",
+  weaponDisplayName: "Chrono Heart",
+  elementalIcon: "Frost-Volt",
+  resonanceElements: ["Frost", "Volt"],
+  gearResonanceElements: ["Frost", "Volt"],
+  damageElement: "Frost",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Agleia 1*",
+      displayName: "Agleia 1*",
+      description: "Increases Frost Damage by 9%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.09, elementalTypes: ["Frost"] }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Agleia 5*",
+      displayName: "Agleia 5*",
+      description: "Increases Frost Damage by 9%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.09, elementalTypes: ["Frost"] }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Agleia 6*",
+      displayName: "Agleia 6*",
+      description: "Increases Final Damage by 30% and Frost Damage by 9%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.09, elementalTypes: ["Frost"] }],
+      finalDamageBuffs: [{ value: 0.3 }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;

@@ -7,6 +7,7 @@ import { keysOf } from "../../utils/object-utils";
 import type { BuffAbilityDefinition } from "../types/buff/buff-ability-definition";
 import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-ability-definition";
 import type { PartialSimulacrumTrait } from "../types/simulacrum/partial-simulacrum-trait";
+import { agleia } from "./definitions/agleia";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
 import { annabella } from "./definitions/annabella";
@@ -74,6 +75,7 @@ const partialSimulacrumTraits: Record<
   SimulacrumTraitId,
   PartialSimulacrumTrait
 > = {
+  Agleia: agleia,
   Alyss: alyss,
   Anka: anka,
   Annabella: annabella,

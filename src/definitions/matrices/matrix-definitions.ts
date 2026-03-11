@@ -5,6 +5,7 @@ import { mapToFullBuffAbilityDefinition } from "../types/buff/partial-buff-abili
 import type { MatrixBuffAbilityDefinition } from "../types/matrix/matrix-buff-ability-definition";
 import type { MatrixDefinition } from "../types/matrix/matrix-definition";
 import type { PartialMatrixDefinition } from "../types/matrix/partial-matrix-definition";
+import { agleia } from "./definitions/agleia";
 import { alyss } from "./definitions/alyss";
 import { anka } from "./definitions/anka";
 import { annabella } from "./definitions/annabella";
@@ -77,6 +78,7 @@ const partialMatrixDefinitions: Record<
   MatrixDefinitionId,
   PartialMatrixDefinition
 > = {
+  Agleia: agleia,
   Alyss: alyss,
   Anka: anka,
   Annabella: annabella,
