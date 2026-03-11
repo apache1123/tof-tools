@@ -1,4 +1,5 @@
 export const simulacrumIds = [
+  "Agleia",
   "Alyss",
   "Anka",
   "Annabella",
