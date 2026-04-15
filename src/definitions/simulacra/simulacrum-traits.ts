@@ -15,6 +15,7 @@ import { antoria } from "./definitions/antoria";
 import { aster } from "./definitions/aster";
 import { asuka } from "./definitions/asuka";
 import { asurada } from "./definitions/asurada";
+import { berry } from "./definitions/berry";
 import { brevey } from "./definitions/brevey";
 import { carrot } from "./definitions/carrot";
 import { claudia } from "./definitions/claudia";
@@ -83,6 +84,7 @@ const partialSimulacrumTraits: Record<
   Aster: aster,
   Asuka: asuka,
   Asurada: asurada,
+  Berry: berry,
   Brevey: brevey,
   Carrot: carrot,
   Claudia: claudia,

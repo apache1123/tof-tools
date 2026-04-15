@@ -7,6 +7,7 @@ export const simulacrumIds = [
   "Aster",
   "Asuka",
   "Asurada",
+  "Berry",
   "Brevey",
   "Carrot",
   "Claudia",
