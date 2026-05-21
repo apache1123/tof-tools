@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const harmopheus = {
+  id: "Harmopheus",
+  simulacrumDisplayName: "Harmopheus",
+  weaponDisplayName: "Neverrest",
+  elementalIcon: "Volt-Frost",
+  resonanceElements: ["Volt", "Frost"],
+  gearResonanceElements: ["Volt", "Frost"],
+  damageElement: "Volt",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Harmopheus 1*",
+      displayName: "Harmopheus 1*",
+      description: "Increases Final Damage by 9%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.09 }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Harmopheus 5*",
+      displayName: "Harmopheus 5*",
+      description: "Increases Volt Damage by 15%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.15, elementalTypes: ["Volt"] }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Harmopheus 6*",
+      displayName: "Harmopheus 6*",
+      description: "Increases Final Damage by 27%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.27 }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;
