@@ -480,4 +480,9 @@ export const changelog: Changelog = [
     date: new Date(Date.UTC(2026, 4, 21)),
     title: "Added Harmopheus",
   },
+  {
+    semver: "4.22.0",
+    date: new Date(Date.UTC(2026, 6, 16)),
+    title: "Added Skull",
+  },
 ];

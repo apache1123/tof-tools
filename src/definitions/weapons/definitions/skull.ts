@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const skull = {
+  id: "Skull",
+  simulacrumDisplayName: "Skull",
+  weaponDisplayName: "Silverfang",
+  elementalIcon: "Flame-Physical",
+  resonanceElements: ["Flame", "Physical"],
+  gearResonanceElements: ["Flame", "Physical"],
+  damageElement: "Flame",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Skull 1*",
+      displayName: "Skull 1*",
+      description: "Increases Flame Damage by 8%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.08, elementalTypes: ["Flame"] }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Skull 5*",
+      displayName: "Skull 5*",
+      description: "Increases Final Damage by 10%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.1 }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Skull 6*",
+      displayName: "Skull 6*",
+      description: "Increases Flame Damage by 30%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.3, elementalTypes: ["Flame"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;
