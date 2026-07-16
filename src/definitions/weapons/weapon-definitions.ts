@@ -75,6 +75,7 @@ import { sakiFuwa } from "./definitions/saki-fuwa";
 import { salidy } from "./definitions/salidy";
 import { samir } from "./definitions/samir";
 import { shiro } from "./definitions/shiro";
+import { skull } from "./definitions/skull";
 import { tianLang } from "./definitions/tian-lang";
 import { tsubasa } from "./definitions/tsubasa";
 import { umi } from "./definitions/umi";
@@ -180,6 +181,7 @@ const partialWeaponDefinitions: Record<
   Salidy: salidy,
   Samir: samir,
   Shiro: shiro,
+  Skull: skull,
   "Tian Lang": tianLang,
   Tsubasa: tsubasa,
   Umi: umi,

@@ -54,6 +54,7 @@ export const simulacrumIds = [
   "Salidy",
   "Samir",
   "Shiro",
+  "Skull",
   "Tian Lang",
   "Tsubasa",
   "Umi",

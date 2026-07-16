@@ -62,6 +62,7 @@ import { salidy } from "./definitions/salidy";
 import { samir } from "./definitions/samir";
 import { scylla } from "./definitions/scylla";
 import { shiro } from "./definitions/shiro";
+import { skull } from "./definitions/skull";
 import { tianLang } from "./definitions/tian-lang";
 import { tsubasa } from "./definitions/tsubasa";
 import { umi } from "./definitions/umi";
@@ -137,6 +138,7 @@ const partialMatrixDefinitions: Record<
   Samir: samir,
   Scylla: scylla,
   Shiro: shiro,
+  Skull: skull,
   "Tian Lang": tianLang,
   Tsubasa: tsubasa,
   Umi: umi,
