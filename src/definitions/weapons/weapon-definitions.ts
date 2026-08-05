@@ -25,6 +25,7 @@ import { feiSe } from "./definitions/fei-se";
 import { fenrir } from "./definitions/fenrir";
 import { fiona } from "./definitions/fiona";
 import { frigg } from "./definitions/frigg";
+import { gefion } from "./definitions/gefion";
 import { gnonno } from "./definitions/gnonno";
 import { grayFox } from "./definitions/gray-fox";
 import { harmopheus } from "./definitions/harmopheus";
@@ -131,6 +132,7 @@ const partialWeaponDefinitions: Record<
   Fenrir: fenrir,
   Fiona: fiona,
   Frigg: frigg,
+  Gefion: gefion,
   Gnonno: gnonno,
   "Gray Fox": grayFox,
   Harmopheus: harmopheus,
