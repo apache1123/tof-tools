@@ -19,6 +19,7 @@ export const simulacrumIds = [
   "Fenrir",
   "Fiona",
   "Frigg",
+  "Gefion",
   "Gnonno",
   "Gray Fox",
   "Harmopheus",
