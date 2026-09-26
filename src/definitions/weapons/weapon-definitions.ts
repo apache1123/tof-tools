@@ -85,6 +85,7 @@ import { yanMiao } from "./definitions/yan-miao";
 import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
+import { zoey } from "./definitions/zoey";
 
 const weaponDefinitionIds = [
   ...simulacrumIds,
@@ -192,6 +193,7 @@ const partialWeaponDefinitions: Record<
   Yanuo: yanuo,
   "Yu Lan": yuLan,
   Zero: zero,
+  Zoey: zoey,
 };
 
 // Map full weapon definitions by using the partial definitions and defaults

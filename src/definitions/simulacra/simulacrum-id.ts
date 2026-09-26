@@ -64,6 +64,7 @@ export const simulacrumIds = [
   "Yanuo",
   "Yu Lan",
   "Zero",
+  "Zoey"
 ] as const;
 
 export type SimulacrumId = (typeof simulacrumIds)[number];

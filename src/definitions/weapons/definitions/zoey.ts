@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const zoey = {
+  id: "Zoey",
+  simulacrumDisplayName: "Zoey",
+  weaponDisplayName: "Rosebud",
+  elementalIcon: "Physical-Flame",
+  resonanceElements: ["Physical", "Flame"],
+  gearResonanceElements: ["Physical", "Flame"],
+  damageElement: "Physical",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Zoey 1*",
+      displayName: "Zoey 1*",
+      description: "Increases Physical Damage by 12%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.12, elementalTypes: ["Physical"] }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Zoey 5*",
+      displayName: "Zoey 5*",
+      description: "Increases Final Damage by 9%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.09 }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Zoey 6*",
+      displayName: "Zoey 6*",
+      description: "Increases Physical Damage by 28%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.28, elementalTypes: ["Physical"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;

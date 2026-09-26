@@ -72,6 +72,7 @@ import { yanMiao } from "./definitions/yan-miao";
 import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
+import { zoey } from "./definitions/zoey";
 import { simulacrumIds } from "./simulacrum-id";
 
 // Hard-coded defined simulacrum trait definitions. Partial for ease-of-input
@@ -144,6 +145,7 @@ const partialSimulacrumTraits: Record<
   Yanuo: yanuo,
   "Yu Lan": yuLan,
   Zero: zero,
+  Zoey: zoey,
 };
 
 // Map full simulacrum traits by using the partial definitions and defaults
