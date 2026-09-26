@@ -72,6 +72,7 @@ import { yanMiao } from "./definitions/yan-miao";
 import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
 import { zero } from "./definitions/zero";
+import { zoey } from "./definitions/zoey";
 
 const matrixDefinitionIds = [...simulacrumIds, "Haboela", "Scylla"] as const;
 
@@ -149,6 +150,7 @@ const partialMatrixDefinitions: Record<
   Yanuo: yanuo,
   "Yu Lan": yuLan,
   Zero: zero,
+  Zoey: zoey,
 };
 
 // Map full matrix definitions by using the partial definitions and defaults
