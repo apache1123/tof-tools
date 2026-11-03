@@ -96,7 +96,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Skull",
           "Yan Miao",
           "Zero",
-          "Zoey"
+          "Zoey",
         ],
         elementalWeapons: {
           numOfElementalWeapons: [
@@ -149,6 +149,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Roslyn",
           "Saki Fuwa",
           "Veronika",
+          "Wrenna",
           "Yanuo",
           "Yu Lan",
         ],
@@ -203,7 +204,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Skull",
           "Umi",
           "Yan Miao",
-          "Zoey"
+          "Zoey",
         ],
         elementalWeapons: {
           numOfElementalWeapons: [
@@ -255,6 +256,7 @@ export const teamBuffs: BuffAbilityDefinition[] = [
           "Rubilia",
           "Tian Lang",
           "Veronika",
+          "Wrenna",
           "Yanuo",
         ],
         elementalWeapons: {
