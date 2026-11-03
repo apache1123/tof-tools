@@ -60,11 +60,12 @@ export const simulacrumIds = [
   "Tsubasa",
   "Umi",
   "Veronika",
+  "Wrenna",
   "Yan Miao",
   "Yanuo",
   "Yu Lan",
   "Zero",
-  "Zoey"
+  "Zoey",
 ] as const;
 
 export type SimulacrumId = (typeof simulacrumIds)[number];

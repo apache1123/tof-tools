@@ -1,0 +1,57 @@
+import type { PartialWeaponDefinition } from "../../types/weapon/partial-weapon-definition";
+
+export const wrenna = {
+  id: "Wrenna",
+  simulacrumDisplayName: "Wrenna",
+  weaponDisplayName: "Skybreaker",
+  elementalIcon: "Volt-Frost",
+  resonanceElements: ["Volt", "Frost"],
+  gearResonanceElements: ["Volt", "Frost"],
+  damageElement: "Volt",
+  type: "DPS",
+
+  normalAttacks: [],
+  dodgeAttacks: [],
+  skills: [],
+  discharges: [],
+
+  buffs: [
+    {
+      id: "Wrenna 1*",
+      displayName: "Wrenna 1*",
+      description: "Increases Volt Damage by 10%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.1, elementalTypes: ["Volt"] }],
+      starRequirement: { minStarRequirement: 1, maxStarRequirement: 6 },
+    },
+    {
+      id: "Wrenna 5*",
+      displayName: "Wrenna 5*",
+      description: "Increases Final Damage by 10%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      finalDamageBuffs: [{ value: 0.1 }],
+      starRequirement: { minStarRequirement: 5, maxStarRequirement: 6 },
+    },
+    {
+      id: "Wrenna 6*",
+      displayName: "Wrenna 6*",
+      description: "Increases Volt Damage by 28%",
+      cooldown: 0,
+      requirements: {},
+      canBePlayerTriggered: false,
+      triggeredBy: { combatStart: true },
+      maxStacks: 1,
+      elementalDamageBuffs: [{ value: 0.28, elementalTypes: ["Volt"] }],
+      starRequirement: { minStarRequirement: 6, maxStarRequirement: 6 },
+    },
+  ],
+  resources: [],
+} as const satisfies PartialWeaponDefinition;

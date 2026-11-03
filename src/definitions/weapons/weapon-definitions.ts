@@ -81,6 +81,7 @@ import { tianLang } from "./definitions/tian-lang";
 import { tsubasa } from "./definitions/tsubasa";
 import { umi } from "./definitions/umi";
 import { veronika } from "./definitions/veronika";
+import { wrenna } from "./definitions/wrenna";
 import { yanMiao } from "./definitions/yan-miao";
 import { yanuo } from "./definitions/yanuo";
 import { yuLan } from "./definitions/yu-lan";
@@ -189,6 +190,7 @@ const partialWeaponDefinitions: Record<
   Tsubasa: tsubasa,
   Umi: umi,
   Veronika: veronika,
+  Wrenna: wrenna,
   "Yan Miao": yanMiao,
   Yanuo: yanuo,
   "Yu Lan": yuLan,
