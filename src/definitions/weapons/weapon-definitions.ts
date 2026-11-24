@@ -67,6 +67,7 @@ import { nolaFlamePhysical } from "./definitions/nola-flame-physical";
 import { nolaFrostVolt } from "./definitions/nola-frost-volt";
 import { nolaPhysicalFlame } from "./definitions/nola-physical-flame";
 import { nolaVoltFrost } from "./definitions/nola-volt-frost";
+import { painter } from "./definitions/painter";
 import { plotti } from "./definitions/plotti";
 import { rei } from "./definitions/rei";
 import { roslyn } from "./definitions/roslyn";
@@ -176,6 +177,7 @@ const partialWeaponDefinitions: Record<
   "Nola (Frost-Volt)": nolaFrostVolt,
   "Nola (Physical-Flame)": nolaPhysicalFlame,
   "Nola (Volt-Frost)": nolaVoltFrost,
+  Painter: painter,
   Plotti: plotti,
   Rei: rei,
   Roslyn: roslyn,
