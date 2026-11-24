@@ -53,6 +53,7 @@ import { nanto } from "./definitions/nanto";
 import { nemesis } from "./definitions/nemesis";
 import { nemesisVoidpiercer } from "./definitions/nemesis-voidpiercer";
 import { nola } from "./definitions/nola";
+import { painter } from "./definitions/painter";
 import { plotti } from "./definitions/plotti";
 import { rei } from "./definitions/rei";
 import { roslyn } from "./definitions/roslyn";
@@ -132,6 +133,7 @@ const partialMatrixDefinitions: Record<
   Nemesis: nemesis,
   "Nemesis Voidpiercer": nemesisVoidpiercer,
   Nola: nola,
+  Painter: painter,
   Plotti: plotti,
   Rei: rei,
   Roslyn: roslyn,

@@ -46,6 +46,7 @@ export const simulacrumIds = [
   "Nemesis",
   "Nemesis Voidpiercer",
   "Nola",
+  "Painter",
   "Plotti",
   "Rei",
   "Roslyn",
